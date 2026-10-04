@@ -117,7 +117,7 @@ add(S => {
   S.mono('RUNTIME', { at: 2, f: 0.1, world: [620, 130, 0], size: 16 });
   S.text('运行环境：<span class="hl2">21 世纪</span>', { at: 2, f: 0.15, world: [620, 80, 0], size: 36 });
   S.mono('SMARTPHONES · CITIES · FAST FOOD', { at: 2, f: 0.3, world: [620, 30, 0], size: 16 });
-  S.flash({ at: 3, f: 0.72, amt: 0.25 });
+  S.flash({ at: 3, f: 0.72, amt: 0.12 });
   S.form(mk(31, pb => txt(pb, '进化心理学', 0, 40, 230, { w: 300, f: 'SHS', count: 34000, ps: 2.0 })), { at: 3, f: 0.7, dur: 1.6, scatter: 700, swirl: 2.5 });
 });
 
@@ -520,14 +520,14 @@ add(S => {
   S.num('03', { at: 0, world: [-440, 330, 0], size: 60 });
   S.text('对社交媒体保持清醒', { at: 0, f: 0.3, world: [-440, -80, 0], size: 40 });
   S.form(mk(340, pb => circlePts(150, 150, -440, 120).forEach(([x, y]) => spherePoints(pb, { x, y, r: 6, count: 40, color: C.champ, shell: 0.3 }))), { at: 0, f: 0.3, dur: 1.8 });
-  S.form(mk(341, pb => galaxyPoints(pb, { x: -440, y: 120, r: 280, count: 26000, tilt: 0.55 })), { at: 1, f: 0.5, dur: 2.0 });
+  S.form(mk(341, pb => galaxyPoints(pb, { x: -440, y: 120, r: 280, count: 26000, tilt: 1.25 })), { at: 1, f: 0.5, dur: 2.0 });
   S.counter({ at: 1, f: 0.5, from: 150, to: 8200000000, cdur: 2.4, world: [-440, -150, 0], size: 44 });
   S.mono('比较对象：部落 150 人 → 全世界', { at: 1, f: 0.6, world: [-440, -205, 0], size: 17 });
   S.text('不是你不够好，是<span class="hl2">尺度错了</span>', { at: 2, f: 0.3, world: [-440, -270, 0], size: 30 });
   S.num('04', { at: 3, world: [440, 330, 0], size: 60 });
   S.text('给大脑“熟悉”的东西', { at: 3, f: 0.3, world: [440, -80, 0], size: 40 });
   const icons = [I.walk, I.sun, I.tree, I.users, I.moon];
-  S.form(mk(342, pb => { galaxyPoints(pb, { x: -440, y: 120, r: 280, count: 20000, tilt: 0.55 }); icons.forEach((src, i) => ic(pb, src, 440 + (i - 2) * 120, 120, 110, { color: [C.champ, C.warm, C.green, C.white, C.blue][i], count: 1600 })); }), { at: 4, dur: 2.2 });
+  S.form(mk(342, pb => { galaxyPoints(pb, { x: -440, y: 120, r: 280, count: 20000, tilt: 1.25 }); icons.forEach((src, i) => ic(pb, src, 440 + (i - 2) * 120, 120, 110, { color: [C.champ, C.warm, C.green, C.white, C.blue][i], count: 1600 })); }), { at: 4, dur: 2.2 });
   S.mono('走路 · 阳光 · 自然 · 面对面 · 睡眠', { at: 4, f: 0.6, world: [440, -140, 0], size: 18 });
   S.text('祖先的日常，仍是<span class="hl2">健康的基础</span>', { at: 5, f: 0.3, world: [440, -220, 0], size: 30 });
 });

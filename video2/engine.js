@@ -613,7 +613,15 @@ async function init() {
   SC = TL.scenes.map((tl, i) => { const s = new SceneCtx(i, tl); (SCENES[i] || (() => {}))(s); return s; });
   FORMS = [];
   SC.forEach(s => s.forms.forEach(f => FORMS.push({ ...f, t: s.start + f.t })));
+  // 场景开头若没有自己的阵型，先让粒子散成背景尘埃，避免上一场的图形残留
+  window.DUST_SCENES = [];
+  SC.forEach(s => {
+    const first = Math.min(Infinity, ...s.forms.map(f => f.t));
+    if (s.idx > 0 && first > 1.5 && s.ls.length) { FORMS.push({ t: s.start + 0.1, make: dust, dur: 1.6, stagger: .3, scatter: 160, swirl: .6, key: 'dust' + s.idx, bright: 1, spin: 0, spinZ: 0, center: [0, 0, 0] }); window.DUST_SCENES.push(s.idx); }
+  });
   FORMS.sort((a, b) => a.t - b.t);
+  FORMS.sort((a, b) => a.t - b.t);
+  window.FORMS_DUMP = FORMS.map(f => ({ t: f.t, dur: f.dur, key: f.key }));
   window.TOTAL = TL.total;
   window.READY = true;
 }

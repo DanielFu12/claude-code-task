@@ -46,6 +46,8 @@ async function shot(page, t, type = 'jpeg') {
 
 if (args.preview) {
   const page = await openPage();
+  console.log('DUST_SCENES', JSON.stringify(await page.evaluate(() => window.DUST_SCENES)));
+  if (args.dumpforms) fs.writeFileSync(path.join(BUILD, 'forms.json'), JSON.stringify(await page.evaluate(() => window.FORMS_DUMP)));
   fs.mkdirSync(path.join(BUILD, 'v2prev'), { recursive: true });
   for (const s of String(args.preview).split(',')) {
     const t = +s, t0 = Date.now();
