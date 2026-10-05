@@ -108,7 +108,7 @@ SCENES.paradox = S => {
 
 // ============================================================ 片名
 SCENES.title = S => {
-  S.flash({ at: 0, amt: 0.1 });
+  S.flash({ at: 0, amt: 0.035 });
   S.warp({ at: 0, d: -0.3, dur: 2.2 });
   S.form(mk(20, pb => txt(pb, '出厂设置', 0, 30, 300, { w: 600, f: 'SHSerif', count: 40000, ps: 2.0 })), { at: 0, dur: 1.6, scatter: 200, radial: 900, stagger: 0.25 });
   S.mono('FACTORY  SETTINGS', { at: 1, d: 0.2, x: 960, y: 720, size: 22, style: { letterSpacing: '.8em' } });
@@ -265,7 +265,7 @@ SCENES.set3 = S => {
   S.label('被冷落', { at: 7, f: 0.4, world: R(-330, 180), size: 26, cls: 't-label hl', out: 8 });
   S.label('身体疼痛', { at: 7, f: 0.5, world: R(330, 180), size: 26, cls: 't-label hl2', out: 8 });
   S.form(mk(107, pb => ic(pb, I.broken, 0, 60, 400, { color: C.red, keep: 0.3, count: 14000 })), { at: 8, dur: 1.4 });
-  S.form(mk(108, pb => galaxyPoints(pb, { y: 60, r: 560, count: 34000, arms: 4, tilt: 1.2 })), { at: 9, dur: 2.0, spin: 0.15, center: [0, 60, 0], radial: 300 });
+  S.form(mk(108, pb => galaxyPoints(pb, { y: 60, r: 560, count: 34000, arms: 4, tilt: 1.2 })), { at: 9, dur: 2.0, spin: 0.04, center: [0, 60, 0], radial: 300 });
   S.counter({ at: 9, f: 0.2, from: 150, to: 8200000000, cdur: 2.6, world: R(0, 60), size: 64 });
   S.mono('YOUR TRIBE: 150 → 8,200,000,000', { at: 9, f: 0.5, x: 960, y: 150, size: 16 });
 };
@@ -340,7 +340,7 @@ SCENES.return = S => {
 SCENES.finale = S => {
   S.warp({ at: 0, d: -0.3, dur: 2.2 });
   S.form(mk(150, pb => galaxyPoints(pb, { y: -40, r: 720, count: 42000, arms: 4, tilt: 1.2 })), { at: 0, dur: 2.4, spin: 0.08, center: [0, -40, 0], radial: 700 });
-  S.flash({ at: 2, amt: 0.06 });
+  S.flash({ at: 2, amt: 0.02 });
   S.form(mk(150, pb => { galaxyPoints(pb, { y: -40, r: 720, count: 42000, arms: 4, tilt: 1.2 }); dim(pb, 0.5); }), { at: 2, dur: 1.2, spin: 0.08, center: [0, -40, 0] });
   S.form(mk(151, pb => spherePoints(pb, { r: 6, count: 3000, color: C.white, shell: 0.2 })), { at: 3, dur: 2.4, scatter: 200, swirl: 3 });
   S.el('出厂设置', { cls: 't-hero', size: 110, at: 3, d: 0.8, x: 960, y: 470, anim: 'blur', style: { fontFamily: 'SHSerif', fontWeight: 600, letterSpacing: '.3em' } });
