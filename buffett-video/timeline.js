@@ -11,7 +11,7 @@
   // subs  : local beats with an internal cut (soft deep whoosh)
   // hits  : local beats where something lands  (soft | land | big)
   const SCENES = [
-    { id: 'hook',   bar: 0,   bars: 8,  years: [1965, 2024], subs: [8, 20],                hits: [{ b: 1, k: 'soft' }, { b: 20, k: 'land' }, { b: 26, k: 'soft' }] },
+    { id: 'hook',   bar: 0,   bars: 8,  years: [1965, 2025], subs: [8, 20],                hits: [{ b: 1, k: 'soft' }, { b: 20, k: 'land' }, { b: 26, k: 'soft' }] },
     { id: 'title',  bar: 8,   bars: 3,  years: [1930, 1930], subs: [],                     hits: [] },
     { id: 'thesis', bar: 11,  bars: 4,  years: [1930, 1930], subs: [],                     hits: [{ b: 4, k: 'land' }, { b: 8, k: 'land' }, { b: 12, k: 'land' }] },
     { id: 'ch1',    bar: 15,  bars: 7,  years: [1930, 1949], subs: [4, 16, 20],            hits: [{ b: 13, k: 'land' }] },
@@ -21,7 +21,7 @@
     { id: 'ch5',    bar: 64,  bars: 16, years: [1973, 1998], subs: [4, 16, 28, 40, 52],    hits: [{ b: 10, k: 'land' }, { b: 22, k: 'soft' }, { b: 36, k: 'land' }, { b: 60, k: 'big' }] },
     { id: 'ch6',    bar: 80,  bars: 12, years: [1999, 2011], subs: [4, 20, 40],            hits: [{ b: 14, k: 'big' }, { b: 26, k: 'land' }, { b: 30, k: 'big' }] },
     { id: 'ch7',    bar: 92,  bars: 10, years: [2010, 2025], subs: [4, 14, 30],            hits: [{ b: 24, k: 'land' }] },
-    { id: 'ch8',    bar: 102, bars: 14, years: [1965, 2024], subs: [4, 24, 36, 44],        hits: [{ b: 20, k: 'land' }, { b: 32, k: 'big' }, { b: 48, k: 'land' }] },
+    { id: 'ch8',    bar: 102, bars: 14, years: [1965, 2025], subs: [4, 24, 36, 44],        hits: [{ b: 20, k: 'land' }, { b: 32, k: 'big' }, { b: 48, k: 'land' }] },
     { id: 'outro',  bar: 116, bars: 8,  years: [2025, 2025], subs: [14, 20, 28],           hits: [{ b: 16, k: 'soft' }, { b: 24, k: 'land' }] },
   ];
   const TOTAL_BARS = 124;
@@ -80,7 +80,7 @@
   ];
   const arrAt = (bar) => ARR.find((a) => bar >= a.from && bar < a.to) || ARR[ARR.length - 1];
 
-  // music drops out for one beat before the big "140x" landing and at the 2008 crash
+  // music drops out for one beat before the big "132x" landing and at the 2008 crash
   const SILENCE = [
     { from: 109 * 4 + 3, to: 110 * 4 },   // beat before ch8 big hit
     { from: 84 * 4 + 3.5, to: 85 * 4 },   // tiny gap before 2008

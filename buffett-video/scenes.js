@@ -2,16 +2,16 @@
 /* global TL, W, H, CX, CY, E, clamp, lerp, inv, rng, noise1, fmt, rgba, mixc, hex, glow, txt, hline, STY, FAM, fontStr, goldGrad, PAL, GOLD, WHITE, CYAN, RED */
 
 // ---------------------------------------------------------------- data
-// Berkshire per-share market value & S&P 500 (incl. dividends), 1965-2024, from the 2024 shareholder letter
-const BRK_R = [49.5, -3.4, 13.3, 77.8, 19.4, -4.6, 80.5, 8.1, -2.5, -48.7, 2.5, 129.3, 46.8, 14.5, 102.5, 32.8, 31.8, 38.4, 69.0, -2.7, 93.7, 14.2, 4.6, 59.3, 84.6, -23.1, 35.6, 29.8, 38.9, 25.0, 57.4, 6.2, 34.9, 52.2, -19.9, 26.6, 6.5, -3.8, 15.8, 4.3, 0.8, 24.1, 28.7, -31.8, 2.7, 21.4, -4.7, 16.8, 32.7, 27.0, -12.5, 23.4, 21.9, 2.8, 11.0, 2.4, 29.6, 4.0, 15.8, 25.5];
-const SPX_R = [10.0, -11.7, 30.9, 11.0, -8.4, 3.9, 14.6, 18.9, -14.8, -26.4, 37.2, 23.6, -7.4, 6.4, 18.2, 32.3, -5.0, 21.4, 22.4, 6.1, 31.6, 18.6, 5.1, 16.6, 31.7, -3.1, 30.5, 7.6, 10.1, 1.3, 37.6, 23.0, 33.4, 28.6, 21.0, -9.1, -11.9, -22.1, 28.7, 10.9, 4.9, 15.8, 5.5, -37.0, 26.5, 15.1, 2.1, 16.0, 32.4, 13.7, 1.4, 12.0, 21.8, -4.4, 31.5, 18.4, 28.7, -18.1, 26.3, 25.0];
+// Berkshire per-share market value & S&P 500 (incl. dividends), 1965-2025, from the 2025 shareholder letter
+const BRK_R = [49.5, -3.4, 13.3, 77.8, 19.4, -4.6, 80.5, 8.1, -2.5, -48.7, 2.5, 129.3, 46.8, 14.5, 102.5, 32.8, 31.8, 38.4, 69.0, -2.7, 93.7, 14.2, 4.6, 59.3, 84.6, -23.1, 35.6, 29.8, 38.9, 25.0, 57.4, 6.2, 34.9, 52.2, -19.9, 26.6, 6.5, -3.8, 15.8, 4.3, 0.8, 24.1, 28.7, -31.8, 2.7, 21.4, -4.7, 16.8, 32.7, 27.0, -12.5, 23.4, 21.9, 2.8, 11.0, 2.4, 29.6, 4.0, 15.8, 25.5, 10.9];
+const SPX_R = [10.0, -11.7, 30.9, 11.0, -8.4, 3.9, 14.6, 18.9, -14.8, -26.4, 37.2, 23.6, -7.4, 6.4, 18.2, 32.3, -5.0, 21.4, 22.4, 6.1, 31.6, 18.6, 5.1, 16.6, 31.7, -3.1, 30.5, 7.6, 10.1, 1.3, 37.6, 23.0, 33.4, 28.6, 21.0, -9.1, -11.9, -22.1, 28.7, 10.9, 4.9, 15.8, 5.5, -37.0, 26.5, 15.1, 2.1, 16.0, 32.4, 13.7, 1.4, 12.0, 21.8, -4.4, 31.5, 18.4, 28.7, -18.1, 26.3, 25.0, 17.9];
 function cumulate(r, target) {
   let v = 1; const raw = [1]; for (const x of r) { v *= 1 + x / 100; raw.push(v); }
   const f = Math.pow(target / v, 1 / r.length);
   return raw.map((x, i) => x * Math.pow(f, i));
 }
-const BRK = cumulate(BRK_R, 55023.84);   // +5,502,284 %
-const SPX = cumulate(SPX_R, 391.54);     // +39,054 %
+const BRK = cumulate(BRK_R, 60993.94);   // +6,099,294 %
+const SPX = cumulate(SPX_R, 461.61);     // +46,061 %
 const seriesAt = (arr, yr) => { const p = clamp(yr - 1964, 0, arr.length - 1), i = Math.floor(p), f = p - i; return i >= arr.length - 1 ? arr[arr.length - 1] : arr[i] * Math.pow(arr[i + 1] / arr[i], f); };
 
 const BPL = [[1957, 10.4, -8.4], [1958, 40.9, 38.5], [1959, 25.9, 20.0], [1960, 22.8, -6.2], [1961, 45.9, 22.4], [1962, 13.9, -7.6], [1963, 38.7, 20.6], [1964, 27.8, 18.7], [1965, 47.2, 14.2], [1966, 20.4, -15.6], [1967, 35.9, 19.0], [1968, 58.8, 7.7], [1969, 6.8, -11.6]];
@@ -136,7 +136,7 @@ const SCENE_YEARS = {
   ch5: [[0, 1973], [16, 1976], [28, 1988], [40, 1990], [64, 1998]],
   ch6: [[0, 1999], [4, 1995], [14, 2000], [20, 2008], [40, 2009], [48, 2011]],
   ch7: [[0, 2010], [14, 2016], [30, 2025], [40, 2025]],
-  ch8: [[0, 1965], [4.5, 1965], [19, 2024], [56, 2024]],
+  ch8: [[0, 1965], [4.5, 1965], [19, 2025], [56, 2025]],
 };
 
 const SCENE_DRAW = {
@@ -151,17 +151,17 @@ const SCENE_DRAW = {
     c.restore();
     txt(c, b, '1965', CX, 440, 'year', 0.6, 7.3, { anim: 'blur' });
     txt(c, b, '假如你把 [1 万美元] 交给一个人', CX, 650, 'h2', 2.2, 7.3);
-    txt(c, b, '五十九年后，他会还给你多少？', CX, 722, 'bodyL', 4.4, 7.3);
+    txt(c, b, '六十一年后，他会还给你多少？', CX, 722, 'bodyL', 4.4, 7.3);
 
     // compounding counter
     if (b > 7.6 && b < 24) {
       const a = vis(b, 7.8, 22.6, 0.8);
       const p = E.inOutSine(inv(8.2, 19.6, b));
-      const yr = 1965 + 59 * p;
+      const yr = 1965 + 60 * p;
       const pts = [];
-      for (let y = 1965; y <= 2024.01; y += 0.25) {
+      for (let y = 1965; y <= 2025.01; y += 0.25) {
         const v = seriesAt(BRK, y);
-        pts.push([200 + (y - 1965) / 59 * 1520, 900 - (v / 55024) * 600]);
+        pts.push([200 + (y - 1965) / 60 * 1520, 900 - (v / 60994) * 600]);
       }
       // grid
       c.save(); c.globalAlpha = a * 0.5;
@@ -182,9 +182,9 @@ const SCENE_DRAW = {
       const land = inv(19.6, 20.4, b);
       const pop = 1 + 0.1 * Math.exp(-Math.max(0, b - 20) * 3) * (b > 20 ? 1 : 0);
       ptxt(c, `${Math.floor(yr)}`, CX, 340, 'label', a, { col: '#e8e2d4', scale: 1.6, ls: 0.4 });
-      ptxt(c, '$' + fmt(b >= 19.6 ? 550238400 : v), CX, 540, 'num', a, { scale: pop * (0.78 + 0.22 * land) });
-      txt(c, b, '约 [5.5 亿美元] · 增长约 5.5 万倍', CX, 640, 'body', 20.3, 22.6);
-      txt(c, b, '按伯克希尔·哈撒韦每股市值计算 · 1965—2024', CX, 690, 'small', 20.8, 22.6);
+      ptxt(c, '$' + fmt(b >= 19.6 ? 609939400 : v), CX, 540, 'num', a, { scale: pop * (0.78 + 0.22 * land) });
+      txt(c, b, '约 [6.1 亿美元] · 增长约 6.1 万倍', CX, 640, 'body', 20.3, 22.6);
+      txt(c, b, '按伯克希尔·哈撒韦每股市值计算 · 1965—2025', CX, 690, 'small', 20.8, 22.6);
     }
     txt(c, b, '没有内幕消息，没有复杂模型，也没有频繁交易', CX, 470, 'h2', 23, 27.6);
     txt(c, b, '只有一种 [朴素到近乎笨拙] 的思考方式', CX, 550, 'body', 24.6, 27.6);
@@ -690,9 +690,9 @@ const SCENE_DRAW = {
       txt(c, b, '先收保费、后付理赔——中间这笔钱，可以长期拿去投资', CX, 790, 'body', 50.5, 63.4);
       // float counter
       const g = E.inOutCubic(inv(56.5, 60, b));
-      const fv = Math.exp(lerp(Math.log(0.39), Math.log(1710), g)); // 亿美元
+      const fv = Math.exp(lerp(Math.log(0.39), Math.log(1760), g)); // 亿美元
       const fstr = fv < 1 ? `${fmt(fv * 10000)} 万美元` : `${fmt(fv)} 亿美元`;
-      ptxt(c, `${Math.round(lerp(1970, 2024, g))} · ${fstr}`, CX, 925, 'numS', a * inv(56.2, 57, b), { scale: 0.6 });
+      ptxt(c, `${Math.round(lerp(1970, 2025, g))} · ${fstr}`, CX, 925, 'numS', a * inv(56.2, 57, b), { scale: 0.6 });
       txt(c, b, '——雪球有了源源不断的 [“湿雪”]', CX, 985, 'bodyL', 60.6, 63.4);
     }
   },
@@ -766,7 +766,7 @@ const SCENE_DRAW = {
       txt(c, b, '此后几十年，一股未卖', CX, 500, 'body', 31.5, 39.4);
       hline(c, b, CX, 560, 700, 33, 39.4, hex('#ff8a9a'));
       txt(c, b, '如今每年分红', CX, 640, 'body', 34.5, 39.4, { col: '#ffd0d6' });
-      txt(c, b, '超过 7 亿美元', CX, 770, 'num', 36, 39.4, { scale: 0.75 });
+      txt(c, b, '超过 8 亿美元', CX, 770, 'num', 36, 39.4, { scale: 0.75 });
       txt(c, b, '一年的股息，就超过当初投入成本的一半', CX, 850, 'bodyL', 37, 39.4);
     }
     // Circle of competence
@@ -979,13 +979,13 @@ const SCENE_DRAW = {
 
   // ============================================================ CH8 COMPOUNDING
   ch8(c, b) {
-    chapterCard(c, b, '08', '复利', '1965 — 2024', '时间的魔法');
+    chapterCard(c, b, '08', '复利', '1965 — 2025', '时间的魔法');
     const acc = PAL.acc, cy = hex('#5fe1ff');
     if (b > 3.8 && b < 24.6) {
       const a = vis(b, 4, 23.4);
-      txt(c, b, '1965 — 2024 · 累计回报（对数坐标）', CX, 178, 'label', 4.1, 23.4);
+      txt(c, b, '1965 — 2025 · 累计回报（对数坐标）', CX, 178, 'label', 4.1, 23.4);
       const X0 = 230, X1 = 1500, Y0 = 790, Y1 = 260;
-      const X = (y) => lerp(X0, X1, (y - 1964) / 60), Y = (v) => Y0 - Math.log10(v) / 5 * (Y0 - Y1);
+      const X = (y) => lerp(X0, X1, (y - 1964) / 61), Y = (v) => Y0 - Math.log10(v) / 5 * (Y0 - Y1);
       c.save(); c.globalAlpha = a; c.font = `400 15px ${FAM.mono}`; c.textAlign = 'right';
       ['1×', '10×', '100×', '1,000×', '10,000×', '100,000×'].forEach((s, i) => { const y = Y(Math.pow(10, i)); c.strokeStyle = rgba(WHITE, 0.07); c.beginPath(); c.moveTo(X0, y); c.lineTo(X1, y); c.stroke(); c.fillStyle = rgba(WHITE, 0.35); c.fillText(s, X0 - 14, y + 5); });
       c.textAlign = 'center'; for (let yr = 1970; yr <= 2020; yr += 10) c.fillText(String(yr), X(yr), Y0 + 32);
@@ -994,28 +994,28 @@ const SCENE_DRAW = {
       const bp = BRK.map((v, i) => [X(1964 + i), Y(v)]), sp = SPX.map((v, i) => [X(1964 + i), Y(v)]);
       const hs = glowLine(c, sp, p, cy, 2.5, a);
       const hb = glowLine(c, bp, p, acc, 3.5, a);
-      const yr = 1964 + 60 * p;
+      const yr = 1964 + 61 * p;
       c.save(); c.globalCompositeOperation = 'lighter';
       if (hb) sparkle(c, hb[0], hb[1], 9, acc, a);
       if (hs) sparkle(c, hs[0], hs[1], 7, cy, a);
       c.restore();
       if (hb && b < 20) { ptxt(c, fmt(seriesAt(BRK, yr)) + '×', hb[0] + 18, hb[1] - 14, 'body', a, { align: 'left', col: '#ffe6a6', scale: 0.8 }); ptxt(c, fmt(seriesAt(SPX, yr)) + '×', hs[0] + 18, hs[1] + 34, 'body', a, { align: 'left', col: '#bfefff', scale: 0.8 }); }
-      txt(c, b, '+5,502,284%', X1 + 24, Y(BRK[60]) + 20, 'numS', 20, 23.4, { align: 'left', scale: 0.62, anim: 'scale' });
-      txt(c, b, '伯克希尔', X1 + 26, Y(BRK[60]) + 64, 'small', 20.4, 23.4, { align: 'left', col: '#ffe6a6' });
-      txt(c, b, '+39,054%', X1 + 24, Y(SPX[60]) + 20, 'numS', 20.6, 23.4, { align: 'left', scale: 0.5, col: '#bfefff', anim: 'scale', glow: 0.2 });
-      txt(c, b, '标普 500（含股息）', X1 + 26, Y(SPX[60]) + 58, 'small', 21, 23.4, { align: 'left', col: '#bfefff' });
-      txt(c, b, '数据：伯克希尔·哈撒韦 2024 年致股东信 · 每股市值变化 vs 标普 500 总回报', CX, 880, 'small', 21, 23.4);
+      txt(c, b, '+6,099,294%', X1 + 24, Y(BRK[61]) + 20, 'numS', 20, 23.4, { align: 'left', scale: 0.62, anim: 'scale' });
+      txt(c, b, '伯克希尔', X1 + 26, Y(BRK[61]) + 64, 'small', 20.4, 23.4, { align: 'left', col: '#ffe6a6' });
+      txt(c, b, '+46,061%', X1 + 24, Y(SPX[61]) + 20, 'numS', 20.6, 23.4, { align: 'left', scale: 0.5, col: '#bfefff', anim: 'scale', glow: 0.2 });
+      txt(c, b, '标普 500（含股息）', X1 + 26, Y(SPX[61]) + 58, 'small', 21, 23.4, { align: 'left', col: '#bfefff' });
+      txt(c, b, '数据：伯克希尔·哈撒韦 2025 年致股东信 · 每股市值变化 vs 标普 500 总回报', CX, 880, 'small', 21, 23.4);
     }
     if (b > 23.8 && b < 36.6) {
       const a = vis(b, 24, 35.4);
       txt(c, b, '伯克希尔 · 年化', 600, 260, 'label', 24.1, 35.4);
-      txt(c, b, '19.9%', 600, 420, 'num', 24.3, 35.4, { scale: 0.95 });
+      txt(c, b, '19.7%', 600, 420, 'num', 24.3, 35.4, { scale: 0.95 });
       txt(c, b, '标普 500 · 年化', 1320, 260, 'label', 24.6, 35.4, { acc: cy });
-      txt(c, b, '10.4%', 1320, 420, 'num', 24.8, 35.4, { scale: 0.95, col: '#bfefff', glow: 0.3 });
+      txt(c, b, '10.5%', 1320, 420, 'num', 24.8, 35.4, { scale: 0.95, col: '#bfefff', glow: 0.3 });
       ptxt(c, 'VS', CX, 395, 'label', a * inv(25, 26, b), { scale: 1.6, col: '#ffffff' });
       txt(c, b, '每年的回报，差距 [还不到 2 倍]', CX, 560, 'h2', 28, 35.4);
-      txt(c, b, '可是，59 年复利下来——', CX, 650, 'bodyL', 30, 35.4, { scale: 1.1 });
-      txt(c, b, '相差 140 倍', CX, 830, 'mega', 32, 35.4, { scale: 1.05, from: 2.2 });
+      txt(c, b, '可是，61 年复利下来——', CX, 650, 'bodyL', 30, 35.4, { scale: 1.1 });
+      txt(c, b, '相差 132 倍', CX, 830, 'mega', 32, 35.4, { scale: 1.05, from: 2.2 });
       if (b > 32) { c.save(); c.globalCompositeOperation = 'lighter'; const u = inv(32, 34, b); c.strokeStyle = rgba(acc, (1 - u) * 0.8); c.lineWidth = 3; c.beginPath(); c.ellipse(CX, 770, 200 + 900 * E.outExpo(u), 60 + 280 * E.outExpo(u), 0, 0, Math.PI * 2); c.stroke(); c.restore(); }
     }
     if (b > 35.8 && b < 44.6) {
