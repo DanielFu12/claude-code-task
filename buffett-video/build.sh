@@ -7,6 +7,8 @@ TMP="$(mktemp -d)"
 [ -f fonts/fonts.css ] || ./fetch-fonts.sh
 node audio.js "$TMP/score.wav"
 NODE_PATH="${NODE_PATH:-$(npm root -g)}" node render.js "$TMP/video.mp4" --workers "${WORKERS:-4}"
-ffmpeg -v error -y -i "$TMP/video.mp4" -i "$TMP/score.wav" -map 0:v -map 1:a -c:v copy \
+# light denoise removes the per-frame film grain so the final file stays small (~65 MB)
+ffmpeg -v error -y -i "$TMP/video.mp4" -i "$TMP/score.wav" -map 0:v -map 1:a \
+  -vf "hqdn3d=5:4:10:8" -c:v libx264 -preset slow -crf 23 -pix_fmt yuv420p \
   -af "loudnorm=I=-14:TP=-1.0:LRA=11" -c:a aac -b:a 192k -ar 48000 -shortest -movflags +faststart "$OUT"
 echo "wrote $OUT"
