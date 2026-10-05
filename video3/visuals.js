@@ -65,14 +65,32 @@ const settingIntro = (S, n, en) => {
   S.mono(`SETTING 0${n} / 04 · ${en}`, { at: 0, d: 0.3, x: 960, y: 395, size: 17, style: { letterSpacing: '.45em' }, out: 1 });
   S.mono('DECODING ▍', { at: 0, d: 0.6, x: 960, y: 690, size: 15, out: 1 });
 };
-function quizCards(S, labels, at, outAt, hits, hitAt, o = {}) {
-  const els = labels.map((l, i) => S.box({ at, f: i * 0.1, html: `<div style="font-family:${o.cn ? 'SHS' : 'Inter'};font-weight:200;font-size:${o.fs || 120}px;text-align:center;line-height:${o.lh || 230}px;letter-spacing:0">${l}</div>`, x: 960 + (i - 1.5) * 250, y: 400, w: 196, h: 260, kind: 'w', out: outAt }));
-  S.update(lt => {
-    const on = lt >= S.T(hitAt, 0.25);
-    els.forEach((c, i) => { const hit = hits.includes(i); c.e.style.borderColor = on ? (hit ? 'rgba(255,150,80,.95)' : 'rgba(230,230,235,.15)') : ''; c.e.style.boxShadow = on && hit ? '0 0 34px rgba(255,130,60,.55), inset 0 0 22px rgba(255,130,60,.2)' : ''; c.e.querySelector('.bx').style.opacity = on && !hit ? 0.22 : 1; });
+// 可翻转的测试卡片：faces = [[正面, 背面], ...]；flips = { 卡片序号: 翻牌所在的叙事卡片序号 }
+function flipCards(S, faces, at, outAt, o = {}) {
+  const items = faces.map(([front, back], i) => {
+    const face = (html, cls) => `<div class="face ${cls}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;backface-visibility:hidden;-webkit-backface-visibility:hidden">${html}</div>`;
+    const html = `<div class="flip" style="position:absolute;inset:0;transform-style:preserve-3d">${face(front, 'f')}${face(back, 'b')}</div>`;
+    const it = S.el(html, { cls: 'box w', w: 196, h: 260, at, f: i * 0.1, x: 960 + (i - 1.5) * 250, y: 400, anim: 'box', out: outAt, style: { perspective: '900px', whiteSpace: 'normal' } });
+    it.e.querySelector('.face.b').style.transform = 'rotateY(180deg)';
+    return it;
   });
-  return els;
+  S.update(lt => {
+    items.forEach((it, i) => {
+      const f = o.flips && o.flips[i] !== undefined ? S.T(o.flips[i], 0.15) : null;
+      const ang = f === null ? 0 : 180 * EZ.inOut(clamp((lt - f) / 0.7));
+      it.e.querySelector('.flip').style.transform = `rotateY(${ang.toFixed(1)}deg)`;
+      const hit = o.hits && o.hits.includes(i), on = o.hitAt !== undefined && lt >= S.T(o.hitAt, 0.2);
+      const dimmed = o.dimAt !== undefined && lt >= S.T(o.dimAt, 0.2) && !hit;
+      it.e.style.borderColor = on && hit ? 'rgba(255,150,80,.95)' : dimmed ? 'rgba(230,230,235,.15)' : '';
+      it.e.style.boxShadow = on && hit ? '0 0 34px rgba(255,130,60,.55), inset 0 0 22px rgba(255,130,60,.2)' : '';
+      it.e.querySelector('.flip').style.opacity = dimmed ? 0.25 : 1;
+    });
+  });
+  return items;
 }
+const big = (t, fs = 120) => `<div style="font-family:Inter;font-weight:200;font-size:${fs}px;line-height:1;color:#f1ece2">${t}</div>`;
+const small = (t, c = '#e9e3d8') => `<div style="font-family:SHS;font-weight:300;font-size:26px;letter-spacing:.1em;margin-top:14px;color:${c}">${t}</div>`;
+const backQ = (t, verdict, c) => `<div style="font-family:SHS;font-weight:300;font-size:22px;letter-spacing:.08em;color:rgba(230,225,215,.7)">背面</div>${big('?', 90)}<div style="font-family:SHS;font-weight:500;font-size:24px;margin-top:10px;color:${c}">${t}</div><div style="font-family:SHS;font-size:22px;margin-top:6px;color:${c}">${verdict}</div>`;
 
 export const SCENES = {};
 
@@ -272,48 +290,57 @@ SCENES.set3 = S => {
 
 // ============================================================ 测试
 SCENES.quiz = S => {
-  cap(S, 'WASON SELECTION TASK', '小测试');
+  cap(S, 'WASON SELECTION TASK · 1968', '沃森选择任务');
   S.form(mk(110, pb => ringPoints(pb, { y: 140, r: 560, w: 4, count: 3000, color: C.champ })), { at: 0, dur: 2.0, radial: 400 });
-  quizCards(S, ['E', 'K', '4', '7'], 1, 8, [0, 3], 6);
-  ['3', '2', '1'].forEach((n, k) => S.form(mk(111 + k, pb => txt(pb, n, 0, -150, 280, { w: 100, count: 7000, color: C.orange })), { at: 3 + k, dur: 0.6, scatter: 260, stagger: 0.2 }));
-  S.form(mk(114, pb => ringPoints(pb, { y: 140, r: 560, w: 4, count: 3000, color: C.orange })), { at: 6, dur: 1.0 });
-  S.mono('翻开看：背面是偶数吗？', { at: 6, f: 0.4, x: 960 - 375, y: 570, size: 16, out: 8 });
-  S.mono('翻开看：背面是元音吗？', { at: 6, f: 0.6, x: 960 + 375, y: 570, size: 16, out: 8 });
-  S.num('≈ 10%', { at: 7, x: 960, y: 690, size: 84, out: 8 });
-  quizCards(S, ['🍺<br><span style="font-size:28px">啤酒</span>', '🥤<br><span style="font-size:28px">可乐</span>', '25<span style="font-size:34px">岁</span>', '16<span style="font-size:34px">岁</span>'], 8, undefined, [0, 3], 10, { cn: true, fs: 86, lh: 96 })
-    .forEach(c => { c.e.querySelector('.bx').style.top = '48px'; });
-  S.form(mk(115, pb => ringPoints(pb, { y: 140, r: 560, w: 4, count: 3000, color: C.teal })), { at: 10, dur: 1.0 });
-  S.num('≈ 73%', { at: 10, f: 0.3, x: 960, y: 690, size: 84 });
+  // 抽象版：E K 4 7
+  flipCards(S, [[big('E'), backQ('若是奇数', '→ 规则被打破 ✗', '#ff9a5a')], [big('K'), ''], [big('4'), ''], [big('7'), backQ('若是元音', '→ 规则被打破 ✗', '#ff9a5a')]],
+    1, 12, { flips: { 0: 8, 3: 9 }, hits: [0, 3], hitAt: 7, dimAt: 10 });
+  S.mono('↻ 每张卡片：一面字母 · 一面数字', { at: 1, f: 0.4, x: 960, y: 225, size: 16, out: 4 });
+  S.mono('元音 = A  E  I  O  U', { at: 2, f: 0.3, x: 960 - 375, y: 570, size: 18, out: 4, style: { color: 'rgba(255,170,100,.9)' } });
+  S.mono('偶数 = 0 2 4 6 8', { at: 2, f: 0.5, x: 960 + 375, y: 570, size: 18, out: 4, style: { color: 'rgba(255,170,100,.9)' } });
+  ['3', '2', '1'].forEach((n, k) => S.form(mk(111 + k, pb => txt(pb, n, 0, -150, 280, { w: 100, count: 7000, color: C.orange })), { at: 4 + k, dur: 0.6, scatter: 260, stagger: 0.2 }));
+  S.form(mk(114, pb => ringPoints(pb, { y: 140, r: 560, w: 4, count: 3000, color: C.orange })), { at: 7, dur: 1.0 });
+  S.mono('无关 · 规则只限制元音那一面', { at: 10, f: 0.3, x: 960 - 125, y: 570, size: 15, out: 12 });
+  S.num('≈ 10%', { at: 11, x: 960, y: 690, size: 84, out: 12 });
+  S.mono('ANSWERED CORRECTLY · 答对的人', { at: 11, f: 0.2, x: 960, y: 755, size: 15, out: 12 });
+  // 社会契约版：啤酒 可乐 25岁 16岁
+  const emo = (e, t) => `<div style="font-size:84px;line-height:1">${e}</div>${small(t)}`;
+  const age = a => `${big(a, 100)}${small('岁')}`;
+  flipCards(S, [[emo('🍺', '喝啤酒'), backQ('年龄？', '未满 18 → 违规', '#ff9a5a')], [emo('🥤', '喝可乐'), ''], [age('25'), ''], [age('16'), backQ('喝的什么？', '是酒 → 违规', '#ff9a5a')]],
+    13, 16, { flips: { 0: 15, 3: 15 }, hits: [0, 3], hitAt: 15, dimAt: 15 });
+  S.mono('↻ 每张卡片：一面饮料 · 一面年龄', { at: 14, f: 0.3, x: 960, y: 225, size: 16, out: 16 });
+  S.form(mk(115, pb => ringPoints(pb, { y: 140, r: 560, w: 4, count: 3000, color: C.teal })), { at: 15, dur: 1.0 });
+  // 结尾：两道题的答对率对比
+  S.obj(grid({ y: -260, size: 3000, step: 100, opacity: 0.14 }), { at: 16 });
+  S.form(mk(116, pb => { boxPoints(pb, { x: -260, y: -260, w: 160, h: 60, d: 160, count: 2500, color: C.white }); boxPoints(pb, { x: 260, y: -260, w: 160, h: 440, d: 160, count: 10000, color: C.orange }); }), { at: 16, dur: 1.4, radial: 500 });
+  S.label('抽象逻辑 <span class="hl2">≈10%</span>', { at: 16, f: 0.3, world: [-260, -170, 0], size: 26 });
+  S.label('抓违规者 <span class="hl">≈73%</span>', { at: 16, f: 0.4, world: [260, 230, 0], size: 26 });
 };
 
 // ============================================================ 设置 04：骗子侦测器
 SCENES.set4 = S => {
-  S.warp({ at: 2, d: -0.3, dur: 2.0 });
-  S.obj(grid({ y: -260, size: 3000, step: 100, opacity: 0.14 }), { at: 0, out: 1 });
-  S.form(mk(120, pb => { boxPoints(pb, { x: -260, y: -260, w: 160, h: 60, d: 160, count: 2500, color: C.white }); boxPoints(pb, { x: 260, y: -260, w: 160, h: 440, d: 160, count: 10000, color: C.orange }); }), { at: 0, dur: 1.4, radial: 500 });
-  S.label('抽象逻辑 <span class="hl2">≈10%</span>', { at: 0, f: 0.4, world: [-260, -170, 0], size: 26, out: 1 });
-  S.label('抓违规者 <span class="hl">≈73%</span>', { at: 0, f: 0.5, world: [260, 230, 0], size: 26, out: 1 });
+  S.warp({ at: 1, d: -0.3, dur: 2.0 });
   const ppl = people(26, 7, 300, 0, 60);
   const bad = ppl[5];
-  S.form(mk(121, pb => { ppl.forEach((p, i) => spherePoints(pb, { x: p.x, y: p.y, z: p.z, r: 16, count: 280, color: i === 5 ? C.red : C.champ, shell: 0.6 })); }), { at: 1, dur: 1.6 });
-  S.obj(lines(knn(ppl, 3), { color: C.champ, opacity: 0.32 }), { at: 1, f: 0.3, out: 2 });
+  S.form(mk(121, pb => { ppl.forEach((p, i) => spherePoints(pb, { x: p.x, y: p.y, z: p.z, r: 16, count: 280, color: i === 5 ? C.red : C.champ, shell: 0.6 })); }), { at: 0, dur: 1.6, radial: 500 });
+  S.obj(lines(knn(ppl, 3), { color: C.champ, opacity: 0.32 }), { at: 0, f: 0.3, out: 1 });
+  S.label('只拿不给的人', { at: 0, f: 0.5, world: [bad.x, bad.y + 60, bad.z], size: 22, cls: 't-label hl', out: 1 });
   settingIntro(S, 4, 'CHEATER DETECTOR');
-  // 让 settingIntro 的标注跟随第 2 张卡片出现
-  S.els.slice(-2).forEach(it => { it.t0 = S.T(2, 0, it.o.d || 0); it.t1 = S.T(3); });
-  S.form(mk(122, pb => { ppl.forEach((p, i) => spherePoints(pb, { x: p.x, y: p.y, z: p.z, r: 16, count: 280, color: i === 5 ? C.red : C.champ, shell: 0.6, ps: 1.8 })); dim(pb, 0.55); ringPoints(pb, { x: bad.x, y: bad.y, z: bad.z, r: 80, w: 5, count: 3500, color: C.teal }); }), { at: 2, dur: 1.2, radial: 0 });
-  S.form(mk(123, pb => { ppl.forEach((p, i) => spherePoints(pb, { x: p.x, y: p.y, z: p.z, r: 16, count: 280, color: i === 5 ? C.red : C.champ, shell: 0.6 })); ringPoints(pb, { x: bad.x, y: bad.y, z: bad.z, r: 80, w: 5, count: 3500, color: C.teal }); }), { at: 3, dur: 1.0, scatter: 30 });
+  S.els.slice(-2).forEach(it => { it.t0 = S.T(1, 0, it.o.d || 0); it.t1 = S.T(2); });
+  S.form(mk(122, pb => { ppl.forEach((p, i) => spherePoints(pb, { x: p.x, y: p.y, z: p.z, r: 16, count: 280, color: i === 5 ? C.red : C.champ, shell: 0.6, ps: 1.8 })); dim(pb, 0.55); ringPoints(pb, { x: bad.x, y: bad.y, z: bad.z, r: 80, w: 5, count: 3500, color: C.teal }); }), { at: 1, dur: 1.2 });
+  S.form(mk(123, pb => { ppl.forEach((p, i) => spherePoints(pb, { x: p.x, y: p.y, z: p.z, r: 16, count: 280, color: i === 5 ? C.red : C.champ, shell: 0.6 })); ringPoints(pb, { x: bad.x, y: bad.y, z: bad.z, r: 80, w: 5, count: 3500, color: C.teal }); }), { at: 2, dur: 1.0, scatter: 30 });
   const nodes = [{ x: 0, y: 60, size: 90, color: C.white }, { x: -420, y: 60, size: 70, color: C.teal }, { x: 420, y: 60, size: 60, color: C.warm }];
-  S.form(mk(124, pb => { linePoints(pb, [[-420, 60], [0, 60]], { count: 4500, color: C.teal, w: 6 }); linePoints(pb, [[0, 60], [420, 60]], { count: 1100, color: C.warm, w: 6 }); }), { at: 4, dur: 1.6 });
-  S.obj(glowSprites(nodes), { at: 4, out: 6 });
-  S.label('你', { at: 4, world: [0, -30, 0], size: 28, out: 6 });
-  S.label('兄弟姐妹', { at: 4, f: 0.2, world: [-420, -30, 0], size: 26, out: 6 });
-  S.label('堂表亲', { at: 4, f: 0.4, world: [420, -30, 0], size: 26, out: 6 });
-  S.num('1/2', { at: 5, f: 0.15, world: [-420, 180, 0], size: 72, out: 6 });
-  S.num('1/8', { at: 5, f: 0.45, world: [420, 180, 0], size: 72, out: 6 });
-  S.form(mk(125, pb => helixPoints(pb, { y: -250, len: 1600, r: 80, turns: 6, count: 16000 })), { at: 6, dur: 1.6 });
-  S.mono('— J. B. S. HALDANE', { at: 6, f: 0.4, x: 1320, y: 650, size: 15 });
-  S.mono('2 × 1/2 = 1     8 × 1/8 = 1', { at: 6, f: 0.7, x: 960, y: 170, size: 22, style: { color: 'rgba(255,170,100,.9)' } });
-  S.form(mk(126, pb => ic(pb, I.shake, 0, 60, 420, { color: C.champ, keep: 0.2, count: 15000 })), { at: 7, dur: 1.6 });
+  S.form(mk(124, pb => { linePoints(pb, [[-420, 60], [0, 60]], { count: 4500, color: C.teal, w: 6 }); linePoints(pb, [[0, 60], [420, 60]], { count: 1100, color: C.warm, w: 6 }); }), { at: 3, dur: 1.6 });
+  S.obj(glowSprites(nodes), { at: 3, out: 5 });
+  S.label('你', { at: 3, world: [0, -30, 0], size: 28, out: 5 });
+  S.label('兄弟姐妹', { at: 3, f: 0.2, world: [-420, -30, 0], size: 26, out: 5 });
+  S.label('堂表亲', { at: 3, f: 0.4, world: [420, -30, 0], size: 26, out: 5 });
+  S.num('1/2', { at: 4, f: 0.15, world: [-420, 180, 0], size: 72, out: 5 });
+  S.num('1/8', { at: 4, f: 0.45, world: [420, 180, 0], size: 72, out: 5 });
+  S.form(mk(125, pb => helixPoints(pb, { y: -250, len: 1600, r: 80, turns: 6, count: 16000 })), { at: 5, dur: 1.6 });
+  S.mono('— J. B. S. HALDANE', { at: 5, f: 0.4, x: 1320, y: 650, size: 15 });
+  S.mono('2 × 1/2 = 1     8 × 1/8 = 1', { at: 5, f: 0.7, x: 960, y: 170, size: 22, style: { color: 'rgba(255,170,100,.9)' } });
+  S.form(mk(126, pb => ic(pb, I.shake, 0, 60, 420, { color: C.champ, keep: 0.2, count: 15000 })), { at: 6, dur: 1.6 });
 };
 
 // ============================================================ 三个提醒

@@ -212,6 +212,115 @@ def low_bell(t0, g=0.35):
     beats["unlocks"].append(round(t0, 4))
 
 
+# ------------------------------------------------------------------ 电影感乐器（低频为主）
+epL, epR = np.zeros(N), np.zeros(N)       # 低音重击 / 弦乐重复音型
+choL, choR = np.zeros(N), np.zeros(N)     # 类人声合唱
+hall = np.zeros(N)                        # 大厅混响发送（太鼓、重击）
+music_gate = np.ones(N)                   # 冲击前的瞬间静音
+
+
+def sweep_filter(x, fc_fn, order=2, blk=1024):
+    out = np.zeros_like(x)
+    zi = None
+    n = len(x)
+    for i in range(0, n, blk):
+        fc = float(np.clip(fc_fn(i / SR), 40, SR / 2 - 200))
+        sos = signal.butter(order, fc / (SR / 2), "low", output="sos")
+        if zi is None:
+            zi = np.zeros((sos.shape[0], 2))
+        out[i:i + blk], zi = signal.sosfilt(sos, x[i:i + blk], zi=zi)
+    return out
+
+
+def braam(t0, root, g=1.0, dur=3.4):
+    """电影预告片式的低音重击：低八度锯齿叠加，滤波器猛开后缓缓合上，再加饱和。"""
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    sig = np.zeros(n)
+    for m, a in ((root, 1.0), (root + 12, 0.75), (root + 7, 0.45), (root + 19, 0.2)):
+        for d in (-0.13, 0.0, 0.13):
+            sig += osc_table(mtof(m) * 2 ** (d / 12), n, phase=rng.random()) * a
+    sig = sweep_filter(sig, lambda tt: 160 + 2000 * min(1, tt / 0.25) * np.exp(-max(0, tt - 0.25) * 1.6))
+    env = np.minimum(1, t / 0.02) * np.exp(-t * 0.75) * np.clip((dur - t) / 0.8, 0, 1)
+    sig = np.tanh(sig * env * 0.55) * 0.9
+    sub = np.sin(2 * np.pi * mtof(root) * t) * env * 0.6
+    add(epL, t0, (sig + sub) * g)
+    add(epR, t0 + 0.009, (sig + sub) * g)
+    add(hall, t0, sig * 0.35 * g)
+
+
+def taiko(t0, g=1.0, low=False, pulse=True):
+    n = int(1.2 * SR)
+    t = np.arange(n) / SR
+    f0 = 52 if low else 72
+    f = f0 + 70 * np.exp(-t * 16)
+    body = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * (4 if low else 5.5))
+    skin = bandpass(rng.normal(0, 1, n), 70, 450) * np.exp(-t * 22) * 0.7
+    v = (body + skin) * np.minimum(1, t / 0.002) * g
+    add(drums, t0, v * 0.9)
+    add(hall, t0, v * 0.45)
+    add(kick_env, t0, np.exp(-t * 6) * g * 0.8)
+    if pulse:
+        beats["kicks"].append([round(t0, 4), round(min(1.0, g), 2)])
+
+
+def tom_roll(t_end, dur=BAR, g=0.9):
+    """冲击前越打越密、越打越响的太鼓推进，在冲击前 0.12 秒收住。"""
+    t = t_end - dur
+    step = BEAT / 2
+    k = 0
+    while t < t_end - 0.12:
+        p = 1 - (t_end - t) / dur
+        taiko(t, g * (0.25 + 0.75 * p ** 1.5), low=k % 2 == 0, pulse=p > 0.6)
+        step = max(BEAT / 8, step * 0.86)
+        t += step
+        k += 1
+
+
+def ostinato(tb, chord, E):
+    """低音弦乐式的快速重复音型（八分 / 十六分音符），推动感的来源。"""
+    root = chord[0] - 12
+    pat = [0, 0, 7, 0, 12, 0, 7, 0] if E == 2 else [0, 0, 12, 0, 7, 0, 12, 7, 0, 0, 12, 0, 7, 12, 0, 7]
+    steps = len(pat)
+    dt = BAR / steps
+    for i, iv in enumerate(pat):
+        n = int(dt * 1.6 * SR)
+        t = np.arange(n) / SR
+        f = mtof(root + iv)
+        v = osc_table(f, n, phase=rng.random()) + 0.5 * osc_table(f * 1.004, n, phase=rng.random())
+        v = lowpass(v, 900 if E == 2 else 1400) * np.exp(-t * (14 if E == 3 else 10)) * np.minimum(1, t / 0.004)
+        acc = 1.0 if i % (steps // 4) == 0 else 0.7
+        pan = 0.25 if i % 2 else -0.25
+        add(epL, tb + i * dt, v * 0.14 * acc * (1 - pan))
+        add(epR, tb + i * dt, v * 0.14 * acc * (1 + pan))
+
+
+def choir(tb, dur, chord, g=0.5):
+    """类人声“啊——”：锯齿和弦经过元音共振峰滤波，慢起音，带轻微颤音。"""
+    n = int((dur + 1.2) * SR)
+    t = np.arange(n) / SR
+    sig = np.zeros(n)
+    vib = 1 + 0.004 * np.sin(2 * np.pi * 5.2 * t)
+    for m in chord + [chord[0] + 12]:
+        f = mtof(m + 12)
+        for d in (-0.08, 0.08):
+            ph = np.cumsum(f * 2 ** (d / 12) * vib / SR) + rng.random()
+            sig += np.interp(ph % 1.0 * TABLE, np.arange(TABLE + 1), np.append(SAW, SAW[0]))
+    v = bandpass(sig, 600, 860) * 1.0 + bandpass(sig, 1000, 1250) * 0.55 + bandpass(sig, 2300, 2600) * 0.12
+    v *= np.minimum(1, t / 0.7) * np.clip((dur + 1.2 - t) / 1.2, 0, 1) * g * 0.35
+    add(choL, tb, v)
+    add(choR, tb + 0.015, v)
+
+
+def gap_before(t, length=0.28):
+    """冲击前的瞬间静音：音乐在冲击前 length 秒内迅速压低，冲击时回到原样。"""
+    a, b = int((t - length) * SR), int(t * SR)
+    if a < 0:
+        return
+    k = b - a
+    music_gate[a:b] = np.minimum(music_gate[a:b], np.linspace(1, 0.08, k) ** 1.5)
+
+
 MOTIF = {
     "default": [[(0, 69, 1), (1, 74, 1), (2, 77, 1.5), (3.5, 76, 0.5)], [(0, 74, 2), (2, 70, 1), (3, 72, 1)],
                 [(0, 72, 1), (1, 69, 1), (2, 77, 1.5), (3.5, 76, 0.5)], [(0, 76, 2), (2, 72, 2)]],
@@ -256,6 +365,19 @@ for si, sec in enumerate(secs):
             low_snare(tb + 3 * BEAT, 0.3)
         elif E == 1:
             kick(tb, 0.6)
+        # 电影感层：弦乐重复音型、太鼓、合唱
+        if E >= 2 and not sec.get("heart") and sid != "title":
+            ostinato(tb, chord, E)
+        if E == 2 and not sec.get("heart"):
+            taiko(tb, 0.75, low=True)
+        if E == 3:
+            taiko(tb, 1.0, low=True)
+            taiko(tb + 1.5 * BEAT, 0.55)
+            taiko(tb + 2 * BEAT, 0.8, low=True)
+            taiko(tb + 3 * BEAT, 0.6)
+            taiko(tb + 3.5 * BEAT, 0.7)
+        if E == 3 or sid in ("title", "finale"):
+            choir(tb, BAR, CH["Dm"] if last_bar else chord, 0.55 if E == 3 else 0.4)
         # 拨弦琶音
         tones = [m + 12 for m in chord] + [chord[0] + 24]
         if E == 0 and sid not in ("refs",):
@@ -285,15 +407,27 @@ for si, sec in enumerate(secs):
     # 卡片事件
     for c in sec["cards"]:
         tc = s0 + c["start"]
+        if c.get("hit"):
+            braam(tc, 26, 1.25, dur=5.0)
+            impact(tc, 1.0)
+            tom_roll(tc, BAR, 1.0)
+            gap_before(tc, 0.35)
+            riser(tc, BAR, 0.5)
         if c.get("tick"):
             low_tick(tc)
         if c.get("unlock"):
             low_bell(tc + BEAT)
     # 段首冲击与铺垫
     if sec.get("impact"):
-        impact(s0, 1.0 if sec.get("warp") else 0.75)
+        big = sec.get("warp") or sid in ("title", "set4", "finale")
+        impact(s0, 1.0 if big else 0.75)
+        root = CH[prog[0]][0] - 24   # 低两个八度的根音
+        braam(s0, root, 1.0 if big else 0.6, dur=4.0 if big else 3.0)
         if si > 0:
-            riser(s0, BAR if sec.get("warp") else BAR * 0.75, 0.55 if sec.get("warp") else 0.4)
+            riser(s0, BAR if big else BAR * 0.75, 0.5 if big else 0.35)
+            if E >= 1:
+                tom_roll(s0, BAR if big else BAR / 2, 0.9 if big else 0.6)
+            gap_before(s0, 0.3 if big else 0.18)
 
 # ------------------------------------------------------------------ 混音
 # 侧链：底鼓压低铺底与低音
@@ -337,7 +471,7 @@ revL = signal.oaconvolve(sendL, irL)[:N] * 0.9
 revR = signal.oaconvolve(sendR, irR)[:N] * 0.9
 
 # 段落能量分档增益（平滑过渡），让铺垫与高潮拉开层次；转场音效不受影响
-EG = {0: 0.5, 1: 0.66, 2: 0.82, 3: 1.0}
+EG = {0: 0.45, 1: 0.6, 2: 0.8, 3: 1.0}
 gain = np.zeros(N)
 for s_ in secs:
     a, b = int(s_["start"] * SR), int((s_["start"] + s_["dur"]) * SR)
@@ -345,18 +479,45 @@ for s_ in secs:
 gain[int(TOTAL * SR):] = EG[0]
 w = int(0.4 * SR)
 gain = np.convolve(gain, np.ones(w) / w, mode="same")
-musL = (padL * 0.8 + bass * 0.75 + drums * 0.85 + plL * 0.7 + keysL * 0.6 + revL) * gain
-musR = (padR * 0.8 + bass * 0.75 + drums * 0.85 + plR * 0.7 + keysR * 0.6 + revR) * gain
-L = musL + sfx * 0.95
-R = musR + sfx * 0.95
+# 大厅混响（太鼓、重击）：4.5 秒、偏暗
+hn = int(4.5 * SR)
+th = np.arange(hn) / SR
+hL = lowpass(rng.normal(0, 1, hn), 2500) * np.exp(-th * 1.4)
+hR = lowpass(rng.normal(0, 1, hn), 2500) * np.exp(-th * 1.4)
+hL[:int(0.04 * SR)] = 0
+hR[:int(0.04 * SR)] = 0
+hL /= np.sqrt(np.sum(hL ** 2))
+hR /= np.sqrt(np.sum(hR ** 2))
+hallL = signal.oaconvolve(hall + (choL + choR) * 0.2, hL)[:N] * 0.8
+hallR = signal.oaconvolve(hall + (choL + choR) * 0.2, hR)[:N] * 0.8
+epL[:] = lowpass(epL, 5000)
+epR[:] = lowpass(epR, 5000)
+musL = (padL * 0.7 + bass * 0.8 + drums * 0.9 + plL * 0.6 + keysL * 0.55 + revL + choL * 0.9 + hallL * 0.9) * gain
+musR = (padR * 0.7 + bass * 0.8 + drums * 0.9 + plR * 0.6 + keysR * 0.55 + revR + choR * 0.9 + hallR * 0.9) * gain
+gate = np.convolve(music_gate, np.ones(240) / 240, mode="same")
+L = (musL + epL * 0.85) * gate + sfx * 0.95
+R = (musR + epR * 0.85) * gate + sfx * 0.95
 mix = np.stack([L, R], axis=1)
 mix = mix[: int((TOTAL + 0.5) * SR)]
 # 淡入淡出
 fi, fo = int(1.5 * SR), int(8 * SR)
 mix[:fi] *= np.linspace(0, 1, fi)[:, None]
 mix[-fo:] *= np.linspace(1, 0, fo)[:, None] ** 1.5
-mix /= np.max(np.abs(mix)) + 1e-9
-mix = np.tanh(mix * 1.15) / np.tanh(1.15) * 0.95
+# 母带：RMS 压缩（阈值 -18 dB、3:1）后软限幅
+mono = np.abs(mix).max(axis=1)
+env = np.sqrt(signal.lfilter([1 - np.exp(-1 / (0.03 * SR))], [1, -np.exp(-1 / (0.03 * SR))], mono ** 2) + 1e-12)
+mix /= np.max(env) + 1e-9
+env /= np.max(env) + 1e-9
+db = 20 * np.log10(env + 1e-9)
+thr, ratio = -18.0, 3.0
+gr = np.where(db > thr, (db - thr) * (1 - 1 / ratio), 0.0)
+gr = signal.lfilter([1 - np.exp(-1 / (0.15 * SR))], [1, -np.exp(-1 / (0.15 * SR))], gr)
+mix *= (10 ** (-gr / 20))[:, None]
+# 峰值限幅：以 99.95% 分位为满刻度，超出部分软削，整体响度更足
+ref = np.quantile(np.abs(mix), 0.9995)
+mix = mix / (ref + 1e-9) * 0.82
+mix = np.tanh(mix * 1.25) / np.tanh(1.25) * 0.97
+mix = np.clip(mix, -0.98, 0.98)
 sf.write(os.path.join(BUILD, "v3_music.wav"), mix.astype(np.float32), SR)
 json.dump(beats, open(os.path.join(BUILD, "v3_beats.json"), "w"))
 print("music", round(len(mix) / SR, 1), "s; kicks", len(beats["kicks"]), "impacts", len(beats["impacts"]))
