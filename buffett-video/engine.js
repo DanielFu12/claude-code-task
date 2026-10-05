@@ -311,6 +311,47 @@ function drawHUD(c, t, scene, lb, year, hudA) {
 
 // ---------------------------------------------------------------- brand logo (top-right, every frame)
 const LOGO_TEXT = '巴芒价值';
+let LOGO_IMG = null;   // brand mark, white background keyed out at load time
+async function loadLogo() {
+  const img = new Image();
+  img.src = window.LOGO_DATA;
+  await img.decode();
+  const w = img.naturalWidth, h = img.naturalHeight;
+  const cv0 = document.createElement('canvas'); cv0.width = w; cv0.height = h;
+  const g = cv0.getContext('2d');
+  g.drawImage(img, 0, 0);
+  const id = g.getImageData(0, 0, w, h), d = id.data;
+  let x0 = w, y0 = h, x1 = 0, y1 = 0;
+  for (let i = 0; i < d.length; i += 4) {
+    // distance from white -> alpha, then un-blend the white so edges stay clean on dark
+    const dist = Math.max(255 - d[i], 255 - d[i + 1], 255 - d[i + 2]);
+    const a = Math.min(1, Math.max(0, (dist - 6) / 64));
+    if (a > 0) {
+      for (let k = 0; k < 3; k++) d[i + k] = Math.max(0, Math.min(255, (d[i + k] - 255 * (1 - a)) / a));
+      const p = i / 4, x = p % w, y = (p / w) | 0;
+      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+    }
+    d[i + 3] = Math.round(a * 255);
+  }
+  g.putImageData(id, 0, 0);
+  const side = Math.max(x1 - x0, y1 - y0) + 8, cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  const out = document.createElement('canvas'); out.width = out.height = 256;
+  const o = out.getContext('2d');
+  o.imageSmoothingQuality = 'high';
+  o.drawImage(cv0, cx - side / 2, cy - side / 2, side, side, 0, 0, 256, 256);
+  LOGO_IMG = out;
+}
+// gold fill with a sheen that sweeps across now and then (every ~7.5 s)
+function logoGold(c, x0, x1, y, s) {
+  const g = c.createLinearGradient(x0, y - s, x1, y + s * 0.3);
+  const base = GOLD, dark = mixc(base, [80, 50, 10], 0.35), light = mixc(base, WHITE, 0.45);
+  const p = inv(0, 1.4, GT % 7.5) * 1.5 - 0.25;
+  const stops = [[0, dark], [0.3, light], [0.62, base], [1, dark]];
+  for (const [o, col] of [[p - 0.09, base], [p, mixc(base, WHITE, 0.9)], [p + 0.09, base]]) if (o > 0 && o < 1) stops.push([o, col]);
+  stops.sort((m, n) => m[0] - n[0]);
+  for (const [o, col] of stops) g.addColorStop(o, rgba(col));
+  return g;
+}
 function drawLogo(c, a) {
   if (a <= 0.01) return;
   const right = W - 76, base = 80;
@@ -321,7 +362,7 @@ function drawLogo(c, a) {
   const tw = c.measureText(LOGO_TEXT).width - 6;
   const tx = right - tw;
   c.shadowColor = 'rgba(0,0,0,0.6)'; c.shadowBlur = 10;
-  c.fillStyle = goldGrad(c, tx, right, base, 30);
+  c.fillStyle = logoGold(c, tx, right, base, 30);
   c.fillText(LOGO_TEXT, tx, base);
   c.shadowColor = 'rgba(255,186,80,0.35)'; c.shadowBlur = 14;
   c.fillText(LOGO_TEXT, tx, base);
@@ -329,18 +370,15 @@ function drawLogo(c, a) {
   c.font = `500 10.5px ${FAM.mono}`; c.letterSpacing = '3.6px';
   c.fillStyle = 'rgba(243,199,110,0.62)';
   c.fillText('BUFFETT · MUNGER', tx + 1, base + 20);
-  // seal emblem
-  const s = 52, sx = tx - 16 - s, sy = base - 37;
-  c.shadowColor = 'rgba(255,186,80,0.5)'; c.shadowBlur = 14;
-  c.strokeStyle = 'rgba(243,199,110,0.95)'; c.lineWidth = 1.8;
-  c.fillStyle = 'rgba(120,70,10,0.28)';
-  c.beginPath(); c.roundRect(sx, sy, s, s, 7); c.fill(); c.stroke();
-  c.shadowBlur = 0; c.lineWidth = 0.8; c.strokeStyle = 'rgba(243,199,110,0.5)';
-  c.beginPath(); c.roundRect(sx + 4, sy + 4, s - 8, s - 8, 4); c.stroke();
-  c.font = `900 19px ${FAM.serif}`; c.letterSpacing = '0px'; c.textAlign = 'center';
-  c.fillStyle = goldGrad(c, sx, sx + s, sy + s, 30);
-  c.fillText('巴', sx + s / 2, sy + 23);
-  c.fillText('芒', sx + s / 2, sy + 44);
+  // brand mark
+  if (LOGO_IMG) {
+    const s = 60, sx = tx - 14 - s, sy = base - 41;
+    c.shadowColor = 'rgba(0,0,0,0.55)'; c.shadowBlur = 10;
+    c.drawImage(LOGO_IMG, sx, sy, s, s);
+    c.shadowColor = 'rgba(110,190,255,0.45)'; c.shadowBlur = 16;
+    c.globalAlpha = a * 0.5;
+    c.drawImage(LOGO_IMG, sx, sy, s, s);
+  }
   c.restore();
 }
 
@@ -501,6 +539,7 @@ function renderFrame(t) {
 
 async function init() {
   makeVignette(); makeGrain();
+  await loadLogo();
   const all = Object.values(SCENE_DRAW).map((f) => f.toString()).join('') + Object.values(CHNAME).join('') + LOGO_TEXT + '0123456789$%×·—';
   const loads = [];
   for (const k in STY) loads.push(document.fonts.load(fontStr(STY[k], 40), all));
