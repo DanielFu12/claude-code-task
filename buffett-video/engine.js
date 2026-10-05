@@ -275,9 +275,7 @@ function drawHUD(c, t, scene, lb, year, hudA) {
     c.beginPath(); c.moveTo(x, y + dy * L); c.lineTo(x, y); c.lineTo(x + dx * L, y); c.stroke();
   }
   c.font = `500 15px ${FAM.mono}`; c.textBaseline = 'middle';
-  c.fillStyle = rgba(WHITE, 0.42); c.textAlign = 'right';
   c.letterSpacing = '4px';
-  c.fillText('THE SNOWBALL · WARREN E. BUFFETT', W - 84, 70);
   c.textAlign = 'left';
   if (CHNAME[scene.id]) {
     const n = scene.id.slice(2);
@@ -308,6 +306,41 @@ function drawHUD(c, t, scene, lb, year, hudA) {
     c.font = `600 22px ${FAM.cor}`; c.fillStyle = rgba(acc, 1); c.letterSpacing = '2px';
     c.fillText(String(Math.round(year)), xc, y - 22);
   }
+  c.restore();
+}
+
+// ---------------------------------------------------------------- brand logo (top-right, every frame)
+const LOGO_TEXT = '巴芒价值';
+function drawLogo(c, a) {
+  if (a <= 0.01) return;
+  const right = W - 76, base = 80;
+  c.save();
+  c.globalAlpha = a;
+  c.textBaseline = 'alphabetic'; c.textAlign = 'left';
+  c.font = `700 30px ${FAM.serif}`; c.letterSpacing = '6px';
+  const tw = c.measureText(LOGO_TEXT).width - 6;
+  const tx = right - tw;
+  c.shadowColor = 'rgba(0,0,0,0.6)'; c.shadowBlur = 10;
+  c.fillStyle = goldGrad(c, tx, right, base, 30);
+  c.fillText(LOGO_TEXT, tx, base);
+  c.shadowColor = 'rgba(255,186,80,0.35)'; c.shadowBlur = 14;
+  c.fillText(LOGO_TEXT, tx, base);
+  c.shadowBlur = 0;
+  c.font = `500 10.5px ${FAM.mono}`; c.letterSpacing = '3.6px';
+  c.fillStyle = 'rgba(243,199,110,0.62)';
+  c.fillText('BUFFETT · MUNGER', tx + 1, base + 20);
+  // seal emblem
+  const s = 52, sx = tx - 16 - s, sy = base - 37;
+  c.shadowColor = 'rgba(255,186,80,0.5)'; c.shadowBlur = 14;
+  c.strokeStyle = 'rgba(243,199,110,0.95)'; c.lineWidth = 1.8;
+  c.fillStyle = 'rgba(120,70,10,0.28)';
+  c.beginPath(); c.roundRect(sx, sy, s, s, 7); c.fill(); c.stroke();
+  c.shadowBlur = 0; c.lineWidth = 0.8; c.strokeStyle = 'rgba(243,199,110,0.5)';
+  c.beginPath(); c.roundRect(sx + 4, sy + 4, s - 8, s - 8, 4); c.stroke();
+  c.font = `900 19px ${FAM.serif}`; c.letterSpacing = '0px'; c.textAlign = 'center';
+  c.fillStyle = goldGrad(c, sx, sx + s, sy + s, 30);
+  c.fillText('巴', sx + s / 2, sy + 23);
+  c.fillText('芒', sx + s / 2, sy + 44);
   c.restore();
 }
 
@@ -463,11 +496,12 @@ function renderFrame(t) {
   const fout = tail;
   const black = Math.max(fin, fout * 0.85);
   if (black > 0) { ctx.fillStyle = `rgba(0,0,0,${black})`; ctx.fillRect(0, 0, W, H); }
+  drawLogo(ctx, 0.92 * Math.min(1, 0.35 + inv(0, 0.6, t)) * (1 - 0.25 * tail));
 }
 
 async function init() {
   makeVignette(); makeGrain();
-  const all = Object.values(SCENE_DRAW).map((f) => f.toString()).join('') + Object.values(CHNAME).join('') + '0123456789$%×·—';
+  const all = Object.values(SCENE_DRAW).map((f) => f.toString()).join('') + Object.values(CHNAME).join('') + LOGO_TEXT + '0123456789$%×·—';
   const loads = [];
   for (const k in STY) loads.push(document.fonts.load(fontStr(STY[k], 40), all));
   for (const w of [300, 400, 500, 700, 900]) { loads.push(document.fonts.load(`${w} 40px ${FAM.sans}`, all)); loads.push(document.fonts.load(`${w} 40px ${FAM.serif}`, all)); }
