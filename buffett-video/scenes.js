@@ -151,7 +151,7 @@ const SCENE_DRAW = {
     c.restore();
     txt(c, b, '1965', CX, 440, 'year', 0.6, 7.3, { anim: 'blur' });
     txt(c, b, '假如你把 [1 万美元] 交给一个人', CX, 650, 'h2', 2.2, 7.3);
-    txt(c, b, '六十一年后，他会还给你多少？', CX, 722, 'bodyL', 4.4, 7.3);
+    txt(c, b, '到 2025 年底，他会还给你多少？', CX, 722, 'bodyL', 4.4, 7.3);
 
     // compounding counter
     if (b > 7.6 && b < 24) {
@@ -1014,7 +1014,7 @@ const SCENE_DRAW = {
       txt(c, b, '10.5%', 1320, 420, 'num', 24.8, 35.4, { scale: 0.95, col: '#bfefff', glow: 0.3 });
       ptxt(c, 'VS', CX, 395, 'label', a * inv(25, 26, b), { scale: 1.6, col: '#ffffff' });
       txt(c, b, '每年的回报，差距 [还不到 2 倍]', CX, 560, 'h2', 28, 35.4);
-      txt(c, b, '可是，61 年复利下来——', CX, 650, 'bodyL', 30, 35.4, { scale: 1.1 });
+      txt(c, b, '可是，60 多年复利下来——', CX, 650, 'bodyL', 30, 35.4, { scale: 1.1 });
       txt(c, b, '相差 132 倍', CX, 830, 'mega', 32, 35.4, { scale: 1.05, from: 2.2 });
       if (b > 32) { c.save(); c.globalCompositeOperation = 'lighter'; const u = inv(32, 34, b); c.strokeStyle = rgba(acc, (1 - u) * 0.8); c.lineWidth = 3; c.beginPath(); c.ellipse(CX, 770, 200 + 900 * E.outExpo(u), 60 + 280 * E.outExpo(u), 0, 0, Math.PI * 2); c.stroke(); c.restore(); }
     }
