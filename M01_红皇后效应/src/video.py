@@ -1302,7 +1302,7 @@ NET = _NR2.uniform(-1, 1, (60, 2)) * np.array([380, 190])
 def sc_paths(f, t):
     if not (b(99) - 0.1 < t < b(108) + 0.2): return
     a = env(t, b(99), b(108), 0.3, 0.3)
-    cur = max(i for i, (_, tt) in enumerate(PATHS) if t >= tt - 0.01)
+    cur = max((i for i, (_, tt) in enumerate(PATHS) if t >= tt - 0.01), default=0)
     for i, (name, tt) in enumerate(PATHS):   # 顶部四步进度
         x = W / 2 + (i - 1.5) * 260
         on = i == cur
