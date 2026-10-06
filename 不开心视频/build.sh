@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 一键重建《人为什么会感到不开心》视频
 # 依赖: ffmpeg, python3 (numpy opencv-python-headless pillow soundfile librosa)
-# 可选: LOGO_PATH=/path/to/logo.png 用你自己的 logo 替换右上角的内置徽标
+# 品牌角标取自仓库根目录 brand/（见 brand/BRAND.md）
 set -euo pipefail
 cd "$(dirname "$0")"
 ROOT=$(pwd); WORK="$ROOT/work"; mkdir -p "$WORK" fonts
