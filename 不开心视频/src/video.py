@@ -94,90 +94,20 @@ VIGNETTE = np.clip(1 - 0.42 * _r ** 2.4, 0.25, 1)[..., None].astype(np.float32)
 del _yy, _xx, _r
 
 # ---------------------------------------------------------------- logo / HUD
-def gold_ramp(h):
-    y = np.linspace(0, 1, h)[:, None]
-    stops = [(0, (255, 243, 200)), (0.35, (255, 212, 120)), (0.62, (226, 160, 60)), (1, (255, 214, 130))]
-    out = np.zeros((h, 3), np.float32)
-    for c in range(3):
-        out[:, c] = np.interp(y[:, 0], [s[0] for s in stops], [s[1][c] for s in stops]) / 255
-    return out
+# ---------------------------------------------------------------- 品牌角标（见 repo 根目录 brand/）
+sys.path.insert(0, os.path.join(HERE, '..', '..', 'brand'))
+from brand import Hud, load_logo as brand_logo
+HUD = Hud()
+END_LOGO = brand_logo(220)
 
-def make_emblem(size):
-    S = size * 4
-    im = Image.new('L', (S, S), 0); d = ImageDraw.Draw(im)
-    u = lambda v: v * S
-    # outer + inner ring
-    d.ellipse([u(.04), u(.04), u(.96), u(.96)], outline=255, width=int(u(.055)))
-    d.ellipse([u(.13), u(.13), u(.87), u(.87)], outline=255, width=int(u(.018)))
-    cx, hy = .5, .60
-    # rising sun + rays (芒)
-    d.pieslice([u(cx - .15), u(hy - .15), u(cx + .15), u(hy + .15)], 180, 360, fill=255)
-    for k in range(7):
-        ang = math.radians(-165 + k * 25)
-        r0, r1 = .2, (.34 if k % 2 == 0 else .30)
-        d.line([u(cx + r0 * math.cos(ang)), u(hy + r0 * math.sin(ang)),
-                u(cx + r1 * math.cos(ang)), u(hy + r1 * math.sin(ang))], fill=255, width=int(u(.035)))
-    # horizon + reflections (steady value)
-    d.line([u(.17), u(hy), u(.83), u(hy)], fill=255, width=int(u(.035)))
-    d.line([u(.30), u(hy + .09), u(.70), u(hy + .09)], fill=255, width=int(u(.026)))
-    d.line([u(.39), u(hy + .17), u(.61), u(hy + .17)], fill=255, width=int(u(.022)))
-    im = im.resize((size, size), Image.LANCZOS)
-    m = np.asarray(im, np.float32) / 255
-    rgb = np.repeat(gold_ramp(size)[:, None, :], size, 1)
-    return m, rgb
-
-def load_logo(size):
-    p = os.environ.get('LOGO_PATH')
-    if p and os.path.exists(p):
-        im = Image.open(p).convert('RGBA')
-        im.thumbnail((size * 3, size), Image.LANCZOS)
-        a = np.asarray(im, np.float32) / 255
-        return a[..., 3], a[..., :3]
-    return make_emblem(size)
-
-def make_hud():
-    lh = 66
-    lm, lrgb = load_logo(lh)
-    f = font('serif_black', 42)
-    tw = int(f.getlength('巴芒价值')) + 8
-    asc, desc = f.getmetrics()
-    th = asc + desc
-    tim = Image.new('L', (tw, th), 0)
-    ImageDraw.Draw(tim).text((2, asc), '巴芒价值', font=f, fill=255, anchor='ls')
-    tm = np.asarray(tim, np.float32) / 255
-    # crop text vertically to ink
-    rows = np.where(tm.max(1) > 0.02)[0]; tm = tm[rows[0]:rows[-1] + 1]
-    gap = 16
-    hh = max(lm.shape[0], tm.shape[0]) + 12
-    ww = lm.shape[1] + gap + tm.shape[1] + 12
-    A = np.zeros((hh, ww), np.float32); RGB = np.zeros((hh, ww, 3), np.float32)
-    oy = (hh - lm.shape[0]) // 2
-    A[oy:oy + lm.shape[0], 6:6 + lm.shape[1]] = lm
-    RGB[oy:oy + lm.shape[0], 6:6 + lm.shape[1]] = lrgb
-    ty = (hh - tm.shape[0]) // 2 + 1
-    x0 = 6 + lm.shape[1] + gap
-    A[ty:ty + tm.shape[0], x0:x0 + tm.shape[1]] = tm
-    RGB[ty:ty + tm.shape[0], x0:x0 + tm.shape[1]] = gold_ramp(tm.shape[0])[:, None, :]
-    shadow = cv2.GaussianBlur(A, (0, 0), 6) * 0.75
-    return A, RGB, shadow
-
-HUD_A, HUD_RGB, HUD_SH = make_hud()
-END_EMB = make_emblem(210)
-
-def draw_hud(f, t, a):
-    if a <= 0.003: return
-    h, w = HUD_A.shape
-    X0, Y0 = W - w - 52, 34
-    # shimmer sweep every 7 s
-    ph = ((t + 2.0) % 7.0) / 1.4
-    rgb = HUD_RGB
-    if ph < 1.0:
-        xs = np.arange(w)[None, :] + np.arange(h)[:, None] * 0.6
-        band = np.exp(-((xs - (-60 + ph * (w + 120))) / 22.0) ** 2)[..., None]
-        rgb = np.clip(HUD_RGB + band * 0.55, 0, 1.3)
-    f.over.append((HUD_SH, X0, Y0, np.zeros(3, np.float32), a * 0.8))
-    f.over.append((HUD_A, X0, Y0, rgb, a))
-    f.B[Y0:Y0 + h, X0:X0 + w] += (HUD_A * a * 0.22)[..., None] * rgb
+def draw_hud_post(img, t, a):
+    """在 tone-map 之后合成右上角角标（颜色与品牌稿一致）"""
+    if a <= 0.003: return img
+    h = HUD.y0 + HUD.h + HUD.P + 2
+    reg = img[:h].astype(np.float32) / 255
+    HUD.draw(reg, t, a)
+    img[:h] = (np.clip(reg, 0, 1) * 255 + 0.5).astype(np.uint8)
+    return img
 
 CHAPTERS = [(0, '序', '序章', 'PROLOGUE'), (18.18, '01', '第一性原理', 'FIRST PRINCIPLES'),
             (56.44, '02', '不开心公式', 'THE FORMULA'), (73.44, '03', '三种不如愿', 'THREE CASES'),
@@ -185,8 +115,6 @@ CHAPTERS = [(0, '序', '序章', 'PROLOGUE'), (18.18, '01', '第一性原理', '
             (171.22, '终', '终章', 'EPILOGUE'), (180, '', '', '')]
 
 def draw_chrome(f, t):
-    hud_a = env(t, 0.4, 175.6, 1.0, 0.6)
-    draw_hud(f, t, hud_a)
     # chapter label (top-left)
     for (a, num, zh, en), (b, *_r) in zip(CHAPTERS, CHAPTERS[1:]):
         if a <= t < b:
@@ -1090,17 +1018,17 @@ def sc_epilogue(f, t):
     # end card
     e = env(t, 175.47, 181, 0.8, 0.1)
     if e > 0:
-        m, rgb = END_EMB
+        rgb, m = END_LOGO
         hgt = m.shape[0]
-        X0, Y0 = int(W / 2 - hgt / 2), int(410 - hgt / 2)
+        X0, Y0 = int(W / 2 - hgt / 2), int(390 - hgt / 2)
         sc = eo((t - 175.47) / 1.0)
         f.over.append((m, X0, Y0, rgb, e * sc))
-        f.B[Y0:Y0 + hgt, X0:X0 + hgt] += (m * e * 0.5)[..., None] * rgb
-        f.glow((W / 2, 410), 200, GOLD, e * 0.25, 'B')
-        f.text('巴芒价值', W / 2, 640, 112, 'serif_black', GOLD2, e, t0=175.7, stag=0.12, dur=0.6,
+        f.glow((W / 2, 390), 150, C(110, 175, 255), e * 0.22, 'B')     # 淡蓝光晕
+        f.text('巴芒价值', W / 2, 620, 112, 'serif_black', GOLD2, e, t0=175.7, stag=0.12, dur=0.6,
                grad=[GOLD2, GOLD, GOLDD], mode='O', glow=.5)
-        f.text('来之则安 · 去之则顺', W / 2, 760, 34, 'sans_light', lerpc(GREY, WHITE, .4), e, track=0.3, t0=176.6, stag=0.05)
-        burst(f, t, 175.6, W / 2, 410, [GOLD, GOLD2, ORANGE, WHITE], 7, 500, 900, 1.6, 1.6, 0.8)
+        f.text('BUFFETT · MUNGER', W / 2, 712, 30, 'corm', C(214, 178, 112), e, track=0.46, t0=176.3, stag=0.03, mode='O')
+        f.text('来之则安 · 去之则顺', W / 2, 800, 32, 'sans_light', lerpc(GREY, WHITE, .4), e, track=0.3, t0=176.8, stag=0.05)
+        burst(f, t, 175.6, W / 2, 390, [C(110, 175, 255), CYAN, GOLD2, WHITE], 7, 500, 900, 1.6, 1.6, 0.8)
 
 
 SCENES = [sc_hook, sc_title, sc_brain, sc_gap, sc_chem, sc_munger, sc_formula, sc_cases, sc_question, sc_munger_quote,
@@ -1120,6 +1048,7 @@ def render(i):
         f.shake = (int(round(7 * k * math.sin(t * 90))), int(round(9 * k * math.cos(t * 77))))
     draw_chrome(f, t)
     img = finish(f, bg, bloom_k=1.0 + 0.3 * beat_pulse(t) * energy(t), vignette=VIGNETTE)
+    draw_hud_post(img, t, env(t, 0.4, 175.6, 1.0, 0.6))
     fade = cl(t / 1.0) * (1 - eio((t - 178.6) / 1.4))
     if fade < 1:
         img = (img.astype(np.float32) * fade).astype(np.uint8)
