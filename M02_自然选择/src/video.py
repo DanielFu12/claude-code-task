@@ -819,7 +819,7 @@ def sc_landscape(f, t):
     bx, by = land_proj(xw, zw, hw)
     if t > b(34) - 0.2:
         comet(f, bx, by - 16, 18 + 6 * cl((t - b(35, 2)) / BAR), BGOLD, a)
-        f.text('你', bx, by - 56, 26, 'sans_black', BGOLD, a, mode='O')
+        f.text('公司', bx, by - 56, 26, 'sans_black', BGOLD, a, mode='O')
     if b(35, 2) <= t < b(37) + 0.5:   # 资源越堆越多
         rng = np.random.default_rng(int(t * 6))
         for k in range(10):
