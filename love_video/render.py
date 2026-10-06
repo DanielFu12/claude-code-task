@@ -480,14 +480,115 @@ def f_ai(t):
     return F(P, tw * (1 + 0.2 * onset_at(t)), C)
 
 
-DOT_T = 175.78
+# ---------------------------------------------------------------- 巴芒价值 logo
+
+LOGO_FILE = os.path.join(HERE, "assets", "logo.png")  # 放入真实 logo（透明底 PNG）即可替换
+GOLD_HI = np.array([1.0, 0.90, 0.62], np.float32)
+GOLD_MID = np.array([0.86, 0.62, 0.27], np.float32)
+GOLD_LO = np.array([0.97, 0.79, 0.44], np.float32)
 
 
-def f_dot(t):
-    k = ease((t - DOT_T) / 1.2)
-    P = np.c_[CX + G[0] * (8 + 30 * (1 - k)), CY - 10 + G[1] * (8 + 30 * (1 - k))]
-    fade = float(clip01((179.4 - t) / 2.6))
-    return F(P, 0.35 * fade, mix(GOLD, ROSE, R[2] * 0.4))
+def gold_fill(h, w):
+    """竖向金属金渐变。"""
+    y = np.linspace(0, 1, h, dtype=np.float32)[:, None]
+    top = GOLD_HI * (1 - y * 2)[..., None] + GOLD_MID * (y * 2)[..., None]
+    bot = GOLD_MID * (2 - y * 2)[..., None] + GOLD_LO * (y * 2 - 1)[..., None]
+    g = np.where((y < 0.5)[..., None], top, bot)
+    return np.broadcast_to(g, (h, w, 3)).copy()
+
+
+def _logo_mask(size):
+    """原创徽标：留有缺口的金环 + 一条复利曲线冲出缺口，末端是一颗"雪球"。"""
+    if os.path.exists(LOGO_FILE):
+        img = Image.open(LOGO_FILE).convert("RGBA")
+        img.thumbnail((size, size), Image.LANCZOS)
+        canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+        canvas.paste(img, ((size - img.width) // 2, (size - img.height) // 2))
+        return np.asarray(canvas, np.float32) / 255.0
+    S = size * 4
+    m = Image.new("L", (S, S), 0)
+    d = ImageDraw.Draw(m)
+    pad = S * 0.07
+    d.arc([pad, pad, S - pad, S - pad], start=-28, end=-62 + 360, fill=255, width=int(S * 0.045))
+    u = np.linspace(0, 1, 200)
+    k = 3.2
+    xs = 0.17 + 0.64 * u
+    ys = 0.75 - 0.53 * (np.exp(k * u) - 1) / (np.exp(k) - 1)
+    pts = [(float(x * S), float(y * S)) for x, y in zip(xs, ys)]
+    d.line(pts, fill=255, width=int(S * 0.05), joint="curve")
+    d.ellipse([pts[0][0] - S * 0.025, pts[0][1] - S * 0.025, pts[0][0] + S * 0.025, pts[0][1] + S * 0.025], fill=255)
+    ex, ey = pts[-1]
+    r = S * 0.075
+    d.ellipse([ex - r, ey - r, ex + r, ey + r], fill=255)
+    a = np.asarray(m.resize((size, size), Image.LANCZOS), np.float32) / 255.0
+    rgba = np.zeros((size, size, 4), np.float32)
+    rgba[..., :3] = gold_fill(size, size)
+    rgba[..., 3] = a
+    return rgba
+
+
+_LOGOS = {}
+
+
+def logo(size):
+    if size not in _LOGOS:
+        _LOGOS[size] = _logo_mask(size)
+    return _LOGOS[size]
+
+
+def blit_rgba(out, rgba, cx, cy, alpha=1.0, wipe=1.0, shine=None):
+    """以 (cx, cy) 为中心贴一张 RGBA 图；shine 为 0~1 的高光扫过位置。"""
+    if alpha <= 0.003:
+        return
+    h, w = rgba.shape[:2]
+    x0, y0 = int(round(cx - w / 2)), int(round(cy - h / 2))
+    rgb = rgba[..., :3]
+    a = rgba[..., 3] * alpha
+    if wipe < 1.0:
+        soft = 0.35 * w + 30
+        a = a * clip01((wipe * (w + soft) - np.arange(w)) / soft).astype(np.float32)[None, :]
+    if shine is not None and 0 < shine < 1:
+        yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+        pos = (xx + yy * 0.45) / (w + h * 0.45)
+        band = np.exp(-((pos - (shine * 1.4 - 0.2)) / 0.06) ** 2)[..., None]
+        rgb = rgb + (1.0 - rgb) * band * 0.85
+    xs, ys = max(0, x0), max(0, y0)
+    xe, ye = min(W, x0 + w), min(H, y0 + h)
+    if xe <= xs or ye <= ys:
+        return
+    a = a[ys - y0:ye - y0, xs - x0:xe - x0, None]
+    reg = out[ys:ye, xs:xe]
+    reg *= 1 - a
+    reg += a * rgb[ys - y0:ye - y0, xs - x0:xe - x0]
+
+
+END_LOGO_SIZE = 300
+END_LOGO_C = (CX, CY - 80)
+LOGO_T = 173.9        # 粒子"爱"开始重组为徽标
+LOGO_SHOW = 175.2     # 清晰徽标浮现
+BRAND_T = 175.78      # "巴芒价值"在重拍上出现
+
+
+def _logo_points():
+    a = logo(END_LOGO_SIZE)[..., 3].astype(np.float64)
+    ys, xs = np.nonzero(a > 0.3)
+    r = np.random.default_rng(13)
+    pick = r.choice(len(xs), N, replace=len(xs) < N, p=a[ys, xs] / a[ys, xs].sum())
+    return np.c_[xs[pick] + r.random(N) - END_LOGO_SIZE / 2 + END_LOGO_C[0],
+                 ys[pick] + r.random(N) - END_LOGO_SIZE / 2 + END_LOGO_C[1]]
+
+
+LOGO_PTS = _logo_points()
+
+
+def f_logo(t):
+    P = LOGO_PTS + np.c_[1.2 * np.sin(2.4 * t + R[0] * 6.28), 1.2 * np.cos(2.1 * t + R[1] * 6.28)]
+    # 清晰徽标出现后，粒子慢慢化作四散的金色微尘
+    k = float(ease((t - LOGO_SHOW - 0.6) / 2.5))
+    drift = np.c_[G[0], G[1]] * 140 * k
+    fade = float(clip01((179.4 - t) / 1.8))
+    A = (0.75 - 0.55 * k) * fade
+    return F(P + drift, A, mix(GOLD, WHITE, R[2] * 0.3))
 
 
 KEYS = [
@@ -506,7 +607,7 @@ KEYS = [
     (144.68, 1.6, f_binary),
     (148.93, 1.8, f_galaxy),
     (161.96, 2.4, f_ai),
-    (DOT_T, 1.2, f_dot),
+    (LOGO_T, 1.6, f_logo),
 ]
 
 
@@ -541,23 +642,38 @@ def font(path, size):
 
 
 def sprite(text, path, size, track):
+    """返回 (全部文字遮罩, 基线高度, 高亮文字遮罩)；【】包住的字会被高亮。"""
     key = (text, path, size, track)
     if key in _SPRITES:
         return _SPRITES[key]
+    chars, hot, on = [], [], False
+    for ch in text:
+        if ch in "【】":
+            on = ch == "【"
+            continue
+        chars.append(ch)
+        hot.append(on)
     f = font(path, size)
     asc, desc = f.getmetrics()
-    widths = [f.getlength(ch) for ch in text]
-    w = int(sum(widths) + track * max(0, len(text) - 1)) + 8
+    widths = [f.getlength(ch) for ch in chars]
+    w = int(sum(widths) + track * max(0, len(chars) - 1)) + 8
     h = asc + desc + 8
     img = Image.new("L", (w, h), 0)
-    d = ImageDraw.Draw(img)
+    img_h = Image.new("L", (w, h), 0)
+    d, dh = ImageDraw.Draw(img), ImageDraw.Draw(img_h)
     x = 4.0
-    for ch, cw in zip(text, widths):
+    for ch, cw, hh in zip(chars, widths, hot):
         d.text((x, 4 + asc), ch, font=f, fill=255, anchor="ls")
+        if hh:
+            dh.text((x, 4 + asc), ch, font=f, fill=255, anchor="ls")
         x += cw + track
     arr = np.asarray(img, dtype=np.float32) / 255.0
-    _SPRITES[key] = (arr, asc)
+    hl = np.asarray(img_h, dtype=np.float32) / 255.0 if any(hot) else None
+    _SPRITES[key] = (arr, asc, hl)
     return _SPRITES[key]
+
+
+HL = np.array([1.0, 0.80, 0.48], np.float32)
 
 
 def blit(out, text, x, y, size=40, path=SERIF, color=INK, alpha=1.0, anchor="m", track=None,
@@ -566,7 +682,7 @@ def blit(out, text, x, y, size=40, path=SERIF, color=INK, alpha=1.0, anchor="m",
     if alpha <= 0.003:
         return
     track = size * 0.12 if track is None else track
-    arr, asc = sprite(text, path, size, track)
+    arr, asc, hl = sprite(text, path, size, track)
     h, w = arr.shape
     x0 = {"m": x - w / 2, "l": x - 4, "r": x - w + 4}[anchor]
     y0 = y - 4 - asc * 0.62
@@ -583,7 +699,11 @@ def blit(out, text, x, y, size=40, path=SERIF, color=INK, alpha=1.0, anchor="m",
     a = a[ys - y0:ye - y0, xs - x0:xe - x0, None]
     reg = out[ys:ye, xs:xe]
     reg *= 1 - a
-    reg += a * np.asarray(color, np.float32)
+    if hl is None:
+        reg += a * np.asarray(color, np.float32)
+    else:
+        k = hl[ys - y0:ye - y0, xs - x0:xe - x0, None]
+        reg += a * (np.asarray(color, np.float32) * (1 - k) + HL * k)
 
 
 def text_alpha(t, t0, t1, fin=0.8, fout=0.6):
@@ -596,30 +716,33 @@ def text_alpha(t, t0, t1, fin=0.8, fout=0.6):
 # 旁白：(开始, 结束, 文本)
 NARRATION = [
     (18.46, 21.9, "当你爱上一个人，大脑里正在发生什么？"),
-    (22.18, 26.9, "多巴胺 —— 渴望与奖赏预期，让你忍不住想见 TA"),
-    (27.24, 32.5, "去甲肾上腺素 —— 心跳加速，注意力只追随一个人"),
-    (32.81, 38.6, "催产素与加压素 —— 依恋与联结，让你想靠近、想守护"),
-    (38.92, 43.1, "内啡肽 —— 舒适与安心，是长久亲密的底色"),
-    (43.44, 48.1, "奖赏、依恋、性动机、认知评价 —— 四个系统共同驱动"),
-    (53.8, 57.2, "一个神经元，不会思考"),
-    (57.52, 60.7, "一个分子，也不会去爱"),
+    (22.18, 26.9, "【多巴胺】—— 渴望与奖赏预期，让你忍不住想见 TA"),
+    (27.24, 32.5, "【去甲肾上腺素】—— 心跳加速，注意力只追随一个人"),
+    (32.81, 38.6, "【催产素】与【加压素】—— 依恋与联结，让你想靠近、想守护"),
+    (38.92, 43.1, "【内啡肽】—— 舒适与安心，是长久亲密的底色"),
+    (43.44, 48.1, "奖赏、依恋、性动机、认知评价 —— 【四个系统】共同驱动"),
+    (53.8, 57.2, "一个神经元，【不会思考】"),
+    (57.52, 60.7, "一个分子，也【不会去爱】"),
     (60.98, 63.6, "可当亿万个连接彼此交织……"),
     (63.9, 69.4, "再与记忆、人格、经历和社会关系融为一体"),
-    (74.0, 78.2, "化学是音符，爱是整首乐曲"),
-    (79.83, 82.8, "心动，是一场化学的烟火"),
-    (83.03, 87.0, "可烟火，终会落下"),
+    (74.0, 78.2, "【化学】是音符，【爱】是整首乐曲"),
+    (79.83, 82.8, "心动，是一场化学的【烟火】"),
+    (83.03, 87.0, "可烟火，【终会落下】"),
     (87.28, 91.2, "激情会退潮，新鲜感会褪色"),
-    (109.06, 111.0, "靠近 · 留下 · 不离开"),
-    (112.27, 115.5, "婚姻的底层，是长期的价值互惠"),
-    (124.23, 128.2, "不是即时的等价交易，而是一场长期的合作"),
+    (95.25, 99.7, "每一段关系，都要回答【三个问题】"),
+    (109.06, 111.0, "靠近容易，难的是【留下】"),
+    (112.27, 115.5, "婚姻的底层，是长期的【价值互惠】"),
+    (124.23, 128.2, "不是即时的等价交易，而是一场【长期的合作】"),
     (128.48, 130.6, "你低谷时，我多扛一点"),
     (130.87, 132.7, "我脆弱时，你多给一点"),
-    (132.98, 137.0, "信任与承诺，允许短期的不对称"),
-    (137.25, 140.7, "但所有这些条件，都不是永久的"),
+    (132.98, 137.0, "【信任与承诺】，允许短期的不对称"),
+    (137.25, 140.7, "但所有这些条件，都【不是永久的】"),
     (140.97, 144.4, "吸引力会变，价值会变，人也会变"),
-    (144.68, 148.6, "关系不是建好的房子，而是需要维护的动态均衡"),
-    (164.35, 166.5, "爱不是一个名词，而是一个动词"),
-    (166.74, 168.9, "是每一天，重新选择彼此"),
+    (144.68, 148.6, "关系不是建好的房子，而是需要维护的【动态均衡】"),
+    (164.35, 166.5, "爱不是一个【名词】，而是一个【动词】"),
+    (166.74, 168.9, "是每一天，重新【选择】彼此"),
+    (169.13, 171.5, "好的关系，就像一笔好的投资"),
+    (171.78, 174.3, "【长期】、【互惠】，然后交给时间去【复利】"),
 ]
 
 CHAPTERS = [
@@ -817,37 +940,70 @@ def decor(t, lay, lo, out_texts):
     # 07 银河中心 & 爱
     if 148.93 <= t < 175.0:
         glow_point(lo, CX, CY + 20, GOLD, 1.2 * float(ease((t - 149.5) / 2)) * float(clip01((162.5 - t) / 1)))
-    if t >= DOT_T - 0.3:
-        k = float(ease((t - DOT_T) / 1.2)) * float(clip01((179.6 - t) / 2.4))
-        glow_point(lo, CX, CY - 10, GOLD, 6 * k)
-        glow_point(lo, CX, CY - 10, ROSE, 3 * k)
+    if t >= LOGO_T:
+        k = float(ease((t - LOGO_T) / 1.6)) * float(clip01((179.6 - t) / 2.0))
+        flash = math.exp(-(t - BRAND_T) / 0.35) * 5 if t >= BRAND_T else 0.0
+        glow_point(lo, END_LOGO_C[0], END_LOGO_C[1], GOLD, (2.5 + flash) * k)
+
+
+_GOLD_TEXT = {}
+
+
+def gold_text(text, size, track, path=SERIF_B):
+    key = (text, size, track, path)
+    if key not in _GOLD_TEXT:
+        arr = sprite(text, path, size, track)[0]
+        h, w = arr.shape
+        rgba = np.zeros((h, w, 4), np.float32)
+        rgba[..., :3] = gold_fill(h, w)
+        rgba[..., 3] = arr
+        _GOLD_TEXT[key] = rgba
+    return _GOLD_TEXT[key]
+
+
+def brand_corner(t, out):
+    """右上角常驻：徽标 + 金色"巴芒价值"。"""
+    a = float(clip01((t - 0.3) / 1.5)) * float(clip01((LOGO_T + 0.6 - t) / 0.8))
+    if a <= 0:
+        return
+    txt = gold_text("巴芒价值", 30, 6)
+    tw = txt.shape[1]
+    blit_rgba(out, txt, 1860 - tw / 2 + 4, 52, a)
+    blit_rgba(out, logo(50), 1860 - tw - 26, 50, a)
 
 
 def hud(t, out, lay):
-    """顶部标题、章节号、底部时间轴。"""
-    fade = float(clip01((t - 1.0) / 2.0)) * float(clip01((177.5 - t) / 1.5))
+    """左上标题、右上品牌、右下章节号、底部带章节名的时间轴。"""
+    fade = float(clip01((t - 1.0) / 2.0)) * float(clip01((LOGO_T + 0.5 - t) / 1.2))
     blit(out, "爱的本质", 60, 46, 22, SERIF, INK, 0.75 * fade, "l", track=6)
     blit(out, "THE NATURE OF LOVE", 60, 76, 12, SANS, GREY, 0.7 * fade, "l", track=4)
-    # 时间轴
+    brand_corner(t, out)
+    # 时间轴：章节名常显，当前章节点亮，让观众知道"走到哪了、后面还有什么"
     x0, x1, y = 60, 1860, 1040
     prog = t / DUR
     cv2.line(lay, (x0, y), (x1, y), tuple(float(v) * 0.10 * fade for v in WHITE), 1, cv2.LINE_AA)
-    for s in range(0, int(DUR) + 1, 5):
-        x = x0 + (x1 - x0) * s / DUR
-        cv2.line(lay, (int(x), y - 3), (int(x), y), tuple(float(v) * 0.12 * fade for v in WHITE), 1)
     xp = x0 + (x1 - x0) * prog
-    cv2.line(lay, (x0, y), (int(xp), y), tuple(float(v) * 0.35 * fade for v in GOLD), 1, cv2.LINE_AA)
-    lay[y - 2:y + 3, int(xp) - 2:int(xp) + 3] += GOLD * 0.8 * fade
+    cv2.line(lay, (x0, y), (int(xp), y), tuple(float(v) * 0.45 * fade for v in GOLD), 1, cv2.LINE_AA)
+    pulse = 0.0
     for (c0, c1, num, name, en) in CHAPTERS:
         x = x0 + (x1 - x0) * c0 / DUR
-        cv2.line(lay, (int(x), y - 9), (int(x), y), tuple(float(v) * 0.3 * fade for v in WHITE), 1)
-        blit(out, num, x + 6, y - 14, 11, SANS, GREY, 0.8 * fade, "l", track=1)
-        a, w = text_alpha(t, c0 + 0.5, c1 - 0.6, 1.0, 0.6)
+        cur = c0 <= t < c1
+        done = t >= c1
+        cv2.line(lay, (int(x), y - 9), (int(x), y),
+                 tuple(float(v) * (0.6 if cur or done else 0.25) * fade for v in (GOLD if cur or done else WHITE)), 1)
+        col = HL if cur else (GREY * 1.25 if done else GREY * 0.9)
+        blit(out, f"{num} {name}", x + 6, y - 15, 13, SERIF, col, (1.0 if cur else 0.75) * fade, "l", track=2)
+        if t >= c0:
+            pulse = max(pulse, math.exp(-(t - c0) / 0.4))
+        a, w = text_alpha(t, c0 + 0.3, c1 - 0.6, 1.0, 0.6)
         if a > 0:
             blit(out, num, 1860, 828, 64, SERIF, INK, a * 0.9, "r", track=4, wipe=w)
             blit(out, name, 1860, 890, 28, SERIF, INK, a * 0.9, "r", track=8, wipe=w)
             blit(out, en, 1860, 924, 14, SANS, GREY, a * 0.85, "r", track=2, wipe=w)
-            blit(out, f"{num} — {name}", 1860, 46, 16, SERIF, GREY * 1.2, a * 0.9, "r", track=4)
+            ln = int(110 * float(ease(w)))
+            cv2.line(lay, (1860 - ln, 907), (1860, 907), tuple(float(v) * 0.6 * a for v in GOLD), 1, cv2.LINE_AA)
+    r = 2 + int(5 * pulse)
+    lay[y - r:y + r + 1, int(xp) - r:int(xp) + r + 1] += GOLD * (0.8 + 0.6 * pulse) * fade
 
 
 def center_texts(t, out):
@@ -857,40 +1013,54 @@ def center_texts(t, out):
         (5.43, 9.9, "只为回答同一个问题", CY + 2, 46),
         (48.48, 49.3, "但", CY + 120, 96),
         (49.55, 53.3, "爱，并不等于几种化学物质", CY + 120, 50),
-        (91.53, 94.9, "那么，是什么让两个人留下来？", CY - 60, 50),
+        (91.53, 94.9, "那么，是什么让两个人【留下来】？", CY - 60, 50),
         (148.93, 150.3, "所以，爱是什么？", CY + 20, 52),
     ]
     for t0, t1, s, y, sz in items:
         a, w = text_alpha(t, t0, t1, 0.9, 0.5)
         if a > 0:
             blit(out, s, CX, y - 10 * (1 - w), sz, SERIF, INK, a, "m", track=sz * 0.18, wipe=w)
-    # 标题：爱 · 是什么（两束光在中点相遇）
+    # 标题：爱 · 是什么（两束光在中点相遇），下方一句"承诺"让人愿意看完
     a, w = text_alpha(t, 10.95, 16.9, 1.4, 0.35)
     if a > 0:
         blit(out, "爱", CX - 54, CY, 120, SERIF, INK, a, "r", track=0, wipe=w)
         blit(out, "是什么", CX + 54, CY, 120, SERIF, INK, a, "l", track=14, wipe=w)
         a2, w2 = text_alpha(t, 12.89, 16.9, 1.2, 0.35)
-        blit(out, "W H A T   I S   L O V E", CX, CY + 110, 16, SANS, GREY * 1.2, a2, "m", track=3, wipe=w2)
+        blit(out, "3 分钟，从【一次心跳】，到【一生的选择】", CX, CY + 118, 26, SERIF, INK * 0.9, a2, "m",
+             track=6, wipe=w2)
     # 涌现
     a, w = text_alpha(t, 69.75, 73.6, 1.2, 0.5)
     if a > 0:
-        blit(out, "爱，是一种涌现", CX, 930, 54, SERIF, INK, a, "m", track=12, wipe=w)
+        blit(out, "爱，是一种【涌现】", CX, 930, 54, SERIF, INK, a, "m", track=12, wipe=w)
     # 四句对仗
-    lines = [(150.53, "心动，是化学"), (153.72, "相守，是选择"), (156.11, "被爱，是幸运"), (159.03, "去爱，是能力")]
+    lines = [(150.53, "心动，是【化学】"), (153.72, "相守，是【选择】"), (156.11, "被爱，是【幸运】"),
+             (159.03, "去爱，是【能力】")]
     for i, (t0, s) in enumerate(lines):
         a, w = text_alpha(t, t0, 161.4, 0.8, 0.6)
         if a > 0:
-            hl = 1.0 if i == max(j for j, (tt, _) in enumerate(lines) if tt <= t) or t > 160.5 else 0.6
+            hl = 1.0 if i == max(j for j, (tt, _) in enumerate(lines) if tt <= t) or t > 160.5 else 0.55
             blit(out, s, CX, 300 + i * 112, 52, SERIF, INK, a * hl, "m", track=14, wipe=w)
-    # 结尾
-    a, w = text_alpha(t, 169.13, 175.3, 1.4, 0.8)
-    if a > 0:
-        blit(out, "它从一次心跳开始，", CX, 860, 30, SERIF, INK, a, "m", track=10, wipe=w)
-        a2, w2 = text_alpha(t, 171.78, 175.3, 1.4, 0.8)
-        blit(out, "在每一天的选择里，持续涌现。", CX, 912, 30, SERIF, INK, a2, "m", track=10, wipe=w2)
-    a, w = text_alpha(t, 176.4, 178.8, 1.0, 0.9)
-    if a > 0:
-        blit(out, "爱 的 本 质", CX, CY + 110, 22, SERIF, INK * 0.85, a, "m", track=10, wipe=w)
+    # 结尾：徽标 + 巴芒价值
+    end = float(clip01((179.8 - t) / 1.3))
+    if t >= LOGO_SHOW:
+        k = float(ease((t - LOGO_SHOW) / 0.9)) * end
+        sh = float(clip01((t - 176.5) / 1.1))
+        blit_rgba(out, logo(END_LOGO_SIZE), *END_LOGO_C, k, shine=sh)
+    if t >= BRAND_T:
+        w = float(clip01((t - BRAND_T) / 0.9))
+        sh = float(clip01((t - 176.7) / 1.1))
+        txt = gold_text("巴芒价值", 84, 26)
+        ty = END_LOGO_C[1] + 230
+        blit_rgba(out, txt, CX + 13, ty, end, wipe=w, shine=sh)
+        hw = txt.shape[1] / 2 + 40
+        ln = 170 * float(ease((t - BRAND_T - 0.3) / 1.0))
+        for sgn in (-1, 1):
+            xa, xb = CX + sgn * hw, CX + sgn * (hw + ln)
+            cv2.line(out, (int(min(xa, xb)), ty), (int(max(xa, xb)), ty), tuple(float(v) for v in GOLD_MID * 0.9 * end),
+                     1, cv2.LINE_AA)
+        a3, w3 = text_alpha(t, 176.9, 179.0, 1.0, 0.8)
+        blit(out, "长 期   ·   互 惠   ·   复 利", CX, ty + 78, 22, SERIF, GOLD_HI * 0.85, a3 * end, "m",
+             track=4, wipe=w3)
 
 
 def render_frame(t):
