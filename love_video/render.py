@@ -480,78 +480,62 @@ def f_ai(t):
     return F(P, tw * (1 + 0.2 * onset_at(t)), C)
 
 
-# ---------------------------------------------------------------- 巴芒价值 logo
+# ---------------------------------------------------------------- 巴芒价值品牌（统一使用仓库根目录 brand/）
 
-LOGO_FILE = os.path.join(HERE, "assets", "logo.png")  # 放入真实 logo（透明底 PNG）即可替换
-GOLD_HI = np.array([1.0, 0.90, 0.62], np.float32)
-GOLD_MID = np.array([0.86, 0.62, 0.27], np.float32)
-GOLD_LO = np.array([0.97, 0.79, 0.44], np.float32)
+sys.path.insert(0, os.path.join(HERE, "..", "brand"))
+import brand as _brand  # noqa: E402
+from brand import Hud, load_logo  # noqa: E402
 
+HUD = Hud()
+LOGO_BLUE = np.array([110, 175, 255], np.float32) / 255   # 品牌规范里 logo 光晕的淡蓝
+GOLD_STOPS = _brand.GOLD_STOPS
+SUB_GOLD = np.array(_brand.SUB_GOLD, np.float32) / 255
 
-def gold_fill(h, w):
-    """竖向金属金渐变。"""
-    y = np.linspace(0, 1, h, dtype=np.float32)[:, None]
-    top = GOLD_HI * (1 - y * 2)[..., None] + GOLD_MID * (y * 2)[..., None]
-    bot = GOLD_MID * (2 - y * 2)[..., None] + GOLD_LO * (y * 2 - 1)[..., None]
-    g = np.where((y < 0.5)[..., None], top, bot)
-    return np.broadcast_to(g, (h, w, 3)).copy()
-
-
-def _logo_mask(size):
-    """原创徽标：留有缺口的金环 + 一条复利曲线冲出缺口，末端是一颗"雪球"。"""
-    if os.path.exists(LOGO_FILE):
-        img = Image.open(LOGO_FILE).convert("RGBA")
-        img.thumbnail((size, size), Image.LANCZOS)
-        canvas = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-        canvas.paste(img, ((size - img.width) // 2, (size - img.height) // 2))
-        return np.asarray(canvas, np.float32) / 255.0
-    S = size * 4
-    m = Image.new("L", (S, S), 0)
-    d = ImageDraw.Draw(m)
-    pad = S * 0.07
-    d.arc([pad, pad, S - pad, S - pad], start=-28, end=-62 + 360, fill=255, width=int(S * 0.045))
-    u = np.linspace(0, 1, 200)
-    k = 3.2
-    xs = 0.17 + 0.64 * u
-    ys = 0.75 - 0.53 * (np.exp(k * u) - 1) / (np.exp(k) - 1)
-    pts = [(float(x * S), float(y * S)) for x, y in zip(xs, ys)]
-    d.line(pts, fill=255, width=int(S * 0.05), joint="curve")
-    d.ellipse([pts[0][0] - S * 0.025, pts[0][1] - S * 0.025, pts[0][0] + S * 0.025, pts[0][1] + S * 0.025], fill=255)
-    ex, ey = pts[-1]
-    r = S * 0.075
-    d.ellipse([ex - r, ey - r, ex + r, ey + r], fill=255)
-    a = np.asarray(m.resize((size, size), Image.LANCZOS), np.float32) / 255.0
-    rgba = np.zeros((size, size, 4), np.float32)
-    rgba[..., :3] = gold_fill(size, size)
-    rgba[..., 3] = a
-    return rgba
+END_LOGO_SIZE = 220          # 品牌规范：片尾 logo 约 220px 居中
+END_LOGO_C = (CX, 390)
+END_LOGO = load_logo(END_LOGO_SIZE)
+LOGO_T = 173.9        # 粒子"爱"开始重组为 logo
+LOGO_SHOW = 175.2     # 清晰 logo 浮现
+BRAND_T = 175.78      # "巴芒价值"在重拍上出现
 
 
-_LOGOS = {}
+def _logo_points():
+    rgb, a = END_LOGO
+    a = a.astype(np.float64)
+    ys, xs = np.nonzero(a > 0.3)
+    r = np.random.default_rng(13)
+    pick = r.choice(len(xs), N, replace=len(xs) < N, p=a[ys, xs] / a[ys, xs].sum())
+    pts = np.c_[xs[pick] + r.random(N) - END_LOGO_SIZE / 2 + END_LOGO_C[0],
+                ys[pick] + r.random(N) - END_LOGO_SIZE / 2 + END_LOGO_C[1]]
+    return pts, rgb[ys[pick], xs[pick]].astype(np.float64)
 
 
-def logo(size):
-    if size not in _LOGOS:
-        _LOGOS[size] = _logo_mask(size)
-    return _LOGOS[size]
+LOGO_PTS, LOGO_COL = _logo_points()
 
 
-def blit_rgba(out, rgba, cx, cy, alpha=1.0, wipe=1.0, shine=None):
-    """以 (cx, cy) 为中心贴一张 RGBA 图；shine 为 0~1 的高光扫过位置。"""
+def f_logo(t):
+    P = LOGO_PTS + np.c_[1.2 * np.sin(2.4 * t + R[0] * 6.28), 1.2 * np.cos(2.1 * t + R[1] * 6.28)]
+    # 清晰 logo 出现后，粒子慢慢化作四散的微尘
+    k = float(ease((t - LOGO_SHOW - 0.6) / 2.5))
+    drift = np.c_[G[0], G[1]] * 140 * k
+    fade = float(clip01((179.4 - t) / 1.8))
+    return F(P + drift, (0.75 - 0.55 * k) * fade, mix(LOGO_COL, WHITE, R[2] * 0.25))
+
+
+def blit_rgba(out, rgb, a, x0, y0, alpha=1.0, wipe=1.0, shine=None):
+    """把 (rgb, a) 贴到 out 的 (x0, y0) 处；shine 为 0~1 的流光位置。"""
     if alpha <= 0.003:
         return
-    h, w = rgba.shape[:2]
-    x0, y0 = int(round(cx - w / 2)), int(round(cy - h / 2))
-    rgb = rgba[..., :3]
-    a = rgba[..., 3] * alpha
+    h, w = a.shape
+    x0, y0 = int(round(x0)), int(round(y0))
+    a = a * alpha
     if wipe < 1.0:
         soft = 0.35 * w + 30
         a = a * clip01((wipe * (w + soft) - np.arange(w)) / soft).astype(np.float32)[None, :]
     if shine is not None and 0 < shine < 1:
-        yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
-        pos = (xx + yy * 0.45) / (w + h * 0.45)
-        band = np.exp(-((pos - (shine * 1.4 - 0.2)) / 0.06) ** 2)[..., None]
-        rgb = rgb + (1.0 - rgb) * band * 0.85
+        xs = np.arange(w)[None, :] + np.arange(h)[:, None] * 0.6
+        pos = -60 + (0.5 - 0.5 * math.cos(shine * math.pi)) * (w + 120)
+        rgb = np.clip(rgb + np.exp(-((xs - pos) / (0.06 * w + 10)) ** 2)[..., None] * 0.6, 0, 1.25)
     xs, ys = max(0, x0), max(0, y0)
     xe, ye = min(W, x0 + w), min(H, y0 + h)
     if xe <= xs or ye <= ys:
@@ -562,33 +546,33 @@ def blit_rgba(out, rgba, cx, cy, alpha=1.0, wipe=1.0, shine=None):
     reg += a * rgb[ys - y0:ye - y0, xs - x0:xe - x0]
 
 
-END_LOGO_SIZE = 300
-END_LOGO_C = (CX, CY - 80)
-LOGO_T = 173.9        # 粒子"爱"开始重组为徽标
-LOGO_SHOW = 175.2     # 清晰徽标浮现
-BRAND_T = 175.78      # "巴芒价值"在重拍上出现
+_BRAND_TEXT = {}
 
 
-def _logo_points():
-    a = logo(END_LOGO_SIZE)[..., 3].astype(np.float64)
-    ys, xs = np.nonzero(a > 0.3)
-    r = np.random.default_rng(13)
-    pick = r.choice(len(xs), N, replace=len(xs) < N, p=a[ys, xs] / a[ys, xs].sum())
-    return np.c_[xs[pick] + r.random(N) - END_LOGO_SIZE / 2 + END_LOGO_C[0],
-                 ys[pick] + r.random(N) - END_LOGO_SIZE / 2 + END_LOGO_C[1]]
-
-
-LOGO_PTS = _logo_points()
-
-
-def f_logo(t):
-    P = LOGO_PTS + np.c_[1.2 * np.sin(2.4 * t + R[0] * 6.28), 1.2 * np.cos(2.1 * t + R[1] * 6.28)]
-    # 清晰徽标出现后，粒子慢慢化作四散的金色微尘
-    k = float(ease((t - LOGO_SHOW - 0.6) / 2.5))
-    drift = np.c_[G[0], G[1]] * 140 * k
-    fade = float(clip01((179.4 - t) / 1.8))
-    A = (0.75 - 0.55 * k) * fade
-    return F(P + drift, A, mix(GOLD, WHITE, R[2] * 0.3))
+def brand_text(text, size, fontname, track=0.0, gold=True):
+    """用品牌字体（思源宋体 Black / Cormorant）渲染文字，金色竖向渐变。"""
+    key = (text, size, fontname, track, gold)
+    if key not in _BRAND_TEXT:
+        f = _brand._font(fontname, size)
+        widths = [f.getlength(c) for c in text]
+        w = int(sum(widths) + track * size * (len(text) - 1)) + 20
+        h = int(size * 1.6)
+        im = Image.new("L", (w, h), 0)
+        d = ImageDraw.Draw(im)
+        x = 10.0
+        for c, cw in zip(text, widths):
+            d.text((x, int(size * 1.25)), c, font=f, fill=255, anchor="ls")
+            x += cw + track * size
+        m = np.asarray(im, np.float32) / 255
+        ys, xs = np.where(m > 0.01)
+        m = m[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+        if gold:
+            rgb = np.broadcast_to(_brand._ramp(m.shape[0], GOLD_STOPS)[:, None, :].astype(np.float32),
+                                  m.shape + (3,)).copy()
+        else:
+            rgb = np.broadcast_to(SUB_GOLD, m.shape + (3,)).copy()
+        _BRAND_TEXT[key] = (rgb, m)
+    return _BRAND_TEXT[key]
 
 
 KEYS = [
@@ -673,7 +657,7 @@ def sprite(text, path, size, track):
     return _SPRITES[key]
 
 
-HL = np.array([1.0, 0.80, 0.48], np.float32)
+HL = np.array([255, 212, 120], np.float32) / 255  # 品牌金
 
 
 def blit(out, text, x, y, size=40, path=SERIF, color=INK, alpha=1.0, anchor="m", track=None,
@@ -943,33 +927,12 @@ def decor(t, lay, lo, out_texts):
     if t >= LOGO_T:
         k = float(ease((t - LOGO_T) / 1.6)) * float(clip01((179.6 - t) / 2.0))
         flash = math.exp(-(t - BRAND_T) / 0.35) * 5 if t >= BRAND_T else 0.0
-        glow_point(lo, END_LOGO_C[0], END_LOGO_C[1], GOLD, (2.5 + flash) * k)
+        glow_point(lo, END_LOGO_C[0], END_LOGO_C[1], LOGO_BLUE, (2.5 + flash) * k)
 
 
-_GOLD_TEXT = {}
-
-
-def gold_text(text, size, track, path=SERIF_B):
-    key = (text, size, track, path)
-    if key not in _GOLD_TEXT:
-        arr = sprite(text, path, size, track)[0]
-        h, w = arr.shape
-        rgba = np.zeros((h, w, 4), np.float32)
-        rgba[..., :3] = gold_fill(h, w)
-        rgba[..., 3] = arr
-        _GOLD_TEXT[key] = rgba
-    return _GOLD_TEXT[key]
-
-
-def brand_corner(t, out):
-    """右上角常驻：徽标 + 金色"巴芒价值"。"""
-    a = float(clip01((t - 0.3) / 1.5)) * float(clip01((LOGO_T + 0.6 - t) / 0.8))
-    if a <= 0:
-        return
-    txt = gold_text("巴芒价值", 30, 6)
-    tw = txt.shape[1]
-    blit_rgba(out, txt, 1860 - tw / 2 + 4, 52, a)
-    blit_rgba(out, logo(50), 1860 - tw - 26, 50, a)
+def brand_alpha(t):
+    """右上角品牌角标：开场淡入，片尾大 logo 出现前淡出。"""
+    return float(clip01((t - 0.3) / 1.5)) * float(clip01((LOGO_T + 0.6 - t) / 0.8))
 
 
 def hud(t, out, lay):
@@ -977,7 +940,6 @@ def hud(t, out, lay):
     fade = float(clip01((t - 1.0) / 2.0)) * float(clip01((LOGO_T + 0.5 - t) / 1.2))
     blit(out, "爱的本质", 60, 46, 22, SERIF, INK, 0.75 * fade, "l", track=6)
     blit(out, "THE NATURE OF LOVE", 60, 76, 12, SANS, GREY, 0.7 * fade, "l", track=4)
-    brand_corner(t, out)
     # 时间轴：章节名常显，当前章节点亮，让观众知道"走到哪了、后面还有什么"
     x0, x1, y = 60, 1860, 1040
     prog = t / DUR
@@ -1040,27 +1002,29 @@ def center_texts(t, out):
         if a > 0:
             hl = 1.0 if i == max(j for j, (tt, _) in enumerate(lines) if tt <= t) or t > 160.5 else 0.55
             blit(out, s, CX, 300 + i * 112, 52, SERIF, INK, a * hl, "m", track=14, wipe=w)
-    # 结尾：徽标 + 巴芒价值
+    # 片尾（品牌规范）：大号 logo + 金色「巴芒价值」+「BUFFETT · MUNGER」
     end = float(clip01((179.8 - t) / 1.3))
     if t >= LOGO_SHOW:
         k = float(ease((t - LOGO_SHOW) / 0.9)) * end
-        sh = float(clip01((t - 176.5) / 1.1))
-        blit_rgba(out, logo(END_LOGO_SIZE), *END_LOGO_C, k, shine=sh)
+        rgb, m = END_LOGO
+        blit_rgba(out, rgb, m, END_LOGO_C[0] - END_LOGO_SIZE / 2, END_LOGO_C[1] - END_LOGO_SIZE / 2, k)
     if t >= BRAND_T:
         w = float(clip01((t - BRAND_T) / 0.9))
-        sh = float(clip01((t - 176.7) / 1.1))
-        txt = gold_text("巴芒价值", 84, 26)
-        ty = END_LOGO_C[1] + 230
-        blit_rgba(out, txt, CX + 13, ty, end, wipe=w, shine=sh)
-        hw = txt.shape[1] / 2 + 40
+        sh = float(clip01((t - 176.7) / 1.4))
+        rgb, m = brand_text("巴芒价值", 112, "serif_black", track=0.08)
+        ty = 620
+        blit_rgba(out, rgb, m, CX - m.shape[1] / 2, ty - m.shape[0] / 2, end, wipe=w, shine=sh)
+        hw = m.shape[1] / 2 + 44
         ln = 170 * float(ease((t - BRAND_T - 0.3) / 1.0))
         for sgn in (-1, 1):
             xa, xb = CX + sgn * hw, CX + sgn * (hw + ln)
-            cv2.line(out, (int(min(xa, xb)), ty), (int(max(xa, xb)), ty), tuple(float(v) for v in GOLD_MID * 0.9 * end),
+            cv2.line(out, (int(min(xa, xb)), ty), (int(max(xa, xb)), ty), tuple(float(v) * 0.7 * end for v in SUB_GOLD),
                      1, cv2.LINE_AA)
+        w2 = float(clip01((t - 176.3) / 0.9))
+        rgb, m = brand_text("BUFFETT · MUNGER", 30, "corm", track=0.46, gold=False)
+        blit_rgba(out, rgb, m, CX - m.shape[1] / 2, 712 - m.shape[0] / 2, end, wipe=w2)
         a3, w3 = text_alpha(t, 176.9, 179.0, 1.0, 0.8)
-        blit(out, "长 期   ·   互 惠   ·   复 利", CX, ty + 78, 22, SERIF, GOLD_HI * 0.85, a3 * end, "m",
-             track=4, wipe=w3)
+        blit(out, "长期  ·  互惠  ·  复利", CX, 800, 28, SERIF, INK * 0.8, a3 * end, "m", track=8, wipe=w3)
 
 
 def render_frame(t):
@@ -1097,6 +1061,7 @@ def render_frame(t):
     hl = np.zeros((H, W, 3), np.float32)
     hud(t, out, hl)
     out += hl
+    HUD.draw(out, t, brand_alpha(t) * gfade)
     for (s, x, y, sz, fp, col, a, an) in texts:
         blit(out, s, x, y, sz, fp, col, a * gfade, an)
     for (t0, t1, s) in NARRATION:
