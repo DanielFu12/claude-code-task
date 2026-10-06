@@ -14,8 +14,8 @@ get Cormorant+Garamond 500 corm; get Cormorant+Garamond 600 corm_semi; get Orbit
 python3 src/timeline.py > "$WORK/captions_check.txt"       # 字幕阅读速度校验（≤6 字/秒）
 # 2) 原创配乐 + 低频转场音效
 (cd src && python3 music.py "$WORK")
-# 3) 逐帧渲染（4 进程并行，共 7344 帧）
-for k in 0 1 2 3; do (cd src && python3 video.py chunk $((k*1836)) $(((k+1)*1836)) "$WORK/seg$k.mp4") & done; wait
+# 3) 逐帧渲染（4 进程并行，共 7440 帧）
+for k in 0 1 2 3; do (cd src && python3 video.py chunk $((k*1860)) $(((k+1)*1860)) "$WORK/seg$k.mp4") & done; wait
 printf "file '%s'\n" "$WORK"/seg{0,1,2,3}.mp4 > "$WORK/list.txt"
 ffmpeg -loglevel error -y -f concat -safe 0 -i "$WORK/list.txt" -i "$WORK/mix.wav" \
   -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart "$OUT"

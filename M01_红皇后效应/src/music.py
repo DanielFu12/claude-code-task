@@ -82,17 +82,26 @@ CH = {  # pad 音（midi）、琶音音、贝斯根音
     'Gm': ([50, 58, 62, 67], [55, 58, 62, 67], 43),
     'A': ([49, 57, 61, 64], [57, 61, 64, 69], 33),
     'Dm9': ([50, 57, 64, 65], [62, 64, 69, 74], 38),
+    'B': ([51, 54, 59, 63], [59, 63, 66, 71], 35),       # E 小调的属和弦（桥段 → 高潮 3）
 }
 PROG_A = ['Dm', 'Bb', 'F', 'C']
 PROG_B = ['Bb', 'Gm', 'Dm', 'A']
-SEC_START = [4, 9, 25, 41, 57, 69, 85, 95]
+BRIDGE = ['Bb', 'Gm', 'Dm', 'A', 'Bb', 'Gm', 'C', 'B']
+OUTRO = ['Dm', 'Bb', 'F', 'Gm', 'A']
+SEC_START = [4, 9, 25, 41, 57, 69, 93]
+
+
+def shift(bar):
+    """高潮 3 整体升 2 个半音（D 小调 → E 小调）"""
+    return 2 if 93 <= bar < 114 else 0
 
 
 def chord_at(bar):
     if bar < 4: return 'Dm'
     if bar == 8: return 'A'
-    if bar >= 95: return 'Dm9'
-    if bar in (93, 94): return ['Gm', 'A'][bar - 93]
+    if bar >= 119: return 'Dm9'
+    if 85 <= bar < 93: return BRIDGE[bar - 85]
+    if 114 <= bar < 119: return OUTRO[bar - 114]
     s = max(x for x in SEC_START if x <= bar)
     if 57 <= bar < 69: return PROG_B[(bar - s) % 4]
     return PROG_A[(bar - s) % 4]
@@ -111,7 +120,9 @@ def pad_cut(bar):
     if bar < 65: return 900
     if bar < 69: return ramp(bar, 65, 69, 900, 2600)
     if bar < 85: return 3600
-    if bar < 95: return ramp(bar, 85, 95, 2200, 700)
+    if bar < 93: return ramp(bar, 85, 93, 1100, 2800)
+    if bar < 114: return 3900
+    if bar < 119: return ramp(bar, 114, 119, 2200, 700)
     return 1600
 
 
@@ -123,7 +134,10 @@ def pad_gain(bar):
     if bar < 57: return 1.0
     if bar < 69: return 0.55
     if bar < 85: return 1.05
-    if bar < 95: return ramp(bar, 85, 95, 0.85, 0.45)
+    if bar < 93: return ramp(bar, 85, 93, 0.6, 0.95)
+    if bar < 111: return 1.1
+    if bar < 114: return 0.95
+    if bar < 119: return ramp(bar, 114, 119, 0.85, 0.45)
     return 0.0  # 片尾和弦单独写
 
 
@@ -132,7 +146,7 @@ def pad_bar(bar, chord, cut, gain):
     t0 = b(bar) - 0.08
     dur = BAR + 0.16
     n = S(dur)
-    notes = CH[chord][0]
+    notes = [m + shift(bar) for m in CH[chord][0]]
     out = np.zeros((n, 2))
     det = [-14, -7, 0, 7, 14]
     for m in notes:
@@ -271,7 +285,7 @@ def compose():
     kicks = []  # 用于侧链
 
     # ---------- drone（钩子、抽空、片尾）
-    for (a, z, g) in ((0, 4.0, 1.0), (57, 69, 0.7), (95, 102, 0.8)):
+    for (a, z, g) in ((0, 4.0, 1.0), (57, 69, 0.7), (85, 89, 0.5), (119, 124, 0.8)):
         t0, t1 = b(a), b(z)
         n = S(t1 - t0)
         t = np.arange(n) / SR
@@ -295,7 +309,7 @@ def compose():
             add(fx, tick() * 0.05, b(bar, bt + 0.5), pan=0.3 * (1 if bt % 2 else -1))
 
     # ---------- pad
-    for bar in range(4, 95):
+    for bar in range(4, 119):
         g = pad_gain(bar)
         if g <= 0: continue
         t0, x = pad_bar(bar, chord_at(bar), pad_cut(bar), g)
@@ -307,19 +321,22 @@ def compose():
         if 4 <= bar < 57: return ramp(bar, 4, 9, 0.35, 0.5) if bar < 9 else ramp(bar, 9, 25, 0.5, 0.7) if bar < 25 else ramp(bar, 25, 41, 0.75, 0.95) if bar < 41 else 1.0
         if 65 <= bar < 69: return ramp(bar, 65, 69, 0.4, 0.85)
         if 69 <= bar < 85: return 1.0
-        if 85 <= bar < 93: return ramp(bar, 85, 93, 0.8, 0.35)
+        if 85 <= bar < 93: return ramp(bar, 85, 93, 0.55, 0.9)
+        if 93 <= bar < 114: return 1.0
+        if 114 <= bar < 119: return ramp(bar, 114, 119, 0.75, 0.3)
         return 0
-    for bar in range(4, 95):
+    for bar in range(4, 119):
         g = arp_on(bar)
         if g <= 0: continue
-        tones = CH[chord_at(bar)][1]
+        tones = [m + shift(bar) for m in CH[chord_at(bar)][1]]
         cut = (
             ramp(bar, 4, 25, 700, 1300) if bar < 25 else ramp(bar, 25, 41, 1300, 2600) if bar < 41 else
-            3000 if bar < 57 else ramp(bar, 65, 69, 800, 2400) if bar < 69 else 3400 if bar < 85 else ramp(bar, 85, 93, 2200, 700))
+            3000 if bar < 57 else ramp(bar, 65, 69, 800, 2400) if bar < 69 else 3400 if bar < 85 else
+            ramp(bar, 85, 93, 1200, 2600) if bar < 93 else 3600 if bar < 114 else ramp(bar, 114, 119, 2200, 700))
         for k in range(16):
             t = b(bar, k * 0.25)
-            if (bar in (40, 68) and k >= 12): continue          # 重拍前抽空
-            m = tones[ARP_PAT[k]] + (12 if (bar >= 69 and bar < 85 and k in (6, 14)) else 0)
+            if (bar in (40, 68, 92, 110) and k >= 12): continue          # 重拍前抽空
+            m = tones[ARP_PAT[k]] + (12 if ((69 <= bar < 85 or 93 <= bar < 114) and k in (6, 14)) else 0)
             vel = (1.0 if k % 4 == 0 else 0.62 if k % 2 == 0 else 0.48) * g
             x = pluck(m, 0.14, cut, vel) * 0.055
             pan = 0.35 * math.sin(k * math.pi / 4)
@@ -333,19 +350,19 @@ def compose():
     arp += lp(dl, 3500, 2)
 
     # ---------- 贝斯
-    for bar in range(4, 95):
-        root = CH[chord_at(bar)][2]
-        if bar < 25 or 57 <= bar < 65 or bar >= 85:
+    for bar in range(4, 119):
+        root = CH[chord_at(bar)][2] + shift(bar)
+        if bar < 25 or 57 <= bar < 65 or 85 <= bar < 89 or 111 <= bar < 113 or bar >= 114:
             g = 0.28 if bar < 25 else 0.36
-            if 57 <= bar < 65: g = 0.24
+            if 57 <= bar < 65 or 85 <= bar < 89: g = 0.26
             add(bass, sub_note(root, BAR - 0.02, 1.2) * g, b(bar))
-        elif 65 <= bar < 69:
+        elif 65 <= bar < 69 or 89 <= bar < 93 or bar == 113:
             for k in range(8):
-                if bar == 68 and k >= 6: continue
+                if bar in (68, 92) and k >= 6: continue
                 add(bass, sub_note(root, BEAT / 2 - 0.04, 1.6) * 0.32, b(bar, k / 2))
         else:
             for k in range(8):
-                if bar == 40 and k >= 6: continue
+                if bar in (40, 110) and k >= 6: continue
                 m = root + (12 if k in (3, 7) and bar >= 41 else 0)
                 add(bass, sub_note(m, BEAT / 2 - 0.03, 1.8) * (0.42 if k % 2 == 0 else 0.34), b(bar, k / 2))
 
@@ -366,8 +383,12 @@ def compose():
         if bar >= 29 and bar < 39:
             add(drums, clap() * 0.13, b(bar, 1)); add(drums, clap() * 0.13, b(bar, 3))
             add(wet_send, np.stack([clap()] * 2, 1) * 0.05, b(bar, 1))
-    for (a, z) in ((41, 57), (69, 85)):
+    for (a, z) in ((41, 57), (69, 85), (93, 111)):
         for bar in range(a, z):
+            if bar == 110:   # 跑步机金句前：抽空最后一拍
+                for k in range(3): K(b(bar, k), 0.85)
+                add(drums, clap() * 0.16, b(bar, 1))
+                continue
             for k in range(4): K(b(bar, k), 0.95 if k == 0 else 0.85)
             for k in (1, 3):
                 add(drums, clap() * 0.16, b(bar, k)); add(wet_send, np.stack([clap()] * 2, 1) * 0.06, b(bar, k))
@@ -377,7 +398,7 @@ def compose():
                 for j, k in enumerate((2.5, 3, 3.25, 3.5, 3.75)):
                     add(drums, tom(110 - 8 * j) * 0.22, b(bar, k), pan=-0.3 + 0.15 * j)
     # 重拍前的嗵鼓渐强
-    for (a, z) in ((39, 41), (67, 69)):
+    for (a, z) in ((39, 41), (67, 69), (91, 93)):
         n16 = int((z - a) * 16) - 4
         for k in range(n16):
             tt = b(a, k * 0.25)
@@ -389,9 +410,27 @@ def compose():
         for k in range(4 if bar < 67 else 8):
             if bar == 68 and k >= 6: continue
             K(b(bar, k * (1 if bar < 67 else 0.5)), 0.5 + 0.05 * (bar - 65))
+    # 桥段：底鼓由疏到密
+    for bar in range(85, 93):
+        if bar < 89:
+            K(b(bar, 0), 0.5); K(b(bar, 2), 0.4)
+        elif bar < 91:
+            for k in range(4): K(b(bar, k), 0.6)
+            add(drums, clap() * 0.1, b(bar, 1)); add(drums, clap() * 0.1, b(bar, 3))
+        else:
+            for k in range(8):
+                if bar == 92 and k >= 6: continue
+                K(b(bar, k / 2), 0.55 + 0.03 * k)
+    # 跑步机金句：减半速度，重拍更重
+    K(b(111), 1.0); add(drums, tom(70) * 0.35, b(111))
+    for bar in (111, 112):
+        if bar > 111: K(b(bar, 0), 0.9)
+        add(drums, clap() * 0.18, b(bar, 2)); add(wet_send, np.stack([clap()] * 2, 1) * 0.08, b(bar, 2))
+    for k in range(8):
+        K(b(113, k / 2), 0.5 + 0.04 * k)
     # 尾声：底鼓渐弱
-    for bar in range(85, 89):
-        K(b(bar, 0), 0.6 - 0.08 * (bar - 85)); K(b(bar, 2), 0.5 - 0.08 * (bar - 85))
+    for bar in range(114, 118):
+        K(b(bar, 0), 0.6 - 0.08 * (bar - 114)); K(b(bar, 2), 0.5 - 0.08 * (bar - 114))
 
     # ---------- 主旋律
     def play_mel(a, oct=0, cut=2400, bellg=0.0, g=0.07):
@@ -407,6 +446,8 @@ def compose():
     play_mel(41, 0, 2200, 0.0, 0.065)
     play_mel(69, 12, 2800, 0.25, 0.05)
     play_mel(69, 0, 1800, 0.0, 0.035)   # 低八度叠加，高潮 2 更厚
+    play_mel(93, 14, 3000, 0.3, 0.05)   # 高潮 3：升 2 个半音，再叠钟声
+    play_mel(93, 2, 2000, 0.0, 0.04)
     # 抽空段：钟声动机
     for rep in range(3):
         for i, barnotes in enumerate(BELL_MOTIF):
@@ -418,30 +459,32 @@ def compose():
                 add(wet_send, np.stack([x, x], 1) * 0.8, tt)
                 bt += d
 
-    # ---------- 片尾：bar 97 轻击，bar 98 重拍大和弦
-    for (bar, g) in ((97, 0.45), (98, 1.0)):
-        K(b(bar), g)
-        add(drums, tom(70) * 0.3 * g, b(bar))
-    n = S(b(102) - b(98))
+    # ---------- 片尾：bar 120.5 轻击（logo 浮现），bar 121 重拍大和弦（品牌字）
+    E0, EL, EW, EZ = 119, b(120, 2), b(121), b(124)
+    for (tt, g) in ((EL, 0.45), (EW, 1.0)):
+        K(tt, g)
+        add(drums, tom(70) * 0.3 * g, tt)
+    n = S(EZ - EW)
     t = np.arange(n) / SR
     e = np.minimum(t / 0.01, 1) * np.exp(-t / 3.2)
     for m in CH['Dm9'][0] + [74, 77]:
         for c in (-9, 0, 9):
             v = lp(saw(mtof(m) * 2 ** (c / 1200), n, RNG.random()), 2600, 2)
-            add(pad, v * e * 0.016, b(98), pan=c / 12)
-            add(wet_send, np.stack([v, v], 1) * e[:, None] * 0.01, b(98))
-    add(bass, sub_note(38, b(102) - b(98) - 0.1, 1.4) * e[:len(sub_note(38, b(102) - b(98) - 0.1))] * 0.45, b(98))
+            add(pad, v * e * 0.016, EW, pan=c / 12)
+            add(wet_send, np.stack([v, v], 1) * e[:, None] * 0.01, EW)
+    sn = sub_note(38, EZ - EW - 0.1, 1.4)
+    add(bass, sn * e[:len(sn)] * 0.45, EW)
     for m in (74, 81, 86):
         x = bell(m, 2.0) * 0.045
-        add(lead, x, b(98)); add(wet_send, np.stack([x, x], 1) * 0.8, b(98))
-    # bar 95–98：低频和弦膨胀
-    n2 = S(b(98) - b(95))
+        add(lead, x, EW); add(wet_send, np.stack([x, x], 1) * 0.8, EW)
+    # 汇聚段：低频和弦膨胀
+    n2 = S(EW - b(E0))
     t2 = np.arange(n2) / SR
     sw = 0.3 + 0.7 * (t2 / t2[-1]) ** 2.0
     for m in (38, 45, 50, 57, 62):
         v = lp(saw(mtof(m), n2, RNG.random()) + saw(mtof(m) * 1.004, n2, RNG.random()), 900, 2)
-        add(pad, v * sw * 0.045, b(95), pan=(m - 50) / 16)
-        add(wet_send, np.stack([v, v], 1) * sw[:, None] * 0.02, b(95))
+        add(pad, v * sw * 0.045, b(E0), pan=(m - 50) / 16)
+        add(wet_send, np.stack([v, v], 1) * sw[:, None] * 0.02, b(E0))
 
     # ---------- 侧链（底鼓压 pad/琶音/贝斯）
     duck = np.ones(N)
@@ -567,7 +610,7 @@ if __name__ == '__main__':
     g = 10 ** (-15 / 20) / math.sqrt(float(np.mean(seg ** 2)))
     music *= g
     # 结尾淡出（与画面最终淡出同步）
-    f0, f1 = S(b(100, 2)), N
+    f0, f1 = S(b(122, 2)), N
     music[f0:f1] *= np.linspace(1, 0, f1 - f0)[:, None] ** 1.6
     sfx, log = build_sfx(music)
     sf.write(os.path.join(W, 'bgm.wav'), limiter(music).astype(np.float32), SR)

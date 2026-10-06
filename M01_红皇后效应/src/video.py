@@ -27,7 +27,8 @@ CRIMSON = C(255, 50, 90); AMBER = C(255, 165, 60); INDIGO = C(110, 110, 255)
 
 # ================================================================ 节拍
 ENERGY = [(0, .3), (9.5, .3), (9.6, .9), (16.8, .6), (21.6, .4), (b(25), .5), (b(39), .85), (b(41), 1), (b(57) - .1, 1),
-          (b(57), .3), (b(65), .4), (b(69) - .1, .7), (b(69), 1), (b(85) - .1, 1), (b(85), .5), (b(95), .35), (b(98), .8), (DUR, .2)]
+          (b(57), .3), (b(65), .4), (b(69) - .1, .7), (b(69), 1), (b(85) - .1, 1), (b(85), .45), (b(92), .8), (b(93) - .1, .8),
+          (b(93), 1), (b(111) - .1, 1), (b(111), .9), (b(114), .5), (b(119), .35), (b(121), .8), (DUR, .2)]
 
 
 def energy(t):
@@ -55,10 +56,16 @@ BGK = [
     (109.2, (150, 80, 20), (70, 30, 20), 1.0), (129.6, (60, 40, 30), (40, 20, 40), .7),
     (136.8, (15, 30, 85), (20, 15, 55), .75), (160.8, (20, 20, 50), (30, 15, 40), .55), (165.5, (20, 20, 50), (30, 15, 40), .5),
     (165.6, (150, 60, 50), (30, 90, 170), 1.45), (169, (110, 45, 45), (30, 70, 140), 1.05),
-    (183.6, (150, 100, 30), (60, 40, 100), 1.1), (190.8, (60, 40, 110), (30, 60, 120), .95),
-    (204, (30, 30, 95), (20, 40, 90), .8), (220.8, (120, 80, 25), (40, 25, 80), 1.0),
-    (228, (20, 40, 100), (30, 20, 60), .7), (235.1, (20, 40, 100), (30, 20, 60), .6),
-    (235.2, (40, 85, 170), (120, 85, 30), 1.15), (241, (25, 45, 100), (60, 45, 20), .8), (DUR, (10, 15, 30), (10, 10, 20), .4)]
+    (183.6, (150, 100, 30), (60, 40, 100), 1.1), (190.8, (120, 40, 40), (40, 30, 100), .95),
+    (195.6, (20, 70, 130), (60, 30, 120), 1.0), (203.9, (20, 60, 120), (50, 30, 110), .9),
+    (204.0, (15, 25, 70), (25, 15, 50), .65), (213.6, (120, 85, 25), (40, 30, 90), .95),
+    (223.1, (30, 25, 50), (30, 20, 40), .6), (223.2, (200, 130, 40), (40, 110, 170), 1.5),
+    (226, (120, 80, 30), (40, 70, 130), 1.05), (237.6, (30, 90, 120), (110, 70, 30), 1.0),
+    (259.2, (110, 30, 50), (40, 30, 100), .95), (266.3, (60, 20, 40), (30, 20, 60), .7),
+    (266.4, (210, 150, 50), (60, 120, 180), 1.5), (270, (130, 90, 30), (40, 60, 120), 1.05),
+    (273.6, (30, 30, 95), (20, 40, 90), .8), (280.8, (120, 80, 25), (40, 25, 80), 1.0),
+    (285.6, (20, 40, 100), (30, 20, 60), .7), (290.3, (20, 40, 100), (30, 20, 60), .6),
+    (290.4, (40, 85, 170), (120, 85, 30), 1.15), (295, (25, 45, 100), (60, 45, 20), .8), (DUR, (10, 15, 30), (10, 10, 20), .4)]
 
 NB1 = fbm(512, 288, 11, 6, 3); NB2 = fbm(512, 288, 22, 6, 3); NB3 = fbm(512, 288, 33, 5, 5)
 
@@ -86,7 +93,7 @@ RNG = np.random.default_rng(1234)
 NST = 1200
 ST_X = RNG.uniform(-1.8, 1.8, NST); ST_Y = RNG.uniform(-1.1, 1.1, NST); ST_Z0 = RNG.uniform(0, 1, NST)
 ST_COL = np.array([lerpc(WHITE, [CYAN, VIOLET, WHITE, BGOLD_L, PINK][i % 5], 0.4) for i in range(NST)], np.float32)
-RISERS = [(b(3), b(4)), (b(39), b(41)), (b(67), b(69)), (b(95), b(98))]
+RISERS = [(b(3), b(4)), (b(39), b(41)), (b(67), b(69)), (b(91), b(93)), (b(110), b(111)), (b(119), b(121))]
 
 
 def star_speed(t):
@@ -340,9 +347,9 @@ def draw_caps(f, t):
 # ================================================================ 章节标签与进度条
 CHAPTERS = [(0, '序', '序章', 'PROLOGUE'), (b(9), '01', '镜中的奔跑', 'THROUGH THE LOOKING-GLASS'),
             (b(25), '02', '没有终点的赛跑', 'THE ENDLESS RACE'), (b(41), '03', '踮起脚尖的人群', 'THE TIPTOE PARADE'),
-            (b(69), '04', '三种投入', 'THREE KINDS OF RUNNING'), (b(85), '05', '使用边界', 'LIMITS'),
-            (b(95), '终', '片尾', 'END'), (DUR, '', '', '')]
-CHROME_END = b(95)
+            (b(69), '04', '三种投入', 'THREE KINDS OF RUNNING'), (b(85), '05', '逃离跑步机', 'ESCAPE THE TREADMILL'),
+            (b(114), '06', '边界与提问', 'LIMITS'), (b(119), '终', '片尾', 'END'), (DUR, '', '', '')]
+CHROME_END = b(119)
 
 
 def draw_chrome(f, t):
@@ -1087,70 +1094,354 @@ def sc_three(f, t):
         f.glow((1440, 440), 260, BGOLD, p * 0.06, 'B')
 
 
-def sc_phones(f, t):
-    if not (b(79, 2) - 0.2 < t < b(85) + 0.2): return
-    a = env(t, b(79, 2), b(85), 0.4, 0.35)
-    xl, xr = 640, 1280
-    f.text('卖点', xl, 260, 44, 'sans_black', BGOLD, a, mode='O', glow=0.4)
-    f.text('标配', xr, 260, 44, 'sans_black', lerpc(CRIMSON, GREY, .4), a, mode='O', glow=0.3)
-    f.line((W / 2, 230), (W / 2, 700), GREY, a * 0.3, 1)
-    for i, s in enumerate(('影像', '快充', '高刷屏')):
-        tin = b(79, 2) + 0.6 + i * BEAT
-        tm = b(81) + i * BEAT * 2
-        p = eio((t - tm) / 0.9)
-        x = xl + (xr - xl) * p
-        y = 400 + i * 110 - math.sin(p * math.pi) * 60
-        col = lerpc(BGOLD, lerpc(CRIMSON, GREY, .3), p)
-        chip(f, s, x, y, 34, col, a * eo((t - tin) / 0.4))
-    if t > b(82, 2):
-        p = eo((t - b(82, 2)) / 0.6) * a
-        f.text('拉开差距', xl, 760, 34, 'sans_med', BGOLD, p, mode='O')
-        arrow(f, (xl + 110, 760), (xr - 110, 760), lerpc(BGOLD, CRIMSON, .5), p, 3, 16)
-        f.text('保住资格', xr, 760, 34, 'sans_med', CRIMSON, p, mode='O')
+def loop_nodes(f, t, cx, cy, rx, ry, labels, cols, t0, a, speed=0.35, size=30, chip_fill=0.12, ang0=-math.pi / 2):
+    """环形流程图：节点按拍依次出现，箭头首尾相接，一颗光点沿环奔跑"""
+    n = len(labels)
+    P = [(cx + rx * math.cos(ang0 + k * 2 * math.pi / n), cy + ry * math.sin(ang0 + k * 2 * math.pi / n)) for k in range(n)]
+    for k in range(n):
+        p = eo((t - t0 - k * BEAT) / 0.4) * a
+        if p <= 0: continue
+        q0 = ang0 + k * 2 * math.pi / n + 0.32; q1 = ang0 + (k + 1) * 2 * math.pi / n - 0.32
+        qs = np.linspace(q0, q0 + (q1 - q0) * p, 30)
+        pts = np.stack([cx + rx * np.cos(qs), cy + ry * np.sin(qs)], 1)
+        f.poly(pts, lerpc(cols[k], WHITE, .2), p * 0.7, 2)
+        if p > 0.95:
+            arrow(f, tuple(pts[-3]), tuple(pts[-1]), lerpc(cols[k], WHITE, .2), p * 0.8, 2, 12)
+        chip(f, labels[k], P[k][0], P[k][1], size, cols[k], p, 'sans_black', chip_fill)
+    if t > t0 + n * BEAT * 0.6:
+        e = ang0 + (t - t0) * speed * 2 * math.pi
+        comet(f, cx + rx * math.cos(e), cy + ry * math.sin(e), 12, WHITE, a * 0.9)
+    return P
 
 
-LIMITS = [(b(86), '市场还在快速扩张时，大家可能一起变好'),
-          (b(87, 2), '有专利、网络效应护着的进步，未必被抵消'),
-          (b(89), '变化也来自技术、需求和制度，不只来自对手'),
-          (b(90, 2), '红皇后是{假说}，不是「必须永远内卷」的定律')]
+def sc_cycle(f, t):
+    if not (b(79, 2) - 0.2 < t < b(81, 2) + 0.2): return
+    a = env(t, b(79, 2), b(81, 2), 0.35, 0.3)
+    labels = ['创新', '模仿', '标配化', '优势消失']
+    cols = [BGOLD, ORANGE, CRIMSON, GREY]
+    loop_nodes(f, t, W / 2, 450, 380, 190, labels, cols, b(79, 2), a, 0.45, 34)
+    f.text('红皇后循环', W / 2, 440, 34, 'serif_black', lerpc(CRIMSON, WHITE, .3), a * eo((t - b(80)) / 0.5), mode='O', glow=0.4)
+    f.text('↻ 转一圈，回到原点', W / 2, 490, 22, 'sans_light', GREY, a * eo((t - b(80, 2)) / 0.5), mode='O')
+    f.glow((W / 2, 450), 160, CRIMSON, a * 0.12 * (1 + beat_pulse(t)), 'B')
+
+
+def sc_ai(f, t):
+    """大模型竞赛：五家厂商的资本开支同步上涨，一家领先，其余很快跟上"""
+    if not (b(81, 2) - 0.2 < t < b(85) + 0.2): return
+    a = env(t, b(81, 2), b(85), 0.35, 0.3)
+    t0 = b(81, 2)
+    n = 5
+    xs = [W / 2 + (i - 2) * 230 for i in range(n)]
+    base_y = 700
+    f.line((xs[0] - 140, base_y), (xs[-1] + 140, base_y), GREY, a * 0.6, 1)
+    f.text('资本开支 · 算力投入', W / 2, 205, 30, 'sans_black', lerpc(CYAN, WHITE, .4), a, mode='O')
+    f.text('示意', xs[-1] + 120, 205, 20, 'sans_light', GREY, a * 0.8, mode='O')
+    k = int(max(t - t0, 0) / BEAT)
+    for i, x in enumerate(xs):
+        grow = 90 + 300 * eio(cl((t - t0) / (BAR * 3.2)))
+        lead = 0.0
+        for j in range(k + 1):     # 每拍一家发布新模型、领先一截，其余在一拍内跟上
+            if j % n == i:
+                dt = t - (t0 + j * BEAT)
+                lead = max(lead, 60 * math.exp(-max(dt - 0.15, 0) / 0.35) * cl(dt / 0.1))
+        h = grow + lead
+        p = eo((t - t0 - i * 0.1) / 0.5) * a
+        col = lerpc(CYAN, VIOLET, i / 4)
+        f.rrect_fill(x - 55, base_y - h, x + 55, base_y, 8, col, p * 0.22)
+        f.rrect(x - 55, base_y - h, x + 55, base_y, 8, col, p, 2)
+        for r in range(int(h // 34)):   # 机柜里的 GPU
+            yy = base_y - 20 - r * 34
+            f.line((x - 38, yy), (x + 38, yy), lerpc(col, WHITE, .4), p * 0.5, 2)
+            f.glow((x + 30, yy), 2.5, TEAL if (r + i + int(t * 6)) % 3 else WHITE, p, 'E')
+        if lead > 20:
+            f.text('新模型', x, base_y - h - 34, 24, 'sans_black', BGOLD, p * cl(lead / 60), mode='O', glow=0.4)
+            f.glow((x, base_y - h), 40, BGOLD, p * cl(lead / 60) * 0.6, 'B')
+        f.text('厂商', x, base_y + 30, 22, 'sans_light', GREY, p, mode='O')
+    if t > b(83):
+        al = a * eo((t - b(83)) / 0.5)
+        arrow(f, (xs[-1] + 150, base_y - 40), (xs[-1] + 150, 300), CRIMSON, al, 3, 16)
+        f.text('不投就掉队', xs[-1] + 150, 270, 24, 'sans_black', CRIMSON, al, mode='O')
+
+
+MOATS = ['强品牌', '网络效应', '低成本结构', '独占渠道', '高切换成本', '专利', '监管牌照', '独特生态']
+
+
+def moat_pos(i):
+    return W / 2 + (i % 4 - 1.5) * 330, 420 + (i // 4) * 130
+
+
+def sc_moats(f, t):
+    if not (b(85) - 0.1 < t < b(90, 2) + 0.2): return
+    a1 = env(t, b(85), b(86, 2), 0.3, 0.3)
+    if a1 > 0:   # 循环被打破
+        for k in range(10):
+            q0 = k / 10 * 2 * math.pi + t * 0.3
+            d = 40 * eo((t - b(85)) / 1.2)
+            cx, cy = W / 2 + d * math.cos(q0 + 0.3), 520 + d * math.sin(q0 + 0.3) * 0.5
+            qs = np.linspace(q0, q0 + 0.45, 12)
+            f.poly(np.stack([cx + 420 * np.cos(qs), cy + 210 * np.sin(qs)], 1), CRIMSON, a1 * 0.6, 3)
+    a = env(t, b(86, 2), b(90, 2), 0.3, 0.5)
+    if a <= 0: return
+    merge = eio((t - b(89, 2)) / (BAR * 0.9))
+    for i, name in enumerate(MOATS):
+        p = eo((t - b(86, 2) - i * BEAT / 2) / 0.35) * a
+        x, y = moat_pos(i)
+        x = lerp(x, W / 2, merge); y = lerp(y, 470, merge)
+        col = lerpc(BGOLD, [CYAN, VIOLET, TEAL, ORANGE][i % 4], 0.35)
+        chip(f, name, x, y, 36 * (1 - 0.6 * merge), col, p * (1 - merge * 0.9), 'sans_black', 0.14)
+    f.glow((W / 2, 470), 120 + 120 * merge, BGOLD, a * (0.1 + 0.35 * merge), 'B')
+
+
+def sc_flywheel(f, t):
+    if not (b(90, 2) - 0.1 < t < b(93) + 0.1): return
+    a = env(t, b(90, 2), b(93) - 0.2, 0.3, 0.25)
+    grow = 1 + 0.25 * eio((t - b(90, 2)) / (BAR * 2.5))
+    labels = ['优势', '更多用户', '更多资源', '更大优势']
+    cols = [BGOLD, CYAN, TEAL, BGOLD_L]
+    loop_nodes(f, t, W / 2, 470, 360 * grow, 175 * grow, labels, cols, b(90, 2), a, 0.3 + 0.4 * (grow - 1) * 4, 32, 0.16)
+    f.text('马太效应', W / 2, 470, 40, 'serif_black', BGOLD, a * eo((t - b(91, 2)) / 0.5), mode='O', glow=0.5)
+    for k in range(3):   # 越转越大
+        f.circle((W / 2, 470), (120 + 40 * k) * grow, BGOLD, a * 0.15, 1)
+    implode(f, t, b(92), b(93), W / 2, 470, [BGOLD, CYAN, WHITE, BGOLD_L, TEAL, AMBER], 0.6, R0=800)
+
+
+def treadmill(f, t, cx, cy, w, a, col=GREY, belt_speed=1.0):
+    """侧视跑步机：两个滚轮 + 移动的皮带纹路；返回皮带顶面的 y"""
+    if a <= 0.003: return cy - 18
+    x0, x1 = cx - w / 2, cx + w / 2
+    r = 18
+    f.arc((x0, cy), r, math.pi / 2, 1.5 * math.pi, col, a, 2, 20)
+    f.arc((x1, cy), r, -math.pi / 2, math.pi / 2, col, a, 2, 20)
+    f.line((x0, cy - r), (x1, cy - r), col, a, 3)
+    f.line((x0, cy + r), (x1, cy + r), col, a * 0.6, 2)
+    off = (t * belt_speed * 160) % 40
+    for k in range(int(w // 40) + 1):
+        xx = x1 - k * 40 - off
+        if x0 < xx < x1:
+            f.line((xx, cy - r - 3), (xx - 12, cy - r - 3), lerpc(col, WHITE, .3), a * 0.7, 2)
+    for xx in (x0, x1):
+        f.circle((xx, cy), r * 0.45, col, a * 0.8, 2)
+    f.line((x1 - 20, cy - r), (x1 + 20, cy - 150), col, a * 0.7, 2)   # 扶手
+    f.line((x1 + 20, cy - 150), (x1 - 40, cy - 150), col, a * 0.7, 2)
+    return cy - r
+
+
+def runner_on(f, t, x, ytop, col, a, s=16):
+    bob = abs(math.sin(math.pi * t / (BEAT / 2))) * 10
+    comet(f, x, ytop - s - 6 - bob, s, col, a)
+    for k in range(6):   # 速度线
+        ph = (t * 3 + k * 0.17) % 1
+        yy = ytop - s - 14 - bob + (k - 2.5) * 6
+        f.line((x - s - 10 - ph * 70, yy), (x - s - 40 - ph * 70, yy), lerpc(col, WHITE, .3), a * (1 - ph) * 0.6, 2)
+
+
+def jump_runner(f, t, tj, x0, y0, col, a, dist=620, s=18):
+    """tj 时刻从跑步机跳下，落到地面继续向前"""
+    u = cl((t - tj) / (BEAT * 1.5))
+    if t < tj:
+        runner_on(f, t, x0, y0, col, a, s); return
+    x = x0 + dist * eio(u) + (t - tj - BEAT * 1.5) * 90 * (u >= 1)
+    y = y0 - s - 6 - math.sin(u * math.pi) * 160 + (u * 60)
+    for k in range(18):   # 光迹
+        uu = cl(u - k * 0.03)
+        xx = x0 + dist * eio(uu); yy = y0 - s - 6 - math.sin(uu * math.pi) * 160 + uu * 60
+        f.glow((xx, yy), 6, col, a * (1 - k / 18) * 0.6, 'E')
+    comet(f, min(x, W - 120), y, s, col, a)
+
+
+def sc_escape(f, t):
+    if not (b(93) - 0.1 < t < b(94) + 0.2): return
+    a = env(t, b(93), b(94), 0.15, 0.3)
+    burst(f, t, b(93), W / 2, 560, [BGOLD, CYAN, WHITE, BGOLD_L, TEAL, AMBER], 6, 900, 1900, 1.6)
+    rich_line(f, '最重要的一点', W / 2, 190, 30, 'sans_med', BGOLD, a=a, t0=b(93), stag=0.03, underline=False, track=0.2)
+    ytop = treadmill(f, t, W / 2 - 200, 720, 560, a, lerpc(CRIMSON, GREY, .3), 2.0)
+    floor(f, t, a * eo((t - b(93, 2)) / 0.6), t * 3, BGOLD, C(80, 55, 20), tile=0.5, fill=0.08, hor=760)
+    jump_runner(f, t, b(93, 2), W / 2 - 200, ytop, BGOLD, a)
+
+
+def sc_systems(f, t):
+    if not (b(94) - 0.1 < t < b(99) + 0.2): return
+    a = env(t, b(94), b(99), 0.3, 0.3)
+    # 左：红皇后型（闭环，原地打转）
+    aL = a * (0.45 + 0.55 * (t < b(96, 2) + 0.2))
+    f.text('红皇后型', 520, 205, 40, 'serif_black', CRIMSON, aL * eo((t - b(94)) / 0.4), mode='O', glow=0.4)
+    loop_nodes(f, t, 520, 470, 270, 175, ['投入', '创新', '对手跟进', '优势归零'], [GREY, BGOLD, ORANGE, CRIMSON],
+               b(94, 1), aL, 0.4, 26, 0.12)
+    f.text('地位：不变', 520, 470, 26, 'sans_med', lerpc(CRIMSON, WHITE, .4), aL * eo((t - b(95, 1)) / 0.4), mode='O')
+    # 右：复利型（螺旋向外，每圈留下资产）
+    t1 = b(96, 2)
+    aR = a * eo((t - t1) / 0.5)
+    if aR <= 0: return
+    cx, cy = 1400, 470
+    f.text('复利型', cx, 205, 40, 'serif_black', BGOLD, aR, mode='O', glow=0.4)
+    p = eio((t - t1) / (BAR * 2))
+    th = np.linspace(0, 4.2 * math.pi * p + 0.01, 220)
+    r = 18 + th * 14
+    pts = np.stack([cx + r * np.cos(th - math.pi / 2), cy + r * 0.62 * np.sin(th - math.pi / 2)], 1)
+    f.poly(pts, BGOLD, aR, 3)
+    f.glow(tuple(pts[-1]), 10, WHITE, aR, 'E'); f.glow(tuple(pts[-1]), 30, BGOLD, aR * 0.6, 'B')
+    labels = [('投入', (cx - 230, cy - 120)), ('品牌·网络·规模·数据', (cx + 175, cy + 40)),
+              ('护城河加深', (cx - 120, cy + 150)), ('下一轮更容易', (cx + 40, cy - 215))]
+    for i, (s_, (x, y)) in enumerate(labels):
+        chip(f, s_, x, y, 24, [GREY, CYAN, BGOLD, BGOLD_L][i], aR * eo((t - t1 - i * BEAT) / 0.4), 'sans_black', 0.14)
+    n_layers = int(cl((t - t1) / (BAR * 2.2)) * 6)   # 每圈留下一层资产
+    for k in range(n_layers):
+        yy = 690 - k * 14
+        f.rrect_fill(cx - 140, yy - 10, cx + 140, yy, 3, BGOLD, aR * 0.5)
+    if n_layers:
+        f.text('留下的资产', cx + 220, 690 - n_layers * 7, 22, 'sans_med', BGOLD, aR, 'l', mode='O')
+    f.line((W / 2 + 40, 230), (W / 2 + 40, 700), GREY, a * 0.3, 1)
+
+
+PATHS = [('换生态位', b(99)), ('切换成本', b(101)), ('网络效应', b(103, 2)), ('品牌心智', b(105, 2))]
+_NR2 = np.random.default_rng(31)
+CROWD = (_NR2.normal(0, 1, (46, 2)), _NR2.uniform(0, 6.28, 46))
+NET = _NR2.uniform(-1, 1, (60, 2)) * np.array([380, 190])
+
+
+def sc_paths(f, t):
+    if not (b(99) - 0.1 < t < b(108) + 0.2): return
+    a = env(t, b(99), b(108), 0.3, 0.3)
+    cur = max(i for i, (_, tt) in enumerate(PATHS) if t >= tt - 0.01)
+    for i, (name, tt) in enumerate(PATHS):   # 顶部四步进度
+        x = W / 2 + (i - 1.5) * 260
+        on = i == cur
+        col = BGOLD if on else (lerpc(BGOLD, GREY, .5) if i < cur else GREY)
+        f.circle((x - 64, 180), 16, col, a, 2)
+        f.text(str(i + 1), x - 64, 180, 18, 'orb', col, a, mode='O')
+        f.text(name, x + 14, 180, 26, 'sans_black' if on else 'sans_med', col, a, mode='O')
+        if i < 3: f.line((x + 78, 180), (x + 120, 180), GREY, a * 0.4, 1)
+    t0 = PATHS[cur][1]
+    t1 = PATHS[cur + 1][1] if cur < 3 else b(108)
+    al = a * env(t, t0, t1, 0.3, 0.25)
+    if al <= 0: return
+    if cur == 0:   # 生态位：离开拥挤的同一维度
+        cx, cy = 720, 470
+        f.circle((cx, cy), 190, CRIMSON, al * 0.5, 2)
+        f.text('同一维度：拼 SKU 数量', cx, cy - 225, 24, 'sans_med', CRIMSON, al, mode='O')
+        P, ph = CROWD
+        xs = cx + P[:, 0] * 70 + np.sin(t * 6 + ph) * 6; ys = cy + P[:, 1] * 60 + np.cos(t * 5 + ph) * 6
+        for x_, y_ in zip(xs, ys):
+            f.glow((x_, y_), 4, lerpc(CRIMSON, WHITE, .3), al * 0.9, 'E')
+        u = eio((t - t0 - 0.4) / 1.4)
+        gx, gy = lerp(cx, 1300, u), lerp(cy, 440, u) - math.sin(u * math.pi) * 90
+        comet(f, gx, gy, 20, BGOLD, al)
+        f.circle((1300, 440), 150, BGOLD, al * u * 0.6, 2)
+        f.text('新生态位', 1300, 250, 28, 'sans_black', BGOLD, al * u, mode='O')
+        for i, s_ in enumerate(('会员制', '精选商品', '低毛利')):
+            chip(f, s_, 1300 + (i - 1) * 150, 640, 24, BGOLD, al * eo((t - t0 - 1.6 - i * BEAT) / 0.4), 'sans_black', 0.14)
+    elif cur == 1:  # 切换成本：根系越扎越深
+        cx, cy = 900, 470
+        f.rrect_fill(cx - 120, cy - 60, cx + 120, cy + 60, 16, CYAN, al * 0.14)
+        f.rrect(cx - 120, cy - 60, cx + 120, cy + 60, 16, CYAN, al, 3)
+        f.text('企业软件', cx, cy, 34, 'sans_black', lerpc(CYAN, WHITE, .5), al, mode='O')
+        g = eio((t - t0) / (BAR * 1.6))
+        for i, (s_, (x, y)) in enumerate((('流程', (cx - 360, cy - 150)), ('数据', (cx - 400, cy + 40)), ('培训', (cx - 330, cy + 210)))):
+            for k in range(3):
+                q = bez((cx - 120, cy - 30 + k * 30), (cx - 220, cy - 30 + k * 30), (x + 150, y), (x + 60, y), np.linspace(0, g, 30))
+                f.poly(q, TEAL, al * 0.55, 1 + int(2 * g))
+            chip(f, s_, x, y, 28, TEAL, al * eo((t - t0 - i * BEAT) / 0.4), 'sans_black', 0.14)
+        k = int(max(t - t0 - 1.0, 0) // (BAR * 0.75))
+        u = ((t - t0 - 1.0) % (BAR * 0.75)) / (BAR * 0.75) if t > t0 + 1.0 else 0
+        rx = 1500 - 330 * math.sin(u * math.pi)
+        if t > t0 + 1.0:
+            f.rrect(rx - 100, cy - 45, rx + 100, cy + 45, 14, RED, al, 2)
+            f.text('功能 +10%', rx, cy, 28, 'sans_black', RED, al, mode='O')
+            if u > 0.4 and u < 0.6:
+                f.glow((cx + 120, cy), 60, CYAN, al * 0.6, 'B')
+        f.text('客户：留下', cx, cy + 110, 24, 'sans_med', CYAN, al * eo((t - t0 - 2) / 0.5), mode='O')
+    elif cur == 2:  # 网络效应：节点越多，连线越多
+        cx, cy = 820, 460
+        nn = 4 + int(56 * eio(cl((t - t0) / (BAR * 1.8))))
+        Pn = NET[:nn] + np.array([cx, cy])
+        for i in range(1, nn):
+            d = np.hypot(*(Pn[:i] - Pn[i]).T)
+            for j in np.argsort(d)[:2]:
+                f.line(tuple(Pn[i]), tuple(Pn[j]), lerpc(CYAN, VIOLET, i / 60), al * 0.45, 1)
+        for i in range(nn):
+            f.glow(tuple(Pn[i]), 4, WHITE, al, 'E'); f.glow(tuple(Pn[i]), 12, CYAN, al * 0.4, 'B')
+        val = (nn / 60) ** 2
+        bx = 1450
+        f.rrect(bx - 40, 250, bx + 40, 680, 10, GREY, al * 0.6, 2)
+        f.rrect_fill(bx - 34, 674 - 418 * val, bx + 34, 674, 8, BGOLD, al * 0.7)
+        f.text('产品价值', bx, 715, 24, 'sans_med', BGOLD, al, mode='O')
+        f.text('用户数 ↑', cx, 230, 26, 'sans_med', CYAN, al, mode='O')
+        f.text('示意', bx + 90, 250, 20, 'sans_light', GREY, al * 0.8, mode='O')
+    else:            # 品牌与心智：参数竞赛绕开它
+        cx, cy = W / 2, 470
+        bag = [(cx - 150, cy - 60), (cx + 150, cy - 60), (cx + 185, cy + 150), (cx - 185, cy + 150)]
+        f.fillpoly(bag, BGOLD, al * 0.1)
+        f.poly(bag, BGOLD, al, 3, closed=True)
+        f.arc((cx, cy - 60), 90, math.pi, 2 * math.pi, BGOLD, al, 3, 40)
+        f.glow((cx, cy + 40), 170, BGOLD, al * 0.18 * (1 + 0.5 * beat_pulse(t)), 'B')
+        f.text('心智位置', cx, cy + 50, 34, 'serif_black', BGOLD_L, al, mode='O', glow=0.4)
+        for i, s_ in enumerate(('参数 +20%', '新款', '更多功能', '参数 +20%', '更低价')):
+            ph = ((t - t0) * 0.35 + i / 5) % 1.0
+            ang = i * 1.3 + 0.4
+            r = 520 - 200 * math.sin(ph * math.pi)
+            x, y = cx + r * math.cos(ang), cy + r * 0.55 * math.sin(ang)
+            chip(f, s_, x, y, 22, RED, al * math.sin(ph * math.pi) * 0.9, 'sans_med', 0.08)
+
+
+def sc_emphasis(f, t):
+    if not (b(108) - 0.1 < t < b(111) + 0.1): return
+    a = env(t, b(108), b(111) - 0.15, 0.35, 0.2)
+    sp = 1 + 2.5 * eio((t - b(108)) / (BAR * 3))
+    for i in range(5):   # 每个人都在加速，位置却没变
+        cx = W / 2 + (i - 2) * 340
+        col = [CYAN, CRIMSON, VIOLET, TEAL, ORANGE][i]
+        ytop = treadmill(f, t * sp, cx, 760, 240, a * 0.9, lerpc(col, GREY, .5), 1.5)
+        runner_on(f, t * sp, cx, ytop, col, a, 13)
+        f.text('进步 ×%.1f' % sp, cx, 820, 20, 'sans_med', lerpc(col, WHITE, .3), a * 0.9, mode='O')
+    f.text('位置：都没变', W / 2, 890, 26, 'sans_black', BGOLD, a * env(t, b(109, 2), b(111), 0.4, 0.2), mode='O')
+    implode(f, t, b(110), b(111), W / 2, 600, [BGOLD, WHITE, CYAN, BGOLD_L, CRIMSON, AMBER], 0.5, R0=900)
+
+
+def sc_treadmill(f, t):
+    if not (b(111) - 0.1 < t < b(114) + 0.1): return
+    a = env(t, b(111), b(114), 0.15, 0.35)
+    burst(f, t, b(111), W / 2, 600, [BGOLD, BGOLD_L, WHITE, CYAN, AMBER, BGOLD], 0, 800, 1700, 1.5)
+    floor(f, t, a * eo((t - b(111, 2)) / 0.8), max(t - b(111, 2), 0) * 4.5, BGOLD, C(90, 60, 20), tile=0.5, fill=0.1, hor=700)
+    ytop = treadmill(f, t, 620, 760, 520, a, lerpc(CRIMSON, GREY, .3), 2.2)
+    for i, col in enumerate((CRIMSON, GREY)):   # 还在跑步机上的人
+        runner_on(f, t, 480 + i * 150, ytop, col, a * 0.8, 14)
+    jump_runner(f, t, b(111, 2), 800, ytop, BGOLD, a, dist=700, s=20)
+
+
+LIMITS = [(b(114, 2), '市场还在快速扩张时，大家可能一起变好'),
+          (b(115, 2), '变化也来自技术、需求和制度，不只来自对手')]
 
 
 def sc_limits(f, t):
-    if not (b(85) - 0.2 < t < b(92) + 0.2): return
-    a = env(t, b(85), b(92), 0.4, 0.35)
+    if not (b(114) - 0.2 < t < b(117) + 0.2): return
+    a = env(t, b(114), b(117), 0.4, 0.35)
     floor(f, t, a * 0.6, t * 0.6, INDIGO, C(30, 30, 90), tile=0.5, fill=0.08)
-    x0, y0 = 450, 360
-    f.rrect(x0 - 70, y0 - 70, W - x0 + 70, y0 + 420, 20, lerpc(INDIGO, WHITE, .2), a * 0.5 * eo((t - b(85)) / 0.8), 1)
-    for i, (tt, s) in enumerate(LIMITS):
+    x0, y0 = 450, 420
+    f.rrect(x0 - 70, y0 - 70, W - x0 + 70, y0 + 170, 20, lerpc(INDIGO, WHITE, .2), a * 0.5 * eo((t - b(114)) / 0.8), 1)
+    for i, (tt, s_) in enumerate(LIMITS):
         p = eo((t - tt) / 0.4)
         if p <= 0: continue
         y = y0 + i * 100
-        cur = tt <= t < tt + 1.5 * BAR
-        col = BGOLD if cur else lerpc(INDIGO, WHITE, .5)
+        cur = tt <= t
+        col = BGOLD if i == len([1 for q, _ in LIMITS if t >= q]) - 1 else lerpc(INDIGO, WHITE, .5)
         f.circle((x0, y), 24, col, a * p, 2)
         f.text(str(i + 1), x0, y, 26, 'orb', col, a * p, mode='O')
-        rich_line(f, s, x0 + 50, y, 40, 'sans_med', TXT if cur else lerpc(TXT, GREY, .3), a=a, t0=tt, stag=0.02, anchor='l')
+        rich_line(f, s_, x0 + 50, y, 40, 'sans_med', TXT, a=a, t0=tt, stag=0.02, anchor='l')
 
 
 def sc_final(f, t):
-    if not (b(92) - 0.2 < t < b(95) + 0.3): return
-    a = env(t, b(92), b(95), 0.4, 0.3)
+    if not (b(117) - 0.2 < t < b(119) + 0.3): return
+    a = env(t, b(117), b(119), 0.4, 0.3)
     floor(f, t, a, t * 3.5, lerpc(BGOLD, AMBER, .4), C(80, 50, 20), tile=0.5, fill=0.1)
-    # 回到开头：一个在原地打转，一个拉开距离
-    x, y, s = proj(-0.9, 4.2)
-    e = t * 5
-    comet(f, x + 40 * math.cos(e), y - 70 + 14 * math.sin(e), 20, CRIMSON, a)
-    f.arc((x, y - 70), 40, 0, 2 * math.pi, CRIMSON, a * 0.4, 1)
-    f.text('原地奔跑', x, y + 18, 24, 'sans_med', CRIMSON, a, mode='O')
-    pz = 4.2 + 6 * eio((t - b(93)) / (BAR * 1.8))
-    x2, y2, s2 = proj(0.9, pz)
-    for k in range(30):
-        zz = pz - 0.18 * (k + 1)
-        if zz < 0.8: break
-        xx, yy, ss = proj(0.9, zz)
-        f.glow((xx, yy - 70 * ss / FOCAL * 4.2), 7 * ss / s2, BGOLD, a * 0.5 * (1 - k / 30) ** 1.5, 'E')
-    comet(f, x2, y2 - 70 * s2 / FOCAL * 4.2, 22 * s2 / (FOCAL / 4.2), BGOLD, a)
-    f.text('拉开差距', x2, y2 - 10 * s2 / (FOCAL / 4.2), 24, 'sans_med', BGOLD, a * cl(s2 / (FOCAL / 4.2) * 1.5), mode='O')
+    ytop = treadmill(f, t, 620, 880, 300, a * 0.8, lerpc(CRIMSON, GREY, .3), 2.0)
+    runner_on(f, t, 620, ytop, CRIMSON, a, 14)
+    f.text('原地奔跑', 620, 935, 24, 'sans_med', CRIMSON, a, mode='O')
+    u = eio((t - b(117, 2)) / (BAR * 1.4))
+    x2 = 1180 + 420 * u
+    comet(f, x2, 850, 20, BGOLD, a)
+    for k in range(20):
+        f.glow((x2 - k * 14 * (0.3 + u), 850), 6, BGOLD, a * (1 - k / 20) * 0.6, 'E')
+    f.text('离开跑步机', x2, 935, 24, 'sans_med', BGOLD, a, mode='O')
 
 
 # ================================================================ 片尾：粒子汇聚成官方 logo
@@ -1168,11 +1459,11 @@ _ang = _er.uniform(0, 2 * math.pi, 5200); _rad = _er.uniform(500, 1300, 5200)
 LP_SX = LOGO_C[0] + _rad * np.cos(_ang); LP_SY = LOGO_C[1] + _rad * np.sin(_ang) * 0.7
 LP_DL = _er.uniform(0, 0.35, 5200)
 LP_MIX = np.array([lerpc(BGOLD, CYAN, u) for u in _er.uniform(0, 1, 5200)], np.float32)
-T_GATHER0, T_GATHER1 = b(95), b(97)   # 汇聚
-T_LOGO = b(97)                        # 清晰 logo 浮现
-T_WORD = b(98)                        # 重拍：金色「巴芒价值」+「BUFFETT · MUNGER」
+T_GATHER0, T_GATHER1 = b(119), b(120, 2)   # 汇聚
+T_LOGO = b(120, 2)                    # 清晰 logo 浮现
+T_WORD = b(121)                       # 重拍：金色「巴芒价值」+「BUFFETT · MUNGER」
 T_SHIMMER = T_WORD + 0.35
-T_FADE0 = b(100, 2)                   # 整片最终淡出
+T_FADE0 = b(122, 2)                   # 整片最终淡出
 
 
 def _brand_word(title_px=120):
@@ -1268,7 +1559,8 @@ def end_post(img, t):
 # ================================================================ 渲染
 SCENES = [sc_hook, sc_title, sc_promise, sc_card1, sc_alice, sc_quote1, sc_vanvalen, sc_ring, sc_card2, sc_host,
           sc_firstp, sc_compare, sc_graph, sc_formula, sc_textile, sc_crowd, sc_y1985, sc_mloom, sc_sankey, sc_tech, sc_q2,
-          sc_three, sc_phones, sc_limits, sc_final, sc_end]
+          sc_three, sc_cycle, sc_ai, sc_moats, sc_flywheel, sc_escape, sc_systems, sc_paths, sc_emphasis, sc_treadmill,
+          sc_limits, sc_final, sc_end]
 
 
 def draw_hud_post(img, t, a=1.0):
