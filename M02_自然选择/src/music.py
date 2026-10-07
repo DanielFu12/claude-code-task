@@ -547,6 +547,15 @@ def add_mono(buf, x, t):
     buf[i:j] += x[:j - i]
 
 
+def leveler(x, target_db=-12.5, strength=0.4, lo=0.85, hi=1.8):
+    """慢速电平器：响的地方几乎不动，安静段适度抬高，保留「安静 → 高潮」的起伏"""
+    from scipy.ndimage import uniform_filter1d
+    ms = uniform_filter1d(x.mean(1) ** 2, S(0.4))
+    g = (10 ** (target_db / 20) / np.sqrt(ms + 1e-10)) ** strength
+    g = uniform_filter1d(np.clip(g, lo, hi), S(1.5))
+    return x * g[:, None]
+
+
 def limiter(x, ceiling=0.89):
     """前视峰值限制器（5 ms），避免削波失真"""
     look = S(0.005)
@@ -564,10 +573,11 @@ if __name__ == '__main__':
     W = sys.argv[1]
     os.makedirs(W, exist_ok=True)
     music = compose()
-    # 响度：把高潮段 RMS 调到约 −15 dBFS
+    # 响度：高潮段 RMS 调到约 −12.5 dBFS，再用慢速电平器把安静段托起来（最多 +5 dB）
     seg = music[S(b(41)):S(b(57))]
-    g = 10 ** (-15 / 20) / math.sqrt(float(np.mean(seg ** 2)))
+    g = 10 ** (-12.5 / 20) / math.sqrt(float(np.mean(seg ** 2)))
     music *= g
+    music = leveler(music)
     # 结尾淡出（与画面最终淡出同步）
     f0, f1 = S(b(97)), N
     music[f0:f1] *= np.linspace(1, 0, f1 - f0)[:, None] ** 1.6
