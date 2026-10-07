@@ -2,7 +2,7 @@
 # Full build: fonts -> score -> frames -> mux.  Usage: ./build.sh [output.mp4]
 set -euo pipefail
 cd "$(dirname "$0")"
-OUT="${1:-../芒格投资理念-思维的格栅.mp4}"
+OUT="${1:-../芒格投资理念-像芒格一样思考.mp4}"
 TMP="$(mktemp -d)"
 [ -f fonts/fonts.css ] || ./fetch-fonts.sh
 node audio.js "$TMP/score.wav"

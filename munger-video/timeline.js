@@ -20,7 +20,7 @@
     { id: 'ch6',   bar: 100, bars: 16, years: [2000, 2009], subs: [4, 20, 36, 48],          hits: [S(40, 'big')] },
     { id: 'ch7',   bar: 116, bars: 14, years: [1973, 2009], subs: [4, 20, 36],              hits: [S(16, 'land'), S(48, 'big')] },
     { id: 'ch8',   bar: 130, bars: 20, years: [2007, 2023], subs: [4, 20, 36, 52, 64],      hits: [S(66, 'soft')] },
-    { id: 'outro', bar: 150, bars: 10, years: [2023, 2023], subs: [16, 26, 32],             hits: [S(26, 'land')] },
+    { id: 'outro', bar: 150, bars: 10, years: [2023, 2023], subs: [16, 26, 32],             hits: [S(26, 'land'), S(36, 'land')] },
   ];
   const TOTAL_BARS = 160;
   const DURATION = TOTAL_BARS * BAR + TAIL;

@@ -263,7 +263,7 @@ function drawBackground(c, t, pulse) {
 }
 
 // ---------------------------------------------------------------- HUD
-const CHNAME = { ch1: '其人', ch2: '格栅', ch3: '逆向', ch4: '能力圈', ch5: '好生意', ch6: '等待', ch7: '复利', ch8: '人生' };
+const CHNAME = { ch1: '其人', ch2: '思维模型', ch3: '逆向', ch4: '能力圈', ch5: '好生意', ch6: '等待', ch7: '复利', ch8: '人生' };
 const KEYYEARS = [1924, 1948, 1959, 1962, 1972, 1978, 1995, 2008, 2023];
 const YEAR0 = 1924, YEAR1 = 2023;
 function drawHUD(c, t, scene, lb, year, hudA) {
@@ -311,76 +311,110 @@ function drawHUD(c, t, scene, lb, year, hudA) {
 }
 
 // ---------------------------------------------------------------- brand logo (top-right, every frame)
-const LOGO_TEXT = '巴芒价值';
-let LOGO_IMG = null;   // brand mark, white background keyed out at load time
+// 巴芒价值 brand spec (brand/BRAND.md): logo 60px, gold Noto Serif SC Black title 38px,
+// BUFFETT · MUNGER justified to the title width, 52px from the right / 30px from the top,
+// a sheen every 7.5 s lasting 1.4 s.
+const LOGO_TEXT = '巴芒价值', LOGO_SUB = 'BUFFETT · MUNGER';
+const GOLD_STOPS = [[0, '#fff3c8'], [0.35, '#ffd478'], [0.62, '#e2a03c'], [1, '#ffd682']];
+const SUB_GOLD = '#d6b270', LOGO_BLUE = [110, 175, 255];
+let LOGO_SRC = null;          // official transparent logo (1024²)
+const LOGO_PTS = [];          // sampled logo pixels for the particle convergence: [nx, ny, rgb]
 async function loadLogo() {
   const img = new Image();
   img.src = window.LOGO_DATA;
   await img.decode();
-  const w = img.naturalWidth, h = img.naturalHeight;
-  const cv0 = document.createElement('canvas'); cv0.width = w; cv0.height = h;
+  const n = img.naturalWidth;
+  const cv0 = document.createElement('canvas'); cv0.width = cv0.height = n;
   const g = cv0.getContext('2d');
   g.drawImage(img, 0, 0);
-  const id = g.getImageData(0, 0, w, h), d = id.data;
-  let x0 = w, y0 = h, x1 = 0, y1 = 0;
-  for (let i = 0; i < d.length; i += 4) {
-    // distance from white -> alpha, then un-blend the white so edges stay clean on dark
-    const dist = Math.max(255 - d[i], 255 - d[i + 1], 255 - d[i + 2]);
-    const a = Math.min(1, Math.max(0, (dist - 6) / 64));
-    if (a > 0) {
-      for (let k = 0; k < 3; k++) d[i + k] = Math.max(0, Math.min(255, (d[i + k] - 255 * (1 - a)) / a));
-      const p = i / 4, x = p % w, y = (p / w) | 0;
-      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+  LOGO_SRC = cv0;
+  const d = g.getImageData(0, 0, n, n).data, cand = [];
+  for (let y = 0; y < n; y += 4) for (let x = 0; x < n; x += 4) {
+    const i = (y * n + x) * 4;
+    if (d[i + 3] > 120) cand.push([x / n - 0.5, y / n - 0.5, [d[i], d[i + 1], d[i + 2]]]);
+  }
+  const r = rng(13);
+  for (let k = 0; k < 1100; k++) LOGO_PTS.push(cand[Math.floor(r() * cand.length)]);
+}
+// a line of brand text rendered once into its own canvas (gold vertical ramp or flat colour)
+const TEXT_CACHE = new Map();
+function brandText(str, font, size, lsEm, fill, justifyTo) {
+  const key = [str, font, lsEm, fill, justifyTo].join('|');
+  let T = TEXT_CACHE.get(key);
+  if (T) return T;
+  const cv = document.createElement('canvas'), g = cv.getContext('2d');
+  g.font = font;
+  const chars = [...str], ws = chars.map((ch) => g.measureText(ch).width), sum = ws.reduce((p, q) => p + q, 0);
+  const ls = justifyTo ? (justifyTo - sum) / (chars.length - 1) : lsEm * size;
+  const w = sum + ls * (chars.length - 1), base = Math.ceil(size * 1.12);
+  cv.width = Math.ceil(w) + 8; cv.height = Math.ceil(size * 1.45);
+  g.font = font; g.textBaseline = 'alphabetic';
+  if (fill === 'gold') {
+    const gr = g.createLinearGradient(0, base - size * 0.9, 0, base + size * 0.1);
+    for (const [o, col] of GOLD_STOPS) gr.addColorStop(o, col);
+    g.fillStyle = gr;
+  } else g.fillStyle = fill;
+  let x = 4;
+  chars.forEach((ch, i) => { g.fillText(ch, x, base); x += ws[i] + ls; });
+  T = { cv, w, base };
+  TEXT_CACHE.set(key, T);
+  return T;
+}
+const SCRATCH = document.createElement('canvas'); SCRATCH.width = 1600; SCRATCH.height = 320;
+const sctx = SCRATCH.getContext('2d');
+// draw cached text at baseline y; wipe 0..1 reveals left->right with a soft edge; shine 0..1 sweeps a highlight
+function blitText(c, T, x, y, align, alpha, wipe = 1, shine = null) {
+  if (alpha <= 0.003 || wipe <= 0) return;
+  const x0 = align === 'center' ? x - T.w / 2 - 4 : align === 'right' ? x - T.w - 4 : x - 4;
+  let src = T.cv;
+  const needShine = shine !== null && shine > 0 && shine < 1;
+  if (wipe < 1 || needShine) {
+    const w = T.cv.width, h = T.cv.height;
+    sctx.setTransform(1, 0, 0, 1, 0, 0); sctx.globalCompositeOperation = 'source-over'; sctx.globalAlpha = 1;
+    sctx.clearRect(0, 0, w + 4, h + 4);
+    sctx.drawImage(T.cv, 0, 0);
+    if (needShine) {
+      const pos = -60 + (0.5 - 0.5 * Math.cos(shine * Math.PI)) * (w + 120), bw = 0.06 * w + 10;
+      sctx.globalCompositeOperation = 'source-atop';
+      sctx.setTransform(1, 0, -0.6, 1, 0, 0);
+      const gr = sctx.createLinearGradient(pos - bw * 2, 0, pos + bw * 2, 0);
+      gr.addColorStop(0, 'rgba(255,252,236,0)'); gr.addColorStop(0.5, 'rgba(255,252,236,0.85)'); gr.addColorStop(1, 'rgba(255,252,236,0)');
+      sctx.fillStyle = gr; sctx.fillRect(-w, 0, w * 3, h);
+      sctx.setTransform(1, 0, 0, 1, 0, 0);
     }
-    d[i + 3] = Math.round(a * 255);
+    if (wipe < 1) {
+      const soft = 0.35 * w + 30, front = wipe * (w + soft);
+      sctx.globalCompositeOperation = 'destination-in';
+      const gr = sctx.createLinearGradient(front - soft, 0, front, 0);
+      gr.addColorStop(0, 'rgba(0,0,0,1)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
+      sctx.fillStyle = gr; sctx.fillRect(0, 0, w + 4, h + 4);
+    }
+    sctx.globalCompositeOperation = 'source-over';
+    src = SCRATCH;
   }
-  g.putImageData(id, 0, 0);
-  const side = Math.max(x1 - x0, y1 - y0) + 8, cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
-  const out = document.createElement('canvas'); out.width = out.height = 256;
-  const o = out.getContext('2d');
-  o.imageSmoothingQuality = 'high';
-  o.drawImage(cv0, cx - side / 2, cy - side / 2, side, side, 0, 0, 256, 256);
-  LOGO_IMG = out;
-}
-// gold fill with a sheen that sweeps across now and then (every ~7.5 s)
-function logoGold(c, x0, x1, y, s) {
-  const g = c.createLinearGradient(x0, y - s, x1, y + s * 0.3);
-  const base = GOLD, dark = mixc(base, [80, 50, 10], 0.35), light = mixc(base, WHITE, 0.45);
-  const p = inv(0, 1.4, GT % 7.5) * 1.5 - 0.25;
-  const stops = [[0, dark], [0.3, light], [0.62, base], [1, dark]];
-  for (const [o, col] of [[p - 0.09, base], [p, mixc(base, WHITE, 0.9)], [p + 0.09, base]]) if (o > 0 && o < 1) stops.push([o, col]);
-  stops.sort((m, n) => m[0] - n[0]);
-  for (const [o, col] of stops) g.addColorStop(o, rgba(col));
-  return g;
-}
-function drawLogo(c, a) {
-  if (a <= 0.01) return;
-  const right = W - 76, base = 80;
-  c.save();
-  c.globalAlpha = a;
-  c.textBaseline = 'alphabetic'; c.textAlign = 'left';
-  c.font = `700 30px ${FAM.serif}`; c.letterSpacing = '6px';
-  const tw = c.measureText(LOGO_TEXT).width - 6;
-  const tx = right - tw;
-  c.shadowColor = 'rgba(0,0,0,0.6)'; c.shadowBlur = 10;
-  c.fillStyle = logoGold(c, tx, right, base, 30);
-  c.fillText(LOGO_TEXT, tx, base);
-  c.shadowColor = 'rgba(255,186,80,0.35)'; c.shadowBlur = 14;
-  c.fillText(LOGO_TEXT, tx, base);
-  c.shadowBlur = 0;
-  c.font = `500 10.5px ${FAM.mono}`; c.letterSpacing = '3.6px';
-  c.fillStyle = 'rgba(243,199,110,0.62)';
-  c.fillText('BUFFETT · MUNGER', tx + 1, base + 20);
-  // brand mark
-  if (LOGO_IMG) {
-    const s = 60, sx = tx - 14 - s, sy = base - 41;
-    c.shadowColor = 'rgba(0,0,0,0.55)'; c.shadowBlur = 10;
-    c.drawImage(LOGO_IMG, sx, sy, s, s);
-    c.shadowColor = 'rgba(110,190,255,0.45)'; c.shadowBlur = 16;
-    c.globalAlpha = a * 0.5;
-    c.drawImage(LOGO_IMG, sx, sy, s, s);
-  }
+  c.save(); c.globalAlpha = alpha;
+  c.drawImage(src, 0, 0, T.cv.width, T.cv.height, x0, y - T.base, T.cv.width, T.cv.height);
   c.restore();
+}
+function drawLogoImg(c, x, y, s, a) {
+  if (!LOGO_SRC || a <= 0.003) return;
+  c.save(); c.globalAlpha = a; c.imageSmoothingQuality = 'high';
+  c.drawImage(LOGO_SRC, x - s / 2, y - s / 2, s, s);
+  c.restore();
+}
+function drawLogo(c, a, t) {
+  if (a <= 0.01) return;
+  const T1 = brandText(LOGO_TEXT, `900 38px ${FAM.serif}`, 38, 0, 'gold');
+  const T2 = brandText(LOGO_SUB, `600 12.5px ${FAM.cor}`, 12.5, 0, SUB_GOLD, T1.w);
+  const right = W - 56, cy = 64, tx = right - T1.w, lx = tx - 14 - 30;
+  // soft dark bed so the lockup reads on bright frames
+  c.save(); c.globalAlpha = 0.35 * a; c.filter = 'blur(14px)'; c.fillStyle = '#000';
+  c.beginPath(); c.roundRect(lx - 40, cy - 34, right - lx + 60, 68, 30); c.fill(); c.restore();
+  c.save(); c.globalCompositeOperation = 'lighter'; glow(c, lx, cy, 46, LOGO_BLUE, 0.2 * a); c.restore();
+  drawLogoImg(c, lx, cy, 60, a);
+  const ph = t - 2.0, sh = ph >= 0 && (ph % 7.5) < 1.4 ? (ph % 7.5) / 1.4 : null;
+  blitText(c, T1, tx, 72, 'left', a, 1, sh);
+  blitText(c, T2, tx, 89, 'left', a);
 }
 
 // ---------------------------------------------------------------- transitions
@@ -535,7 +569,7 @@ function renderFrame(t) {
   const fout = tail;
   const black = Math.max(fin, fout * 0.85);
   if (black > 0) { ctx.fillStyle = `rgba(0,0,0,${black})`; ctx.fillRect(0, 0, W, H); }
-  drawLogo(ctx, 0.92 * Math.min(1, 0.35 + inv(0, 0.6, t)) * (1 - 0.25 * tail));
+  drawLogo(ctx, Math.min(1, 0.35 + inv(0, 0.6, t)) * (sc.id === 'outro' ? 1 - inv(31.6, 32.8, lb) : 1), t);
 }
 
 async function init() {
@@ -546,6 +580,7 @@ async function init() {
   for (const k in STY) loads.push(document.fonts.load(fontStr(STY[k], 40), all));
   for (const w of [300, 400, 500, 700, 900]) { loads.push(document.fonts.load(`${w} 40px ${FAM.sans}`, all)); loads.push(document.fonts.load(`${w} 40px ${FAM.serif}`, all)); }
   loads.push(document.fonts.load(`500 15px ${FAM.mono}`, all), document.fonts.load(`600 22px ${FAM.cor}`, all), document.fonts.load(`400 12px ${FAM.mono}`, all));
+  loads.push(document.fonts.load(`900 112px ${FAM.serif}`, LOGO_TEXT), document.fonts.load(`600 30px ${FAM.cor}`, LOGO_SUB), document.fonts.load(`900 38px ${FAM.serif}`, LOGO_TEXT), document.fonts.load(`600 12.5px ${FAM.cor}`, LOGO_SUB));
   await Promise.all(loads);
   await document.fonts.ready;
   window.READY = true;

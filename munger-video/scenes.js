@@ -236,7 +236,7 @@ const SCENE_DRAW = {
     gr.addColorStop(0, rgba(acc, 0)); gr.addColorStop(0.5, rgba(mixc(acc, WHITE, 0.6), 0.9 * f + 0.15)); gr.addColorStop(1, rgba(acc, 0));
     c.fillStyle = gr; c.fillRect(0, 498, W, 3);
     c.restore();
-    txt(c, b, '思维的格栅', CX, 565, 'mega', 0.05, 10.6, { anim: 'blur', scale: 1.08 });
+    txt(c, b, '像芒格一样思考', CX, 565, 'mega', 0.05, 10.6, { anim: 'blur', scale: 1.0 });
     hline(c, b, CX, 628, 760, 1.2, 10.6, acc, 0.7);
     txt(c, b, '查理·芒格如何思考世界、投资与人生', CX, 690, 'bodyL', 1.6, 10.6, { ls: 0.3, scale: 1.12, col: '#e7e1d6' });
     txt(c, b, 'CHARLES  THOMAS  MUNGER  ·  1924 — 2023', CX, 760, 'label', 2.6, 10.6, { scale: 1.05 });
@@ -362,7 +362,7 @@ const SCENE_DRAW = {
 
   // ============================================================ CH2 LATTICEWORK
   ch2(c, b) {
-    chapterCard(c, b, '02', '格栅', '多学科思维模型', '拿着锤子的人，看什么都像钉子');
+    chapterCard(c, b, '02', '思维模型', '多学科 · 多元思维', '拿着锤子的人，看什么都像钉子');
     const acc = PAL.acc, acc2 = PAL.acc2;
     if (b > 3.8 && b < 16.6) {
       const a = vis(b, 4, 15.4);
@@ -963,14 +963,43 @@ const SCENE_DRAW = {
       txt(c, b, '人生，是它 [最重要] 的应用', CX, 580, 'h2', 18.5, 25.4, { scale: 1.1 });
     }
     if (b > 25.8 && b < 32.6) {
-      txt(c, b, '“我没什么要补充的。”', CX, 520, 'h1', 26, 31.4, { anim: 'scale', from: 1.3, col: '#f6f1e7', scale: 0.9 });
-      txt(c, b, '—— 芒格在伯克希尔股东大会上最经典的一句台词', CX, 610, 'small', 27.5, 31.4, { scale: 1.1 });
+      txt(c, b, '“我没什么要补充的。”', CX, 520, 'h1', 26, 31.2, { anim: 'scale', from: 1.3, col: '#f6f1e7', scale: 0.9 });
+      txt(c, b, '—— 芒格在伯克希尔股东大会上最经典的一句台词', CX, 610, 'small', 27.5, 31.2, { scale: 1.1 });
+      txt(c, b, '资料来源：伯克希尔·哈撒韦致股东信、芒格公开演讲等 · 仅供学习交流，不构成任何投资建议', CX, 960, 'small', 28.5, 31.2, { scale: 0.85 });
     }
-    if (b > 31.8) {
-      lattice(c, CX, 330, 95, b * 0.25, vis(b, 32, 60), 1);
-      txt(c, b, '思维的格栅', CX, 560, 'h1', 32, 60, { anim: 'blur', scale: 1.1 });
-      txt(c, b, '查理·芒格如何思考世界、投资与人生', CX, 630, 'bodyL', 32.8, 60, { ls: 0.3 });
-      txt(c, b, '资料来源：伯克希尔·哈撒韦致股东信、芒格公开演讲等 · 仅供学习交流，不构成任何投资建议', CX, 960, 'small', 33.4, 60, { scale: 0.85 });
+    // ---- brand ending: particles converge into the logo -> clear logo -> gold 巴芒价值 on the heavy beat -> sheen -> fade
+    if (b > 31.4) {
+      const lx = CX, ly = 390, S = 220;
+      const r = rng(91);
+      c.save(); c.globalCompositeOperation = 'lighter';
+      LOGO_PTS.forEach(([nx, ny, col], i) => {
+        const sx = r() * W, sy = r() * H, d = r(), sw = r() - 0.5;
+        const k = E.inOutCubic(clamp((b - 31.8 - d * 0.7) / 1.8));
+        const tx = lx + nx * S, ty = ly + ny * S, ang = sw * (1 - k) * 2.6;
+        const dx = lerp(sx, tx, k) - tx, dy = lerp(sy, ty, k) - ty;
+        let x = tx + dx * Math.cos(ang) - dy * Math.sin(ang), y = ty + dx * Math.sin(ang) + dy * Math.cos(ang);
+        const dr = E.inOutSine(clamp((b - 35.2) / 3.8));          // after the clear logo appears the dust drifts away
+        x += nx * dr * 320 + Math.sin(i * 1.7) * dr * 50; y += ny * dr * 320 + Math.cos(i * 1.3) * dr * 50;
+        const a = clamp((b - 31.4) / 0.6) * (0.9 - 0.7 * dr);
+        glow(c, x, y, 2 + 1.4 * (1 - k), mixc(col, WHITE, 0.25), a, 1);
+      });
+      const flash = b >= 36 ? Math.exp(-(b - 36) * TL.BEAT / 0.35) : 0;
+      glow(c, lx, ly, 300, LOGO_BLUE, (0.22 + 0.45 * flash) * E.outCubic(inv(32, 34, b)));
+      c.restore();
+      drawLogoImg(c, lx, ly, S, E.outCubic(inv(34, 35.35, b)));
+      if (b >= 36) {
+        const T1 = brandText(LOGO_TEXT, `900 112px ${FAM.serif}`, 112, 0.08, 'gold');
+        const T2 = brandText(LOGO_SUB, `600 30px ${FAM.cor}`, 30, 0.46, SUB_GOLD);
+        const sh = inv(37.4, 39.5, b);
+        c.save(); c.shadowColor = 'rgba(255,186,80,0.35)'; c.shadowBlur = 24;
+        blitText(c, T1, CX, 662, 'center', 1, inv(36, 37.35, b), sh > 0 && sh < 1 ? sh : null);
+        c.restore();
+        const hw = T1.w / 2 + 44, ln = 170 * E.outCubic(inv(36.45, 37.95, b));
+        c.save(); c.strokeStyle = 'rgba(214,178,112,0.7)'; c.lineWidth = 1.2;
+        for (const sg of [-1, 1]) { c.beginPath(); c.moveTo(CX + sg * hw, 620); c.lineTo(CX + sg * (hw + ln), 620); c.stroke(); }
+        c.restore();
+        blitText(c, T2, CX, 722, 'center', 1, inv(36.75, 38.1, b));
+      }
     }
   },
 };
