@@ -781,7 +781,7 @@ def sc_card1(f, t):
     mirror_card(f, t, b(9), b(10), '01', '一朵花，一只虫', 'FLOWER & POLLINATOR', CFL)
 
 
-FL_C, IN_C = (330, 520), (770, 470)
+FLW_C, IN_C = (330, 520), (770, 470)
 
 
 def coev_steps(t):
@@ -800,10 +800,10 @@ def sc_flower(f, t):
     f.text('机制示意 · 不对应具体物种', CX, 228, 26, 'sans_light', lerpc(GREY, WHITE, .3), a, mode='O')
     nf, ni = coev_steps(t)
     depth = 70 + 30 * nf; prob = 80 + 30 * ni
-    flower(f, FL_C[0], FL_C[1], 90, depth, a * eo((t - b(10)) / 0.6), t)
+    flower(f, FLW_C[0], FLW_C[1], 90, depth, a * eo((t - b(10)) / 0.6), t)
     hov = 10 * math.sin(t * 2.3)
     ix, iy = IN_C[0] + 20 * math.sin(t * 0.7), IN_C[1] + hov
-    insect(f, ix, iy, 46, prob * 1.1, a * eo((t - b(10, 2)) / 0.6), t, tip=(FL_C[0] + 10, FL_C[1] + depth))
+    insect(f, ix, iy, 46, prob * 1.1, a * eo((t - b(10, 2)) / 0.6), t, tip=(FLW_C[0] + 10, FLW_C[1] + depth))
     p1 = eo((t - b(11, 2)) / 0.7); p2 = eo((t - b(13, 2)) / 0.7)
     sel = env(t, b(15, 2), b(25), 0.3, 0.3) * (0.5 + 0.5 * beat_pulse(t))
     curved_arrow(f, (400, 400), (560, 250), (700, 390), CFL, a * (0.85 + 0.4 * sel), p1, 3)
@@ -811,7 +811,7 @@ def sc_flower(f, t):
     curved_arrow(f, (700, 600), (560, 760), (410, 640), CIN, a * (0.85 + 0.4 * sel), p2, 3)
     f.text('采蜜方式 → 哪些花结籽', 560, 800, 26, 'sans_black', lerpc(CIN, WHITE, .3), a * p2, mode='O')
     if sel > 0:
-        for (c, col) in ((FL_C, CFL), (IN_C, CIN)):
+        for (c, col) in ((FLW_C, CFL), (IN_C, CIN)):
             f.circle(c, 150 + 30 * (1 - beat_pulse(t)), col, a * sel * 0.4, 2)
     cyc = env(t, b(17, 2), b(21, 2) + 0.3, 0.4, 0.4)
     if cyc > 0:   # 共同进化：中央旋转的双向环
