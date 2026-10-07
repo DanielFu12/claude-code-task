@@ -329,12 +329,12 @@ async function loadLogo() {
   g.drawImage(img, 0, 0);
   LOGO_SRC = cv0;
   const d = g.getImageData(0, 0, n, n).data, cand = [];
-  for (let y = 0; y < n; y += 4) for (let x = 0; x < n; x += 4) {
+  for (let y = 0; y < n; y += 3) for (let x = 0; x < n; x += 3) {
     const i = (y * n + x) * 4;
-    if (d[i + 3] > 120) cand.push([x / n - 0.5, y / n - 0.5, [d[i], d[i + 1], d[i + 2]]]);
+    if (d[i + 3] > 64) cand.push([x / n - 0.5, y / n - 0.5, [d[i], d[i + 1], d[i + 2]]]);
   }
   const r = rng(13);
-  for (let k = 0; k < 1100; k++) LOGO_PTS.push(cand[Math.floor(r() * cand.length)]);
+  for (let k = 0; k < 2600; k++) { const p = cand[Math.floor(r() * cand.length)]; LOGO_PTS.push([p[0] + (r() - 0.5) / 340, p[1] + (r() - 0.5) / 340, p[2]]); }
 }
 // a line of brand text rendered once into its own canvas (gold vertical ramp or flat colour)
 const TEXT_CACHE = new Map();
@@ -569,7 +569,9 @@ function renderFrame(t) {
   const fout = tail;
   const black = Math.max(fin, fout * 0.85);
   if (black > 0) { ctx.fillStyle = `rgba(0,0,0,${black})`; ctx.fillRect(0, 0, W, H); }
-  drawLogo(ctx, Math.min(1, 0.35 + inv(0, 0.6, t)) * (sc.id === 'outro' ? 1 - inv(31.6, 32.8, lb) : 1), t);
+  drawLogo(ctx, Math.min(1, 0.35 + inv(0, 0.6, t)), t);
+  // brand ending: the whole frame, corner badge included, fades to black together
+  if (sc.id === 'outro') { const ef = E.inOutSine(inv(46, 52, lb)); if (ef > 0) { ctx.fillStyle = `rgba(0,0,0,${ef})`; ctx.fillRect(0, 0, W, H); } }
 }
 
 async function init() {

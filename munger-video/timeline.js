@@ -4,7 +4,7 @@
   const BEAT = 60 / BPM;          // 0.667 s
   const BAR = BEAT * 4;           // 2.667 s
   const FPS = 30;
-  const TAIL = 3;
+  const TAIL = 1.2;
 
   // subs: local beats with an internal cut (soft deep whoosh); hits: local beats where something lands
   const S = (b, k) => ({ b, k });
@@ -20,9 +20,9 @@
     { id: 'ch6',   bar: 100, bars: 16, years: [2000, 2009], subs: [4, 20, 36, 48],          hits: [S(40, 'big')] },
     { id: 'ch7',   bar: 116, bars: 14, years: [1973, 2009], subs: [4, 20, 36],              hits: [S(16, 'land'), S(48, 'big')] },
     { id: 'ch8',   bar: 130, bars: 20, years: [2007, 2023], subs: [4, 20, 36, 52, 64],      hits: [S(66, 'soft')] },
-    { id: 'outro', bar: 150, bars: 10, years: [2023, 2023], subs: [16, 26, 32],             hits: [S(26, 'land'), S(36, 'land')] },
+    { id: 'outro', bar: 150, bars: 13, years: [2023, 2023], subs: [16, 26, 32],             hits: [S(26, 'land'), S(38, 'soft'), S(40, 'land')] },
   ];
-  const TOTAL_BARS = 160;
+  const TOTAL_BARS = 163;
   const DURATION = TOTAL_BARS * BAR + TAIL;
 
   // ---------- harmony (E minor) ----------
@@ -55,7 +55,8 @@
   put(130, ['C', 'G', 'Am', 'Em'], 16);
   put(146, ['C', 'D', 'Em', 'Em'], 4);
   put(150, ['C', 'G', 'D', 'Em'], 8);
-  put(158, ['C', 'E'], 2);
+  put(158, ['C', 'B'], 2);
+  put(160, ['E'], 3);   // brand ending resolves to E major on the heavy beat
   const chordAt = (bar) => CH[PROG[Math.max(0, Math.min(TOTAL_BARS - 1, Math.floor(bar)))]];
 
   // ---------- arrangement ----------
@@ -80,17 +81,18 @@
     A(138, 146, { pad: 0.7, piano: 'lead', arp: 0.45, bass: 0.7, kick: 'half', strings: 0.7 }),
     A(146, 150, { pad: 0.8, arp: 0.8, bass: 0.9, kick: 'four', snare: 0.5, taiko: 0.6, strings: 0.9, smode: 'lead' }),
     A(150, 158, { pad: 0.85, piano: 'broken', sub: 0.6, arp: 0.6, bass: 0.8, kick: 'one', strings: 0.9, smode: 'lead' }),
-    A(158, 160, { pad: 0.85, sub: 0.7, bass: 0.7, kick: 'one', taiko: 0.5, strings: 0.9 }),
+    A(158, 160, { pad: 0.7, sub: 0.8, strings: 0.6 }),                    // particles gather into the logo
+    A(160, 163, { pad: 0.95, sub: 0.8, strings: 0.9 }),                   // heavy beat: logo + 巴芒价值
   ];
   const arrAt = (bar) => ARR.find((a) => bar >= a.from && bar < a.to) || ARR[ARR.length - 1];
   // section dynamics (dB)
-  const DYN = [[0, -7], [8, 0], [11, -4], [16, -5], [30, -3], [40, -2], [70, -4], [80, 0], [100, -6], [108, -2], [110, 1], [116, 0], [128, 1], [130, -3], [146, -1], [150, 0], [158, -2]];
+  const DYN = [[0, -7], [8, 0], [11, -4], [16, -5], [30, -3], [40, -2], [70, -4], [80, 0], [100, -6], [108, -2], [110, 1], [116, 0], [128, 1], [130, -3], [146, -1], [150, 0], [158, -3], [160, 0]];
 
   const SILENCE = [
     { from: 109 * 4 + 3, to: 110 * 4 },   // beat before "下重注"
     { from: 127 * 4 + 3, to: 128 * 4 },   // beat before the compounding climax
   ];
-  const RISERS = [[7, 8, 0.8], [108, 109.75, 0.9], [126, 127.75, 0.8], [146, 147.9, 0.5]];
+  const RISERS = [[7, 8, 0.8], [108, 109.75, 0.9], [126, 127.75, 0.8], [146, 147.9, 0.5], [158, 159.95, 0.55]];
 
   function kickBeats() {
     const out = [];

@@ -377,7 +377,11 @@ for (let bar = 0; bar < TL.TOTAL_BARS; bar++) {
 for (const [b, m, d] of MEL_HOOK) piano(bt(b), m, 0.75, bt(d));
 for (let bar = 0; bar < 8; bar += 2) { const ch = TL.chordAt(bar); piano(bt(bar * 4), ch.root + 12, 0.45, bt(8)); piano(bt(bar * 4), ch.root + 19, 0.35, bt(8)); }
 // final E major chord rings out
-for (const m of [64, 68, 71, 76]) piano(bt(159 * 4), m, 0.7, bt(10));
+// brand ending: light hit as the logo appears, then the heavy beat (E major + bells + deep drum)
+boom(bt(159 * 4 + 2), 0.45); taiko(bt(159 * 4 + 2), 0.3);
+for (const m of [52, 59, 64, 68, 71, 76]) piano(bt(160 * 4), m, 0.75, bt(10));
+for (const m of [83, 88]) piano(bt(160 * 4), m, 0.45, bt(6));
+taiko(bt(160 * 4), 1);
 
 // FX
 const ev = TL.events();
@@ -389,7 +393,7 @@ for (const h of ev.hits) {
   else boom(bt(h.beat), 0.3);
 }
 for (const [b0, b1, amp] of TL.RISERS) riser(bt(b0 * 4), bt(b1 * 4), amp);
-boom(bt(158 * 4), 0.9);
+boom(bt(160 * 4), 1.0);
 console.timeEnd('score');
 
 // ------------------------------------------------------------------ mix
