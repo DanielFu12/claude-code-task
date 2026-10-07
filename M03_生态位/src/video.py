@@ -75,7 +75,7 @@ def bg_at(t):
     n2 = cv2.warpAffine(NB2, M2, (270, 480), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
     n3 = cv2.warpAffine(NB3, M, (270, 480), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
     img = ((n1 ** 3)[..., None] * np.array(a, np.float32) + (n2 ** 3.2)[..., None] * np.array(bcol, np.float32)) * (0.6 + 0.8 * n3)[..., None]
-    img *= I * 0.55 / 255.0
+    img *= I * 0.75 / 255.0
     return cv2.resize(img, (W, H), interpolation=cv2.INTER_LINEAR)
 
 
@@ -414,8 +414,158 @@ def loop_nodes(f, t, cx, cy, rx, ry, labels, cols, t0, a, speed=0.35, size=30, c
     return P
 
 
+# ================================================================ 炫光层：氛围、地面、光束、景深、调色
+def sec_cols(t):
+    """当前段落的两种主色（取自背景色表，提亮成霓虹色）"""
+    a = np.array(keys(t, [(k[0], k[1]) for k in BGK]), np.float32)
+    bcol = np.array(keys(t, [(k[0], k[2]) for k in BGK]), np.float32)
+    na = a / max(a.max(), 1); nb = bcol / max(bcol.max(), 1)
+    return tuple(0.35 + 0.65 * na), tuple(0.35 + 0.65 * nb)
+
+
+# ---- 竖屏霓虹透视地面（底部，随节拍滚动）
+FHOR = 1450
+_PFY = (np.arange((H - FHOR) // 2) * 2 + 1.0)[:, None]
+_PFX = (np.arange(W // 2) * 2 - W / 2 + 1.0)[None, :]
+
+
+def neon_floor(f, t, a, cline, cfill):
+    if a <= 0.003: return
+    ys = _PFY
+    z = 520.0 / ys
+    u = _PFX / ys * 1.6
+    v = z * 1.6 + t * BPM / 60 * 1.0          # 每拍滚过一格
+    fpu = 2.0 / ys * 1.6; fpv = 2.0 * 520 / ys ** 2 * 1.6
+    du = 0.5 - np.abs((u % 1.0) - 0.5); dv = 0.5 - np.abs((v % 1.0) - 0.5)
+    lu = np.clip(1 - du / (0.02 + fpu), 0, 1) * np.clip(1.2 - fpu * 3, 0, 1)
+    lv = np.clip(1 - dv / (0.02 + fpv), 0, 1) * np.clip(1.2 - fpv * 2.5, 0, 1)
+    fog = np.exp(-z / 9.0) * np.clip((ys - 2) / 40, 0, 1)
+    ln = (np.maximum(lu, lv) * fog * a).astype(np.float32)
+    chk = (((np.floor(u) + np.floor(v)) % 2 == 0) * fog * a * 0.10).astype(np.float32)
+    hh = H - FHOR
+    L = cv2.resize(ln, (W, hh), interpolation=cv2.INTER_LINEAR)
+    Fc = cv2.resize(chk, (W, hh), interpolation=cv2.INTER_LINEAR)
+    f.L[FHOR:] += L[..., None] * np.array(cline, np.float32) * 0.6 + Fc[..., None] * np.array(cfill, np.float32)
+    f.E[FHOR:] += L[..., None] * np.array(cline, np.float32) * 0.25
+    band = np.exp(-((np.arange(-50, 51)) / 18.0) ** 2).astype(np.float32)
+    f.B[FHOR - 50:FHOR + 51] += band[:, None, None] * np.array(cline, np.float32) * 0.45 * a
+
+
+# ---- 极光丝带 + 顶部光束（四分之一分辨率计算）
+_QY, _QX = np.mgrid[0:H // 4, 0:W // 4].astype(np.float32) * 4
+_RAY_ANG = np.arctan2(_QX - W / 2, _QY + 400)
+_RAY_FALL = np.clip(1 - _QY / (H * 0.75), 0, 1) ** 1.6
+
+
+def aurora_rays(f, t, a, c1, c2):
+    if a <= 0.003: return
+    acc = np.zeros((H // 4, W // 4, 3), np.float32)
+    for k, (col, ph, y0) in enumerate(((c1, 0.0, 420), (c2, 2.1, 760), (c1, 4.2, 1100))):
+        yc = y0 + 70 * np.sin(_QX * 0.006 + t * 0.5 + ph) + 40 * np.sin(_QX * 0.017 - t * 0.8 + ph)
+        band = np.exp(-((_QY - yc) / (55 + 25 * math.sin(t * 0.3 + k))) ** 2)
+        shimmer = 0.6 + 0.4 * np.sin(_QX * 0.05 + t * 2 + ph)
+        acc += (band * shimmer)[..., None] * np.array(col, np.float32) * 0.10
+    rays = (0.5 + 0.5 * np.sin(_RAY_ANG * 34 + t * 0.6)) ** 6 * (0.5 + 0.5 * np.sin(_RAY_ANG * 13 - t * 0.4)) ** 2
+    acc += (rays * _RAY_FALL)[..., None] * np.array(lerpc(c1, WHITE, .3), np.float32) * 0.09
+    f.B += cv2.resize(acc * a, (W, H), interpolation=cv2.INTER_LINEAR)
+
+
+# ---- 景深光斑（大而柔的漂浮光点）
+_BK = np.random.default_rng(21)
+BOKEH = (_BK.uniform(0, W, 26), _BK.uniform(0, H, 26), _BK.uniform(18, 70, 26), _BK.uniform(0, 6.28, 26), _BK.uniform(0.3, 1, 26))
+
+
+def bokeh(f, t, a, c1, c2):
+    if a <= 0.003: return
+    X, Y, R, P, S_ = BOKEH
+    for i in range(len(X)):
+        x = (X[i] + math.sin(t * 0.2 * S_[i] + P[i]) * 60) % W
+        y = (Y[i] - t * 14 * S_[i]) % H
+        col = c1 if i % 2 else c2
+        f.glow((x, y), R[i], col, a * 0.10 * (0.6 + 0.4 * math.sin(t + P[i])), 'B')
+
+
+# ---- 节拍光环 + 重拍横向光晕（变形镜头光）
+def beat_fx(f, t):
+    e = energy(t)
+    bp = bar_pulse(t, 0.35)
+    if bp > 0.02 and e > 0.45:
+        r = 200 + 900 * (1 - bp)
+        f.circle((W / 2, H * 0.42), r, BGOLD, 0.22 * bp * e, 2)
+    for ti, k in SHOCKS:
+        dt = t - ti
+        if 0 <= dt < 0.9 and k >= 0.4:
+            al = k * math.exp(-dt / 0.25)
+            y = H * 0.42
+            band = np.exp(-((np.arange(-60, 61)) / 9.0) ** 2).astype(np.float32)
+            xs = np.exp(-((np.arange(W) - W / 2) / (W * 0.45)) ** 2).astype(np.float32)
+            f.B[int(y) - 60:int(y) + 61] += (band[:, None] * xs[None, :])[..., None] * np.array(lerpc(CYAN, WHITE, .4), np.float32) * al * 0.9
+            f.glow((W / 2, y), 60, WHITE, al * 0.8, 'B')
+
+
+def atmosphere(f, t):
+    """所有场景共用的氛围层（片尾汇聚时逐渐收起）"""
+    k = 1 - cl((t - T_GATHER0) / 1.5)
+    if k <= 0: return
+    c1, c2 = sec_cols(t)
+    e = energy(t)
+    aurora_rays(f, t, k * (0.55 + 0.45 * e), c1, c2)
+    bokeh(f, t, k, c1, c2)
+    neon_floor(f, t, k * (0.45 + 0.4 * e) * (1 + 0.3 * beat_pulse(t)), lerpc(c1, BGOLD, .25), c2)
+    beat_fx(f, t)
+
+
+# ---- 调色：青金分离色调 + 饱和度
+def grade(img):
+    x = img.astype(np.float32) / 255
+    lum = x @ np.array([0.299, 0.587, 0.114], np.float32)
+    x = lum[..., None] + (x - lum[..., None]) * 1.18
+    sh = np.clip(1 - lum * 2.2, 0, 1)[..., None]; hi = np.clip((lum - 0.45) * 1.8, 0, 1)[..., None]
+    x += sh * np.array([-0.004, 0.012, 0.022], np.float32) + hi * np.array([0.03, 0.012, -0.02], np.float32)
+    return (np.clip(x, 0, 1) * 255 + 0.5).astype(np.uint8)
+
+
 # ================================================================ 共用图形
 CX = W / 2
+
+
+def spin_ring(f, cx, cy, r, t, col, a, n=24, speed=0.6, th=2, gap=0.45):
+    """旋转的虚线光环（扫描仪风格）"""
+    if a <= 0.003: return
+    for k in range(n):
+        q0 = k / n * 2 * math.pi + t * speed
+        f.arc((cx, cy), r, q0, q0 + (1 - gap) * 2 * math.pi / n, col, a, th, 6)
+
+
+def lens_flare(f, x, y, col, a, t=0.0):
+    """光点的镜头光：十字星芒 + 光晕 + 沿画面中心对称的小光斑"""
+    if a <= 0.003: return
+    f.glow((x, y), 70, col, a * 0.35, 'B')
+    for L, th in ((260, 9.0), (150, 7.0)):
+        xs = np.arange(-L, L + 1)
+        g = np.exp(-(xs / (L * 0.45)) ** 2).astype(np.float32)
+        y0, x0 = int(y), int(x)
+        X = np.clip(xs + x0, 0, W - 1); Y = np.clip(xs + y0, 0, H - 1)
+        bw = np.exp(-(np.arange(-3, 4) / (th / 4)) ** 2).astype(np.float32)
+        for d, w in zip(range(-3, 4), bw):
+            f.B[np.clip(y0 + d, 0, H - 1), X] += g[:, None] * np.array(col, np.float32) * a * 0.55 * w
+            f.B[Y, np.clip(x0 + d, 0, W - 1)] += g[:, None] * np.array(col, np.float32) * a * 0.30 * w
+    vx, vy = W / 2 - x, H * 0.45 - y
+    for k, (u, r) in enumerate(((0.6, 26), (1.2, 14), (1.6, 40), (2.0, 18))):
+        f.glow((x + vx * u, y + vy * u), r, lerpc(col, CYAN, k / 4), a * 0.12, 'B')
+
+
+_FF = np.random.default_rng(5)
+FIREFLY = (_FF.uniform(80, 1000, 70), _FF.uniform(240, 1100, 70), _FF.uniform(0, 6.28, 70), _FF.uniform(0.5, 1.5, 70))
+
+
+def fireflies(f, t, a, col, n=70):
+    if a <= 0.003: return
+    X, Y, P, S_ = FIREFLY
+    x = X[:n] + 40 * np.sin(t * 0.5 * S_[:n] + P[:n]); y = Y[:n] + 30 * np.sin(t * 0.7 * S_[:n] + 2 * P[:n])
+    tw = np.clip(np.sin(t * 2.2 * S_[:n] + P[:n]), 0, 1) ** 3
+    f.dots(x, y, col, a * tw * 1.5, 1, 'E')
+    f.splat(x, y, col, a * tw * 6, 'B')
 
 
 def bird(f, x, y, s, col, a, t, ph=0.0):
@@ -434,6 +584,15 @@ def meter_v(f, x, y0, y1, v, col, a, label, size=30):
     h = (y1 - y0 - 14) * cl(v)
     f.rrect_fill(x - 27, y1 - 7 - h, x + 27, y1 - 7, 10, col, a * 0.75)
     f.glow((x, y1 - 7 - h), 30, col, a * 0.5, 'B')
+    tt = f.t
+    if h > 20:
+        top = y1 - 7 - h
+        f.line((x - 27, top + 3 * math.sin(tt * 5 + x)), (x + 27, top - 3 * math.sin(tt * 5 + x)), lerpc(col, WHITE, .6), a, 2)
+        sy = top + (h - 10) * ((tt * 0.9 + x * 0.001) % 1)
+        f.fillpoly([(x - 27, sy), (x + 27, sy - 18), (x + 27, sy - 8), (x - 27, sy + 10)], WHITE, a * 0.12)
+        for k in range(6):
+            u = (tt * (0.5 + 0.13 * k) + k * 0.37 + x * 0.003) % 1
+            f.glow((x - 18 + (k * 7) % 36, y1 - 12 - u * (h - 10)), 3.5, lerpc(col, WHITE, .6), a * 0.8 * (1 - u), 'E')
     f.text(label, x, y1 + 42, size, 'sans_black', col, a, mode='O')
 
 
@@ -478,13 +637,21 @@ def sc_hook(f, t):
     P, ph = SWARM
     xs = cx + P[:, 0] * 150 + np.sin(t * 7 + ph) * 18
     ys = cy + P[:, 1] * 70 + np.cos(t * 6 + ph) * 14
-    f.splat(xs, ys, CRIMSON, a * 1.6, 'E')
+    for k, dt in enumerate((0.0, 0.04, 0.08, 0.12)):   # 拖尾
+        xs_ = cx + P[:, 0] * 150 + np.sin((t - dt) * 7 + ph) * 18
+        ys_ = cy + P[:, 1] * 70 + np.cos((t - dt) * 6 + ph) * 14
+        f.splat(xs_, ys_, CRIMSON, a * 1.6 * (1 - k * 0.24), 'E')
     f.splat(xs + 1, ys, lerpc(CRIMSON, WHITE, .3), a * 0.8, 'E')
+    spin_ring(f, cx, cy, 250, t, CRIMSON, a * 0.45, 30, 0.9)
+    spin_ring(f, cx, cy, 290, -t, lerpc(CRIMSON, AMBER, .4), a * 0.25, 12, 0.5, 1, 0.7)
+    f.glow((cx, cy), 200, CRIMSON, a * 0.18 * (1 + beat_pulse(t)), 'B')
     # 安静的好位置：金色光点在自己的圈里
     gx, gy = 780, 1340
     al = a * env(t, b(1), b(4), 0.5, 0.25)
     f.circle((gx, gy), 110 + 6 * math.sin(t * 2), BGOLD, al * 0.7, 2)
     comet(f, gx, gy, 24, BGOLD, al)
+    lens_flare(f, gx, gy, BGOLD, al * (0.7 + 0.3 * math.sin(t * 3)), t)
+    spin_ring(f, gx, gy, 140, t, BGOLD_L, al * 0.5, 20, 0.4)
     f.text('自己的位置', gx, gy + 150, 32, 'sans_black', BGOLD, al, mode='O')
     implode(f, t, b(3), b(4), CX, 900, [BGOLD, TEAL, CYAN, WHITE, BGOLD_L, GREEN], 0.8)
 
@@ -515,6 +682,9 @@ def sc_title(f, t):
     a = env(t, b(4), b(7) - 0.05, 0.25, 0.4)
     burst(f, t, b(4), CX, 860, [TEAL, BGOLD, BGOLD_L, CYAN, WHITE, GREEN], 0, 800, 1800, 1.5)
     forest_tree(f, t, a * 0.3, 1.0, 120)
+    for k, (r, sp, col) in enumerate(((420, 0.25, BGOLD), (480, -0.18, TEAL), (540, 0.12, CYAN))):
+        ra = a * eo((t - b(4) - k * 0.15) / 0.6)
+        spin_ring(f, CX, 830, r, t, col, ra * (0.35 - k * 0.07), 36 - k * 8, sp, 2, 0.35 + k * 0.1)
     t0 = b(4)
     rich_line(f, '生态位 · ECOLOGICAL NICHE', CX, 560, 34, 'sans_med', BGOLD, a=a, t0=t0 + 0.1, stag=0.02, track=0.1, underline=False)
     rich_line(f, '不当行业第一，', CX, 700, 104, 'serif_black', TXT, a=a, t0=t0 + 0.2, stag=0.05)
@@ -539,7 +709,12 @@ def sc_card1(f, t):
 def sc_forest(f, t):
     if not (b(10) - 0.1 < t < b(25) + 0.1): return
     a = env(t, b(10), b(25), 0.4, 0.35)
+    for k in range(5):   # 透过树冠的光束
+        x0 = 180 + k * 180 + 30 * math.sin(t * 0.3 + k)
+        sh = (0.5 + 0.5 * math.sin(t * 0.8 + k * 1.7))
+        f.fillpoly([(x0 - 18, 180), (x0 + 18, 180), (x0 + 120, 1080), (x0 + 30, 1080)], lerpc(BGOLD_L, TEAL, .3), a * 0.05 * sh, 'B')
     forest_tree(f, t, a, 1.0, 0)
+    fireflies(f, t, a * 0.8, lerpc(BGOLD_L, GREEN, .3))
     f.text('示意图 · 非实测数据', CX, 215, 26, 'sans_light', GREY, a, mode='O')
     part = env(t, b(21, 2), b(25), 0.5, 0.4)
     for zi, (y0, y1, name, col) in enumerate(TREE_Z):
@@ -553,7 +728,11 @@ def sc_forest(f, t):
         u = (t * (0.12 + 0.03 * k) + k * 0.33 + zi * 0.17) % 1.0
         x = 260 + 560 * (0.5 + 0.5 * math.sin(u * 2 * math.pi + k))
         y = y0 + 40 + (y1 - y0 - 80) * (0.5 + 0.5 * math.sin(u * 4 * math.pi + zi))
-        bird(f, x, y, 20, col, a * eo((t - b(11, 2) - zi * BEAT / 2) / 0.5), t, k + zi)
+        ba = a * eo((t - b(11, 2) - zi * BEAT / 2) / 0.5)
+        bird(f, x, y, 20, col, ba, t, k + zi)
+        tr = [(260 + 560 * (0.5 + 0.5 * math.sin(((u - d * 0.004) % 1) * 2 * math.pi + k)),
+               y0 + 40 + (y1 - y0 - 80) * (0.5 + 0.5 * math.sin(((u - d * 0.004) % 1) * 4 * math.pi + zi))) for d in range(12)]
+        f.splat(np.array([p[0] for p in tr]), np.array([p[1] for p in tr]), col, ba * np.linspace(1.2, 0.1, 12), 'E')
     s2 = env(t, b(18), b(21, 2) + 0.2, 0.4, 0.35)   # 生态位 ≠ 地点
     if s2 > 0:
         for i, (lab, col) in enumerate((('吃什么', CYAN), ('需要什么环境', BGOLD), ('和谁互动', PINK))):
@@ -596,6 +775,10 @@ def sc_venn(f, t):
         if p <= 0: continue
         hl = env(t, t_in[i], t_in[i] + BAR * 1.5, 0.2, 0.3)
         f.circle((vx, vy), VR, col, p, 3 + int(hl > 0.5))
+        q = t * (0.5 + 0.12 * i) * (1 if i != 1 else -1) + i * 2.1 + np.linspace(0, 0.9, 40)
+        f.splat(vx + VR * np.cos(q), vy + VR * np.sin(q), lerpc(col, WHITE, .4), p * np.linspace(0.1, 2.2, 40), 'E')
+        f.glow((vx + VR * math.cos(q[-1]), vy + VR * math.sin(q[-1])), 16, col, p * 0.8, 'B')
+        spin_ring(f, vx, vy, VR + 22, t * (1 if i % 2 else -1), col, p * 0.22, 40, 0.15, 1)
         f.fillpoly([(vx + VR * math.cos(q), vy + VR * math.sin(q)) for q in np.linspace(0, 2 * math.pi, 48)], col, p * (0.05 + 0.08 * hl))
         ox, oy = (0, -110) if i == 0 else ((-110, 70) if i == 1 else (110, 70))
         f.text(name, vx + ox, vy + oy, 38, 'sans_black', lerpc(col, WHITE, .3), p, mode='O', glow=0.3)
@@ -791,11 +974,16 @@ def sc_outro(f, t):
     if not (b(85) - 0.1 < t < T_GATHER0 + 0.1): return
     a = env(t, b(85), T_GATHER0, 0.5, 0.05)
     n_on = int(len(HEX) * cl((t - b(85)) / (BAR * 5)))
+    ph = ((t - b(85)) / BAR) % 1.0              # 每小节从中心荡开一圈
     for k, (hx, hy) in enumerate(HEX):
         on = _HO[k] < n_on
+        d = math.hypot(hx - CX, hy - 470) / 650
+        rip = math.exp(-((ph - d * 0.6) / 0.06) ** 2)
         col = BGOLD if on else lerpc(GREY, TEAL, .3)
-        f.poly(hexagon(hx, hy, 52, math.pi / 6), col, a * (0.85 if on else 0.25), 2, closed=True)
-        if on: f.glow((hx, hy), 10, BGOLD_L, a * 0.6, 'E')
+        f.poly(hexagon(hx, hy, 52 + 6 * rip, math.pi / 6), lerpc(col, WHITE, 0.5 * rip), a * min(1, (0.85 if on else 0.25) + rip * 0.6), 2, closed=True)
+        if on:
+            f.fillpoly(hexagon(hx, hy, 46, math.pi / 6), BGOLD, a * (0.05 + 0.12 * rip))
+            f.glow((hx, hy), 10 + 14 * rip, BGOLD_L, a * (0.6 + 0.6 * rip), 'E')
 
 
 
@@ -933,16 +1121,18 @@ def render(i):
     f = Frame(t)
     bg = bg_at(t)
     draw_stars(f, t, 1.0 - 0.5 * cl((t - T_GATHER0) / 2))
+    atmosphere(f, t)
     for s in SCENES:
         s(f, t)
     draw_caps(f, t)
     shockwaves(f, t)
     draw_chrome(f, t)
-    img = finish(f, bg, bloom_k=1.0 + 0.3 * beat_pulse(t) * energy(t), vignette=VIGNETTE)
-    z = zoom_punch(t)
-    if z > 0.002:
-        M = cv2.getRotationMatrix2D((W / 2, H / 2), 0, 1 + z)
-        img = cv2.warpAffine(img, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    img = finish(f, bg, bloom_k=1.15 + 0.4 * beat_pulse(t) * energy(t), vignette=VIGNETTE)
+    img = grade(img)
+    # 镜头"呼吸"：缓慢推拉 + 每拍轻微一推 + 重拍冲击
+    z = 0.012 * (0.5 + 0.5 * math.sin(t * 0.35)) + 0.006 * beat_pulse(t, 0.12) * energy(t) + zoom_punch(t)
+    M = cv2.getRotationMatrix2D((W / 2, H * 0.45), 0.25 * math.sin(t * 0.21), 1 + z)
+    img = cv2.warpAffine(img, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
     end_post(img, t)
     fin = cl(t / 0.5)
     if fin < 1:
