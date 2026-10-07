@@ -127,6 +127,91 @@ function chapterCard(c, b, num, name, years, sub) {
   txt(c, b, sub, 892, CY + 162, 'bodyL', 1.2, out, { align: 'left' });
 }
 
+// ---------------------------------------------------------------- brand ending
+const END = { C: [CX, 400], S: 220, G0: 28, G1: 34, LOGO: 34, WORD: 36, F0: 42, F1: 48 };   // local beats of the outro
+let ENDP = null;
+function endParticles() {
+  if (ENDP) return ENDP;
+  const r = rng(99), n = LOGO_PTS.length, P = [];
+  for (let i = 0; i < n; i++) {
+    const [nx, ny, col] = LOGO_PTS[i], ang = r() * Math.PI * 2, rad = 500 + r() * 800;
+    P.push({ tx: END.C[0] + nx * END.S, ty: END.C[1] + ny * END.S, sx: Math.cos(ang) * rad, sy: Math.sin(ang) * rad * 0.7,
+      dl: r() * 0.35, from: mixc(GOLD2, CYAN, r()), col: mixc(col, WHITE, 0.12), big: r() < 0.12 });
+  }
+  const B = [];
+  for (let i = 0; i < 700; i++) B.push({ th: r() * Math.PI * 2, v: 0.35 + r() * 0.9, lf: 0.5 + r() * 0.8, ci: Math.floor(r() * 6) });
+  return (ENDP = { P, B });
+}
+const END_COLS = [LOGO_BLUE, hex('#5fe1ff'), GOLD, GOLD2, WHITE, hex('#6f8cff')];
+function brandEnding(c, b) {
+  const { P, B } = endParticles(), [lx, ly] = END.C, BT = TL.BEAT;
+  const t = (b - END.G0) * BT, span = (END.G1 - END.G0) * BT;          // seconds since the gathering began
+  c.save(); c.globalCompositeOperation = 'lighter';
+  // two faint rings mark the start of the gathering
+  for (const [k, r0] of [[0, 360], [0.25, 620]]) {
+    const u = clamp((t - k) / 2.2); if (u <= 0 || u >= 1) continue;
+    c.strokeStyle = rgba(mixc(LOGO_BLUE, WHITE, 0.4), 0.35 * Math.sin(u * Math.PI)); c.lineWidth = 1.4;
+    c.beginPath(); c.ellipse(lx, ly, r0 * (1.25 - 0.25 * u), r0 * (1.25 - 0.25 * u), 0, 0, Math.PI * 2); c.stroke();
+  }
+  // gathering particles
+  const fade = 1 - clamp((b - END.LOGO) / 1.2);
+  if (fade > 0 && t > -0.2) {
+    const a0 = clamp(t / 0.5);
+    for (const q of P) {
+      const p = clamp((t - q.dl * span) / (span * 0.75)), e = p * p * (3 - 2 * p), sw = (1 - e) * 2.4;
+      const rx = q.sx * Math.cos(sw) - q.sy * Math.sin(sw), ry = q.sx * Math.sin(sw) + q.sy * Math.cos(sw);
+      const x = lx + rx * (1 - e) + (q.tx - lx) * e, y = ly + ry * (1 - e) + (q.ty - ly) * e;
+      const a = a0 * fade * (0.75 + 0.25 * e);
+      const col = mixc(q.from, q.col, e);
+      if (q.big) glow(c, x, y, 3.2, col, a, 1);
+      else { c.fillStyle = rgba(col, a); c.fillRect(x - 1.1, y - 1.1, 2.2, 2.2); }
+    }
+  }
+  // blue-white core that swells as the particles arrive, then a soft blue halo behind the logo
+  const pc = clamp(t / span), core = pc * pc * pc;
+  glow(c, lx, ly, 40 + 200 * core, mixc(LOGO_BLUE, WHITE, 0.55), (0.2 + 0.85 * core) * (1 - clamp((b - END.LOGO) / 1.6)));
+  const ga = clamp(t / 3) * (1 - clamp((b - END.F0) / (END.F1 - END.F0)));
+  glow(c, lx, ly, 260, LOGO_BLUE, 0.22 * ga * (1 + 0.8 * Math.exp(-Math.max(0, b - END.LOGO) * BT / 0.5)));
+  // heavy beat: gold burst, shockwave rings and bloom around the wordmark
+  const dw = (b - END.WORD) * BT;
+  if (dw >= 0 && dw < 3.4) {
+    for (let k = 0; k < 3; k++) {
+      const d = Math.max(dw - k * 0.018, 0);
+      for (const q of B) {
+        const rr = 1500 * q.v * (1 - Math.exp(-2.4 * d)) / 2.4, al = Math.exp(-d / (1.4 * q.lf)) * (1 - k * 0.25);
+        if (al < 0.02) continue;
+        const x = CX + rr * Math.cos(q.th), y = 640 + rr * Math.sin(q.th) * 0.8;
+        c.fillStyle = rgba(END_COLS[q.ci], 0.75 * al); c.fillRect(x - 1.2, y - 1.2, 2.4, 2.4);
+      }
+    }
+    for (const [k, w] of [[0, 3], [0.12, 1.5]]) {
+      const u = clamp((dw - k) / 1.6); if (u <= 0 || u >= 1) continue;
+      const R = 90 + 900 * E.outExpo(u);
+      c.strokeStyle = rgba(mixc(GOLD, WHITE, 0.25), 0.8 * (1 - u)); c.lineWidth = w * (1 - u) + 0.8;
+      c.beginPath(); c.ellipse(CX, 560, R, R * 0.82, 0, 0, Math.PI * 2); c.stroke();
+    }
+    for (let i = 0; i < 48; i++) {   // brief radial streaks
+      const th = i / 48 * Math.PI * 2 + 0.3, u = clamp(dw / 0.9), r0 = 160 + 700 * E.outCubic(u);
+      c.strokeStyle = rgba(GOLD2, 0.35 * (1 - u)); c.lineWidth = 1;
+      c.beginPath(); c.moveTo(CX + Math.cos(th) * r0, 560 + Math.sin(th) * r0 * 0.8); c.lineTo(CX + Math.cos(th) * (r0 + 120), 560 + Math.sin(th) * (r0 + 120) * 0.8); c.stroke();
+    }
+    glow(c, CX, 640, 340, GOLD, 0.32 * Math.exp(-dw / 0.6));
+    glow(c, CX, 640, 700, GOLD, 0.12 * Math.exp(-dw / 1.2));
+  }
+  c.restore();
+  // the official logo, then the gold wordmark (Noto Serif SC Black 120px) with BUFFETT · MUNGER justified to its width
+  drawLogoImg(c, lx, ly, END.S, E.outCubic(clamp(((b - END.LOGO) * BT + 0.3) / 1.0)));
+  if (dw >= -0.05) {
+    const T1 = brandText(LOGO_TEXT, `900 120px ${FAM.serif}`, 120, 0, 'gold');
+    const T2 = brandText(LOGO_SUB, `600 39.5px ${FAM.cor}`, 39.5, 0, SUB_GOLD, T1.w);
+    const sh = (dw - 0.35) / 1.4;
+    c.save(); c.shadowColor = 'rgba(255,186,80,0.3)'; c.shadowBlur = 26;
+    blitText(c, T1, CX, 684, 'center', E.outCubic(clamp(dw / 0.35)), 1, sh > 0 && sh < 1 ? sh : null);
+    c.restore();
+    blitText(c, T2, CX, 742, 'center', E.outCubic(clamp((dw - 0.15) / 0.45)));
+  }
+}
+
 // ---------------------------------------------------------------- scenes
 const SCENE_YEARS = {
   ch1: [[0, 1930], [4, 1942], [16, 1942], [20, 1949], [28, 1949]],
@@ -1113,13 +1198,10 @@ const SCENE_DRAW = {
         if (i < 2) { const p = E.outCubic(inv(t0 + 0.6, t0 + 1.8, b)); glowLine(c, [[x + 180, 460], [x + 300, 460]], p, cc, 2, a); }
       });
       txt(c, b, '便宜是起点，优秀是核心，时间是答案。', CX, 720, 'quote', 25, 27.4, { scale: 1.05 });
+      txt(c, b, '数据来源：伯克希尔·哈撒韦历年致股东信及公开资料 · 仅供学习交流，不构成任何投资建议', CX, 960, 'small', 25.6, 27.4, { scale: 0.85 });
     }
-    if (b > 27.8) {
-      snowball(c, CX, 330, 70, b * 0.4, vis(b, 28, 40), PAL.acc, 1);
-      txt(c, b, '滚雪球的人', CX, 560, 'h1', 28, 40, { anim: 'blur', scale: 1.1 });
-      txt(c, b, '沃伦·巴菲特的投资思想进化史', CX, 630, 'bodyL', 28.8, 40, { ls: 0.35 });
-      txt(c, b, '数据来源：伯克希尔·哈撒韦历年致股东信及公开资料 · 仅供学习交流，不构成任何投资建议', CX, 960, 'small', 29.4, 40, { scale: 0.85 });
-    }
+    // brand ending (same as the Munger film): particles spiral into the logo, gold 巴芒价值 on the heavy beat, fade out
+    if (b > 27.4) brandEnding(c, b);
   },
 };
 window.SCENE_DRAW = SCENE_DRAW;

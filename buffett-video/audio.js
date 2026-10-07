@@ -358,7 +358,11 @@ for (let bar = 15; bar < 22; bar++) {
 }
 for (let rep = 0; rep < 4; rep++) for (const [b, m, d] of MEL_CH4) piano(bt(48 * 4 + rep * 16 + b), m + (rep === 3 ? 12 : 0), 0.5, bt(d));
 for (const [b, m, d] of MEL_OUT) piano(bt(116 * 4 + b), m, 0.7, bt(d));
-for (const m of [74, 78, 81, 86]) piano(bt(123 * 4), m, 0.7, bt(10));
+// brand ending: light hit as the logo appears, then the heavy beat (D major + bells + deep drum)
+boom(bt(124 * 4 + 2), 0.45); taiko(bt(124 * 4 + 2), 0.3);
+for (const m of [50, 57, 62, 66, 69, 74]) piano(bt(125 * 4), m, 0.75, bt(10));
+for (const m of [81, 86]) piano(bt(125 * 4), m, 0.45, bt(6));
+taiko(bt(125 * 4), 1);
 for (const [b, m, d] of STR_TITLE) strings(bt(8 * 4 + b), m, bt(d), 0.9);
 for (const [b, m, d] of STR_CH8) { if (!inSilence(102 * 4 + b)) { strings(bt(102 * 4 + b), m, bt(d) - 0.05, 1); strings(bt(102 * 4 + b), m - 12, bt(d) - 0.05, 0.6); } }
 
@@ -374,7 +378,8 @@ for (const h of ev.hits) {
 riser(bt(7 * 4), bt(8 * 4), 0.8);
 riser(bt(108 * 4), bt(109 * 4 + 3), 0.9);
 riser(bt(83 * 4), bt(84 * 4 + 3.5), 0.5);
-boom(bt(123 * 4), 0.9);
+boom(bt(125 * 4), 1.0);
+riser(bt(123 * 4), bt(124.95 * 4), 0.55);
 console.timeEnd('score');
 
 // ------------------------------------------------------------------ mix
@@ -434,7 +439,7 @@ function freeverb(inp, room = 0.88, damp = 0.45) {
 }
 const WET = freeverb(SEND);
 // section dynamics (dB) applied to music, sub and drums
-const DYN = [[0, -7], [8, 0], [11, -4], [15, -5], [22, -3], [36, -2], [48, -1], [64, 0], [80, -2], [85, -5], [88, -1], [92, -1], [102, 1], [116, -2]];
+const DYN = [[0, -7], [8, 0], [11, -4], [15, -5], [22, -3], [36, -2], [48, -1], [64, 0], [80, -2], [85, -5], [88, -1], [92, -1], [102, 1], [116, -2], [123, -3], [125, 0]];
 const dyn = new Float32Array(N);
 {
   let g = Math.pow(10, DYN[0][1] / 20);

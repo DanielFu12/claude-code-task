@@ -6,7 +6,7 @@
   const BEAT = 60 / BPM;          // 0.625 s
   const BAR = BEAT * 4;           // 2.5 s
   const FPS = 30;
-  const TAIL = 3;                 // seconds of reverb tail after the last bar
+  const TAIL = 1.2;               // seconds of black after the brand ending fades out
 
   // subs  : local beats with an internal cut (soft deep whoosh)
   // hits  : local beats where something lands  (soft | land | big)
@@ -22,9 +22,9 @@
     { id: 'ch6',    bar: 80,  bars: 12, years: [1999, 2011], subs: [4, 20, 40],            hits: [{ b: 14, k: 'big' }, { b: 26, k: 'land' }, { b: 30, k: 'big' }] },
     { id: 'ch7',    bar: 92,  bars: 10, years: [2010, 2025], subs: [4, 14, 30],            hits: [{ b: 24, k: 'land' }] },
     { id: 'ch8',    bar: 102, bars: 14, years: [1965, 2025], subs: [4, 24, 36, 44],        hits: [{ b: 20, k: 'land' }, { b: 32, k: 'big' }, { b: 48, k: 'land' }] },
-    { id: 'outro',  bar: 116, bars: 8,  years: [2025, 2025], subs: [14, 20, 28],           hits: [{ b: 16, k: 'soft' }, { b: 24, k: 'land' }] },
+    { id: 'outro',  bar: 116, bars: 12, years: [2025, 2025], subs: [14, 20, 28],           hits: [{ b: 16, k: 'soft' }, { b: 24, k: 'land' }, { b: 34, k: 'soft' }, { b: 36, k: 'land' }] },
   ];
-  const TOTAL_BARS = 124;
+  const TOTAL_BARS = 128;
   const DURATION = TOTAL_BARS * BAR + TAIL;
 
   // ---------- harmony ----------
@@ -56,7 +56,9 @@
   put(109, ['A'], 1);
   put(110, ['Dm', 'Bb', 'C', 'Dm', 'Bb', 'C'], 6);
   put(116, ['Bb', 'F', 'C', 'Dm'], 4);
-  put(120, ['Bb', 'C', 'D', 'D'], 4);
+  put(120, ['Bb', 'C', 'D'], 3);
+  put(123, ['Bb', 'A'], 2);   // brand ending: particles gather
+  put(125, ['D'], 3);         // heavy beat resolves to D major
   const chordAt = (bar) => CH[PROG[Math.max(0, Math.min(TOTAL_BARS - 1, Math.floor(bar)))]];
 
   // ---------- arrangement ----------
@@ -76,7 +78,9 @@
     { from: 92,  to: 102, pad: 0.7,  piano: 0, sub: 0.6, arp: 0.9,  bass: 0.9, kick: 'four', snare: 0.5, taiko: 0.3, strings: 0.4 },
     { from: 102, to: 116, pad: 0.9,  piano: 0, sub: 0.7, arp: 1,    bass: 1,   kick: 'four', snare: 0.65, taiko: 0.9, strings: 1 },
     { from: 116, to: 120, pad: 0.7,  piano: 4, sub: 0.5, arp: 0.6,  bass: 0.6, kick: 'one',  snare: 0,   taiko: 0,   strings: 0.6 },
-    { from: 120, to: 124, pad: 0.85, piano: 4, sub: 0.7, arp: 0.4,  bass: 0.7, kick: 'one',  snare: 0,   taiko: 0.5, strings: 0.9 },
+    { from: 120, to: 123, pad: 0.85, piano: 4, sub: 0.7, arp: 0.4,  bass: 0.7, kick: 'one',  snare: 0,   taiko: 0.5, strings: 0.9 },
+    { from: 123, to: 125, pad: 0.7,  piano: 0, sub: 0.8, arp: 0,    bass: 0,   kick: 'none', snare: 0,   taiko: 0,   strings: 0.6 },
+    { from: 125, to: 128, pad: 0.95, piano: 0, sub: 0.8, arp: 0,    bass: 0,   kick: 'none', snare: 0,   taiko: 0,   strings: 0.9 },
   ];
   const arrAt = (bar) => ARR.find((a) => bar >= a.from && bar < a.to) || ARR[ARR.length - 1];
 
