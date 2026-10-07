@@ -18,5 +18,9 @@ python3 src/timeline.py > "$WORK/captions_check.txt"       # 字幕阅读速度�
 for k in 0 1 2 3; do (cd src && python3 video.py chunk $((k*1584)) $(((k+1)*1584)) "$WORK/seg$k.mp4") & done; wait
 printf "file '%s'\n" "$WORK"/seg{0,1,2,3}.mp4 > "$WORK/list.txt"
 ffmpeg -loglevel error -y -f concat -safe 0 -i "$WORK/list.txt" -i "$WORK/mix.wav" \
-  -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart "$OUT"
+  -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart "$WORK/full.mp4"
+# 4) 炫光层细节多，CRF 18 会超过 GitHub 100 MiB 单文件上限 → 两遍编码到 3.4 Mbps（约 92 MiB）
+ffmpeg -loglevel error -y -i "$WORK/full.mp4" -map 0:v -c:v libx264 -preset slow -tune animation -b:v 3400k -pass 1 -passlogfile "$WORK/p2" -an -f null /dev/null
+ffmpeg -loglevel error -y -i "$WORK/full.mp4" -map 0:v -map 0:a -c:v libx264 -preset slow -tune animation -b:v 3400k -pass 2 -passlogfile "$WORK/p2" \
+  -pix_fmt yuv420p -c:a copy -movflags +faststart "$OUT"
 echo "done -> $OUT"
