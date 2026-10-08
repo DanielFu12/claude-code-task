@@ -529,7 +529,7 @@ def vignette(out, k=1.0):
     return out
 
 
-def grain(out, t, k=0.014):
+def grain(out, t, k=0.009):
     global _GRAIN
     if _GRAIN is None:
         r = np.random.default_rng(5)

@@ -15,8 +15,12 @@ get Inter 200 inter_thin; get Inter 300 inter_light; get Inter 600 inter_semi; g
 python3 src/music.py work
 # 3) 逐帧渲染（4 进程并行）并合成音轨
 python3 src/video.py render
-ffmpeg -v error -y -i work/video.mp4 -i work/score.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k \
-  -shortest -movflags +faststart "贝叶斯思维.mp4"
+#    成片两遍编码到约 2.5 Mbps，保证 < 100 MB（GitHub 单文件上限）
+for p in 1 2; do
+  ffmpeg -v error -y -i work/video.mp4 -i work/score.wav -map 0:v -map 1:a -c:v libx264 -preset slow -b:v 2500k \
+    -pass $p -passlogfile work/x264 -pix_fmt yuv420p -c:a aac -b:a 192k -shortest -movflags +faststart \
+    $( [ $p = 1 ] && echo "-f mp4 /dev/null" || echo "贝叶斯思维.mp4" )
+done
 # 4) 预览版（< 30 MB）
 ffmpeg -v error -y -i "贝叶斯思维.mp4" -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -b:v 700k \
   -maxrate 1000k -bufsize 2000k -c:a aac -b:a 128k -movflags +faststart "work/贝叶斯思维_预览版.mp4"

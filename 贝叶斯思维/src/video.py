@@ -277,9 +277,9 @@ def floor_grid(lay, t, a):
 
 
 def scene_doors(out, lay, t):
-    if t > 48.5:
+    if t > 47.5:
         return
-    A = clip01((48.0 - t) / 1.5)
+    A = clip01((47.2 - t) / 0.9)
     floor_grid(lay, t, A * clip01((t - 0.5) / 2))
     # 镜头：开场缓慢推近
     sel = prog(t, 10.0, 0.8)
@@ -471,10 +471,10 @@ def scene_history(out, lay, t):
     if A <= 0:
         return
     # 1990
-    a = window(t, 46.7, 59.4, 1.0, 0.4)
+    a = window(t, 47.1, 59.4, 1.0, 0.4)
     if a > 0:
         sc = 1 + 0.03 * prog(t, 46.7, 13)
-        anim_text(out, "1990", 520, 340, 190, t, 46.7, 59.4, "inter_thin", GOLD, gradient=TITLE_GRAD, fin=1.2,
+        anim_text(out, "1990", 520, 340, 190, t, 47.1, 59.4, "inter_thin", GOLD, gradient=TITLE_GRAD, fin=1.2,
                   track=0.04, glow=0.25, glow_buf=lay, blur_px=10)
         anim_text(out, "《Parade》杂志 ·「Ask Marilyn」专栏", 520, 470, 26, t, 47.3, 55.0, "serif_med", GREY,
                   track=0.12)
@@ -623,14 +623,14 @@ def chart_xy(i, p):
 def scene_sim(out, lay, t):
     if not (67.3 <= t <= 84.5):
         return
-    A = window(t, 67.6, 84.2, 0.8, 1.2)
+    A = window(t, 67.6, 83.1, 0.8, 0.7)
     n = sim_games(t)
     ni = int(n)
     stay_w = int(SIM_CUM[ni - 1]) if ni > 0 else 0
     sw_w = ni - stay_w
     hk = hit_k(t, 0.5) if t >= SIM_T1 else 0
     for x, name, wins, col in ((SIM_L, "坚持不换", stay_w, BLUE), (SIM_R, "换门", sw_w, GOLD)):
-        anim_text(out, name, x, 226, 30, t, 67.8, 84.2, "serif_bold", col if col is GOLD else INK, track=0.3)
+        anim_text(out, name, x, 226, 30, t, 67.8, 83.1, "serif_bold", col if col is GOLD else INK, track=0.3)
         pct = wins / ni * 100 if ni > 0 else 0.0
         a = A * clip01((t - 68.6) / 0.5)
         text(out, f"{pct:.1f}%", x, 320, 104, "inter_light", col, a, glow=0.3 + 0.6 * hk, glow_buf=lay)
@@ -713,7 +713,7 @@ def scene_100(out, lay, t):
     after = prog(t, hk + 1.0, 1.6)            # 98 扇门淡出，两扇门移到中央
     for d in range(1, 101):
         cx, by = gdoor_pos(d)
-        appear = eout(prog(t, 82.6 + ((d - 1) % 20) * 0.03 + ((d - 1) // 20) * 0.08, 0.6))
+        appear = eout(prog(t, 83.0 + ((d - 1) % 20) * 0.03 + ((d - 1) // 20) * 0.06, 0.6))
         if appear <= 0:
             continue
         theta, inside, ik = 0.0, None, 0.0
@@ -1001,8 +1001,9 @@ def scene_medical(out, lay, t):
         if rk < 1:
             line(lay, (scan_x, 440), (scan_x, 680), TEAL, 0.9, 2)
             glow_rect(lay, scan_x - 3, 440, scan_x + 3, 680, TEAL, 0.5, 12)
-    cyc = prog(t, 183.6, 1.0)                     # 进入循环图后点阵淡出
-    alpha = alpha * A * (1 - cyc)
+    cyc = prog(t, 184.3, 0.9)                     # 循环图
+    bf = prog(t, 183.3, 0.8)                      # 点阵先淡出
+    alpha = alpha * A * (1 - bf)
     if alpha.max() > 0.003:
         big = np.zeros(len(_ix), bool)
         big[M_TP] = big[M_FP] = True
@@ -1033,10 +1034,12 @@ def scene_medical(out, lay, t):
     text(out, "每个点 = 1 个人", 360, 404, 18, "sans_light", GREY, window(t, 150.6, 167.4, 0.6, 0.6) * A)
     # 50%
     hk = T.HITS["fifty"]
-    a = window(t, hk, 183.6, 0.25, 0.6) * A
+    a = window(t, hk, 189.7, 0.25, 0.5) * A
     if a > 0:
-        text(out, "50%", CX, 330, 150, "inter_light", GOLD, a * clip01((182.5 - t) / 0.3), glow=0.5, glow_buf=lay)
-        lab_a = a * (1 - prog(t, 177.6, 0.6))
+        sl = ease(prog(t, 181.3, 1.0))
+        text(out, "50%", CX - 200 * sl, 330 - 70 * ease(cyc), 150 - 60 * sl, "inter_light", mixc(GOLD, GOLD * 0.7, sl),
+             a * (1 - 0.0 * sl), glow=0.5 * (1 - sl), glow_buf=lay)
+        lab_a = a * (1 - prog(t, 177.6, 0.6)) * (1 - bf)
         text(out, "真病人 99", CX - 230, 700, 26, "serif_med", CORAL, lab_a, track=0.15)
         text(out, "误报 99", CX + 230, 700, 26, "serif_med", BLUE, lab_a, track=0.15)
         text(out, "99 ÷ (99 + 99) = 50%", CX, 790, 30, "inter_light", GREY * 1.3, lab_a, track=0.05)
@@ -1045,13 +1048,12 @@ def scene_medical(out, lay, t):
     hk2 = T.HITS["iter"]
     a = window(t, 180.3, 189.9, 0.6, 0.6) * A
     if a > 0:
-        text(out, "真病人 98", CX - 230, 700, 26, "serif_med", CORAL, a * (1 - cyc), track=0.15)
-        text(out, "误报 1", CX + 230, 700, 26, "serif_med", BLUE, a * (1 - cyc), track=0.15)
-        text(out, "98 ÷ (98 + 1) ≈ 99%", CX, 790, 30, "inter_light", GREY * 1.3, a * (1 - cyc), track=0.05)
+        text(out, "真病人 98", CX - 230, 700, 26, "serif_med", CORAL, a * (1 - bf), track=0.15)
+        text(out, "误报 1", CX + 230, 700, 26, "serif_med", BLUE, a * (1 - bf), track=0.15)
+        text(out, "98 ÷ (98 + 1) ≈ 99%", CX, 790, 30, "inter_light", GREY * 1.3, a * (1 - bf), track=0.05)
     if t >= hk2:
         u = eout(prog(t, hk2, 0.8))
         a2 = A * clip01((189.7 - t) / 0.5)
-        text(out, "50%", CX - 200 * u, 330 - 70 * ease(cyc), 150 - 60 * u, "inter_light", GOLD * 0.7, a2 * u)
         text(out, "→", CX + 10, 330 - 70 * ease(cyc), 60, "inter_thin", INK, a2 * u)
         text(out, "99%", CX + 220 * u, 330 - 70 * ease(cyc), 150, "inter_light", GOLD, a2, glow=0.5, glow_buf=lay)
         shockwave(lay, (CX + 220, 330), t, hk2, GOLD, 900, 1.2)
@@ -1116,7 +1118,7 @@ def scene_evidence(out, lay, t):
         rect(lay, fx - 310, y0 + 18, fx + 310, y0 + 72, CORAL, 0.6 * hl * A, th=1.2, r=8, mode="add")
         text(out, "关键在分母", fx + 400, y0 + 44, 22, "serif_med", CORAL, hl * A, track=0.2)
     # 仪表盘
-    ga = eout(prog(t, 192.6, 1.0)) * A
+    ga = eout(prog(t, 190.9, 1.2)) * A
     if ga > 0:
         n = 120
         for i in range(n):
