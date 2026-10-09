@@ -1,0 +1,13 @@
+{
+  "_说明": "每届股东大会的视频来源。优先级：local（本地文件，可多个分段）> urls（直接给链接，上午/下午场可分别填）> search（用 yt-dlp 搜索 YouTube，取标题含年份、时长最长的结果）。CNBC Buffett Archive（buffett.cnbc.com）收录 1994 年起全部股东大会的完整录像和逐字稿，是最权威的来源。",
+  "1998": {"date": "1998-05-04", "local": [], "urls": [], "search": "Berkshire Hathaway 1998 annual meeting full"},
+  "2000": {"date": "2000-04-29", "local": [], "urls": [], "search": "Berkshire Hathaway 2000 annual meeting full"},
+  "2017": {"date": "2017-05-06", "local": [], "urls": [], "search": "Berkshire Hathaway 2017 annual meeting full Yahoo Finance"},
+  "2018": {"date": "2018-05-05", "local": [], "urls": [], "search": "Berkshire Hathaway 2018 annual meeting full Yahoo Finance"},
+  "2019": {"date": "2019-05-04", "local": [], "urls": [], "search": "Berkshire Hathaway 2019 annual meeting full Yahoo Finance"},
+  "2020": {"date": "2020-05-02", "local": [], "urls": [], "search": "Berkshire Hathaway 2020 annual meeting full"},
+  "2021": {"date": "2021-05-01", "local": [], "urls": [], "search": "Berkshire Hathaway 2021 annual meeting full"},
+  "2022": {"date": "2022-04-30", "local": [], "urls": [], "search": "Berkshire Hathaway 2022 annual meeting full CNBC"},
+  "2023": {"date": "2023-05-06", "local": [], "urls": [], "search": "Berkshire Hathaway 2023 annual meeting full CNBC"},
+  "2025": {"date": "2025-05-03", "local": [], "urls": [], "search": "Berkshire Hathaway 2025 annual meeting full CNBC"}
+}

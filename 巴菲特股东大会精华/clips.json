@@ -1,0 +1,156 @@
+{
+  "title": "巴菲特与芒格",
+  "subtitle": "股东大会精华 · 1998—2025",
+  "tagline": "十二段值得反复听的话",
+  "target_seconds": 600,
+  "auto_fit": true,
+  "_说明": "每段的 lines 是原话中的关键句（英文用于在字幕/转写稿里自动定位时间码，中文是成片字幕）。pre/post 是在第一句之前、最后一句之后多留的秒数（会自动吸附到停顿处）。若自动定位不准，可在该段填 start/end（源视频中的秒数或 h:mm:ss）手动覆盖。",
+  "chapters": [
+    {"id": "ch1", "no": "壹", "title": "能力圈", "subtitle": "只玩自己看得懂的游戏"},
+    {"id": "ch2", "no": "贰", "title": "普通人的答案", "subtitle": "指数基金与美国国运"},
+    {"id": "ch3", "no": "叁", "title": "坦然认错", "subtitle": "错过谷歌，割肉航空"},
+    {"id": "ch4", "no": "肆", "title": "看穿泡沫", "subtitle": "比特币与「老鼠药」"},
+    {"id": "ch5", "no": "伍", "title": "人生的复利", "subtitle": "投资自己，远离愚蠢"},
+    {"id": "ch6", "no": "终", "title": "传承", "subtitle": "六十年后的交棒"}
+  ],
+  "coldopen": [
+    {"id": "o1", "source": "2000", "pre": 0.6, "post": 1.4,
+     "lines": [{"en": "Charlie?", "zh": "查理？", "who": "巴菲特"}, {"en": "I have nothing to add.", "zh": "我没什么要补充的。", "who": "芒格"}]},
+    {"id": "o2", "source": "2019", "pre": 0.6, "post": 1.4,
+     "lines": [{"en": "Charlie?", "zh": "查理？", "who": "巴菲特"}, {"en": "I have nothing to add.", "zh": "我没什么要补充的。", "who": "芒格"}]},
+    {"id": "o3", "source": "2022", "pre": 0.6, "post": 1.4,
+     "lines": [{"en": "Charlie?", "zh": "查理？", "who": "巴菲特"}, {"en": "I have nothing to add.", "zh": "我没什么要补充的。", "who": "芒格"}]},
+    {"id": "o4", "source": "2023", "pre": 0.6, "post": 2.5,
+     "lines": [{"en": "Charlie?", "zh": "查理？", "who": "巴菲特"}, {"en": "I have nothing to add.", "zh": "我没什么要补充的。", "who": "芒格"}]}
+  ],
+  "clips": [
+    {
+      "id": "c01", "chapter": "ch1", "source": "1998", "speaker": "沃伦·巴菲特", "speaker_en": "Warren Buffett",
+      "topic": "为什么不碰科技股", "short_title": "巴菲特：对手占优的游戏，我不玩",
+      "pre": 6, "post": 3,
+      "lines": [
+        {"en": "I don't want to play in a game where the other guy has an advantage.", "zh": "对手占优势的游戏，我不想参与。"},
+        {"en": "I could spend all my time thinking about technology for the next year", "zh": "就算接下来一整年，我把全部时间都花在研究科技公司上，"},
+        {"en": "and I wouldn't be the 100th, 1,000th or even the 10,000th smartest guy in the country in analyzing those businesses.", "zh": "在分析这类企业的人里，我也排不进全美前一百、前一千，甚至前一万名。"},
+        {"en": "That's a seven- or eight-foot bar that I can't clear.", "zh": "那是一根七八英尺高的横杆，我跳不过去。"}
+      ]
+    },
+    {
+      "id": "c02", "chapter": "ch1", "source": "2000", "speaker": "查理·芒格", "speaker_en": "Charlie Munger",
+      "topic": "互联网泡沫：葡萄干与粪便", "short_title": "芒格2000年痛批互联网泡沫",
+      "pre": 22, "post": 4,
+      "lines": [
+        {"en": "If you mix raisins with turds, they're still turds.", "zh": "把葡萄干和粪便混在一起，得到的还是粪便。"}
+      ]
+    },
+    {
+      "id": "c03", "chapter": "ch2", "source": "2018", "speaker": "沃伦·巴菲特", "speaker_en": "Warren Buffett",
+      "topic": "1942年的一万美元", "short_title": "1942年投1万美元，今天值多少？",
+      "pre": 4, "post": 3,
+      "lines": [
+        {"en": "If you had put $10,000 in an index fund and reinvested the dividends, it would now be worth $51 million.", "zh": "如果当年把一万美元投进指数基金，股息再投入，现在会变成五千一百万美元。"},
+        {"en": "If you had bought gold with that $10,000, you would have about $400,000.", "zh": "如果用这一万美元买黄金，现在大约只有四十万美元。"},
+        {"en": "All you had to do was figure that America was going to do well over time,", "zh": "你唯一需要判断的，就是美国长期会越来越好，"},
+        {"en": "that we would overcome the current difficulties.", "zh": "我们终将渡过眼前的难关。"}
+      ]
+    },
+    {
+      "id": "c04", "chapter": "ch2", "source": "2017", "speaker": "沃伦·巴菲特", "speaker_en": "Warren Buffett",
+      "topic": "全场起立致敬约翰·博格", "short_title": "巴菲特请全场起立，致敬指数基金之父",
+      "pre": 3, "post": 8,
+      "lines": [
+        {"en": "Jack Bogle has probably done more for the American investor than any man in the country.", "zh": "约翰·博格为美国普通投资者做的事，可能比全国任何人都多。"},
+        {"en": "People have talked about index funds, but it wouldn't have happened without him.", "zh": "很多人都谈过指数基金，但没有他，指数基金就不会诞生。"},
+        {"en": "He's put tens and tens of billions into their pockets,", "zh": "他已经往投资者口袋里放了几百亿美元，"},
+        {"en": "and those numbers are going to be hundreds and hundreds of billions over time.", "zh": "随着时间推移，这个数字会变成几千亿。"}
+      ]
+    },
+    {
+      "id": "c05", "chapter": "ch2", "source": "2021", "speaker": "沃伦·巴菲特", "speaker_en": "Warren Buffett",
+      "topic": "1989年市值前二十，如今一家不剩", "short_title": "30年前全球最值钱的20家公司，今天一家都不在了",
+      "pre": 3, "post": 3,
+      "lines": [
+        {"en": "Look at the top 20 from 1989.", "zh": "看看1989年市值最高的二十家公司。"},
+        {"en": "None of the 20 from 30 years ago are on the present list. Zero.", "zh": "三十年前的这二十家，没有一家还在今天的榜单上。一家都没有。"},
+        {"en": "The world can change in very dramatic ways.", "zh": "世界可以发生翻天覆地的变化。"},
+        {"en": "I think there's a great argument for index funds.", "zh": "这正是支持指数基金的有力理由。"}
+      ]
+    },
+    {
+      "id": "c06", "chapter": "ch3", "source": "2019", "speaker": "查理·芒格 & 沃伦·巴菲特", "speaker_en": "Charlie Munger & Warren Buffett",
+      "topic": "错过谷歌", "short_title": "芒格：没看懂谷歌，我像个蠢驴",
+      "pre": 18, "post": 4,
+      "lines": [
+        {"en": "I feel like a horse's ass for not identifying Google better.", "zh": "没能早点看懂谷歌，我觉得自己像头蠢驴。", "who": "芒格"},
+        {"en": "He's saying we blew it.", "zh": "他的意思是：我们搞砸了。", "who": "巴菲特"}
+      ]
+    },
+    {
+      "id": "c07", "chapter": "ch3", "source": "2020", "speaker": "沃伦·巴菲特", "speaker_en": "Warren Buffett",
+      "topic": "清仓航空股", "short_title": "巴菲特清仓航空股：那是我的错",
+      "pre": 4, "post": 3,
+      "lines": [
+        {"en": "The world has changed for the airlines.", "zh": "航空业的世界已经变了。"},
+        {"en": "And I don't know how it's changed.", "zh": "而我并不知道它变成了什么样。"},
+        {"en": "That was my mistake.", "zh": "那是我的错。"},
+        {"en": "I wish them well.", "zh": "我祝他们一切顺利。"}
+      ]
+    },
+    {
+      "id": "c08", "chapter": "ch4", "source": "2022", "speaker": "沃伦·巴菲特", "speaker_en": "Warren Buffett",
+      "topic": "25美元也不买全世界的比特币", "short_title": "巴菲特：全世界的比特币卖我25美元，我也不要",
+      "pre": 4, "post": 3,
+      "lines": [
+        {"en": "If you told me you own all of the bitcoin in the world and you offered it to me for $25, I wouldn't take it,", "zh": "如果你说你拥有全世界所有的比特币，开价25美元卖给我，我也不会要，"},
+        {"en": "because what would I do with it?", "zh": "因为我拿它有什么用呢？"},
+        {"en": "If you said, for a 1% interest in all the farmland in the United States, pay our group $25 billion, I'll write you a check this afternoon.", "zh": "但如果你说，全美国农田的1%，作价250亿美元卖给我们，我今天下午就给你开支票。"},
+        {"en": "The apartments are going to produce rent and the farms are going to produce food.", "zh": "公寓会产生租金，农田会产出粮食。"},
+        {"en": "It doesn't produce anything.", "zh": "而它（比特币）什么都不产出。"}
+      ]
+    },
+    {
+      "id": "c09", "chapter": "ch4", "source": "2022", "speaker": "查理·芒格", "speaker_en": "Charlie Munger",
+      "topic": "愚蠢、邪恶、让人难堪", "short_title": "芒格：比特币同时占了三样",
+      "pre": 2, "post": 4,
+      "lines": [
+        {"en": "In my life, I try to avoid things that are stupid and evil and make me look bad in comparison with somebody else.", "zh": "这辈子我一直尽量避开三种东西：愚蠢的、邪恶的、会让我跟别人一比显得很糟的。"},
+        {"en": "And bitcoin does all three.", "zh": "比特币三样全占了。"},
+        {"en": "In the first place, it's stupid because it's still likely to go to zero.", "zh": "第一，它很愚蠢，因为它仍然很可能归零。"},
+        {"en": "It's evil because it undermines the Federal Reserve System.", "zh": "第二，它很邪恶，因为它破坏了美联储体系。"},
+        {"en": "And third, it makes us look foolish compared to the Communist leader in China. He was smart enough to ban bitcoin in China.", "zh": "第三，跟中国领导人相比，它让我们显得很愚蠢——他很明智，在中国禁止了比特币。"}
+      ]
+    },
+    {
+      "id": "c10", "chapter": "ch5", "source": "2022", "speaker": "沃伦·巴菲特", "speaker_en": "Warren Buffett",
+      "topic": "最好的投资是投资自己", "short_title": "巴菲特：通胀时代最好的投资",
+      "pre": 3, "post": 3,
+      "lines": [
+        {"en": "The best thing you can do is to be exceptionally good at something.", "zh": "你能做的最好的事，就是在某件事上做到极其出色。"},
+        {"en": "The best investment by far is anything that develops yourself.", "zh": "到目前为止最好的投资，是任何能提升你自己的投资。"},
+        {"en": "Whatever abilities you have can't be taken away from you.", "zh": "你拥有的能力，谁也拿不走。"},
+        {"en": "They can't actually be inflated away from you.", "zh": "通货膨胀也夺不走。"}
+      ]
+    },
+    {
+      "id": "c11", "chapter": "ch5", "source": "2023", "speaker": "查理·芒格", "speaker_en": "Charlie Munger",
+      "topic": "芒格的人生清单", "short_title": "99岁芒格最后一次股东大会：成功其实很简单",
+      "pre": 3, "post": 4,
+      "lines": [
+        {"en": "It's so simple to spend less than you earn,", "zh": "其实很简单：花的比赚的少，"},
+        {"en": "and invest shrewdly, and avoid toxic people and toxic activities,", "zh": "精明地投资，远离有毒的人和有毒的事，"},
+        {"en": "and try and keep learning all your life, and do a lot of deferred gratification.", "zh": "一辈子坚持学习，多做延迟满足。"},
+        {"en": "If you do all those things, you are almost certain to succeed.", "zh": "这些都做到了，你几乎一定会成功。"},
+        {"en": "If you don't, you're going to need a lot of luck.", "zh": "做不到，你就需要很多运气。"}
+      ]
+    },
+    {
+      "id": "c12", "chapter": "ch6", "source": "2025", "speaker": "沃伦·巴菲特", "speaker_en": "Warren Buffett",
+      "topic": "宣布交棒格雷格·阿贝尔", "short_title": "94岁巴菲特宣布：年底交棒",
+      "pre": 3, "post": 12,
+      "lines": [
+        {"en": "I think the time has arrived where Greg should become the chief executive officer of the company at year end.", "zh": "我认为时候到了：格雷格应当在年底出任公司首席执行官。"},
+        {"en": "I want to spring that on the directors, effectively, and give that as my recommendation.", "zh": "我要把这件事直接告诉董事们，作为我的正式建议。"}
+      ]
+    }
+  ]
+}
