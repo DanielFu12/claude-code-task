@@ -127,7 +127,9 @@ def s_cold_open(f, t):
             aa *= 1 - cl(k)
         ys = cam_apply(y, cam)
         colr = WHITE if t < CO_TPEAK else mixc(WHITE, DOWN, cl((t - CO_TPEAK) / 3))
-        draw_you(f, ys[0], ys[1], aa, tuple(colr), '你', t, 5.5, True, lab_dy=-30 if t < 8.64 else 32)
+        draw_you(f, ys[0], ys[1], aa, tuple(colr), '你', t, 5.5, t < CO_TPEAK, lab_dy=-30 if t < 8.64 else 32)
+        if t >= CO_TPEAK:
+            heart_ring(f, ys[0], ys[1], t, tuple(colr), aa)
         if 15.0 < t < 16.4:
             f.text('割肉', ys[0] + 26, ys[1], 20, 'serif_bold', DOWN, aa, 'l', mode='O')
     if t > 10.76:
@@ -394,7 +396,7 @@ def s_fomo(f, t):
 
 narr(36.27, 38.3, '踏空，并不会让你少一分钱。')
 narr(38.40, 42.5, '可大脑会把「别人在赚钱」，记成「我在亏钱」。')
-narr(42.65, 44.6, '看着别人赚钱，往往比自己亏钱还难受。')
+narr(42.65, 44.6, '看着别人赚钱，有时比自己亏钱还难受。')
 
 
 # ======================================================================== 1C 羊群效应：信息瀑布
@@ -475,9 +477,9 @@ def s_herd(f, t):
 
 
 narr(46.90, 48.9, '第一个人买入，也许只是猜测。')
-narr(49.02, 51.0, '第二个人看见他买了，第三个人看见他们都买了……')
-narr(51.15, 53.1, '到第一百个人，猜测已经变成了「共识」。')
-narr(53.28, 55.3, '每个人都以为别人知道些什么——其实大家只是在看彼此。')
+narr(49.02, 51.0, '第二个、第三个人，看见别人买了……')
+narr(51.15, 53.1, '到第一百个人，猜测变成了「共识」。')
+narr(53.28, 55.3, '其实，大家只是在看彼此。')
 
 
 # ======================================================================== 1D 近因偏差：把最近当成永远
@@ -537,12 +539,12 @@ def s_recency(f, t):
             f.disc((x, ye), 7, UP, ka); f.circle((x, ye), 15 + 5 * beat_pulse(t), UP, ka * 0.6, 1)
             f.disc((x, yr), 7, CYAN, ka); f.circle((x, yr), 15 + 5 * beat_pulse(t), CYAN, ka * 0.6, 1)
             f.text('最乐观', x + 22, ye - 22, 22, 'serif_bold', UP, ka, 'l', mode='O')
-            f.text('回报最低', x + 22, yr + 24, 22, 'serif_bold', CYAN, ka, 'l', mode='O')
+            f.text('此后回报偏低', x + 22, yr + 24, 22, 'serif_bold', CYAN, ka, 'l', mode='O')
 
 
 narr(57.53, 59.5, '大脑会把最近发生的，当成将要发生的。')
 narr(59.65, 61.7, '研究发现：投资者对未来最乐观的时候，')
-narr(61.78, 63.8, '恰恰是此后回报最低的时候。')
+narr(61.78, 63.8, '往往正是此后回报偏低的时候。')
 
 
 # ======================================================================== 1E 反身性飞轮 + Lollapalooza
@@ -602,19 +604,18 @@ def s_reflexivity(f, t):
     fa = a * (1 - eio((t - 74.4) / 0.8))
     draw_flywheel(f, t, fa, [('价格上涨', ''), ('赚钱效应', '故事更动听'), ('新资金入场', '借钱加杠杆'), ('更多买入', '')],
                   GOLD, UP, 64.2, 0.5, 5.0, 10.0, 1)
-    # 中心：两融余额
-    ma = fa * env(t, 72.3, 1e9, 0.5, 0)
-    if ma > 0:
-        v = 2.0 + 1.0 * eo((t - 72.4) / 1.3)
-        f.text('A 股两融余额', RING_C[0], RING_C[1] - 46, 17, 'sans_med', GREY, ma, 'm', mode='O')
-        f.text(f'{v:.2f} 万亿元', RING_C[0], RING_C[1] + 2, 44, 'mono_med', INK, ma, 'm', mode='O')
-        f.text('2026.6.23 首次突破 3 万亿', RING_C[0], RING_C[1] + 48, 15, 'sans_med', UP2, ma * cl((t - 73.6) / 0.4),
-               'm', mode='O')
-    else:
-        f.text('上涨本身', RING_C[0], RING_C[1] - 18, 30, 'serif_black', INK, fa * env(t, 70.3, 72.1, 0.5, 0.3), 'm',
-               mode='O')
-        f.text('成了买入的理由', RING_C[0], RING_C[1] + 24, 22, 'serif_med', UP2, fa * env(t, 70.5, 72.1, 0.5, 0.3),
-               'm', mode='O')
+    # 中心：上涨本身成了买入的理由 → 杠杆让飞轮越转越快
+    f.text('上涨本身', RING_C[0], RING_C[1] - 18, 30, 'serif_black', INK, fa * env(t, 70.3, 72.3, 0.5, 0.3), 'm',
+           mode='O')
+    f.text('成了买入的理由', RING_C[0], RING_C[1] + 24, 22, 'serif_med', UP2, fa * env(t, 70.5, 72.3, 0.5, 0.3),
+           'm', mode='O')
+    la_ = fa * env(t, 72.5, 1e9, 0.4, 0)
+    if la_ > 0:
+        f.text('杠杆', RING_C[0], RING_C[1] - 14, 40, 'serif_black', UP2, la_, 'm', mode='O', glow=0.4)
+        f.text('让飞轮越转越快', RING_C[0], RING_C[1] + 30, 18, 'sans_med', INK, la_, 'm', mode='O')
+        bx = RING_C[0] + math.cos(math.pi / 2) * 220
+        f.circle((RING_C[0], RING_C[1] + 220), 16 + 20 * eo(((t - 72.5) % 0.53) / 0.5), UP, la_ * 0.7, 2)
+
     # Lollapalooza：四股力量拧成一股
     la = a * eio((t - 74.4) / 0.6)
     if la > 0.003:
@@ -643,24 +644,36 @@ def s_reflexivity(f, t):
         ca = la * env(t, 76.6, 78.4, 0.4, 0.4)
         f.text('LOLLAPALOOZA', 960, 700, 64, 'corm_sb', GOLD, ca, 'm', track=0.25, mode='O', t0=76.6, stag=0.03,
                dur=0.4, glow=0.5)
-        f.text('芒格：多种心理倾向同时发力，结果不是相加，而是相乘', 960, 760, 19, 'sans_med', INK, ca, 'm',
+        f.text('芒格：多种心理倾向同时发力，效果不是简单相加，而是成倍放大', 960, 760, 19, 'sans_med', INK, ca, 'm',
                mode='O', t0=76.9, stag=0.01)
 
 
-narr(66.03, 68.0, '索罗斯说：价格不只是反映现实，它也在改变现实。')
+narr(66.03, 68.0, '索罗斯：价格不只反映现实，也在改变现实。')
 narr(68.16, 70.2, '上涨让故事更动听，故事吸引更多资金，')
-narr(70.28, 72.3, '资金推动更多上涨——上涨本身，成了买入的理由。')
-narr(72.41, 74.4, '6 月 23 日，A 股两融余额首次突破 3 万亿元。')
-narr(74.53, 76.5, '错失恐惧、羊群、近因、反身性，彼此放大——')
+narr(70.28, 72.3, '上涨本身，成了买入的理由。')
+narr(72.41, 74.4, '借来的钱，也在加速涌入——')
+narr(74.53, 76.5, '四种偏差，彼此放大——')
 narr(76.66, 78.6, '芒格称之为「Lollapalooza 效应」。')
 
 
-# ======================================================================== 山顶 · 2024.10.8
-K_DAYS = [  # (标签, 开, 高, 低, 收) —— 2024 年 9 月下旬到 10 月 8 日（示意比例，标注数字为真实数据）
-    ('9.19', 2730, 2745, 2715, 2736), ('9.20', 2736, 2748, 2722, 2737), ('9.23', 2737, 2752, 2725, 2749),
-    ('9.24', 2770, 2866, 2765, 2863), ('9.25', 2900, 2952, 2889, 2896), ('9.26', 2900, 3001, 2880, 3001),
-    ('9.27', 3020, 3088, 3010, 3088), ('9.30', 3176, 3358, 3160, 3337), ('10.8', 3674, 3674, 3430, 3490),
-]
+# ======================================================================== 山顶 · 2026.6.25 创业板指
+# 创业板指 2026.5.6–7.30 日 K（示意形状；标注的点位与涨跌幅为真实数据）
+_CY_ANCH = [(0, 3780), (3, 3928.97), (5, 4010), (12, 4060), (17, 4120), (20, 4150), (27, 4080), (31, 4190),
+            (35, 4251.42), (36, 4371.99), (38, 4300), (40, 4240), (45, 4050), (49, 3720), (52, 3790), (55, 3640),
+            (58, 3590.99), (59, 3327.03), (60, 3255), (61, 3188)]
+CY_N = 62
+_ix = np.arange(CY_N)
+_rr = np.random.default_rng(625)
+CY_C = np.interp(_ix, [a for a, _ in _CY_ANCH], [v for _, v in _CY_ANCH]) * (1 + _rr.standard_normal(CY_N) * 0.006)
+for _i, _v in _CY_ANCH:
+    CY_C[_i] = _v
+CY_O = np.r_[3760, CY_C[:-1]] * (1 + _rr.standard_normal(CY_N) * 0.004)
+CY_H = np.maximum(CY_O, CY_C) * (1 + np.abs(_rr.standard_normal(CY_N)) * 0.005)
+CY_L = np.minimum(CY_O, CY_C) * (1 - np.abs(_rr.standard_normal(CY_N)) * 0.005)
+CY_O[36], CY_H[36], CY_L[36] = 4262, 4380.41, 4248          # 6.25：盘中历史新高
+CY_O[59], CY_H[59], CY_L[59] = 3560, 3575, 3316.89          # 7.28：收跌 7.35%
+CY_HI, CY_23, CY_28 = 36, 34, 59
+CY_LAB = {0: '5.6', 3: '5.11', 20: '6.3', 34: '6.23', 49: '7.14', 59: '7.28'}
 
 
 def s_summit_card(f, t):
@@ -668,73 +681,151 @@ def s_summit_card(f, t):
     a = env(t, 78.78, 87.1, 0.5, 0.4)
     q = env(t, 78.85, 80.75, 0.4, 0.4)
     f.text('山顶，长什么样？', W / 2, 470, 72, 'serif_black', INK, a * q, 'm', track=0.2, mode='O', t0=78.85, stag=0.06,
-           dur=0.5, glow=0.0)
+           dur=0.5)
     b = a * eio((t - 80.8) / 0.5)
     if b <= 0.003: return
-    x0, x1, y0, y1 = 220, 1000, 240, 690
-    def yv(v): return y1 - (v - 2650) / (3750 - 2650) * (y1 - y0)
-    n = len(K_DAYS)
-    show = cl((t - 80.9) / 1.6) * n
-    for i, (lab, o, h, l, c) in enumerate(K_DAYS):
+    x0, x1, y0, y1 = 220, 1560, 270, 760
+    def yv(v): return y1 - (v - 3100) / (4500 - 3100) * (y1 - y0)
+    def xv(i): return x0 + (i + 0.5) * (x1 - x0) / CY_N
+    f.text('创业板指 · 2026.5–7 日K 示意', x0, y0 - 64, 17, 'sans_med', INK, b * 0.85, 'l', mode='O')
+    f.text('走势为示意，标注的点位与涨跌幅为真实数据', x0, y0 - 38, 12, 'sans_light', GREY, b * 0.7, 'l', mode='O')
+    f.line((x0, y1 + 12), (x1, y1 + 12), WHITE, 0.2 * b, 1, buf='L')
+    # 先画到 6.25 山顶，停一拍，再画出之后的下跌
+    show = keys(t, [(80.9, 0), (82.7, CY_HI + 1), (85.0, CY_HI + 1), (86.6, CY_N)], eio)
+    for i in range(CY_N):
         if i >= show: break
-        x = x0 + (i + 0.5) * (x1 - x0) / n
-        col = UP if c >= o else DOWN
         ka = b * cl(show - i)
-        f.line((x, yv(h)), (x, yv(l)), col, ka, 1)
-        top, bot = yv(max(o, c)), yv(min(o, c))
-        f.rrect_fill(x - 16, top, x + 16, max(bot, top + 2), 2, col, 0.85 * ka, 'E')
-        f.text(lab, x, y1 + 30, 13, 'mono', GREY, ka * 0.8, 'm', mode='L')
-        vol = 12 + 70 * (i >= 3) + 30 * (i >= 7) + 120 * (i == 8)
-        f.rrect_fill(x - 16, y1 + 170 - vol * 0.55, x + 16, y1 + 170, 1, GOLD if i == 8 else GREY, 0.5 * ka, 'L')
-    ka = b * env(t, 82.5, 1e9, 0.5, 0)
+        x = xv(i)
+        col = UP if CY_C[i] >= CY_O[i] else DOWN
+        big = i in (CY_HI, CY_28)
+        f.line((x, yv(CY_H[i])), (x, yv(CY_L[i])), col, ka * (1 if big else 0.8), 1)
+        top, bot = yv(max(CY_O[i], CY_C[i])), yv(min(CY_O[i], CY_C[i]))
+        w = 8 if big else 6
+        f.rrect_fill(x - w, top, x + w, max(bot, top + 2), 1, col, (0.95 if big else 0.75) * ka, 'E')
+        if i in CY_LAB:
+            f.text(CY_LAB[i], x, y1 + 34, 13, 'mono', GOLD if i == CY_23 else GREY, ka * 0.85, 'm', mode='O')
+    # 6.25 历史新高
+    ka = b * env(t, 82.6, 1e9, 0.4, 0)
     if ka > 0:
-        xo = x0 + (n - 0.5) * (x1 - x0) / n
-        f.text('开盘 3674.40', xo + 34, yv(3674) - 6, 24, 'mono_med', INK, ka, 'l', mode='O')
-        f.text('高开 10.13% · 全天最高点就是开盘价', xo + 34, yv(3674) + 24, 15, 'sans_med', UP2, ka, 'l', mode='O')
-        f.text('全天成交 3.45 万亿元 · 历史纪录', xo + 34, y1 + 150, 15, 'sans_med', GOLD, ka, 'l', mode='O')
-    # 此后 10 个月再没回到这里
-    ka = b * env(t, 85.0, 1e9, 0.5, 0)
+        hx, hy = xv(CY_HI), yv(CY_H[CY_HI])
+        f.disc((hx, hy), 5, WHITE, ka)
+        f.circle((hx, hy), 12 + 5 * beat_pulse(t), UP, ka * 0.8, 1)
+        f.glow((hx, hy), 22, UP, 0.6 * ka)
+        f.text('6.25 盘中 4380.41', hx - 18, hy - 44, 22, 'mono_med', INK, ka, 'r', mode='O')
+        f.text('创业板指 历史新高', hx - 18, hy - 16, 16, 'sans_bold', UP2, ka, 'r', mode='O')
+        k = eo((t - 85.0) / 1.6)
+        f.dashed((hx, hy), (hx + (x1 + 140 - hx) * k, hy), GOLD, ka * 0.7, 1, 8, 6)
+    # 6.23 两融余额首破 3 万亿
+    ka = b * env(t, 83.1, 1e9, 0.4, 0)
     if ka > 0:
-        k = eo((t - 85.1) / 1.4)
-        xs = x1 + 40; xe = xs + (1700 - xs) * k
-        f.dashed((x0 + (n - 0.5) * (x1 - x0) / n, yv(3674)), (xe, yv(3674)), GOLD, ka, 1, 10, 7)
-        tt = np.linspace(0, 1, 120) * k
-        path = 3480 - 300 * np.sin(tt * 4.2) ** 2 * (1 - tt) - 180 * tt * (1 - tt) * 2 + 60 * np.sin(tt * 31) * 0.4
-        path = np.where(tt > 0.93, 3480 + (tt - 0.93) / 0.07 * 260, path)
-        f.poly(np.c_[xs + (1700 - xs) * tt, yv(path)], DIM, ka * 0.9, 1)
-        f.text('此后 10 个月，再没回到这里', (xs + 1700) / 2, yv(3674) - 34, 22, 'serif_bold', GOLD, ka, 'm', mode='O')
-        f.text('2025.8', 1700, yv(3674) + 30, 13, 'mono', GREY, ka * cl(k * 3 - 2), 'r', mode='O')
+        mx = xv(CY_23)
+        f.line((mx, y1 + 12), (mx, yv(CY_C[CY_23]) + 30), GOLD, ka * 0.6, 1)
+        f.disc((mx, y1 + 12), 4, GOLD, ka)
+        f.text('两融余额首破 3 万亿元', mx - 10, y1 - 16, 15, 'sans_bold', GOLD, ka, 'r', mode='O')
+    # 7.28 单日 −7.35%；较高点 −24%；7.30 抹平全年涨幅
+    ka = b * env(t, 86.1, 1e9, 0.3, 0)
+    if ka > 0:
+        cx_, cy_ = xv(CY_28), yv(CY_L[CY_28])
+        f.text('7.28 单日 −7.35%', cx_ - 16, cy_ + 30, 16, 'mono_med', DOWN2, ka, 'r', mode='O')
+        bx = x1 + 70
+        hy, ly = yv(4380.41), yv(3316.89)
+        k = eo((t - 86.1) / 0.6)
+        f.line((bx, hy), (bx, hy + (ly - hy) * k), DOWN, ka, 2)
+        f.line((bx - 8, hy), (bx + 8, hy), DOWN, ka, 2)
+        if k > 0.95: f.line((bx - 8, ly), (bx + 8, ly), DOWN, ka, 2)
+        f.text('−24%', bx + 18, (hy + ly) / 2 - 10, 44, 'mono_med', DOWN, ka, 'l', mode='O', glow=0.3)
+        f.text('较高点 · 7.28', bx + 20, (hy + ly) / 2 + 30, 15, 'sans_med', INK, ka, 'l', mode='O')
+        f.text('7.30 抹平全年涨幅', bx + 20, (hy + ly) / 2 + 56, 15, 'sans_med', GREY, ka, 'l', mode='O')
 
 
-narr(80.91, 82.9, '2024 年 10 月 8 日，国庆长假后的第一个交易日。')
-narr(83.03, 85.0, '沪指高开 10.13%，全天成交 3.45 万亿元，创下纪录。')
-narr(85.16, 87.1, '开盘那一刻，就是此后 10 个月的最高点。')
+narr(80.91, 82.9, '6 月 25 日，创业板指创下历史新高。')
+narr(83.03, 85.0, '两天前，两融余额刚刚首破 3 万亿。')
+narr(85.16, 87.1, '一个月后，它较高点跌去 24%。')
+
+
+# ---------------------------------------------------------------- 抽空段：增量买盘衰竭
+_r = np.random.default_rng(871)
+FL_N = 1400
+FL_SIDE = np.where(_r.random(FL_N) < 0.5, -1, 1)
+FL_PH = _r.random(FL_N)
+FL_V = 0.28 + _r.random(FL_N) * 0.22
+FL_H = _r.random(FL_N)
+FL_J = _r.standard_normal(FL_N)
+
+
+def buy_rate(ts):
+    """t 时刻新进场的买盘强度：越来越弱，但不为零"""
+    return 0.08 + 0.92 * np.exp(-np.clip(ts - 87.3, 0, None) / 1.5)
+
+
+def sell_rate(ts):
+    return 0.10 + 0.30 * eio_np((ts - 89.0) / 3.5)
+
+
+def slope_xy(side, s):
+    x0 = np.where(side < 0, 90.0, 1830.0)
+    x = x0 + (SUMMIT[0] - x0) * s
+    return x, ridge(x) - 7
+
+
+def draw_flows(f, t, a, push):
+    if a <= 0.003: return
+    cx, cy = SUMMIT
+    # 买盘：沿山坡向上
+    s = (FL_PH + FL_V * t) % 1.0
+    born = t - s / FL_V
+    vis = FL_H < buy_rate(born)
+    x, y = slope_xy(FL_SIDE, s)
+    y = y - 22 + FL_J * 6
+    P = (np.c_[x, y] - [cx, cy + 120]) * push + [cx, cy + 120]
+    A = a * vis * np.clip((1 - s) * 6, 0, 1) * np.clip(s * 10, 0, 1)
+    f.dots(P[:, 0], P[:, 1], mixc(UP, GOLDL, 0.35), A, 1.6)
+    Pt = P - np.c_[np.sign(SUMMIT[0] - P[:, 0]) * 8, np.zeros(FL_N)]
+    f.splat(Pt[:, 0], Pt[:, 1], UP, A * 0.5)
+    # 卖盘：从山顶往下
+    s2 = (FL_PH * 1.7 + FL_V * 0.8 * t) % 1.0
+    born2 = t - s2 / (FL_V * 0.8)
+    vis2 = FL_H < sell_rate(born2)
+    x2, y2 = slope_xy(-FL_SIDE, 1 - s2)
+    y2 = y2 - 44 + FL_J * 6
+    P2 = (np.c_[x2, y2] - [cx, cy + 120]) * push + [cx, cy + 120]
+    f.dots(P2[:, 0], P2[:, 1], DOWN2, a * vis2 * np.clip(s2 * 6, 0, 1) * np.clip((1 - s2) * 10, 0, 1), 1.6)
 
 
 def s_summit_break(f, t):
     if not (86.9 <= t <= T_D2 + 0.05): return
     a = env(t, 87.29, T_D2, 0.8, 0.0)
-    # 人群陆续登顶；你是最后一个
-    arrive = keys(t, [(87.3, 0.0), (89.4, 0.97), (90.4, 1.15)], eio)
+    arrive = keys(t, [(87.3, 0.35), (89.4, 0.97), (90.4, 1.1)], eio)
     push = 1.0 + 0.03 * (t - 87.3) - 0.06 * eio((t - 93.0) / 0.66)
     draw_mountain(f, t, a, push=push, crowd=1.0, crowd_arrive=arrive)
+    draw_flows(f, t, a * (1 - eio((t - 93.2) / 0.4)), push)
+    # 你：最后一批买家之一
     yk = eio3((t - 88.9) / 1.4)
     start = np.array([300.0, 980.0]); end = np.array([SUMMIT[0], SUMMIT[1] - 36])
     p = start + (end - start) * yk + np.array([0, -120]) * math.sin(yk * math.pi)
     p = (p - [SUMMIT[0], SUMMIT[1] + 120]) * push + [SUMMIT[0], SUMMIT[1] + 120]
-    draw_you(f, p[0], p[1], a * cl((t - 88.6) / 0.4), WHITE, '你', t, 5, True, lab_dy=-28)
-    # 「下一个买家在哪里？」—— 空荡荡的山坡
-    qa = a * env(t, 91.6, T_D2 - 0.1, 0.5, 0.1)
-    if qa > 0:
-        for i, x in enumerate((360, 620, 1300, 1560)):
-            y = float(ridge(x)) + 30
-            f.text('?', x, y - 40 - 6 * math.sin(t * 3 + i), 40, 'serif_light', GREY, qa * 0.6, 'm', mode='O')
+    draw_you(f, p[0], p[1], a * cl((t - 88.6) / 0.4), WHITE, '你', t, 5, False, lab_dy=-28)
+    heart_ring(f, p[0], p[1], t, WHITE, a * cl((t - 88.6) / 0.4))
+    f.glow((SUMMIT[0], (SUMMIT[1] - 20 - 120) * push + 120 + 0), 60, UP, 0.12 * heart(t) * a)
+    # 买盘 vs 卖盘：任何时候都有买有卖，变的是力量对比
+    ga = a * env(t, 87.6, T_D2 - 0.2, 0.6, 0.3)
+    if ga > 0:
+        gx, gy = 160, 250
+        br, sr = float(buy_rate(t)), float(sell_rate(t))
+        f.text('新增买盘', gx, gy, 16, 'sans_bold', UP2, ga, 'l', mode='O')
+        f.text('卖盘', gx, gy + 40, 16, 'sans_bold', DOWN2, ga, 'l', mode='O')
+        for k, (v, col) in enumerate(((br, UP), (sr, DOWN))):
+            yy = gy + k * 40
+            f.rrect(gx + 90, yy - 9, gx + 390, yy + 9, 4, WHITE, ga * 0.25, 1, buf='L')
+            f.rrect_fill(gx + 92, yy - 7, gx + 92 + 296 * v, yy + 7, 3, col, 0.8 * ga, 'E')
+        if br < sr:
+            f.text('买盘接不上了', gx, gy + 86, 22, 'serif_bold', INK, ga * cl((t - 91.0) / 0.4), 'l', mode='O')
     f.dark = 0.25 * eio((t - 92.4) / 1.2)
 
 
-narr(87.5, 89.3, '山顶，不是某个价格。')
-narr(89.41, 91.4, '而是最后一个想买的人，也买完了的时刻。')
-narr(91.54, 93.5, '那么——下一个买家，在哪里？')
+narr(87.5, 89.3, '山顶，往往不是某个价格，')
+narr(89.41, 91.4, '而是买盘开始衰竭的时刻——')
+narr(91.54, 93.5, '新的买盘接不住卖盘，价格靠什么上涨？')
 
 SCENES_A = [s_cold_open, s_title, s_2026_rise, s_fomo, s_herd, s_recency, s_reflexivity, s_summit_card,
             s_summit_break]

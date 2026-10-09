@@ -26,7 +26,7 @@ OUT="$ROOT/你为什么总买在山顶.mp4"
 ffmpeg -loglevel error -y -f concat -safe 0 -i "$WORK/list.txt" -c copy "$WORK/master.mp4"
 # 4) 成片：H.264 两遍编码，约 2.7 Mbps（总大小约 90 MB，低于 GitHub 单文件 100 MB 上限）
 VB=${VB:-2550k}
-ffmpeg -loglevel error -y -i "$WORK/master.mp4" -c:v libx264 -preset slow -tune animation -b:v $VB -pass 1 \
+ffmpeg -loglevel error -y -i "$WORK/master.mp4" -c:v libx264 -preset slow -tune animation -b:v $VB -maxrate 6M -bufsize 8M -pass 1 \
   -passlogfile "$WORK/x264" -pix_fmt yuv420p -an -f mp4 /dev/null
 ffmpeg -loglevel error -y -i "$WORK/master.mp4" -i "$WORK/bgm.wav" -map 0:v -map 1:a -c:v libx264 -preset slow \
   -tune animation -b:v $VB -maxrate 6M -bufsize 8M -pass 2 -passlogfile "$WORK/x264" -pix_fmt yuv420p \

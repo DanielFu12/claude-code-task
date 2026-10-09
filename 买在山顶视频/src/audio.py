@@ -71,6 +71,33 @@ env = np.abs(out).max(1)
 last = np.nonzero(env > 1e-3)[0][-1]
 out = out[:last + int(0.3 * sr)]
 fade = int(0.6 * sr); out[-fade:] *= np.linspace(1, 0, fade)[:, None]
+# ---------- 音效：两个抽空段里加入低频心跳（每 2 拍一次，严格落在节拍网格上）
+HB = []
+def _beat_out(j_from, j_to):
+    return [t_ for t_, j in cum_beats if j_from <= j < j_to]
+BREAKS = [(20, 32, 0)]                     # 原曲第 20–31 拍：序章里的抽空段
+seen = 0
+for t_, j in cum_beats:
+    if 164 <= j < 176:                     # 第一次出现的 164–175 拍：山顶的抽空段
+        if seen < 12: HB.append(t_)
+        seen += 1
+HB = sorted(set(_beat_out(20, 32) + HB))[::2]
+def _thump(n, f0, f1, dec, amp):
+    tt = np.arange(n) / sr
+    ph = 2 * np.pi * np.cumsum(f0 + (f1 - f0) * (1 - np.exp(-tt / 0.05))) / sr
+    return amp * np.sin(ph) * np.exp(-tt / dec) * (1 - np.exp(-tt / 0.003))
+n = int(0.5 * sr)
+beat = _thump(n, 72, 44, 0.085, 1.0)
+beat[int(0.21 * sr):] += _thump(n - int(0.21 * sr), 64, 40, 0.07, 0.62)
+for k, t_ in enumerate(HB):
+    i = int(t_ * sr)
+    g = 0.42 * (0.7 + 0.3 * min(1, k / 4))
+    seg = beat[:max(0, min(n, len(out) - i))] * g
+    out[i:i + len(seg)] += seg[:, None]
+# 软限幅：只压超过 0.9 的峰，不改变整体响度
+ax = np.abs(out)
+over = ax > 0.9
+out[over] = np.sign(out[over]) * (0.9 + 0.09 * np.tanh((ax[over] - 0.9) / 0.09))
 sf.write(os.path.join(WORK, 'bgm.wav'), out.astype(np.float32), sr)
 DUR = len(out) / sr
 
@@ -90,7 +117,7 @@ keys = {f'{name}_{n}': t for n, (name, jj) in enumerate([]) for t in []}
 ev = {'drop': [t for t, j in cum_beats if j in (32, 176)],
       'light': [t for t, j in cum_beats if j == 148],
       'break': [t for t, j in cum_beats if j in (20, 164)]}
-json.dump(dict(duration=DUR, fps=FPS, period=per, beats=beats, src_beat=srcb, events=ev,
+json.dump(dict(duration=DUR, fps=FPS, period=per, beats=beats, src_beat=srcb, events=ev, heartbeats=HB,
                onset=np.round(on, 3).tolist(), low=np.round(low, 3).tolist(), rms=np.round(rms, 3).tolist()),
           open(os.path.join(WORK, 'music.json'), 'w'))
 print(f'duration {DUR:.2f}s  period {per:.4f}s  ({60 / per:.2f} BPM)')
