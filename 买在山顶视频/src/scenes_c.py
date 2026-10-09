@@ -578,7 +578,7 @@ def s_endcard(f, t):
         sa = env(t, 254.5, 1e9, 1.0, 0)
         f.text('本视频仅为投资者教育，不构成任何投资建议。市场有风险，投资需谨慎。', 960, 950, 14, 'sans_med', GREY, sa * 0.8,
                'm', mode='O')
-        f.text('数据来源：上交所、财联社、证券时报、新浪财经等公开报道；《公募权益类基金投资者盈利洞察报告》；Morningstar；'
+        f.text('数据来源：上交所、财联社、证券时报、北京商报、新浪财经等公开报道；'
                'Greenwood & Shleifer (2014)；Tversky & Kahneman (1992)；Odlyzko (2019)', 960, 978, 12, 'sans_light', GREY,
                sa * 0.7, 'm', mode='O')
 
