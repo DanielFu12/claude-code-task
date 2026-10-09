@@ -304,71 +304,54 @@ CYC_L = [(0.03, '怀疑'), (0.09, '希望'), (0.15, '乐观'), (_ip - 0.06, '兴
 def s_cycle(f, t):
     if not (131.7 <= t <= 143.0): return
     a = env(t, 131.9, 142.4, 0.5, 0.5)
-    ca = a * (1 - eio((t - 135.9) / 0.6))
-    if ca > 0.003:
-        u = eo((t - 132.0) / 2.6)
-        pts, head = polyline_upto(CYC_X, CYC_Y, u)
-        draw_price(f, pts, ca, 3, smooth=5)
-        for (lu, s) in CYC_L:
-            if u < lu: continue
-            j = int(lu * 399); x, y = CYC_X[j], CYC_Y[j]
-            la = ca * cl((u - lu) / 0.05)
-            above = y < 520
-            if abs(lu - _ip) < 1e-6 or abs(lu - _it) < 1e-6:
-                above = lu == _it
-            f.text(s, x, y + (-34 if above else 36), 22, 'serif_bold', INK, la, 'm', mode='O', hl=GOLD)
-        ip = int(np.argmin(CYC_Y)); it = int(np.argmax(CYC_Y))
-        if u > ip / 399:
-            k = env(t, 133.0, 1e9, 0.3, 0)
-            f.disc((CYC_X[ip], CYC_Y[ip]), 7, UP, ca * k)
-            f.text('买入', CYC_X[ip], CYC_Y[ip] + 74, 30, 'serif_black', UP, ca * k, 'm', mode='O')
-            f.circle((CYC_X[ip], CYC_Y[ip]), 16 + 4 * beat_pulse(t), UP, ca * k * 0.7, 1)
-        if u > it / 399:
-            k = env(t, 133.8, 1e9, 0.3, 0)
-            f.disc((CYC_X[it], CYC_Y[it]), 7, DOWN, ca * k)
-            f.text('卖出', CYC_X[it], CYC_Y[it] - 76, 30, 'serif_black', DOWN, ca * k, 'm', mode='O')
-            f.circle((CYC_X[it], CYC_Y[it]), 16 + 4 * beat_pulse(t), DOWN, ca * k * 0.7, 1)
-    ba = a * eio((t - 136.0) / 0.6)
-    if ba <= 0.003: return
-    # 晨星（中国）：五年期年化「投资者回报差」= 投资者年化回报 − 基金年化回报（截至 2024.12.31）
-    f.text('投资者回报差', 960, 250, 40, 'serif_black', INK, ba, 'm', track=0.2, mode='O', t0=136.1, stag=0.05)
-    f.text('投资者实际年化回报 − 基金年化回报 · 五年期', 960, 300, 17, 'sans_med', GREY, ba, 'm', track=0.1,
-           mode='O')
-    base = 400
-    gaps = [('固收', -0.62), ('保守混合', -0.86), ('积极配置', -2.17), ('主动非行业股票', -2.65), ('行业基金', -3.59)]
-    sc = 88
-    f.line((380, base), (1540, base), WHITE, 0.4 * ba, 1, buf='L')
-    f.text('0', 362, base, 14, 'mono', GREY, ba, 'r', mode='O')
-    for i, (nm, g) in enumerate(gaps):
-        t0 = 136.7 + i * 0.32 if i != 3 else 138.3
-        k = eo((t - t0) / 0.7)
-        x = 500 + i * 230
-        hl = i == 3
-        col = mixc(C(120, 170, 160), DOWN, i / 4)
-        h = -g * sc * k
-        f.rrect_fill(x - 52, base + 2, x + 52, base + 2 + h, 3, DOWN if hl else col, (0.75 if hl else 0.55) * ba * cl((t - t0) / 0.2),
-                     'L')
-        if hl:
-            f.rrect(x - 52, base + 2, x + 52, base + 2 + h, 3, DOWN2, ba * k, 1)
-        va = ba * cl((t - t0) / 0.25)
-        f.text(nm, x, base - 30, 20 if hl else 18, 'serif_bold', INK if hl else GREY, va, 'm', mode='O')
-        f.text(f'−{-g * k:.2f}', x, base + h + 30, 30 if hl else 24, 'mono_med', DOWN2 if hl else col, va, 'm', mode='O')
-    ka = ba * env(t, 140.3, 1e9, 0.4, 0)
-    if ka > 0:
-        k = eo((t - 140.3) / 0.9)
-        f.line((500, 800), (500 + 920 * k, 800), GOLD, ka, 2)
-        f.line((1420 * 1 - 14 + 0 * k, 792), (1420, 800), GOLD, ka * cl(k * 3 - 2), 2)
-        f.line((1420 - 14, 808), (1420, 800), GOLD, ka * cl(k * 3 - 2), 2)
-        f.text('波动越大  ·  差距越大', 960, 832, 22, 'serif_bold', GOLD, ka, 'm', track=0.15, mode='O')
-    f.text('单位：百分点 / 年。数据：晨星（中国）《中国公募基金投资者回报差研究报告》，截至 2024.12.31 的五年期', 960, 875, 13,
-           'sans_light', GREY, ba * 0.85, 'm', mode='O')
+    ca = a
+    u = eo((t - 132.0) / 2.6)
+    pts, head = polyline_upto(CYC_X, CYC_Y, u)
+    draw_price(f, pts, ca, 3, smooth=5)
+    for (lu, s) in CYC_L:
+        if u < lu: continue
+        j = int(lu * 399); x, y = CYC_X[j], CYC_Y[j]
+        la = ca * cl((u - lu) / 0.05)
+        above = y < 520
+        if abs(lu - _ip) < 1e-6 or abs(lu - _it) < 1e-6:
+            above = lu == _it
+        f.text(s, x, y + (-34 if above else 36), 22, 'serif_bold', INK, la, 'm', mode='O', hl=GOLD)
+    ip = int(np.argmin(CYC_Y)); it = int(np.argmax(CYC_Y))
+    # 「你」沿着亏钱地图一圈又一圈：每小节一圈，经过顶部就买、经过底部就卖
+    T0, LAP = 136.16, PER * 4
+    lap = (t - T0) / LAP
+    for (idx, word, col, dy, t_first) in ((ip, '买入', UP, 74, 133.0), (it, '卖出', DOWN, -76, 133.8)):
+        if u <= idx / 399: continue
+        k = env(t, t_first, 1e9, 0.3, 0)
+        flash = 0.0
+        if lap > 0:
+            frac = idx / 399
+            ph = (lap - frac) % 1.0 if lap >= frac else 1.0
+            flash = math.exp(-ph * LAP / 0.25) if lap >= frac else 0.0
+        f.disc((CYC_X[idx], CYC_Y[idx]), 7 + 5 * flash, col, ca * k)
+        f.text(word, CYC_X[idx], CYC_Y[idx] + dy, int(30 + 8 * flash), 'serif_black', col, ca * k, 'm', mode='O',
+               glow=0.6 * flash)
+        f.circle((CYC_X[idx], CYC_Y[idx]), 16 + 50 * (1 - flash) * (flash > 0.02) + 4 * beat_pulse(t), col,
+                 ca * k * (0.7 * flash + 0.3), 1)
+    if t > T0:
+        q = lap % 1.0
+        n = int(lap) + 1
+        ya = ca * cl((t - T0) / 0.3)
+        for g in range(6):                       # 拖尾
+            qq = (q - g * 0.012) % 1.0
+            j = int(qq * 399)
+            f.disc((CYC_X[j], CYC_Y[j]), 6 - g * 0.8, WHITE, ya * (1 - g / 6) * (0.9 if g == 0 else 0.5))
+        j = int(q * 399)
+        f.glow((CYC_X[j], CYC_Y[j]), 16, WHITE, 0.6 * ya)
+        f.text('你', CYC_X[j], CYC_Y[j] - 30, 22, 'serif_bold', WHITE, ya, 'm', mode='O')
+        f.text(f'第 {min(n, 3)} 轮', 1760, 300, 26, 'serif_bold', GREY, ya, 'r', mode='O')
 
 
 narr(132.0, 134.0, '拼在一起，就是一张「亏钱地图」：')
 narr(134.03, 136.0, '最兴奋时买入，最绝望时卖出。')
-narr(136.16, 138.2, '晨星统计了中国公募基金五年的数据：')
-narr(138.28, 140.3, '投资者每年少赚 2.65 个百分点——')
-narr(140.41, 142.4, '输在买卖时机。波动越大，输得越多。')
+narr(136.16, 138.2, '你的情绪，跟着价格走；')
+narr(138.28, 140.3, '你的买卖，又跟着情绪走。')
+narr(140.41, 142.4, '于是一次又一次：高处买入，低处卖出。')
 
 
 # ======================================================================== 镜子
