@@ -80,8 +80,8 @@ def s_price_value(f, t):
             f.text('买', PV_X[i], PV_P[i] + 34, 22, 'serif_black', GOLD, kk, 'm', mode='O')
 
 
-narr(163.79, 165.8, '「价格是你付出的，价值是你得到的。」—— 巴菲特')
-narr(165.91, 168.0, '格雷厄姆说，市场像一个情绪化的合伙人，每天给你报一个价。')
+narr(163.79, 165.8, '巴菲特：价格是你付出的，价值是你得到的。')
+narr(165.91, 168.0, '格雷厄姆：「市场先生」每天给你报一个价。')
 narr(168.04, 170.1, '你不必理他——')
 narr(170.17, 172.2, '只在他报价低得离谱时，和他做生意。')
 
@@ -134,7 +134,7 @@ def s_margin(f, t):
         f.text('= 你犯错的空间', gx - 66, (gy0 + gy1 - hv / 3) / 2 + 22, 17, 'sans_med', INK, ka, 'r', mode='O')
 
 
-narr(174.42, 176.4, '造一座能承重 3 万磅的桥，只让 1 万磅的卡车通过。')
+narr(174.42, 176.4, '能承重 3 万磅的桥，只让 1 万磅的车通过。')
 narr(176.54, 178.6, '安全边际，不是为了赚得更多，')
 narr(178.67, 180.7, '而是为了在你看错的时候，依然能活下来。')
 
@@ -175,7 +175,7 @@ def s_circle(f, t):
         f.text('它五年后，靠什么赚钱？', 1580, 815, 24, 'serif_bold', INK, qa, 'm', mode='O')
 
 
-narr(182.9, 185.0, '「能力圈的大小不重要，知道它的边界在哪里，才至关重要。」')
+narr(182.9, 185.0, '巴菲特：能力圈多大不重要，知道边界才重要。')
 narr(185.02, 187.1, '说不清它五年后靠什么赚钱？')
 narr(187.15, 189.2, '那你买的不是公司，而是别人的情绪。')
 
@@ -253,49 +253,76 @@ def s_invert(f, t):
 
 narr(191.4, 193.4, '芒格说：反过来想，总是反过来想。')
 narr(193.53, 195.5, '先问：怎样才能保证亏钱？然后，一件都不做。')
-narr(195.65, 197.7, '1999 年，巴菲特拒绝追逐科技股，被媒体质疑「过时了」。')
+narr(195.65, 197.7, '1999 年，巴菲特因不买科技股被嘲「过时」。')
 narr(197.78, 199.8, '此后不到三年，纳斯达克跌去近八成。')
 
 
 # ======================================================================== 概率与赔率：赛马彩池
+_r = np.random.default_rng(200)
+BET_N = 900
+BET_SIDE = np.where(_r.random(BET_N) < 0.8, 0, 1)            # 八成的钱押明星股
+BET_T = 200.5 + np.sort(_r.random(BET_N)) ** 0.8 * 2.6
+BET_SRC = np.c_[100 + _r.random(BET_N) * 500, 900 + _r.random(BET_N) * 150]
+BET_J = _r.standard_normal((BET_N, 2))
+
+
 def s_odds(f, t):
     if not (199.7 <= t <= 208.8): return
     a = env(t, 199.90, 208.2, 0.5, 0.4)
     scene_tag(f, t, 200.0, '概率与赔率', 'ODDS, NOT STORIES · PARI-MUTUEL', 208.1)
-    lanes = [(400, '明星股 · 人人都押', '胜率 60%', '赔率 1.3 倍', 0.60, 1.3, UP),
-             (600, '冷门股 · 无人问津', '胜率 25%', '赔率 6 倍', 0.25, 6.0, GOLD)]
-    xs0, xs1 = 560, 1300
-    f.line((xs1, 320), (xs1, 690), WHITE, a * 0.5, 1)
-    for i in range(12):
-        f.line((xs1 - 4, 320 + i * 31), (xs1 + 4, 335 + i * 31), WHITE, a * 0.4, 1)
-    f.text('终点', xs1, 296, 15, 'sans_med', GREY, a, 'm', mode='O')
-    for j, (y, nm, p1, p2, pw, od, col) in enumerate(lanes):
+    lanes = [(420, '明星股 · 人人都押', 0.60, 3.0, 1.3, UP), (640, '冷门股 · 无人问津', 0.25, 1.6, 6.0, GOLD)]
+    xs0, xs1 = 230, 1000
+    px0, pw = 1110, 330                                    # 奖池
+    f.line((xs1, 340), (xs1, 720), WHITE, a * 0.45, 1)
+    f.text('终点', xs1, 318, 14, 'sans_med', GREY, a, 'm', mode='O')
+    f.text('奖池（谁押得多，谁的赔率就低）', px0, 318, 14, 'sans_med', GREY, a * cl((t - 200.6) / 0.4), 'l', mode='O')
+    # 下注的钱：从人群涌入两个奖池
+    p = np.clip((t - BET_T) / 0.9, 0, 1)
+    pe = p * p * (3 - 2 * p)
+    tgt = np.c_[px0 + 20 + np.abs(BET_J[:, 0]) * 40, np.where(BET_SIDE == 0, 420, 640) + BET_J[:, 1] * 6]
+    P = BET_SRC + (tgt - BET_SRC) * pe[:, None] + np.c_[np.zeros(BET_N), -160 * np.sin(np.pi * pe)]
+    fly = (t > BET_T) & (p < 1)
+    col = np.where(BET_SIDE[:, None] == 0, np.array(UP2, np.float32), np.array(GOLD, np.float32))
+    f.dots(P[fly, 0], P[fly, 1], col[fly], a * 0.8, 1.0)
+    filled = (p >= 1)
+    tot = max(1, filled.sum())
+    for j, (y, nm, pw_, od0, od1, col_) in enumerate(lanes):
         la = a * cl((t - 200.3 - j * 0.3) / 0.4)
-        f.line((xs0, y + 40), (xs1 + 60, y + 40), WHITE, la * 0.12, 1, buf='L')
-        f.text(nm, 200, y - 14, 24, 'serif_bold', col, la, 'l', mode='O')
-        f.text(f'{p1} · {p2}', 200, y + 20, 17, 'sans_med', INK, la, 'l', mode='O')
-        sp = 1.0 if j == 0 else 0.86
-        k = eio((t - 201.0) / 3.2) * sp
-        hx = lerp(xs0, xs1 + 20, k) + 3 * math.sin(t * 9 + j)
-        hy = y + 4 * math.sin(t * 12 + j * 2)
+        f.line((xs0, y + 36), (xs1, y + 36), WHITE, la * 0.12, 1, buf='L')
+        f.text(nm, xs0, y - 46, 22, 'serif_bold', col_, la, 'l', mode='O')
+        f.text(f'胜率 {pw_ * 100:.0f}%', xs0, y - 18, 15, 'sans_med', INK, la, 'l', mode='O')
+        # 奖池条
+        share = (filled & (BET_SIDE == j)).sum() / BET_N
+        f.rrect(px0, y - 16, px0 + pw, y + 16, 6, col_, la * 0.5, 1, buf='L')
+        f.rrect_fill(px0 + 2, y - 14, px0 + 2 + (pw - 4) * share / 0.8, y + 14, 5, col_, 0.55 * la, 'L')
+        k = eio((t - 200.6) / 2.6)
+        od = od0 + (od1 - od0) * k
+        f.text(f'赔率 {od:.1f} 倍', px0 + pw + 22, y, 26, 'mono_med', col_, la, 'l', mode='O')
+        # 赛跑
+        sp = 1.0 if j == 0 else 0.9
+        kk = eio((t - 202.6) / 1.8) * sp
+        hx = lerp(xs0 + 20, xs1 - 10, kk) + 2 * math.sin(t * 9 + j)
+        hy = y + 3 * math.sin(t * 12 + j * 2)
+        run = 202.6 < t < 204.4
         for q in range(10):
-            f.disc((hx - q * 9 * (1 if 201 < t < 204.4 else 0.2), hy), 5 - q * 0.4, col, la * (1 - q / 10) * 0.8)
-        f.glow((hx, hy), 18, col, la * 0.6)
+            f.disc((hx - q * 9 * (1 if run else 0.15), hy), 5 - q * 0.4, col_, la * (1 - q / 10) * 0.85)
+        f.glow((hx, hy), 18, col_, la * 0.6)
         # 期望值
-        ea = la * env(t, 204.0 + j * 0.5, 1e9, 0.4, 0)
+        ea = la * env(t, 204.2 + j * 0.45, 1e9, 0.4, 0)
         if ea > 0:
-            ev = pw * od
-            f.text(f'{pw:.2f} × {od:.1f} = {ev:.2f}', 1420, y - 8, 30, 'mono_med', col, ea, 'l', mode='O')
-            f.text('长期下注，注定亏钱' if ev < 1 else '长期下注，占据优势', 1420, y + 30, 17, 'sans_bold',
+            ev = pw_ * od1
+            f.text(f'{pw_:.2f} × {od1:.1f} = {ev:.2f}', px0, y + 64, 28, 'mono_med', col_, ea, 'l', mode='O')
+            f.text('长期下注，注定亏钱' if ev < 1 else '长期下注，占据优势', px0 + 300, y + 66, 17, 'sans_bold',
                    DOWN2 if ev < 1 else GOLD, ea, 'l', mode='O')
-    ha = a * env(t, 203.9, 1e9, 0.4, 0)
-    f.text('期望 = 胜率 × 赔率', 1420, 300, 18, 'sans_med', GREY, ha, 'l', mode='O')
-    f.text('示意：数字仅用于说明「赔率」的含义', 1720, 760, 13, 'sans_light', GREY, ha * 0.8, 'r', mode='O')
+    ha = a * env(t, 204.0, 1e9, 0.4, 0)
+    f.text('期望 = 胜率 × 赔率', px0, 780, 18, 'sans_med', GREY, ha, 'l', mode='O')
+    f.text('示意：数字仅用于说明「赔率」的含义', 1720, 830, 13, 'sans_light', GREY, ha * 0.8, 'r', mode='O')
+    f.text('人群', 330, 880, 16, 'sans_med', GREY, a * env(t, 200.4, 203.4, 0.4, 0.5), 'm', mode='O')
 
 
 narr(202.03, 204.0, '芒格说，股市就像赛马场的彩池：')
-narr(204.15, 206.2, '最好的马，未必是最好的下注——当所有人都押了它。')
-narr(206.28, 208.3, '问题不是「它好不好」，而是「这个价格，赔率还划算吗」。')
+narr(204.15, 206.2, '最好的马，未必是最好的下注。')
+narr(206.28, 208.3, '问题不是它好不好，而是这个价格划不划算。')
 
 
 # ======================================================================== 奥德修斯与桅杆
@@ -351,7 +378,7 @@ def s_ulysses(f, t):
 narr(208.5, 210.4, '人性改不了。所以，奥德修斯在出海之前，')
 narr(210.53, 212.5, '让水手把自己牢牢绑在桅杆上。')
 narr(212.65, 214.7, '他依然听得见塞壬的歌声，却碰不到船舵。')
-narr(214.78, 216.8, '纪律，就是那根绳子：在冷静时写下，在疯狂时执行。')
+narr(214.78, 216.8, '纪律就是那根绳子：冷静时写下，疯狂时执行。')
 
 RULES = [
     ('写下来，再买入', '为什么买？值多少？什么情况证明我错了？写不出来，就不买。'),
@@ -373,6 +400,11 @@ def s_checklist(f, t):
     mk = eo((t - 217.2) / 1.2)
     f.line((mx, 280), (mx, 280 + 600 * mk), GOLD, a, 3)
     f.glow((mx, 280 + 600 * mk), 16, GOLD, a * 0.6)
+    # 每个小节，一道光沿桅杆向下
+    k = np.searchsorted(DOWNBEATS, t) - 1
+    if k >= 0 and t > 218.5:
+        u = (t - DOWNBEATS[k]) / (PER * 4)
+        f.glow((mx, 280 + 600 * eio(u)), 10, GOLDL, a * 0.7 * (1 - u))
     cur = max([i for i, t0 in enumerate(RULE_T) if t >= t0] or [-1])
     for i, ((h, d), t0) in enumerate(zip(RULES, RULE_T)):
         ra = a * cl((t - t0) / 0.3)
@@ -380,7 +412,9 @@ def s_checklist(f, t):
         y = 330 + i * 118
         hi = 1.0 if (i == cur or t > 234.0) else 0.62
         k = eo((t - t0) / 0.45)
-        f.line((mx, y), (mx + 80 * k, y), GOLD, ra * hi, 2)
+        xs_ = np.linspace(mx, mx + 80 * k, 16)
+        sag = 5 * np.sin(np.linspace(0, math.pi, 16)) * (0.6 + 0.4 * math.sin(t * 1.7 + i))
+        f.poly(np.c_[xs_, y + sag], GOLD, ra * hi, 2)
         f.disc((mx, y), 6, GOLDL, ra)
         f.text(f'{i + 1:02d}', mx + 110, y, 44, 'corm_sb', GOLD, ra * hi, 'l', mode='O')
         f.text(h, mx + 200, y - 20, 34, 'serif_black', INK, ra * hi, 'l', mode='O', t0=t0 + 0.05, stag=0.04, dur=0.35)

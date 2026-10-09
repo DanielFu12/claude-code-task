@@ -51,6 +51,29 @@ def bar_pulse(t, decay=0.3):
     return math.exp(-(t - DOWNBEATS[k]) / decay)
 
 
+HBEATS = np.array(MUSIC.get('heartbeats', []))
+
+
+def heart(t):
+    """心跳音效对应的画面脉冲（lub-dub 两下）"""
+    k = np.searchsorted(HBEATS, t) - 1
+    if k < 0: return 0.0
+    x = t - HBEATS[k]
+    v = math.exp(-x / 0.12)
+    if x > 0.21: v += 0.6 * math.exp(-(x - 0.21) / 0.1)
+    return v if x < 1.2 else 0.0
+
+
+def heart_ring(f, x, y, t, col=WHITE, a=1.0):
+    k = np.searchsorted(HBEATS, t) - 1
+    if k < 0: return
+    dt = t - HBEATS[k]
+    if dt > 1.0: return
+    hp = heart(t)
+    f.glow((x, y), 14 + 10 * hp, col, 0.5 * hp * a)
+    f.circle((x, y), 10 + 90 * eo(dt / 0.9), col, a * 0.45 * (1 - dt / 1.0), 1)
+
+
 def energy(t):
     """0..1：抽空段和片尾低，主段高"""
     return float(cl(RMS[fidx(t)] * 1.1))
@@ -149,12 +172,18 @@ def narr(t0, t1, s):
 
 
 def draw_narration(f, t):
-    for t0, t1, s in NARR:
-        if t0 - 0.05 <= t <= t1 + 0.4:
-            a = env(t, t0, t1, 0.35, 0.3)
+    L = sorted(NARR)
+    for i, (t0, t1, s) in enumerate(L):
+        nxt = L[i + 1][0] if i + 1 < len(L) else 1e9
+        fo = 0.3
+        if t1 + fo > nxt - 0.02:              # 下一句开始前必须完全淡出，不叠字
+            fo = 0.14
+            t1 = min(t1, nxt - 0.02 - fo)
+        if t0 - 0.05 <= t <= t1 + fo:
+            a = env(t, t0, t1, 0.25, fo)
             size = 38 if len(strip(s)) <= 26 else 34
             f.text(s, W / 2, 978, size, 'serif_med', INK, a, 'm', track=0.06, mode='O',
-                   t0=t0, stag=0.012, dur=0.35, rise=8, hl=GOLD)
+                   t0=t0, stag=0.012, dur=0.3, rise=8, hl=GOLD)
 
 
 def narration_active(t):
