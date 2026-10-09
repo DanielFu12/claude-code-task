@@ -380,7 +380,8 @@ def reader(media, start, dur, vertical):
         geo = {}
     fw, fh = (1080, 1920) if vertical else (W, H)
     p = subprocess.Popen(['ffmpeg', '-v', 'error', '-ss', f'{start:.3f}', '-i', src, '-t', f'{dur:.3f}',
-                          '-filter_complex', vf, '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE)
+                          '-filter_complex', vf, '-frames:v', str(int(round(dur * FPS))),
+                          '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE)
     return p, fw, fh, geo
 
 
