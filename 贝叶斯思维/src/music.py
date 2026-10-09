@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import timeline as T  # noqa: E402
 
 SR = 44100
-LEN = T.DUR + 1.0
+LEN = T.DUR_REAL + 1.0
 N = int(LEN * SR)
 rng = np.random.default_rng(1763)
 B, BAR = T.BEAT, T.BAR
@@ -64,7 +64,7 @@ class Bus:
 
     def add(self, t, sig, gain=1.0, pan=0.0):
         """sig: 1D (mono) 或 2×n。pan -1..1"""
-        i0 = int(round(t * SR))
+        i0 = int(round(warp(t) * SR))
         if sig.ndim == 1:
             l, r = math.cos((pan + 1) * math.pi / 4), math.sin((pan + 1) * math.pi / 4)
             sig = np.stack([sig * l * 1.414, sig * r * 1.414])
@@ -359,9 +359,16 @@ pads, choir, organ, keys, arp, bass, drums, sfx, hits = (Bus() for _ in range(9)
 kick_env = np.zeros(N, np.float32)
 
 
+RAW = [False]   # True 时按真实时间排布（插入段），否则按原时间轴并在插入点后整体后移
+
+
+def warp(t):
+    return t if RAW[0] else T.music_real(t)
+
+
 def K(t, v=1.0, low=44):
     drums.add(t, kick(v, low), 1.0)
-    i = int(t * SR)
+    i = int(warp(t) * SR)
     L = min(int(0.35 * SR), N - i)
     if L > 0:
         kick_env[i:i + L] = np.maximum(kick_env[i:i + L], v * np.exp(-np.arange(L) / SR * 9))
@@ -710,6 +717,57 @@ def build():
     hits.add(T.SHIMMER_T, shimmer(2.5, 1.0, 93), 1)                 # 流光扫过
 
 
+INS_GAPS = []
+
+
+def build_insert():
+    """插入段（100 扇门为什么是 99%）：13 个新小节，真实时间排布"""
+    RAW[0] = True
+    ib = T.ib
+    # 倒带（原时间 100.9 处，插入点之前，所以真实 = 原时间）
+    sfx.add(T.INS_V0, whoosh(1.4, 1.0)[:, ::-1].copy(), 1.0)
+    for k in range(10):
+        sfx.add(T.INS_V0 + 0.1 + k * 0.13, tick(0.5, hi=k % 2 == 0), 1, -0.2)
+    chords = ["Bbmaj7", "F", "Gm9", "Asus", "Dm", "Asus", "Dm", "Bb", "F", "C", "Dm9", "Bbmaj7", "Csus"]
+    for k, ch in enumerate(chords):
+        bright = 1000 + 120 * min(k, 6)
+        chord_pad(ib(k), ch, 1, 0.55 + (0.1 if 6 <= k <= 9 else 0), bright)
+        if k >= 1:
+            bass_line(ib(k), ch, 1, "pulse" if k < 6 else ("8th" if k < 10 else "whole"), 0.6, 380)
+        if 2 <= k <= 9:
+            arp_line(ib(k), ch, 1, 2 if k < 4 else 4, 0.35 + 0.04 * min(k, 6), 0.8)
+    ticks(ib(0), 4, 1, 0.5)
+    sfx.add(ib(0), shimmer(2.0, 0.6, 81), 1)                         # 分组
+    sfx.add(ib(2), shimmer(1.6, 0.6, 86), 1)                         # 1% / 99%
+    melody(ib(2), [(0, "F5", 1), (1, "E5", 1), (2, "D5", 1), (3, "A4", 3)], 0.55)
+    for k in (4, 5):                                                 # 重新开门：鼓点推进
+        K(ib(k), 0.6)
+        K(ib(k, 2), 0.55)
+        for j in range(8):
+            drums.add(ib(k) + j * B / 2, hat(0.3 + 0.08 * (j % 2 == 0)), 1, 0.3)
+    _t = sorted(T.CASCADE)
+    t0, t1 = _t[0][0], _t[-1][0]
+    for tt, d in _t:                                                 # 98 扇门依次打开
+        rt = T.INS_REOPEN0 + (tt - t0) / (t1 - t0) * T.INS_REOPEN_DUR
+        mm = [74, 77, 79, 81, 84, 86, 89][d % 7]
+        sfx.add(rt, pluck(mm, 0.15, 0.7), 0.2, pan=((d - 1) % 20 - 9.5) / 10)
+    sfx.add(T.INS_REOPEN0 + 0.4, whoosh(2.4, 0.9), 1)
+    sfx.add(ib(5), riser(T.INS_HIT - 0.6 - ib(5), 0.9), 1)
+    INS_GAPS.append((T.INS_HIT - 0.6, T.INS_HIT))
+    HIT(T.INS_HIT, "D2", 1.0)                                         # 99% 挤进 74 号门
+    chord_choir(T.INS_HIT, "Dm", 2, 0.6)
+    drums_groove(ib(6), 4, "four", 0.7, hats=True, claps=False)
+    melody(ib(6), THEME[:6], 0.55, bell=True)
+    sfx.add(ib(8), shimmer(1.6, 0.6, 79), 1)                         # 1% 那一行
+    sfx.add(ib(9), shimmer(1.8, 0.8, 86), 1)                         # 99% 那一行
+    hits.add(ib(10), sub_boom(0.5), 1)                               # 回到三扇门
+    sfx.add(ib(11, 2) - 0.9, whoosh(1.2, 1.0), 1)                    # 3 号门打开
+    drums.add(ib(11, 2), taiko(0.6), 1)
+    sfx.add(ib(11, 2.6), shimmer(2.5, 0.9, 81), 1)                   # 2/3 流向 2 号门
+    melody(ib(10), [(0, "D5", 1), (1, "F5", 1), (2, "A5", 2)], 0.5, bell=True)
+    RAW[0] = False
+
+
 # ================================================================ 混音
 
 def reverb_ir(dur=3.2, predelay=0.02, damp=True):
@@ -724,7 +782,7 @@ def reverb_ir(dur=3.2, predelay=0.02, damp=True):
 
 def gap_gain():
     g = np.ones(N, np.float32)
-    for a, b in GAPS:
+    for a, b in [(T.music_real(a), T.music_real(b)) for a, b in GAPS] + INS_GAPS:
         i0, i1 = int(a * SR), int(b * SR)
         ramp = int(0.05 * SR)
         g[i0 - ramp:i0] = np.minimum(g[i0 - ramp:i0], np.linspace(1, 0, ramp))
@@ -741,6 +799,7 @@ def main():
     out_dir = sys.argv[1] if len(sys.argv) > 1 else "work"
     os.makedirs(out_dir, exist_ok=True)
     build()
+    build_insert()
     # 侧链：底鼓压低垫音和低音
     sc = np.clip(1 - 0.4 * np.convolve(kick_env, np.ones(200) / 200, "same"), 0.55, 1).astype(np.float32)
     gg = gap_gain()
@@ -776,10 +835,10 @@ def main():
         mix = np.tanh(mix / 0.93) * 0.93
     # 片尾淡出
     t = np.arange(N) / SR
-    mix *= np.clip((T.DUR - t) / (T.DUR - T.FADE_OUT), 0, 1)[None, :] ** 1.5
+    mix *= np.clip((T.DUR_REAL - t) / (T.DUR - T.FADE_OUT), 0, 1)[None, :] ** 1.5
     mix *= np.clip(t / 0.3, 0, 1)[None, :]
     import soundfile as sf
-    sf.write(os.path.join(out_dir, "score.wav"), mix.T[: int(T.DUR * SR)], SR, subtype="PCM_24")
+    sf.write(os.path.join(out_dir, "score.wav"), mix.T[: int(T.DUR_REAL * SR)], SR, subtype="PCM_24")
     print("LUFS", round(lufs(mix), 2), "peak", round(float(np.abs(mix).max()), 3))
 
 

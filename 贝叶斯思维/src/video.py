@@ -44,6 +44,15 @@ def hit_k(t, tau=0.35):
     return math.exp(-since_hit(t) / tau)
 
 
+REAL_HITS = sorted([T.video_real(h) for h in T.HITS.values()] + [T.INS_HIT])
+
+
+def hit_k_real(tr, tau=0.35):
+    """真实时间下（含插入段）的重拍衰减"""
+    d = [tr - h for h in REAL_HITS if tr >= h]
+    return math.exp(-min(d) / tau) if d else 0.0
+
+
 # ================================================================ 背景
 class Background:
     def __init__(self):
@@ -74,7 +83,7 @@ class Background:
         ts = [k[0] for k in keys]
         return np.array([np.interp(t, ts, [k[1][c] for k in keys]) for c in range(3)], np.float32)
 
-    def draw(self, t, energy=1.0):
+    def draw(self, t, energy=1.0, tint_t=None):
         out = self.base.copy()
         ox = int(100 + 60 * math.sin(t * 0.021)) % 200
         oy = int(60 + 40 * math.cos(t * 0.017)) % 120
@@ -82,7 +91,7 @@ class Background:
         n2 = self.neb2[(oy * 2) % 120:(oy * 2) % 120 + H // 4, (ox * 3) % 200:(ox * 3) % 200 + W // 4]
         neb = np.clip(n1 * 1.4 - 0.55, 0, 1) ** 2 * 0.9 + np.clip(n2 - 0.5, 0, 1) * 0.35
         neb = cv2.resize(neb, (W, H), interpolation=cv2.INTER_CUBIC)
-        out += neb[..., None] * self.tint(t) * 0.055 * energy
+        out += neb[..., None] * self.tint(t if tint_t is None else tint_t) * 0.055 * energy
         # 星尘（视差缓慢漂移）
         P = self.star.copy()
         P[:, 0] = (P[:, 0] - t * (3 + 14 * self.star_z)) % W
@@ -98,8 +107,8 @@ BG = None
 TITLE_GRAD = [(0.0, (255, 243, 200)), (0.35, (255, 212, 120)), (0.62, (226, 160, 60)), (1.0, (255, 214, 130))]
 
 
-def narration(out, t):
-    for (t0, t1, s) in T.NARRATION:
+def narration(out, t, lines=None):
+    for (t0, t1, s) in (T.NARRATION if lines is None else lines):
         if t0 - 0.1 <= t <= t1 + 0.1:
             anim_text(out, s, CX, 972, 34, t, t0, t1, "serif_med", INK, track=0.06, fin=0.6, fout=0.4, rise_px=10,
                       blur_px=5)
@@ -119,17 +128,18 @@ def chapter_tag(out, lay, t):
             line(lay, (64, 104), (64 + 60 * float(eout(prog(t, c0 + 0.6, 1.2))), 104), GOLD, 0.5 * a, 1)
 
 
-def progress_bar(out, lay, t):
-    a = clip01(t / 2.0) * clip01((T.LOGO_GATHER - t) / 1.0)
+def progress_bar(out, lay, tr, t):
+    a = clip01(tr / 2.0) * clip01((T.LOGO_GATHER - t) / 1.0)
     if a <= 0:
         return
     x0, x1, y = 64, W - 64, 1046
     line(lay, (x0, y), (x1, y), WHITE, 0.08 * a, 1)
-    xp = x0 + (x1 - x0) * t / T.DUR
+    xp = x0 + (x1 - x0) * tr / T.DUR_REAL
     line(lay, (x0, y), (xp, y), GOLD, 0.35 * a, 1)
     for (c0, *_rest) in T.CHAPTERS:
-        x = x0 + (x1 - x0) * c0 / T.DUR
-        line(lay, (x, y - 4), (x, y + 4), GOLD if t >= c0 else WHITE, (0.5 if t >= c0 else 0.15) * a, 1)
+        c0 = T.video_real(c0)
+        x = x0 + (x1 - x0) * c0 / T.DUR_REAL
+        line(lay, (x, y - 4), (x, y + 4), GOLD if tr >= c0 else WHITE, (0.5 if tr >= c0 else 0.15) * a, 1)
     circle(lay, (xp, y), 2.5, GOLD, 0.9 * a)
 
 
@@ -765,21 +775,14 @@ def scene_100(out, lay, t):
                phase=t * 40)
     # 回放：主持人依次打开的 98 扇门（淡影涟漪），74 号门始终没被碰
     if 101.0 <= t <= 109.5:
-        ghost = window(t, 101.0, 109.5, 0.6, 1.0)
-        for (td, d) in T.CASCADE:
-            x, y = gdoor_pos(d)
-            rt = 101.4 + (td - T.CASCADE_T0) * 0.8
-            flash = math.exp(-max(0.0, t - rt) / 0.5) if t >= rt else 0.0
-            rect(lay, x - G_W / 2, y - G_H, x + G_W / 2, y, mixc(BLUE, TEAL, flash), ghost * (0.06 + 0.4 * flash),
-                 th=1, mode="add")
-        ka = eout(prog(t, 102.6, 0.6)) * window(t, 102.6, 109.5, 0.3, 1.0)
+        ka = eout(prog(t, 102.8, 0.6)) * window(t, 102.8, 109.5, 0.3, 1.0)
         rc = (c74[0], c74[1] - G_H * s_now / 2)
         circle(lay, rc, G_H * s_now * 0.72, CORAL, 0.7 * ka, th=2)
         text(out, "他绝不会打开它", rc[0], rc[1] + G_H * s_now * 0.72 + 34, 22, "serif_med", CORAL, ka, track=0.2)
     # 证据
-    anim_text(out, "证据", CX, 236, 110, t, 105.3, 112.0, "serif_black", TEAL, track=0.3, glow=0.4, glow_buf=lay,
+    anim_text(out, "证据", CX, 236, 110, t, 106.4, 112.0, "serif_black", TEAL, track=0.3, glow=0.4, glow_buf=lay,
               fin=0.9)
-    anim_text(out, "EVIDENCE", CX, 312, 18, t, 105.6, 112.0, "inter_semi", TEAL * 0.8, track=0.8)
+    anim_text(out, "EVIDENCE", CX, 312, 18, t, 106.7, 112.0, "inter_semi", TEAL * 0.8, track=0.8)
     a = window(t, 109.0, 112.2, 0.5, 0.8)
     if a > 0:
         # 证据流向 99%
@@ -1508,6 +1511,193 @@ def finale_post(out, t):
                   track=0.4, fin=1.0, fout=0.01, alpha=end)
 
 
+# ================================================================ 插入段：100 扇门为什么是 99%（真实时间 100.9–135.1）
+INS_SHIFT = 70                                   # 分组时，99 扇门整体右移
+DOOR1_TO = np.array([150.0, 330 + 2 * 106 + G_H])
+_CAS = [d for _, d in T.CASCADE]
+_CAS_T = np.array([tt for tt, _ in T.CASCADE])
+INS_CLOSE = {d: 101.0 + i * 1.2 / 97 for i, d in enumerate(reversed(_CAS))}            # 倒带：依次关上
+INS_OPEN = {d: T.INS_REOPEN0 + (tt - _CAS_T[0]) / (_CAS_T[-1] - _CAS_T[0]) * T.INS_REOPEN_DUR
+            for tt, d in T.CASCADE}                                                       # 重新开门
+_ir = np.random.default_rng(99)
+INS_PR = _ir.random((len(_CAS), 12, 3))
+
+
+def ins_pos(d, tr):
+    """插入段中门 d 的位置（含分组位移）"""
+    x, y = gdoor_pos(d)
+    k = ease(prog(tr, T.ib(0), 1.4))
+    if d == 1:
+        return x + (DOOR1_TO[0] - x) * k, y + (DOOR1_TO[1] - y) * k
+    return x + INS_SHIFT * k, y
+
+
+def group_box(tr):
+    """大组的框：先框住 99 扇门，重拍时收缩到 74 号门"""
+    x0 = 960 + INS_SHIFT - 9.5 * 72 - G_W / 2 - 16
+    x1 = 960 + INS_SHIFT + 9.5 * 72 + G_W / 2 + 16
+    y0, y1 = 330 - 16, 330 + 4 * 106 + G_H + 16
+    k = ease(prog(tr, T.INS_HIT, 1.0))
+    cx, cy = ins_pos(T.CAR_DOOR, tr)
+    tx0, tx1, ty0, ty1 = cx - G_W / 2 - 16, cx + G_W / 2 + 16, cy - G_H - 16, cy + 16
+    return x0 + (tx0 - x0) * k, y0 + (ty0 - y0) * k, x1 + (tx1 - x1) * k, y1 + (ty1 - y1) * k
+
+
+def scene_ins(out, lay, tr):
+    # ---------------- 100 扇门：倒带 → 分组 → 重新开门 → 99% 挤进 74 号门
+    grid_a = 1.0 - ease(prog(tr, T.ib(8) - 0.1, 0.7))
+    if grid_a > 0.003:
+        n_closed = 99 - sum(1 for d in _CAS if INS_OPEN[d] <= tr)
+        light = (0.05 + 0.55 * (1 / max(n_closed, 1)) ** 0.5) * eout(prog(tr, T.ib(2, 2), 0.8))
+        for d in range(1, 101):
+            x, y = ins_pos(d, tr)
+            theta, inside, ik, a = 0.0, None, 0.0, grid_a
+            col, fk = GOLD, 0.45
+            if d in INS_CLOSE:
+                if tr < T.INS_REOPEN0:
+                    u = eout(prog(tr, INS_CLOSE[d], 0.18))
+                    theta = 1.6 * (1 - u)
+                    ik = 1 - u
+                    a *= 0.35 + 0.65 * u
+                    col = mixc(BLUE, GOLD, u)
+                else:
+                    u = eout(prog(tr, INS_OPEN[d], 0.25))
+                    theta = 1.6 * u
+                    ik = u
+                    a *= 1 - 0.6 * prog(tr, INS_OPEN[d] + 0.3, 0.6)
+                    col = mixc(GOLD, BLUE, u)
+                inside = ("goat", np.array([0.7, 0.78, 0.95]))
+            if d == 1:
+                fk = 1.0
+            if d == T.CAR_DOOR:
+                fk = 0.6 + 0.8 * clip01((1 / max(n_closed, 1)) ** 0.5) * prog(tr, T.ib(2, 2), 0.8)
+                if tr < 101.6:
+                    fk = max(fk, 1.25 * (1 - prog(tr, 100.95, 0.6)))
+                col = mixc(GOLD, GOLD_HI, prog(tr, T.INS_HIT, 0.4))
+            draw_door(out, lay, x, y, G_W, G_H, theta, d, a, col, fk, inside, ik, num_size=17)
+            # 大组里还关着的门：分到的"概率光"随着门越开越少而越来越亮
+            if d != 1 and theta < 0.05 and light > 0.003 and tr >= T.ib(2):
+                glow_rect(lay, x - G_W / 2 + 5, y - G_H + 5, x + G_W / 2 - 5, y - 5, GOLD, light * a, 6)
+        # 倒带前的标签（接住上一镜）
+        k0 = 1 - prog(tr, 100.95, 0.5)
+        if k0 > 0:
+            x, y = gdoor_pos(1)
+            text(out, "1%", x, y - G_H - 34, 30, "inter_light", GREY * 1.2, k0)
+            x, y = gdoor_pos(T.CAR_DOOR)
+            text(out, "99%", x, y - G_H - 46, 52, "inter_light", GOLD, k0, glow=0.5, glow_buf=lay)
+        # 倒带标记
+        rw = window(tr, 100.95, 102.4, 0.2, 0.3)
+        if rw > 0:
+            blink = 0.6 + 0.4 * math.sin(tr * 18)
+            for dx in (0, 22):
+                poly(out, [(CX - 4 + dx - 22, 250), (CX + 14 + dx - 22, 238), (CX + 14 + dx - 22, 262)], GOLD,
+                     rw * blink)
+            text(out, "倒带", CX + 44, 250, 22, "serif_med", GOLD, rw * blink, anchor="l", track=0.3)
+        # 分组框
+        ka = eout(prog(tr, T.ib(0, 2), 0.8)) * grid_a
+        if ka > 0:
+            x, y = ins_pos(1, tr)
+            rect(lay, x - G_W / 2 - 16, y - G_H - 16, x + G_W / 2 + 16, y + 16, GOLD, 0.8 * ka, th=1.5, r=8,
+                 mode="add")
+            text(out, "你的门", x, y + 54, 22, "serif_bold", GOLD, ka, track=0.2)
+            k1 = eout(prog(tr, T.ib(2, 0), 0.6)) * grid_a
+            text(out, "1%", x, y - G_H - 60, 56, "inter_light", GOLD, k1)
+            kn = window(tr, T.ib(4, 2), T.ib(8), 0.6, 0.5)
+            text(out, "他从不碰", x, y + 92, 18, "serif_med", GREY * 1.2, kn, track=0.1)
+            text(out, "你的门", x, y + 118, 18, "serif_med", GREY * 1.2, kn, track=0.1)
+        kb = eout(prog(tr, T.ib(1, 0), 0.8)) * grid_a
+        if kb > 0:
+            bx0, by0, bx1, by1 = group_box(tr)
+            hb = prog(tr, T.INS_HIT, 1.0)
+            rect(lay, bx0, by0, bx1, by1, mixc(BLUE, GOLD, hb), 0.8 * kb, th=1.5 + 1.5 * hb, r=10, mode="add")
+            lx, ly = (bx0 + bx1) / 2, by0
+            k2 = eout(prog(tr, T.ib(2, 2), 0.6)) * grid_a
+            text(out, "其余 99 扇 · 合计", lx, ly - 104, 22, "serif_med", INK, kb * (1 - prog(tr, T.INS_HIT, 0.35)), track=0.2)
+            text(out, "99%", lx, ly - 48, 64 + 40 * ease(hb), "inter_light", GOLD, k2, glow=0.4 + 0.3 * hit_k_real(tr),
+                 glow_buf=lay)
+            if hb > 0:
+                text(out, "他留下的 74 号门", lx, ly - 150, 22, "serif_bold", GOLD, k2 * hb, track=0.2)
+        # 开门时，概率光从被打开的门飞向还关着的门，最终汇进 74 号门
+        if T.INS_REOPEN0 <= tr <= T.INS_HIT + 0.8:
+            P, C = [], []
+            tx, ty = ins_pos(T.CAR_DOOR, tr)
+            for i, d in enumerate(_CAS):
+                u = (tr - INS_OPEN[d]) / 0.9
+                if not (0 < u < 1):
+                    continue
+                x, y = ins_pos(d, tr)
+                r = INS_PR[i]
+                e = ease(np.clip(u - r[:, 0] * 0.2, 0, 1) / 0.8)
+                sx, sy = x + (r[:, 1] - 0.5) * G_W, y - G_H * r[:, 2]
+                px = sx + (tx - sx) * e
+                py = sy + (ty - G_H / 2 - sy) * e - np.sin(e * math.pi) * (40 + 60 * r[:, 1])
+                P.append(np.c_[px, py])
+                C.append(np.broadcast_to(GOLD, (12, 3)) * (np.sin(e * math.pi) * 0.9 + 0.1)[:, None])
+            if P:
+                dots(lay, np.vstack(P), np.vstack(C) * grid_a, 1.3)
+        if tr >= T.INS_HIT:
+            cx, cy = ins_pos(T.CAR_DOOR, tr)
+            shockwave(lay, (cx, cy - G_H / 2), tr, T.INS_HIT, GOLD, 900, 1.3)
+            glow_spot(lay, (cx, cy - G_H / 2), 70, GOLD, 0.35 * grid_a)
+    # ---------------- 两种情况
+    sa = window(tr, T.ib(8, 0.2), T.ib(10) - 0.1, 0.5, 0.5)
+    if sa > 0:
+        x0, wmax = 600, 860
+        rows = [(T.ib(8, 0.4), 430, "1%", 0.01, GREY * 1.3, "你第一次就选中了车（他留下哪扇都无所谓）", "坚持赢"),
+                (T.ib(9, 0.0), 610, "99%", 0.99, GOLD, "车在另外 99 扇里 → 他必须绕开它 → 他留下的就是车", "换门赢")]
+        for t0, y, pct, frac, c_, desc, verdict in rows:
+            k = eout(prog(tr, t0, 0.8)) * sa
+            if k <= 0:
+                continue
+            text(out, pct, x0 - 34, y, 60, "inter_light", c_, k, anchor="r", glow=0.3, glow_buf=lay)
+            w = max(10.0, wmax * frac) * eout(prog(tr, t0 + 0.2, 1.0))
+            rect(out, x0, y - 10, x0 + w, y + 10, c_ * 0.35, k, r=5, mode="add")
+            glow_rect(lay, x0, y - 10, x0 + w, y + 10, c_, 0.25 * k, 6)
+            text(out, desc, x0, y + 52, 24, "serif_med", INK, k * eout(prog(tr, t0 + 0.5, 0.6)), anchor="l",
+                 track=0.06)
+            text(out, verdict, x0 + wmax + 60, y, 34, "serif_bold", c_, k * eout(prog(tr, t0 + 0.9, 0.5)), anchor="l",
+                 track=0.2)
+        text(out, "主持人知道车在哪，而且绝不打开它", CX, 300, 22, "serif_med", GREY * 1.2,
+             sa * eout(prog(tr, T.ib(8, 0.4), 0.6)), track=0.25)
+    # ---------------- 回到三扇门
+    ra = window(tr, T.ib(10), T.INS_R_REAL - 0.75, 0.6, 0.6)
+    if ra > 0:
+        xs, by, dw, dh = [700, 960, 1220], 780, 150, 250
+        op = prog(tr, T.ib(11, 2), 0.9)          # 3 号门打开
+        flow = ease(prog(tr, T.ib(11, 2.6), 1.2))
+        for i in range(3):
+            theta = 1.75 * eback(op, 0.9) if i == 2 else 0.0
+            fills = [1 / 3, 1 / 3 + flow / 3, 1 / 3 * (1 - flow)]
+            fc = [GREY * 1.2, mixc(BLUE, GOLD, flow), BLUE]
+            draw_door(out, lay, xs[i], by, dw, dh, theta, i + 1, ra * eout(prog(tr, T.ib(10) + i * 0.15, 0.7)),
+                      GOLD if i < 2 else mixc(GOLD, BLUE, op), 0.55, ("goat", np.array([0.5, 0.56, 0.7])) if i == 2 else None,
+                      eout(op), fills[i], fc[i], num_size=dh * 0.2)
+        ka = eout(prog(tr, T.ib(10, 1.0), 0.6)) * ra
+        rect(lay, xs[0] - dw / 2 - 18, by - dh - 18, xs[0] + dw / 2 + 18, by + 18, GOLD, 0.8 * ka, th=1.5, r=10,
+             mode="add")
+        text(out, "1/3", xs[0], by - dh - 64, 56, "inter_light", GREY * 1.3, ka)
+        text(out, "你的门", xs[0], by + 56, 22, "serif_bold", GOLD, ka, track=0.2)
+        kb = eout(prog(tr, T.ib(10, 2.0), 0.6)) * ra
+        bx0 = xs[1] - dw / 2 - 18 + (0) * flow
+        bx1 = (xs[2] + dw / 2 + 18) + ((xs[1] + dw / 2 + 18) - (xs[2] + dw / 2 + 18)) * flow
+        rect(lay, bx0, by - dh - 18, bx1, by + 18, mixc(BLUE, GOLD, flow), 0.8 * kb, th=1.5, r=10, mode="add")
+        lx = (bx0 + bx1) / 2
+        text(out, "2/3", lx, by - dh - 64, 56 + 20 * flow, "inter_light", mixc(BLUE, GOLD, flow), kb,
+             glow=0.4 * flow, glow_buf=lay)
+        text(out, "另外两扇 · 合计", lx, by - dh - 124, 20, "serif_med", INK, kb * (1 - flow), track=0.2)
+        if 0 < flow < 1:
+            r = np.random.default_rng(7)
+            n = 160
+            e = np.clip(flow * 1.4 - r.random(n) * 0.4, 0, 1)
+            sx = xs[2] + (r.random(n) - 0.5) * dw * 0.8
+            sy = by - dh * 0.15 - r.random(n) * dh * 0.3
+            px = sx + (xs[1] - sx) * ease(e)
+            py = sy + (by - dh * 0.4 - sy) * ease(e) - np.sin(e * math.pi) * 60
+            dots(lay, np.c_[px, py], np.broadcast_to(GOLD, (n, 3)) * (np.sin(e * math.pi) * ra)[:, None], 1.3)
+        if tr >= T.ib(11, 2.6) + 1.2:
+            glow_spot(lay, (xs[1], by - dh / 2), 120, GOLD, 0.12 * ra)
+
+
 # ================================================================ 合成
 SCENES = []
 
@@ -1526,17 +1716,22 @@ def final_fade(t):
     return float(clip01((T.DUR - t) / (T.DUR - T.FADE_OUT))) ** 1.3
 
 
-def render_frame(t):
+def compose(tr, t, ins=False):
+    """tr: 真实时间；t: 原时间轴时间（插入段内为 None）"""
     global BG
     if BG is None:
         BG = Background()
-    out = BG.draw(t)
+    tt = 100.5 if ins else t                  # 插入段沿用第 02 章的色调与章节标签
+    out = BG.draw(tr, tint_t=tt)
     lay = np.zeros((H, W, 3), np.float32)       # 发光层（加色，参与辉光）
-    T_NOW[0] = t
-    for fn in SCENES:
-        fn(out, lay, t)
+    T_NOW[0] = tr
+    if ins:
+        scene_ins(out, lay, tr)
+    else:
+        for fn in SCENES:
+            fn(out, lay, t)
     out += lay
-    hk = hit_k(t, 0.3)
+    hk = hit_k_real(tr, 0.3)
     bloom(out, 1.0 + 0.8 * hk)
     # 重拍：闪白 + 推镜 + 色差
     if hk > 0.01:
@@ -1545,14 +1740,32 @@ def render_frame(t):
         chroma(out, 3.0 * hk)
     tonemap(out)
     vignette(out)
-    finale_post(out, t)
-    chapter_tag(out, lay, t)
-    progress_bar(out, out, t)
-    narration(out, t)
-    grain(out, t)
-    out *= final_fade(t)
-    HUD.draw(out, t, final_fade(t))
-    return to_u8(out)
+    if not ins:
+        finale_post(out, t)
+    chapter_tag(out, lay, tt)
+    progress_bar(out, out, tr, tt)
+    narration(out, tr, T.NARRATION_INS) if ins else narration(out, t)
+    grain(out, tr)
+    ff = 1.0 if ins else final_fade(t)
+    out *= ff
+    HUD.draw(out, tr, ff)
+    return out
+
+
+def render_frame(tr):
+    if tr < T.INS_V0:
+        f = compose(tr, tr)
+    elif tr >= T.INS_R_REAL:
+        f = compose(tr, tr - T.INS_D)
+    else:
+        f = compose(tr, None, True)
+        k = prog(tr, T.INS_V0, 0.4)              # 入：与原镜头交叉溶解
+        if k < 1:
+            f = f * k + compose(tr, tr) * (1 - k)
+        k2 = prog(tr, T.INS_R_REAL - 0.8, 0.8)   # 出：溶回原时间轴
+        if k2 > 0:
+            f = f * (1 - k2) + compose(tr, tr - T.INS_D) * k2
+    return to_u8(f)
 
 
 def render_chunk(args):
@@ -1595,7 +1808,7 @@ def main():
                         "-i", os.path.join(WORK, "score.wav"), "-map", "0:v", "-map", "1:a", "-c:v", "copy",
                         "-c:a", "aac", "-b:a", "192k", "-shortest", path], check=True)
         return
-    total = int(round(T.DUR * FPS))
+    total = int(round(T.DUR_REAL * FPS))
     workers = int(os.environ.get("WORKERS", 4))
     step = math.ceil(total / workers)
     jobs = [(i, i * step, min(total, (i + 1) * step)) for i in range(workers)]
