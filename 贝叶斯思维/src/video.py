@@ -110,7 +110,7 @@ TITLE_GRAD = [(0.0, (255, 243, 200)), (0.35, (255, 212, 120)), (0.62, (226, 160,
 def narration(out, t, lines=None):
     for (t0, t1, s) in (T.NARRATION if lines is None else lines):
         if t0 - 0.1 <= t <= t1 + 0.1:
-            anim_text(out, s, CX, 972, 34, t, t0, t1, "serif_med", INK, track=0.06, fin=0.6, fout=0.4, rise_px=10,
+            anim_text(out, s, CX, 970, 38, t, t0, t1, "serif_med", INK, track=0.05, fin=0.6, fout=0.4, rise_px=10,
                       blur_px=5)
 
 
@@ -123,8 +123,8 @@ def chapter_tag(out, lay, t):
             if a <= 0:
                 return
             text(out, num, 64, 58, 30, "inter_light", GOLD, a * 0.9, "l", track=0.05)
-            text(out, name, 112, 56, 22, "serif_med", INK, a * 0.85, "l", track=0.25)
-            text(out, en, 112, 84, 11, "inter_semi", GREY, a * 0.7, "l", track=0.32)
+            text(out, name, 122, 56, 22, "serif_med", INK, a * 0.85, "l", track=0.25)
+            text(out, en, 122, 86, 11, "inter_semi", GREY, a * 0.7, "l", track=0.32)
             line(lay, (64, 104), (64 + 60 * float(eout(prog(t, c0 + 0.6, 1.2))), 104), GOLD, 0.5 * a, 1)
 
 
@@ -241,7 +241,7 @@ def draw_door(out, lay, cx, base_y, w, h, theta, num, alpha=1.0, frame_col=GOLD,
             cx_, cy_ = P(0.5, 0.36)
             sc = (q[1][0] - q[0][0]) / w
             text(out, str(num), cx_, cy_, num_size or h * 0.2, "inter_thin", frame_col * 0.95 + 0.05,
-                 pa * label_a * clip01(sc * 1.4), scale=max(0.05, min(1.0, abs(sc))))
+                 pa * label_a * clip01(sc * 1.4), scale=max(0.05, min(1.0, abs(sc))), boost=False)
 
 
 # ---------------------------------------------------------------- 场景 1：三扇门（0–47.5）
@@ -762,7 +762,7 @@ def scene_100(out, lay, t):
         text(out, "1%", c1[0], c1[1] - G_H * s_now - 34 - 36 * after, 30 + 34 * after, "inter_light",
              GREY * 1.2 if t > hk else GOLD, a)
         if t < 95:
-            text(out, "你的选择", c1[0], c1[1] + 24, 18, "serif_med", GOLD, a, track=0.2)
+            text(out, "你的选择", c1[0] - G_W / 2 - 16, c1[1] - G_H / 2, 18, "serif_med", GOLD, a, anchor="r", track=0.2)
     if t >= hk:
         u = prog(t, hk, 0.6)
         text(out, "99%", c74[0], c74[1] - G_H * s_now - 46 - 46 * after, 52 + 50 * after, "inter_light", GOLD,
@@ -865,8 +865,8 @@ def scene_bayes(out, lay, t):
         # 标注（逐拍出现）
         la = A * (1 - ease(mk))
         notes = [(T0 + 0.6, cx_post, fy + 110, "后验", "看到证据后的判断", GOLD, 1),
-                 (T0 + 1.25, cx_pri, ny - 120, "先验", "看到证据前的判断", BLUE, -1),
-                 (T0 + 1.9, cx_lik, ny - 120, "似然", "如果 A 成立，出现证据 B 的概率", TEAL, -1),
+                 (T0 + 1.25, cx_pri, ny - 120, "先验", "证据出现前的判断", BLUE, -1),
+                 (T0 + 1.9, cx_lik, ny - 120, "似然", "A 成立时出现 B 的概率", TEAL, -1),
                  (T0 + 2.55, cx_den, dy + 110, "证据出现的总概率", "（用来归一化）", GREY * 1.3, 1)]
         for (t0, x_, y_, h1, h2, c_, sgn) in notes:
             k = eout(prog(t, t0, 0.5))
@@ -875,8 +875,9 @@ def scene_bayes(out, lay, t):
             al = la * k
             y_anchor = (fy + 52) if sgn > 0 and h1 == "后验" else ((dy + 50) if sgn > 0 else (ny - 52))
             line(lay, (x_, y_anchor), (x_, (y_ - 30) if sgn > 0 else (y_ + 58)), c_, 0.6 * al, 1)
-            text(out, h1, x_, y_, 30, "serif_bold", c_, al, track=0.2)
-            text(out, h2, x_, y_ + 38 * (1 if sgn > 0 else 1), 18, "sans_light", GREY, al, track=0.1)
+            dxl = {"似然": -70, "先验": 70}.get(h1, 0)
+            text(out, h1, x_ + dxl, y_, 30, "serif_bold", c_, al, track=0.2)
+            text(out, h2, x_ + dxl, y_ + 38, 18, "sans_light", GREY, al, track=0.1)
         shockwave(lay, (CX, fy), t, T0, GOLD, 1000, 1.3)
         # 人话版
         if mk > 0:
@@ -1033,8 +1034,8 @@ def scene_medical(out, lay, t):
                 circle(lay, (x0, y), 12, c_, 0.5 * kk, th=1)
             text(out, lab, x0 + 26, y - 14, 20, "serif_med", GREY, kk, anchor="l", track=0.1)
             text(out, num, x0 + 26, y + 18, 34, "inter_light", c_, kk, anchor="l")
-    text(out, "10,000", 330, 360, 40, "inter_light", INK, window(t, 150.1, 167.4, 0.6, 0.6) * A)
-    text(out, "每个点 = 1 个人", 360, 404, 18, "sans_light", GREY, window(t, 150.6, 167.4, 0.6, 0.6) * A)
+    text(out, "10,000", 290, 360, 40, "inter_light", INK, window(t, 150.1, 167.4, 0.6, 0.6) * A)
+    text(out, "每个点 = 1 个人", 290, 404, 18, "sans_light", GREY, window(t, 150.6, 167.4, 0.6, 0.6) * A)
     # 50%
     hk = T.HITS["fifty"]
     a = window(t, hk, 189.7, 0.25, 0.5) * A
@@ -1090,7 +1091,7 @@ def scene_medical(out, lay, t):
 
 
 # ================================================================ 场景 8：证据的力度（190–207.5）
-G_C = np.array([CX, 760.0])
+G_C = np.array([CX, 800.0])
 G_R = 300
 
 
@@ -1167,9 +1168,9 @@ def scene_evidence(out, lay, t):
         a = window(t, t0, t1, 0.5, 0.4) * A
         if a <= 0:
             continue
-        anim_text(out, quote, CX, 380, 46, t, t0, t1, "serif_bold", INK, track=0.12)
-        text(out, p1, CX - 240, 440, 22, "sans_light", INK, a * eout(prog(t, t0 + 0.3, 0.5)), track=0.08)
-        text(out, p2, CX + 240, 440, 22, "sans_light", INK, a * eout(prog(t, t0 + 0.6, 0.5)), track=0.08)
+        anim_text(out, quote, CX, 356, 46, t, t0, t1, "serif_bold", INK, track=0.12)
+        text(out, p1, CX - 250, 408, 22, "sans_light", INK, a * eout(prog(t, t0 + 0.3, 0.5)), track=0.08)
+        text(out, p2, CX + 250, 408, 22, "sans_light", INK, a * eout(prog(t, t0 + 0.6, 0.5)), track=0.08)
         text(out, verdict, CX, G_C[1] + 118, 26, "serif_bold", vc, a * eout(prog(t, t0 + 1.4, 0.5)), track=0.3)
     text(out, "（数字为示意）", 1700, 880, 16, "sans_light", GREY, window(t, 199.8, 207.3, 0.5, 0.4) * A * 0.8)
 
@@ -1259,8 +1260,8 @@ def corridor(out, lay, t, a):
 
 
 INV_P0 = 0.60
-INV_EV = [(232.6, "连续提价，销量不降", 3.0, "×3"), (234.6, "自由现金流常年为正", 2.0, "×2"),
-          (236.6, "核心高管集体减持", 0.25, "×1/4")]
+INV_EV = [(232.6, "提价不掉量", 3.0, "×3"), (234.6, "现金流常年为正", 2.0, "×2"),
+          (236.6, "高管集体减持", 0.25, "×1/4")]
 
 
 def inv_probs():
@@ -1603,8 +1604,8 @@ def scene_ins(out, lay, tr):
             k1 = eout(prog(tr, T.ib(2, 0), 0.6)) * grid_a
             text(out, "1%", x, y - G_H - 60, 56, "inter_light", GOLD, k1)
             kn = window(tr, T.ib(4, 2), T.ib(8), 0.6, 0.5)
-            text(out, "他从不碰", x, y + 92, 18, "serif_med", GREY * 1.2, kn, track=0.1)
-            text(out, "你的门", x, y + 118, 18, "serif_med", GREY * 1.2, kn, track=0.1)
+            text(out, "他从不碰", x, y + 94, 18, "serif_med", GREY * 1.2, kn, track=0.1)
+            text(out, "你的门", x, y + 126, 18, "serif_med", GREY * 1.2, kn, track=0.1)
         kb = eout(prog(tr, T.ib(1, 0), 0.8)) * grid_a
         if kb > 0:
             bx0, by0, bx1, by1 = group_box(tr)

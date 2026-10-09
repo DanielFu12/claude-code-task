@@ -225,8 +225,20 @@ def composite(out, col, a, x0, y0, mode="over"):
         reg += aa * cc
 
 
+def legible(size, fname):
+    """小字放大：保证手机上看得清（1080p 下正文类不小于约 26px，装饰性英文大写不小于约 16px）。
+    36px 以上的大字不变。"""
+    if size >= 36:
+        return size
+    if fname == "inter_semi":                       # 字距很宽的装饰性英文大写
+        return max(size, 0.6 * size + 9)
+    return max(size, 0.6 * size + 15)
+
+
 def text(out, s, x, y, size, fname="serif_med", color=INK, alpha=1.0, anchor="c", track=0.0, hl=GOLD,
-         reveal=1.0, blur=0.0, rise=0.0, scale=1.0, mode="over", gradient=None, glow=0.0, glow_buf=None):
+         reveal=1.0, blur=0.0, rise=0.0, scale=1.0, mode="over", gradient=None, glow=0.0, glow_buf=None, boost=True):
+    if boost:
+        size = round(legible(size, fname))
     sp = text_sprite(s, fname, size, color, track, hl, gradient)
     blit(out, sp, x, y, alpha, anchor, reveal, blur, rise, scale, mode)
     if glow > 0 and glow_buf is not None:
