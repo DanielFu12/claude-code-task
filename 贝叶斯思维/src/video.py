@@ -598,7 +598,7 @@ def scene_title(out, lay, t):
              blur=3 * (1 - crisp), glow=0.12, glow_buf=lay)
     anim_text(out, "BAYESIAN  THINKING", CX, 610, 34, t, T0 + 1.4, 67.2, "corm6", np.array([0.84, 0.70, 0.44]),
               track=0.55, fin=1.0)
-    anim_text(out, "一场关于【改变想法】的认知之旅", CX, 690, 30, t, T0 + 2.2, 67.2, "serif_light", INK, track=0.3,
+    anim_text(out, "在不确定的世界里，做出【更好的决策】", CX, 690, 30, t, T0 + 2.2, 67.2, "serif_light", INK, track=0.3,
               fin=1.0)
     shockwave(lay, (CX, 470), t, T0, GOLD, 1300, 1.6, 1.2)
 
