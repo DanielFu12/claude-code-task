@@ -15,14 +15,14 @@ s, e, at = T.s, T.e, T.at
 def node(c, x, y, label, rgb, a, w=None, size=30, fill=0.10, sub=None):
     if a <= 0.003:
         return
-    tw = w or E.measure(label, size, "serif_bold", 4) + 70
+    tw = w or max(E.measure(label, size, "serif_bold", 4), E.measure(sub, 22, "sans_light", 2) if sub else 0) + 70
     h = 76 if sub is None else 96
     rrect(c, x - tw / 2, y - h / 2, tw, h, 18, paint(rgb, fill * a))
     rrect(c, x - tw / 2, y - h / 2, tw, h, 18, paint(rgb, 0.9 * a, stroke=2))
     rrect(c, x - tw / 2, y - h / 2, tw, h, 18, paint(rgb, 0.35 * a, stroke=6, blur=10))
     text(c, label, x, y - (12 if sub else 0), size, "serif_bold", INK, a, "c", 4)
     if sub:
-        text(c, sub, x, y + 26, 17, "sans_light", DIM, a, "c", 2)
+        text(c, sub, x, y + 26, 22, "sans_light", DIM, a, "c", 2)
 
 
 # ================================================================ 01 大脑是一台连线机器：把随机的星星连成星座
@@ -58,35 +58,28 @@ def scene_constellation(ctx):
     text(c, "星座：大脑在随机的星星之间「连线」", CX, 930, 22, "sans_light", DIM, a * ease((t - 53.5) / 0.8), "c", 3)
 
 
-# ================================================================ 消防员散点图 → 混杂因素
+# ================================================================ 冰淇淋与溺水：隐藏的第三因素（气温）
+MONTHS = np.arange(1, 13)
+TEMP = 14 + 13 * np.sin(2 * np.pi * (MONTHS - 4) / 12)            # 示意：北半球温带城市的月均气温
 _r = np.random.default_rng(7)
-FIRE_N = 46
-FSIZE = np.sort(_r.lognormal(0, 0.55, FIRE_N))
-FIREMEN = np.clip(3 + 9 * FSIZE + _r.normal(0, 2.2, FIRE_N), 2, 40)
-LOSS = np.clip(18 * FSIZE + _r.normal(0, 4.5, FIRE_N), 1, 80)
-R_CORR = float(np.corrcoef(FIREMEN, LOSS)[0, 1])
-FORD = _r.permutation(FIRE_N)
-PX0, PY0, PW, PH = 170, 300, 640, 520     # 图表区域
+ICE = 18 + 3.0 * TEMP + _r.normal(0, 4, 12)                        # 冰淇淋销量（指数，示意）
+DROWN = 3 + 0.85 * TEMP + _r.normal(0, 1.6, 12)                    # 溺水人数（示意）
+R_CORR = float(np.corrcoef(ICE, DROWN)[0, 1])
+PX0, PY0, PW, PH = 170, 300, 700, 500
+WARM = (1.0, 0.62, 0.22)
 
 
-FM_MAX, LS_MAX = float(FIREMEN.max() * 1.12), float(LOSS.max() * 1.12)
+def _mx(mm):
+    return PX0 + (mm - 0.5) / 12 * PW
 
 
-def _pt(fm, ls):
-    return PX0 + fm / FM_MAX * PW, PY0 + PH - ls / LS_MAX * PH
-
-
-def _flame(c, x, y, sc, t, a):
-    for k, (col, s_) in enumerate(((FIRE, 1.0), ((1.0, 0.78, 0.3), 0.66), ((1.0, 0.95, 0.75), 0.36))):
-        p = skia.Path()
-        f = sc * s_
-        wob = math.sin(t * 9 + k) * 0.08
-        p.moveTo(x, y + 30 * f)
-        p.cubicTo(x - 34 * f, y + 28 * f, x - 34 * f, y - 10 * f, x + (wob - 0.05) * 40 * f, y - 62 * f)
-        p.cubicTo(x + 12 * f, y - 30 * f, x + 36 * f, y - 16 * f, x + 30 * f, y + 6 * f)
-        p.cubicTo(x + 26 * f, y + 24 * f, x + 14 * f, y + 30 * f, x, y + 30 * f)
-        c.drawPath(p, paint(col, a * (0.95 if k else 0.85), blur=1.5 if k else 3))
-    c.drawCircle(x, y - 10 * sc, 70 * sc, paint(FIRE, 0.18 * a, blur=40 * sc))
+def _sun(c, x, y, r, t, a):
+    c.drawCircle(x, y, r * 2.2, paint(WARM, 0.18 * a, blur=r))
+    for i in range(12):
+        ang = i * math.tau / 12 + t * 0.4
+        c.drawLine(x + math.cos(ang) * r * 1.25, y + math.sin(ang) * r * 1.25, x + math.cos(ang) * r * 1.7,
+                   y + math.sin(ang) * r * 1.7, paint(WARM, a, stroke=4))
+    c.drawCircle(x, y, r, paint((1.0, 0.82, 0.35), a))
 
 
 def scene_scatter(ctx):
@@ -94,40 +87,58 @@ def scene_scatter(ctx):
     a = win(t, s("c2") - 0.3, s("c5") - 0.45, 0.6, 0.3)
     if a <= 0:
         return
-    # 坐标轴
     ka = ease((t - s("c2") + 0.3) / 0.8)
     line(c, PX0, PY0 + PH, PX0 + PW, PY0 + PH, DIM, 0.7 * a, 2, ka)
-    line(c, PX0, PY0 + PH, PX0, PY0, DIM, 0.7 * a, 2, ka)
-    text(c, "到场消防员人数 →", PX0 + PW, PY0 + PH + 40, 20, "sans_reg", DIM, a * ka, "r", 2)
-    text(c, "火灾损失 →", PX0 - 20, PY0 - 30, 20, "sans_reg", DIM, a * ka, "l", 2)
-    conf = ease((t - at("c4", "火越大") - 0.2) / 1.0)     # 按火势着色：混杂因素现形
-    for n, i in enumerate(FORD):
-        k = back_out((t - s("c2") - 0.4 - n * 0.055) / 0.35)
+    t_hot = at("c4", "天越热")
+    conf = ease((t - t_hot - 0.2) / 1.0)                  # 气温现形：柱子按温度着色，温度曲线浮现
+    # 每个八分音符长出一个月
+    tb0 = s("c2") + 0.3
+    for i, mm in enumerate(MONTHS):
+        k = ease_out((t - tb0 - i * T.BEAT / 2) / 0.25, 3)
         if k <= 0:
             continue
-        x, y = _pt(FIREMEN[i], LOSS[i])
-        fz = clip01((FSIZE[i] - 0.4) / 2.2)
-        col = mixc(GOLD, mixc((1.0, 0.85, 0.35), (1.0, 0.25, 0.15), fz), conf)
-        r = 7 * k * (1 + conf * (fz * 1.2 - 0.3))
-        glow_dot(c, x, y, max(r, 0.5), col, a, 2.4)
-    # 回归线
-    kl = ease((t - s("c2") - 2.8) / 0.9)
+        x = _mx(mm)
+        h = ICE[i] / 110 * PH * k
+        col = mixc(GOLD, mixc((0.35, 0.6, 1.0), WARM, clip01((TEMP[i] - 2) / 25)), conf)
+        rrect(c, x - 19, PY0 + PH - h, 38, h, 6, paint(col, 0.85 * a))
+        text(c, f"{mm}月", x, PY0 + PH + 30, 22, "sans_reg", DIM, a * k, "c")
+    # 溺水人数折线
+    kl = ease((t - tb0 - 6 * T.BEAT) / 1.2)
     if kl > 0:
-        m, b = np.polyfit(FIREMEN, LOSS, 1)
-        x0, x1 = float(FIREMEN.min()), float(FIREMEN.max())
-        (sx, sy), (ex, ey) = _pt(x0, m * x0 + b), _pt(x1, m * x1 + b)
-        line(c, sx, sy, ex, ey, GOLD, 0.8 * a, 3, kl)
-        text(c, f"r = {R_CORR:.2f}", PX0 + PW - 10, PY0 + 20, 30, "inter_light", GOLD, a * kl, "r")
-        text(c, "高度相关", PX0 + PW - 10, PY0 + 58, 18, "sans_light", DIM, a * kl, "r", 2)
+        p = skia.Path()
+        for i, mm in enumerate(MONTHS):
+            x, y = _mx(mm), PY0 + PH - DROWN[i] / 32 * PH
+            (p.moveTo if i == 0 else p.lineTo)(x, y)
+        c.drawPath(p, paint(CYAN, a, stroke=4, trim=(0, kl)))
+        c.drawPath(p, paint(CYAN, 0.35 * a, stroke=12, blur=8, trim=(0, kl)))
+        for i, mm in enumerate(MONTHS):
+            if kl * 12 > i:
+                glow_dot(c, _mx(mm), PY0 + PH - DROWN[i] / 32 * PH, 6, CYAN, a, 2.5)
+    # 图例
+    rrect(c, PX0, PY0 - 70, 26, 18, 4, paint(GOLD, a * ka))
+    text(c, "冰淇淋销量", PX0 + 38, PY0 - 61, 24, "sans_reg", INK, a * ka, "l", 1)
+    line(c, PX0 + 210, PY0 - 61, PX0 + 246, PY0 - 61, CYAN, a * kl, 4)
+    text(c, "溺水人数", PX0 + 258, PY0 - 61, 24, "sans_reg", INK, a * kl, "l", 1)
+    text(c, "按月统计（示意数据）", PX0 + PW, PY0 - 100, 22, "sans_light", GREY, a * ka, "r", 1)
+    kr = ease((t - tb0 - 10 * T.BEAT) / 0.6)
+    if kr > 0:
+        text(c, f"r = {R_CORR:.2f}", PX0 + 20, PY0 + 20, 36, "inter_light", GOLD, a * kr, "l")
+        text(c, "几乎同涨同跌", PX0 + 20, PY0 + 64, 22, "sans_light", DIM, a * kr, "l", 2)
     if conf > 0:
-        text(c, "颜色 / 大小 = 火势", PX0 + 10, PY0 + 20, 18, "sans_reg", FIRE, a * conf, "l", 2)
+        p = skia.Path()
+        for i, mm in enumerate(MONTHS):
+            x, y = _mx(mm), PY0 + PH - (TEMP[i] + 6) / 40 * PH
+            (p.moveTo if i == 0 else p.lineTo)(x, y)
+        c.drawPath(p, paint(WARM, 0.9 * a * conf, stroke=3, dash=([10, 8], 0), trim=(0, conf)))
+        c.drawLine(PX0 + 380, PY0 - 61, PX0 + 416, PY0 - 61, paint(WARM, a * conf, stroke=3, dash=([8, 6], 0)))
+        text(c, "气温", PX0 + 428, PY0 - 61, 24, "sans_med", WARM, a * conf, "l", 1)
     # 因果图
     kc = ease((t - s("c3") + 0.1) / 0.6)
     if kc > 0:
-        nx0, nx1, ny = 1120, 1620, 690
-        node(c, nx0, ny, "消防员", CYAN, a * kc)
-        node(c, nx1, ny, "损失", RED, a * kc)
-        bad = ease((t - at("c4", "火越大") - 0.6) / 0.6)
+        nx0, nx1, ny = 1150, 1630, 700
+        node(c, nx0, ny, "冰淇淋", GOLD, a * kc)
+        node(c, nx1, ny, "溺水", CYAN, a * kc)
+        bad = ease((t - t_hot - 0.6) / 0.6)
         col = mixc(INK, RED, bad)
         if bad < 0.99:
             arrow(c, nx0, ny, nx1, ny, col, a * kc * (1 - 0.6 * bad), 3, ease((t - s("c3")) / 0.6), 18, 100, 80)
@@ -137,20 +148,21 @@ def scene_scatter(ctx):
             cross(c, (nx0 + nx1) / 2, ny, 46, RED, a * bad, bad)
         q = ease((t - s("c3") - 0.4) / 0.4) * (1 - ease((t - s("c4")) / 0.3))
         text(c, "?", (nx0 + nx1) / 2, ny - 60, 72, "serif_black", GOLD, a * q, "c")
-        # 火势：真正的原因
-        kf = ease((t - at("c4", "火越大") + 0.2) / 0.7)
+        kf = ease((t - t_hot + 0.2) / 0.7)
         if kf > 0:
             fx, fy = (nx0 + nx1) / 2, 400 - 40 * (1 - kf)
-            _flame(c, fx, fy - 20, 1.0, t, a * kf)
-            node(c, fx, fy + 80, "火势", FIRE, a * kf, sub="隐藏的第三因素")
-            ka2 = ease((t - at("c4", "火越大") - 0.3) / 0.7)
-            arrow(c, fx, fy + 80, nx0, ny, FIRE, a * kf, 3, ka2, 18, 60, 50)
-            arrow(c, fx, fy + 80, nx1, ny, FIRE, a * kf, 3, ka2, 18, 60, 50)
+            _sun(c, fx, fy - 40, 34, t, a * kf)
+            node(c, fx, fy + 80, "气温", WARM, a * kf, sub="隐藏的第三因素")
+            ka2 = ease((t - t_hot - 0.3) / 0.7)
+            arrow(c, fx, fy + 80, nx0, ny, WARM, a * kf, 3, ka2, 18, 60, 50)
+            arrow(c, fx, fy + 80, nx1, ny, WARM, a * kf, 3, ka2, 18, 60, 50)
+            text(c, "买冰淇淋", (fx + nx0) / 2 - 70, (fy + 80 + ny) / 2 + 8, 22, "sans_reg", WARM, a * ka2, "r", 1)
+            text(c, "下水游泳", (fx + nx1) / 2 + 70, (fy + 80 + ny) / 2 + 8, 22, "sans_reg", WARM, a * ka2, "l", 1)
 
 
 def scene_neq(ctx):
     t, c = ctx.t, ctx.c
-    a = win(t, s("c5") - 0.1, s("c6") - 0.3, 0.4, 0.3)
+    a = win(t, s("c5") - 0.1, s("c6") - 0.35, 0.4, 0.3)
     if a <= 0:
         return
     k = ease_out((t - s("c5")) / 0.6)
@@ -188,13 +200,13 @@ EFFECT = _r.random(RCT_N)
 
 def scene_rct(ctx):
     t, c = ctx.t, ctx.c
-    a = win(t, s("c6") + 0.05, T.SEC["cause"][1] - 0.2, 0.5, 0.4)
+    a = win(t, s("c7") + 0.05, T.SEC["cause"][1] - 0.2, 0.5, 0.4)
     if a <= 0:
         return
-    t_coin = at("c6", "抛硬币")
-    t_same = at("c6", "除了一件事")
+    t_coin = at("c7", "抛硬币")
+    t_same = s("c8")
     split = ease_io((t - t_coin - 0.6) / 1.4)
-    k_in = ease((t - s("c6") + 0.2) / 0.8)
+    k_in = ease((t - s("c7") + 0.2) / 0.8)
     # 硬币
     kc = win(t, t_coin - 0.4, t_coin + 1.8, 0.3, 0.4)
     if kc > 0:
@@ -216,12 +228,12 @@ def scene_rct(ctx):
         col = mixc((0.45, 0.75, 1.0), (0.80, 0.55, 1.0), HEALTH[i])
         healed = 0.0
         if GROUP[i] == 0:
-            healed = ease((t - s("c7") - 0.2 - EFFECT[i] * 1.2) / 0.3) * (EFFECT[i] < 0.70)
+            healed = ease((t - at("c8", "结果不同") - 0.2 - EFFECT[i] * 1.2) / 0.3) * (EFFECT[i] < 0.70)
         else:
-            healed = ease((t - s("c7") - 0.2 - EFFECT[i] * 1.2) / 0.3) * (EFFECT[i] < 0.45)
+            healed = ease((t - at("c8", "结果不同") - 0.2 - EFFECT[i] * 1.2) / 0.3) * (EFFECT[i] < 0.45)
         col = mixc(col, GREEN, healed)
         c.drawCircle(x, y, 7 + 5 * AGE[i], paint(col, a * k_in * 0.92))
-    for g, gx, name in ((0, 520, "实验组"), (1, 1400, "对照组")):
+    for g, gx, name in ((0, 520, "保健品组"), (1, 1400, "安慰剂组")):
         kl = ease((split - 0.6) / 0.4)
         text(c, name, gx, 400, 32, "serif_bold", INK, a * kl, "c", 8)
         # 组成对比
@@ -234,22 +246,59 @@ def scene_rct(ctx):
                 rrect(c, gx - 80, y - 6, 240, 12, 6, paint(INK, 0.12 * a * ks))
                 rrect(c, gx - 80, y - 6, 240 * v * ks, 12, 6, paint(CYAN, 0.8 * a * ks))
     # 唯一差别：新疗法
-    kp = ease((t - at("c6", "除了一件事") - 0.5) / 0.6)
+    kp = ease((t - at("c7", "一组吃保健品") + 0.1) / 0.6)
     if kp > 0:
         pulse = 0.5 + 0.5 * math.sin(t * 5)
         rrect(c, 520 - 210, 440, 420, 370, 28, paint(GOLD, a * kp * (0.6 + 0.3 * pulse), stroke=2.5))
         rrect(c, 520 - 210, 440, 420, 370, 28, paint(GOLD, a * kp * 0.3, stroke=8, blur=12))
-        text(c, "＋ 唯一的差别：新疗法", 520, 900, 22, "sans_med", GOLD, a * kp, "c", 2)
-    kr = ease((t - s("c7") - 1.2) / 0.6)
+        text(c, "唯一的差别：吃的是保健品，还是安慰剂", 520, 900, 22, "sans_med", GOLD, a * kp, "c", 2)
+    kr = ease((t - at("c8", "结果不同") - 1.2) / 0.6)
     if kr > 0:
         text(c, "70%", 520, 960, 44, "inter_light", GREEN, a * kr, "c")
         text(c, "45%", 1400, 960, 44, "inter_light", GREEN, a * kr, "c")
-        text(c, "康复率（示意）", CX, 960, 20, "sans_light", DIM, a * kr, "c", 2)
-        arrow(c, 760, 330, 1160, 330, GOLD, a * kr, 3, ease((t - s("c7") - 1.5) / 0.6), 18)
+        text(c, "症状改善（示意）", CX, 960, 20, "sans_light", DIM, a * kr, "c", 2)
+        arrow(c, 760, 330, 1160, 330, GOLD, a * kr, 3, ease((t - at("c8", "结果不同") - 1.5) / 0.6), 18)
         text(c, "差异 = 因果", CX, 300, 26, "serif_bold", GOLD, a * kr, "c", 6)
 
 
 GOLD_D = E.GOLD_D
+
+
+def _capsule(c, x, y, L, w, ang, a, col1=GOLD, col2=(0.95, 0.95, 1.0)):
+    c.save()
+    c.translate(x, y)
+    c.rotate(ang)
+    rrect(c, -L / 2, -w / 2, L, w, w / 2, paint(col2, a))
+    c.save()
+    c.clipRect(skia.Rect.MakeLTRB(-L / 2 - 2, -w, 0, w))
+    rrect(c, -L / 2, -w / 2, L, w, w / 2, paint(col1, a))
+    c.restore()
+    c.drawLine(0, -w / 2, 0, w / 2, paint((0, 0, 0), 0.3 * a, stroke=2))
+    rrect(c, -L / 2 + 8, -w / 2 + 6, L - 16, 6, 3, paint((1, 1, 1), 0.35 * a))
+    c.restore()
+
+
+def scene_pill(ctx):
+    """「吃了保健品，感觉好多了」——是它的功劳吗？"""
+    t, c = ctx.t, ctx.c
+    t0 = s("c6")
+    a = win(t, t0 - 0.2, s("c7") + 0.1, 0.4, 0.4)
+    if a <= 0:
+        return
+    k = ease_out((t - t0) / 0.6, 3)
+    _capsule(c, CX, 470 + 40 * (1 - k), 300, 110, -25 + 10 * math.sin(t * 1.5), a * k)
+    c.drawCircle(CX, 470, 260, paint(GOLD, 0.10 * a * k, blur=80))
+    t2 = at("c6", "感觉身体")
+    k2 = ease((t - t2) / 0.4)
+    text(c, "感觉好多了！", CX - 380, 360, 40, "serif_bold", GREEN, a * k2, "c", 6)
+    t3 = at("c6", "是它的功劳")
+    k3 = ease_out((t - t3) / 0.3, 3)
+    text(c, "？", CX + 330, 420, 150 * lerp(1.3, 1, k3), "serif_black", GOLD, a * k3, "c", glow=0.5, glow_rgb=GOLD)
+    if k3 > 0:
+        for j, lab in enumerate(["本来就会自己好", "心理作用", "最近睡得多了"]):
+            kk = ease((t - t3 - 0.3 - j * T.BEAT / 2) / 0.4)
+            rrect(c, CX - 160 + (j - 1) * 330 - 0, 760, 320, 56, 28, paint(INK, 0.3 * a * kk, stroke=1.5))
+            text(c, lab, CX + (j - 1) * 330, 788, 24, "sans_reg", DIM, a * kk, "c", 2)
 
 
 # ================================================================ 02 可证伪性
@@ -657,7 +706,8 @@ SCENES = [
     (T.SEC["cause"][0], s("c2") + 1.0, scene_constellation),
     (s("c2") - 0.3, s("c5") + 0.5, scene_scatter),
     (s("c5") - 0.1, s("c6") + 0.9, scene_neq),
-    (s("c6") - 0.2, T.SEC["cause"][1], scene_rct),
+    (s("c6") - 0.3, s("c7") + 0.6, scene_pill),
+    (s("c7") - 0.2, T.SEC["cause"][1], scene_rct),
     (s("f1") - 0.3, s("f2") + 0.8, scene_proof),
     (s("f2") - 0.2, s("f3") + 0.8, scene_swans),
     (s("f3") - 0.3, e("f5") + 1.2, scene_eclipse),

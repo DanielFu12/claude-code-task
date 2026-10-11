@@ -1,4 +1,4 @@
-"""序章与标题：棋盘阴影错觉 → 华盛顿与两千年的放血疗法 → 「科学思维」。"""
+"""序章与标题：一只睁开又碎裂的眼睛 → 返航战机的弹孔（幸存者偏差）→ 「科学思维」。"""
 import math
 
 import cv2
@@ -8,9 +8,9 @@ import skia
 import engine as E
 import timeline as T
 from engine import (W, H, CX, CY, INK, DIM, GREY, CYAN, GOLD, RED, GREEN, clip01, ease, ease_out, ease_io,
-                    lerp, mixc, win, text, paint, line)
+                    ease_in, lerp, mixc, win, text, paint, line, cross, arrow)
 
-s, e = T.s, T.e
+s, e, at = T.s, T.e, T.at
 
 # ================================================================ 0 钩子：一只眼睛 + 四记重拍上的四行大字
 HOOK = ["h1", "h2", "h3", "h4"]
@@ -112,185 +112,218 @@ def scene_hook(ctx):
             text(c, txt, CX, y, size, "serif_black", INK, al, "c", 12, glow=0.25 if age == 0 else 0, glow_rgb=CYAN)
 
 
-# ================================================================ 1 冷开场：华盛顿与放血疗法
-def _bust_path(x0, y0, sc=1.0):
-    p = skia.Path()
-    def P(x, y):
-        return x0 + x * sc, y0 + y * sc
-    p.moveTo(*P(200, 30))
-    p.cubicTo(*P(255, 30), *P(285, 80), *P(282, 135))
-    p.cubicTo(*P(280, 190), *P(258, 228), *P(236, 240))
-    p.lineTo(*P(238, 272))
-    p.cubicTo(*P(300, 290), *P(372, 300), *P(392, 360))
-    p.lineTo(*P(400, 520))
-    p.lineTo(*P(0, 520))
-    p.lineTo(*P(8, 360))
-    p.cubicTo(*P(28, 300), *P(100, 290), *P(162, 272))
-    p.lineTo(*P(164, 240))
-    p.cubicTo(*P(142, 228), *P(120, 190), *P(118, 135))
-    p.cubicTo(*P(115, 80), *P(145, 30), *P(200, 30))
-    p.close()
-    return p
+# ================================================================ 1 冷开场：返航战机的弹孔（幸存者偏差）
+# 俯视的四发战机（蓝图风格，原创绘制）。局部坐标：机头朝上，原点在机身中心。
+def _plane_parts():
+    fus = skia.Path()
+    fus.moveTo(0, -300)
+    fus.cubicTo(30, -296, 38, -250, 38, -200)
+    fus.lineTo(34, 250)
+    fus.cubicTo(30, 290, 12, 305, 0, 306)
+    fus.cubicTo(-12, 305, -30, 290, -34, 250)
+    fus.lineTo(-38, -200)
+    fus.cubicTo(-38, -250, -30, -296, 0, -300)
+    fus.close()
+    wing = skia.Path()
+    for sg in (1, -1):
+        wing.moveTo(sg * 30, -80)
+        wing.lineTo(sg * 505, -38)
+        wing.cubicTo(sg * 520, -34, sg * 520, -10, sg * 505, -6)
+        wing.lineTo(sg * 30, 40)
+        wing.close()
+    tail = skia.Path()
+    for sg in (1, -1):
+        tail.moveTo(sg * 28, 228)
+        tail.lineTo(sg * 175, 254)
+        tail.cubicTo(sg * 186, 256, sg * 186, 278, sg * 175, 280)
+        tail.lineTo(sg * 28, 292)
+        tail.close()
+    engines = [(x, -66) for x in (-330, -165, 165, 330)]
+    eng = skia.Path()
+    for (x, y) in engines:
+        eng.addOval(skia.Rect.MakeLTRB(x - 24, y - 62, x + 24, y + 50))
+    cock = skia.Path()
+    cock.addOval(skia.Rect.MakeLTRB(-20, -268, 20, -206))
+    return fus, wing, tail, eng, cock, engines
 
 
-BLEEDS = [0.38, 0.53, 0.53, 0.95]       # 四次放血（升）：约 12–14、18、18、32 盎司，合计约 2.4 L
-BODY_L = 6.0                             # 估计全身血量（升），2.4 / 6 ≈ 40%
+FUS, WING, TAIL, ENG, COCK, ENGINES = _plane_parts()
 
 
-def _bleed_times():
-    """四次放血落在四个连续的半小节上（与鼓点同步）。"""
-    a = T.at("b2", "医生为他")
-    return [a + i * 2 * T.BEAT for i in range(4)]
-
-
-BLEED_T = _bleed_times()
-
-
-def drained(t):
-    v = 0.0
-    for bt, amt in zip(BLEED_T, BLEEDS):
-        v += amt * ease((t - bt) / 0.9)
-    return v
-
-
-def dot_grid(c, cx, cy, t, t_start, dur, rate, seed, label=None, label_rgb=INK, a=1.0, n=10, sp=34, r=10.5,
-             sick=RED, well=GREEN):
-    """10×10 病人点阵：从 t_start 起，在 dur 内按随机顺序变绿，最终比例 rate。"""
-    rng = np.random.default_rng(seed)
-    order = rng.permutation(n * n)
-    k = int(round(rate * n * n))
-    when = {int(order[i]): t_start + dur * (i / max(1, k)) ** 0.9 for i in range(k)}
-    x0 = cx - (n - 1) * sp / 2
-    y0 = cy - (n - 1) * sp / 2
-    done = 0
-    for idx in range(n * n):
-        gx, gy = idx % n, idx // n
-        x, y = x0 + gx * sp, y0 + gy * sp
-        appear = ease((t - (t_start - 1.0) - (gx + gy) * 0.012) / 0.5)
-        if appear <= 0:
+def _holes():
+    """返航飞机的弹孔（示意）：集中在机翼、机身中段、尾翼；发动机与驾驶舱几乎没有。"""
+    r = np.random.default_rng(1943)
+    pts = []
+    while len(pts) < 170:
+        x, y = r.uniform(-520, 520), r.uniform(-300, 306)
+        if ENG.contains(x, y) or COCK.contains(x, y) or (abs(y + 66) < 75 and any(abs(x - ex) < 40 for ex, _ in ENGINES)):
             continue
-        kk = ease((t - when[idx]) / 0.35) if idx in when else 0.0
-        if kk > 0.5:
-            done += 1
-        col = E.mixc(sick, well, kk)
-        c.drawCircle(x, y, r * (0.6 + 0.4 * appear) * (1 + 0.25 * math.sin(math.pi * kk)), paint(col, a * appear))
-    return done
+        if WING.contains(x, y) or TAIL.contains(x, y) or (FUS.contains(x, y) and -190 < y < 280):
+            pts.append((x, y))
+    pts.append((-330 + 12, -40))       # 发动机上只零星两个
+    pts.append((165 - 10, -90))
+    order = r.permutation(len(pts))
+    return np.array(pts)[order], r.random(len(pts))
 
 
-def scene_blood(ctx):
+HOLES, HOLE_R = _holes()
+PLANE_C = (CX, 560)
+
+
+def _plane(c, cx, cy, sc, a, rot=0.0, col=CYAN, fill=0.10, glow=True, dash=False):
+    c.save()
+    c.translate(cx, cy)
+    c.rotate(rot)
+    c.scale(sc, sc)
+    for p in (WING, TAIL, FUS):
+        c.drawPath(p, paint((0.04, 0.07, 0.12), 0.9 * a))
+        c.drawPath(p, paint(col, fill * a))
+    for p in (WING, TAIL, FUS, ENG):
+        pp = paint(col, 0.85 * a, stroke=2.0 / sc, dash=([10 / sc, 7 / sc], 0) if dash else None)
+        c.drawPath(p, pp)
+        if glow:
+            c.drawPath(p, paint(col, 0.25 * a, stroke=7 / sc, blur=8 / sc))
+    c.drawPath(ENG, paint((0.04, 0.07, 0.12), 0.9 * a))
+    c.drawPath(ENG, paint(col, 0.85 * a, stroke=2.0 / sc, dash=([10 / sc, 7 / sc], 0) if dash else None))
+    c.drawPath(COCK, paint(col, 0.35 * a))
+    # 蓝图细节：翼梁与桁条
+    for sg in (1, -1):
+        c.drawLine(sg * 40, -40, sg * 500, -22, paint(col, 0.22 * a, stroke=1 / sc))
+    for y in range(-160, 260, 40):
+        c.drawLine(-30, y, 30, y, paint(col, 0.12 * a, stroke=1 / sc))
+    c.restore()
+
+
+def _year_roll(c, t, t0, t_end, target):
+    a_year = win(t, t0 + 0.05, t_end, 0.3, 0.4)
+    if a_year <= 0:
+        return
+    k = ease_io((t - t0 - 0.1) / (t_end - t0 - 0.2))
+    yr = int(round(lerp(2026, target, k)))
+    text(c, str(yr), CX, CY - 30, 200, "inter_thin", INK, a_year, "c", 4)
+    for i in range(-30, 31):
+        yv = yr + i
+        x = CX + i * 32 - (lerp(2026, target, k) - yr) * 32
+        big = yv % 10 == 0
+        al = a_year * (1 - abs(i) / 31) * 0.7
+        line(c, x, CY + 120, x, CY + 120 + (26 if big else 12), INK, al, 1.4)
+        if big:
+            text(c, str(yv), x, CY + 172, 22, "inter_light", DIM, al)
+
+
+def scene_wald(ctx):
     t, c = ctx.t, ctx.c
-    t0, t1 = T.SEC["blood"]
-    # ---- 时光倒流：2026 → 1799
-    a_year = win(t, t0 + 0.05, s("b2") + 0.2, 0.4, 0.4)
-    if a_year > 0:
-        k = ease_io((t - t0 - 0.3) / (s("b2") - t0 + 0.2))
-        yr = int(round(lerp(2026, 1799, k)))
-        y_c = lerp(CY - 30, 250, ease((t - s("b2") - 0.2) / 0.9))
-        size = lerp(200, 92, ease((t - s("b2") - 0.2) / 0.9))
-        text(c, str(yr), CX, y_c, size, "inter_thin", INK, a_year, "c", 4)
-        # 刻度尺随年份滚动
-        if t < s("b2") + 0.3:
-            for i in range(-30, 31):
-                yv = yr + i
-                x = CX + i * 32 - (lerp(2026, 1799, k) - yr) * 32
-                big = yv % 10 == 0
-                al = a_year * (1 - abs(i) / 31) * 0.7 * (1 - ease((t - s("b2")) / 0.3))
-                line(c, x, CY + 120, x, CY + 120 + (26 if big else 12), INK, al, 1.4)
-                if big:
-                    text(c, str(yv), x, CY + 172, 18, "inter_light", DIM, al)
-    # ---- 华盛顿：血量计
-    a_b = win(t, s("b2") + 0.4, e("b3") + 0.6, 0.8, 0.7)
-    if a_b > 0:
-        bx, by, sc = 520, 300, 1.0
-        path = _bust_path(bx, by, sc)
-        lv = 1 - drained(t) / BODY_L                     # 剩余比例
-        dead = ease((t - s("b3") - 0.3) / 1.2)
-        c.save()
-        c.clipPath(path, doAntiAlias=True)
-        top, bot = by + 30, by + 520
-        surface_y = bot - (bot - top) * lv
-        wave = skia.Path()
-        wave.moveTo(bx - 10, bot + 10)
-        for i in range(0, 43):
-            x = bx - 10 + i * 10
-            wave.lineTo(x, surface_y + 5 * math.sin(i * 0.5 + t * 3.0) * (1 - dead))
-        wave.lineTo(bx + 420, bot + 10)
-        wave.close()
-        red = E.mixc((0.78, 0.08, 0.12), (0.30, 0.10, 0.12), dead)
-        c.drawPath(wave, paint(red, 0.85 * a_b))
-        c.restore()
-        c.drawPath(path, paint(E.mixc(INK, GREY, dead), 0.75 * a_b, stroke=2.2))
-        c.drawPath(path, paint(E.mixc(RED, GREY, dead), 0.25 * a_b, stroke=6, blur=8))
-        text(c, "乔治·华盛顿", bx + 200, by - 40, 30, "serif_bold", INK, a_b, "c", 6)
-        text(c, "1799 年 12 月 14 日 · 弗农山庄", bx + 200, by - 2, 18, "sans_light", DIM, a_b, "c", 2)
-        # 右侧：四次放血
-        gx = 1080
-        text(c, "放血记录", gx, 330, 22, "sans_med", DIM, a_b, "l", 6)
-        for i, (bt, amt) in enumerate(zip(BLEED_T, BLEEDS)):
-            k = ease((t - bt + 0.2) / 0.5)
-            if k <= 0:
+    t0, t1 = T.SEC["wald"]
+    _year_roll(c, t, t0, s("w1") + 0.3, 1943)
+    a = win(t, s("w1") + 0.2, t1 - 0.3, 0.8, 0.3)
+    if a <= 0:
+        return
+    cx, cy = PLANE_C
+    # 战机入场：从下方滑入、微微倾斜回正
+    kin = ease_out((t - s("w1") - 0.2) / 1.6, 3)
+    t_ghost = s("w8")
+    t_row = s("w10")
+    k_row = ease_io((t - t_row + 0.1) / 0.8)
+    sc = lerp(0.62, 0.78, kin) * (1 - 0.45 * k_row)
+    px = cx + lerp(0, -360, k_row)
+    py = cy + 120 * (1 - kin) + lerp(0, -40, k_row)
+    rot = -8 * (1 - kin)
+    # 蓝图网格
+    ag = a * 0.5 * (1 - k_row)
+    for gx in range(160, 1780, 80):
+        line(c, gx, 160, gx, 960, CYAN, 0.05 * ag, 1)
+    for gy in range(160, 980, 80):
+        line(c, 160, gy, 1760, gy, CYAN, 0.05 * ag, 1)
+    _plane(c, px, py, sc, a, rot)
+    text(c, "返航战机 · 弹孔分布（示意）", 160, 190, 22, "sans_reg", DIM, a * kin * (1 - k_row), "l", 2)
+    # 弹孔：在 w3–w4 两句里按八分音符一批批出现
+    h0, h1 = s("w3"), e("w4")
+    n_show = int(len(HOLES) * clip01((t - h0) / (h1 - h0)))
+    beat_q = T.q(t, "floor")
+    c.save()
+    c.translate(px, py)
+    c.rotate(rot)
+    c.scale(sc, sc)
+    for i in range(n_show):
+        x, y = HOLES[i]
+        th = h0 + (h1 - h0) * i / len(HOLES)
+        pop = ease_out((t - th) / 0.18, 2)
+        r = (5 + 4 * HOLE_R[i]) * (1 + 0.6 * (1 - pop))
+        c.drawCircle(x, y, r * 2.2, paint(RED, 0.25 * a * pop, blur=6))
+        c.drawCircle(x, y, r, paint((1.0, 0.32, 0.30), a * pop))
+        c.drawCircle(x, y, r * 0.45, paint((0.08, 0.02, 0.02), a * pop))
+    # 「哪里弹孔多，就加固哪里」：机翼 / 机身 / 尾翼铺上橙色装甲
+    k_arm = ease((t - at("w5", "哪里弹孔多") + 0.1) / 0.5)
+    k_flip = ease((t - s("w6")) / 0.35)
+    if k_arm > 0:
+        orange = (1.0, 0.6, 0.2)
+        for p in (WING, TAIL, FUS):
+            c.drawPath(p, paint(orange, 0.22 * a * k_arm * (1 - 0.8 * k_flip)))
+            c.drawPath(p, paint(orange, 0.8 * a * k_arm * (1 - 0.8 * k_flip), stroke=3 / sc, dash=([12 / sc, 8 / sc], t * 30)))
+        c.drawPath(ENG, paint((0.04, 0.07, 0.12), a))
+        c.drawPath(ENG, paint(CYAN, 0.85 * a, stroke=2.0 / sc))
+    # 发动机：真正要加固的地方
+    k_eng = ease((t - at("w7", "发动机") + 0.1) / 0.4)
+    if k_eng > 0:
+        pulse = 0.5 + 0.5 * math.sin((t - at("w7", "发动机")) * math.tau / T.BEAT)
+        for (x, y) in ENGINES:
+            c.drawOval(skia.Rect.MakeLTRB(x - 30, y - 70, x + 30, y + 58), paint(GOLD, 0.35 * a * k_eng))
+            c.drawOval(skia.Rect.MakeLTRB(x - 30, y - 70, x + 30, y + 58), paint(GOLD, a * k_eng, stroke=4 / sc))
+            c.drawCircle(x, y - 6, (70 + 30 * pulse) * k_eng, paint(GOLD, 0.35 * a * k_eng * (1 - k_row), stroke=3 / sc, blur=3))
+    c.restore()
+    if k_arm > 0:
+        lx, ly = CX + 620, 400
+        gone = 1 - ease((t - at("w7", "发动机")) / 0.4)
+        text(c, "加固这里？", lx, ly, 44, "serif_black", (1.0, 0.65, 0.3), a * k_arm * (1 - 0.6 * k_flip) * gone, "c", 8)
+        arrow(c, lx - 40, ly + 40, CX + 260, 520, (1.0, 0.65, 0.3), a * k_arm * (1 - 0.6 * k_flip) * gone, 3, k_arm, 16)
+        if k_flip > 0:
+            cross(c, lx, ly, 80, RED, a * (1 - ease((t - at("w7", "发动机")) / 0.4)), k_flip, 7)
+    kc = ease_out((t - s("w6")) / 0.3, 3) * (1 - ease((t - at("w7", "发动机") + 0.2) / 0.4))
+    if kc > 0:
+        text(c, "恰恰相反", CX, 190, 96 * lerp(1.3, 1.0, kc), "serif_black", GOLD, a * kc, "c", 16,
+             shader=E.gold_shader(140, 240), glow=0.6, glow_rgb=GOLD)
+    if k_eng > 0:
+        text(c, "发动机：几乎没有弹孔", CX, 190, 52, "serif_black", GOLD, a * k_eng * (1 - k_row), "c", 8,
+             shader=E.gold_shader(160, 220))
+    # 发动机中弹的飞机：没能飞回来
+    k_g = win(t, t_ghost - 0.1, t_row + 0.6, 0.3, 0.5)
+    if k_g > 0:
+        for j, (gx, gy0, ph) in enumerate(((330, 260, 0.0), (1590, 300, 0.3), (230, 700, 0.6), (1690, 760, 0.9),
+                                           (520, 900, 1.2), (1420, 950, 1.5))):
+            tg = t_ghost + ph * 1.2
+            kk = clip01((t - tg) / 3.5)
+            if t < tg:
                 continue
-            y = 390 + i * 64
-            text(c, f"第 {i + 1} 次", gx, y, 24, "sans_reg", INK, a_b * k, "l")
-            bw = amt / 1.0 * 360 * ease((t - bt) / 0.9)
-            E.rrect(c, gx + 120, y - 9, max(bw, 1), 18, 9, paint((0.85, 0.12, 0.16), a_b * k))
-            text(c, f"{amt:.2f} L", gx + 130 + bw + 12, y, 20, "mono", DIM, a_b * k, "l")
-        tot = drained(t)
-        kk = ease((t - BLEED_T[0] + 0.3) / 0.5)
-        text(c, f"{tot:.1f}", gx, 700, 96, "inter_thin", (1.0, 0.45, 0.45), a_b * kk, "l")
-        text(c, "升  ≈  全身血量的 " + f"{100 * tot / BODY_L:.0f}%", gx + 175, 712, 26, "sans_reg", INK,
-             a_b * kk, "l", 2)
-        text(c, "史料记载合计约 80 盎司；血量按约 6 升估算", gx, 776, 16, "sans_light", GREY, a_b * kk * 0.9,
-             "l", 1)
-        # 心电线：当晚拉平
-        if t > s("b3") - 0.6:
-            ka = ease((t - s("b3") + 0.6) / 0.5) * a_b
-            pa = skia.Path()
-            y0 = 868
-            pa.moveTo(400, y0)
-            for i in range(240):
-                x = 400 + i * 5
-                ph = (x - t * 420) % 260
-                amp = (1 - dead) * (60 if 120 < ph < 128 else -22 if 128 <= ph < 136 else 8 * math.sin(ph / 9) if ph < 40 else 0)
-                pa.lineTo(x, y0 - amp)
-            c.drawPath(pa, paint(E.mixc(RED, GREY, dead), 0.8 * ka, stroke=2))
-            text(c, "1799.12.14 · 夜", 1600, 830, 22, "inter_light", INK, ka * dead, "r", 3)
-
-    # ---- 两千年：时间轴
-    a_tl = win(t, s("b4") - 0.2, s("b4") + 2.5, 0.6, 0.4)
-    if a_tl > 0:
-        k = ease_io((t - s("b4") + 0.2) / 2.6)
-        x0, x1, y = 260, 1660, 520
-        line(c, x0, y, x1, y, INK, 0.35 * a_tl, 2, k)
-        marks = [(0.0, "公元前 5 世纪", "希波克拉底医派"), (0.33, "2 世纪", "盖伦"), (0.66, "中世纪—18 世纪", "欧洲医院的常规疗法"),
-                 (1.0, "1799", "华盛顿")]
-        for (p, a_, b_) in marks:
-            kk = ease((k - p) / 0.12 + 0.5)
-            x = lerp(x0, x1, p)
-            c.drawCircle(x, y, 7, paint((0.9, 0.2, 0.25), a_tl * kk))
-            c.drawCircle(x, y, 18, paint((0.9, 0.2, 0.25), 0.3 * a_tl * kk, blur=10))
-            text(c, a_, x, y - 50, 24, "inter_light" if a_[0].isdigit() else "sans_reg", INK, a_tl * kk)
-            text(c, b_, x, y + 50, 20, "sans_light", DIM, a_tl * kk)
-        text(c, "2000+ 年", CX, 360, 64, "inter_thin", GOLD, a_tl * ease((k - 0.6) / 0.3), "c", 6)
-    # ---- 放过血的病人，大多数都好了 / 不放血也会好
-    a_g = win(t, s("b4") + 3.2, T.SEC["blood"][1] - 0.3, 0.6, 0.3)
-    if a_g > 0:
-        split = ease_io((t - s("b5") + 0.1) / 0.9)
-        cxL = lerp(CX, 620, split)
-        n1 = dot_grid(c, cxL, 540, t, s("b4") + 4.0, 3.6, 0.8, 5, a=a_g)
-        text(c, "放血", cxL, 330, 30, "serif_bold", (1, 0.5, 0.5), a_g, "c", 8)
-        text(c, f"康复 {n1}%", cxL, 760, 34, "inter_light", GREEN, a_g * ease((t - s("b4") - 4.0) / 0.4), "c", 2)
-        if split > 0:
-            n2 = dot_grid(c, 1300, 540, t, s("b5") + 1.1, 2.4, 0.82, 9, a=a_g * split)
-            text(c, "不放血", 1300, 330, 30, "serif_bold", CYAN, a_g * split, "c", 8)
-            text(c, f"康复 {n2}%", 1300, 760, 34, "inter_light", GREEN, a_g * ease((t - s("b5") - 1.1) / 0.4), "c", 2)
-            text(c, "示意数据：多数疾病本来就会自行好转", CX, 820, 18, "sans_light", GREY, a_g * split * 0.9, "c", 2)
-        # 对照
-        kc = ease((t - s("b6") - 0.9) / 0.6)
-        if kc > 0:
-            text(c, "对照", CX, 540, 120 + 10 * (1 - kc), "serif_black", GOLD, a_g * kc, "c", 10,
-                 shader=E.gold_shader(480, 600), glow=0.5, glow_rgb=GOLD)
-            text(c, "CONTROL", CX, 640, 22, "corm6", E.SUBGOLD, a_g * kc, "c", 12)
+            fall = ease_in(kk, 2)
+            gx_ = gx + 60 * fall * (1 if gx < CX else -1)
+            gy = gy0 + 420 * fall
+            gr = (25 + 40 * fall) * (1 if gx < CX else -1)
+            ga = a * k_g * (1 - ease((kk - 0.6) / 0.4)) * ease(kk / 0.1)
+            _plane(c, gx_, gy, 0.2, ga * 0.55, gr, col=RED, fill=0.05, glow=False)
+            # 发动机上的弹孔 + 拖烟
+            ang = math.radians(gr)
+            ex, ey = ENGINES[j % 4]
+            hx = gx_ + 0.2 * (ex * math.cos(ang) - ey * math.sin(ang))
+            hy = gy + 0.2 * (ex * math.sin(ang) + ey * math.cos(ang))
+            c.drawCircle(hx, hy, 6, paint((1.0, 0.45, 0.3), ga))
+            for k_ in range(10):
+                c.drawCircle(hx - k_ * 6 * (1 if gx < CX else -1) * 0.3, hy - k_ * 14, 6 + k_ * 2.2,
+                             paint((0.5, 0.5, 0.55), ga * 0.12 * (1 - k_ / 10), blur=6))
+        text(c, "发动机中弹的飞机 —— 没有飞回来", CX, 960 - 40, 28, "sans_med", RED, k_g * a * (1 - k_row), "c", 2)
+    # 幸存者偏差
+    k_sb = ease((t - s("w9") + 0.1) / 0.5) * (1 - k_row)
+    if k_sb > 0:
+        text(c, "幸存者偏差", CX + 580, 330, 60, "serif_black", GOLD, a * k_sb, "c", 12, shader=E.gold_shader(295, 365),
+             glow=0.4, glow_rgb=GOLD)
+        text(c, "SURVIVORSHIP BIAS", CX + 580, 395, 22, "corm6", E.SUBGOLD, a * k_sb, "c", 6)
+    # 看得见的一半 / 看不见的一半
+    if k_row > 0:
+        text(c, "看得见的：飞回来的", px, 860, 30, "sans_med", CYAN, a * k_row, "c", 2)
+        for j in range(4):
+            kk = ease((t - t_row - 0.3 - j * 0.15) / 0.5)
+            _plane(c, 1060 + j * 200, 540, 0.17, a * kk * 0.8, 0, col=(0.6, 0.62, 0.7), fill=0.0, glow=False, dash=True)
+        text(c, "看不见的：没飞回来的", 1360, 860, 30, "sans_med", DIM, a * ease((t - t_row - 0.5) / 0.5), "c", 2)
+        line(c, CX - 40, 380, CX - 40, 900, INK, 0.2 * a * k_row, 1.5)
 
 
 # ================================================================ 标题
@@ -337,6 +370,6 @@ def scene_title(ctx):
 
 SCENES = [
     (0.0, T.SEC["hook"][1], scene_hook),
-    (T.SEC["blood"][0], T.SEC["blood"][1], scene_blood),
+    (T.SEC["wald"][0], T.SEC["wald"][1], scene_wald),
     (T.SEC["title"][0], T.SEC["title"][1], scene_title),
 ]

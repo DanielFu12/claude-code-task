@@ -23,8 +23,8 @@ for p in 1 2; do
 done
 # 5) 预览版（720p，< 30 MB）
 for p in 1 2; do
-  ffmpeg -v error -y -i "科学思维.mp4" -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -b:v 700k \
-    -pass $p -passlogfile work/x264p -pix_fmt yuv420p -c:a aac -b:a 112k -movflags +faststart \
+  ffmpeg -v error -y -i "科学思维.mp4" -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -b:v 640k \
+    -pass $p -passlogfile work/x264p -pix_fmt yuv420p -c:a aac -b:a 128k -cutoff 16000 -movflags +faststart \
     $( [ $p = 1 ] && echo "-f mp4 /dev/null" || echo "work/科学思维_预览版.mp4" )
 done
 echo "done -> 科学思维.mp4"

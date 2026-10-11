@@ -455,29 +455,50 @@ for j in range(8):                      # 最后一小节的军鼓滚奏
     if tt < b - 0.32:
         drums.add(tt, snare(0.10 + 0.03 * j), pan=0.1)
 
-# ================================================================ 1 放血：心跳 → 死寂 → 对照
-BLOOD = ["Dm", "Bb", "Gm", "A"]
-a, b = SEC["blood"]
-chord_pad("blood", BLOOD, 0.10, 800)
-t_dead = s_("b3")
-for k, t in bars("blood"):
-    for bt in (0, 2):                    # 心跳：一拍「咚—哒」
-        tt = t + bt * B
-        if tt < t_dead - 0.2:
-            K(tt, 0.45, f0=80, f1=45, dec=0.16)
-            K(tt + 0.2, 0.28, f0=75, f1=42, dec=0.12)
-bassline("blood", BLOOD, 0.22, (0,))
-import scenes_a  # noqa: E402  四次放血的时刻（与画面同一来源）
-for i, bt_ in enumerate(scenes_a.BLEED_T):
-    fx.add(bt_, boom(1.5), 0.16 + 0.03 * i)
-    K(bt_, 0.6)
-    keys.add(bt_, piano(hz(m(["A3", "G3", "F3", "D3"][i])), 2.0), 0.30)
-# 他去世了：一小节的死寂，只剩监护仪的长音
-gate_dead = (t_dead - 0.05, t_dead + BR)
-fx.add(t_dead + 0.1, np.sin(2 * np.pi * 880 * np.arange(int(2.0 * SR)) / SR) * env(int(2.0 * SR), 0.01, 0.4), 0.05)
-pattern("blood", s_("b4"), b, kick_on=(0,), snare_on=(), hats=4, hat_g=0.12, kick_g=0.45)
-arpeggio("blood", BLOOD, s_("b5") - a, 0.05, 0.5, 1.5)
-accent(s_("b6"), "big", "Dm")
+# ================================================================ 1 返航战机：低鸣 → 弹孔打点 → 抽空 →「恰恰相反」→ 坠落
+WALD = ["Dm", "Bb", "Gm", "A"]
+a, b = SEC["wald"]
+chord_pad("wald", WALD, 0.08, 900)
+bassline("wald", WALD, 0.22, (0, 2))
+# 螺旋桨低鸣：低通噪声 + 两支微失谐低音锯齿，随入场渐强
+n_ = int((T.s("w6") - a) * SR)
+tt_ = np.arange(n_) / SR
+drone = lowpass(rng.normal(0, 1, n_), 180, 2) * 2.0 + (saw(55, n_) + saw(55.7, n_)) * 0.25
+drone *= np.minimum(1, tt_ / 3.0) * (0.8 + 0.2 * np.sin(2 * np.pi * 0.25 * tt_)) * np.clip((T.s("w6") - a - tt_) / 0.4, 0, 1)
+fx.add(a, lowpass(drone, 400, 2), 0.10)
+# 军鼓进行曲：w1 起
+pattern("wald", T.s("w1"), T.s("w5"), kick_on=(0, 2), snare_on=(1, 3), hats=8, hat_g=0.12, kick_g=0.45, snare_g=0.22)
+# 弹孔：与画面同一公式——每个弹孔一声极短的金属「嗒」（量化到十六分音符，避免过密）
+h0, h1 = T.s("w3"), T.e("w4")
+step = T.BEAT / 4
+k_ = 0
+tq = h0
+while tq < h1 - 1e-6:
+    drums.add(tq, tick(3200 + 400 * (k_ % 3), 0.10), pan=0.5 * math.sin(k_ * 1.3))
+    if k_ % 4 == 0:
+        drums.add(tq, snare(0.10), pan=-0.2)
+    tq += step
+    k_ += 1
+# 「哪里弹孔多，就加固哪里」：上扬，然后在「恰恰相反」前抽空半小节
+fx.add(T.s("w6") - 2.4, riser(2.4), 0.14)
+gate_dead = (T.s("w6") - 2 * B, T.s("w6"))
+accent(T.s("w6"), "big", "Bb")
+fx.add(T.s("w6"), braam("D1", 3.0), 0.16)
+pattern("wald", T.s("w6"), b, kick_on=(0, 2), snare_on=(2,), hats=8, hat_g=0.14, kick_g=0.55)
+for i, nn in enumerate(["D6", "A5", "F5", "D5"]):                  # 发动机亮起：四声钟
+    arp.add(T.at("w7", "发动机") + i * B / 2, bell(hz(m(nn)), 1.6, 2.0, 0.8), 0.08, pan=(i - 1.5) * 0.4)
+# 坠落的飞机：下行的音高 + 远处的闷响
+for j in range(6):
+    tg = T.s("w8") + j * 0.36
+    n2 = int(2.2 * SR)
+    t2 = np.arange(n2) / SR
+    f = 900 * np.exp(-t2 / 1.1) + 120
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t2 / 1.2) * 0.4 + lowpass(rng.normal(0, 1, n2), 1500) * np.exp(-t2 / 0.8) * 0.15
+    fx.add(T.q(tg), x, 0.07, pan=(-0.6, 0.6, -0.3, 0.3, -0.8, 0.8)[j])
+    fx.add(T.q(tg) + 1.6, boom(1.2), 0.05)
+accent(T.s("w9"), "bell")
+arpeggio("wald", WALD, T.s("w9") - a, 0.05, 0.5, 1.5)
+accent(T.s("w10"), "big", "Dm")
 for j in range(8):
     tt = b - BR + 2 * B + j * B / 4
     drums.add(tt, snare(0.08 + 0.03 * j))
@@ -497,12 +518,15 @@ bassline("cause", CAUSE, 0.26, (0, 1.5, 2.5))
 arpeggio("cause", CAUSE, 0.0, 0.07, 0.5, 2.0)
 t_neq0, t_neq1 = s_("c5"), s_("c6")
 pattern("cause", a, t_neq0, hats=8)
-pattern("cause", t_neq1, b, hats=16, hat_g=0.16)          # 随机对照实验：十六分音符更紧
-arpeggio("cause", CAUSE, t_neq1 - a, 0.05, 0.25, 2.4, octave=24)
+pattern("cause", t_neq1, s_("c7"), kick_on=(0,), snare_on=(3,), hats=8, hat_g=0.12)   # 保健品：放轻
+pattern("cause", s_("c7"), b, hats=16, hat_g=0.16)                                  # 随机对照实验：十六分音符更紧
+arpeggio("cause", CAUSE, s_("c7") - a, 0.05, 0.25, 2.4, octave=24)
+arp.add(at("c6", "是它的功劳"), bell(hz(m("E6")), 1.6, 2.0, 0.9), 0.09)
 melody(s_("c3"), ["A4", "D5", "E5", "F5"], B, 0.08)
-accent(at("c4", "火越大"), "big", "Bb")
+accent(at("c4", "天越热"), "big", "Bb")
 accent(t_neq0, "big", "Dm")                               # 「相关 ≠ 因果」：鼓组停一拍半，只剩重音
-accent(s_("c7"), "mid")
+accent(at("c7", "抛硬币"), "mid")
+accent(s_("c8"), "mid")
 for j in range(4):
     drums.add(b - BR + 3 * B + j * B / 4 - 0.3, tom(160 - 18 * j, 0.35))
 
@@ -610,15 +634,15 @@ for nn, g in (("D3", 0.25), ("F#4", 0.15), ("A4", 0.15), ("D5", 0.15)):
 # ================================================================ 章节重拍
 HIT_CHORD = {}
 for name, (a, b) in SEC.items():
-    HIT_CHORD[a] = {"blood": "Dm", "title": "Dm", "cause": "Dm", "falsify": "Bb", "barnum": "Gm", "correct": "F",
+    HIT_CHORD[a] = {"wald": "Dm", "title": "Dm", "cause": "Dm", "falsify": "Bb", "barnum": "Gm", "correct": "F",
                     "invest": "Dm", "end": "Bb"}.get(name, "D")
 for h in HITS:
     if h != T.BRAND_T:
         fx.add(h - 2.4, riser(2.4), 0.16)
-    big = 1.0 if h in (SEC["title"][0], T.BRAND_T, SEC["blood"][0]) else 0.8
+    big = 1.0 if h in (SEC["title"][0], T.BRAND_T, SEC["wald"][0]) else 0.8
     hit_fx(h, big, HIT_CHORD.get(h, "D") if h != T.BRAND_T else "D")
 
-# ---------------------------------------------------------------- 抽空：重拍前 0.3 秒 / 华盛顿去世后一小节
+# ---------------------------------------------------------------- 抽空：重拍前 0.3 秒 / 「恰恰相反」前半小节 / 「相关 ≠ 因果」前
 gate = np.ones(N, np.float32)
 ramp = int(0.04 * SR)
 for (g0, g1) in [(h - 0.30, h) for h in HITS] + [gate_dead, (T.s("c5") - 0.3, T.s("c5"))]:
@@ -628,8 +652,6 @@ for (g0, g1) in [(h - 0.30, h) for h in HITS] + [gate_dead, (T.s("c5") - 0.3, T.
     gate[i1:i1 + ramp] = np.minimum(gate[i1:i1 + ramp], np.linspace(0, 1, ramp))
 for bus in (pad, bass, drums, arp, keys):
     bus.x *= gate
-# 监护仪长音保留在死寂里
-fx.x *= np.where((np.arange(N) / SR > gate_dead[0]) & (np.arange(N) / SR < gate_dead[1]), 1.0, 1.0)
 
 # ---------------------------------------------------------------- 侧链：每次底鼓让铺底和低音「呼吸」
 sc = np.ones(N, np.float32)
