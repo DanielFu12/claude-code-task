@@ -344,3 +344,334 @@ def post(img, t, bloom=1.0, vign=1.0, grain=1.0, ca=0.0):
         g = _GRAIN[int(t * FPS) % len(_GRAIN)]
         img += cv2.resize(g, (W, H), interpolation=cv2.INTER_NEAREST)[..., None] * (0.010 * grain)
     return img
+
+
+# ================================================================ v4：卡点与质感组件
+UP = (1.0, 0.27, 0.30)      # A 股习惯：红涨
+DOWN = (0.18, 0.86, 0.52)   # 绿跌
+
+
+def pop(x, s=2.2):
+    """带回弹的出现（0→1，略冲过头再回落）。"""
+    return back_out(x, s)
+
+
+def slam(c, s, x, y, size, t, t0, fn="serif_black", rgb=INK, a=1.0, track=0.0, shader=None, glow=0.0,
+         glow_rgb=None, align="c", dur=0.22):
+    """砸入式大字：在拍点 t0 上从 1.5 倍缩回原大小，前 3 帧带残影。"""
+    if t < t0 - 0.01 or a <= 0.003:
+        return 0.0
+    k = ease_out((t - t0) / dur, 3)
+    sc = lerp(1.5, 1.0, k)
+    al = a * clip01((t - t0) / 0.06 + 0.15)
+    c.save()
+    c.translate(x, y)
+    c.scale(sc, sc)
+    if k < 0.98:
+        for j in (2, 1):
+            c.save()
+            c.scale(1 + 0.06 * j * (1 - k), 1 + 0.06 * j * (1 - k))
+            text(c, s, 0, 0, size, fn, rgb, al * 0.18 * (1 - k), align, track, shader=shader)
+            c.restore()
+    w = text(c, s, 0, 0, size, fn, rgb, al, align, track, shader=shader, glow=glow, glow_rgb=glow_rgb)
+    c.restore()
+    return w
+
+
+def gold8(c, x, y, size, t, a=1.0, spin=0.0, crack=0.0, glow=1.0):
+    """主角：立体金色「8」。spin 为绕竖轴的旋转角（弧度），crack 0..1 为裂纹。"""
+    if a <= 0.003:
+        return
+    f = font("serif_black", size)
+    w = f.measureText("8")
+    sx = math.cos(spin)
+    c.save()
+    c.translate(x, y)
+    c.scale(max(abs(sx), 0.04) * (1 if sx >= 0 else -1), 1)
+    # 光晕
+    c.drawCircle(0, 0, size * 0.55, paint(GOLD, 0.16 * a * glow, blur=size * 0.25))
+    yb = size * 0.36
+    # 挤出的厚度（深金）
+    for d in range(10, 0, -1):
+        c.drawString("8", -w / 2 + d * 0.9, yb + d * 1.2, f, paint(mixc((0.35, 0.20, 0.05), GOLD_D, 1 - d / 10), a))
+    # 正面：金色渐变
+    c.drawString("8", -w / 2, yb, f, paint(shader=gold_shader(-size * 0.5, size * 0.5), a=a))
+    # 扫光
+    ph = (t * 0.45) % 1.6
+    if ph < 1.0:
+        sh = skia.GradientShader.MakeLinear(
+            [skia.Point(-w + ph * 2 * w - size * 0.2, -size * 0.6), skia.Point(-w + ph * 2 * w + size * 0.2, size * 0.6)],
+            [c4((1, 1, 1), 0), c4((1, 0.98, 0.9), 0.75), c4((1, 1, 1), 0)], [0, 0.5, 1])
+        c.drawString("8", -w / 2, yb, f, paint(shader=sh, a=a))
+    if crack > 0:
+        r = np.random.default_rng(88)
+        for k in range(6):
+            pa = skia.Path()
+            ang = r.random() * math.tau
+            px, py = math.cos(ang) * size * 0.08, math.sin(ang) * size * 0.2
+            pa.moveTo(px, py)
+            for _ in range(5):
+                ang += (r.random() - 0.5) * 1.2
+                px += math.cos(ang) * size * 0.10
+                py += math.sin(ang) * size * 0.12
+                pa.lineTo(px, py)
+            c.drawPath(pa, paint(RED, 0.9 * a, stroke=size * 0.06, blur=size * 0.03, trim=(0, crack)))
+            c.drawPath(pa, paint((0.08, 0.03, 0.02), a, stroke=size * 0.026, trim=(0, crack)))
+            c.drawPath(pa, paint((1, 0.85, 0.75), 0.9 * a, stroke=size * 0.008, trim=(0, crack)))
+    c.restore()
+
+
+def candles(c, x0, y0, w, h, data, k=1.0, a=1.0, vmin=None, vmax=None, glow=True):
+    """K 线（红涨绿跌）。data: [(open, high, low, close), ...]；k 为从左到右长出的比例。"""
+    if a <= 0.003:
+        return
+    n = len(data)
+    lo = vmin if vmin is not None else min(d[2] for d in data)
+    hi = vmax if vmax is not None else max(d[1] for d in data)
+
+    def Y(v):
+        return y0 + h - (v - lo) / (hi - lo + 1e-9) * h
+    cw = w / n
+    shown = k * n
+    for i, (o, hh, ll, cl) in enumerate(data):
+        if i >= shown:
+            break
+        kk = clip01(shown - i)
+        col = UP if cl >= o else DOWN
+        x = x0 + (i + 0.5) * cw
+        c.drawLine(x, Y(hh), x, Y(ll), paint(col, a * kk, stroke=max(1.2, cw * 0.08)))
+        top, bot = Y(max(o, cl)), Y(min(o, cl))
+        rrect(c, x - cw * 0.32, top, cw * 0.64, max(bot - top, 2) * kk, 2, paint(col, a * kk))
+        if glow:
+            rrect(c, x - cw * 0.32, top, cw * 0.64, max(bot - top, 2) * kk, 2, paint(col, 0.35 * a * kk, blur=6))
+
+
+def make_ohlc(n, seed, drift=0.6, vol=2.0, start=100.0):
+    r = np.random.default_rng(seed)
+    out, v = [], start
+    for _ in range(n):
+        o = v
+        v = v * (1 + (drift + r.normal(0, vol)) / 100)
+        hi, lo = max(o, v) * (1 + r.random() * vol / 200), min(o, v) * (1 - r.random() * vol / 200)
+        out.append((o, hi, lo, v))
+    return out
+
+
+def pigeon(c, x, y, sc, a, t, mode="idle", rgb=(0.62, 0.66, 0.78), phase=0.0):
+    """鸽子（侧视，朝右）。mode: idle / spin（逆时针转圈）/ corner（把头伸向角落）/ pendulum（钟摆晃头）。"""
+    if a <= 0.003:
+        return
+    c.save()
+    c.translate(x, y)
+    flip, tilt, hx, hy = 1.0, 0.0, 0.0, 0.0
+    tt = t + phase
+    if mode == "spin":
+        flip = math.cos(tt * 4.0)
+    elif mode == "corner":
+        k = 0.5 + 0.5 * math.sin(tt * 3.0)
+        hx, hy, tilt = 18 * k, -26 * k, -10 * k
+    elif mode == "pendulum":
+        tilt = 16 * math.sin(tt * 4.2)
+    bob = 2 * math.sin(tt * 7)
+    c.scale(sc * (flip if abs(flip) > 0.05 else 0.05), sc)
+    c.rotate(tilt)
+    body = paint(rgb, a)
+    # 尾巴
+    tail = skia.Path()
+    tail.moveTo(-48, 6)
+    tail.lineTo(-112, -6)
+    tail.lineTo(-108, 16)
+    tail.lineTo(-46, 24)
+    tail.close()
+    c.drawPath(tail, paint(mixc(rgb, (0.2, 0.22, 0.3), 0.4), a))
+    # 身体
+    c.drawOval(skia.Rect.MakeLTRB(-66, -34 + bob, 58, 36 + bob), body)
+    # 翅膀
+    wing = skia.Path()
+    wing.moveTo(-40, -10 + bob)
+    wing.cubicTo(-10, -30 + bob, 30, -20 + bob, 40, 0 + bob)
+    wing.cubicTo(10, 10 + bob, -20, 14 + bob, -40, -10 + bob)
+    c.drawPath(wing, paint(mixc(rgb, (0.25, 0.27, 0.36), 0.45), a))
+    for k_ in range(3):
+        c.drawLine(-30 + k_ * 16, -2 + bob, -14 + k_ * 16, 6 + bob, paint((0.15, 0.16, 0.22), 0.7 * a, stroke=2.5))
+    # 脖子与头（彩虹色颈羽）
+    neck_sh = skia.GradientShader.MakeLinear([skia.Point(30, -50), skia.Point(60, -10)],
+                                             [c4((0.35, 0.85, 0.75)), c4((0.62, 0.42, 0.9)), c4(rgb)], [0, 0.5, 1])
+    neck = skia.Path()
+    neck.moveTo(26, -24 + bob)
+    neck.cubicTo(30 + hx * 0.5, -50 + hy * 0.5 + bob, 50 + hx, -66 + hy + bob, 62 + hx, -54 + hy + bob)
+    neck.lineTo(56, -10 + bob)
+    neck.close()
+    c.drawPath(neck, paint(shader=neck_sh, a=a))
+    hxp, hyp = 60 + hx, -60 + hy + bob
+    c.drawCircle(hxp, hyp, 20, paint(mixc(rgb, (0.8, 0.82, 0.9), 0.2), a))
+    beak = skia.Path()
+    beak.moveTo(hxp + 16, hyp - 4)
+    beak.lineTo(hxp + 34, hyp + 2)
+    beak.lineTo(hxp + 16, hyp + 6)
+    beak.close()
+    c.drawPath(beak, paint((0.95, 0.75, 0.45), a))
+    c.drawCircle(hxp + 6, hyp - 4, 4.5, paint((1.0, 0.55, 0.2), a))
+    c.drawCircle(hxp + 6, hyp - 4, 2, paint((0.05, 0.05, 0.05), a))
+    # 腿
+    for lx in (-6, 12):
+        c.drawLine(lx, 32 + bob, lx - 4, 60, paint((0.95, 0.45, 0.45), a, stroke=4))
+    c.restore()
+
+
+_BOKEH = np.random.default_rng(42).random((3, 70, 5))   # 三层景深光斑：x, y, 半径, 相位, 颜色
+
+
+def bokeh(t, tint, pulse=0.0, strength=1.0):
+    """景深光斑背景（四分之一分辨率绘制再模糊放大）。"""
+    w4, h4 = W // 4, H // 4
+    buf = np.zeros((h4, w4, 3), np.float32)
+    for li, layer in enumerate(_BOKEH):
+        sp = (li + 1) * 3.0
+        for (x, y, r, ph, cc) in layer:
+            px = (x * w4 + t * sp * (0.4 + ph)) % (w4 + 40) - 20
+            py = (y * h4 + 6 * math.sin(t * 0.3 + ph * 6)) % h4
+            rad = 2 + r * (3 + li * 4)
+            col = np.array(tint, np.float32) * (0.8 + 0.6 * cc) * (0.25 + 0.15 * li)
+            cv2.circle(buf, (int(px), int(py)), int(rad), tuple(float(v) for v in col), -1, cv2.LINE_AA)
+    buf = cv2.GaussianBlur(buf, (0, 0), 2.2)
+    return cv2.resize(buf, (W, H), interpolation=cv2.INTER_LINEAR) * strength * (1 + 0.6 * pulse)
+
+
+def zoom_blur(img, amount, n=6):
+    """径向变焦模糊（转场用）。"""
+    if amount <= 0.002:
+        return img
+    acc = img.copy()
+    for i in range(1, n):
+        s = 1 + amount * i / n
+        M = np.float32([[s, 0, CX * (1 - s)], [0, s, CY * (1 - s)]])
+        acc += cv2.warpAffine(img, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    return acc / n
+
+
+# ================================================================ v4：剪辑与通用部件
+def cutin(t, t0, t1, fi=0.07, fo=0.10):
+    """硬切窗口：t0 起 fi 秒内出现，t1 前 fo 秒内消失（节拍上的“切”）。"""
+    if t < t0 or t >= t1:
+        return 0.0
+    ki = ease((t - t0) / fi) if fi > 0 else 1.0
+    ko = 1 - ease((t - t1 + fo) / fo) if fo > 0 else 1.0
+    return ki * ko
+
+
+def punch(t, t0, amt=0.10, dur=0.32):
+    """切入时的镜头冲击：从 1+amt 缩回 1。"""
+    if t < t0:
+        return 1 + amt
+    return 1 + amt * (1 - ease_out((t - t0) / dur, 3))
+
+
+def beats_since(t, t0):
+    return (t - t0) / BEAT_
+
+
+def beat_env(t, t0, n=64, every=1.0, tau=0.14):
+    """t0 之后每 every 拍一次的衰减脉冲（0..1）。"""
+    if t < t0:
+        return 0.0
+    k = (t - t0) / (BEAT_ * every)
+    if k > n:
+        return 0.0
+    return math.exp(-(k - math.floor(k)) * BEAT_ * every / tau)
+
+
+BEAT_ = 0.5314021732630634
+_BR = np.random.default_rng(9).random((4, 900))
+
+
+def burst(ctx, t, t0, x, y, rgb, n=500, speed=700, life=0.9, a=1.0, spread=(0, math.tau), gain=2.2):
+    """粒子迸发（加色）：在拍点 t0 从 (x, y) 炸开。"""
+    k = (t - t0) / life
+    if k < 0 or k > 1 or a <= 0.003:
+        return
+    n = min(n, _BR.shape[1])
+    ang = spread[0] + _BR[0, :n] * (spread[1] - spread[0])
+    sp = speed * (0.15 + 0.85 * _BR[1, :n] ** 1.5)
+    d = sp * (1 - (1 - k) ** 3) * life * 0.45
+    P = np.c_[x + np.cos(ang) * d, y + np.sin(ang) * d + 120 * k * k]
+    al = ((1 - k) ** 2 * (0.4 + 0.6 * _BR[2, :n]) * a * gain).astype(np.float32)
+    ctx.splat(P, al[:, None] * np.asarray(rgb, np.float32)[None, :])
+
+
+def glass(c, x, y, w, h, r=22, a=1.0, edge=INK, edge_a=0.22, fill=(0.05, 0.06, 0.10), fill_a=0.82, glow=0.0,
+          glow_rgb=None):
+    """深色玻璃卡片：底 + 上沿高光 + 描边。"""
+    if a <= 0.003:
+        return
+    rrect(c, x + 6, y + 14, w, h, r, paint((0, 0, 0), 0.45 * a, blur=24))
+    rrect(c, x, y, w, h, r, paint(fill, fill_a * a))
+    sh = skia.GradientShader.MakeLinear([skia.Point(0, y), skia.Point(0, y + h)],
+                                        [c4((1, 1, 1), 0.07), c4((1, 1, 1), 0.0)], [0, 0.45])
+    rrect(c, x, y, w, h, r, paint(shader=sh, a=a))
+    rrect(c, x, y, w, h, r, paint(edge, edge_a * a, stroke=1.4))
+    if glow > 0:
+        rrect(c, x, y, w, h, r, paint(glow_rgb or GOLD, glow * a, stroke=6, blur=14))
+
+
+def code_text(c, code, x, y, size, a=1.0, align="c", fn="mono", base=INK, hl="8", glow=0.6):
+    """股票代码：其中的 8 用品牌金色并发光。"""
+    if a <= 0.003:
+        return 0.0
+    tw = measure(code, size, fn, size * 0.08)
+    x0 = x - (tw / 2 if align == "c" else tw if align == "r" else 0)
+    for ch in code:
+        cw = measure(ch, size, fn)
+        if ch in hl:
+            text(c, ch, x0, y, size, fn, GOLD, a, "l", glow=glow, glow_rgb=GOLD)
+        else:
+            text(c, ch, x0, y, size, fn, base, a * (0.55 if ch == "•" else 1.0), "l")
+        x0 += cw + size * 0.08
+    return tw
+
+
+def spark(c, x0, y0, w, h, vals, rgb, a=1.0, k=1.0, width=3.0, fill=True):
+    """迷你走势线（vals 归一化到 0..1，k 为画出比例）。"""
+    if a <= 0.003 or k <= 0:
+        return
+    n = len(vals)
+    p = skia.Path()
+    m = max(2, int(round(1 + (n - 1) * k)))
+    for i in range(m):
+        X = x0 + w * i / (n - 1)
+        Y = y0 + h * (1 - vals[i])
+        (p.moveTo if i == 0 else p.lineTo)(X, Y)
+    if fill:
+        q = skia.Path(p)
+        q.lineTo(x0 + w * (m - 1) / (n - 1), y0 + h)
+        q.lineTo(x0, y0 + h)
+        q.close()
+        sh = skia.GradientShader.MakeLinear([skia.Point(0, y0), skia.Point(0, y0 + h)],
+                                            [c4(rgb, 0.35), c4(rgb, 0.0)], [0, 1])
+        c.drawPath(q, paint(shader=sh, a=a))
+    c.drawPath(p, paint(rgb, a, stroke=width))
+    c.drawPath(p, paint(rgb, 0.4 * a, stroke=width * 3, blur=6))
+
+
+def walk(n, seed, drift=0.02, vol=0.06, lo=0.08, hi=0.92):
+    """归一化随机游走（0..1）。"""
+    r = np.random.default_rng(seed)
+    v = np.cumsum(r.normal(drift, vol, n))
+    v = (v - v.min()) / (np.ptp(v) + 1e-9)
+    return lo + v * (hi - lo)
+
+
+def trade_card(c, x, y, a, code, pct, t=0.0, w=480, h=150, label="买入", glow=0.0, k_num=1.0, seed=1):
+    """一笔交易记录（A 股红涨绿跌）。(x, y) 为卡片中心。"""
+    if a <= 0.003:
+        return
+    up = pct >= 0
+    col = UP if up else DOWN
+    x0, y0 = x - w / 2, y - h / 2
+    glass(c, x0, y0, w, h, 20, a, edge=col, edge_a=0.45, glow=glow, glow_rgb=col)
+    text(c, label, x0 + 28, y0 + 36, 22, "sans_med", DIM, a, "l", 2)
+    code_text(c, code, x0 + 28, y0 + 92, 38, a, "l")
+    v = pct * k_num
+    text(c, f"{v:+.1f}%", x0 + w - 28, y0 + 84, 48, "inter_bold", col, a, "r", glow=0.35, glow_rgb=col)
+    vals = walk(24, seed, 0.03 if up else -0.03, 0.05)
+    spark(c, x0 + w - 190, y0 + 112, 160, 26, vals, col, a * 0.8, 1.0, 2.0, fill=False)

@@ -81,7 +81,7 @@ GN = _r.standard_normal((3, N))
 def scene_final_line(ctx):
     """终句：先以文字出现，LOGO_T 时化作粒子。"""
     t, c = ctx.t, ctx.c
-    t0 = T.s("e3")
+    t0 = T.s("e5")
     a = ease((t - t0 + 0.1) / 0.6) * (1 - ease((t - T.LOGO_T) / 0.35))
     if a > 0:
         E.text(c, FINAL_LINE, CX, FINAL_Y, FINAL_SIZE, "serif_bold", INK, a, "c", 14,
@@ -155,5 +155,5 @@ def _blit(out, rgb, a, x0, y0, alpha=1.0, wipe=1.0, shine=None):
 
 
 SCENES = [
-    (T.s("e3") - 0.2, T.DUR, scene_final_line),
+    (T.s("e5") - 0.2, T.DUR, scene_final_line),
 ]

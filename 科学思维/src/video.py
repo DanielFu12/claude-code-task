@@ -28,15 +28,15 @@ SCENES = scenes_a.SCENES + scenes_b.SCENES + scenes_c.SCENES + outro.SCENES
 
 # ---------------------------------------------------------------- 背景色调（随章节情绪变化）
 TINT = {
-    "hook": (0.0, 0.0, 0.0), "wald": (0.015, 0.04, 0.08), "title": (0.07, 0.05, 0.02),
+    "hook": (0.06, 0.03, 0.01), "eight": (0.08, 0.045, 0.01), "title": (0.07, 0.05, 0.02),
     "cause": (0.015, 0.045, 0.10), "falsify": (0.035, 0.03, 0.10), "barnum": (0.07, 0.025, 0.09),
     "correct": (0.01, 0.07, 0.07), "invest": (0.075, 0.055, 0.015), "end": (0.03, 0.04, 0.09),
     "outro": (0.02, 0.035, 0.08),
 }
 CHAPTER = {
-    "wald": ("序章", "眼见为实？"),
-    "cause": ("01", "相关 ≠ 因果"), "falsify": ("02", "可证伪性"), "barnum": ("03", "伪科学的魔术"),
-    "correct": ("04", "纠错的机器"), "invest": ("05", "像科学家一样投资"), "end": ("终章", "不要欺骗自己"),
+    "eight": ("序章", "幸运数字"),
+    "cause": ("01", "相关 ≠ 因果"), "falsify": ("02", "可证伪"), "barnum": ("03", "我们为什么会信"),
+    "correct": ("04", "纠错的机器"), "invest": ("05", "像科学家一样投资"), "end": ("终章", "你的「8」是什么"),
 }
 
 
@@ -157,6 +157,7 @@ class Ctx:
         self.grain = 1.0
         self.bg = 1.0
         self.zoom = 1.0
+        self.pulse = 0.0
 
     def splat(self, P, Wt):
         """场景粒子：与 skia 画布使用同一个镜头缩放。"""
@@ -196,11 +197,29 @@ def acc_env(t, tau):
 
 
 def pre_hit(t):
-    """章节重拍前 0.3 秒：画面推入黑场（与配乐抽空同步）。"""
+    """章节重拍前 0.27 秒（配乐抽空）：画面加速推进、变焦模糊、压暗。"""
     for h in T.HITS[:-1]:
-        if h - 0.3 <= t < h:
-            return ease((t - h + 0.3) / 0.22)
+        if h - 0.27 <= t < h:
+            return E.ease_in((t - h + 0.27) / 0.27, 2)
     return 0.0
+
+
+def post_hit(t):
+    """重拍后 0.4 秒：从放大处弹回。"""
+    for h in T.HITS[:-1]:
+        if h <= t < h + 0.45:
+            return 1 - E.ease_out((t - h) / 0.45, 3)
+    return 0.0
+
+
+try:
+    PULSE = np.load(os.path.join(WORK, "pulse.npy"))
+except FileNotFoundError:
+    PULSE = np.zeros(int(T.DUR * FPS) + 2, np.float32)
+
+
+def pulse_at(t):
+    return float(PULSE[min(len(PULSE) - 1, max(0, int(round(t * FPS))))])
 
 
 def render_frame(t):
@@ -212,13 +231,17 @@ def render_frame(t):
     sec = section_at(t)
     # 镜头：每个章节缓慢推近；重拍与重音处轻推一下；重拍前 0.3 秒（音乐抽空）推入黑场
     a0, a1 = T.SEC[sec]
-    zoom = 1.0 if sec in ("hook", "outro") else 1.0 + 0.035 * ease((t - a0) / max(a1 - a0, 1))
-    zoom *= 1 + 0.05 * hit_env(t, 0.28, cut=True) + 0.018 * acc_env(t, 0.22)
+    zoom = 1.0 if sec in ("outro",) else 1.0 + 0.03 * ease((t - a0) / max(a1 - a0, 1))
+    pu = pulse_at(t)
+    ph_ = post_hit(t)
     dark = pre_hit(t)
-    zoom *= 1 + 0.06 * dark
+    zoom *= 1 + 0.007 * pu + 0.022 * acc_env(t, 0.2) + 0.10 * ph_ + 0.14 * dark
     ctx.zoom = zoom
+    ctx.pulse = pu
+    shake = acc_env(t, 0.12) * 7 + hit_env(t, 0.15, cut=True) * 12
+    sx_, sy_ = shake * math.sin(t * 91.0), shake * math.cos(t * 73.0)
     c.save()
-    c.translate(CX, 540)
+    c.translate(CX + sx_, 540 + sy_)
     c.scale(zoom, zoom)
     c.translate(-CX, -540)
     for (t0, t1, fn) in SCENES:
@@ -236,19 +259,24 @@ def render_frame(t):
     # 背景：底色 + 星云 + 星点（场景可用 ctx.bg 压暗）
     bgk = ctx.bg
     if bgk > 0:
-        img += (E.BASE + E.nebula(t, tint_at(t), 1.0)) * bgk
+        tint = tint_at(t)
+        img += (E.BASE + E.nebula(t, tint, 0.8) + E.bokeh(t, tint * 5 + 0.015, pu, 0.28)) * bgk
         tw = STAR_A * (0.6 + 0.4 * np.sin(STAR_F * t + STAR_PH)).astype(np.float32)
         drift = np.c_[np.full(STAR_N, -3.0 * t), np.zeros(STAR_N)]
         P = (STAR + drift) % [W, H]
         E.splat(ctx.parts, P, (tw * bgk)[:, None] * np.array([0.8, 0.86, 1.0], np.float32))
     if ctx._parts is not None:
         img += ctx._parts
-    img = E.post(img, t, bloom=ctx.bloom, vign=ctx.vign, grain=ctx.grain, ca=hit_env(t, 0.22) * 1.2)
+    blur_amt = 0.12 * dark + 0.07 * ph_
+    if blur_amt > 0.003:
+        img = E.zoom_blur(img, blur_amt)
+    img *= 1 + 0.035 * pu
+    img = E.post(img, t, bloom=ctx.bloom, vign=ctx.vign, grain=ctx.grain, ca=hit_env(t, 0.22) * 1.6 + 0.4 * dark)
     # 重拍闪白 / 重音微闪
     fl = hit_env(t, 0.12) * 0.22 + acc_env(t, 0.10) * 0.06
     if fl > 0.004:
         img += fl
-    img *= 1 - 0.92 * dark
+    img *= 1 - 0.85 * dark
     gfade = clip01(t / 0.3) * clip01((T.DUR - t) / 1.6)
     outro.draw_logo(img, t)                       # 片尾原始 logo 与品牌字（后期之后合成，颜色不被改动）
     img *= gfade
