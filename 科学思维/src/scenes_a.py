@@ -8,172 +8,108 @@ import skia
 import engine as E
 import timeline as T
 from engine import (W, H, CX, CY, INK, DIM, GREY, CYAN, GOLD, RED, GREEN, clip01, ease, ease_out, ease_io,
-                    lerp, win, text, paint, line)
+                    lerp, mixc, win, text, paint, line)
 
 s, e = T.s, T.e
 
-# ================================================================ 0 钩子：棋盘阴影错觉
-# 按 Adelson（1995）的构造原理自行绘制：亮格反射率 L、暗格 D，阴影系数 S = D / L，
-# 于是「阴影里的亮格 B」与「光照下的暗格 A」像素值完全相同（L·S = D）。
-LIGHT, DARK = 0.82, 0.47
-SHADOW = DARK / LIGHT
-GROUND = np.float32([[0, 0], [5, 0], [5, 5], [0, 5]])
-QUAD = np.float32([[960, 935], [1530, 650], [960, 385], [390, 650]])
-HOMO = cv2.getPerspectiveTransform(GROUND, QUAD)
-HINV = np.linalg.inv(HOMO)
-CYL = (4.0, 1.0)            # 圆柱站在棋盘右侧，光从右后方照来
-A_TILE, B_TILE = (3, 4), (2, 2)
+# ================================================================ 0 钩子：一只眼睛 + 四记重拍上的四行大字
+HOOK = ["h1", "h2", "h3", "h4"]
+EYE_C = (CX, 420)
+_r = np.random.default_rng(1799)
+IRIS_N = 260
+IRIS_ANG = np.sort(_r.random(IRIS_N)) * math.tau
+IRIS_L = 0.55 + 0.45 * _r.random(IRIS_N)
+IRIS_COL = _r.random(IRIS_N)
+CRACKS = []
+for k in range(7):                       # 「一定是真的吗？」时，虹膜上裂开的纹路
+    ang = k * math.tau / 7 + _r.random() * 0.5
+    pts = [(math.cos(ang) * 40, math.sin(ang) * 40)]
+    r_ = 40.0
+    for _ in range(6):
+        r_ += 40 + _r.random() * 40
+        ang += (_r.random() - 0.5) * 0.5
+        pts.append((math.cos(ang) * r_, math.sin(ang) * r_))
+    CRACKS.append(pts)
 
 
-def g2s(u, v):
-    p = HOMO @ np.array([u, v, 1.0])
-    return p[0] / p[2], p[1] / p[2]
-
-
-def _shadow(u, v):
-    """地面上的软阴影：从圆柱朝左后方延伸的一条带。返回 0..1 的遮挡度。"""
-    du, dv = u - CYL[0], v - CYL[1]
-    d_perp = np.abs(du + dv) / math.sqrt(2)
-    d_along = (-du + dv) / math.sqrt(2)
-    half = 0.62 + 0.18 * np.maximum(d_along, 0)          # 越远越宽
-    soft = 0.10 + 0.10 * np.maximum(d_along, 0)          # 半影越远越软
-    k = np.clip((half - d_perp) / soft + 0.5, 0, 1)
-    k = k * k * (3 - 2 * k)
-    k *= np.clip((d_along + 0.2) / 0.5, 0, 1)
-    k = np.maximum(k, np.clip((0.62 - np.hypot(du, dv)) / 0.1, 0, 1))   # 圆柱脚下
-    return k
-
-
-def _board():
-    ss = 2
-    yy, xx = np.mgrid[0:H * ss, 0:W * ss].astype(np.float64) / ss
-    den = HINV[2, 0] * xx + HINV[2, 1] * yy + HINV[2, 2]
-    u = (HINV[0, 0] * xx + HINV[0, 1] * yy + HINV[0, 2]) / den
-    v = (HINV[1, 0] * xx + HINV[1, 1] * yy + HINV[1, 2]) / den
-    inside = (u >= 0) & (u < 5) & (v >= 0) & (v < 5)
-    i, j = np.floor(u).astype(int), np.floor(v).astype(int)
-    refl = np.where((i + j) % 2 == 0, LIGHT, DARK)
-    sh = _shadow(u, v)
-    val = refl * (1 - sh * (1 - SHADOW))
-    img = np.zeros((H * ss, W * ss, 4), np.float32)
-    img[..., :3] = val[..., None]
-    img[..., 3] = inside
-    img[..., :3] *= img[..., 3:4]
-    small = cv2.resize(img, (W, H), interpolation=cv2.INTER_AREA)
-    # 不透明区域内保持精确值：A、B 格内部像素必须完全一样
-    return small
-
-
-BOARD = _board()
-
-
-def _board_rgba_u8(kA=1.0):
-    a = BOARD[..., 3:4]
-    rgb = np.where(a > 1e-4, BOARD[..., :3] / np.maximum(a, 1e-4), 0)
-    out = np.dstack([rgb, a])
-    return (out * 255 + 0.5).astype(np.uint8)
-
-
-BOARD_IMG = E.image_from(_board_rgba_u8())
-
-
-def _tile_path(tile, inset=0.0):
-    i, j = tile
-    pts = [g2s(i + inset, j + inset), g2s(i + 1 - inset, j + inset), g2s(i + 1 - inset, j + 1 - inset),
-           g2s(i + inset, j + 1 - inset)]
+def _almond(cx, cy, w, h):
     p = skia.Path()
-    p.moveTo(*pts[0])
-    for q in pts[1:]:
-        p.lineTo(*q)
+    p.moveTo(cx - w / 2, cy)
+    p.cubicTo(cx - w * 0.22, cy - h, cx + w * 0.22, cy - h, cx + w / 2, cy)
+    p.cubicTo(cx + w * 0.22, cy + h, cx - w * 0.22, cy + h, cx - w / 2, cy)
     p.close()
     return p
 
 
-def _draw_cylinder(c, a):
-    bx, by = g2s(*CYL)
-    rx, ry = 66, 33
-    h = 290
-    body = skia.Rect.MakeLTRB(bx - rx, by - h, bx + rx, by)
-    c.saveLayerAlpha(None, int(255 * a))
-    a = 1.0
-    sh = skia.GradientShader.MakeLinear([skia.Point(bx - rx, 0), skia.Point(bx + rx, 0)],
-                                        [E.c4((0.06, 0.18, 0.10)), E.c4((0.16, 0.42, 0.24)), E.c4((0.42, 0.80, 0.50)),
-                                         E.c4((0.30, 0.64, 0.38))], [0, 0.35, 0.78, 1])
-    c.drawOval(skia.Rect.MakeLTRB(bx - rx, by - ry, bx + rx, by + ry), paint(shader=sh, a=a))
-    c.drawRect(body, paint(shader=sh, a=a))
-    c.drawOval(skia.Rect.MakeLTRB(bx - rx, by - h - ry, bx + rx, by - h + ry), paint((0.42, 0.78, 0.50), a))
-    c.restore()
-
-
-def _draw_board_edges(c, a):
-    # 棋盘的两个侧面，增加立体感
-    th = 26
-    for (p0, p1, col) in ((QUAD[3], QUAD[0], (0.20, 0.20, 0.22)), (QUAD[0], QUAD[1], (0.13, 0.13, 0.15))):
-        pa = skia.Path()
-        pa.moveTo(*p0)
-        pa.lineTo(*p1)
-        pa.lineTo(p1[0], p1[1] + th)
-        pa.lineTo(p0[0], p0[1] + th)
-        pa.close()
-        c.drawPath(pa, paint(col, a))
-
-
 def scene_hook(ctx):
     t, c = ctx.t, ctx.c
-    ctx.bloom, ctx.vign, ctx.bg = 0.0, 0.0, 0.0   # 关闭后期：A、B 两格的像素必须严格相等
     end = T.SEC["hook"][1]
-    a_in = ease((t - 0.2) / 1.2) * (1 - ease((t - end + 0.25) / 0.25))
-    t_rev = s("h3")                       # 「但它们，是同一种灰」
-    k_bar = ease((t - t_rev + 0.1) / 0.7)
-    k_dim = ease((t - t_rev - 0.6) / 0.9)
-    zoom = 1.0 + 0.035 * ease_io(t / end)
+    a = 1 - ease((t - end + 0.25) / 0.25)
+    t1, t2, t3, t4 = (s(k) for k in HOOK)
+    cx, cy = EYE_C
+    # 每一记重拍：眼睛猛地一缩一张
+    punch = sum(math.exp(-(t - tk) / 0.18) for tk in (t1, t2, t3, t4) if t >= tk)
+    open_ = ease_out((t - t1 + 0.05) / 0.9, 3) * (1 - 0.12 * punch)
+    W_, H_ = 980, 290 * open_
+    ek = ease_out((t - t4) / 0.35, 3)            # 最后一问：眼睛上移、缩小，给四行字让位
     c.save()
-    c.translate(CX, 640)
-    c.scale(zoom, zoom)
-    c.translate(-CX, -640)
-    board_a = a_in * (1 - 0.9 * k_dim)
-    _draw_board_edges(c, board_a)
-    c.drawImage(BOARD_IMG, 0, 0, skia.SamplingOptions(), paint(INK, board_a))
-    _draw_cylinder(c, board_a)
-    # A、B 两格在其余部分变暗后仍保留原样
-    if k_dim > 0:
-        for tile in (A_TILE, B_TILE):
-            c.drawPath(_tile_path(tile, 0.02), paint((DARK, DARK, DARK), a_in))
-    # 连接 A、B 的等色条：同一种灰
-    ax, ay = g2s(A_TILE[0] + 0.5, A_TILE[1] + 0.5)
-    bx, by = g2s(B_TILE[0] + 0.5, B_TILE[1] + 0.5)
-    if k_bar > 0:
-        p = paint((DARK, DARK, DARK), a_in)
-        ex, ey = lerp(ax, bx, k_bar), lerp(ay, by, k_bar)
-        dx, dy = bx - ax, by - ay
-        L = math.hypot(dx, dy)
-        nx, ny = -dy / L * 16, dx / L * 16
-        band = skia.Path()
-        band.moveTo(ax + nx, ay + ny)
-        band.lineTo(ex + nx, ey + ny)
-        band.lineTo(ex - nx, ey - ny)
-        band.lineTo(ax - nx, ay - ny)
-        band.close()
-        c.drawPath(band, p)
+    c.translate(cx, cy - 95 * ek)
+    c.scale(1 - 0.22 * ek, 1 - 0.22 * ek)
+    c.translate(-cx, -cy)
+    # 闭眼时的一道光缝
+    if open_ < 0.98:
+        c.drawLine(cx - W_ / 2, cy, cx + W_ / 2, cy, paint(CYAN, a * (1 - open_) * 0.9, stroke=2, blur=1))
+        c.drawLine(cx - W_ / 2, cy, cx + W_ / 2, cy, paint(CYAN, a * (1 - open_) * 0.5, stroke=10, blur=12))
+    lid = _almond(cx, cy, W_, H_)
+    c.drawPath(lid, paint(CYAN, 0.08 * a * open_, blur=40))
+    c.save()
+    c.clipPath(lid, doAntiAlias=True)
+    c.drawPath(lid, paint((0.02, 0.03, 0.06), a))
+    # 虹膜：放射状光纹，随时间缓慢转动
+    rot = t * 0.08
+    R0, R1 = 70, 210 * (1 + 0.04 * punch)
+    k4 = ease((t - t4) / 0.25)
+    for i in range(IRIS_N):
+        ang = IRIS_ANG[i] + rot
+        r1 = R0 + (R1 - R0) * IRIS_L[i]
+        col = mixc(mixc(CYAN, (0.35, 0.55, 1.0), IRIS_COL[i]), GOLD, 0.3 * IRIS_COL[i] ** 3)
+        col = mixc(col, RED, 0.6 * k4 * IRIS_COL[i])
+        c.drawLine(cx + math.cos(ang) * R0, cy + math.sin(ang) * R0, cx + math.cos(ang) * r1, cy + math.sin(ang) * r1,
+                   paint(col, a * (0.35 + 0.4 * IRIS_COL[i]), stroke=2.2))
+    c.drawCircle(cx, cy, R1, paint(CYAN, 0.6 * a, stroke=2))
+    c.drawCircle(cx, cy, R1 + 8, paint(CYAN, 0.25 * a, stroke=10, blur=12))
+    c.drawCircle(cx, cy, R0 * (1 - 0.15 * punch), paint((0, 0, 0), a))
+    c.drawCircle(cx - 26, cy - 30, 16, paint((1, 1, 1), 0.85 * a, blur=2))
+    # 裂纹
+    if k4 > 0:
+        for pts in CRACKS:
+            p = skia.Path()
+            p.moveTo(cx + pts[0][0], cy + pts[0][1])
+            for (x, y) in pts[1:]:
+                p.lineTo(cx + x, cy + y)
+            c.drawPath(p, paint((1, 0.85, 0.8), a, stroke=2.2, trim=(0, k4)))
+            c.drawPath(p, paint(RED, 0.6 * a, stroke=7, blur=8, trim=(0, k4)))
     c.restore()
-
-    # 标注：A、B（引线 + 圆圈字母），不覆盖格子本身
-    k_lab = ease((t - s("h1") + 0.2) / 0.5) * a_in
-    for (tile, lab, dx, dy) in ((A_TILE, "A", -230, -60), (B_TILE, "B", -330, 120)):
-        x, y = g2s(tile[0] + 0.5, tile[1] + 0.5)
-        x, y = CX + (x - CX) * zoom, 640 + (y - 640) * zoom
-        lx, ly = x + dx, y + dy
-        hot = lab == "A" and s("h2") < t < s("h3")
-        col = E.GOLD if hot or k_bar > 0.5 else INK
-        c.drawCircle(x, y, 5, paint(col, k_lab))
-        line(c, x, y, lx + 26 * (1 if dx < 0 else -1), ly, col, 0.8 * k_lab, 1.6, ease((t - s("h1")) / 0.6))
-        c.drawCircle(lx, ly, 26, paint(col, 0.9 * k_lab, stroke=2))
-        text(c, lab, lx, ly, 30, "inter_med", col, k_lab)
-        if k_dim > 0:
-            text(c, "RGB 122 · 122 · 122", lx, ly + 54, 20, "mono", E.GOLD, k_dim * a_in)
-    # 「哪一个更深？」时画面里一枚小问号
-    text(c, "棋盘阴影错觉 · 按 E. Adelson（1995）原理重绘", 1856, 1046, 16, "sans_light", GREY,
-         0.6 * a_in, "r", 1)
+    c.drawPath(lid, paint(INK, 0.55 * a * open_, stroke=2))
+    c.restore()
+    # 四行大字：新的一行在重拍上砸下来，旧的一行上移变淡
+    for i, k in enumerate(HOOK):
+        tk = s(k)
+        if t < tk - 0.02:
+            continue
+        txt = T.TEXT[k]
+        age = sum(1 for kk in HOOK[i + 1:] if t >= s(kk) - 0.02)
+        kin = ease_out((t - tk) / 0.22, 3)
+        kup = ease_out((t - s(HOOK[i + age]) if age else 0) / 0.3, 3) if age else 0.0
+        y = 830 - (age - 1 + kup) * 58 - (0 if age == 0 else 40) + 30 * (1 - kin) + 20 * ek
+        last = i == 3
+        size = (96 if last else 76) * lerp(1.35, 1.0, kin) * (0.55 if age else 1.0) * (1 - 0.1 * max(0, age - 1))
+        al = a * kin * (1.0 if age == 0 else 0.42 if age == 1 else 0.2)
+        if last:
+            text(c, txt, CX, y, size, "serif_black", GOLD, al, "c", 14, shader=E.gold_shader(y - 60, y + 40),
+                 glow=0.6, glow_rgb=GOLD)
+        else:
+            text(c, txt, CX, y, size, "serif_black", INK, al, "c", 12, glow=0.25 if age == 0 else 0, glow_rgb=CYAN)
 
 
 # ================================================================ 1 冷开场：华盛顿与放血疗法
@@ -202,9 +138,9 @@ BODY_L = 6.0                             # 估计全身血量（升），2.4 / 6
 
 
 def _bleed_times():
-    t0, t1 = s("b2"), e("b2")
-    a = t0 + (t1 - t0) * 0.42
-    return [a + i * (t1 - a) / 4.2 for i in range(4)]
+    """四次放血落在四个连续的半小节上（与鼓点同步）。"""
+    a = T.at("b2", "医生为他")
+    return [a + i * 2 * T.BEAT for i in range(4)]
 
 
 BLEED_T = _bleed_times()

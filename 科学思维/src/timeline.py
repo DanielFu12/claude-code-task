@@ -1,46 +1,79 @@
-"""时间轴：由旁白脚本 + 每句配音时长推出所有时间点。画面、字幕、配乐共用。
+"""时间轴：由文字脚本推出所有时间点，并全部吸附到配乐的节拍网格上。画面、字幕、配乐共用。
 
-T.s('c3') / T.e('c3')：某句旁白的开始 / 结束秒数
-T.sec['cause'] = (start, end)：章节起止；有重拍的章节在 start 处打击
+- 配乐 100 BPM，一拍 0.6 s，一小节 2.4 s；第 0 小节从 ORIGIN 秒开始。
+- 每句字幕按阅读时长占若干拍，从拍点开始；每个章节从小节线开始，有重拍的章节在第一拍打击。
+- T.s('c3') / T.e('c3')：某句的开始 / 结束；T.at('c6', '抛硬币')：句中某个词的出现时刻（吸附到拍点）。
+- T.ACCENTS：段落中间的重音（画面里的关键揭示），配乐在这些拍点上加打击，镜头轻推。
 """
-import json
+import math
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import SECTIONS  # noqa: E402
+from script import SECTIONS, FIXED_BEATS  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 WORK = os.environ.get("WORK", os.path.join(HERE, "..", "work"))
 FPS = 30
-VO = json.load(open(os.path.join(WORK, "vo.json")))
+BPM = 100
+BEAT = 60 / BPM
+BAR = 4 * BEAT
+ORIGIN = 0.5            # 片头留 0.5 s 黑场，第一记重拍落在 0.5 s
 
-OUTRO = 9.6          # 最后一句结束后：粒子汇聚 logo → 浮现 → 品牌字 → 淡出
+PUNCT = "，。：；？！、—「」“” ·"
+
+
+def nchars(s):
+    return len([ch for ch in s if ch not in PUNCT])
+
+
+def read_time(text):
+    """看懂一行字幕所需时间（秒）。"""
+    return 0.6 + 0.2 * nchars(text)
+
+
+def beat_t(b):
+    return ORIGIN + b * BEAT
+
+
+def q(t, mode="round"):
+    """把时间吸附到最近的拍点。"""
+    k = (t - ORIGIN) / BEAT
+    k = math.ceil(k - 1e-6) if mode == "ceil" else math.floor(k + 1e-6) if mode == "floor" else round(k)
+    return beat_t(k)
+
+
 LINES = {}           # id -> (start, end, subtitle)
 ORDER = []
 SEC = {}
-HITS = []            # 重拍时间
+HITS = []            # 每章开头的重拍
+TEXT = {}
 
-t = 0.0
+b = 0                # 当前拍
 for name, lead, hit, lines in SECTIONS:
-    s0 = t
+    b = math.ceil(b / 4 - 1e-9) * 4            # 章节从小节线开始
+    s0 = beat_t(b)
     if hit:
         HITS.append(s0)
-    t += lead
+    b += round(lead / BEAT)
     for lid, text, sub, pause in lines:
-        dur = VO[lid]["dur"] if text else 0.0
-        LINES[lid] = (t, t + dur, text if sub is None else sub)
+        TEXT[lid] = text
+        nb = FIXED_BEATS.get(lid) or (max(1, math.ceil(read_time(text) / BEAT)) if text else 0)
+        LINES[lid] = (beat_t(b), beat_t(b + nb), text if sub is None else sub)
         ORDER.append(lid)
-        t += dur + pause
-    SEC[name] = (s0, t)
+        b += nb + round(pause / BEAT)
+    b = math.ceil(b / 4 - 1e-9) * 4
+    SEC[name] = (s0, beat_t(b))
+SEC["hook"] = (0.0, SEC["hook"][1])
 
-LAST_VO_END = LINES[ORDER[-1]][1]
-LOGO_T = LAST_VO_END + 0.6      # 粒子开始汇聚成 logo
-LOGO_SHOW = LOGO_T + 1.9        # 清晰 logo 浮现
-BRAND_T = LOGO_SHOW + 0.75      # 金色「巴芒价值」在重拍上出现
-DUR = LAST_VO_END + OUTRO
+LAST_END = SEC[list(SEC)[-1]][1]
+LOGO_T = LAST_END                       # 终句化作粒子、开始汇聚成 logo（小节线）
+LOGO_SHOW = LOGO_T + 2 * BEAT           # 清晰 logo 浮现
+BRAND_T = LOGO_T + BAR                  # 金色「巴芒价值」落在下一小节的重拍上
+DUR = BRAND_T + 2 * BAR + 0.6
 HITS.append(BRAND_T)
-SEC["outro"] = (LAST_VO_END, DUR)
+SEC["outro"] = (LAST_END, DUR)
 
 
 def s(lid):
@@ -49,9 +82,6 @@ def s(lid):
 
 def e(lid):
     return LINES[lid][1]
-
-
-TEXT = {lid: text for sec in SECTIONS for (lid, text, _s, _p) in sec[3]}
 
 
 def _w(ch):
@@ -63,17 +93,33 @@ def _w(ch):
 
 
 def at(lid, sub, end=False):
-    """估计某句旁白里子串 sub 开始（或结束）念出的时间：按字数加权插值。"""
+    """句中子串 sub 出现的时刻：按阅读权重插值，再吸附到拍点。"""
     txt = TEXT[lid]
     i = txt.index(sub) + (len(sub) if end else 0)
     tot = sum(_w(ch) for ch in txt)
     pre = sum(_w(ch) for ch in txt[:i])
-    a, b = LINES[lid][0], LINES[lid][1]
-    return a + (b - a) * pre / tot
+    a, b_ = LINES[lid][0], LINES[lid][1]
+    return q(a + (b_ - a) * pre / tot)
 
+
+# 抛硬币：从「每天猜」起，每个八分音符淘汰一天，20 天
+COIN_T0 = at("i2", "每天猜")
+COIN_STEP = BEAT / 2
+
+# ---------------------------------------------------------------- 段落中的重音（画面揭示点）
+ACCENTS = sorted({
+    s("h1"), s("h2"), s("h3"), s("h4"),
+    s("b3"), s("b6"),
+    at("c4", "火越大"), s("c7"),
+    at("f2", "一只黑天鹅"), s("f5"), at("f6", "而在于"), at("f7", "再画靶"),
+    at("m2", "准确度打分"), s("m3"),
+    s("k3"), at("k3", "2005"), at("k4", "而你自己"),
+    COIN_T0 + 20 * COIN_STEP, at("i4", "那就不是运气"), at("i8", "这个假设"),
+    at("e1", "而是始终"), at("e2", "错得更少"), at("e2", "改得更快"), s("e3"),
+})
 
 if __name__ == "__main__":
-    for k, (a, b) in SEC.items():
-        print(f"{k:8s} {a:7.2f} – {b:7.2f}  ({b - a:5.1f}s)")
+    for k, (a, b_) in SEC.items():
+        print(f"{k:8s} {a:7.2f} – {b_:7.2f}  ({b_ - a:5.1f}s, {(b_ - a) / BAR:4.1f} bars)")
     print("hits", [round(h, 2) for h in HITS])
     print("DUR", round(DUR, 2), f"= {int(DUR // 60)}:{DUR % 60:04.1f}")

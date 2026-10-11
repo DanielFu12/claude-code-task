@@ -1,8 +1,10 @@
-"""《科学思维》原创配乐 + 旁白混音（全部 numpy 合成）。
+"""《科学思维》原创卡点配乐（全部 numpy 合成，全片无配音）。
 
-D 小调，100 BPM；每个章节从重拍开始重新起拍，重拍前 0.3 秒抽空，配合上扬音效。
-画面上的关键事件（硬币每过一天、黑天鹅推翻命题、四道检验门、诺贝尔奖……）都有对应的音效点。
-最后混入旁白（自动压低音乐），响度标准化到 −14 LUFS。
+D 小调，100 BPM，与画面共用 timeline.py 的节拍网格（第 0 小节从 0.5 s 开始）。
+- 每章第一拍是重拍（braam + 低频冲击 + 镲），重拍前 0.3 秒全体抽空、画面同时推入黑场。
+- T.ACCENTS 里的画面揭示点（黑天鹅、星光偏折、4.26 分、诺贝尔奖、215 位股神……）都落在拍点上并配打击。
+- 主题动机 A–D–E–F 贯穿：标题、可证伪的高潮、纠错（转大调）、终章钢琴，最后在 D 大调上落地。
+- 底鼓侧链压缩让铺底随节拍呼吸；响度 −15 LUFS，真峰值 ≤ −2.5 dBTP（压缩编码后仍不过载）。
 
 用法：python3 src/music.py work/   → work/score.wav（48 kHz 立体声）
 """
@@ -311,135 +313,336 @@ def motif(t0, notes, gain=0.22, step=BEAT, oct_=0):
         keys.add(t0 + i * step, piano(hz(m(nn) + oct_), 3.2), gain, pan=-0.15)
 
 
-MOTIF = ["A4", "D5", "E5", "F5", None, "E5", "D5", "A4"]
+MOTIF = ["A4", "D5", "E5", "F5", "E5", "D5", "C5", "A4"]
+MOTIF_MAJ = ["C5", "F5", "G5", "A5", "G5", "F5", "E5", "C5"]
 
-# ---- 0 钩子：低鸣 + 秒针 + 钢琴动机
+
+def snare(gain=0.4):
+    n = int(0.5 * SR)
+    t = np.arange(n) / SR
+    body = np.sin(2 * np.pi * 185 * t) * np.exp(-t / 0.05)
+    nz = bandpass(rng.normal(0, 1, n), 1200, 8000) * np.exp(-t / 0.12)
+    return (body * 0.6 + nz) * gain
+
+
+def crash(gain=0.3, dur=2.5):
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    x = highpass(rng.normal(0, 1, n), 4500) * np.exp(-t / (dur * 0.35))
+    x += 0.3 * np.sin(2 * np.pi * 5200 * t + 3 * np.sin(2 * np.pi * 7300 * t)) * np.exp(-t / 0.5)
+    return x * gain
+
+
+def tom(f0=150, gain=0.5):
+    n = int(0.5 * SR)
+    t = np.arange(n) / SR
+    f = f0 * (0.65 + 0.35 * np.exp(-t / 0.08))
+    return np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t / 0.22) * gain
+
+
+def lead(f, dur, gain=1.0):
+    """温暖的主奏：两支微失谐锯齿 + 正弦，带延迟颤音。"""
+    n = int((dur + 0.4) * SR)
+    t = np.arange(n) / SR
+    vib = 1 + 0.004 * np.sin(2 * np.pi * 5.2 * t) * np.clip((t - 0.25) / 0.3, 0, 1)
+    ph = np.cumsum(f * vib) / SR
+    x = (np.interp((ph * 1.003) % 1 * _TAB, np.arange(_TAB), SAW_TAB) +
+         np.interp((ph * 0.997) % 1 * _TAB, np.arange(_TAB), SAW_TAB)) * 0.5
+    x = lowpass(x, 2600) * 0.6 + np.sin(2 * np.pi * ph) * 0.5
+    return x * env(n, 0.03, 0.4, dur) * gain
+
+
+def stab(chord, gain=0.2, dur=1.2):
+    """和弦重音（钢琴 + 铺底的短促一击）。"""
+    n = int((dur + 1.0) * SR)
+    out = np.zeros(n)
+    for nn in CH[chord][1:]:
+        p_ = piano(hz(m(nn)), dur + 1.0)[:n]
+        q_ = pad_note(hz(m(nn)), dur * 0.4, 3000, att=0.01, rel=0.8)[:n]
+        out[:len(p_)] += p_ * 0.5
+        out[:len(q_)] += q_ * 0.6
+    return out * gain
+
+
+KICKS = []          # 记录所有底鼓时刻，用于侧链
+
+
+def K(t, g=0.6, **kw):
+    drums.add(t, kick(g, **kw))
+    KICKS.append((t, g))
+
+
+def melody(t0, notes, step=BEAT, gain=0.12, oct_=0, dur=None):
+    for i, nn in enumerate(notes):
+        if nn:
+            arp.add(t0 + i * step, lead(hz(m(nn) + oct_), dur or step * 0.9), gain, pan=0.1)
+
+
+def pattern(sec, t_from, t_to, kick_on=(0, 2), snare_on=(1, 3), hats=8, hat_g=0.2, kick_g=0.6, snare_g=0.32,
+            ticks=False):
+    """在 [t_from, t_to) 内按小节铺鼓组（全片统一网格）。"""
+    a, b = SEC[sec]
+    t_to = min(t_to, b)
+    for k, t in bars(sec):
+        for bt in range(4):
+            tt = t + bt * BEAT
+            if tt < t_from - 1e-6 or tt > t_to - 0.32:
+                continue
+            if bt in kick_on:
+                K(tt, kick_g)
+            if bt in snare_on:
+                drums.add(tt, snare(snare_g), pan=0.05)
+            if hats:
+                sub = hats // 4
+                for j in range(sub):
+                    th = tt + j * BEAT / sub
+                    if th < t_to - 0.32:
+                        drums.add(th, hat(0.03 if j % 2 else 0.05, hat_g * (0.6 if j % 2 else 1.0)), pan=0.3)
+            if ticks:
+                drums.add(tt, tick(2400 if bt % 2 == 0 else 1800, 0.14), pan=-0.25)
+
+
+def hit_fx(t, big=1.0, chord="Dm"):
+    fx.add(t, braam("D1", 3.5 if big > 0.8 else 2.5), 0.22 * big)
+    fx.add(t, boom(), 0.22 * big)
+    fx.add(t, crash(0.5 * big), 1.0, pan=0.2)
+    K(t, 0.75 * big, f0=120, f1=45, dec=0.4)
+    keys.add(t, stab(chord, 0.25 * big), 1.0)
+
+
+def accent(t, kind="mid", chord="Dm"):
+    if kind == "big":
+        fx.add(t, boom(1.8), 0.20)
+        fx.add(t, crash(0.35), 1.0, pan=-0.2)
+        K(t, 0.7)
+        keys.add(t, stab(chord, 0.22), 1.0)
+    elif kind == "mid":
+        K(t, 0.55)
+        drums.add(t, snare(0.3))
+        fx.add(t, crash(0.18, 1.5), 1.0, pan=0.3)
+    elif kind == "bell":
+        arp.add(t, bell(hz(m("D6")), 2.0, 2.0, 0.9), 0.10)
+        arp.add(t, bell(hz(m("A5")), 2.0, 2.0, 0.9), 0.07, pan=0.4)
+    elif kind == "crack":
+        fx.add(t, crack(), 0.45)
+        fx.add(t, boom(1.5), 0.15)
+
+
+s_, e_, at = T.s, T.e, T.at
+B, BR = BEAT, BAR
+
+# ================================================================ 0 钩子：四记重拍
 a, b = SEC["hook"]
-for nn, g in (("D2", 0.10), ("A2", 0.07), ("D3", 0.05)):
-    pad.add(0.3, pad_note(hz(m(nn)), b - 0.6, 500, att=3.0, rel=0.8), g)
-for i in range(int((b - 1.0) / (BEAT))):
-    tt = 1.0 + i * BEAT
-    if tt < b - 0.4:
-        drums.add(tt, tick(2200 if i % 2 == 0 else 1700, 0.10), pan=-0.3)
-motif(1.0, ["A4", "D5", "E5", "F5"], 0.16, BEAT * 1.0)
-keys.add(T.s("h3"), piano(hz(m("D4")), 4.0), 0.18)
-keys.add(T.s("h3"), piano(hz(m("F4")), 4.0), 0.12)
-keys.add(T.s("h3"), piano(hz(m("A4")), 4.0), 0.12)
-keys.add(T.s("h4"), piano(hz(m("C#5")), 3.0), 0.16)
+for nn, g in (("D1", 0.14), ("D2", 0.10), ("A2", 0.06)):
+    pad.add(0.0, pad_note(hz(m(nn)), b - 0.4, 420, att=4.0, rel=0.4), g)
+punch_ch = ["Dm", "Bb", "Gm", "A"]
+for i, h in enumerate(["h1", "h2", "h3", "h4"]):
+    tt = s_(h)
+    big = 1.0 if i == 3 else 0.75
+    fx.add(tt, boom(2.0), 0.28 * big)
+    fx.add(tt, braam("D1", 2.2), 0.16 * big)
+    K(tt, 0.8 * big, f0=120, f1=40, dec=0.45)
+    keys.add(tt, stab(punch_ch[i], 0.30, 1.6), 1.0)
+    fx.add(tt, crash(0.25 * big, 2.0), 1.0, pan=(-0.3, 0.3, -0.2, 0.2)[i])
+# 秒针：越来越密
+for k in range(int((b - 0.5) / (B / 2))):
+    tt = 0.5 + k * B / 2
+    dense = tt > s_("h3")
+    if tt < b - 0.35 and (k % 2 == 0 or dense):
+        drums.add(tt, tick(2400 if k % 4 == 0 else 1800, 0.10 + 0.08 * (tt / b)), pan=-0.3)
+for j in range(8):                      # 最后一小节的军鼓滚奏
+    tt = s_("h4") + 2 * B + j * B / 4
+    if tt < b - 0.32:
+        drums.add(tt, snare(0.10 + 0.03 * j), pan=0.1)
 
-# ---- 1 放血：心跳 → 停止 → 慢律动
-chord_pad("blood", ["Dm", "Bb", "Gm", "A"], 0.10, 900)
+# ================================================================ 1 放血：心跳 → 死寂 → 对照
+BLOOD = ["Dm", "Bb", "Gm", "A"]
 a, b = SEC["blood"]
-for i in range(60):
-    tt = a + 0.4 + i * 1.0
-    if tt > T.s("b3") + 0.4:
-        break
-    drums.add(tt, kick(0.45, 75, 45, 0.16))
-    drums.add(tt + 0.22, kick(0.28, 70, 42, 0.13))
-fx.add(T.s("b3") + 0.4, np.sin(2 * np.pi * 880 * np.arange(int(1.6 * SR)) / SR) * env(int(1.6 * SR), 0.01, 0.4), 0.035)
-bassline("blood", ["Dm", "Bb", "Gm", "A"], 0.22, (0,))
-groove("blood", start=T.s("b4") - a, kick_on=(0,), hat_on=False, gain=0.6)
-motif(T.s("b6"), ["D5", "A4", "F4", "E4"], 0.15, BEAT / 2)
+chord_pad("blood", BLOOD, 0.10, 800)
+t_dead = s_("b3")
+for k, t in bars("blood"):
+    for bt in (0, 2):                    # 心跳：一拍「咚—哒」
+        tt = t + bt * B
+        if tt < t_dead - 0.2:
+            K(tt, 0.45, f0=80, f1=45, dec=0.16)
+            K(tt + 0.2, 0.28, f0=75, f1=42, dec=0.12)
+bassline("blood", BLOOD, 0.22, (0,))
+import scenes_a  # noqa: E402  四次放血的时刻（与画面同一来源）
+for i, bt_ in enumerate(scenes_a.BLEED_T):
+    fx.add(bt_, boom(1.5), 0.16 + 0.03 * i)
+    K(bt_, 0.6)
+    keys.add(bt_, piano(hz(m(["A3", "G3", "F3", "D3"][i])), 2.0), 0.30)
+# 他去世了：一小节的死寂，只剩监护仪的长音
+gate_dead = (t_dead - 0.05, t_dead + BR)
+fx.add(t_dead + 0.1, np.sin(2 * np.pi * 880 * np.arange(int(2.0 * SR)) / SR) * env(int(2.0 * SR), 0.01, 0.4), 0.05)
+pattern("blood", s_("b4"), b, kick_on=(0,), snare_on=(), hats=4, hat_g=0.12, kick_g=0.45)
+arpeggio("blood", BLOOD, s_("b5") - a, 0.05, 0.5, 1.5)
+accent(s_("b6"), "big", "Dm")
+for j in range(8):
+    tt = b - BR + 2 * B + j * B / 4
+    drums.add(tt, snare(0.08 + 0.03 * j))
 
-# ---- 标题：braam + 合唱般的长和弦
+# ================================================================ 标题：主题动机第一次完整出现
 a, b = SEC["title"]
-for nn in CH["Dsus"]:
-    pad.add(a, pad_note(hz(m(nn)), b - a, 2200, att=0.05, rel=1.5), 0.10)
+for nn in ["D2", "A2", "D3", "E4", "F4", "A4", "D5"]:
+    pad.add(a, pad_note(hz(m(nn)), b - a - 0.2, 2600, att=0.05, rel=1.2), 0.07)
+melody(a, MOTIF, B / 2 * 1.0, 0.14, 0, B * 0.45)
+melody(a + 4 * B, ["A4", None, "D5", None], B, 0.12)
 
-# ---- 01 相关≠因果：好奇的拨弦律动
-chord_pad("cause", ["Dm", "F", "C", "Bb"], 0.07, 1500)
-bassline("cause", ["Dm", "F", "C", "Bb"], 0.26, (0, 1.5, 2.5))
-arpeggio("cause", ["Dm", "F", "C", "Bb"], 0.0, 0.07, 0.5, 2.0)
-groove("cause", start=T.s("c2") - SEC["cause"][0], kick_on=(0, 2), clap_on=(1, 3), gain=0.6)
+# ================================================================ 01 相关≠因果：好奇的律动
+CAUSE = ["Dm", "F", "C", "Bb"]
+a, b = SEC["cause"]
+chord_pad("cause", CAUSE, 0.06, 1400)
+bassline("cause", CAUSE, 0.26, (0, 1.5, 2.5))
+arpeggio("cause", CAUSE, 0.0, 0.07, 0.5, 2.0)
+t_neq0, t_neq1 = s_("c5"), s_("c6")
+pattern("cause", a, t_neq0, hats=8)
+pattern("cause", t_neq1, b, hats=16, hat_g=0.16)          # 随机对照实验：十六分音符更紧
+arpeggio("cause", CAUSE, t_neq1 - a, 0.05, 0.25, 2.4, octave=24)
+melody(s_("c3"), ["A4", "D5", "E5", "F5"], B, 0.08)
+accent(at("c4", "火越大"), "big", "Bb")
+accent(t_neq0, "big", "Dm")                               # 「相关 ≠ 因果」：鼓组停一拍半，只剩重音
+accent(s_("c7"), "mid")
+for j in range(4):
+    drums.add(b - BR + 3 * B + j * B / 4 - 0.3, tom(160 - 18 * j, 0.35))
 
-# ---- 02 可证伪：渐强的史诗感
-chord_pad("falsify", ["Dm", "Bb", "F", "C"], 0.09, 1200)
-bassline("falsify", ["Dm", "Bb", "F", "C"], 0.26, (0, 2))
-groove("falsify", kick_on=(0,), hat_on=True, gain=0.55, end=T.s("f3"))
-groove("falsify", start=T.s("f3") - SEC["falsify"][0], kick_on=(0, 2, 3), hat_on=True, clap_on=(2,), gain=0.7)
-arpeggio("falsify", ["Dm", "Bb", "F", "C"], T.s("f3") - SEC["falsify"][0], 0.06, 0.25, 1.5)
+# ================================================================ 02 可证伪：从半拍到全速，星光偏折是高潮
+FALS = ["Dm", "Bb", "F", "C"]
+a, b = SEC["falsify"]
+chord_pad("falsify", FALS, 0.08, 1300)
+bassline("falsify", FALS, 0.26, (0, 2))
+pattern("falsify", a, s_("f3"), kick_on=(0,), snare_on=(2,), hats=4, hat_g=0.14)
+accent(at("f2", "一只黑天鹅"), "crack")
+accent(at("f2", "一只黑天鹅") + 0.0, "big", "Gm")
+# 日食：鼓组逐渐加密，嗵鼓推进
+pattern("falsify", s_("f3"), s_("f5"), kick_on=(0, 2), snare_on=(), hats=8, hat_g=0.16)
+arpeggio("falsify", FALS, s_("f3") - a, 0.06, 0.25, 1.6)
+for j in range(8):
+    tt = s_("f5") - 2 * B + j * B / 4
+    drums.add(tt, tom(170 - 10 * j, 0.32 + 0.03 * j))
+fx.add(s_("f5") - 2.4, riser(2.4), 0.16)
+# 「星光，真的偏了」：主题在高八度唱响
+accent(s_("f5"), "big", "Bb")
+fx.add(s_("f5"), braam("D1", 3.0), 0.16)
+pattern("falsify", s_("f5"), s_("f7"), kick_on=(0, 2), snare_on=(1, 3), hats=8, hat_g=0.2, kick_g=0.65)
+melody(s_("f5"), MOTIF, B, 0.13, 12, B * 0.95)
+accent(at("f6", "而在于"), "mid")
+pattern("falsify", s_("f7"), b, kick_on=(0,), snare_on=(2,), hats=8, hat_g=0.14)
+accent(at("f7", "再画靶"), "bell")
 
-# ---- 03 伪科学：音乐盒
-chord_pad("barnum", ["Gm", "Dm", "A", "Dm"], 0.07, 1000)
-arpeggio("barnum", ["Gm", "Dm", "A", "Dm"], 0.0, 0.08, 0.5, inst="bell", octave=24)
-bassline("barnum", ["Gm", "Dm", "A", "Dm"], 0.2, (0, 2))
-groove("barnum", start=T.s("m2") - SEC["barnum"][0], kick_on=(0,), hat_on=True, gain=0.45)
+# ================================================================ 03 伪科学的魔术：音乐盒
+BARN = ["Gm", "Dm", "A", "Dm"]
+a, b = SEC["barnum"]
+chord_pad("barnum", BARN, 0.06, 1000)
+arpeggio("barnum", BARN, 0.0, 0.07, 0.5, inst="bell", octave=24)
+bassline("barnum", BARN, 0.2, (0, 2))
+pattern("barnum", s_("m2"), s_("m5"), kick_on=(0, 2), snare_on=(3,), hats=8, hat_g=0.12, kick_g=0.45)
+accent(at("m2", "准确度打分"), "bell")
+fx.add(s_("m3") - 0.4, whoosh(1.0), 0.3)
+accent(s_("m3"), "big", "Gm")
+for k_, key in enumerate(["能被证伪", "能被重复", "有可测量", "会随新证据"]):   # 四道门：每道一记
+    tg = at("m5", key)
+    K(tg, 0.6)
+    arp.add(tg, bell(hz(m(["A5", "C6", "D6", "E6"][k_])), 1.8, 3.0, 1.0), 0.10)
+pattern("barnum", at("m5", "能被证伪"), b, kick_on=(0,), snare_on=(), hats=16, hat_g=0.10, kick_g=0.4)
+t_run = e_("m5") + 0.1
+for j in range(5):                       # 五个理论冲过检验门
+    arp.add(T.q(t_run) + j * B / 2, pluck(hz(m(["D5", "F5", "A5", "C6", "D6"][j])), 0.5, 1.5), 0.10)
 
-# ---- 04 纠错：转向希望（大调色彩）
-chord_pad("correct", ["F", "C", "Dm", "Bb"], 0.10, 1600)
-bassline("correct", ["F", "C", "Dm", "Bb"], 0.24, (0, 2))
-arpeggio("correct", ["F", "C", "Dm", "Bb"], 0.0, 0.06, 0.5, 1.2)
-groove("correct", start=T.s("k2") - SEC["correct"][0], kick_on=(0, 2), clap_on=(), gain=0.5, end=T.s("k4"))
-motif(T.s("k4"), ["C5", "F5", "G5", "A5", None, "G5", "F5", "C5"], 0.13, BEAT)
-
-# ---- 05 投资：秒针 + 律动
-chord_pad("invest", ["Dm", "Bb", "F", "C"], 0.08, 1400)
-bassline("invest", ["Dm", "Bb", "F", "C"], 0.28, (0, 1.5, 2, 3.5))
-groove("invest", kick_on=(0, 2), clap_on=(1, 3), gain=0.65, tick_mode=True)
-arpeggio("invest", ["Dm", "Bb", "F", "C"], T.s("i5") - SEC["invest"][0], 0.06, 0.25, 2.2)
-
-# ---- 终章：钢琴动机回归 → D 大调
-chord_pad("end", ["Bb", "F", "C", "Dm"], 0.10, 1300)
-motif(SEC["end"][0] + 0.2, MOTIF, 0.16, BEAT)
-a, b = SEC["end"]
-bassline("end", ["Bb", "F", "C", "Dm"], 0.2, (0,))
-# 片尾：重拍上 D 大调长和弦
-for nn in CH["D"] + ["D5", "F#5"]:
-    pad.add(T.BRAND_T, pad_note(hz(m(nn)), T.DUR - T.BRAND_T - 0.8, 2400, att=0.03, rel=2.0), 0.09)
-keys.add(T.BRAND_T, piano(hz(m("D3")), 6.0), 0.25)
-keys.add(T.BRAND_T, piano(hz(m("F#4")), 6.0), 0.15)
-keys.add(T.BRAND_T, piano(hz(m("A4")), 6.0), 0.15)
-keys.add(T.BRAND_T, piano(hz(m("D5")), 6.0), 0.15)
-# logo 汇聚：上扬的泛音
-for i, nn in enumerate(["D5", "F#5", "A5", "D6", "F#6", "A6"]):
-    arp.add(T.LOGO_T + i * 0.28, bell(hz(m(nn)), 2.0, 2.0, 0.8), 0.07, pan=(i - 2.5) * 0.25)
-
-# ---------------------------------------------------------------- 重拍与音效点
-for h in HITS:
-    fx.add(h - 2.6, riser(2.6), 0.20)
-    big = h in (SEC["title"][0], T.BRAND_T)
-    fx.add(h, braam("D1", 4.5 if big else 3.0), 0.30 if big else 0.18)
-    fx.add(h, boom(), 0.30 if big else 0.18)
-    drums.add(h, kick(0.7, 120, 45, 0.4))
-    # 高频的“闪光”：铙钹般的噪声 + 钟声
-    nn_ = int(2.5 * SR)
-    fx.add(h, highpass(rng.normal(0, 1, nn_), 5000) * np.exp(-np.arange(nn_) / SR / 0.6) * 0.5, 0.10)
-    arp.add(h, bell(hz(m("D6")), 2.5, 2.0, 1.0), 0.08)
-# 黑天鹅推翻命题
-fx.add(T.at("f2", "一只黑天鹅") + 0.6, crack(), 0.45)
-# 星光真的偏了
-for i, nn in enumerate(["A5", "D6", "E6", "A6"]):
-    arp.add(T.s("f5") + 0.2 + i * 0.12, bell(hz(m(nn)), 2.2, 2.0, 0.8), 0.08)
-# 四道检验门
-for k in ["能被证伪", "能被重复", "有可测量", "会随新证据"]:
-    arp.add(T.at("m5", k), bell(hz(m("A5")), 1.4, 3.0, 1.0), 0.09)
-# 福勒：卡片叠成一张
-fx.add(T.s("m3") + 0.1, whoosh(1.2), 0.25)
-# 马歇尔：共识碎裂 / 诺贝尔奖
-fx.add(T.s("k3") + 0.4, crack(), 0.4)
+# ================================================================ 04 纠错的机器：转向大调
+CORR = ["F", "C", "Dm", "Bb"]
+a, b = SEC["correct"]
+chord_pad("correct", CORR, 0.09, 1700)
+bassline("correct", CORR, 0.24, (0, 2, 2.5))
+arpeggio("correct", CORR, 0.0, 0.06, 0.5, 1.2)
+pattern("correct", a, s_("k4"), kick_on=(0, 2), snare_on=(1, 3), hats=8, hat_g=0.15, kick_g=0.5)
+melody(s_("k1"), MOTIF_MAJ, B, 0.09)
+accent(s_("k3"), "crack")
+accent(at("k3", "2005"), "big", "F")
 for i, nn in enumerate(["F5", "A5", "C6", "F6"]):
-    arp.add(T.at("k3", "2005") + i * 0.1, bell(hz(m(nn)), 2.4, 2.0, 0.6), 0.08)
-# 硬币：每过一天一声
-t0c, t1c = T.at("i2", "每天猜"), T.at("i2", "二十天后")
-for d in range(1, 21):
-    tt = t0c + d / 20 * (t1c + 1.2 - t0c)
-    arp.add(tt, bell(hz(m("E6") + (d % 2) * 5), 0.6, 4.1, 1.2), 0.05 + 0.002 * d, pan=0.3 * (-1) ** d)
-# 五个步骤
-for k in ["提出假设", "写下什么", "查看基础", "主动寻找", "随新信息"]:
-    arp.add(T.at("i7", k), pluck(hz(m("D5")), 0.6, 1.0), 0.12)
-# 每段转场的轻声 whoosh
-for k in ["c5", "c6", "f3", "f6", "f7", "m4", "k4", "i4", "i5", "i6", "i8", "e2"]:
-    fx.add(T.s(k) - 0.5, whoosh(0.9), 0.12)
+    arp.add(at("k3", "2005") + i * B / 2, bell(hz(m(nn)), 2.4, 2.0, 0.6), 0.07)
+motif(s_("k4"), ["C5", "F5", "G5", "A5", None, "G5", "F5", "C5"], 0.13, B)
+accent(at("k4", "而你自己"), "bell")
 
-# ---------------------------------------------------------------- 重拍前抽空（除音效外）
-gate = np.ones(N, np.float32)
+# ================================================================ 05 投资：全片最强的律动
+INV = ["Dm", "Bb", "F", "C"]
+a, b = SEC["invest"]
+chord_pad("invest", INV, 0.07, 1500)
+bassline("invest", INV, 0.26, (0, 0.5, 1.5, 2, 2.5, 3.5))
+pattern("invest", a, s_("i5"), kick_on=(0, 1, 2, 3), snare_on=(1, 3), hats=8, hat_g=0.18, kick_g=0.55, ticks=True)
+# 硬币：每淘汰一天一声「叮」（八分音符，与画面计数同步）
+for d in range(1, 21):
+    tt = T.COIN_T0 + d * T.COIN_STEP
+    arp.add(tt, bell(hz(m("E6") + (d % 2) * 5), 0.6, 4.1, 1.2), 0.05 + 0.002 * d, pan=0.3 * (-1) ** d)
+accent(T.COIN_T0 + 20 * T.COIN_STEP, "big", "Bb")
+accent(at("i4", "那就不是运气"), "big", "F")
+# 确认偏误、达尔文：律动收窄
+pattern("invest", s_("i5"), s_("i7"), kick_on=(0, 2), snare_on=(3,), hats=8, hat_g=0.14, kick_g=0.5, ticks=True)
+arpeggio("invest", INV, s_("i5") - a, 0.05, 0.5, 2.0)
+# 五步法：每一步一记，十六分音符推进，主题回归
+pattern("invest", s_("i7"), b, kick_on=(0, 1, 2, 3), snare_on=(1, 3), hats=16, hat_g=0.14, kick_g=0.6)
+arpeggio("invest", INV, s_("i7") - a, 0.06, 0.25, 2.2)
+for key in ["提出假设", "写下什么", "查看基础", "主动寻找", "随新信息"]:
+    accent(at("i7", key), "mid")
+melody(s_("i8"), MOTIF, B, 0.11, 0, B * 0.9)
+accent(at("i8", "这个假设"), "big", "F")
+
+# ================================================================ 终章：钢琴独白 → 再起 → 终句
+END = ["Bb", "F", "C", "Dm"]
+a, b = SEC["end"]
+chord_pad("end", END, 0.08, 1100)
+motif(a + 0.05, MOTIF, 0.17, B)
+bassline("end", END, 0.18, (0,))
+pattern("end", s_("e2"), s_("e3"), kick_on=(0,), snare_on=(2,), hats=8, hat_g=0.12, kick_g=0.45)
+accent(at("e1", "而是始终"), "bell")
+accent(at("e2", "错得更少"), "mid")
+accent(at("e2", "改得更快"), "big", "Bb")
+accent(s_("e3"), "big", "Dm")
+fx.add(T.LOGO_T - 0.1, riser(T.BRAND_T - T.LOGO_T), 0.14)
+for i, nn in enumerate(["D5", "F#5", "A5", "D6", "F#6", "A6"]):     # logo 汇聚：上行的泛音
+    arp.add(T.LOGO_T + i * B / 2, bell(hz(m(nn)), 2.0, 2.0, 0.8), 0.07, pan=(i - 2.5) * 0.25)
+# 片尾重拍：D 大调落地
+for nn in CH["D"] + ["D5", "F#5"]:
+    pad.add(T.BRAND_T, pad_note(hz(m(nn)), T.DUR - T.BRAND_T - 0.8, 2400, att=0.03, rel=2.0), 0.08)
+for nn, g in (("D3", 0.25), ("F#4", 0.15), ("A4", 0.15), ("D5", 0.15)):
+    keys.add(T.BRAND_T, piano(hz(m(nn)), 6.0), g)
+
+# ================================================================ 章节重拍
+HIT_CHORD = {}
+for name, (a, b) in SEC.items():
+    HIT_CHORD[a] = {"blood": "Dm", "title": "Dm", "cause": "Dm", "falsify": "Bb", "barnum": "Gm", "correct": "F",
+                    "invest": "Dm", "end": "Bb"}.get(name, "D")
 for h in HITS:
-    i0, i1 = int((h - 0.30) * SR), int(h * SR)
-    ramp = int(0.05 * SR)
+    if h != T.BRAND_T:
+        fx.add(h - 2.4, riser(2.4), 0.16)
+    big = 1.0 if h in (SEC["title"][0], T.BRAND_T, SEC["blood"][0]) else 0.8
+    hit_fx(h, big, HIT_CHORD.get(h, "D") if h != T.BRAND_T else "D")
+
+# ---------------------------------------------------------------- 抽空：重拍前 0.3 秒 / 华盛顿去世后一小节
+gate = np.ones(N, np.float32)
+ramp = int(0.04 * SR)
+for (g0, g1) in [(h - 0.30, h) for h in HITS] + [gate_dead, (T.s("c5") - 0.3, T.s("c5"))]:
+    i0, i1 = int(g0 * SR), int(g1 * SR)
     gate[i0:i1] = 0.0
-    gate[i0 - ramp:i0] = np.minimum(gate[i0 - ramp:i0], np.linspace(1, 0, ramp))
+    gate[max(0, i0 - ramp):i0] = np.minimum(gate[max(0, i0 - ramp):i0], np.linspace(1, 0, min(ramp, i0)))
+    gate[i1:i1 + ramp] = np.minimum(gate[i1:i1 + ramp], np.linspace(0, 1, ramp))
 for bus in (pad, bass, drums, arp, keys):
     bus.x *= gate
+# 监护仪长音保留在死寂里
+fx.x *= np.where((np.arange(N) / SR > gate_dead[0]) & (np.arange(N) / SR < gate_dead[1]), 1.0, 1.0)
+
+# ---------------------------------------------------------------- 侧链：每次底鼓让铺底和低音「呼吸」
+sc = np.ones(N, np.float32)
+tt_ = np.arange(int(0.35 * SR)) / SR
+for (t, g) in KICKS:
+    i0 = int(t * SR)
+    seg = 1 - min(0.55, 0.7 * g) * np.exp(-tt_ / 0.11)
+    n_ = min(len(seg), N - i0)
+    if n_ > 0:
+        sc[i0:i0 + n_] = np.minimum(sc[i0:i0 + n_], seg[:n_])
+pad.x *= sc
+bass.x *= sc
+arp.x *= 0.5 + 0.5 * sc
 
 
 # ---------------------------------------------------------------- 混音
@@ -463,11 +666,6 @@ def verb(x, wet):
     return x + wet * out
 
 
-music = (verb(pad.x, 0.9) * 1.0 + bass.x * 1.0 + verb(drums.x, 0.12) * 1.0 + verb(arp.x, 0.6) + verb(keys.x, 0.5) +
-         verb(fx.x, 0.35))
-music = highpass(music, 35, 2)
-
-
 def shelf(x, f0, gain_db, kind):
     """RBJ 搁架滤波器。"""
     A = 10 ** (gain_db / 40)
@@ -475,54 +673,29 @@ def shelf(x, f0, gain_db, kind):
     al = math.sin(w0) / 2 * math.sqrt(2)
     cw = math.cos(w0)
     if kind == "low":
-        b = [A * ((A + 1) - (A - 1) * cw + 2 * math.sqrt(A) * al), 2 * A * ((A - 1) - (A + 1) * cw),
-             A * ((A + 1) - (A - 1) * cw - 2 * math.sqrt(A) * al)]
-        a = [(A + 1) + (A - 1) * cw + 2 * math.sqrt(A) * al, -2 * ((A - 1) + (A + 1) * cw),
-             (A + 1) + (A - 1) * cw - 2 * math.sqrt(A) * al]
+        b_ = [A * ((A + 1) - (A - 1) * cw + 2 * math.sqrt(A) * al), 2 * A * ((A - 1) - (A + 1) * cw),
+              A * ((A + 1) - (A - 1) * cw - 2 * math.sqrt(A) * al)]
+        a_ = [(A + 1) + (A - 1) * cw + 2 * math.sqrt(A) * al, -2 * ((A - 1) + (A + 1) * cw),
+              (A + 1) + (A - 1) * cw - 2 * math.sqrt(A) * al]
     else:
-        b = [A * ((A + 1) + (A - 1) * cw + 2 * math.sqrt(A) * al), -2 * A * ((A - 1) + (A + 1) * cw),
-             A * ((A + 1) + (A - 1) * cw - 2 * math.sqrt(A) * al)]
-        a = [(A + 1) - (A - 1) * cw + 2 * math.sqrt(A) * al, 2 * ((A - 1) - (A + 1) * cw),
-             (A + 1) - (A - 1) * cw - 2 * math.sqrt(A) * al]
-    return signal.lfilter(np.array(b) / a[0], np.array(a) / a[0], x)
+        b_ = [A * ((A + 1) + (A - 1) * cw + 2 * math.sqrt(A) * al), -2 * A * ((A - 1) + (A + 1) * cw),
+              A * ((A + 1) + (A - 1) * cw - 2 * math.sqrt(A) * al)]
+        a_ = [(A + 1) - (A - 1) * cw + 2 * math.sqrt(A) * al, 2 * ((A - 1) - (A + 1) * cw),
+              (A + 1) - (A - 1) * cw - 2 * math.sqrt(A) * al]
+    return signal.lfilter(np.array(b_) / a_[0], np.array(a_) / a_[0], x)
 
 
-# 频谱倾斜：压低超低频、提亮高频，让手机扬声器也能听清配乐
-music = shelf(music, 110, -6, "low")
-music = shelf(music, 2500, 5, "high")
-
-# 旁白
-vo = np.zeros(N, np.float32)
-for lid in T.ORDER:
-    t0_, t1_, sub = T.LINES[lid]
-    if t1_ <= t0_:
-        continue
-    x, sr = sf.read(os.path.join(WORK, "vo", lid + ".wav"), dtype="float32")
-    x = signal.resample_poly(x, SR, sr)
-    i0 = int(t0_ * SR)
-    vo[i0:i0 + len(x)] += x[:N - i0]
-vo = highpass(vo, 75, 2)
-# 轻微提亮（存在感 3 kHz 附近）
-vo = vo + 0.25 * bandpass(vo, 2500, 6000)
-# 柔和压缩
-envv = np.abs(vo)
-envv = lowpass(envv, 20, 1)
-gain_c = np.where(envv > 0.15, (0.15 / np.maximum(envv, 1e-6)) ** 0.4, 1.0)
-vo = vo * gain_c
-vo /= np.abs(vo).max() + 1e-9
-# 音乐让位给旁白
-speech = lowpass(np.abs(vo), 6, 1)
-speech = np.clip(speech / (np.percentile(speech[speech > 1e-3], 70) + 1e-9), 0, 1)
-duck = 1 - 0.70 * speech
-music *= duck[None, :]
-music /= np.abs(music).max() + 1e-9
-mix = music * 0.60 + np.stack([vo, vo]) * 0.70
-# 结尾淡出
+music = (verb(pad.x, 0.9) + bass.x * 1.0 + verb(drums.x, 0.12) * 1.0 + verb(arp.x, 0.55) + verb(keys.x, 0.5) +
+         verb(fx.x, 0.35))
+music = highpass(music, 35, 2)
+# 频谱倾斜：压低超低频、提亮高频，让手机扬声器也能听清
+music = shelf(music, 110, -5, "low")
+music = shelf(music, 2500, 4, "high")
+mix = music / (np.abs(music).max() + 1e-9)
+# 开头 / 结尾
 fo = int(1.6 * SR)
 mix[:, -int(0.5 * SR) - fo:-int(0.5 * SR)] *= np.linspace(1, 0, fo) ** 1.5
 mix[:, -int(0.5 * SR):] = 0
-fi = int(0.4 * SR)
-mix[:, :fi] *= np.linspace(0, 1, fi)
 
 try:
     import pyloudnorm as pyln
@@ -533,11 +706,34 @@ try:
 except Exception as ex:   # noqa: BLE001
     print("pyloudnorm unavailable:", ex)
     mix *= 0.5 / np.sqrt((mix ** 2).mean())
-# 简单限幅：峰值 -1 dBFS
-peak = 10 ** (-1 / 20)
-knee = 0.8 * peak
-ax = np.abs(mix)
-mix = np.where(ax > knee, np.sign(mix) * (knee + (peak - knee) * np.tanh((ax - knee) / (peak - knee))), mix)
+# 真峰值限幅：先去掉 16 kHz 以上的毛刺，再在 4 倍过采样上做带释放的增益压缩，保证真峰值 ≤ −1 dBTP
+from scipy.ndimage import maximum_filter1d  # noqa: E402
+
+
+def tp_limit(x, peak_db=-2.5):
+    up = signal.resample_poly(lowpass(x, 16000, 4), 4, 1, axis=1)
+    peak = 10 ** (peak_db / 20)
+    need = np.maximum(np.abs(up).max(0) / peak, 1.0)
+    win_ = int(0.004 * SR * 4)
+    need = maximum_filter1d(need, size=2 * win_ + 1)                 # 前后 4 ms 内取最大：预读 + 保持
+    g = 1 / need
+    rel = math.exp(-1 / (0.08 * SR * 4))                             # 80 ms 释放
+    g = np.minimum(g, signal.lfilter([1 - rel], [1, -rel], g - 1) + 1)
+    return np.clip(signal.resample_poly(up * g[None, :], 1, 4, axis=1), -peak, peak)
+
+
+try:
+    gain_db = 0.0
+    TARGET = -15.0                        # 留出重拍的动态；AAC 编码后真峰值仍 < −0.5 dBTP
+    for _ in range(4):                    # 限幅会吃掉一点响度：补偿后再限，迭代到目标响度
+        out = tp_limit(mix * 10 ** (gain_db / 20))
+        l2 = meter.integrated_loudness(out.T)
+        if abs(l2 - TARGET) < 0.2:
+            break
+        gain_db += TARGET - l2
+    mix = out
+    print("after limiter", round(l2, 2), "LUFS")
+except NameError:
+    mix = tp_limit(mix)
 sf.write(os.path.join(WORK, "score.wav"), mix.T.astype(np.float32), SR, subtype="PCM_24")
-sf.write(os.path.join(WORK, "music_only.wav"), (music * 0.60).T.astype(np.float32), SR, subtype="PCM_24")
 print("written", os.path.join(WORK, "score.wav"), round(N / SR, 2), "s")

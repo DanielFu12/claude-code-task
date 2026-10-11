@@ -22,7 +22,7 @@ LIGHT = [(1676, 220000, "罗默 / 惠更斯"), (1729, 301000, "布拉德雷"), (
 def scene_light(ctx):
     t, c = ctx.t, ctx.c
     t0 = T.SEC["correct"][0]
-    a = win(t, t0, e("k1") + 0.2, 0.5, 0.5)
+    a = win(t, t0, e("k1") - 0.45, 0.5, 0.35)
     if a <= 0:
         return
     x0, x1, yc = 260, 1660, 560
@@ -189,9 +189,8 @@ FINAL_IDX = np.argsort(COIN_DIE)[-215:]
 
 
 def coin_day(t):
-    t0 = at("i2", "每天猜")
-    t1 = at("i2", "二十天后")
-    return clip01((t - t0) / (t1 - t0 + 1.2)) * 20
+    """第几天：与配乐的八分音符同步，每个八分音符淘汰一半。"""
+    return clip01((t - T.COIN_T0) / (20 * T.COIN_STEP)) * 20
 
 
 def scene_coins(ctx):
@@ -265,7 +264,7 @@ VIL_OFF = _r.normal(0, 1, (40, 2)) * [70, 50]
 def scene_village(ctx):
     t, c = ctx.t, ctx.c
     t0 = s("i4")
-    a = win(t, t0 - 0.3, e("i4") + 0.3, 0.6, 0.5)
+    a = win(t, t0 - 0.3, e("i4") - 0.05, 0.6, 0.35)
     if a <= 0:
         return
     k = ease_io((t - at("i4", "如果许多") - 0.2) / 1.6)
@@ -300,7 +299,7 @@ NEWS = [("营收超预期", 1), ("核心高管离职", 0), ("新品口碑火爆"
 def scene_confirm(ctx):
     t, c = ctx.t, ctx.c
     t0 = s("i5")
-    a = win(t, t0 - 0.3, e("i5") + 0.3, 0.6, 0.5)
+    a = win(t, t0 + 0.15, e("i5") - 0.05, 0.5, 0.35)
     if a <= 0:
         return
     hx, hy = CX, 560
@@ -332,7 +331,7 @@ def scene_confirm(ctx):
 def scene_darwin(ctx):
     t, c = ctx.t, ctx.c
     t0 = s("i6")
-    a = win(t, t0 - 0.3, e("i6") + 0.3, 0.6, 0.5)
+    a = win(t, t0 + 0.15, e("i6") + 0.3, 0.5, 0.5)
     if a <= 0:
         return
     # 笔记本

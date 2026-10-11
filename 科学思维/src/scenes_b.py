@@ -291,7 +291,7 @@ def scene_swans(ctx):
     t, c = ctx.t, ctx.c
     t0 = s("f2")
     t_black = at("f2", "一只黑天鹅")
-    a = win(t, t0 - 0.2, s("f3") + 0.1, 0.5, 0.6)
+    a = win(t, t0 - 0.2, s("f3") - 0.35, 0.5, 0.3)
     if a <= 0:
         return
     # 命题牌
@@ -353,7 +353,7 @@ def _eclipse(c, t, a):
 
 def scene_eclipse(ctx):
     t, c = ctx.t, ctx.c
-    a = win(t, s("f3") - 0.3, e("f5") + 0.5, 0.6, 0.6)
+    a = win(t, s("f3") - 0.02, e("f5") + 0.5, 0.5, 0.6)
     if a <= 0:
         return
     _eclipse(c, t, a)
@@ -645,8 +645,10 @@ def scene_gates(ctx):
                 text(c, "？", gx[passed] + 24, y, 30, "sans_bold", GREY, a, "c")
             else:
                 cross(c, gx[passed] + 24, y, 22, RED, a, ease((t - t_run - j * 0.12 - 1.6) / 0.3), 3.5)
-            text(c, note, gx[passed] + 50, y, 18, "sans_light", DIM, a * ease((t - t_run - j * 0.12 - 1.7) / 0.4),
-                 "l", 1)
+            kn = a * ease((t - t_run - j * 0.12 - 1.7) / 0.4)
+            nw = E.measure(note, 22, "sans_reg", 1)
+            rrect(c, gx[passed] + 40, y - 18, nw + 20, 36, 10, paint((0.02, 0.02, 0.05), 0.85 * kn))
+            text(c, note, gx[passed] + 50, y, 22, "sans_reg", INK, kn, "l", 1)
         if passed == 4 and prog > 0.98:
             check(c, x + tw / 2 + 26, y, 26, GREEN, a, ease((t - t_run - j * 0.12 - 1.6) / 0.3), 4)
 

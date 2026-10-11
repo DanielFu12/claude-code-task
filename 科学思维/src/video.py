@@ -34,7 +34,7 @@ TINT = {
     "outro": (0.02, 0.035, 0.08),
 }
 CHAPTER = {
-    "hook": ("序章", "眼见为实？"), "blood": ("序章", "眼见为实？"),
+    "blood": ("序章", "眼见为实？"),
     "cause": ("01", "相关 ≠ 因果"), "falsify": ("02", "可证伪性"), "barnum": ("03", "伪科学的魔术"),
     "correct": ("04", "纠错的机器"), "invest": ("05", "像科学家一样投资"), "end": ("终章", "不要欺骗自己"),
 }
@@ -59,7 +59,7 @@ def tint_at(t):
     return base
 
 
-# ---------------------------------------------------------------- 字幕：按标点切块，时间按字数分配
+# ---------------------------------------------------------------- 字幕（屏幕旁白）：按标点切块，每块从拍点上弹出
 PUNCT = "，。：；？！、—"
 
 
@@ -91,37 +91,43 @@ for lid in T.ORDER:
     ws = [_weight(c) for c in ch]
     tot = sum(ws)
     acc = t0
-    for c, w in zip(ch, ws):
-        d = (t1 - t0) * w / tot
-        txt = c.rstrip("，。：；、—")
-        SUBS.append((acc, acc + d, txt))
-        acc += d
+    starts = []
+    for w in ws:
+        b = T.q(acc) if not starts else max(T.q(acc), starts[-1] + 2 * T.BEAT)
+        starts.append(b)
+        acc += (t1 - t0) * w / tot
+    for j, c in enumerate(ch):
+        end = starts[j + 1] if j + 1 < len(ch) else t1
+        SUBS.append((starts[j], end, c.rstrip("，。：；、—")))
 
 
 def draw_subtitle(c, t):
     for i, (a, b, s) in enumerate(SUBS):
         nxt = SUBS[i + 1][0] if i + 1 < len(SUBS) else 1e9
-        hold = min(b + 0.35, nxt - 0.1)    # 句间短暂停顿时保持字幕；下一句出现前先收起，不重叠
+        hold = min(b + 0.6, nxt - 0.08)    # 句间停顿时保持字幕；下一句出现前先收起，不重叠
         if a - 0.02 <= t <= hold + 0.08:
-            al = ease((t - a + 0.02) / 0.12) * (1 - ease((t - hold) / 0.08))
+            al = ease((t - a + 0.02) / 0.1) * (1 - ease((t - hold) / 0.08))
             if al <= 0:
                 continue
-            size = 40
-            tw = E.measure(s, size, "sans_med", 1.5)
-            y = 1006
-            E.rrect(c, CX - tw / 2 - 26, y - 34, tw + 52, 66, 14, E.paint((0, 0, 0), 0.38 * al, blur=14))
+            size = 46
+            tw = E.measure(s, size, "sans_med", 2)
+            y = 996
+            E.rrect(c, CX - tw / 2 - 30, y - 38, tw + 60, 76, 16, E.paint((0, 0, 0), 0.40 * al, blur=16))
+            pop = E.ease_out((t - a) / 0.22, 3)     # 每块字幕在拍点上轻轻弹起
             # 「」内的词用品牌金色高亮
             x = CX - tw / 2
             hl = False
             f = E.font("sans_med", size)
-            for ch in s:
+            n = len(s)
+            for j, ch in enumerate(s):
                 if ch == "「":
                     hl = True
                 if ch == "」":
                     hl = False
                 col = E.GOLD if (hl and ch not in "「」") else E.INK
-                c.drawString(ch, x, y + size * 0.36, f, E.paint(col, al))
-                x += f.measureText(ch) + 1.5
+                kc = E.ease_out(pop * (n + 4) / 4 - j / 4 * 0.9, 2) if pop < 1 else 1.0
+                c.drawString(ch, x, y + size * 0.36 + 10 * (1 - kc), f, E.paint(col, al * kc))
+                x += f.measureText(ch) + 2
 
 
 def draw_chapter(c, t):
@@ -129,8 +135,6 @@ def draw_chapter(c, t):
     if sec not in CHAPTER:
         return
     a0, a1 = T.SEC[sec]
-    if sec in ("hook", "blood"):
-        a0, a1 = T.SEC["hook"][0], T.SEC["blood"][1]
     al = ease((t - a0 - 0.6) / 0.8) * (1 - ease((t - a1 + 0.5) / 0.4))
     if al <= 0:
         return
@@ -175,12 +179,28 @@ STAR_PH = _r.random(STAR_N) * 6.28
 STAR_F = 0.3 + _r.random(STAR_N) * 1.4
 
 
-def hit_env(t, tau):
+def hit_env(t, tau, cut=False):
     v = 0.0
     for h in T.HITS:
-        if h <= t:
+        if h <= t and not (cut and h == T.BRAND_T):
             v = max(v, math.exp(-(t - h) / tau))
     return v
+
+
+def acc_env(t, tau):
+    v = 0.0
+    for h in T.ACCENTS:
+        if h <= t < h + 2:
+            v = max(v, math.exp(-(t - h) / tau))
+    return v
+
+
+def pre_hit(t):
+    """章节重拍前 0.3 秒：画面推入黑场（与配乐抽空同步）。"""
+    for h in T.HITS[:-1]:
+        if h - 0.3 <= t < h:
+            return ease((t - h + 0.3) / 0.22)
+    return 0.0
 
 
 def render_frame(t):
@@ -190,9 +210,12 @@ def render_frame(t):
     c = surf.getCanvas()
     ctx = Ctx(t, c)
     sec = section_at(t)
-    # 镜头：每个章节缓慢推近（序章的棋盘自带镜头）
+    # 镜头：每个章节缓慢推近；重拍与重音处轻推一下；重拍前 0.3 秒（音乐抽空）推入黑场
     a0, a1 = T.SEC[sec]
     zoom = 1.0 if sec in ("hook", "outro") else 1.0 + 0.035 * ease((t - a0) / max(a1 - a0, 1))
+    zoom *= 1 + 0.05 * hit_env(t, 0.28, cut=True) + 0.018 * acc_env(t, 0.22)
+    dark = pre_hit(t)
+    zoom *= 1 + 0.06 * dark
     ctx.zoom = zoom
     c.save()
     c.translate(CX, 540)
@@ -221,11 +244,12 @@ def render_frame(t):
     if ctx._parts is not None:
         img += ctx._parts
     img = E.post(img, t, bloom=ctx.bloom, vign=ctx.vign, grain=ctx.grain, ca=hit_env(t, 0.22) * 1.2)
-    # 重拍闪白
-    fl = hit_env(t, 0.12)
-    if fl > 0.01 and sec != "hook":
-        img += fl * 0.22
-    gfade = clip01(t / 0.6) * clip01((T.DUR - t) / 1.6)
+    # 重拍闪白 / 重音微闪
+    fl = hit_env(t, 0.12) * 0.22 + acc_env(t, 0.10) * 0.06
+    if fl > 0.004:
+        img += fl
+    img *= 1 - 0.92 * dark
+    gfade = clip01(t / 0.3) * clip01((T.DUR - t) / 1.6)
     outro.draw_logo(img, t)                       # 片尾原始 logo 与品牌字（后期之后合成，颜色不被改动）
     img *= gfade
     E.BRAND_HUD.draw(img, t, gfade)               # 右上角官方角标：全程保留，只随整片最终淡出
@@ -234,7 +258,7 @@ def render_frame(t):
     out[..., 3] = 255
     s2 = skia.Surface(out, colorType=skia.kRGBA_8888_ColorType)
     c2 = s2.getCanvas()
-    c2.saveLayerAlpha(None, int(255 * gfade))
+    c2.saveLayerAlpha(None, int(255 * gfade * (1 - dark)))
     draw_chapter(c2, t)
     draw_subtitle(c2, t)
     c2.restore()
