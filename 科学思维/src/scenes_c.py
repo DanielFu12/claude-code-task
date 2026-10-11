@@ -360,7 +360,7 @@ def scene_darwin(ctx):
     if a <= 0:
         return
     E.slam(c, "达尔文的「黄金法则」", 1420, 300, 52, t, t0, "serif_black", INK, a, 8)
-    tq = at("i5", "凡是")
+    tq = t0 + B
     k = ease_out((t - tq) / 0.4)
     text(c, "与自己理论相反的事实，", 1420, 400, 32, "serif_med", INK, a * k, "c", 2)
     text(c, "立刻记下来——", 1420, 452, 32, "serif_med", INK, a * k, "c", 2)
@@ -368,14 +368,14 @@ def scene_darwin(ctx):
     text(c, "——《达尔文自传》（大意）", 1420, 570, 24, "sans_light", GREY, a * k, "c", 2)
     # 笔记本：与「8 很灵」相反的记录
     nx, ny, nw, nh = 230, 210, 760, 640
-    kn = ease_out((t - tq) / 0.3)
+    kn = ease_out((t - t0 - B) / 0.3)
     rrect(c, nx, ny, nw, nh, 18, paint((0.96, 0.92, 0.82), 0.08 * a * kn))
     rrect(c, nx, ny, nw, nh, 18, paint((0.96, 0.92, 0.82), 0.55 * a * kn, stroke=2))
     for i in range(10):
         line(c, nx + 40, ny + 130 + i * 50, nx + nw - 40, ny + 130 + i * 50, INK, 0.10 * a * kn, 1)
     text(c, "与「8 很灵」相反的记录", nx + 40, ny + 68, 34, "serif_black", GOLD, a * kn, "l", 4)
     for i, (when, what, res) in enumerate(NOTES):
-        ti = tq + (i + 1) * B
+        ti = t0 + (i + 2) * B
         if t < ti:
             continue
         ki = ease_out((t - ti) / 0.2)

@@ -82,10 +82,10 @@ def scene_final_line(ctx):
     """终句：先以文字出现，LOGO_T 时化作粒子。"""
     t, c = ctx.t, ctx.c
     t0 = T.s("e5")
-    a = ease((t - t0 + 0.1) / 0.6) * (1 - ease((t - T.LOGO_T) / 0.35))
+    a = ease((t - t0 + 0.05) / 0.15) * (1 - ease((t - T.LOGO_T) / 0.35))
     if a > 0:
         E.text(c, FINAL_LINE, CX, FINAL_Y, FINAL_SIZE, "serif_bold", INK, a, "c", 14,
-               reveal=ease((t - t0 + 0.1) / 1.4), glow=0.25, glow_rgb=GOLD)
+               reveal=ease((t - t0 + 0.05) / 0.7), glow=0.25, glow_rgb=GOLD)
     if t < T.LOGO_T - 0.1:
         return
     # 粒子：文字 → logo

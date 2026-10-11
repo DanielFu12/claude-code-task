@@ -243,7 +243,7 @@ def scene_c8(ctx):
     if a <= 0:
         return
     text(c, "医学把这一招用到了极致", CX, 300, 34, "sans_med", DIM, a * ease_out((t - t0) / 0.25), "c", 8)
-    tb = at("c8", "随机对照")
+    tb = t0 + 2 * B
     if t >= tb:
         E.slam(c, "随机对照实验", CX, 470, 120, t, tb, "serif_black", INK, a, 16, glow=0.3, glow_rgb=CYAN)
         text(c, "R A N D O M I Z E D   C O N T R O L L E D   T R I A L", CX, 580, 24, "inter_light", CYAN,
