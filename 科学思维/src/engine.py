@@ -475,7 +475,10 @@ def pigeon(c, x, y, sc, a, t, mode="idle", rgb=(0.62, 0.66, 0.78), phase=0.0):
     bob = 2 * math.sin(tt * 7)
     c.scale(sc * (flip if abs(flip) > 0.05 else 0.05), sc)
     c.rotate(tilt)
-    body = paint(rgb, a)
+    bsh = skia.GradientShader.MakeRadial(skia.Point(-14, -22 + 2 * math.sin(tt * 7)), 110,
+                                         [c4(mixc(rgb, (1, 1, 1), 0.45)), c4(rgb), c4(mixc(rgb, (0.05, 0.06, 0.1), 0.55))],
+                                         [0.0, 0.45, 1.0])
+    body = paint(shader=bsh, a=a)
     # 尾巴
     tail = skia.Path()
     tail.moveTo(-48, 6)
@@ -486,6 +489,10 @@ def pigeon(c, x, y, sc, a, t, mode="idle", rgb=(0.62, 0.66, 0.78), phase=0.0):
     c.drawPath(tail, paint(mixc(rgb, (0.2, 0.22, 0.3), 0.4), a))
     # 身体
     c.drawOval(skia.Rect.MakeLTRB(-66, -34 + bob, 58, 36 + bob), body)
+    rim = skia.Path()
+    rim.addArc(skia.Rect.MakeLTRB(-66, -34 + bob, 58, 36 + bob), 200, 120)
+    c.drawPath(rim, paint((0.85, 0.92, 1.0), 0.55 * a, stroke=2.5, blur=1.2))
+    c.drawOval(skia.Rect.MakeLTRB(-60, 40, 50, 52), paint((0, 0, 0), 0.35 * a, blur=6))
     # 翅膀
     wing = skia.Path()
     wing.moveTo(-40, -10 + bob)
@@ -675,3 +682,47 @@ def trade_card(c, x, y, a, code, pct, t=0.0, w=480, h=150, label="买入", glow=
     text(c, f"{v:+.1f}%", x0 + w - 28, y0 + 84, 48, "inter_bold", col, a, "r", glow=0.35, glow_rgb=col)
     vals = walk(24, seed, 0.03 if up else -0.03, 0.05)
     spark(c, x0 + w - 190, y0 + 112, 160, 26, vals, col, a * 0.8, 1.0, 2.0, fill=False)
+
+
+# ================================================================ v5：镜头质感
+def anamorphic(img, strength, tint=(0.55, 0.75, 1.0), thr=0.62):
+    """横向的变形镜头光条：高光处拉出一道细长的光（大字砸下时更亮）。"""
+    if strength <= 0.003:
+        return img
+    lum = img.max(2)
+    hi = np.clip(lum - thr, 0, None)
+    small = cv2.resize(hi, (W // 8, H // 8), interpolation=cv2.INTER_AREA)
+    k = cv2.getGaussianKernel(121, 34).T
+    st = cv2.filter2D(small, -1, k, borderType=cv2.BORDER_CONSTANT)
+    st = cv2.filter2D(st, -1, cv2.getGaussianKernel(3, 0.8), borderType=cv2.BORDER_CONSTANT)
+    big = cv2.resize(st, (W, H), interpolation=cv2.INTER_LINEAR)
+    img += big[..., None] * np.asarray(tint, np.float32)[None, None, :] * (strength * 2.2)
+    return img
+
+
+def grid_floor(c, t, a, rgb=GOLD, horizon=560, beat=BEAT_, origin=0.0):
+    """透视地面网格：横线每拍向镜头推进一格（锁在节拍上）。"""
+    if a <= 0.003:
+        return
+    vx = CX
+    p = paint(rgb, 0.0, stroke=1.4)
+    for i in range(-14, 15):
+        x_far = vx + i * 40
+        x_near = vx + i * 340
+        al = a * 0.5 * (1 - abs(i) / 15)
+        p.setAlphaf(float(al))
+        c.drawLine(x_far, horizon, x_near, H + 40, p)
+    ph = ((t - origin) / beat) % 1.0
+    for j in range(12):
+        z = (j + 1 - ph)                     # 深度：数值越小越近
+        if z <= 0.05:
+            continue
+        y = horizon + (H + 40 - horizon) / z ** 1.15
+        if y > H + 40:
+            continue
+        al = a * min(1.0, 1.2 / z) * 0.6
+        p.setAlphaf(float(min(1.0, al)))
+        c.drawLine(0, y, W, y, p)
+    sh = skia.GradientShader.MakeLinear([skia.Point(0, horizon - 4), skia.Point(0, horizon + 160)],
+                                        [c4((0.01, 0.012, 0.02), 1.0), c4((0.01, 0.012, 0.02), 0.0)], [0, 1])
+    c.drawRect(skia.Rect.MakeLTRB(0, horizon - 4, W, horizon + 160), paint(shader=sh, a=1.0))

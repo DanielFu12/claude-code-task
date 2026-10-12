@@ -222,6 +222,24 @@ def pulse_at(t):
     return float(PULSE[min(len(PULSE) - 1, max(0, int(round(t * FPS))))])
 
 
+GRID = [(T.s("s1"), T.s("s5"), E.GOLD), (T.s("c2"), T.s("c5"), E.UP), (T.s("i1"), T.s("i3"), E.GOLD),
+        (T.s("i7"), T.SEC["invest"][1], E.GOLD)]
+_LY, _LX = np.mgrid[0:H // 8, 0:W // 8].astype(np.float32) * 8
+
+
+def light_leak(img, t):
+    """章节重拍后的漏光：一团暖光从画面一侧扫过（1.3 秒）。"""
+    for i, h in enumerate(T.HITS[:-1]):
+        k = (t - h) / 1.3
+        if 0 <= k < 1:
+            x = (-0.2 + 1.4 * E.ease_out(k, 2)) * W if i % 2 == 0 else (1.2 - 1.4 * E.ease_out(k, 2)) * W
+            y = H * (0.25 + 0.5 * (i % 3) / 2)
+            g = np.exp(-(((_LX - x) / (W * 0.28)) ** 2 + ((_LY - y) / (H * 0.45)) ** 2))
+            col = np.array((1.0, 0.55, 0.22) if i % 2 == 0 else (1.0, 0.75, 0.45), np.float32)
+            leak = cv2.resize(g, (W, H), interpolation=cv2.INTER_LINEAR)[..., None] * col * (0.22 * (1 - k) ** 1.5)
+            img += leak
+
+
 def render_frame(t):
     arr = np.zeros((H, W, 4), np.uint8)
     arr[..., 3] = 255
@@ -244,6 +262,10 @@ def render_frame(t):
     c.translate(CX + sx_, 540 + sy_)
     c.scale(zoom, zoom)
     c.translate(-CX, -540)
+    for (g0, g1, rgb) in GRID:
+        ga = E.cutin(t, g0, g1, 0.35, 0.35)
+        if ga > 0:
+            E.grid_floor(c, t, 0.30 * ga, rgb, origin=T.ORIGIN)
     for (t0, t1, fn) in SCENES:
         if t0 <= t < t1:
             fn(ctx)
@@ -271,7 +293,11 @@ def render_frame(t):
     if blur_amt > 0.003:
         img = E.zoom_blur(img, blur_amt)
     img *= 1 + 0.035 * pu
+    warm = sec in ("hook", "eight", "title", "invest", "outro")
+    E.anamorphic(img, 0.14 + 0.6 * acc_env(t, 0.25) + 0.8 * hit_env(t, 0.35, cut=True),
+                 (1.0, 0.72, 0.38) if warm else (0.50, 0.72, 1.0))
     img = E.post(img, t, bloom=ctx.bloom, vign=ctx.vign, grain=ctx.grain, ca=hit_env(t, 0.22) * 1.6 + 0.4 * dark)
+    light_leak(img, t)
     # 重拍闪白 / 重音微闪
     fl = hit_env(t, 0.12) * 0.22 + acc_env(t, 0.10) * 0.06
     if fl > 0.004:

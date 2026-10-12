@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 一键重建《科学思维》
-# 依赖: ffmpeg, python3 (numpy scipy opencv-python-headless pillow soundfile pyloudnorm skia-python)
+# 依赖: ffmpeg, fluidsynth + fluid-soundfont-gm（apt）, python3 (numpy scipy opencv-python-headless pillow soundfile pyloudnorm skia-python pyfluidsynth)
 # 品牌角标、片尾 logo 与品牌字体/金色取自仓库根目录 brand/（见 brand/BRAND.md）
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -11,7 +11,7 @@ get Noto+Serif+SC 300 serif_light; get Noto+Serif+SC 500 serif_med; get Noto+Ser
 get Noto+Sans+SC 300 sans_light; get Noto+Sans+SC 400 sans_reg; get Noto+Sans+SC 500 sans_med; get Noto+Sans+SC 700 sans_bold
 get Inter 200 inter_thin; get Inter 300 inter_light; get Inter 500 inter_med; get Inter 700 inter_bold
 get Cormorant+Garamond 500 corm; get Cormorant+Garamond 600 corm6; get JetBrains+Mono 400 mono
-# 2) 原创卡点配乐（numpy 合成，100 BPM，与画面共用节拍网格）
+# 2) 原创卡点配乐（FluidR3_GM 采样 + numpy 鼓组，112.9 BPM，与画面共用节拍网格）
 python3 src/music.py work
 # 3) 逐帧渲染（4 进程并行）
 python3 src/video.py render

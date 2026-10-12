@@ -1,6 +1,6 @@
 """时间轴：由文字脚本推出所有时间点，并全部吸附到配乐的节拍网格上。画面、字幕、配乐共用。
 
-- 配乐以 opus5.5涌现 的原曲为底（112.9 BPM，一拍 0.5314 s），第 0 小节从 ORIGIN 秒开始。
+- 原创配乐（src/music.py）写在这张网格上：112.9 BPM，一拍 0.5314 s，第 0 小节从 ORIGIN 秒开始。
 - 每句字幕按阅读时长占若干拍，从拍点开始；每个章节从小节线开始，有重拍的章节在第一拍打击。
 - T.s('c3') / T.e('c3')：某句的开始 / 结束；T.at('c6', '抛硬币')：句中某个词的出现时刻（吸附到拍点）。
 - T.ACCENTS：段落中间的重音（画面里的关键揭示），配乐在这些拍点上加打击，镜头轻推。
@@ -16,10 +16,10 @@ from script import SECTIONS, FIXED_BEATS  # noqa: E402
 HERE = os.path.dirname(os.path.abspath(__file__))
 WORK = os.environ.get("WORK", os.path.join(HERE, "..", "work"))
 FPS = 30
-BEAT = 0.5314021732630634          # 原曲实测：拍点与固定网格的中位偏差约 3 ms
+BEAT = 0.5314021732630634          # 112.9 BPM
 BPM = 60 / BEAT
 BAR = 4 * BEAT
-ORIGIN = 0.6579022113645169 - BEAT  # 原曲第 0 小节的第一拍
+ORIGIN = 0.6579022113645169 - BEAT  # 第 0 小节的第一拍
 
 PUNCT = "，。：；？！、—「」“” ·"
 
@@ -44,23 +44,9 @@ def q(t, mode="round"):
     return beat_t(k)
 
 
-# 每章的小节数（与原曲段落的编排一一对应，见 MUSIC_MAP）；内容放不下时会报错
+# 每章的小节数（配乐按章节逐小节编写）；内容放不下时会报错
 SECTION_BARS = {"hook": 8, "eight": 24, "title": 2, "cause": 18, "falsify": 16, "barnum": 12, "correct": 12,
                 "invest": 24, "end": 12}
-# 原曲小节编排：每章用原曲的哪些小节（第 0 小节 = 原曲 0.13 s）。原曲 4 小节一个和声循环（F–F–D♭–E♭），
-# 章与章之间的拼接都落在循环起点，所以和声无缝；重拍前 0.27 s 抽空 + 冲击音效再进一步遮住接缝。
-MUSIC_MAP = {
-    "hook": [(0, 8)],                       # 前奏
-    "eight": [(8, 22), (22, 32)],           # 第一次 drop（高能）→ 中段（鸽子）
-    "title": [(8, 10)],                     # 再次 drop
-    "cause": [(10, 22), (22, 28)],          # 接着 drop 往下走
-    "falsify": [(36, 44), (44, 52)],        # 间奏（亏钱、找借口）→ 回升（日食、星光偏了）
-    "barnum": [(22, 34)],                   # 中段
-    "correct": [(36, 44), (44, 48)],        # 间奏 → 回升
-    "invest": [(8, 22), (22, 32)],          # 「回到股市」：drop
-    "end": [(36, 44), (44, 48)],            # 间奏 → 回升
-    "outro": [(48, 52), (56, 58)],          # 回升 → 原曲的最后一个和弦（品牌字落在这里）
-}
 OUTRO_BARS = 6
 
 LINES = {}           # id -> (start, end, subtitle)
@@ -88,13 +74,11 @@ for name, lead, hit, lines in SECTIONS:
     b = s0b + need
     SEC[name] = (s0, beat_t(b))
 SEC["hook"] = (0.0, SEC["hook"][1])
-for k, v in MUSIC_MAP.items():
-    assert sum(e - a for a, e in v) == (SECTION_BARS.get(k) or OUTRO_BARS), k
 
 LAST_END = SEC[list(SEC)[-1]][1]
 LOGO_T = LAST_END                       # 终句化作粒子、开始汇聚成 logo（小节线）
 LOGO_SHOW = LOGO_T + 2 * BAR            # 清晰 logo 浮现
-BRAND_T = LOGO_T + 4 * BAR              # 金色「巴芒价值」落在原曲最后一个和弦上
+BRAND_T = LOGO_T + 4 * BAR              # 金色「巴芒价值」落在配乐最后的 D 大调和弦上
 DUR = LOGO_T + OUTRO_BARS * BAR + 0.4
 HITS.append(BRAND_T)
 SEC["outro"] = (LAST_END, DUR)
