@@ -16,7 +16,7 @@ get Cormorant+Garamond 600 corm; get Cormorant+Garamond 700 corm_bold
 # 2) 原创配乐（numpy 合成）→ build/music.wav + 逐帧节拍数据
 python3 src/music.py build
 # 3) 逐帧渲染（4 进程并行，12 段）
-CRF=12 PRESET=slow python3 src/video.py render 4
+CRF=12 PRESET=medium python3 src/video.py render 4
 ffmpeg -v error -y -f concat -safe 0 -i build/chunks.txt -c copy build/master_video.mp4
 # 4) 成片：两遍编码控制在 GitHub 单文件 100 MB 以内；音频 AAC 192k
 VBR=3700k
