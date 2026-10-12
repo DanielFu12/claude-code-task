@@ -21,10 +21,13 @@ for p in 1 2; do
     -pass $p -passlogfile work/x264 -pix_fmt yuv420p -c:a aac -b:a 256k -shortest -movflags +faststart \
     $( [ $p = 1 ] && echo "-f mp4 /dev/null" || echo "科学思维.mp4" )
 done
-# 5) 预览版（720p，< 30 MB）
+# 5) 预览版（720p，< 30 MB）：视频两遍编码；音频留 1.5 dB 余量并限幅，避免低码率 AAC 解码后过冲
 for p in 1 2; do
   ffmpeg -v error -y -i "科学思维.mp4" -vf scale=1280:720:flags=lanczos -c:v libx264 -preset slow -b:v 640k \
-    -pass $p -passlogfile work/x264p -pix_fmt yuv420p -c:a aac -b:a 128k -cutoff 16000 -movflags +faststart \
-    $( [ $p = 1 ] && echo "-f mp4 /dev/null" || echo "work/科学思维_预览版.mp4" )
+    -pass $p -passlogfile work/x264p -pix_fmt yuv420p -an -movflags +faststart \
+    $( [ $p = 1 ] && echo "-f mp4 /dev/null" || echo "work/preview_v.mp4" )
 done
+ffmpeg -v error -y -i work/preview_v.mp4 -i work/score.wav -map 0:v -map 1:a -c:v copy \
+  -af "volume=-1.5dB,alimiter=limit=0.70:level=false:attack=2:release=60" -c:a aac -b:a 160k -cutoff 17000 \
+  -shortest -movflags +faststart "work/科学思维_预览版.mp4"
 echo "done -> 科学思维.mp4"
