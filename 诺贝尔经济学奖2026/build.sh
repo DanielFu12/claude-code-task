@@ -30,6 +30,6 @@ PV=550k
 ffmpeg -v error -y -i build/master_video.mp4 -vf scale=720:1280:flags=lanczos -c:v libx264 -preset slow -b:v $PV -pass 1 \
   -passlogfile build/x264p -pix_fmt yuv420p -an -f mp4 /dev/null
 ffmpeg -v error -y -i build/master_video.mp4 -i build/music.wav -map 0:v -map 1:a -vf scale=720:1280:flags=lanczos \
-  -c:v libx264 -preset slow -b:v $PV -pass 2 -passlogfile build/x264p -pix_fmt yuv420p -c:a aac -b:a 128k -shortest \
+  -c:v libx264 -preset slow -b:v $PV -pass 2 -passlogfile build/x264p -pix_fmt yuv420p -c:a aac -b:a 144k -shortest \
   -movflags +faststart "$PREVIEW"
 ls -la "$OUT" "$PREVIEW"
