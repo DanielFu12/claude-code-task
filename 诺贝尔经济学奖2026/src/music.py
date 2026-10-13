@@ -766,6 +766,20 @@ def breath_and_impact():
         KICKS.append((T, 1.2))
 
 
+def soften_hits(mix, fc=8000.0, pre=0.006, post=0.03):
+    """大重拍的起音约 30 ms 内只保留 8 kHz 以下：「换气」后的突然重击会让 AAC 编码过冲 5 dB 以上（真峰值超 0 dBFS），
+    柔化高频起音后成片真峰值回到 -1 dBTP 以下，低频冲击力不变"""
+    for key in BIG:
+        T = HITS[key]
+        i0, i1 = S(T - pre - 0.05), S(T + post + 0.05)
+        seg = mix[i0:i1].copy()
+        lo = lp(seg, fc, 4)
+        t = np.arange(i1 - i0) / SR - 0.05 - pre
+        w = np.clip(t / 0.003, 0, 1) * np.clip(1 - (t - pre) / post, 0, 1) ** 2
+        mix[i0:i1] = seg * (1 - w[:, None]) + lo * w[:, None]
+    return mix
+
+
 def main(build):
     os.makedirs(build, exist_ok=True)
     print('arranging…', flush=True)
@@ -816,6 +830,7 @@ def master(build, mix=None, out='music.wav'):
     # 响度：-14 LUFS，限幅 -1 dBFS
     gain = 10 ** ((-14.0 - lufs(mix)) / 20)
     mix = limiter(mix * gain, ceil=10 ** (-1.2 / 20))
+    mix = soften_hits(mix)
     # 头尾
     f = S(2.0)
     mix[-f:] *= np.linspace(1, 0, f)[:, None] ** 2
