@@ -1,15 +1,16 @@
-"""原创配乐 + 音效（numpy 合成）。120 BPM，D 小调 → 结尾转 D 大调。
+"""原创配乐 + 音效（numpy 合成）。120 BPM，D 小调 → 结尾转 D 大调，共 149 小节（4 分 58 秒）。
 
-段落与画面一一对应（见 timeline.py）：
-  钩子：时钟滴答 + 低频脉冲，「可是」处抽空后重击 → 标题重拍
-  01 反常：拨弦琶音律动，逐层加入贝斯、拍手、踩镲；悖论处抽掉鼓
-  02 地基：诺奖重拍（明亮大三和弦 + 铃）→ 旧模型「数据点」下行音 → 晶体碎裂 → 重建
-  03 霍尔：温暖的 felt piano 主题 + 弦乐
-  04 伍德福德：钟表式拨奏 ostinato，央行旋钮、德拉吉一句话
-  05 传导：全编制高潮 → 恶性循环转暗 → 推绳子 → 财政重建
-  06 真相：钢琴 + 弦乐，关键句转 D 大调
-  获奖者：庄重的赞美诗和声 + 定音鼓
+段落与画面一一对应（见 timeline.py，小节号 = 秒 / 2）：
+  冷开场：利率每跳一次一声滴答；「按常理」一段上行；「可是」低音重击后进入不安的切分律动 → 标题重拍
+  01 谨慎：拨弦琶音律动逐层加入贝斯、踩镲、拍手；企业观望处半速；「预期」一声铃 → 诺奖重拍
+  02 诺奖：旧模型数据点下行 → 1970 年代晶体碎裂 → 碎片聚拢、上行重建
+  03 霍尔：温暖的钢琴主题两遍 + 弦乐；「意外」处整体抽空、转暗，再回到温暖
+  04 伍德福德：钟表式拨奏 + 滴答 + 工厂律动；德拉吉一句话后舒展；「那么问题来了」抽空 → 重拍
+  05 回到中国：全编制高潮（良性循环）→ 心跳（恶性循环）→ 时钟（真实利率）→ 推绳子 → 财政重建
+      →「但别忘了霍尔的发现」时霍尔主题再现
+  06 真相：钢琴 + 弦乐，关键句转 D 大调；获奖者：赞美诗和声 + 定音鼓
   片尾：汇聚 riser → logo 重拍 → 品牌字重拍 + 流光铃音 → 淡出
+  四张「发现」卡片共用同一个铃声音型，形成记忆点。
 
 用法：python3 music.py BUILD_DIR   → music.wav（48 kHz 立体声）+ music_meta.json（逐帧节拍/能量，供画面同步）
 """
@@ -22,7 +23,7 @@ import numpy as np
 import soundfile as sf
 
 from synth import *          # noqa: F401,F403
-from timeline import BAR, BEAT, DUR, FPS, b, HITS
+from timeline import BAR, BEAT, CAP, DUR, FPS, HITS, SHIMMER_T0, T, b
 
 N = S(DUR)
 
@@ -36,24 +37,41 @@ CH = {
     'Em7': ([50, 55, 59, 64], 40), 'Bbadd9': ([50, 53, 58, 60], 34), 'Gm7': ([50, 53, 55, 58], 43),
     'Dadd9': ([50, 54, 57, 64], 38), 'Dpow': ([38, 45, 50], 38),
 }
-PROG = [  # (起始小节, 和弦)
-    (0, 'Dpow'), (2, 'Dm'), (3, 'Bb'), (4, 'Gm'), (5, 'A'),
-    (6, 'Bbadd9'), (7, 'F/A'), (8, 'Gm7'), (9, 'Asus'), (9.5, 'A'),
-] + [(10 + i, c) for i, c in enumerate(['Dm', 'Bb', 'F', 'C'] * 3)] + [
-    (22, 'Gm'), (23, 'A'), (24, 'Bb'), (25, 'F'), (26, 'C'), (27, 'Dm'), (28, 'Gm'), (29, 'A'),
-    (30, 'F'), (31, 'C/E'), (32, 'Dm'), (34, 'Bb'), (35, 'C'),
-    (36, 'F'), (37, 'C/E'), (38, 'Dm'), (39, 'Bb'), (40, 'F'), (41, 'C/E'), (42, 'Dm'), (43, 'Bb'),
-    (44, 'Gm'), (45, 'Bb'), (46, 'C'),
-    (47, 'Gm'), (48, 'Bb'), (49, 'Dm'), (50, 'A'), (51, 'Gm'), (52, 'Bb'), (53, 'F'), (54, 'C'),
-    (55, 'Dm'), (56, 'Bb'), (57, 'A'),
-    (58, 'Dm'), (59, 'Bb'), (60, 'F'), (61, 'C'), (62, 'Dm'), (63, 'Bb'), (64, 'F'),
-    (64.5, 'Gm'), (65.5, 'Eb'), (66, 'A'),
-    (67, 'Dm'), (68, 'Bb'), (69, 'Gm'), (70, 'A'),
-    (71, 'Bb'), (72, 'C'), (73, 'Dm'), (74, 'F'), (75, 'Gm'), (75.5, 'A'),
-    (76, 'Bb'), (77, 'F/A'), (78, 'Gm'), (79, 'D'), (80, 'Bm'), (81, 'Asus'), (81.5, 'A'),
-    (82, 'D'), (83, 'A/C#'), (84, 'Bm'), (85, 'G'), (86, 'D/F#'), (87, 'Em7'), (88, 'Asus'), (88.5, 'A'),
-    (89, 'G'), (89.5, 'A'), (90, 'Dadd9'), (94, None),
+PROG = [  # (起始小节, 和弦)；1 小节 = 2 s，小节号 = 秒 / 2
+    # 冷开场 0–14：利率下行 → 「按常理」→「可是」→ 钱去哪了 → 为什么
+    (0, 'Dpow'), (3, 'F'), (4, 'C'),
+    (5, 'Dm'), (6, 'Bb'), (7, 'Gm'), (8, 'A'), (9, 'Dm'), (10, 'Bb'), (11, 'Gm'), (12, 'Bbadd9'), (13, 'Asus'), (13.5, 'A'),
+    # 标题 14–18
+    (14, 'Bbadd9'), (15, 'F/A'), (16, 'Gm7'), (17, 'Asus'), (17.5, 'A'),
+    # 01 谨慎 18–38
+    (18, 'Dm'), (19, 'Bb'), (20, 'F'), (21, 'C'), (22, 'Dm'), (23, 'Bb'), (24, 'F'), (25, 'C'),
+    (26, 'Dm'), (27, 'Bb'), (28, 'F'), (29, 'C'), (30, 'Dm'), (31, 'Bb'), (32, 'Gm'),
+    (33, 'Gm'), (34, 'Bb'), (35, 'Gm'), (35.5, 'A'), (36, 'Bb'), (37, 'C'),
+    # 02 诺奖 38–49
+    (38, 'F'), (39, 'C/E'), (40, 'Dm'), (41, 'Dm'), (42, 'Bb'), (43, 'Gm'), (43.5, 'Eb'), (44, 'A'),
+    (45, 'Dm'), (46, 'Bb'), (47, 'Gm'), (48, 'C'),
+    # 03 霍尔 49–73（主题两遍；69.5 意外）
+    (49, 'F'), (50, 'C/E'), (51, 'Dm'), (52, 'Bb'), (53, 'F'), (54, 'C/E'), (55, 'Dm'), (56, 'Bb'), (57, 'Gm'), (58, 'Bb'), (59, 'C'),
+    (60, 'F'), (61, 'C/E'), (62, 'Dm'), (63, 'Bb'), (64, 'F'), (65, 'C/E'), (66, 'Dm'), (67, 'Bb'), (68, 'Gm'), (69, 'Bb'),
+    (69.5, 'Eb'), (70, 'Gm'), (71, 'Bb'), (72, 'C'),
+    # 04 伍德福德 73–101
+    (73, 'Gm'), (74, 'Bb'), (75, 'Dm'), (76, 'A'), (77, 'Gm'), (78, 'Bb'), (79, 'F'), (80, 'C'), (81, 'Dm'), (82, 'Bb'),
+    (83, 'Gm'), (84, 'Bb'), (85, 'Dm'), (86, 'A'), (87, 'Gm'), (88, 'Bb'), (89, 'F'), (90, 'A'),
+    (90.5, 'Dm'), (92, 'Bb'), (93, 'F'), (94, 'C'), (95, 'A'), (96, 'Dm'), (97, 'Bb'), (98, 'Gm'), (100, 'A'),
+    # 05 回到中国 101–129
+    (101, 'Dm'), (102, 'Bb'), (103, 'F'), (104, 'C'), (105, 'Dm'), (106, 'Bb'), (107, 'F'), (107.5, 'C'),
+    (108, 'Gm'), (109, 'Eb'), (109.5, 'A'),
+    (110, 'Dm'), (111, 'Bb'), (112, 'Gm'), (113, 'A'), (114, 'Dm'), (115, 'Bb'), (116, 'Gm'), (117, 'A'),
+    (118, 'Dm'), (119, 'Asus'), (119.5, 'A'),
+    (120, 'Bb'), (121, 'C'), (122, 'Dm'), (122.5, 'F'), (123.5, 'C/E'), (124.5, 'Dm'), (125.5, 'Bb'), (126.5, 'Gm'), (128, 'A'),
+    # 06 真相 129–136（关键句转 D 大调）
+    (129, 'Bb'), (130, 'F/A'), (131, 'Gm'), (132, 'D'), (133, 'Bm'), (134, 'G'), (135, 'Asus'), (135.5, 'A'),
+    # 获奖者 136–144
+    (136, 'D'), (137, 'A/C#'), (138, 'Bm'), (139, 'G'), (140, 'D/F#'), (141, 'Em7'), (142, 'Asus'), (142.5, 'A'), (143, 'Bm'),
+    # 片尾 144–149
+    (144, 'G'), (144.5, 'A'), (145, 'Dadd9'), (149, None),
 ]
+END_BAR = 148.6           # 最后的和弦延续到这里（整片 149 小节）
 
 
 def chord_at(bar):
@@ -72,6 +90,10 @@ def segments():
 
 def ramp(x, a, z, v0, v1):
     return v0 + (v1 - v0) * min(max((x - a) / max(z - a, 1e-9), 0.0), 1.0)
+
+
+def bar_of(sec):
+    return sec / BAR
 
 
 # ---------------------------------------------------------------- 总线
@@ -103,430 +125,577 @@ def K(t, power=1.0, **kw):
     PULSE.append((t, power))
 
 
+def in_any(x, spans):
+    return any(a <= x < z for a, z in spans)
+
+
 # ---------------------------------------------------------------- 编曲
+def pad_level(s0, mid):
+    """每段和声垫的滤波截止频率与音量 —— 决定全片的明暗起伏"""
+    table = [
+        (0, 5, lambda: (ramp(mid, 0, 5, 380, 900), 0.55)),
+        (5, 12, lambda: (ramp(mid, 5, 12, 900, 1700), 0.55)),
+        (12, 14, lambda: (ramp(mid, 12, 14, 1200, 2600), 0.62)),
+        (14, 18, lambda: (2300, 0.85)),
+        (18, 33, lambda: (ramp(mid, 18, 33, 1100, 2600), 0.55)),
+        (33, 35.5, lambda: (1100, 0.6)),
+        (35.5, 38, lambda: (ramp(mid, 35.5, 38, 1500, 3200), 0.65)),
+        (38, 41, lambda: (3300, 0.85)),
+        (41, 43.5, lambda: (1300, 0.45)),
+        (43.5, 45, lambda: (800, 0.5)),
+        (45, 49, lambda: (ramp(mid, 45, 49, 1100, 2200), 0.5)),
+        (49, 69.5, lambda: (ramp(mid, 49, 69.5, 1500, 2600), 0.5)),
+        (69.5, 71, lambda: (850, 0.5)),
+        (71, 73, lambda: (2200, 0.55)),
+        (73, 90.5, lambda: (ramp(mid, 73, 90.5, 1300, 2600), 0.5)),
+        (90.5, 96, lambda: (2000, 0.55)),
+        (96, 98.5, lambda: (ramp(mid, 96, 98.5, 2000, 3200), 0.6)),
+        (98.5, 101, lambda: (900, 0.42)),
+        (101, 108, lambda: (3600, 0.8)),
+        (108, 110, lambda: (750, 0.75)),
+        (110, 118, lambda: (950, 0.42)),
+        (118, 120, lambda: (800, 0.42)),
+        (120, 122.5, lambda: (ramp(mid, 120, 122.5, 1300, 3000), 0.62)),
+        (122.5, 126.5, lambda: (2200, 0.55)),
+        (126.5, 129, lambda: (ramp(mid, 126.5, 129, 1800, 3300), 0.62)),
+        (129, 136, lambda: (ramp(mid, 129, 136, 2000, 2700), 0.55)),
+        (136, 144, lambda: (2600, 0.75)),
+        (144, 150, lambda: (3200, 0.8)),
+    ]
+    for a, z, f in table:
+        if a <= s0 < z:
+            return f()
+    return 2000, 0.5
+
+
 def pads():
     for s0, s1, c in segments():
         t0, t1 = b(s0), b(s1)
-        mid = (s0 + s1) / 2
         notes, root = CH[c]
-        if s0 < 2:
-            cut, g = ramp(mid, 0, 2, 380, 700), 0.55
-        elif s0 < 6:
-            cut, g = ramp(mid, 2, 6, 700, 1300), 0.6
-        elif s0 < 10:
-            cut, g = 2300, 0.85
-        elif s0 < 22:
-            cut, g = ramp(mid, 10, 22, 1100, 2600), 0.55
-        elif s0 < 24:
-            cut, g = 1100, 0.62
-        elif s0 < 28:
-            cut, g = 1700, 0.5
-        elif s0 < 30:
-            cut, g = ramp(mid, 28, 30, 1500, 3000), 0.65
-        elif s0 < 32:
-            cut, g = 3300, 0.85
-        elif s0 < 36:
-            cut, g = 1000, 0.45
-        elif s0 < 47:
-            cut, g = ramp(mid, 36, 47, 1500, 2400), 0.5
-        elif s0 < 58:
-            cut, g = ramp(mid, 47, 58, 1300, 2600), 0.5
-        elif s0 < 64.5:
-            cut, g = 3600, 0.8
-        elif s0 < 67:
-            cut, g = 750, 0.75
-        elif s0 < 71:
-            cut, g = 900, 0.42
-        elif s0 < 76:
-            cut, g = ramp(mid, 71, 76, 1200, 3300), 0.65
-        elif s0 < 82:
-            cut, g = 2000, 0.5
-        elif s0 < 89:
-            cut, g = 2600, 0.75
-        else:
-            cut, g = 3200, 0.8
-        dur = t1 - t0
-        if s0 >= 90:
-            dur = b(93.6) - t0
-        x = pad_chord(notes, dur + 0.05, cut=cut * 1.35, att=0.25 if s0 >= 10 else 0.8, rel=0.9)
-        music.add(x, t0 - 0.05, g * 0.5)
+        cut, g = pad_level(s0, (s0 + s1) / 2)
+        dur = (b(END_BAR) if s0 >= 145 else t1) - t0
+        att = 0.8 if s0 < 5 else 0.25
+        music.add(pad_chord(notes, dur + 0.05, cut=cut * 1.35, att=att, rel=0.9), t0 - 0.05, g * 0.5)
 
 
 def strings_parts():
-    secs = [(6, 10, 0.9), (38, 47, 0.55), (58, 64.5, 0.6), (71, 76, 0.7), (76, 82, 0.75), (82, 89, 0.9), (90, 94, 0.9)]
+    secs = [(14, 18, 0.9), (36, 41, 0.6), (57.25, 69.5, 0.55), (86.5, 90.5, 0.5), (90.5, 96, 0.55),
+            (101, 108, 0.6), (120, 129, 0.62), (129, 136, 0.75), (136, 144, 0.9), (145, 149, 0.9)]
     for s0, s1, c in segments():
         for a, z, g in secs:
-            if a <= s0 < z:
+            lo, hi_ = max(s0, a), min(s1, z)
+            if lo < hi_:
                 notes, root = CH[c]
                 hi = [m + 12 for m in notes[1:]]
-                dur = b(min(s1, z)) - b(s0)
-                if s0 >= 90:
-                    dur = b(93.6) - b(s0)
-                music.add(strings(hi, dur, att=0.4, rel=1.1, cut=4300 if s0 < 82 else 5000), b(s0), g * 0.55)
+                dur = (b(END_BAR) if lo >= 145 else b(hi_)) - b(lo)
+                music.add(strings(hi, dur, att=0.4, rel=1.1, cut=4300 if lo < 129 else 5000), b(lo), g * 0.55)
+
+
+ARP_SECS = [  # (起, 止, 步长(拍), 截止频率起, 止, 音量)
+    (5, 12, 0.5, 1400, 2400, 0.5),
+    (12, 14, 0.25, 1800, 4200, 0.62),
+    (18, 22.5, 0.5, 1400, 2200, 0.5),
+    (22.5, 33, 0.25, 2200, 4200, 0.62),
+    (33, 35.5, 0.5, 1600, 1600, 0.52),
+    (35.5, 38, 0.25, 1800, 4500, 0.66),
+    (101, 108, 0.25, 5200, 5200, 0.8),
+    (110, 118, 0.5, 1700, 1700, 0.42),
+    (120, 122.5, 0.5, 1800, 3600, 0.66),
+    (126.5, 129, 0.5, 2000, 4000, 0.55),
+]
 
 
 def arps():
-    """拨弦琶音：01 反常（16 分）、分化（8 分）、传导高潮（16 分）、财政重建（8 分）"""
+    """拨弦琶音：冷开场的不安、01 章的律动、05 章的高潮与财政重建"""
     pat16 = [0, 1, 2, 3, 2, 1, 2, 3]
     for s0, s1, c in segments():
         notes, root = CH[c]
         arp = [m + 12 for m in notes]
-        for bar in np.arange(s0, s1, 1.0 if s1 - s0 >= 1 else 0.5):
-            span = min(1.0, s1 - bar)
-            if 10 <= bar < 22:
-                step, cut = 0.25, ramp(bar, 10, 22, 1400, 4200)
-                g = ramp(bar, 10, 14, 0.5, 0.75)
-            elif 22 <= bar < 24:
-                step, cut, g = 0.5, 1600, 0.62
-            elif 24 <= bar < 28:
-                step, cut, g = 0.5, 2800, 0.6
-            elif 28 <= bar < 30:
-                step, cut, g = 0.25, ramp(bar, 28, 30, 1800, 4200), 0.68
-            elif 67 <= bar < 71:
-                step, cut, g = 0.5, 1700, 0.45
-            elif 58 <= bar < 64.5:
-                step, cut, g = 0.25, 5200, 0.8
-            elif 72 <= bar < 76:
-                step, cut, g = 0.5 if bar < 74 else 0.25, ramp(bar, 72, 76, 1800, 4500), 0.7
-            else:
+        for a, z, step, c0, c1, g in ARP_SECS:
+            lo, hi_ = max(s0, a), min(s1, z)
+            if lo >= hi_:
                 continue
             k = 0
-            for beat in np.arange(0, span * 4, step):
+            for beat in np.arange(0, (hi_ - lo) * 4 - 1e-6, step):
+                bar = lo + beat / 4
+                cut = ramp(bar, a, z, c0, c1)
                 m = arp[pat16[k % 8]] + (12 if (k // 8) % 2 and step < 0.5 else 0)
-                t = b(bar, beat)
                 vel = 0.9 if beat % 1 == 0 else 0.65
                 x = pluck(m, dur=step * BEAT * 0.9, cut0=cut, cut1=cut * 0.18, decay=0.16)
-                keys.add(x, t, g * vel * 0.32, p=0.35 * math.sin(k * 1.3))
+                keys.add(x, b(lo, beat), g * vel * 0.32, p=0.35 * math.sin(k * 1.3))
                 k += 1
 
 
 def pizz_ostinato():
-    """伍德福德：钟表式 16 分拨奏"""
+    """伍德福德：钟表式 16 分拨奏（企业定价、利率路径都在「算未来」）"""
     pat = [0, 2, 1, 2, 3, 2, 1, 2]
     for s0, s1, c in segments():
-        if not (47 <= s0 < 56):
-            continue
         notes, root = CH[c]
-        for bar in np.arange(s0, s1, 1.0):
-            for k in range(16):
-                t = b(bar, k * 0.25)
+        for a, z in ((73, 90.5), (96, 98.5)):
+            lo, hi_ = max(s0, a), min(s1, z)
+            if lo >= hi_:
+                continue
+            for k in range(int(round((hi_ - lo) * 16))):
+                t = b(lo, k * 0.25)
                 m = notes[pat[k % 8]] + 12
                 vel = 0.85 if k % 4 == 0 else 0.55
-                keys.add(pizz(m, vel), t, 0.30, p=0.5 * math.sin(k * 0.9 + bar))
+                keys.add(pizz(m, vel), t, 0.28 * ramp(lo, 73, 75, 0.6, 1.0), p=0.5 * math.sin(k * 0.9 + lo))
 
 
 def basslines():
     for s0, s1, c in segments():
         notes, root = CH[c]
-        for bar in np.arange(s0, s1, 1.0):
+        bar = s0
+        while bar < s1 - 1e-6:
             span = min(1.0, s1 - bar)
-            if 14 <= bar < 22:
+            if 5 <= bar < 12:
                 for k in range(int(span * 8)):
-                    m = root + (12 if k % 2 else 0)
-                    bass.add(bass_note(m, BEAT * 0.45, cut=380 + ramp(bar, 14, 22, 0, 300)), b(bar, k * 0.5), 0.55 if k % 2 == 0 else 0.4)
-            elif 24 <= bar < 28:
+                    bass.add(bass_note(root + (12 if k % 2 else 0), BEAT * 0.45, cut=ramp(bar, 5, 12, 360, 600)),
+                             b(bar, k * 0.5), 0.5 if k % 2 == 0 else 0.36)
+            elif 12 <= bar < 14:
+                sub.add(sub_note(root - 12, BAR * span * 0.98), b(bar), 0.4)
+            elif 18 <= bar < 22.5:
                 for k in range(int(span * 4)):
-                    bass.add(bass_note(root, BEAT * 0.9, cut=340), b(bar, k), 0.5)
-            elif 40 <= bar < 47:
-                bass.add(bass_note(root, BAR * span * 0.95, cut=300, drive=1.1), b(bar), 0.45)
-            elif 47 <= bar < 56:
+                    bass.add(bass_note(root, BEAT * 0.9, cut=340), b(bar, k), 0.45)
+            elif 22.5 <= bar < 33:
                 for k in range(int(span * 8)):
-                    bass.add(bass_note(root + (12 if k % 4 == 3 else 0), BEAT * 0.4, cut=420), b(bar, k * 0.5), 0.45)
-            elif 58 <= bar < 64.5:
+                    bass.add(bass_note(root + (12 if k % 2 else 0), BEAT * 0.45, cut=380 + ramp(bar, 22.5, 33, 0, 300)),
+                             b(bar, k * 0.5), 0.55 if k % 2 == 0 else 0.4)
+            elif 33 <= bar < 35.5:
+                bass.add(bass_note(root, BAR * span * 0.95, cut=300, drive=1.2), b(bar), 0.45)
+            elif 35.5 <= bar < 38:
                 for k in range(int(span * 8)):
-                    m = root + (12 if k % 2 else 0)
-                    bass.add(bass_note(m, BEAT * 0.45, cut=650, drive=2.0), b(bar, k * 0.5), 0.6 if k % 2 == 0 else 0.45)
-            elif 64.5 <= bar < 67:
+                    bass.add(bass_note(root + (12 if k % 2 else 0), BEAT * 0.45, cut=500), b(bar, k * 0.5),
+                             0.5 if k % 2 == 0 else 0.38)
+            elif 47 <= bar < 49:
+                bass.add(bass_note(root, BAR * span * 0.95, cut=260, drive=1.0), b(bar), 0.35)
+            elif 57 <= bar < 69.5:
+                bass.add(bass_note(root, BAR * span * 0.95, cut=300, drive=1.1), b(bar), 0.42)
+            elif 69.5 <= bar < 71:
+                sub.add(sub_note(root - 12, BAR * span), b(bar), 0.45)
+            elif 77 <= bar < 90.5:
+                for k in range(int(span * 8)):
+                    bass.add(bass_note(root + (12 if k % 4 == 3 else 0), BEAT * 0.4, cut=420), b(bar, k * 0.5), 0.42)
+            elif 90.5 <= bar < 96:
+                bass.add(bass_note(root, BAR * span * 0.95, cut=260, drive=1.0), b(bar), 0.35)
+            elif 96 <= bar < 98.5:
+                for k in range(int(span * 8)):
+                    bass.add(bass_note(root, BEAT * 0.45, cut=450), b(bar, k * 0.5), 0.45)
+            elif 101 <= bar < 108:
+                for k in range(int(span * 8)):
+                    bass.add(bass_note(root + (12 if k % 2 else 0), BEAT * 0.45, cut=650, drive=2.0), b(bar, k * 0.5),
+                             0.6 if k % 2 == 0 else 0.45)
+            elif 108 <= bar < 110:
                 sub.add(sub_note(root - 12, BAR * span), b(bar), 0.5)
-            elif 67 <= bar < 71:
+            elif 110 <= bar < 118:
                 for k in range(int(span * 4)):
                     bass.add(bass_note(root, BEAT * 0.8, cut=320, drive=1.2), b(bar, k), 0.4)
-            elif 73 <= bar < 76:
+            elif 118 <= bar < 120:
+                sub.add(sub_note(root - 12, BAR * span * 0.95), b(bar), 0.35)
+            elif 120 <= bar < 122.5:
                 for k in range(int(span * 8)):
-                    bass.add(bass_note(root + (12 if k % 2 else 0), BEAT * 0.45, cut=500), b(bar, k * 0.5), 0.5 if k % 2 == 0 else 0.38)
-            elif 82 <= bar < 89:
+                    bass.add(bass_note(root + (12 if k % 2 else 0), BEAT * 0.45, cut=500), b(bar, k * 0.5),
+                             0.5 if k % 2 == 0 else 0.38)
+            elif 122.5 <= bar < 126.5:
+                bass.add(bass_note(root, BAR * span * 0.95, cut=280, drive=1.0), b(bar), 0.38)
+            elif 126.5 <= bar < 129:
+                for k in range(int(span * 8)):
+                    bass.add(bass_note(root, BEAT * 0.45, cut=460), b(bar, k * 0.5), 0.42)
+            elif 136 <= bar < 144:
                 sub.add(sub_note(root - 12, BAR * span * 0.98), b(bar), 0.35)
                 bass.add(bass_note(root, BAR * span * 0.9, cut=260, drive=1.0), b(bar), 0.35)
-            elif 90 <= bar < 94:
-                if bar == 90:
-                    sub.add(sub_note(26, b(93.5) - b(90)), b(90), 0.45)
+            elif bar == 145:
+                sub.add(sub_note(26, b(END_BAR - 0.1) - b(145)), b(145), 0.45)
+            bar += span
+
+
+def snare_roll(bar0, beats, g=0.28, steps=0.25):
+    n = int(beats / steps)
+    for k in range(n):
+        drums.add(snare(0.22 + 0.65 * (k / n) ** 2, length=0.18, bright=0.3), b(bar0, k * steps), g)
 
 
 def drum_parts():
-    # 01 反常律动
-    for bar in range(10, 22):
-        K(b(bar, 0), 0.75)
-        K(b(bar, 2), 0.65)
-        if bar >= 16:
+    # 冷开场：低沉的切分律动
+    for bar in range(5, 12):
+        K(b(bar, 0), 0.6)
+        K(b(bar, 2.5), 0.42)
+        if bar >= 7:
             for k in range(4):
-                drums.add(hat(0.6), b(bar, k + 0.5), 0.5, p=0.25)
-        if bar >= 18:
-            drums.add(clap(0.8), b(bar, 1), 0.55, p=0.05)
-            drums.add(clap(0.8), b(bar, 3), 0.55, p=-0.05)
+                drums.add(hat(0.45), b(bar, k + 0.5), 0.35, p=0.25)
+    K(b(12, 0), 0.55)
+    for k in range(4):
+        K(b(13, k), 0.45 + 0.1 * k)
+    snare_roll(13, 4, 0.3)
+    # 01 谨慎：逐层加入
+    for bar in np.arange(18, 22.5, 1.0):
+        K(b(bar, 0), 0.55)
+    K(b(22, 2), 0.6)
+    for bar in range(23, 33):
+        K(b(bar, 0), 0.72)
+        K(b(bar, 2), 0.62)
+        if bar >= 24:
+            for k in range(4):
+                drums.add(hat(0.55), b(bar, k + 0.5), 0.45, p=0.25)
+        if bar >= 28:
+            drums.add(clap(0.8), b(bar, 1), 0.5, p=0.05)
+            drums.add(clap(0.8), b(bar, 3), 0.5, p=-0.05)
     for k, m in enumerate([50, 47, 45, 43]):
-        drums.add(tom(m, 0.7), b(21, 3 + k * 0.25), 0.4, p=-0.4 + k * 0.25)
-    # 分化：半速
-    for bar in range(24, 28):
+        drums.add(tom(m, 0.7), b(32, 3 + k * 0.25), 0.4, p=-0.4 + k * 0.25)
+    for bar in (33, 34):          # 企业观望：半速
         K(b(bar, 0), 0.7)
         drums.add(snare(0.7), b(bar, 2), 0.42)
-    # 原因 → 诺奖：渐强军鼓滚奏（柔）
-    for k in range(32):
-        t = b(28, k * 0.25 * 0.5 * 2) if False else b(29, k * 0.125)
-        drums.add(snare(0.25 + 0.6 * (k / 32) ** 2, length=0.18, bright=0.3), t, 0.28)
+    K(b(35, 0), 0.6)
+    snare_roll(37, 4, 0.28, 0.125)
     for k in range(4):
-        K(b(29, k), 0.45 + 0.1 * k)
-    # 霍尔：轻
-    for bar in range(40, 46):
+        K(b(37, k), 0.45 + 0.1 * k)
+    # 03 霍尔：两个人的对比开始，轻轻的心跳与沙锤
+    for bar in np.arange(61, 69.5, 1.0):
         K(b(bar, 0), 0.5)
         for k in range(8):
-            drums.add(shaker(0.7 if k % 2 else 0.45), b(bar, k * 0.5), 0.45, p=0.3)
+            if bar + k / 8 < 69.5:
+                drums.add(shaker(0.7 if k % 2 else 0.45), b(bar, k * 0.5), 0.42, p=0.3)
     for k in range(8):
-        drums.add(tom(45 - k, 0.3 + 0.07 * k), b(46, 2 + k * 0.25), 0.3)
-    # 伍德福德：滴答 + 工厂律动
-    for bar in range(47, 56):
-        for k in range(16):
-            drums.add(tick(2900 if k % 4 else 2200, 0.45 if k % 4 else 0.7), b(bar, k * 0.25), 0.22, p=0.6 * math.sin(k))
-    for bar in range(52, 56):
-        K(b(bar, 0), 0.7)
-        K(b(bar, 2), 0.6)
-        drums.add(clap(0.7), b(bar, 1), 0.4)
-        drums.add(clap(0.7), b(bar, 3), 0.4)
-    for k in range(16):
-        drums.add(snare(0.2 + 0.7 * (k / 16) ** 2, length=0.2, bright=0.3), b(57, k * 0.25), 0.3)
-    # 传导高潮
-    for bar in np.arange(58, 64.5, 1.0):
+        drums.add(tom(45 - k, 0.3 + 0.07 * k), b(72, 2 + k * 0.25), 0.3)
+    # 04 伍德福德：滴答 + 工厂律动
+    for a, z in ((73, 90.5), (96, 98.5)):
+        for k in range(int((z - a) * 16)):
+            drums.add(tick(2900 if k % 4 else 2200, 0.45 if k % 4 else 0.7), b(a, k * 0.25), 0.2, p=0.6 * math.sin(k))
+    for bar in range(77, 90):
+        K(b(bar, 0), 0.62)
+        K(b(bar, 2), 0.52)
+        drums.add(clap(0.7), b(bar, 1), 0.34)
+        drums.add(clap(0.7), b(bar, 3), 0.34)
+    snare_roll(89.5, 2, 0.3)
+    for k in range(5):
+        K(b(96, k * 0.5) if k < 4 else b(97, 0), 0.45 + 0.06 * k)
+    for bar in (97, 98):
         for k in range(4):
-            if bar + k / 4 >= 64.5:
-                break
+            if bar + k / 4 < 98.5:
+                K(b(bar, k), 0.6 + 0.05 * k)
+    # 05 回到中国：全编制高潮（良性循环）
+    for bar in range(101, 108):
+        for k in range(4):
             K(b(bar, k), 0.85 if k % 2 == 0 else 0.7)
             drums.add(hat(0.5), b(bar, k + 0.5), 0.5, p=0.3)
             drums.add(hat(0.35), b(bar, k + 0.25), 0.35, p=-0.3)
             drums.add(hat(0.35), b(bar, k + 0.75), 0.35, p=-0.3)
-        if bar + 0.5 < 64.5:
-            drums.add(snare(0.9), b(bar, 1), 0.5)
-        if bar + 0.75 < 64.5:
-            drums.add(snare(0.9), b(bar, 3), 0.5)
+        drums.add(snare(0.9), b(bar, 1), 0.5)
+        drums.add(snare(0.9), b(bar, 3), 0.5)
     for k, m in enumerate([52, 50, 47, 45, 43, 40]):
-        drums.add(tom(m, 0.8), b(61, 2.5 + k * 0.25), 0.45, p=-0.5 + k * 0.2)
+        drums.add(tom(m, 0.8), b(107, 2.5 + k * 0.25), 0.45, p=-0.5 + k * 0.2)
     # 恶性循环：心跳
-    for bar in np.arange(64.5, 67, 1.0):
+    for bar in (108, 109):
         K(b(bar, 0), 0.6, f_hi=80, f_lo=38, length=0.5)
         K(b(bar, 0.6), 0.45, f_hi=80, f_lo=38, length=0.5)
-    # 真实利率：时钟
-    for bar in range(67, 71):
+    # 降息为何不灵 / 真实利率：时钟
+    for bar in range(110, 118):
         for k in range(4):
             drums.add(tick(2400, 0.6), b(bar, k), 0.25, p=0.3 * (-1) ** k)
+        if bar >= 112:
+            K(b(bar, 0), 0.45)
     # 财政重建
-    for bar in range(73, 76):
+    for bar in (120, 121, 122):
         K(b(bar, 0), 0.7)
-        K(b(bar, 2), 0.65)
-        if bar >= 74:
+        if bar < 122:
+            K(b(bar, 2), 0.65)
             drums.add(clap(0.8), b(bar, 1), 0.45)
             drums.add(clap(0.8), b(bar, 3), 0.45)
             for k in range(4):
                 drums.add(hat(0.5), b(bar, k + 0.5), 0.45)
-    for k in range(8):
-        drums.add(snare(0.3 + 0.08 * k, length=0.2, bright=0.3), b(75, 2 + k * 0.25), 0.3)
+    # 长期政策 → 真相
+    for k in range(4):
+        K(b(128, k), 0.42 + 0.06 * k)
+    snare_roll(128, 4, 0.24)
     # 获奖者：行进式低鼓
-    for bar in range(82, 89):
+    for bar in range(136, 144):
         drums.add(tom(38, 0.55, 1.2), b(bar, 0), 0.4)
         drums.add(tom(38, 0.35, 1.0), b(bar, 2), 0.3)
         PULSE.append((b(bar, 0), 0.5))
 
 
+HALL_THEME = [  # (小节, 拍, MIDI, 拍数) —— F 大调、11 小节
+    (0, 0, 72, 1), (0, 1, 77, 1), (0, 2, 79, 1), (0, 3, 81, 1),
+    (1, 0, 79, 2), (1, 2, 76, 1), (1, 3, 72, 1),
+    (2, 0, 74, 2), (2, 2, 77, 1), (2, 3, 81, 1),
+    (3, 0, 77, 3), (3, 3, 74, 1),
+    (4, 0, 81, 2), (4, 2, 79, 1), (4, 3, 77, 1),
+    (5, 0, 76, 2), (5, 2, 79, 1), (5, 3, 84, 1),
+    (6, 0, 81, 3), (6, 3, 77, 1),
+    (7, 0, 77, 2), (7, 2, 74, 2),
+    (8, 0, 74, 2), (8, 2, 79, 2), (9, 0, 77, 2), (9, 2, 74, 2), (10, 0, 76, 4),
+]
+
+
 def piano_parts():
     P = lambda m, t, v=0.6, d=1.5, g=0.5, br=0.55, p=0.0: keys.add(piano_note(m, v, d, br), t, g, p)
-    # 钩子：开场的两个高音
+    # 冷开场：开头两个高音；「按常理」一段向上的分解和弦（想象中的上升）
     P(86, 0.02, 0.5, 2.5, 0.35, p=0.2)
-    P(81, 2.0, 0.45, 2.0, 0.3, p=-0.2)
-    P(26, 4.0, 0.9, 3.0, 0.5)          # 「可是」低音簇
-    P(38, 4.0, 0.9, 3.0, 0.45)
+    P(81, 3.0, 0.45, 2.0, 0.3, p=-0.2)
+    for k, m in enumerate([65, 69, 72, 77, 81]):
+        P(m, 7.4 + k * 0.25, 0.5, 1.2, 0.3, p=-0.4 + 0.2 * k)
+    P(26, HITS['kesh'], 0.9, 3.0, 0.5)          # 「可是」低音簇
+    P(38, HITS['kesh'], 0.9, 3.0, 0.45)
     # 标题旋律
-    mel = [(6, 0, 74, 1.5), (6, 1.5, 76, 0.5), (6, 2, 77, 2), (7, 0, 81, 3), (8, 0, 79, 2), (8, 2, 77, 2),
-           (9, 0, 76, 3.5)]
+    mel = [(14, 0, 74, 1.5), (14, 1.5, 76, 0.5), (14, 2, 77, 2), (15, 0, 81, 3), (16, 0, 79, 2), (16, 2, 77, 2),
+           (17, 0, 76, 3.5)]
     for bar, beat, m, d in mel:
         P(m, b(bar, beat), 0.62, d * BEAT, 0.45)
         P(m - 12, b(bar, beat), 0.4, d * BEAT, 0.18)
     # 旧模型：数据点逐个落下（下行）
     for k, m in enumerate([81, 79, 77, 76, 74, 72, 71, 69, 67]):
-        P(m, 64.2 + k * 0.26, 0.5, 0.3, 0.3, p=-0.6 + k * 0.15)
-    # 重建：上行
+        P(m, T('oldmodel', 0.4) + k * 0.24, 0.5, 0.3, 0.3, p=-0.6 + k * 0.15)
+    # 重建：碎片聚拢成格点，上行
     for k, m in enumerate([62, 65, 69, 72, 74, 77, 81, 84]):
-        P(m, 68.4 + k * 0.42, 0.5, 0.6, 0.3, p=0.6 - k * 0.15)
-    # 霍尔主题（F 大调）
-    hall = [  # (bar, beat, midi, beats)
-        (36, 0, 72, 1), (36, 1, 77, 1), (36, 2, 79, 1), (36, 3, 81, 1),
-        (37, 0, 79, 2), (37, 2, 76, 1), (37, 3, 72, 1),
-        (38, 0, 74, 2), (38, 2, 77, 1), (38, 3, 81, 1),
-        (39, 0, 77, 3), (39, 3, 74, 1),
-        (40, 0, 81, 2), (40, 2, 79, 1), (40, 3, 77, 1),
-        (41, 0, 76, 2), (41, 2, 79, 1), (41, 3, 84, 1),
-        (42, 0, 81, 3), (42, 3, 77, 1),
-        (43, 0, 77, 2), (43, 2, 74, 2),
-        (44, 0, 74, 2), (44, 2, 79, 2), (45, 0, 77, 2), (45, 2, 74, 2), (46, 0, 76, 4),
-    ]
-    for bar, beat, m, d in hall:
-        P(m, b(bar, beat), 0.58, d * BEAT * 0.95, 0.5, br=0.5)
-    # 霍尔：左手分解和弦
-    for s0, s1, c in segments():
-        if 36 <= s0 < 47:
+        P(m, CAP['o_why'][0] + 1.0 + k * 0.3, 0.5, 0.6, 0.3, p=0.6 - k * 0.15)
+    # 霍尔主题：两遍（第二遍在「意外」处被打断）
+    for start, cut in ((49, 60), (60, 69.5)):
+        for bar, beat, m, d in HALL_THEME:
+            if start + bar + beat / 4 >= cut:
+                continue
+            P(m, b(start + bar, beat), 0.58, d * BEAT * 0.95, 0.5 if start == 49 else 0.46, br=0.5)
+            if start == 60:
+                P(m - 12, b(start + bar, beat), 0.35, d * BEAT * 0.95, 0.16, br=0.45)
+    for s0, s1, c in segments():                 # 左手分解和弦
+        if 49 <= s0 < 69.5:
             notes, root = CH[c]
             seq = [root, notes[1], notes[2], notes[3], notes[2], notes[1], notes[2], notes[3]]
             for k in range(8):
-                P(seq[k] + (12 if k else 0), b(s0, k * 0.5), 0.42, 0.45, 0.22, br=0.4, p=-0.3)
-    # 德拉吉：一记和弦，随后舒展
+                if s0 + k / 8 < 69.5:
+                    P(seq[k] + (12 if k else 0), b(s0, k * 0.5), 0.42, 0.45, 0.22, br=0.4, p=-0.3)
+    # 意外之后：低音区零星几下，再回到温暖（投票）
+    for t_, m in ((b(70, 0), 43), (b(70, 2), 50), (b(70, 3), 55)):
+        P(m, t_, 0.45, 1.2, 0.3)
+    for bar in (71, 72):
+        notes, root = CH[chord_at(bar)]
+        for j, m in enumerate([root + 12] + [n + 12 for n in notes[1:]]):
+            P(m, b(bar, j * 0.12), 0.5, 1.8, 0.28, br=0.45)
+    # 德拉吉：一记和弦，市场平静后舒展
     for m in (50, 57, 62, 65):
-        P(m, b(56), 0.7, 2.0, 0.35)
+        P(m, HITS['draghi'], 0.7, 2.0, 0.35)
     for m in (58, 62, 65, 69, 74):
-        P(m, 113.4, 0.5, 2.0, 0.25)
+        P(m, CAP['w_calm'][0], 0.5, 2.0, 0.25)
+    # 回扣：「但别忘了霍尔的发现」—— 霍尔主题的前四小节再次出现
+    for bar, beat, m, d in HALL_THEME:
+        if bar < 4:
+            P(m, b(122.5 + bar, beat), 0.55, d * BEAT * 0.95, 0.42, br=0.5)
     # 真相主题（Bb → D 大调）
-    tru = [(76, 0, 74, 2), (76, 2, 77, 2), (77, 0, 76, 2), (77, 2, 72, 2), (78, 0, 74, 3), (78, 3, 70, 1),
-           (79, 0, 78, 2), (79, 2, 81, 2), (80, 0, 83, 2), (80, 2, 81, 2), (81, 0, 79, 2), (81, 2, 76, 2)]
+    tru = [(129, 0, 74, 2), (129, 2, 77, 2), (130, 0, 76, 2), (130, 2, 72, 2), (131, 0, 74, 3), (131, 3, 70, 1),
+           (132, 0, 78, 2), (132, 2, 81, 2), (133, 0, 83, 2), (133, 2, 81, 2), (134, 0, 79, 2), (134, 2, 76, 2),
+           (135, 0, 74, 2), (135, 2, 73, 2)]
     for bar, beat, m, d in tru:
         P(m, b(bar, beat), 0.6, d * BEAT, 0.5, br=0.5)
         P(m - 12, b(bar, beat), 0.35, d * BEAT, 0.2)
     for s0, s1, c in segments():
-        if 76 <= s0 < 82:
+        if 129 <= s0 < 136:
             notes, root = CH[c]
             for k, m in enumerate([root, notes[1], notes[2], notes[3]] * 2):
-                P(m + (12 if k else 0), b(s0, k * 0.5), 0.38, 0.5, 0.2, br=0.4, p=-0.25)
+                if s0 + k / 8 < s1:
+                    P(m + (12 if k else 0), b(s0, k * 0.5), 0.38, 0.5, 0.2, br=0.4, p=-0.25)
     # 获奖者：赞美诗旋律
-    hymn = [(82, 0, 78, 2), (82, 2, 81, 2), (83, 0, 76, 4), (84, 0, 74, 2), (84, 2, 78, 2), (85, 0, 79, 4),
-            (86, 0, 81, 2), (86, 2, 78, 2), (87, 0, 79, 2), (87, 2, 83, 2), (88, 0, 81, 4)]
+    hymn = [(136, 0, 78, 2), (136, 2, 81, 2), (137, 0, 76, 4), (138, 0, 74, 2), (138, 2, 78, 2), (139, 0, 79, 4),
+            (140, 0, 81, 2), (140, 2, 78, 2), (141, 0, 79, 2), (141, 2, 83, 2), (142, 0, 81, 4), (143, 0, 78, 4)]
     for bar, beat, m, d in hymn:
         P(m, b(bar, beat), 0.55, d * BEAT, 0.42, br=0.5)
-    # 片尾：最后的大和弦
+    # 片尾：logo 与品牌字两记大和弦
     for m in (38, 50, 57, 62, 66, 69, 74):
-        P(m, b(90), 0.7, 6.0, 0.32)
+        P(m, HITS['logo'], 0.7, 6.0, 0.32)
     for m in (74, 78, 81, 86):
-        P(m, b(91), 0.6, 4.0, 0.25)
+        P(m, HITS['brandword'], 0.6, 4.0, 0.25)
+
+
+def discovery(T0, power=1.0):
+    """「发现」卡片的固定音型：沿当前和弦向上的铃声 + 轻重拍（霍尔 ①②、伍德福德 ①② 共用，形成记忆点）"""
+    notes, root = CH[chord_at(bar_of(T0))]
+    fx.add(reverse_swell(0.9, 3500, 0.8), T0 - 0.9, 0.35)
+    for k, m in enumerate([notes[0] + 24, notes[1] + 24, notes[2] + 24, notes[3] + 24, notes[1] + 36]):
+        fx.add(bell(m, 2.2), T0 + k * 0.09, 0.26 * power, p=-0.4 + 0.2 * k)
+    fx.add(boom(0.55, 2.8), T0, 0.45 * power)
+    PULSE.append((T0, 0.9))
 
 
 def sfx():
-    # 钩子：利率每跳一次一声滴答
-    for k in range(7):
-        fx.add(tick(2500, 0.9), 0.5 + k * 0.5, 0.5, p=0.15 * (-1) ** k)
-        PULSE.append((0.5 + k * 0.5, 0.3))
+    # ---- 冷开场
+    for k in range(8):                           # 利率每跳一次一声滴答（与画面同步）
+        t_ = 0.5 + 0.36 * k
+        fx.add(tick(2500, 0.9), t_, 0.45, p=0.15 * (-1) ** k)
+        PULSE.append((t_, 0.3))
+    fx.add(bell(86, 2.0), CAP['c_low'][0], 0.25)
+    fx.add(reverse_swell(1.2, 2500), HITS['kesh'] - 1.2, 0.35)
     fx.add(boom(1.0), HITS['kesh'], 0.75)
     sub.add(subdrop(1.2, 70, 28), HITS['kesh'], 0.6)
     PULSE.append((HITS['kesh'], 1.0))
-    # 贷款柱塌缩
-    fx.add(tom(36, 0.9, 1.0), 5.5, 0.55)
-    # 存款计数上涨：上行铃
-    for k, m in enumerate([74, 77, 81, 84, 86, 89]):
-        fx.add(bell(m, 1.5), 8.0 + k * 0.25, 0.35, p=-0.4 + 0.16 * k)
-    fx.add(boom(0.5, 2.0), 8.0, 0.35)
-    # 「为什么？」→ 标题
-    fx.add(riser(1.9, 45, 69), 10.1, 0.8)
-    fx.add(reverse_swell(1.8, 4000), 10.2, 0.6)
-    T = HITS['title']
-    fx.add(boom(1.2, 3.8), T, 0.9)
-    fx.add(braam(26, 3.0), T, 0.55)
-    sub.add(subdrop(1.8, 75, 26), T, 0.7)
-    fx.add(shimmer(1.6, 86), T + 0.05, 0.4)
-    PULSE.append((T, 1.4))
-    # 01 反常
-    fx.add(boom(0.5, 2.2), 20.0, 0.4)
-    fx.add(reverse_swell(0.9, 2500), 23.3, 0.4)
-    for k, m in enumerate([74, 77, 81]):
-        fx.add(bell(m, 1.2), 28.5 + k * 0.5, 0.3)
-    for k, v in enumerate([3.83, 4.33, 2.72, 0.44]):        # 柱子逐个落下（音高≈数值）
-        fx.add(pluck(60 + int(v * 2.5), 0.3, 2400, 400), 32.0 + k * 0.5, 0.35)
-    fx.add(tom(33, 1.0, 1.0), 34.0, 0.55)
-    sub.add(subdrop(0.9, 60, 30), 34.0, 0.4)
-    fx.add(bell(86, 2.0), HITS['dep_spike'], 0.4)
-    fx.add(boom(0.6, 2.0), HITS['dep_spike'], 0.4)
-    PULSE.append((HITS['dep_spike'], 0.9))
-    fx.add(riser(1.0, 62, 74, 0.5), 40.2, 0.4)
-    fx.add(boom(0.6, 2.4), HITS['split'], 0.45)
-    for k, m in enumerate([74, 78, 81, 86]):
-        fx.add(bell(m, 1.4), 48.5 + k * 0.5, 0.28, p=-0.5 + k * 0.33)
-    # 「预期」
-    fx.add(bell(74, 3.0), HITS['yuqi'], 0.5)
-    fx.add(reverse_swell(1.6, 3500), 58.4, 0.55)
-    fx.add(riser(1.8, 50, 74), 58.2, 0.6)
-    # 诺奖重拍
-    T = HITS['nobel']
-    fx.add(boom(1.0, 3.5), T, 0.8)
-    sub.add(subdrop(1.6, 70, 28), T, 0.6)
-    fx.add(shimmer(1.8, 84, notes=(0, 4, 7, 12, 16, 19, 24, 28)), T, 0.5)
-    PULSE.append((T, 1.3))
-    # 1970 年代：碎裂
-    T = HITS['break70s']
-    fx.add(crystal(1.8), T, 0.55)
-    fx.add(boom(0.8, 2.5), T, 0.6)
-    music.add(pad_chord([50, 51, 52, 56], 0.9, cut=2500, att=0.005, rel=0.6), T, 0.35)
-    PULSE.append((T, 1.0))
+    for k, v in enumerate([7.92, 3.83, 4.33, 2.72, 0.44]):   # 贷款柱逐个出现（音高≈数值）
+        fx.add(pluck(58 + int(v * 2.6), 0.3, 2400, 400), HITS['kesh'] + 0.3 + 0.45 * k, 0.35)
+    T0 = HITS['kesh'] + 0.3 + 0.45 * 5                       # 转负
+    fx.add(tom(33, 1.0, 1.0), T0, 0.55)
+    sub.add(subdrop(0.9, 60, 30), T0, 0.4)
+    PULSE.append((T0, 0.8))
+    fx.add(boom(0.5, 2.2), CAP['c_neg'][0], 0.4)
+    fx.add(tom(36, 0.8, 1.0), CAP['c_neg'][0], 0.35)
+    fx.add(boom(0.5, 2.4), CAP['c_where'][0], 0.4)
+    for k, m in enumerate([74, 77, 81, 86]):                 # 存款 +6.99
+        fx.add(bell(m, 1.4), CAP['c_where'][0] + 0.4 + k * 0.12, 0.3, p=-0.4 + 0.25 * k)
+    fx.add(tom(34, 0.9, 1.0), CAP['c_where'][0] + 0.9, 0.45)   # 贷款 −1.03
+    fx.add(reverse_swell(1.0, 3000), CAP['c_why'][0] - 1.0, 0.45)
+    fx.add(boom(0.6, 2.6), CAP['c_why'][0], 0.45)
+    fx.add(riser(1.9, 45, 69), HITS['title'] - 1.9, 0.8)
+    fx.add(reverse_swell(1.8, 4000), HITS['title'] - 1.8, 0.6)
+    # ---- 标题重拍
+    T0 = HITS['title']
+    fx.add(boom(1.2, 3.8), T0, 0.9)
+    fx.add(braam(26, 3.0), T0, 0.55)
+    sub.add(subdrop(1.8, 75, 26), T0, 0.7)
+    fx.add(shimmer(1.6, 86), T0 + 0.05, 0.4)
+    PULSE.append((T0, 1.4))
+    # ---- 01 谨慎
+    fx.add(boom(0.5, 2.2), HITS['survey'], 0.4)
+    for k, m in enumerate([81, 76, 74]):                     # 三根调查柱
+        fx.add(bell(m, 1.2), HITS['survey'] + 1.0 + 0.35 * k, 0.3, p=-0.3 + 0.3 * k)
+    fx.add(boom(0.45, 2.2), HITS['spend'], 0.35)
+    fx.add(shimmer(2.0, 86, 0.6), HITS['spend'] + 0.8, 0.2)  # 100 枚硬币点亮
+    for k, m in enumerate([76, 74, 72]):                     # 67.5 → 64.6
+        fx.add(pluck(m, 0.35, 2200, 400, wave='tri'), HITS['spend'] + 4.0 + k * 0.25, 0.32)
+    fx.add(boom(0.5, 2.4), HITS['split'], 0.45)
+    for k, m in enumerate([74, 78, 81]):                     # 分化卡片
+        fx.add(bell(m, 1.4), HITS['split'] + 0.8 + k * 0.5, 0.26, p=-0.5 + k * 0.33)
+    fx.add(tom(35, 0.9, 1.0), HITS['split'] + 2.3, 0.45)     # 新房 −13%
+    fx.add(tom(33, 1.0, 1.1), HITS['firms'], 0.5)
+    sub.add(subdrop(1.0, 60, 30), HITS['firms'], 0.4)
+    fx.add(reverse_swell(1.2, 3000), HITS['yuqi'] - 1.2, 0.45)
+    fx.add(bell(72, 3.0), HITS['yuqi'], 0.5)
+    fx.add(boom(0.6, 2.6), HITS['yuqi'], 0.45)
+    PULSE.append((HITS['yuqi'], 1.0))
+    fx.add(riser(1.8, 50, 74), HITS['nobel'] - 1.8, 0.6)
+    fx.add(reverse_swell(1.6, 3500), HITS['nobel'] - 1.6, 0.55)
+    # ---- 02 诺奖
+    T0 = HITS['nobel']
+    fx.add(boom(1.0, 3.5), T0, 0.8)
+    sub.add(subdrop(1.6, 70, 28), T0, 0.6)
+    fx.add(shimmer(1.8, 84, notes=(0, 4, 7, 12, 16, 19, 24, 28)), T0, 0.5)
+    PULSE.append((T0, 1.3))
+    T0 = HITS['break70s']                                    # 1970 年代：规律碎裂
+    fx.add(crystal(1.8), T0, 0.55)
+    fx.add(boom(0.8, 2.5), T0, 0.6)
+    music.add(pad_chord([50, 51, 52, 56], 0.9, cut=2500, att=0.005, rel=0.6), T0, 0.35)
+    PULSE.append((T0, 1.0))
+    T0 = CAP['o_new'][0]                                     # 宏观屋顶落成
+    for k, m in enumerate([65, 72, 77, 81]):
+        fx.add(bell(m, 2.0), T0 + k * 0.1, 0.25)
+    fx.add(boom(0.5, 2.6), T0, 0.35)
+    # ---- 03 霍尔
     fx.add(boom(0.6, 2.4), HITS['hall'], 0.45)
-    fx.add(boom(0.4, 2.0), HITS['two_people'], 0.35)
-    sub.add(subdrop(1.2, 60, 28, 0.8), 88.2, 0.5)
+    PULSE.append((HITS['hall'], 0.8))
+    discovery(HITS['law1'])
+    fx.add(bell(93, 1.2), HITS['bonus'], 0.3)                # 一次性奖金：叮的一下
+    fx.add(bell(88, 1.0), HITS['bonus'] + 0.08, 0.2)
+    PULSE.append((HITS['bonus'], 0.6))
+    fx.add(reverse_swell(1.0, 2500), HITS['raise'] - 1.0, 0.4)   # 长期涨薪：温暖的托起
+    fx.add(boom(0.5, 3.0, 50, 30), HITS['raise'], 0.4)
+    PULSE.append((HITS['raise'], 0.7))
+    fx.add(boom(0.4, 2.0), HITS['people'], 0.35)
+    discovery(HITS['law2'])
+    fx.add(bell(77, 1.6), b(bar_of(HITS['surprise'])) - 2.4, 0.22)   # 如期涨薪：平静
+    T0 = HITS['surprise']                                    # 意外：消费跳变
+    sub.add(subdrop(1.4, 70, 28), T0, 0.65)
+    fx.add(boom(0.8, 2.6), T0, 0.55)
+    fx.add(tom(33, 1.0, 1.0), T0, 0.5)
+    PULSE.append((T0, 1.1))
+    fx.add(reverse_swell(1.4, 2500), CAP['h_vote'][0] - 1.0, 0.35)
+    # ---- 04 伍德福德
     fx.add(boom(0.7, 2.8), HITS['woodford'], 0.55)
     PULSE.append((HITS['woodford'], 0.9))
-    for k in range(6):                       # 日历翻页
-        fx.add(tick(1800, 0.8), 99.0 + k * 0.5, 0.35, p=0.2)
-    T = HITS['cbank']
-    fx.add(tom(31, 1.0, 1.4), T, 0.6)
-    fx.add(bell(50, 4.0, 0.7), T, 0.35)
-    fx.add(bell(62, 3.0, 0.8), T + 0.5, 0.25)
-    PULSE.append((T, 1.0))
+    discovery(HITS['rule1'])
+    for k in range(6):                                       # 月份一格格点亮
+        fx.add(tick(1800, 0.8), CAP['w_price'][0] + 0.4 + k * 0.5, 0.35, p=0.2)
+    discovery(HITS['rule2'])
+    for k, m in enumerate([72, 69, 67, 69, 72]):             # 路径 A：降一下就回去
+        fx.add(pluck(m, 0.35, 2000, 400, wave='tri'), CAP['w_loan'][0] + 0.3 + k * 0.25, 0.26)
+    fx.add(reverse_swell(1.2, 3500), HITS['pathB'] - 1.2, 0.45)   # 路径 B：长期偏低
+    fx.add(boom(0.5, 3.0), HITS['pathB'], 0.4)
+    T0 = CAP['w_manage'][0]                                  # 央行旋钮
+    fx.add(tom(31, 1.0, 1.4), T0, 0.55)
+    fx.add(bell(50, 4.0, 0.7), T0, 0.32)
+    fx.add(bell(62, 3.0, 0.8), T0 + 0.5, 0.22)
+    PULSE.append((T0, 1.0))
     fx.add(boom(0.8, 3.0), HITS['draghi'], 0.6)
-    for k, m in enumerate([79, 77, 76, 74, 72]):     # 利率回落
-        fx.add(pluck(m, 0.35, 2000, 400, wave='tri'), 113.0 + k * 0.3, 0.3)
-    fx.add(riser(2.0, 50, 76), 114.0, 0.8)
-    fx.add(reverse_swell(1.9, 5000), 114.1, 0.6)
-    # 传导：第三个大重拍
-    T = HITS['machine']
-    fx.add(boom(1.3, 4.0), T, 0.95)
-    fx.add(braam(26, 3.2, 1.1), T, 0.6)
-    sub.add(subdrop(2.0, 80, 26), T, 0.7)
-    PULSE.append((T, 1.5))
-    for k, m in enumerate([62, 65, 69, 72, 74]):
-        fx.add(bell(m + 12, 1.5), 116.5 + k * 0.5, 0.3, p=-0.6 + 0.3 * k)
-    for k, m in enumerate([74, 77, 81, 86]):
-        fx.add(bell(m, 1.5), 124.5 + k * 1.0, 0.3)
-    T = HITS['vicious']
-    sub.add(subdrop(1.4, 70, 30), T, 0.6)
-    fx.add(boom(0.7, 2.4), T, 0.5)
-    T = HITS['selffulfil']
-    fx.add(boom(1.0, 3.0), T, 0.7)
-    fx.add(braam(26, 2.4, 0.9), T, 0.45)
-    PULSE.append((T, 1.2))
-    for k, t in enumerate([136.6, 137.8, 139.0]):
-        fx.add(bell(81 + k * 2, 1.6), t, 0.3)
-    T = HITS['rope']
+    PULSE.append((HITS['draghi'], 1.0))
+    for k, m in enumerate([79, 77, 76, 74, 72]):             # 国债收益率回落
+        fx.add(pluck(m, 0.35, 2000, 400, wave='tri'), HITS['draghi'] + 1.6 + k * 0.6, 0.28)
+    for k, m in enumerate([38, 41, 45]):                     # 三块积木（家庭、企业、央行）
+        fx.add(tom(m, 0.8, 0.9), HITS['synth'] + 0.2 + 0.35 * k, 0.4)
+    for k, m in enumerate([74, 77, 81, 86]):                 # 屋顶
+        fx.add(bell(m, 1.8), HITS['synth'] + 1.4 + k * 0.1, 0.25)
+    fx.add(boom(0.5, 2.6), HITS['question'], 0.4)
+    fx.add(riser(2.0, 50, 76), HITS['machine'] - 2.0, 0.8)
+    fx.add(reverse_swell(1.9, 5000), HITS['machine'] - 1.9, 0.6)
+    # ---- 05 回到中国：第三个大重拍
+    T0 = HITS['machine']
+    fx.add(boom(1.3, 4.0), T0, 0.95)
+    fx.add(braam(26, 3.2, 1.1), T0, 0.6)
+    sub.add(subdrop(2.0, 80, 26), T0, 0.7)
+    PULSE.append((T0, 1.5))
+    for k, m in enumerate([62, 65, 69, 72, 74]):             # 五个节点
+        fx.add(bell(m + 12, 1.5), T0 + 0.5 + k * 0.5, 0.3, p=-0.6 + 0.3 * k)
+    for k, m in enumerate([74, 77, 81, 84, 86]):             # 良性循环：一环扣一环
+        fx.add(bell(m, 1.5), CAP['m_good'][0] + 0.3 + k * 1.05, 0.28)
+    T0 = HITS['vicious']
+    sub.add(subdrop(1.4, 70, 30), T0, 0.6)
+    fx.add(boom(0.7, 2.4), T0, 0.5)
+    for k, m in enumerate([45, 43, 41, 38]):                 # 恶性循环：一环一环往下
+        fx.add(tom(m, 0.7, 0.9), T0 + 0.3 + k * 0.85, 0.35)
+    T0 = HITS['selffulfil']
+    fx.add(boom(1.0, 3.0), T0, 0.7)
+    fx.add(braam(26, 2.4, 0.9), T0, 0.45)
+    PULSE.append((T0, 1.2))
+    fx.add(bell(76, 2.0), CAP['m_why'][0] + 1.2, 0.25)       # 「？」
+    t2 = CAP['m_real'][0]
+    fx.add(bell(81, 1.6), t2 + 1.4, 0.3)                     # ≈ 0%
+    fx.add(tom(34, 0.9, 1.0), t2 + 2.8, 0.45)                # ≈ 6%
+    fx.add(boom(0.4, 2.2), t2 + 2.8, 0.3)
+    T0 = HITS['rope']
     n = S(1.5)
     tt = np.arange(n) / SR
     creak = lp(saw(mtof(38) * (1 - 0.08 * tt / 1.5), n), 500) * np.exp(-tt / 0.8)
-    fx.add(creak, T, 0.3)
-    fx.add(tom(36, 0.8, 1.0), T, 0.45)
-    T = HITS['fiscal']
-    fx.add(boom(0.7, 2.6), T, 0.5)
-    fx.add(shimmer(1.2, 81, notes=(0, 4, 7, 12, 16)), T, 0.35)
-    PULSE.append((T, 0.9))
-    fx.add(reverse_swell(1.6, 3000), 150.4, 0.45)
+    fx.add(creak, T0 + 2.0, 0.3)
+    fx.add(tom(36, 0.8, 1.0), T0 + 2.0, 0.45)
+    T0 = HITS['fiscal']
+    fx.add(boom(0.7, 2.6), T0, 0.5)
+    fx.add(shimmer(1.2, 81, notes=(0, 4, 7, 12, 16)), T0, 0.35)
+    for k, m in enumerate([81, 86]):
+        fx.add(bell(m, 1.4), CAP['m_fiscal'][0] + 0.1 + 0.5 * k, 0.28)
+    PULSE.append((T0, 0.9))
+    fx.add(reverse_swell(1.0, 3000), CAP['m_hall'][0] - 1.0, 0.35)    # 回扣霍尔
+    fx.add(bell(77, 2.5), CAP['m_hall'][0], 0.3)
+    fx.add(pluck(81, 0.4, 2400, 400), CAP['m_hall'][0] + 1.0, 0.32)    # +11%
+    fx.add(tom(34, 0.9, 1.0), CAP['m_hall'][0] + 2.4, 0.45)           # −5.6%
+    fx.add(reverse_swell(1.4, 3500), CAP['m_long'][0] - 1.0, 0.4)
+    fx.add(reverse_swell(1.6, 3000), HITS['truth'] - 1.6, 0.45)
+    # ---- 06 真相
     fx.add(boom(0.5, 3.0), HITS['truth'], 0.45)
     fx.add(bell(74, 3.5), HITS['keyline'], 0.45)
     fx.add(boom(0.6, 3.0), HITS['keyline'], 0.45)
     PULSE.append((HITS['keyline'], 1.0))
-    # 获奖者：定音鼓滚奏 → 重击
-    for T in (HITS['laureates'], HITS['woodford_card'], HITS['both']):
-        fx.add(timpani_roll(38, 1.4, 0.8), T - 1.4, 0.45)
-        fx.add(tom(38, 1.0, 1.6), T, 0.6)
-        fx.add(boom(0.6, 3.0), T, 0.4)
-        PULSE.append((T, 1.0))
-    # 片尾
-    fx.add(riser(2.0, 50, 74, 0.9), 178.0, 0.7)
-    fx.add(reverse_swell(2.0, 4500), 178.0, 0.6)
-    fx.add(shimmer(2.0, 74, notes=(0, 7, 12, 14, 19, 24, 26, 31)), 178.0, 0.3)
-    T = HITS['logo']
-    fx.add(boom(1.0, 3.5), T, 0.75)
-    sub.add(subdrop(1.6, 70, 26), T, 0.55)
-    PULSE.append((T, 1.2))
-    T = HITS['brandword']
-    fx.add(boom(1.1, 4.0), T, 0.8)
-    fx.add(tom(38, 1.0, 1.8), T, 0.6)
-    fx.add(shimmer(1.4, 86, notes=(0, 4, 7, 11, 14, 16, 19, 24)), 182.6, 0.45)
-    PULSE.append((T, 1.4))
+    # ---- 获奖者：定音鼓滚奏 → 重击
+    for T0 in (HITS['laureates'], HITS['woodford_card'], HITS['both']):
+        fx.add(timpani_roll(38, 1.4, 0.8), T0 - 1.4, 0.45)
+        fx.add(tom(38, 1.0, 1.6), T0, 0.6)
+        fx.add(boom(0.6, 3.0), T0, 0.4)
+        PULSE.append((T0, 1.0))
+    # ---- 片尾：汇聚 → logo → 品牌字 + 流光
+    T0 = HITS['converge']
+    fx.add(riser(2.0, 50, 74, 0.9), T0, 0.7)
+    fx.add(reverse_swell(2.0, 4500), T0, 0.6)
+    fx.add(shimmer(2.0, 74, notes=(0, 7, 12, 14, 19, 24, 26, 31)), T0, 0.3)
+    T0 = HITS['logo']
+    fx.add(boom(1.0, 3.5), T0, 0.75)
+    sub.add(subdrop(1.6, 70, 26), T0, 0.55)
+    PULSE.append((T0, 1.2))
+    T0 = HITS['brandword']
+    fx.add(boom(1.1, 4.0), T0, 0.8)
+    fx.add(tom(38, 1.0, 1.8), T0, 0.6)
+    fx.add(shimmer(1.4, 86, notes=(0, 4, 7, 11, 14, 16, 19, 24)), SHIMMER_T0, 0.45)
+    PULSE.append((T0, 1.4))
 
 
 # ---------------------------------------------------------------- 混音
