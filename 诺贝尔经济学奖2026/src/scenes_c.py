@@ -24,8 +24,8 @@ def two_line(fr, key, t, y, s1=56, s2=64, l1=None, l2=None, gap=1.42):
     return k
 
 
-# ================================================================ 04 伍德福德 146–202
-@scene(146.0, 202.0, 0.3, 0.0)
+# ================================================================ 04 伍德福德 180–236
+@scene(*SEC['woodford'], 0.3, 0.0)
 def sc_woodford(fr, t, a):
     t0 = SEC['woodford'][0]
     lt = t - t0
@@ -286,7 +286,7 @@ def synth_scene(fr, t, k):
     fr.text('决策模型的【地基】', CX, 1345, 66, 'serif_black', 'white', kc, glow=0.3, stagger=(t - CAP['w_synth'][0] - 0.3, 0.05, 0.45))
 
 
-# ================================================================ 05 回到中国 202–258
+# ================================================================ 05 回到中国 236–292
 M0 = SEC['machine'][0]
 NODES = ['预期', '消费·储蓄', '定价·投资', '需求·物价', '央行·政策']
 NODE_T = [M0 + 0.5, M0 + 1.0, M0 + 1.5, M0 + 2.0, M0 + 2.5]
@@ -337,7 +337,7 @@ CHIPS_BAD = _chain(T_BAD, ['悲观', '少花', '少投', '收入走弱'], [0, 1,
 MC_CAM = Cam((0, 36, -24), (0, 0, 9), fov=60, cy=H * 0.60)
 
 
-@scene(202.0, 258.0, 0.0, 0.4)
+@scene(*SEC['machine'], 0.0, 0.4)
 def sc_machine(fr, t, a):
     lt = t - M0
     fr.flash = max(fr.flash, 0.85 * math.exp(-lt / 0.06) * a)
@@ -591,7 +591,7 @@ def long_term(fr, t, k):
     chip(fr, '时滞：政策见效，往往要几个季度', CX, 980, k * cl((t - t0 - 1.4) / 0.4), GREY, 36, base='white')
 
 
-# ================================================================ 06 真相 258–272
+# ================================================================ 06 真相 292–306
 TR0 = SEC['truth'][0]
 
 
@@ -607,7 +607,7 @@ RISE_Z = _UR.uniform(-48, 48, RISE_N)
 RISE_T = _UR.random(RISE_N) * 6
 
 
-@scene(258.0, 272.0, 0.4, 0.45)
+@scene(*SEC['truth'], 0.4, 0.45)
 def sc_truth(fr, t, a):
     lt = t - TR0
     cam = truth_cam(t)
@@ -641,7 +641,7 @@ def sc_truth(fr, t, a):
     fr.zoom = 1 + 0.03 * ss(lt / 14)
 
 
-# ================================================================ 获奖者 272–288
+# ================================================================ 获奖者 306–322
 LA0 = SEC['laureates'][0]
 
 
@@ -685,7 +685,7 @@ def portrait_card(fr, who, cx, cy, width, k, sweep=None):
         fr.overlay_fn(band)
 
 
-@scene(272.0, 288.0, 0.4, 0.35)
+@scene(*SEC['laureates'], 0.4, 0.35)
 def sc_laureates(fr, t, a):
     light_beams(fr, a, t)
     gold_dust(fr, t, a)
@@ -733,7 +733,7 @@ def sc_laureates(fr, t, a):
     fr.zoom = 1 + 0.02 * ss((t - LA0) / 16)
 
 
-# ================================================================ 品牌片尾 288–298
+# ================================================================ 品牌片尾 322–332
 B0 = SEC['brand'][0]
 END_LOGO_PX = 220                      # BRAND.md：片尾 logo 约 220px 居中
 LOGO_C = (CX, 800)
@@ -835,7 +835,7 @@ def blit_rgba(img, rgb, a, cx, cy, alpha=1.0, wipe=1.0, shine=None, k_scale=1.0)
     reg += aa * rgb[Y0 - y0:Y1 - y0, X0 - x0:X1 - x0]
 
 
-@scene(288.0, 298.0, 0.0, 0.0)
+@scene(*SEC['brand'], 0.0, 0.0)
 def sc_brand(fr, t, a):
     draw_dust(fr, t, a * 0.4 * (1 - ss((t - B0 - 3) / 2)))
     T_LOGO = HITS['logo']

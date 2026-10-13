@@ -1,4 +1,4 @@
-"""v2：02 诺奖（旧模型失灵 → 微观基础）→ 03 霍尔：家庭的预期（发现①花钱看一辈子；发现②消费只为意外而变）"""
+"""v3：02 诺奖（回到半个世纪前：旧模型 → 石油危机与滞胀 → 旧模型失灵 → 新凯恩斯主义）→ 03 霍尔：家庭的预期（发现①花钱看一辈子；发现②消费只为意外而变）"""
 import math
 
 import numpy as np
@@ -10,6 +10,7 @@ from scenes_a import cw, two, chip, num_unit, rich, bar_glass
 import portraits
 
 CX = W / 2
+CORAL_HI = C(255, 190, 180)
 
 
 def law_card(fr, t, t0, t1, tag, line, a, y=760, out_to=None):
@@ -77,116 +78,270 @@ def sc_nobel(fr, t, a):
     fr.text('给出了【答案】', CX, 1290, 70, 'serif_black', 'white', k, glow=0.3, stagger=(t - CAP['n_a'][0] - 0.3, 0.05, 0.45))
 
 
-# ================================================================ 旧模型失灵 → 微观基础 82–98
-OX, OY = 190, 1040
-XW, YH = 720, 500
-PTS60 = [(0.08, 0.80), (0.16, 0.62), (0.25, 0.50), (0.34, 0.41), (0.43, 0.34), (0.53, 0.28), (0.63, 0.23),
-         (0.74, 0.19), (0.86, 0.16)]
-PTS70 = [(0.45, 0.62), (0.62, 0.72), (0.55, 0.85), (0.78, 0.70), (0.70, 0.93), (0.88, 0.84), (0.95, 0.97)]
+# ================================================================ 回到半个世纪前：旧模型 → 滞胀 → 新凯恩斯主义（82–132）
+OM0 = SEC['oldmodel'][0]
+OX, OY = 190, 1060            # 菲利普斯图：左下角
+XW, YH = 720, 520
+U0, U1, PI1 = 3.0, 9.0, 14.0  # 失业率 3%–9%，通胀率 0–14%
+# 美国年均数据：(年份, 失业率 %, CPI 涨幅 %)；BLS（CPI 年均涨幅按明尼阿波利斯联储整理的 BLS 表）
+D60 = [(1960, 5.5, 1.7), (1961, 6.7, 1.0), (1962, 5.5, 1.0), (1963, 5.7, 1.3), (1964, 5.2, 1.3),
+       (1965, 4.5, 1.6), (1966, 3.8, 3.0), (1967, 3.8, 2.8), (1968, 3.6, 4.3), (1969, 3.5, 5.5)]
+D70 = [(1970, 4.9, 5.7), (1971, 5.9, 4.4), (1972, 5.6, 3.2), (1973, 4.9, 6.2), (1974, 5.6, 11.1), (1975, 8.5, 9.1),
+       (1976, 7.7, 5.7), (1977, 7.1, 6.5), (1978, 6.1, 7.6), (1979, 5.8, 11.3), (1980, 7.1, 13.5), (1981, 7.6, 10.3)]
+OIL = [('2.9', 2.9, '1973 年', '10 月前'), ('5.1', 5.11, '1973 年', '10 月'), ('11.65', 11.65, '1974 年', '1 月')]
+NK_BLOCKS = [('微观基础', '从家庭、企业的决策出发', GOLD, 'gold'),
+             ('理性预期', '人会预判未来，提前行动', ICE, 'ice'),
+             ('价格黏性', '价格不能天天改，调整要时间', CORAL, 'coral')]
 _SR = np.random.default_rng(8)
-SHARD_V = _SR.normal(0, 1, (40, 2)) * np.array([420, 340]) + np.array([0, -120])
-SHARD_W = _SR.normal(0, 5, 40)
+SHARD_V = _SR.normal(0, 1, (80, 2)) * np.array([420, 340]) + np.array([0, -120])
+SHARD_W = _SR.normal(0, 5, 80)
 LAT_N = 84
-LAT = np.array([(150 + (i % 14) * 60 + (30 if (i // 14) % 2 else 0), 1130 - (i // 14) * 52) for i in range(LAT_N)],
+LAT = np.array([(150 + (i % 14) * 60 + (30 if (i // 14) % 2 else 0), 1080 - (i // 14) * 52) for i in range(LAT_N)],
                np.float64)
 LAT_KIND = _SR.random(LAT_N) < 0.25
+SRC_RND = np.c_[_SR.uniform(120, 960, LAT_N), _SR.uniform(450, 1100, LAT_N)]
+
+
+def om(off):
+    return OM0 + off
 
 
 def p2s(u, v):
-    return OX + u * XW, OY - v * YH
+    u, v = np.asarray(u, np.float64), np.asarray(v, np.float64)
+    return OX + (u - U0) / (U1 - U0) * XW, OY - v / PI1 * YH
 
 
-def curve60(n=60):
-    u = np.linspace(0.05, 0.92, n)
-    v = np.clip(0.12 + 0.065 / (u + 0.02), 0, 1.0)
-    return u, v
+def phillips(u, shift=0.0):
+    """1960 年代美国数据的拟合曲线：通胀 ≈ 0.3 + 1.9 / (失业率 − 3.1)；shift = 预期通胀上升带来的整体上移（示意）"""
+    return 0.3 + shift + 1.9 / (np.asarray(u) - 3.1)
 
 
-@scene(82.0, 98.0, 0.3, 0.4)
+def curve_pts(shift=0.0, n=80):
+    u = np.linspace(3.42, 7.6, n)
+    v = phillips(u, shift)
+    ok = v <= PI1 + 0.2
+    return p2s(u[ok], v[ok])
+
+
+def chart_axes(fr, k):
+    fr.line((OX, OY), (OX + XW + 20, OY), GREY, k * 0.6, 2)
+    fr.line((OX, OY), (OX, OY - YH - 20), GREY, k * 0.6, 2)
+    for u in (3, 5, 7, 9):
+        x, _ = p2s(u, 0)
+        fr.text(f'{u}%', x, OY + 36, 26, 'inter_med', 'dim', k, glow=0)
+    for v in (5, 10):
+        _, y = p2s(U0, v)
+        fr.text(f'{v}%', OX - 18, y, 26, 'inter_med', 'dim', k, anchor='r', glow=0)
+        for xx in range(OX, OX + XW, 22):
+            fr.line((xx, y), (xx + 8, y), GREY, k * 0.18, 1)
+    fr.text('失业率 →', OX + XW + 10, OY + 74, 30, 'sans_med', 'grey', k, anchor='r', glow=0)
+    fr.text('通胀率 ↑', OX - 10, OY - YH - 46, 30, 'sans_med', 'grey', k, anchor='l', glow=0)
+    fr.text('美国 · 通胀率与失业率（年均）', CX, 360, 32, 'sans_med', 'grey', k, glow=0)
+
+
+def shards(fr, xs, ys, brk, k, col, seed=0, n=20):
+    seg = np.array_split(np.arange(len(xs)), n)
+    for j, idx in enumerate(seg):
+        q = (j + seed * n) % len(SHARD_V)
+        d = SHARD_V[q] * brk + np.array([0, 700]) * brk ** 2
+        ang = SHARD_W[q] * brk
+        cx_, cy_ = xs[idx].mean(), ys[idx].mean()
+        px = (xs[idx] - cx_) * math.cos(ang) - (ys[idx] - cy_) * math.sin(ang) + cx_ + d[0]
+        py = (xs[idx] - cx_) * math.sin(ang) + (ys[idx] - cy_) * math.cos(ang) + cy_ + d[1]
+        fr.stroke(list(zip(px, py)), col, k * max(0, 1 - brk / 1.5), 3, glow=1.2)
+
+
+@scene(*SEC['oldmodel'], 0.3, 0.4)
 def sc_oldmodel(fr, t, a):
-    t0 = SEC['oldmodel'][0]
-    lt = t - t0
+    lt = t - OM0
     draw_dust(fr, t, a * 0.5)
-    brk = t - HITS['break70s']
-    if 0 < brk < 1.2:
-        sh = 14 * math.exp(-brk / 0.25)
-        fr.cam = (sh * math.sin(brk * 70), sh * math.cos(brk * 53))
-    k_chart = a * (1 - ss((t - (CAP['o_why'][0] + 1.4)) / 0.8))
+    # ---------------- 1) 回到半个多世纪前：年份倒转
+    kr = a * win(t, om(0.0), om(3.7), 0.3, 0.45)
+    if kr > 0.01:
+        p = eio(cl((lt - 0.4) / 2.3))
+        yr = int(round(2026 - (2026 - 1960) * p))
+        fr.glow((CX, 700), 300, GOLD, kr * 0.10)
+        fr.text(str(yr), CX, 700, 190, 'inter_light', 'gold', kr, glow=0.5, track=0.04, blur=3 * (1 - abs(2 * p - 1)) * (p < 1))
+        for i in range(-6, 7):                                 # 滚动的时间刻度
+            x = CX + i * 80 + ((lt * 260) % 80) * (p < 1)
+            fr.line((x, 860), (x, 880 if i % 2 else 892), GOLD, kr * 0.4 * (1 - abs(i) / 7), 2)
+        fr.line((CX - 520, 860), (CX + 520, 860), GOLD, kr * 0.25, 1)
+    two(fr, 'o_back', t, 1265, split=('要读懂这个奖，', '得先回到【半个多世纪前】'))
+    # ---------------- 2) 菲利普斯图（1960 年代 → 1970 年代）
+    shatter = t - HITS['shatter']
+    k_chart = a * win(t, om(3.4), om(13.2), 0.5, 0.35) + a * win(t, om(17.8), om(33.4), 0.4, 0.6)
+    k_chart = min(k_chart, a)
     if k_chart > 0.01:
-        fr.line((OX, OY), (OX + XW + 20, OY), GREY, k_chart * 0.6, 2)
-        fr.line((OX, OY), (OX, OY - YH - 30), GREY, k_chart * 0.6, 2)
-        fr.text('失业率 →', OX + XW, OY + 42, 32, 'sans_med', 'grey', k_chart, anchor='r', glow=0)
-        fr.text('通胀率 ↑', OX + 10, OY - YH - 60, 32, 'sans_med', 'grey', k_chart, anchor='l', glow=0)
-        for i, (u, v) in enumerate(PTS60):
-            kk = k_chart * eo((lt - 0.4 - i * 0.24) / 0.25)
+        chart_axes(fr, k_chart)
+        # 1960 年代的点
+        dim60 = 1 - 0.4 * cl((t - HITS['stag']) / 0.6)
+        for i, (yr, u, v) in enumerate(D60):
+            kk = k_chart * eo((t - om(3.9) - i * 0.25) / 0.25) * dim60
             x, y = p2s(u, v)
             fr.disc((x, y), 9, GOLD, kk, glow=0.8)
-        u, v = curve60()
-        xs, ys = p2s(u, v)
-        if brk < 0:
-            m = int(len(u) * cl((lt - 1.4) / 1.2))
+            if yr in (1960, 1969):
+                fr.text(str(yr), x + (26 if yr == 1969 else 0), y + (30 if yr == 1960 else -30), 24, 'inter_med', 'gold', kk,
+                        glow=0)
+        # 拟合曲线（旧规律）与上移的曲线（示意）
+        xs, ys = curve_pts()
+        if shatter < 0:
+            m = int(len(xs) * cl((t - om(6.4)) / 1.2))
             if m > 1:
-                fr.stroke(list(zip(xs[:m], ys[:m])), GOLD_HI, k_chart * 0.9, 3, glow=1.0)
-            kk = k_chart * cl((lt - 2.2) / 0.4)
-            fr.text('通胀高一点，失业就低一点', OX + XW * 0.6, OY - YH * 0.55, 36, 'sans_bold', 'gold', kk, glow=0.2)
+                fr.stroke(list(zip(xs[:m], ys[:m])), GOLD_HI, k_chart * 0.9 * dim60, 3, glow=1.0)
+            kl = k_chart * win(t, om(7.0), HITS['stag'], 0.4, 0.4)
+            fr.text('通胀高一点，失业就低一点', OX + XW * 0.62, OY - YH * 0.52, 34, 'sans_bold', 'gold', kl, glow=0.2)
+            for j, (off, tt) in enumerate(((3.5, om(24.6)), (6.5, om(25.4)), (9.5, om(26.2)))):
+                kc = k_chart * cl((t - tt) / 0.5)
+                if kc > 0.01:
+                    sx, sy = curve_pts(off * eo((t - tt) / 0.7))
+                    col = lerp(np.asarray(GOLD), np.asarray(CORAL), (j + 1) / 3)
+                    for i in range(0, len(sx) - 2, 3):
+                        fr.line((sx[i], sy[i]), (sx[i + 1], sy[i + 1]), col, kc * 0.8, 3, glow=0.8)
+            ka = k_chart * cl((t - om(26.8)) / 0.4)
+            if ka > 0.01:
+                x0, y0 = p2s(7.3, phillips(7.3, 0.6))
+                fr.line((x0, y0 - 10), (x0, y0 - 160), CORAL_HI, ka, 4, glow=1.0)
+                for s_ in (-1, 1):
+                    fr.line((x0, y0 - 160), (x0 + s_ * 18, y0 - 138), CORAL_HI, ka, 4, glow=1.0)
+                fr.text('预期通胀 ↑', x0 + 44, y0 - 96, 30, 'sans_bold', 'coral', ka, anchor='l', glow=0.2)
         else:
-            seg = np.array_split(np.arange(len(u)), 20)
-            for j, idx in enumerate(seg):
-                d = SHARD_V[j] * brk + np.array([0, 700]) * brk ** 2
-                ang = SHARD_W[j] * brk
-                cx_, cy_ = xs[idx].mean(), ys[idx].mean()
-                px = (xs[idx] - cx_) * math.cos(ang) - (ys[idx] - cy_) * math.sin(ang) + cx_ + d[0]
-                py = (xs[idx] - cx_) * math.sin(ang) + (ys[idx] - cy_) * math.cos(ang) + cy_ + d[1]
-                fr.stroke(list(zip(px, py)), GOLD_HI, k_chart * max(0, 1 - brk / 1.5), 3, glow=1.2)
-            for i, (uu, vv) in enumerate(PTS70):
-                kk = k_chart * eback((brk - i * 0.08) / 0.3)
-                x, y = p2s(uu, vv)
-                fr.disc((x, y), 11 * kk, CORAL, cl(kk), glow=1.2)
-    k = a * cw('o_old', t, 0.35, 0.35)
-    fr.text('过去的宏观模型，', CX, 270, 56, 'serif_bold', 'grey', k, stagger=(t - CAP['o_old'][0], 0.04, 0.4))
-    fr.text('只看数字之间的统计规律', CX, 365, 64, 'serif_black', 'white', k, glow=0.25,
-            stagger=(t - CAP['o_old'][0] - 0.25, 0.04, 0.4))
-    k = a * cw('o_break', t, 0.2, 0.3)
-    chip(fr, '1970年代：通胀与失业一起飙升，规律失灵', CX, 1170, k, CORAL, 38, base='coral')
-    # 人会预判：碎片慢慢聚拢 → 家庭与企业的格点，托起宏观
-    k = a * cw('o_why', t, 0.35, 0.35)
-    fr.text('人会预判未来，', CX, 270, 58, 'serif_bold', 'white', k, glow=0.2, stagger=(t - CAP['o_why'][0], 0.04, 0.4))
-    fr.text('规律就会【跟着变】', CX, 365, 66, 'serif_black', 'white', k, glow=0.3, stagger=(t - CAP['o_why'][0] - 0.25, 0.05, 0.45))
-    t_r = CAP['o_why'][0] + 1.0
-    kr = a * cl((t - t_r) / 0.6)
-    if kr > 0.01:
+            shards(fr, xs, ys, shatter, k_chart, GOLD_HI, 0)
+            for j, off in enumerate((3.5, 6.5, 9.5)):
+                sx, sy = curve_pts(off)
+                shards(fr, sx, sy, shatter * (1 + 0.15 * j), k_chart * 0.8, CORAL, j + 1, 12)
+        # 菜单：沿曲线滑动的点
+        km = k_chart * win(t, om(8.8), om(13.0), 0.3, 0.3)
+        if km > 0.01:
+            pm = eio(cl((t - om(9.0)) / 2.0))
+            u = lerp(6.4, 3.65, pm)
+            x, y = p2s(u, phillips(u))
+            for xx in np.arange(OX, x, 18):
+                fr.line((xx, y), (min(xx + 8, x), y), WHITE, km * 0.45, 2)
+            for yy in np.arange(y, OY, 18):
+                fr.line((x, yy), (x, min(yy + 8, OY)), WHITE, km * 0.45, 2)
+            fr.glow((x, y), 40, GOLD_HI, km * 0.8)
+            fr.disc((x, y), 13, GOLD_HI, km, glow=1.2)
+            fr.circle((x, y), 24 + 6 * math.sin(t * 6), GOLD_HI, km * 0.6, 2)
+            chip(fr, '被当成一份政策「菜单」', CX, 432, km * cl((t - om(9.2)) / 0.4), GOLD, 34, fname='sans_bold')
+        # 1970 年代：两次石油危机后的点一路飞向右上
+        if t > HITS['stag'] - 0.2:
+            pts = []
+            for i, (yr, u, v) in enumerate(D70):
+                g = eback((t - HITS['stag'] - 0.18 * i) / 0.4)
+                if g <= 0:
+                    continue
+                x, y = p2s(u, v)
+                pts.append((x, y))
+                kk = k_chart * cl(g)
+                fr.disc((x, y), 10 * g, CORAL, kk, glow=1.2)
+                lab = {1974: ('1974 / 1979', 0, -36), 1975: ('1975', 46, 0), 1980: ('1980', 0, -34)}.get(yr)
+                if lab:
+                    fr.text(lab[0], x + lab[1], y + lab[2], 26, 'inter_bold', 'coral',
+                            kk * cl((t - HITS['stag'] - 0.18 * i - 0.3) / 0.3), glow=0.1)
+        ks = k_chart * win(t, om(19.2), om(24.0), 0.3, 0.3)
+        chip(fr, '滞胀 = 高通胀 + 经济停滞', CX, 432, ks, CORAL, 36, fname='sans_bold', base='coral')
+        kc = k_chart * win(t, om(20.4), om(32.0), 0.4, 0.4)
+        fr.text('成因：1973、1979 年两次石油危机，叠加此前多年的宽松政策', CX, OY + 120, 28, 'sans_med', 'grey', kc, glow=0)
+        chip(fr, '示意：通胀预期上升，曲线整体上移', CX, 432, k_chart * win(t, om(24.8), om(28.6), 0.3, 0.3),
+             GREY, 32, base='white')
+        chip(fr, '卢卡斯批判（1976）：政策一变，人的预期和行为也会变', CX, 432,
+             k_chart * win(t, om(29.0), om(32.6), 0.3, 0.3), ICE, 30, fname='sans_bold', base='ice')
+        footnote(fr, '美国年均 CPI 涨幅与年均失业率 · 数据：美国劳工统计局', k_chart * (1 - cl((t - om(32.0)) / 0.5)))
+    # ---------------- 3) 1973 年石油危机：油价约 4 倍
+    ko = a * win(t, HITS['oil'], om(18.0), 0.25, 0.35)
+    if ko > 0.01:
+        lo = t - HITS['oil']
+        fr.flash = max(fr.flash, 0.16 * math.exp(-lo / 0.1) * (lo > 0))
+        fr.text('中东原油标价（美元 / 桶）', CX, 360, 36, 'sans_med', 'grey', ko, glow=0)
+        zero = 1040
+        for i, (lab, v, y1, y2) in enumerate(OIL):
+            x = 300 + i * 240
+            g = eback((lo - 0.4 - 0.6 * i) / 0.55, 1.4)
+            if g <= 0:
+                continue
+            hh = v * 46 * g
+            col = [GOLD, C(240, 160, 70), CORAL][i]
+            bar_glass(fr, x - 70, zero - hh, x + 70, zero, col, ko, 2.5)
+            if i == 0:
+                rich(fr, [('约', 'sans_bold', 30, 'gold'), (lab, 'inter_xbold', 44, 'gold')], x, zero - hh - 44, ko * cl(g), gap=6)
+            else:
+                fr.text(lab, x, zero - hh - 44, 52 if i == 2 else 44, 'inter_xbold', 'coral' if i == 2 else 'gold',
+                        ko * cl(g), glow=0.3)
+            fr.text(y1, x, zero + 40, 30, 'sans_bold', 'grey', ko, glow=0)
+            fr.text(y2, x, zero + 78, 28, 'sans_med', 'grey', ko, glow=0)
+        fr.line((180, zero), (900, zero), WHITE, ko * 0.35, 2)
+        k4 = ko * eback((lo - 2.4) / 0.4)
+        if k4 > 0.01:
+            p0, p1 = np.array([300.0, zero - 2.9 * 46 - 90]), np.array([780.0 - 90, zero - 11.65 * 46 - 10])
+            m = cl((lo - 2.4) / 0.5)
+            for u in np.arange(0, m, 0.06):
+                q0, q1 = p0 + (p1 - p0) * u, p0 + (p1 - p0) * min(u + 0.035, m)
+                fr.line(tuple(q0), tuple(q1), CORAL, ko * 0.8, 3, glow=0.8)
+            fr.text('≈ × 4', 500, zero - 470, 66, 'inter_xbold', 'coral', cl(k4) * ko, glow=0.5, scale=0.8 + 0.2 * cl(k4))
+        footnote(fr, '1973 年 10 月中东战争后，产油国大幅提高原油标价 · 资料：OPEC', ko)
+    # ---------------- 4) 碎片聚拢 → 家庭与企业的格点
+    t_r = HITS['rebuild']
+    kl = a * win(t, t_r - 0.2, om(37.2), 0.4, 0.6)
+    if kl > 0.01:
         p = eio((t - t_r) / 2.4)
-        r = np.random.default_rng(1)
-        src = np.c_[r.uniform(100, 980, LAT_N), r.uniform(500, 1100, LAT_N)]
-        P = src * (1 - p) + LAT * p
+        P = SRC_RND * (1 - p) + LAT * p
         for i in range(LAT_N):
-            fr.disc(tuple(P[i]), 7, ICE if LAT_KIND[i] else GOLD, kr, glow=0.9)
+            fr.disc(tuple(P[i]), 7, ICE if LAT_KIND[i] else GOLD, kl, glow=0.9)
         if p > 0.6:
-            kl = kr * cl((p - 0.6) / 0.4)
+            kq = kl * cl((p - 0.6) / 0.4)
             for i in range(LAT_N):
                 j = i + 1
                 if j < LAT_N and j % 14:
-                    fr.line(tuple(P[i]), tuple(P[j]), GOLD, kl * 0.25, 1)
+                    fr.line(tuple(P[i]), tuple(P[j]), GOLD, kq * 0.25, 1)
                 if i + 14 < LAT_N:
-                    fr.line(tuple(P[i]), tuple(P[i + 14]), GOLD, kl * 0.2, 1)
-        kb = kr * eo((t - CAP['o_new'][0]) / 0.8)
-        roof = [(170, 810), (540, 630), (910, 810)]
-        fr.stroke(roof, GOLD_HI, kb, 3, closed=True, glow=1.0)
-        fr.fill(roof, GOLD * 0.06, kb)
-        fr.text('宏观经济', CX, 758, 48, 'serif_black', 'gold', kb, glow=0.4)
-        for xx in np.linspace(230, 850, 8):
-            fr.line((xx, 820), (xx, 870), GOLD, kb * 0.5, 2, glow=0.4)
-        fr.line((150, 875), (930, 875), GOLD, kb * 0.7, 2, glow=0.6)
-        fr.text('家庭', 150, 1195, 32, 'sans_bold', 'gold', kb, anchor='l', glow=0)
-        fr.text('企业', 300, 1195, 32, 'sans_bold', 'ice', kb, anchor='l', glow=0)
-        fr.disc((134, 1195), 8, GOLD, kb)
-        fr.disc((284, 1195), 8, ICE, kb)
-        kt = a * win(t, CAP['o_new'][0] + 1.0, SEC['oldmodel'][1] + 0.2, 0.5, 0.3)
-        fr.text('微观基础  MICROFOUNDATIONS', CX, 560, 30, 'sans_bold', 'gold', kt, track=0.12, glow=0.3)
-    k = a * cw('o_new', t, 0.4, 0.35)
-    fr.text('他们从【每个家庭和企业】出发，', CX, 1285, 56, 'serif_bold', 'white', k, glow=0.25,
-            stagger=(t - CAP['o_new'][0], 0.035, 0.4))
-    fr.text('重建宏观模型', CX, 1375, 64, 'serif_black', 'white', k, glow=0.3, stagger=(t - CAP['o_new'][0] - 0.3, 0.05, 0.45))
+                    fr.line(tuple(P[i]), tuple(P[i + 14]), GOLD, kq * 0.2, 1)
+        kg = kl * cl((t - t_r - 1.2) / 0.5)
+        fr.disc((360, 1150), 8, GOLD, kg)
+        fr.text('家庭', 376, 1150, 30, 'sans_bold', 'gold', kg, anchor='l', glow=0)
+        fr.disc((620, 1150), 8, ICE, kg)
+        fr.text('企业', 636, 1150, 30, 'sans_bold', 'ice', kg, anchor='l', glow=0)
+    two(fr, 'o_new', t, 1265, split=('经济学家从家庭和企业出发，', '【重建宏观模型】'))
+    # ---------------- 5) 新凯恩斯主义模型的三块基石
+    kn = a * cw('o_nk', t, 0.5, 0.4)
+    if kn > 0.01:
+        fr.text('新凯恩斯主义模型', CX, 330, 78, 'serif_black', 'gold', kn, glow=0.45,
+                stagger=(t - CAP['o_nk'][0], 0.06, 0.45))
+        fr.text('New Keynesian Model', CX, 420, 32, 'corm_bold', 'subgold', kn * cl((t - CAP['o_nk'][0] - 0.6) / 0.5),
+                track=0.12, glow=0.2)
+        for i, (nm, sub, col, base) in enumerate(NK_BLOCKS):
+            p = eback((t - HITS['blocks'] - 1.5 * i) / 0.6, 1.4)
+            y = 520 + i * 160 + (1 - cl(p)) * 100
+            kk = kn * cl(p)
+            if kk <= 0.01:
+                continue
+            fr.card(110, y, 970, y + 130, 26, kk, tint=col, border=col, border_a=0.75, fill_a=0.08, blur=12)
+            fr.text(f'{"①②③"[i]}', 158, y + 65, 40, 'sans_bold', base, kk, glow=0.2)
+            fr.text(nm, 200, y + 65, 52, 'serif_black', base, kk, anchor='l', glow=0.25)
+            fr.text(sub, 930, y + 65, 32, 'sans_med', 'white', kk, anchor='r', glow=0)
+        kf = kn * cl((t - HITS['blocks'] - 3.8) / 0.6)
+        if kf > 0.01:
+            fr.rrect(96, 506, 984, 1004, 34, GOLD, kf * 0.5, 2, glow=0.8)
+        chip(fr, '经济冲击  →  模型推演  →  政策应对', CX, 1090, kn * win(t, om(42.4), om(46.2), 0.4, 0.3), GOLD, 34,
+             fname='sans_bold')
+        kb = kn * cl((t - HITS['base'] - 0.4) / 0.6)
+        if kb > 0.01:
+            fr.line((110, 1036), (970, 1036), GOLD_HI, kb, 4, glow=1.2)
+            fr.glow((CX, 1036), 300, GOLD, kb * 0.12)
+            for x, s_, col, base, d in ((330, '霍尔：家庭怎么花钱', GOLD, 'gold', 0.0), (760, '伍德福德：企业定价 · 央行', ICE, 'ice', 0.35)):
+                kp = kb * eo((t - HITS['base'] - 0.6 - d) / 0.5)
+                fr.line((x, 1040), (x, 1068), col, kp * 0.7, 2)
+                chip(fr, s_, x, 1104, kp, col, 32, fname='sans_bold', base=base)
+    two(fr, 'o_tool', t, 1265, split=('成为现代央行', '分析冲击、制定政策的【重要工具】'))
+    two(fr, 'o_base', t, 1265, split=('今年两位得主的研究，', '正是这套框架的【基石】'))
+    two(fr, 'o_old', t, 1265, split=('二战后的宏观模型，', '靠总量数据之间的【统计规律】'))
+    two(fr, 'o_menu', t, 1265, split=('政府以为：多容忍一点通胀，', '就能换来【更多就业】'))
+    two(fr, 'o_oil', t, 1265, split=('1973 年石油危机：', '几个月里，油价涨了约【4 倍】'))
+    two(fr, 'o_stag', t, 1265, split=('物价飞涨，经济却停滞不前：', '这就是〖「滞胀」〗'))
+    two(fr, 'o_fail', t, 1265, split=('沿用旧模型刺激需求，', '往往只换来〖更高的通胀〗'))
+    two(fr, 'o_why', t, 1265, split=('因为人会预判未来：', '预期一变，【旧规律就失灵】'))
+    if 0 < shatter < 1.2:
+        sh = 12 * math.exp(-shatter / 0.25)
+        fr.cam = (sh * math.sin(shatter * 70), sh * math.cos(shatter * 53))
 
 
 # ================================================================ 名片
@@ -211,7 +366,7 @@ def name_card(fr, t, t0, t1, who, en, zh, badge, a):
     chip(fr, badge, CX, 1345, k * eo((t - t0 - 0.6) / 0.5), GOLD, 32, fname='sans_med')
 
 
-# ================================================================ 03 霍尔 98–146
+# ================================================================ 03 霍尔 132–180
 def income(age):
     age = np.asarray(age, np.float64)
     work = 0.28 + 0.72 * np.sin(np.pi * np.clip((age - 20) / 58, 0, 1)) ** 0.9
@@ -230,7 +385,7 @@ def a2s(age, v):
 H_FIELD_CAM = lambda t: Cam((0, 7.5, -46 + (t - 140) * 0.6), (0, 0.0, 6 + (t - 140) * 0.6), fov=56, cy=H * 0.42)
 
 
-@scene(98.0, 146.0, 0.3, 0.3)
+@scene(*SEC['hall'], 0.3, 0.3)
 def sc_hall(fr, t, a):
     t0 = SEC['hall'][0]
     lt = t - t0

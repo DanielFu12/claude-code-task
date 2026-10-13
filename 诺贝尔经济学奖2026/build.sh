@@ -18,15 +18,15 @@ python3 src/music.py build
 # 3) 逐帧渲染（4 进程并行，12 段）
 CRF=12 PRESET=medium python3 src/video.py render 4
 ffmpeg -v error -y -f concat -safe 0 -i build/chunks.txt -c copy build/master_video.mp4
-# 4) 成片（4:58）：两遍编码控制在 GitHub 单文件 100 MB 以内；音频 AAC 192k
-VBR=2250k
+# 4) 成片（5:32）：两遍编码控制在 GitHub 单文件 100 MB 以内；音频 AAC 192k
+VBR=2000k
 ffmpeg -v error -y -i build/master_video.mp4 -c:v libx264 -preset slow -b:v $VBR -pass 1 -passlogfile build/x264 \
   -x264-params aq-mode=3 -pix_fmt yuv420p -an -f mp4 /dev/null
 ffmpeg -v error -y -i build/master_video.mp4 -i build/music.wav -map 0:v -map 1:a -c:v libx264 -preset slow -b:v $VBR \
   -pass 2 -passlogfile build/x264 -x264-params aq-mode=3 -pix_fmt yuv420p -c:a aac -b:a 192k -shortest \
   -movflags +faststart "$OUT"
 # 5) 预览版（< 30 MB）：720×1280，两遍编码
-PV=620k
+PV=550k
 ffmpeg -v error -y -i build/master_video.mp4 -vf scale=720:1280:flags=lanczos -c:v libx264 -preset slow -b:v $PV -pass 1 \
   -passlogfile build/x264p -pix_fmt yuv420p -an -f mp4 /dev/null
 ffmpeg -v error -y -i build/master_video.mp4 -i build/music.wav -map 0:v -map 1:a -vf scale=720:1280:flags=lanczos \

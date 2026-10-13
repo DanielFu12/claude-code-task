@@ -1,9 +1,10 @@
-"""原创配乐 + 音效（numpy 合成）。120 BPM，D 小调 → 结尾转 D 大调，共 149 小节（4 分 58 秒）。
+"""原创配乐 + 音效（numpy 合成）。120 BPM，D 小调 → 结尾转 D 大调，共 166 小节（5 分 32 秒）。
 
-段落与画面一一对应（见 timeline.py，小节号 = 秒 / 2）：
+段落与画面一一对应（见 timeline.py；小节号 = 秒 / 2，霍尔及之后的段落沿用 v2 小节号，由 b() 后移 17 小节）：
   冷开场：利率每跳一次一声滴答；「按常理」一段上行；「可是」低音重击后进入不安的切分律动 → 标题重拍
   01 谨慎：拨弦琶音律动逐层加入贝斯、踩镲、拍手；企业观望处半速；「预期」一声铃 → 诺奖重拍
-  02 诺奖：旧模型数据点下行 → 1970 年代晶体碎裂 → 碎片聚拢、上行重建
+  02 诺奖 → 回到半个世纪前：年份倒转的滴答 → 战后模型（数据点下行、沿「菜单」上滑）→ 1973 石油危机的低频重击
+      → 滞胀的心跳与不协和铃音 → 曲线一级级上移 → 旧规律碎裂 → 上行重建 → 三块基石 → 落到霍尔的 F 大调
   03 霍尔：温暖的钢琴主题两遍 + 弦乐；「意外」处整体抽空、转暗，再回到温暖
   04 伍德福德：钟表式拨奏 + 滴答 + 工厂律动；德拉吉一句话后舒展；「那么问题来了」抽空 → 重拍
   05 回到中国：全编制高潮（良性循环）→ 心跳（恶性循环）→ 时钟（真实利率）→ 推绳子 → 财政重建
@@ -23,9 +24,26 @@ import numpy as np
 import soundfile as sf
 
 from synth import *          # noqa: F401,F403
-from timeline import BAR, BEAT, CAP, DUR, FPS, HITS, SHIMMER_T0, T, b
+from timeline import BAR, BEAT, CAP, DUR, FPS, HITS, SHIMMER_T0, T
 
 N = S(DUR)
+
+# v3 在诺奖之后插入了 50 秒的历史段（新时间轴 41–66 小节）。霍尔及之后的编曲仍沿用 v2 的小节号（霍尔从 49 小节起），
+# 换算成秒时整体后移 DB 小节；历史段本身用 bn() 直接按新时间轴的小节号定位。
+OM_B = 49                      # v2 小节号：霍尔开始
+OM_NEW = 66                    # 新时间轴小节号：霍尔开始
+DB = OM_NEW - OM_B             # 17 小节 = 34 秒
+
+
+def b(bar, beat=0.0):
+    """编曲小节（v2 小节号）→ 秒"""
+    t = bar * BAR + beat * BEAT
+    return t + DB * BAR if bar >= OM_B else t
+
+
+def bn(bar, beat=0.0):
+    """历史段：新时间轴的小节号 → 秒"""
+    return bar * BAR + beat * BEAT
 
 # ---------------------------------------------------------------- 和弦
 CH = {
@@ -37,7 +55,7 @@ CH = {
     'Em7': ([50, 55, 59, 64], 40), 'Bbadd9': ([50, 53, 58, 60], 34), 'Gm7': ([50, 53, 55, 58], 43),
     'Dadd9': ([50, 54, 57, 64], 38), 'Dpow': ([38, 45, 50], 38),
 }
-PROG = [  # (起始小节, 和弦)；1 小节 = 2 s，小节号 = 秒 / 2
+PROG = [  # (起始小节, 和弦)；1 小节 = 2 s；v2 小节号（霍尔从 49 小节起，换算成秒时由 b() 后移 17 小节）
     # 冷开场 0–14：利率下行 → 「按常理」→「可是」→ 钱去哪了 → 为什么
     (0, 'Dpow'), (3, 'F'), (4, 'C'),
     (5, 'Dm'), (6, 'Bb'), (7, 'Gm'), (8, 'A'), (9, 'Dm'), (10, 'Bb'), (11, 'Gm'), (12, 'Bbadd9'), (13, 'Asus'), (13.5, 'A'),
@@ -48,8 +66,8 @@ PROG = [  # (起始小节, 和弦)；1 小节 = 2 s，小节号 = 秒 / 2
     (26, 'Dm'), (27, 'Bb'), (28, 'F'), (29, 'C'), (30, 'Dm'), (31, 'Bb'), (32, 'Gm'),
     (33, 'Gm'), (34, 'Bb'), (35, 'Gm'), (35.5, 'A'), (36, 'Bb'), (37, 'C'),
     # 02 诺奖 38–49
-    (38, 'F'), (39, 'C/E'), (40, 'Dm'), (41, 'Dm'), (42, 'Bb'), (43, 'Gm'), (43.5, 'Eb'), (44, 'A'),
-    (45, 'Dm'), (46, 'Bb'), (47, 'Gm'), (48, 'C'),
+    (38, 'F'), (39, 'C/E'), (40, 'Dm'),
+    (41, None),   # 41–49：v2 的「旧模型」段，v3 改写为 50 秒的历史段，见 history_music()（新时间轴上的 41–66 小节）
     # 03 霍尔 49–73（主题两遍；69.5 意外）
     (49, 'F'), (50, 'C/E'), (51, 'Dm'), (52, 'Bb'), (53, 'F'), (54, 'C/E'), (55, 'Dm'), (56, 'Bb'), (57, 'Gm'), (58, 'Bb'), (59, 'C'),
     (60, 'F'), (61, 'C/E'), (62, 'Dm'), (63, 'Bb'), (64, 'F'), (65, 'C/E'), (66, 'Dm'), (67, 'Bb'), (68, 'Gm'), (69, 'Bb'),
@@ -93,7 +111,9 @@ def ramp(x, a, z, v0, v1):
 
 
 def bar_of(sec):
-    return sec / BAR
+    """秒 → 编曲小节（v2 小节号；与 b() 互逆，历史段内返回新时间轴小节号）"""
+    bar = sec / BAR
+    return bar - DB if bar >= OM_NEW else bar
 
 
 # ---------------------------------------------------------------- 总线
@@ -141,9 +161,6 @@ def pad_level(s0, mid):
         (33, 35.5, lambda: (1100, 0.6)),
         (35.5, 38, lambda: (ramp(mid, 35.5, 38, 1500, 3200), 0.65)),
         (38, 41, lambda: (3300, 0.85)),
-        (41, 43.5, lambda: (1300, 0.45)),
-        (43.5, 45, lambda: (800, 0.5)),
-        (45, 49, lambda: (ramp(mid, 45, 49, 1100, 2200), 0.5)),
         (49, 69.5, lambda: (ramp(mid, 49, 69.5, 1500, 2600), 0.5)),
         (69.5, 71, lambda: (850, 0.5)),
         (71, 73, lambda: (2200, 0.55)),
@@ -267,8 +284,6 @@ def basslines():
                 for k in range(int(span * 8)):
                     bass.add(bass_note(root + (12 if k % 2 else 0), BEAT * 0.45, cut=500), b(bar, k * 0.5),
                              0.5 if k % 2 == 0 else 0.38)
-            elif 47 <= bar < 49:
-                bass.add(bass_note(root, BAR * span * 0.95, cut=260, drive=1.0), b(bar), 0.35)
             elif 57 <= bar < 69.5:
                 bass.add(bass_note(root, BAR * span * 0.95, cut=300, drive=1.1), b(bar), 0.42)
             elif 69.5 <= bar < 71:
@@ -442,12 +457,6 @@ def piano_parts():
     for bar, beat, m, d in mel:
         P(m, b(bar, beat), 0.62, d * BEAT, 0.45)
         P(m - 12, b(bar, beat), 0.4, d * BEAT, 0.18)
-    # 旧模型：数据点逐个落下（下行）
-    for k, m in enumerate([81, 79, 77, 76, 74, 72, 71, 69, 67]):
-        P(m, T('oldmodel', 0.4) + k * 0.24, 0.5, 0.3, 0.3, p=-0.6 + k * 0.15)
-    # 重建：碎片聚拢成格点，上行
-    for k, m in enumerate([62, 65, 69, 72, 74, 77, 81, 84]):
-        P(m, CAP['o_why'][0] + 1.0 + k * 0.3, 0.5, 0.6, 0.3, p=0.6 - k * 0.15)
     # 霍尔主题：两遍（第二遍在「意外」处被打断）
     for start, cut in ((49, 60), (60, 69.5)):
         for bar, beat, m, d in HALL_THEME:
@@ -574,15 +583,6 @@ def sfx():
     sub.add(subdrop(1.6, 70, 28), T0, 0.6)
     fx.add(shimmer(1.8, 84, notes=(0, 4, 7, 12, 16, 19, 24, 28)), T0, 0.5)
     PULSE.append((T0, 1.3))
-    T0 = HITS['break70s']                                    # 1970 年代：规律碎裂
-    fx.add(crystal(1.8), T0, 0.55)
-    fx.add(boom(0.8, 2.5), T0, 0.6)
-    music.add(pad_chord([50, 51, 52, 56], 0.9, cut=2500, att=0.005, rel=0.6), T0, 0.35)
-    PULSE.append((T0, 1.0))
-    T0 = CAP['o_new'][0]                                     # 宏观屋顶落成
-    for k, m in enumerate([65, 72, 77, 81]):
-        fx.add(bell(m, 2.0), T0 + k * 0.1, 0.25)
-    fx.add(boom(0.5, 2.6), T0, 0.35)
     # ---- 03 霍尔
     fx.add(boom(0.6, 2.4), HITS['hall'], 0.45)
     PULSE.append((HITS['hall'], 0.8))
@@ -698,6 +698,153 @@ def sfx():
     PULSE.append((T0, 1.4))
 
 
+# ---------------------------------------------------------------- 回到半个世纪前（新时间轴第 41–66 小节，82–132 s）
+PROG_OM = [  # (小节, 和弦)，直接用新时间轴的小节号
+    (41, 'Dm'), (42, 'Bb'),                                             # 年份倒转
+    (43, 'Dm'), (44, 'Bb'), (45, 'F'), (46, 'C'), (47, 'Gm'),          # 战后模型、政策菜单
+    (47.5, 'Eb'), (48, 'Gm'), (49, 'A'),                                # 1973 石油危机
+    (50, 'Dm'), (51, 'Eb'), (52, 'Gm'), (53, 'A'),                      # 滞胀
+    (54, 'Gm'), (55, 'Eb'), (55.5, 'A'),                                # 旧模型失灵（55.5 碎裂）
+    (56, 'Dm'), (57, 'Bb'), (58, 'F'), (59, 'C'),                       # 重建
+    (60, 'Dm'), (61, 'Bb'), (62, 'F'), (63, 'C/E'), (64, 'Gm'), (65, 'C'), (OM_NEW, None),   # 新凯恩斯主义 → 霍尔（F）
+]
+
+
+def om_segments():
+    for (s0, c), (s1, _) in zip(PROG_OM, PROG_OM[1:]):
+        if c is not None:
+            yield s0, s1, c
+
+
+def history_music():
+    P = lambda m, t, v=0.6, d=1.5, g=0.5, br=0.55, p=0.0: keys.add(piano_note(m, v, d, br), t, g, p)
+    for s0, s1, c in om_segments():
+        notes, root = CH[c]
+        mid = (s0 + s1) / 2
+        t0, t1 = bn(s0), bn(s1)
+        # 和声垫：暖褐 → 暗红 → 冷 → 重新变暖
+        if s0 < 43:
+            cut, g, att = 900, 0.5, 0.8
+        elif s0 < 47.5:
+            cut, g, att = ramp(mid, 43, 47.5, 1500, 2100), 0.5, 0.25
+        elif s0 < 50:
+            cut, g, att = 850, 0.6, 0.1
+        elif s0 < 55.5:
+            cut, g, att = ramp(mid, 50, 55.5, 750, 1100), 0.62, 0.2
+        elif s0 < 57:
+            cut, g, att = 900, 0.45, 0.4
+        else:
+            cut, g, att = ramp(mid, 57, 66, 1600, 3000), 0.55, 0.3
+        music.add(pad_chord(notes, t1 - t0 + 0.05, cut=cut * 1.35, att=att, rel=0.9), t0 - 0.05, g * 0.5)
+        hi = [m + 12 for m in notes[1:]]
+        if 50 <= s0 < 55.5:                                  # 滞胀：压低的弦乐
+            music.add(strings([m - 12 for m in hi], t1 - t0, att=0.6, rel=1.0, cut=2400), t0, 0.3)
+        if s0 >= 57:                                         # 重建：弦乐托起
+            music.add(strings(hi, t1 - t0, att=0.5, rel=1.1, cut=4300), t0, 0.55 * ramp(s0, 57, 62, 0.6, 1.0))
+        # 琶音
+        pat = [0, 1, 2, 3, 2, 1, 2, 3]
+        arp = [m + 12 for m in notes]
+        if 43 <= s0 < 47.5 or s0 >= 58:
+            step = 0.25 if s0 >= 62 else 0.5
+            cut_a = 1500 if s0 < 47.5 else ramp(s0, 58, 66, 1800, 3800)
+            ga = 0.38 if s0 < 47.5 else 0.5
+            k = 0
+            for beat in np.arange(0, (s1 - s0) * 4 - 1e-6, step):
+                m = arp[pat[k % 8]]
+                vel = 0.9 if beat % 1 == 0 else 0.65
+                keys.add(pluck(m, dur=step * BEAT * 0.9, cut0=cut_a, cut1=cut_a * 0.18, decay=0.16), bn(s0, beat),
+                         ga * vel * 0.32, p=0.35 * math.sin(k * 1.3))
+                k += 1
+        # 低音
+        bar = s0
+        while bar < s1 - 1e-6:
+            span = min(1.0, s1 - bar)
+            if 43 <= bar < 47.5 or 57 <= bar < 60:
+                bass.add(bass_note(root, BAR * span * 0.95, cut=260, drive=1.0), bn(bar), 0.35)
+            elif 47.5 <= bar < 50:
+                for kk in range(int(round(span * 8))):
+                    bass.add(bass_note(root + (12 if kk % 2 else 0), BEAT * 0.45, cut=420, drive=1.4), bn(bar, kk * 0.5),
+                             0.48 if kk % 2 == 0 else 0.34)
+            elif 50 <= bar < 55.5:
+                sub.add(sub_note(root - 12, BAR * span * 0.98), bn(bar), 0.45)
+            elif 60 <= bar < 66:
+                for kk in range(int(round(span * 4))):
+                    bass.add(bass_note(root, BEAT * 0.9, cut=340), bn(bar, kk), 0.4)
+            bar += span
+    # ---- 鼓：石油危机的切分律动 → 滞胀的心跳 → 新框架的稳步推进
+    for bar in (47.5, 48, 49):
+        K(bn(bar, 0), 0.62)
+        if bar != 47.5:
+            K(bn(bar, 2.5), 0.42)
+            for kk in range(4):
+                drums.add(hat(0.45), bn(bar, kk + 0.5), 0.32, p=0.25)
+    for bar in (50, 51, 52):
+        K(bn(bar, 0), 0.6, f_hi=80, f_lo=38, length=0.5)
+        K(bn(bar, 0.6), 0.45, f_hi=80, f_lo=38, length=0.5)
+    for bar in range(60, 66):
+        K(bn(bar, 0), 0.5)
+        if bar >= 62:
+            K(bn(bar, 2), 0.42)
+            for kk in range(8):
+                drums.add(shaker(0.7 if kk % 2 else 0.45), bn(bar, kk * 0.5), 0.38, p=0.3)
+    for kk in range(8):
+        drums.add(tom(45 - kk, 0.3 + 0.07 * kk), bn(65, 2 + kk * 0.25), 0.28)
+    # ---- 钢琴与音效（与画面逐一对齐）
+    lt0 = HITS['rewind']
+    P(86, lt0, 0.5, 2.5, 0.32, p=0.2)                      # 与开场呼应的两个高音
+    P(81, lt0 + 2.1, 0.45, 2.0, 0.28, p=-0.2)
+    fx.add(reverse_swell(2.6, 3500, 0.8), lt0, 0.4)        # 时间倒流
+    for kk in range(16):                                   # 年份倒转：滴答先快后慢
+        u = (kk + 0.5) / 16
+        tt = T('oldmodel', 0.4) + 2.3 * (math.acos(1 - 2 * u) / math.pi)
+        fx.add(tick(3000 - 70 * kk, 0.7), tt, 0.3, p=0.4 * math.sin(kk))
+    for i, m in enumerate([84, 81, 79, 77, 76, 74, 72, 71, 69, 67]):   # 1960 年代的点逐个落下
+        P(m, T('oldmodel', 3.9) + i * 0.25, 0.5, 0.35, 0.3, p=-0.6 + i * 0.13)
+    fx.add(shimmer(1.4, 81, 0.6, notes=(0, 4, 7, 12, 16)), T('oldmodel', 6.4), 0.18)     # 曲线画出
+    for i, m in enumerate([67, 69, 72, 74, 76, 79, 81, 84]):            # 沿着「菜单」滑动：通胀越来越高
+        keys.add(pluck(m, 0.3, 2600, 400, wave='tri'), T('oldmodel', 9.0) + i * 0.25, 0.22, p=-0.4 + 0.1 * i)
+    T0 = HITS['oil']                                       # 1973 石油危机
+    fx.add(reverse_swell(1.0, 3000), T0 - 1.0, 0.4)
+    fx.add(boom(0.9, 3.2), T0, 0.7)
+    sub.add(subdrop(1.4, 70, 28), T0, 0.55)
+    PULSE.append((T0, 1.0))
+    for i, m in enumerate([62, 67, 74]):                   # 三根油价柱
+        fx.add(pluck(m, 0.4, 2400, 400), T0 + 0.4 + 0.6 * i, 0.38)
+    fx.add(bell(86, 1.6), T0 + 2.4, 0.3)                   # ≈ ×4
+    fx.add(boom(0.45, 2.2), T0 + 2.4, 0.3)
+    T0 = HITS['stag']                                      # 滞胀
+    fx.add(boom(0.9, 3.0), T0, 0.65)
+    music.add(pad_chord([50, 51, 52, 56], 0.9, cut=2500, att=0.005, rel=0.6), T0, 0.35)
+    PULSE.append((T0, 1.1))
+    for i, m in enumerate([86, 83, 88, 84, 90, 85, 89, 87, 91, 86, 92, 88]):   # 1970 年代的点一个个弹出（不协和）
+        fx.add(bell(m, 0.8, 0.8), T0 + 0.18 * i, 0.12, p=0.5 * math.sin(i * 1.7))
+    for i, (m, tt) in enumerate(((38, 24.6), (41, 25.4), (45, 26.2))):          # 曲线一级级上移
+        fx.add(tom(m, 0.8, 1.0), T('oldmodel', tt), 0.42, p=-0.3 + 0.3 * i)
+        PULSE.append((T('oldmodel', tt), 0.5))
+    fx.add(bell(81, 1.6), T('oldmodel', 26.8), 0.25)
+    T0 = HITS['shatter']                                   # 旧规律碎裂
+    fx.add(reverse_swell(0.9, 4000), T0 - 0.9, 0.4)
+    fx.add(crystal(1.8), T0, 0.55)
+    fx.add(boom(0.8, 2.5), T0, 0.6)
+    PULSE.append((T0, 1.0))
+    T0 = HITS['rebuild']                                   # 碎片聚拢：上行
+    for i, m in enumerate([62, 65, 69, 72, 74, 77, 81, 84]):
+        P(m, T0 + 0.2 + i * 0.3, 0.5, 0.6, 0.3, p=0.6 - i * 0.15)
+    for i, m in enumerate([74, 77, 81, 86]):               # 标题「新凯恩斯主义模型」
+        fx.add(bell(m, 2.0), CAP['o_nk'][0] + i * 0.1, 0.22)
+    for i, m in enumerate([38, 41, 45]):                   # 三块基石
+        fx.add(tom(m, 0.8, 0.9), HITS['blocks'] + 1.5 * i, 0.4)
+        fx.add(bell([77, 81, 84][i], 1.4), HITS['blocks'] + 1.5 * i, 0.2)
+        PULSE.append((HITS['blocks'] + 1.5 * i, 0.6))
+    fx.add(shimmer(1.2, 81, 0.6, notes=(0, 4, 7, 12, 16)), HITS['tool'] + 0.2, 0.2)
+    T0 = HITS['base']                                      # 两位得主：这套框架的基石
+    fx.add(boom(0.55, 3.0, 50, 30), T0 + 0.4, 0.45)
+    for i, m in enumerate([65, 72, 77, 81]):
+        fx.add(bell(m, 2.2), T0 + 0.6 + i * 0.12, 0.24)
+    PULSE.append((T0 + 0.4, 0.8))
+    fx.add(reverse_swell(1.6, 3000), HITS['hall'] - 1.6, 0.35)
+
+
 # ---------------------------------------------------------------- 混音
 def sidechain_env(depth=0.45, rel=0.16):
     e = np.zeros(N)
@@ -784,6 +931,7 @@ def main(build):
     os.makedirs(build, exist_ok=True)
     print('arranging…', flush=True)
     pads(); strings_parts(); arps(); pizz_ostinato(); basslines(); drum_parts(); piano_parts(); sfx()
+    history_music()
     breath_and_impact()
     sc = sidechain_env()
     print('mixing…', flush=True)

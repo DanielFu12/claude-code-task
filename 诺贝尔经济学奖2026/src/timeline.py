@@ -27,24 +27,30 @@ SEC = dict(
     firms=(66.0, 71.0),        # 民间投资（2026 年 1—8 月）
     causes=(71.0, 76.0),       # 原因很多 → 预期
     nobel=(76.0, 82.0),        # 02 诺奖
-    oldmodel=(82.0, 98.0),     # 旧模型失灵 → 微观基础
-    hall=(98.0, 146.0),        # 03 霍尔
-    woodford=(146.0, 202.0),   # 04 伍德福德
-    machine=(202.0, 258.0),    # 05 回到中国：传导、降息为何不灵、财政
-    truth=(258.0, 272.0),      # 06 真相
-    laureates=(272.0, 288.0),
-    brand=(288.0, 298.0),
+    oldmodel=(82.0, 132.0),    # 回到半个世纪前：旧模型 → 石油危机与滞胀 → 旧模型失灵 → 新凯恩斯主义
+    hall=(132.0, 180.0),       # 03 霍尔
+    woodford=(180.0, 236.0),   # 04 伍德福德
+    machine=(236.0, 292.0),    # 05 回到中国：传导、降息为何不灵、财政
+    truth=(292.0, 306.0),      # 06 真相
+    laureates=(306.0, 322.0),
+    brand=(322.0, 332.0),
 )
 DUR = SEC['brand'][1]
 
 CHAPTERS = [
     (36.0, 76.0, '01', '谨慎'),
-    (76.0, 98.0, '02', '诺奖'),
-    (98.0, 146.0, '03', '霍尔：家庭的预期'),
-    (146.0, 202.0, '04', '伍德福德：企业与央行'),
-    (202.0, 258.0, '05', '回到中国'),
-    (258.0, 272.0, '06', '真相'),
+    (76.0, 132.0, '02', '诺奖：从滞胀说起'),
+    (132.0, 180.0, '03', '霍尔：家庭的预期'),
+    (180.0, 236.0, '04', '伍德福德：企业与央行'),
+    (236.0, 292.0, '05', '回到中国'),
+    (292.0, 306.0, '06', '真相'),
 ]
+
+
+def T(sec, off):
+    """段落起点 + 偏移（秒）"""
+    return SEC[sec][0] + off
+
 
 HITS = {
     'kesh': 10.0,         # 「可是——」
@@ -55,43 +61,51 @@ HITS = {
     'firms': 66.0,
     'yuqi': 74.0,
     'nobel': 76.0,        # 重拍 2
-    'break70s': 87.0,
-    'hall': 98.0,
-    'law1': 104.0,
-    'bonus': 110.5,
-    'raise': 114.5,
-    'people': 123.0,
-    'law2': 131.0,
-    'surprise': 139.0,
-    'woodford': 146.0,
-    'rule1': 152.0,
-    'rule2': 165.0,
-    'pathB': 173.0,
-    'draghi': 181.0,
-    'synth': 192.0,
-    'question': 197.0,
-    'machine': 202.0,     # 重拍 3
-    'vicious': 216.0,
-    'selffulfil': 220.0,
-    'rope': 236.0,
-    'fiscal': 240.0,
-    'callback': 245.0,
-    'truth': 258.0,
-    'keyline': 264.0,
-    'laureates': 272.0,
-    'woodford_card': 277.0,
-    'both': 282.0,
-    'converge': 288.0,
-    'logo': 290.0,
-    'brandword': 292.0,
+    # 回到半个世纪前：旧模型 → 石油危机与滞胀 → 旧模型失灵 → 新凯恩斯主义
+    'rewind': T('oldmodel', 0.3),
+    'postwar': T('oldmodel', 3.6),
+    'oil': T('oldmodel', 13.0),
+    'stag': T('oldmodel', 18.0),
+    'shatter': T('oldmodel', 29.0),
+    'rebuild': T('oldmodel', 32.0),
+    'blocks': T('oldmodel', 36.5),
+    'tool': T('oldmodel', 42.2),
+    'base': T('oldmodel', 46.2),
+    # 03 霍尔
+    'hall': T('hall', 0.0),
+    'law1': T('hall', 6.0),
+    'bonus': T('hall', 12.5),
+    'raise': T('hall', 16.5),
+    'people': T('hall', 25.0),
+    'law2': T('hall', 33.0),
+    'surprise': T('hall', 41.0),
+    # 04 伍德福德
+    'woodford': T('woodford', 0.0),
+    'rule1': T('woodford', 6.0),
+    'rule2': T('woodford', 19.0),
+    'pathB': T('woodford', 27.0),
+    'draghi': T('woodford', 35.0),
+    'synth': T('woodford', 46.0),
+    'question': T('woodford', 51.0),
+    # 05 回到中国
+    'machine': T('machine', 0.0),     # 重拍 3
+    'vicious': T('machine', 14.0),
+    'selffulfil': T('machine', 18.0),
+    'rope': T('machine', 34.0),
+    'fiscal': T('machine', 38.0),
+    'callback': T('machine', 43.0),
+    # 06 真相 / 获奖者 / 片尾
+    'truth': T('truth', 0.0),
+    'keyline': T('truth', 6.0),
+    'laureates': T('laureates', 0.0),
+    'woodford_card': T('laureates', 5.0),
+    'both': T('laureates', 10.0),
+    'converge': T('brand', 0.0),
+    'logo': T('brand', 2.0),
+    'brandword': T('brand', 4.0),
 }
-SHIMMER_T0 = 292.6
-FADE_T0 = 296.0
-
-
-def T(sec, off):
-    """段落起点 + 偏移（秒）"""
-    return SEC[sec][0] + off
+SHIMMER_T0 = HITS['brandword'] + 0.6
+FADE_T0 = T('brand', 8.0)
 
 
 def _c(sec, a, z, s):
@@ -123,10 +137,17 @@ CAP = dict(
     # 02 诺奖
     n_q=_c('nobel', 0.3, 3.0, '预期，真能左右我们的钱包？'),
     n_a=_c('nobel', 3.0, 6.0, '今年的诺贝尔经济学奖，给出了答案'),
-    o_old=_c('oldmodel', 0.3, 4.6, '过去的宏观模型，只看数字之间的统计规律'),
-    o_break=_c('oldmodel', 5.0, 7.4, '1970年代：规律突然失灵'),
-    o_why=_c('oldmodel', 7.6, 11.2, '人会预判未来，规律就会跟着变'),
-    o_new=_c('oldmodel', 11.4, 15.8, '他们从每个家庭和企业出发，重建宏观模型'),
+    o_back=_c('oldmodel', 0.3, 3.6, '要读懂这个奖，得先回到半个多世纪前'),
+    o_old=_c('oldmodel', 3.9, 8.4, '二战后的宏观模型，靠总量数据之间的统计规律'),
+    o_menu=_c('oldmodel', 8.6, 12.6, '政府以为：多容忍一点通胀，就能换来更多就业'),
+    o_oil=_c('oldmodel', 13.3, 17.6, '1973 年石油危机：几个月里，油价涨了约 4 倍'),
+    o_stag=_c('oldmodel', 18.2, 23.8, '物价飞涨，经济却停滞不前：这就是「滞胀」'),
+    o_fail=_c('oldmodel', 24.2, 28.0, '沿用旧模型刺激需求，往往只换来更高的通胀'),
+    o_why=_c('oldmodel', 28.2, 32.0, '因为人会预判未来：预期一变，旧规律就失灵'),
+    o_new=_c('oldmodel', 32.2, 36.0, '经济学家从家庭和企业出发，重建宏观模型'),
+    o_nk=_c('oldmodel', 36.2, 50.0, '新凯恩斯主义模型'),
+    o_tool=_c('oldmodel', 42.2, 46.0, '成为现代央行分析冲击、制定政策的重要工具'),
+    o_base=_c('oldmodel', 46.2, 50.0, '今年两位得主的研究，正是这套框架的基石'),
     # 03 霍尔
     h_q=_c('hall', 0.8, 5.6, '第一个问题：家庭，到底按什么花钱？'),
     h_l1=_c('hall', 6.0, 10.0, '花钱，看的是一辈子'),
