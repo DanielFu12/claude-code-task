@@ -123,10 +123,11 @@ def sc_hook(fr, t, a):
     if k > 0:
         fr.text('钱，纷纷存进了银行', CX, 470, 74, 'serif_black', 'white', k, stagger=(t - 7.8, 0.045, 0.4))
         p = eo((t - 8.0) / 1.6)
-        num_unit(fr, CX, 740, f'{17.84 * p:.2f}', '万亿', 210, 76, 'ice', k, ufont='serif_bold', glow=0.4)
-        fr.text('2022年 居民新增存款 · 历史最高', CX, 880, 38, 'sans_med', 'grey', k, track=0.05, glow=0)
+        num_unit(fr, CX, 740, f'{14.64 * p:.2f}', '万亿', 210, 76, 'ice', k, ufont='serif_bold', glow=0.4)
+        fr.text('2025年 居民新增存款', CX, 880, 40, 'sans_med', 'grey', k, track=0.06, glow=0)
+        chip(fr, '约为 2021 年的 1.5 倍', CX, 975, k * eo((t - 8.9) / 0.4), ICE, 38, base='ice')
         pour(fr, t, k)
-        footnote(fr, '来源：中国人民银行', k)
+        footnote(fr, '来源：中国人民银行《2025年金融统计数据报告》', k)
     # -------- 这到底是为什么？
     k = win(t, 10.5, 12.2, 0.25, 0.05) * a
     if k > 0:
@@ -469,9 +470,9 @@ def draw_chart(fr, t, a, phase):
         k = a * win(t, *cap('dp_head')[:2], 0.4, 0.3)
         if k > 0:
             fr.text('钱，被存给了明天', CX, 225, 64, 'serif_bold', 'white', k, stagger=(t - 36.2, 0.05, 0.4))
-        k = a * win(t, 37.3, 39.9, 0.3, 0.3)
+        k = a * win(t, 38.4, 39.9, 0.3, 0.3)
         if k > 0:
-            chip(fr, '2022年 17.84万亿 · 历史最高', CX, 1235, k, ICE, 38, base='ice')
+            chip(fr, '2022—2025年 每年新增都超 14 万亿', CX, 1235, k, ICE, 38, base='ice')
         k = a * win(t, 36.0, 40.0, 0.01, 0.4)
         fr.text('居民新增存款（万亿元）', CX, 1320, 34, 'sans_med', 'grey', k, track=0.08, glow=0)
         footnote(fr, '来源：中国人民银行《金融统计数据报告》', k)

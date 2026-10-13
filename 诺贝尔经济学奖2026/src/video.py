@@ -121,6 +121,17 @@ def main():
         p.stdin.close()
         p.wait()
         print('saved', out)
+    elif mode == 'chunks':
+        # 只重渲染指定分段（与 render 模式相同的 12 段切分），例如：python3 video.py chunks 0 2
+        crf = int(os.environ.get('CRF', 15))
+        preset = os.environ.get('PRESET', 'slow')
+        total = int(round(DUR * FPS))
+        step = math.ceil(total / 12)
+        idx = [int(x) for x in sys.argv[2:]]
+        jobs = [(i, i * step, min(total, (i + 1) * step), crf, preset) for i in idx]
+        with Pool(min(4, len(jobs))) as pool:
+            pool.map(render_chunk, jobs, chunksize=1)
+        print('chunks done', flush=True)
     elif mode == 'render':
         workers = int(sys.argv[2]) if len(sys.argv) > 2 else 4
         crf = int(os.environ.get('CRF', 15))
