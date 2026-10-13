@@ -78,7 +78,10 @@ def eio(x):
 
 
 def eback(x, s=1.6):
-    x = cl(x) - 1
+    x = cl(x)
+    if x <= 0.0:          # 起点精确为 0（否则浮点误差会让「g > 0」的判断提前成立）
+        return 0.0
+    x -= 1
     return x * x * ((s + 1) * x + s) + 1
 
 
