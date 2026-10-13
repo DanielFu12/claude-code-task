@@ -733,7 +733,7 @@ def sc_laureates(fr, t, a):
     fr.zoom = 1 + 0.02 * ss((t - LA0) / 16)
 
 
-# ================================================================ 品牌片尾 322–332
+# ================================================================ 品牌片尾 322–334
 B0 = SEC['brand'][0]
 END_LOGO_PX = 220                      # BRAND.md：片尾 logo 约 220px 居中
 LOGO_C = (CX, 800)
@@ -770,6 +770,7 @@ def _brand_word():
 WORD, SUBW, SUBGAP = _brand_word()
 WORD_CY = LOGO_C[1] + END_LOGO_PX / 2 + 70 + WORD[1].shape[0] / 2
 SUB_CY = WORD_CY + WORD[1].shape[0] / 2 + SUBGAP + SUBW[1].shape[0] / 2
+SLOGAN_CY = SUB_CY + SUBW[1].shape[0] / 2 + 130     # 关注语（品牌锁定组合下方）
 
 
 def _logo_targets(n):
@@ -882,3 +883,17 @@ def sc_brand(fr, t, a):
                     img[y:y + 2, x0:x1] = img[y:y + 2, x0:x1] * 0.3 + 0.7 * SUBGOLD
         fr.overlay_fn(lines)
         fr.flash = max(fr.flash, 0.18 * math.exp(-(t - T_W) / 0.1))
+    # 关注语：品牌字下方一条细金线 + 一行小字（「巴芒价值」用品牌金，其余淡金）
+    t_s = CAP['e_slogan'][0]
+    ks = a * cl((t - t_s) / 0.6)
+    if ks > 0.01:
+        ln = 60 * eo((t - t_s) / 0.8)
+
+        def divider(img, ln=ln, ks=ks):
+            y = int(SLOGAN_CY - 62)
+            x0, x1 = int(CX - ln), int(CX + ln)
+            if x1 > x0:
+                img[y:y + 2, x0:x1] = img[y:y + 2, x0:x1] * (1 - 0.8 * ks) + 0.8 * ks * SUBGOLD
+        fr.overlay_fn(divider)
+        fr.text('关注【「巴芒价值」】，看懂经济规律，洞察投资本质', CX, SLOGAN_CY, 38, 'serif_med', 'subgold', ks,
+                track=0.06, glow=0.15, stagger=(t - t_s, 0.035, 0.45))

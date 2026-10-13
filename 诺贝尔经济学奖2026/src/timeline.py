@@ -33,7 +33,7 @@ SEC = dict(
     machine=(236.0, 292.0),    # 05 回到中国：传导、降息为何不灵、财政
     truth=(292.0, 306.0),      # 06 真相
     laureates=(306.0, 322.0),
-    brand=(322.0, 332.0),
+    brand=(322.0, 334.0),      # 片尾：logo → 巴芒价值 → 关注语
 )
 DUR = SEC['brand'][1]
 
@@ -105,7 +105,7 @@ HITS = {
     'brandword': T('brand', 4.0),
 }
 SHIMMER_T0 = HITS['brandword'] + 0.6
-FADE_T0 = T('brand', 8.0)
+FADE_T0 = T('brand', 10.0)
 
 
 def _c(sec, a, z, s):
@@ -194,6 +194,8 @@ CAP = dict(
     la_hall=_c('laureates', 0.6, 4.8, '揭示：消费取决于对未来收入的预期'),
     la_wood=_c('laureates', 5.5, 9.8, '构建：以预期为核心的货币政策框架'),
     la_cite=_c('laureates', 10.6, 16.0, '表彰他们为宏观经济稳定政策奠定微观经济学基础'),
+    # 片尾
+    e_slogan=_c('brand', 5.2, 12.0, '关注「巴芒价值」，看懂经济规律，洞察投资本质'),
 )
 
 
