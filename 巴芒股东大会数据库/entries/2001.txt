@@ -291,3 +291,100 @@ zh: （芒格：）如果把伯克希尔最好的 15 个决策拿掉，你们大
 l: 一生的财富来自少数几个大点子；平时的阅读与积累是为了在罕见机会出现时认出它并下重注。
 r: 5/4/5
 rel: 2001-A22
+
+@ 2001-A24
+t: 大零售商在侵蚀品牌护城河：渠道与品牌之争
+s: BM
+th: 护城河; 商业模式
+k: moat
+c: 家乐氏、金宝汤的问题各有来源：麦片是定价推得太高、丢了份额（一旦丢份额就很难夺回），汤是不太契合现代生活方式；而可口可乐人均消费 110 年来几乎年年上升，价格涨幅却远低于几乎所有商品。芒格：这些是护城河对竞争者“不再那么有敌意”的例子——购买力集中到大型连锁超市、沃尔玛、Costco 手里，家乐氏面对的世界和 30–40 年前完全不同。巴菲特：品牌和零售商之间永远有战斗，零售商希望自己的名字就是品牌；顾客对 Costco、沃尔玛的信任一旦达到或超过对产品品牌的信任，品牌价值就从产品转移到零售商。
+q: Well, I think those are examples where the moats got less hostile for the competitors. ||| it’s a different world faced by the Kelloggs than the one they had 30 or 40 years ago.
+q: Yeah, there will be a battle, always, between brands and retailers ||| then the value of having the brand moves over to the retailer from the product itself.
+zh: （芒格：）我认为这些例子说明护城河对竞争者变得不那么有敌意了。部分问题在于购买力变得更集中、更强硬。大型连锁超市现在很有影响力，再加上沃尔玛、Costco、山姆会员店……家乐氏面对的世界，与 30 或 40 年前完全不同。（巴菲特：）是的，品牌和零售商之间总会有一场战斗，因为零售商希望自己的名字成为品牌。如果人们信任 Costco 或沃尔玛的程度超过——或等于——对品牌的信任，那么拥有品牌的价值就会从产品本身转移到零售商身上。
+l: 评估消费品牌时要看渠道集中度和自有品牌的威胁：品牌溢价的守护者是消费者信任，而信任可以被渠道夺走。也要警惕品牌自己把价格推得太高。
+r: 4/4/4
+rel: 2001-A13, 2002-M28, 1995-M25
+
+@ 2001-A25
+t: 做空很诱人，但非常痛苦
+s: BM
+th: 风险管理; 投资心理
+k: leverage
+c: 一生中看到被严重高估的股票，远多于被严重低估的——市场偶尔会把东西捧上天，以价值的 5–10 倍成交，却极少以价值的 10%–20% 成交，所以做空看起来更容易赚钱。但做空亏损无限，而且严重高估股票的人常处于“推销者到骗子”之间，他们还会利用高估值大量增发，把价值“自举”上去（价值 10 的股票以 100 增发，结束后价值可能变成 50），形成连锁信式推销。最终他们想做空的标的几乎都被证明是对的，但“在推销者用完点子之前，你可能先用完了钱”。芒格引富兰克林：想过得悲惨，就借一笔在大斋期要还的钱；被半骗子推销的股票不停上涨、不停追加保证金，不值得让生活里有那么多烦恼——在别处赚钱没那么难。
+q: But being short something where your loss is unlimited is quite different than being long something that you’ve already paid for. ||| and they will very, very seldom sell for 20 percent or 10 percent of what they’re worth.
+q: and because of the fact that people that have overvalued stocks — very overvalued stocks — are frequently on some scale between promoter and crook. ||| you can run out of money before the promoter runs out of ideas.
+q: And similarly, being short something, which keeps going up ||| It isn’t that hard to make money somewhere else with less irritation.
+zh: 做空一样亏损无限的东西，和做多一样你已经付过钱的东西，是完全不同的。而且它很诱人。在你的职业生涯中，你会看到被严重高估的股票远多于被严重低估的股票。证券市场的本性就是偶尔把各种东西推上天，所以证券常常以其价值的 5 倍或 10 倍出售，而极少以价值的 20% 或 10% 出售。……因为那些拥有被严重高估股票的人，常常处于从推销者到骗子之间的某个位置……而且他们也知道如何利用估值本身把价值“自举”进企业……如果你卷入一场成功的推销，在推销者用完点子之前，你可能就先用完了钱。（芒格：）同样，做空一只因有人以半欺诈方式推销而不断上涨的股票，你不断亏钱，他们不断追加保证金——在生活中承受这么多烦恼根本不值得。在别处赚钱、少些烦恼，并不那么难。
+l: 判断“高估”是对的，不等于做空能赚钱：时间、保证金和无限亏损会让正确的判断变成灾难。不对称的风险收益应站在做多已付清的优质资产一边。
+r: 4/5/4
+rel: 2001-A33
+
+@ 2001-A26
+t: “忠诚效应”：不为多赚 5% 而交易掉信任你的人
+s: BM
+th: 管理与治理; 人生智慧
+k: reputation
+c: 若确信别家消费品公司更好，会卖掉可口可乐去买吗？不会。担任董事后几乎不可能交易该公司股票，伯克希尔因此放弃了大量投资灵活性。对控股企业，伯克希尔明确表示不出售，高价也不会诱惑——除非看得到永久性的现金流出或严重劳资问题。巴菲特：如果我一个人拥有伯克希尔，我也绝不会为了让遗产变成某个大数的 105% 而不是 100%，去倒卖那些信任我、待我公道的人的企业——那是疯狂的活法；我不希望经营上市公司使我做出私人公司时会不安的事，但股东有权知道我这个癖好。芒格：我会粗略计算，到目前为止忠诚效应在我们生活中是正面的。
+q: I just think it’s crazy — I know if I owned all of Berkshire myself ||| I just would regard that as a crazy way to live.
+q: And I don’t want the fact I run a public company to cause me to behave in a way ||| as something that you should understand, as an investor or before you become an investor.
+q: Well, I do tend to calculate it, at least roughly. ||| And so far, I think that the loyalty effect is a plus in our life.
+zh: 我只是认为那是疯狂的——我知道，如果我一个人拥有整个伯克希尔，我做梦也不会去倒卖那些信任我、我喜欢、并且对我公道有加的人的企业。我做梦也不会为了让我的遗产是某个非常大数字的 105% 而不是 100% 去倒卖企业。我认为那是一种疯狂的活法。我也不希望因为经营一家上市公司，就让我以一种如果是私人公司时我会感到不安的方式行事。但我也认为，作为股东，你们有权知道这是我的一个癖好。因此我把它写出来，而且已经写了 20 年，作为你们作为投资者——或成为投资者之前——应当了解的事情。（芒格：）嗯，我倾向于计算它，至少是粗略地。到目前为止，我认为忠诚效应在我们的生活中是一个加分项。
+l: 声誉是一种不在报表上的资产：对卖方的长期承诺让伯克希尔成为家族企业的首选买家。投资者应了解并接受管理者事先公开的“非最优”原则。
+r: 4/3/4
+rel: 2001-A27
+
+@ 2001-A27
+t: 接班：“如果你今晚去世，明早我希望你告诉过我什么？”
+s: BM
+th: 管理与治理
+k: culture
+c: 巴菲特每两年给各子公司经理写信，问“如果你今晚去世，明天早上我会希望你曾告诉我什么？”，请他们书面写下接班人选与优劣。他自己的接班将分为两份工作：有价证券投资与业务运营；文化非常强大，加上股权结构，可以防止被改变。1991 年他在所罗门工作了九个月零四天，伯克希尔照常运转——经理们不需要他，总部只做资本配置。芒格：最主要的防线是拥有大致能自动表现良好的资产，再加上优秀的经理和引进新经理的个性化机制，就会有巨大的惯性。
+q: about every two years, I send them a letter and I say ||| And I have that information available.
+q: The main defense, of course, is to have assets that will do well, more or less, automatically. ||| there’s a lot of momentum here that would go on very nicely with the present management gone.
+q: But we are not making decisions around the place, except in the allocation of capital. ||| And everything went on just as before.
+zh: 大约每两年，我会给他们写一封信，说：“如果你今晚去世，明天早上我会希望你曾告诉过我什么？”……所以我希望他们每两年一次，把他们对此的想法写给我：谁应该接替他们，或者是否有几个候选人，各自的长处和短处是什么。这样我就掌握了这些信息。（芒格：）当然，主要的防线是拥有大致能自动表现良好的资产，而我们有很多这样的资产。再加上非常优秀的在任经理，以及非常好的、个性化的引进新经理的机制，这里有大量的惯性，即使现任管理层不在了，也会继续运转得很好。（巴菲特：）……但除了资本配置，我们在这里并不做决策。……1991 年有九个月零四天，我主要想的是所罗门而不是伯克希尔，而一切照旧运转。
+l: 检验一家公司是否依赖“关键人”：看其资产能否“自动”赚钱、是否有书面化的接班机制。投资自己的组织时，也可以每年问一遍这个问题。
+r: 3/3/4
+rel: 2001-A26
+
+@ 2001-A30
+t: 好生意能弥补糟糕的管理层吗？——与其说服，不如离开
+s: BM
+th: 管理与治理; 投资方法
+k: management
+c: 若你持有一家拥有持久竞争优势的企业，管理层却开始做不明智的事，该怎么办？巴菲特：我们说服正派、聪明但在做蠢事的人改变方向的历史“很糟”——芒格：“比糟还糟”。人们当上 CEO 不是为了让某个股东告诉他最新的点子很蠢。所以如果好生意的管理层要一直用你的钱做蠢事，不如退出，去找拥有好生意、你认为会做明智事情的人。无论从投资技巧还是避免生活压力的角度，与志趣相投的管理层同行，胜过身处伟大企业却碰上执意做不合理之事的管理层。
+q: And I would say that the history that Charlie and I have had of persuading decent, intelligent people ||| Worse than poor.
+q: And they didn’t rise to become the CEO of a company to have some shareholder tell them that their most recent idea is dumb. ||| than simply to be in a great business with a management that’s bent on doing things that don’t make much sense to you.
+zh: 我要说，查理和我说服那些正派、聪明、但我们认为在做不明智之事的人改变方向的历史很糟糕。你同意吗，查理？（芒格：）比糟糕还糟糕。……（巴菲特：）他们爬上 CEO 的位置，可不是为了让某个股东告诉他们最近的点子很蠢。能爬到顶端的人不是那种类型。所以我要说，作为一种投资技巧，也许也作为避免生活压力之类的方式……与你志趣相投的管理层为伍，要好过仅仅身处一家伟大企业、而管理层执意要做在你看来没什么道理的事。
+l: 不要指望改变管理层；买入前就把“管理层如何使用资本”纳入判断，一旦发现他们执意做蠢事，宁可卖出。
+r: 4/5/4
+rel: 2001-A31
+
+@ 2001-A31
+t: 两年的正确思考胜过十年的错误实践
+s: BM
+th: 投资理念; 人生智慧
+k: learning
+c: 你思考了两年什么，远比你实践了十年什么更重要；若两人方法不同，宁可选哲学上一致的那个。最重要的是一开始就“脑子拧对了”——把股票看作企业的一部分，而不是看图表、听策略师的会动的小东西。巴菲特说他们在第二年末对新事物的判断力大概就和今天差不多，经验的加分主要在于见识更多人性。芒格：巴菲特越老越好（作为投资者），说明经验的规模确实重要。巴菲特：你根据观察构建模型，只要你持续观察、而不是硬把一切套进早年所见，模型会随年头越来越好。
+q: I think it’s way more important what you’ve thought about for two years than what you’ve practiced for 10 years. ||| I would rather be with the one that I’m philosophically in sync with.
+q: But the biggest thing is that, you know, basically they’ve got their head screwed on right in the first place ||| or listening to strategists on or something of the sort.
+q: I’ve watched Warren for a long time now, and I would say he’s actually getting better as he gets older. ||| and not just trying to make everything fit into what you saw the first few years.
+zh: 我认为，你在两年里思考了什么，远比你在十年里实践了什么重要。如果两人所用的方法有分歧，我宁愿与哲学上和我一致的那位同行。……但最重要的是，他们一开始就把脑子拧对了——在如何评估企业、如何看待股票方面。是把股票看作企业的一部分，还是看作会动来动去的小东西，以为看图表或听策略师就能看出很多。（芒格：）我观察沃伦很久了，我会说他实际上越老越好……作为投资者，他更好了，我认为这很了不起，说明经验的规模确实重要。（巴菲特：）……你根据观察构建你的模型。如果你一直在留心，你的模型会随着你真正观察的年头增加而变得更好一些，而不是试图把一切都套进你最初几年所见的东西里。
+l: 先确保框架正确，再积累经验；经验的价值在于不断修正心智模型，而不是重复同一年的经验十次。
+r: 4/4/5
+rel: 2001-A03, 2001-A23
+
+@ 2001-A33
+t: 格雷厄姆的“烟蒂”策略今天还管用吗？
+s: BM
+th: 投资方法; 企业估值
+k: quality
+c: 若能找到一组价格低于营运资本三分之二的股票，整组买入大概也能做得不错——不是因为企业本身多好，而是这类公司常有私有化、被收购等公司行为。但如今几乎找不到，若市场真跌到大量出现，你也会发现很多出色企业便宜得多，伯克希尔会选择便宜的出色企业。沃尔特·施洛斯 46 年用接近格雷厄姆的方式取得惊人记录，买的就是“烟蒂”——抽一口免费的就没了，但不花钱。买烂公司必须分散成一组，买出色企业只需几家。芒格：过去企业不行了，可以把营运资本装回股东口袋；如今重组费用说明，出事时很多营运资本归了别人——文化变了，一个时代的投资癖好未必能完美移植到另一个时代。
+q: But those sub-working capital stocks are just almost impossible to find now. ||| And our inclination would be to go with a cheap, wonderful business.
+q: And he’s done it in, you know, what I tend to call cigar butt companies. ||| but they don’t cost anything.
+q: Whereas if you deal with wonderful companies, you only need a couple. ||| Whereas if you deal with wonderful companies, you only need a couple.
+q: In the old days, if the business stopped working ||| There’re a lot of reasons why the investment idiosyncrasies of one era don’t translate that perfectly into another.
+zh: 但那些低于营运资本的股票现在几乎不可能找到了。如果你进入一个大量出现这种股票的市场，你可能也会发现出色的企业便宜得多。而我们的倾向会是选择便宜的出色企业。……他（施洛斯）做的是我常称为“烟蒂”的公司。你能免费吸一口，也就仅此而已，但它们不花钱。……而如果你买的是出色的公司，你只需要几家。（芒格：）在过去，如果企业不行了，你可以把营运资本拿出来塞进股东的口袋。如今，从各种重组费用就能看出，当事情真的一团糟时，很多营运资本归别人所有了。整个文化都变了。……有很多原因使得一个时代的投资癖好不能完美地移植到另一个时代。
+l: 深度价值需要分散和催化剂，质量投资才能集中；清算价值的保护在现代劳动法、重组成本下已被削弱，不能照搬旧时代的公式。
+r: 4/4/5
+rel: 1999-M27, 2001-A25
