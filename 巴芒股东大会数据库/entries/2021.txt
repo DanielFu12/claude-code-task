@@ -1,0 +1,236 @@
+# 2021 年股东大会（5 月 1 日，洛杉矶线上；CNBC 分为 Part 1/Part 2，此处 M=上午段，A=下午段）
+
+@ 2021-M07
+t: 1989 年全球市值前 20 名，30 年后无一留在榜上：极其不寻常的事会发生
+s: B
+th: 投资理念; 市场周期
+k: index
+c: 巴菲特为新入市、一天想交易三四十次的人上课：2021 年 3 月 31 日全球市值前 20 名，苹果超过 2 万亿美元居首，前六名中五家是美国公司——1790 年美国只占世界人口 0.5%，爱尔兰人口都比美国多，“这不是偶然”。请你猜 30 年后这 20 家有几家还在榜上。然后看 1989 年的前 20 名：“30 年前的 20 家，没有一家在现在的榜上。一家都没有。零。”当时有日本公司，现在一家没有；美国当时 6 家，现在 13 家，但不是同样的 6 家。1989 年并非黑暗时代，人们自以为懂股市，有效市场理论正流行。这有力地证明了指数基金的价值——“主要的事是登上船”，持有一组分散的美国股票 30 年不可能不赚钱，但如果你自以为知道该选哪几只，或者付大价钱给有很多想法的人，他们 1989 年的最佳主意未必表现好。
+q: And the system has worked unbelievably well. ||| How many of those companies are going to be on the list 30 years from now?
+q: None of the 20 from 30 years ago are on the present list. None. Zero. ||| But it is a reminder of what extraordinary things can happen. Things that seem obvious to you.
+q: But that just — we were just as sure of ourselves as investors ||| But the world can change in very, very dramatic ways.
+q: One thing it shows, incidentally, is that — it’s a great argument for index funds ||| Although, overall, equities were absolutely the place to be.
+zh: （巴菲特：）这个体系运转得令人难以置信地好。想想看，世界前六大公司中有五家，最终出自一个仅仅几百年前起步时只有世界人口 0.5% 的国家。……然后做一个估计，你自己猜一猜：30 年后这些公司中有多少家还会在榜上？……30 年前的 20 家公司，没有一家在现在的榜上。一家都没有。零。……但这提醒你，非同寻常的事情是会发生的。那些在你看来显而易见的事情。……我们 1989 年作为投资者——华尔街也是——和今天一样对自己深信不疑。但世界可以以非常、非常戏剧性的方式改变。……顺便说一句，它表明的一件事是——这是支持指数基金的一个很好的论据——主要的事情是登上船……如果你只是持有一组分散的股票——我偏好美国股票——持有 30 年，你不可能做得不好。但如果你认为你很懂该挑哪些……我可以告诉你，他们 1989 年的最佳主意未必表现得那么好。尽管总体而言，股票绝对是该待的地方。
+l: 今天的巨头未必是明天的赢家；对多数人而言，与其押注少数“确定的”龙头，不如长期持有分散的指数。
+r: 5/5/5
+rel: 2017-M03, 2020-F17
+
+@ 2021-M08
+t: 2000 多家汽车公司最后只剩 3 家：看对行业不等于选对股票
+s: B
+th: 投资方法; 商业模式
+k: tech_change
+c: 巴菲特说人们会被热门行业吸引，只要公司说自己在热门行业就能卖 IPO、卖 SPAC，人们无视销售和利润数字。1903 年福特创立汽车公司时，如果你看到了未来的州际公路和 2.9 亿辆车，你会说“这很简单，就是汽车”。伯克希尔旗下的 Marmon 公司就是赢得 1911 年首届印第安纳波利斯 500 赛车、发明后视镜的那家车企。仅以“MA”开头的汽车公司就有近 40 家，至少 2000 家公司进入了汽车业，因为它显然前途无量——“而 2009 年只剩 3 家，其中两家破产了”。美泰、好事达、杜邦都造过车；人人都开汽车公司，就像现在人人在创办能从人们那里拿到钱的东西。“所以，选股远不只是弄清什么会是未来的伟大行业……它没有听起来那么容易。”
+q: Secondly, people get enormously attracted to various industries. ||| it’s the place to be.
+q: But in any event, there were at least 2,000 companies that entered the auto business ||| So, there’s a lot more to picking stocks than figuring out, you know, what’s going to be a wonderful industry in the future.
+q: Everybody started car companies, just like everybody’s starting something now that can be ||| So, I just want to tell you, it’s not as easy as it sounds.
+zh: （巴菲特：）其次，人们会被各种行业极大地吸引。我是说，他们认为如果一家公司说它属于某某行业，而那是个热门行业，你就能卖 IPO，能卖 SPAC，人们会无视销售数字、盈利数字——那就是该去的地方。……但无论如何，至少有 2000 家公司进入了汽车业，因为它显然有着不可思议的未来。当然，你还记得，2009 年只剩下三家。其中两家破产了。所以，选股远不只是弄清未来什么会是一个美妙的行业。……每个人都在开汽车公司，就像现在每个人都在创办某种能从人们那里拿到钱的东西一样。但是能挑出赢家、得到机会的人非常、非常、非常少。……所以，我只是想告诉你，这没有听起来那么容易。
+l: 行业的社会价值与股东回报是两回事；激烈竞争会把革命性行业的大部分利润竞争掉，押注行业不如押注已证明的赢家或分散持有。
+r: 5/5/5
+rel: 2017-M13, 2014-A32
+
+@ 2021-M11
+t: 为什么疫情低点没有大举买入：我们不能依赖任何人，也不可能在最低点一次花光
+s: BM
+th: 风险管理; 市场周期
+k: crisis
+c: 被问 2020 年 3 月为何“坐着不动”：巴菲特说现金约占企业价值的 15%，底线 200 亿美元还会提高；美联储 3 月 23 日行动之前的两三天里什么都做不成——国债市场都被扰乱，伯克希尔前一天可能都发不了债，货币基金出现了与 2008 年 9 月类似的挤兑；美联储“说到做到”后，前一天伯克希尔都发不了债的市场，一两天后嘉年华邮轮都能发债。货币和财政政策的反应超出所有人预期，“但我不认为那是确定会发生的事”。“伯克希尔不是银行，不能找美联储借钱……我们必须确保在任何情况下都能挺住。”芒格：“认为有人能聪明到攒着钱，然后在某个疯狂危机的最低点出来一次花光，这是疯狂的……任何这样期望伯克希尔的人都是疯了。”巴菲特：一季度回购了约 250 亿美元，“我们买企业不如买自己的股票便宜”。
+q: And the one thing about Berkshire is we never want ||| We can’t go to the Federal Reserves if we need money.
+q: But I didn’t think it was a sure thing it would happen. ||| And it’s worked — I think it’s worked better than just about anybody has expected.
+q: Well, it’s crazy to think anybody’s going to be smart enough to husband money ||| Anybody expects that of Berkshire Hathaway is out of his mind.
+q: And we’ve — it’s the best thing — we can’t buy companies as cheap as we can buy our own. ||| And we can’t buy stocks as cheap as we can buy our own.
+zh: （巴菲特：）伯克希尔的一点是，我们从不想——我们不想依赖任何人。我们不是银行。如果需要钱，我们不能去找美联储。……但我当时并不认为那是一定会发生的事。我也不知道它会如何实施。而它奏效了——我认为它奏效得比几乎任何人预期的都好。（芒格：）认为有人能聪明到攒着钱，然后在某个疯狂的危机中正好在最低点出手把钱全部花掉，这是疯狂的。总有某个人碰巧这么做了。但那是一个太苛刻的标准。任何对伯克希尔·哈撒韦抱有这种期望的人都是疯了。（巴菲特：）……这是最好的事——我们买公司不能像买我们自己的股票那样便宜。我们买股票也不能像买我们自己的股票那样便宜。
+l: 危机中的“完美抄底”是幻想；拥有不依赖外部救助的流动性才是第一位的，而在可得机会中，回购低估的自家股票往往是最确定的选择。
+r: 4/4/4
+rel: 2020-F21, 2020-F20
+
+@ 2021-M24
+t: 卖出部分苹果“可能是个错误”：顾客挚爱的产品、99% 满意度、蒂姆·库克被低估
+s: BM
+th: 护城河; 管理与治理
+k: holding
+c: 被问为何去年卖出部分苹果：巴菲特说伯克希尔持有约 5.3%，因自身回购和苹果回购，股东间接增持而不用花一分钱。苹果有一位出色的管理者——库克一度被低估，是世界上最好的经理人之一；有一个人们绝对喜爱的产品，满意度 99%；在内布拉斯加家具城，想要安卓的人就要安卓，想要苹果的你卖不了别的给他。产品对人们极其重要，如果让人在未来五年里放弃苹果手机和放弃一辆 3.5 万美元的汽车之间选择，谁知道他们会选什么。“我去年卖了一些……那可能是个错误。”芒格也认为是错误；“我能在查理面前侥幸逃脱的事有限，在 Costco 和苹果上用完了”。库克做不了乔布斯在创造上做的事，但乔布斯也做不了库克做的许多事。芒格：美国在新科技领域做得这么好非常重要，不希望看到这些巨头因某些反竞争理由被打压，它们是文明的荣誉。
+q: So, it’s a — it’s an extraordinarily — Apple — it’s got a fantastic manager. ||| And there’s an installed base of people and they get satisfaction rates of 99%.
+q: And I get the figures from the (Nebraska) Furniture Mart as to what’s being sold ||| you can’t sell them the other one.
+q: I sold some stock last year ||| But that was probably a mistake.
+zh: （巴菲特：）所以这是一个非凡的——苹果——它有一位出色的经理人。（首席执行官）蒂姆·库克曾有一段时间被低估。他是世界上最好的经理人之一，而我见过很多经理人。他有一个人们绝对喜爱的产品。有一个用户的装机基础，满意度达 99%。我从（内布拉斯加）家具城拿到销售数据，如果人们进来想要一部安卓手机，他们就要安卓手机。如果他们想要苹果——他们想要一部苹果手机——你就没法卖给他们另一种。……我去年卖了一些股票，虽然因为我们回购了股份，我们股东的持股比例仍然上升了。但那可能是个错误。
+l: 对拥有忠诚用户与卓越管理的伟大企业，因估值“略高”而减持往往得不偿失；顾客“非它不可”是最强的护城河信号。
+r: 4/4/4
+rel: 2018-A06, 2017-A12
+
+@ 2021-M25
+t: 利率之于资产价值，就像引力之于物质：如果利率一直这么低，科技股非常便宜
+s: BM
+th: 企业估值; 宏观与社会
+k: discount
+c: 被问如何看待一年涨 50%–200% 的大型科技股：巴菲特说“我们不认为它们疯狂”；“利率之于资产价值，基本上就像引力之于物质。”财政部四周国库券以“100.000000”的价格发行，即零利率；如果能把引力减少 80%，我都能去东京奥运会跳高。伯克希尔 1000 亿美元国库券，疫情前每年赚约 15 亿美元，现在两个基点只有 2000 万美元——“就像你的工资从每小时 15 美元降到 20 美分”。萨缪尔森 1973 年的经典教科书说负利率理论上可以设想，但永远不会真正发生。“如果当前利率注定是合适的……那些公司就是便宜货……以当前利率折现，股票非常非常便宜。”但经济学中要永远记住：你永远不能只做一件事，你总得问“然后呢？”芒格：职业经济学家对发生的事非常惊讶——就像丘吉尔说艾德礼“是个很谦虚的人，他也确实有很多值得谦虚的地方”。
+q: I mean, interest rates, you know, basically are to the value of assets what gravity is to matter, you know, essentially. ||| I mean, interest rates, you know, basically are to the value of assets what gravity is to matter, you know, essentially.
+q: I mean, if I could reduce gravity’s pull by about 80%, I mean, I’d be in the Tokyo Olympics, jumping. ||| I mean, if I could reduce gravity’s pull by about 80%, I mean, I’d be in the Tokyo Olympics, jumping.
+q: But if present rates were destined to be appropriate ||| stocks are very, very cheap.
+q: But in economics, there’s one thing always to remember. ||| You always have to say, “And then what?”
+q: Yes, and the professional economists, of course, have been very surprised by what’s happened. ||| It turns out the world is more complicated than they thought.
+zh: （巴菲特：）我是说，利率之于资产的价值，基本上就像引力之于物质。……我是说，如果我能把引力减少大约 80%，我就能去东京奥运会跳高了。……但如果当前的利率注定是合适的，如果 10 年期国债真的应该在现在这个价格，那么提问者提到的那些公司，就是便宜货。它们有能力交付现金，如果你把它折现回来——而且你是以当前利率折现——股票是非常、非常便宜的。……但在经济学中，有一件事要永远记住。你永远不能只做一件事。你总得问：“然后呢？”（芒格：）是的，职业经济学家当然对发生的事情感到非常惊讶。这让我想起丘吉尔对艾德礼的评价。他说他是一个非常谦虚的人，而且他有很多值得谦虚的地方。职业经济学家正是如此。他们曾对一切都那么自信。结果世界比他们想象的更复杂。
+l: 高估值是否合理取决于利率能否长期维持低位；投资者必须对“当前利率会持续”的隐含假设保持警觉，并思考政策的二阶后果。
+r: 5/5/5
+rel: 2017-M15, 2016-A17
+
+@ 2021-M28
+t: SPAC 是“杀手”：用别人的钱、两年内必须花掉；当企业成了投机漩涡上的泡沫
+s: BM
+th: 市场周期; 资本配置
+k: speculation
+c: 被问 SPAC 兴起对收购的影响：巴菲特说“它是杀手”——SPAC 通常必须在两年内花掉钱，“如果你拿枪指着我的头说两年内必须买一家大企业，我会买一家，但不会是什么好企业”。一位名人曾说“如果六个月内不花掉这笔钱就得还给投资者”；用别人的钱、有上行无下行的人，我们无法与之竞争。股票市场是人类的巨大资产，但它真正赚钱是在能吸引赌徒进来的时候。凯恩斯 1936 年：“当企业成为投机漩涡上的泡沫时，情况就严重了。当一个国家的资本发展成为赌场活动的副产品时，这项工作很可能做不好。”过去一年数以百万计的人开账户日内交易、买卖期权，赌徒人数的增长前所未有；“如果他们只是买入并持有股票，会做得很好”；进入赌场的人比离开的多时，会创造自己的现实，没人告诉你钟声何时敲响十二点、一切变回南瓜和老鼠。芒格：这是“费用驱动的购买”，SPAC、总收益互换等轻松赚钱推向极端会给文明带来可怕问题，“不仅是愚蠢，而且可耻”；我不介意那些赌博的可怜鱼，我讨厌的是宰傻瓜的专业人士。
+q: If you put a gun to my head and said, “You’ve got to buy a big business in two years,” ||| it wouldn’t be much of one.
+q: So, you know, it’s a different equation that you have if you’re working with other people’s money ||| And, frankly, we’re not competitive with that, you know? And that won’t go on forever.
+q: But it makes its real money if they can get the gamblers to come in ||| I mean, that’s where the money really is.
+q: And Keynes wrote this 1936 ||| the job is likely to be ill-done.”
+q: But the gambling impulse is very strong in people worldwide ||| it all turns to pumpkins and mice.
+q: Yes. Of course, I call it fee-driven buying. ||| It’s not just stupid, it’s shameful.
+zh: （巴菲特：）如果你拿枪顶着我的头说“你必须在两年内买下一家大企业”，你知道，我会买一家。但它不会是什么好企业。……所以，如果你是在用别人的钱工作——你得到上行收益，如果不做点什么就得把钱还给他们——那是一个不同的方程式。坦白说，我们无法与之竞争。而且这不会永远持续下去。……但如果他们能让赌徒进来，它才真正赚钱，因为赌徒带来更多的交易，也愿意付更愚蠢的费用，以及各种东西。所以，你拥有这个对人类而言不可思议的巨大资产，但它真正赚钱是在人们做蠢事的时候。我是说，那才是真正的钱所在。凯恩斯在 1936 年写道：“投机者作为企业稳定溪流上的泡沫，可能不会造成伤害。但当企业成为投机漩涡上的泡沫时，情况就严重了。当一个国家的资本发展成为赌场活动的副产品时，这项工作很可能做得很糟。”……但赌博的冲动在全世界的人身上都非常强烈，偶尔它会受到巨大的推动。条件导致这样一种状况：每天进入赌场的人比离开的人多，这会在一段时间内创造它自己的现实。没人会告诉你钟声什么时候敲响十二点，一切都变回南瓜和老鼠。（芒格：）是的。当然，我称之为费用驱动的购买。换句话说，买它不是因为它是一项好投资，而是因为顾问能拿到费用。……所以我认为，在当前的状况下我们有很多该感到羞耻的地方。……这不仅是愚蠢，而且是可耻的。
+l: 当“必须花钱”的资本主导收购市场时，耐心的买家应暂时退让；狂热期市场的赌场属性最强，泡沫的终点无法预测。
+r: 5/4/5
+rel: 2019-M19, 2017-M20
+
+@ 2021-M30
+t: 为何有时买不太热衷的股票：比国库券好，但没有优势时，大规模调仓有“滑点”
+s: BM
+th: 投资方法; 资本配置
+k: circle
+c: 被问买入了一些“不太了解”的股票是哪些：巴菲特拒绝点名，说我们大致懂这些企业，但没有什么独到洞见；“如果他们告诉我，得不到最好结果就要被枪毙，我宁愿持有这些股票，而不是我们持有的国库券。”但我们管理的资金量很大，如果把 500 亿美元投入那些我觉得一般但好于国库券的东西，“我并不是非常安心，即使它可以撤回”——当真正有吸引力的机会出现时，卖出 500 亿美元会有大量滑点。“它们是好公司……但我们对这些公司是否知道些什么，或者有没有一种能给我们带来优势的评估方法？”芒格：当然，这要难得多。
+q: But we have bought stocks where Charlie and I ||| I would rather own those stocks than the Treasury bills we own.
+q: But, on the other hand, we work with quantities of money ||| there’s a lot of slippage that can happen in moving sums like that around.
+q: So, that’s something we talk about all the time. ||| or have a way of evaluating that gives us an edge?
+zh: （巴菲特：）但我们确实买过一些股票，查理和我——我是说，我们大致了解这些企业——但我们没有任何洞见。而作为一个组合——如果他们告诉我，除非我得到最好的结果否则就要被枪毙——我宁愿持有那些股票，而不是我们持有的国库券。但另一方面，我们处理的资金量是，如果我们把 500 亿美元投入那些我觉得一般、但比国库券好的东西，我不会非常安心，即使它可以撤回。当买别的东西真的很有吸引力时，卖出 500 亿——在挪动这样规模的资金时，可能会发生大量的滑点。……所以，这是我们一直在讨论的事情。它们是好公司。它们是不错的公司。但我们对这些公司是否知道些什么，或者有没有一种能给我们带来优势的评估方法？
+l: 持有“比现金好但无优势”的资产是低利率下的折中；要意识到它会占用未来抓住真正好机会所需的流动性。
+r: 3/3/3
+rel: 2017-A02, 2014-A07
+
+@ 2021-M10
+t: 我是伯克希尔的首席风险官：我们希望做得好，但更要确保不会做得很糟
+s: B
+th: 风险管理; 管理与治理
+k: leverage
+c: 被问为何在别人最恐惧时卖出航空股：巴菲特说“正如查理是首席文化官，我是伯克希尔的首席风险官，那是我的工作。我们希望做得好，但我们要确保不会做得很糟。”当时净卖出约占 6000–7000 亿美元企业总价值的 1%–1.5%，还减少了银行持仓。一些子公司的少数股东希望申请政府援助，他说伯克希尔能扛得住，援助是给扛不住的人的，所以不申请。航空公司获得救助是合理的公共政策，但如果伯克希尔还是它们 8–9% 的大股东，结果可能完全不同。“回头看，买入会更好……我不认为那是伯克希尔历史上的伟大时刻”，但“我仍然不想买航空业”。
+q: Well, it wasn’t until late ||| We hope we do well, but we want to be sure we don’t do terribly.
+q: I said, you know — (laughs) — Berkshire can handle it. ||| And so, we’re not applying.
+q: And looking back, you know, it would have been better to be buying. ||| I do not consider it a great moment in Berkshire’s history.
+zh: （巴菲特：）……你知道我们面临一个难以置信的问题。正如查理是首席文化官一样，我是伯克希尔的首席风险官。那是我的工作。我们希望做得好，但我们要确保我们不会做得很糟。……我说，你知道，伯克希尔能扛得住。这是给那些扛不住正在发生的事情的人的。所以，我们不申请。……回头看，买入会更好。但是——我不认为那是伯克希尔历史上的一个伟大时刻。
+l: 风险管理的目标是“避免灾难”而非“最大化收益”；在极端不确定时期，宁可错失部分反弹，也不让组合承受不可逆的损失。
+r: 3/3/4
+rel: 2020-F23, 2012-M06
+
+@ 2021-A01
+t: 回购的道德取决于动机：为抬股价而回购是不道德的，为现有股东公平回购是高度道德的
+s: BM
+th: 资本配置
+k: buyback
+c: 被问回购是否是市场操纵：巴菲特说回购是把现金分给想要现金的人、而其他共同所有者希望再投资的方式，是一种储蓄工具。四个人各出 100 万美元买 Dairy Queen 加盟店，三个人想继续扩张，第四个人说“我够富了，想拿点钱出来”——要么给四个人都分红（三个人不想要），要么以公平价格买下他的份额。认为“合伙人想退出时，以对留下的人有利的价格买下他的份额是可怕的”，这种论点几乎令人难以置信。伯克希尔的大多数股东是储蓄者，把伯克希尔看作要持有到死的东西；私人交易中你商定公平价值，上市公司则由市场告诉你价值。芒格：“如果回购股票只是为了把它抬高，那是极其不道德的。但如果回购是因为这对现有股东公平，那是一个高度道德的行为。批评它的人是疯子。”
+q: Yeah, they’re a way of — they’re a way of, essentially, of distributing cash ||| And it’s a savings vehicle.
+q: And, well, there’s only two ways to do it. ||| And it helps slightly the person that wants out.
+q: It’s the most — what could be more logical than ||| And you do it at a price that is beneficial to most parties.
+q: Well, if you’re repurchasing stock, just a bull it higher, it’s deeply immoral. ||| And the people who are criticizing it are bonkers.
+zh: （巴菲特：）它们是一种方式——本质上是把现金分给想要现金的人，而其他共同所有者大多希望你再投资。它是一种储蓄工具。……而只有两种方式可以做到。我们可以给我们四个人都分红，其中三个人并不想要。我们也可以以公平的价格回购股份——如果只是我们四个人——我们定一个公平价格，第四个人的权益就被买断了。有些论点说，如果合伙人想退出，而你能以对留下来的人有利的价格从他那里回购股份，这是可怕的——我几乎无法相信这些论点。而且这对想退出的人也略有帮助。……还有什么比这更合乎逻辑的呢：如果你的一小部分持有人想退出，而大多数人想留下，想退出的人想要钱，你不会把钱给每个人。你把它给想要的那个人。而且你以一个对大多数各方有利的价格去做。（芒格：）嗯，如果你回购股票只是为了把股价抬高，那是极其不道德的。但如果你回购股票是因为这对现有股东是公平的事，那是一个高度道德的行为。批评它的人是疯了。
+l: 回购本身无好坏，关键看价格与动机；它让想退出的股东拿到现金，让留下的股东提高持股比例，是比分红更灵活的分配方式。
+r: 4/4/4
+rel: 2016-A04, 2014-M11
+
+@ 2021-A08
+t: 贾因：保险业完全低估了疫情风险，必须重新校准“回归期”并考虑跨业务的相关性
+s: JB
+th: 保险与浮存金; 风险管理
+k: insurance
+c: 被问新冠揭示了哪些系统性与相关性风险：阿吉特·贾因说保险业一直把疫情视为风险因素之一，但教训是“它被我们整个行业完全、完全低估了”，很多人认为最多百年一遇；需要重新思考其回归期。行业在风险相关性和汇总方面做得不够——例如活动取消险（奥运会取消时 NBC 的转播权）定价时考虑地震、恐怖主义，却从未考虑保费中有多少应归因于疫情。巴菲特：比尔·盖茨五六年前在 TED 演讲中就警告过，人们忽视了；“这不是最坏的情况，但已令人震惊”；有些风险太大了，比如核风险，私人保险业无法承担；保单措辞将来会严格得多。
+q: Having said that, I think the big lesson for us ||| it was totally, totally underpriced by all of us in the industry.
+q: And separately, we haven’t yet done a good enough job as an industry ||| and making sure we can deal with the aggregate numbers.
+q: And it’s very interesting, because this isn’t a worst case, what we’ve seen. ||| And yet, it’s staggering, in terms of what has happened.
+q: There are certain risks, too, that are just too big. ||| that would be involved in terms of a massive nuclear strike or something like that.
+zh: （贾因：）话虽如此，我认为对我们来说，经历了最近所经历的这一切之后，最大的教训是：虽然我们意识到疫情风险是一个风险因素，但它被我们行业里所有人完全、完全低估了。……另外，作为一个行业，在关联风险、汇总风险、确保我们能应对总体数字方面，我们做得还不够好。（巴菲特：）这非常有意思，因为我们看到的并不是最坏的情况。然而就已经发生的事情而言，它是令人震惊的。……还有一些风险就是太大了。比如核风险。联邦政府很早就认识到了这一点。私人保险业——它们无法承担大规模核打击之类事件所涉及的金融风险。
+l: 尾部风险往往不是单一事件，而是跨业务线同时爆发的相关性；保险与投资都要做“汇总压力测试”，并承认有些风险根本不可承保。
+r: 4/3/4
+rel: 2016-M15, 2012-M06
+
+@ 2021-A11
+t: 精密铸件付多了；好处是失败的企业占比自然缩小，成功的企业占比自然扩大
+s: BM
+th: 资本配置; 企业估值
+k: mistakes
+c: 被问 2016 年买精密铸件付多了的错误：巴菲特说“不是伯克希尔犯了错，是我犯了错”——管理层没看错，但对平均盈利能力估计错了：波音 737 Max 出问题、GE 不需要那么多发动机，这些客户可能遇到的事都是概率。“我们会继续犯错……不应该说我们，是我会。”芒格：“我们其他人会帮忙的。”好处是，令人失望的企业由于不再增长，会自然成为占比越来越小的部分；而成功的企业如 GEICO（业务是买下控制权时的 15 倍）会成为组合中重要得多的部分——“通过自然力量，你会把更多的钱集中在发展得比你想象更好的东西上。”这不像养孩子，坏孩子给你添更多麻烦。伯克希尔起家的纺织、百货、印花票三个原始业务都失败了。
+q: Well, Berkshire didn’t make the mistake, I made the mistake, incidentally. ||| Well, Berkshire didn’t make the mistake, I made the mistake, incidentally.
+q: And we have seen some of those things happen. ||| It’s a terrific company.
+q: And the nice thing about it is ||| You actually end up getting a greater concentration in the ones that work out.
+zh: （巴菲特：）顺便说一句，不是伯克希尔犯了错，是我犯了错。……我们已经看到其中一些事情发生了。因此，相对于平均盈利，我付得太多了。它是一家了不起的公司。……而它的好处是——正如我指出的，这并不完全适用于精密铸件的情况——当我们对一家企业感到失望时，按照事物的本性，它通常会成为我们业务中占比越来越小的部分，因为它没有任何发展。而当我们得到一家成功的企业，比如 GEICO 之类——GEICO 的业务量是我们买下控制权时的 15 倍——它们在我们的组合中会成为比例上重要得多的部分。所以，仅仅通过自然的力量，你会把更多的钱放在那些发展得比你想象更有利的东西上。你实际上最终会更集中于那些成功的东西。
+l: 长期持有组合天然具备“让赢家奔跑”的机制：不必频繁调仓，表现好的企业会自动提高权重；对错误要坦然承认、个人承担。
+r: 4/4/4
+rel: 2019-M17, 2014-A02
+
+@ 2021-A12
+t: 头号风险因素从不写进招股书：企业交给了错误的管理层
+s: B
+th: 管理与治理; 风险管理
+k: management
+c: 巴菲特说招股说明书都有“风险因素”一节，但“头号风险因素你从来看不到——那就是这家企业得到了错误的管理层”：一个讨人喜欢、董事们也喜欢的人掌舵，他不知道自己在做什么，但知道如何装样子；而且这个人待上 10 年或 15 年，要么留在纺织业或百货业并扩张。他看过很多企业，这才是造成头号问题的原因，而不是律师让他们列出的那些东西。
+q: The number one risk factor — you never see it ||| They don’t know what they’re doing, but they know how to put on an appearance.
+q: That’s the biggest single danger that a business ||| and either stays in the textile business or department store business and expands.
+zh: （巴菲特：）头号风险因素——你从来看不到——头号风险因素是这家企业得到了错误的管理层。你找来一个男人或女人掌管它，他们讨人喜欢，董事们喜欢他们。他们不知道自己在做什么，但他们知道如何装出样子。这是一家企业面临的最大的单一危险——而那个人留下来，经营它 10 年或 15 年，要么留在纺织业或百货业并且扩张。
+l: 读招股书和年报时，最该评估的“风险因素”是管理层的能力与资本配置判断，而非律师罗列的格式化风险。
+r: 4/4/4
+rel: 2016-M28, 2015-M12
+
+@ 2021-A17
+t: 人人都在寻找不需要多少资本的生意：苹果、微软、谷歌的生意都比伯克希尔好得多
+s: B
+th: 商业模式; 护城河
+k: business_model
+c: 被问未来是否会更多投资高利润率的软件类企业：巴菲特说“我们一直知道，梦想中的企业是只需要很少资本却能大幅增长的企业”——苹果、谷歌、微软、Facebook 都是绝佳例子。苹果的物业厂房设备只有 370 亿美元，伯克希尔约 1700 亿美元，但苹果赚得多得多，“这是比我们好得多的生意”；1972 年从喜诗学到这一点——没有大量存货（季节性除外）和应收账款。“但它们也要价最高，数量不多，而且不会永远保持那样。”“这就是资本主义的本质，人们追求资本回报”；公用事业必须投入大量资本，只能拿到 9.3% 左右的回报，远不及谷歌。
+q: Well, we’ve always known that the dream business is the one that takes very little capital ||| Facebook are terrific examples of that.
+q: I mean, Apple has $37 billion in property plant equipment ||| Google’s business is a way better business, so
+q: But they command the best prices, too. ||| And they don’t always stay that way, so
+q: But that’s what everybody’s looking for. ||| People getting a return on capital.
+zh: （巴菲特：）我们一直都知道，梦想中的企业是那种只需要很少资本却能大幅增长的企业。苹果、谷歌、微软和 Facebook 都是这方面的绝佳例子。我是说，苹果有 370 亿美元的物业、厂房和设备。伯克希尔有 1700 亿美元左右，而他们会比我们赚多得多的钱。……这是一门比我们好得多的生意。微软的生意是一门比我们好得多的生意。谷歌的生意是一门好得多的生意……但它们的要价也是最高的。而且这样的企业并不多。它们也不会一直保持那样……但那正是每个人都在寻找的东西。那就是资本主义的意义所在：人们获得资本回报。
+l: 轻资本高回报的企业是最好的生意，但市场通常会给它们高价，且优势可能消退；识别能长期保持这一特征的少数企业才是关键。
+r: 4/4/4
+rel: 2017-M23, 2016-M07
+
+@ 2021-A26
+t: 企业的“神话”：CEO 反复向分析师重复的说法会变成教义，继任者无法纠正
+s: BM
+th: 管理与治理; 投资心理
+k: management
+c: 巴菲特说可能会在年报中写一个话题：人们对自己组织的“神话”造成的问题。过去二三十年 CEO 与投资者关系部门觉得必须与分析师保持持续接触，每隔几个月重复关于公司的某些说法，它就变成了教义；没人会在 CEO 说完两个月后站出来说“其实不是那样”；神话从一任 CEO 传给下一任，继任者无法说挑选自己的人走错了方向，于是也开始重复，“这会导致巨大的错误”。芒格：你不停地重复，就会把它敲进自己脑子里，即使是错的；英国演员塞德里克·哈德威克爵士说“我当伟大演员太久了，已经不知道自己对任何事情真正怎么想”，几乎每个政客都这样。巴菲特：下属不会反驳，过一段时间他们就信了，这很危险。
+q: One of the subjects— I might even write about it in one of the future annual reports ||| and they say well, we have to have constant contact with the analyst community.
+q: But there’s a lot of mythology that gets handed down from one CEO to the next. ||| And it leads to enormous errors.
+q: What’s really interesting, is the way you prattle out all the time ||| And it happens to virtually every politician.
+zh: （巴菲特：）其中一个话题——我甚至可能会在未来的某份年报中写到它——是人们对自己组织所抱有的神话引起的问题。我以各种形式见过很多次。而在某种程度上，这个问题在过去二三十年里被加剧了，因为 CEO 常常——与投资者关系部门一起——他们说，我们必须与分析师群体保持持续联系。……但有很多神话从一任 CEO 传给下一任。继任的 CEO 能说挑选他的那个人走错了方向吗？或者说他一直告诉我们的东西其实并不真实？他做不到。然后他也开始重复它。这会导致巨大的错误。（芒格：）真正有意思的是，你一直不停地念叨，就会把它敲回到自己脑子里，即使它是错的。所以，人类说过的话里我最喜欢的之一，是英国伟大演员塞德里克·哈德威克爵士说的。他说：“我当伟大的演员太久了，以至于我不再知道自己对任何话题的真实想法。”我认为这发生在很多人身上。几乎每个政客身上都发生了。
+l: 对管理层反复强调的“公司叙事”保持怀疑，尤其是传承多任 CEO 的战略口号；频繁的投资者沟通可能让管理层被自己的说辞绑架。
+r: 4/3/4
+rel: 2016-A08, 2015-M31
+
+@ 2021-A29
+t: 你必须热爱你的生意：伯克希尔要创造让这种热爱生长的条件
+s: BJA
+th: 管理与治理; 人生智慧
+k: culture
+c: 被问贾因和阿贝尔每天读什么：贾因说大部分时间在读经纪人送来的交易、分析它们，90% 的阅读是为了跟踪保险业动态，不太读年报，因为他不是选股的。阿贝尔说阅读聚焦于旗下企业所在行业、竞争对手在做什么、根本风险、会如何被颠覆，并始终回到“相对于风险，我们在这些企业中的资本配置是否恰当”，再与子公司管理团队交流。巴菲特：两人吸收信息的能力非凡，因为他们非常感兴趣，那是他们自己的；他们不在想下一份大公司的工作；“你真的必须爱上你的生意，这会带来巨大的差别。这意味着我们必须具备让这种爱生长的条件，而在很多组织中它是无法生长的。”
+q: Yeah. So generally, in a day, what I’m going to focus on when I’m reading is really around our businesses ||| relative to the risks we’re seeing, both in our business and in the industry?
+q: Both of these fellows can absorb information to an extraordinary degree. ||| I mean, you know, and it’s theirs.
+q: But you really got to kind of be in love with your business. ||| And it wouldn’t flourish under many — under many — with many organizations.
+zh: （阿贝尔：）所以一般来说，一天中我阅读时关注的，实际上是我们的企业、它们所在的行业。我在努力了解我们的竞争对手在做什么。这些企业周围的根本风险是什么？它们会如何被颠覆？然后总是回到：相对于我们在自身业务和行业中看到的风险，我们在这些企业中的资本配置是否恰当？（巴菲特：）这两位都能以非凡的程度吸收信息。我是说，一方面，他们对此极其感兴趣。我是说，而且那是他们自己的。……但你真的必须某种程度上爱上你的生意。这会带来巨大的差别。这意味着我们必须拥有让这种爱得以生长的条件。而在很多组织里，它是无法生长的。
+l: 卓越的经理人把业务当成自己的事业；评估管理层时，看他们是否把阅读和思考聚焦在竞争、颠覆风险与资本配置上。
+r: 3/3/3
+rel: 2013-M39, 2017-M24
+
+@ 2021-A30
+t: 罗宾汉与股市赌场：美国企业是储蓄的好地方，也是绝佳的赌博筹码
+s: BM
+th: 投资心理; 宏观与社会
+k: speculation
+c: 被问 Robinhood 等交易应用：巴菲特说它已成为过去一年多加入股市的“赌场群体”的重要部分；关心他们如何描述不向客户收费的收入来源；约 12–13% 的用户在交易期权，苹果的 7 天、14 天期看涨期权数量惊人，那是在赌苹果未来一两周的价格。“这既不违法，也不不道德，但我认为你不会围绕人们这样做来建立一个社会。”一个非常富裕的社会能够奖励那些懂得利用公众赌博本能的人，“这不是成就中最值得钦佩的部分”；美国企业是储蓄的好地方，“但它们也是绝佳的赌博筹码”——当人们第一次口袋里有钱，你告诉他们可以一天交易 30、40、50 次而不收佣金，靠卖订单流赚钱……芒格：这简直糟透了，吸引文明人和正派公民去投资这种东西是“大错特错”；“我们不想靠卖对人有害的东西赚钱”；各州取代黑手党成为数字彩票的经营者，同样糟糕。巴菲特：彩票是在“对希望征税”。
+q: It’s — you know, it’s become a very significant part of the casino aspect ||| that has joined into the stock market in the last year or year and a half.
+q: There’s nothing, you know — there’s nothing illegal about it. There’s nothing immoral. ||| I mean, if a group of — a group of us landed on a desert island
+q: And I think actually, you know, American corporations have turned out to be a wonderful place for people to put their money and save. ||| But they also make terrific gambling chips.
+q: I think it’s just God-awful that something like that would draw investment from civilized men and decent citizens. ||| We don’t want to make our money selling things that are bad for people.
+q: Well, in a sense they’re worse. I mean, they’re really taxing the ||| They’re taxing hope.
+zh: （巴菲特：）它已经成为赌场那一面——在过去一年或一年半里加入股市的那个赌场群体——非常重要的一部分。……这没有任何违法之处。也没有不道德之处。但是——我不认为你会围绕人们这样做来建立一个社会。……而且我认为实际上，美国企业已经被证明是人们存放和储蓄资金的绝佳场所。但它们也是绝佳的赌博筹码。（芒格：）我认为这样的东西竟能吸引文明人和正派公民的投资，简直糟透了。这是大错特错的。我们不想靠卖对人有害的东西赚钱。（巴菲特：）嗯，从某种意义上说，它们（各州的彩票）更糟。我是说，它们实际上是在对……征税。它们在对希望征税。
+l: 同一种资产，既可以是储蓄工具也可以是赌博筹码，区别在于持有方式；“零佣金”往往意味着你是被出售的产品。
+r: 3/4/4
+rel: 2021-M28, 2018-A12
