@@ -1,0 +1,232 @@
+# 2007 年股东大会（5 月 5 日）
+
+@ 2007-M07
+t: 选错管理者比选错薪酬体系的问题更大；薪酬谈判是一场“不对等的较量”
+s: BM
+th: 管理与治理
+k: incentives
+c: 由谁经营宝洁、可口可乐、美国运通极其重要，与让一个平庸的人经营一家大公司这一罪过相比，任何薪酬上的罪过通常都是次要的。但薪酬确实有棘轮效应：他人所得的公开、谈判过程缺乏强度——劳资谈判会僵持到凌晨三点，可曾见过薪酬委员会工作到凌晨四点、宣布僵局一周？CEO 极其在乎自己的薪酬，对薪酬委员会来说那基本是“玩具钱”；他们找的是摇尾巴的可卡犬，不是杜宾犬。人力资源负责人知道 CEO 对自己的看法决定自己的前途，推荐的薪酬顾问知道自己在其他公司的生意取决于这些人怎么评价他——这根本不是公平的较量，“简直是个笑话”。芒格讲了个故事：孩子宁愿说父亲因贪污入狱，也不愿承认他是薪酬顾问。
+q: There are more problems with having the wrong manager than with having the wrong compensation system. ||| compared to the sin of having somebody that’s mediocre running a huge company.
+q: I ask you, when have you heard of a comp committee ||| but it’s basically play money.
+q: The comp committee sits down. ||| It’s a joke.
+zh: 与选错薪酬体系相比，选错管理者带来的问题更多。……由谁经营——随便你说哪家公司——宝洁、可口可乐、美国运通，是极其重要的。与让一个平庸的人经营一家大公司的罪过相比，任何薪酬上的罪过通常都是次要的。……我问你，你什么时候听说过一个薪酬委员会工作到凌晨四点、宣布僵局一周、无法达成协议？这根本不会发生，因为 CEO 极其在乎自己怎么被支付，而对薪酬委员会来说——他们现在也许做得稍好一点——那基本上是玩具钱。……薪酬委员会坐下来。人力资源负责人进来。人力资源负责人知道 CEO 对他的看法将决定他的前途，于是人力资源部门推荐某个薪酬顾问。薪酬顾问知道自己能否被推荐给其他公司，取决于这些人怎么评价他。所以在这种情况下，你能想象这会是一场公平的较量吗？这是个笑话。
+l: 先看人，再看薪酬：一位优秀的 CEO 比完美的薪酬方案重要；但要意识到薪酬决策中利益与强度的不对等。
+r: 3/3/4
+rel: 2006-M08, 2004-M11
+
+@ 2007-M09
+t: 人们恐慌时会发生非凡的事：历史不会重复，但会押韵
+s: BM
+th: 市场周期; 风险管理
+k: crisis
+c: 别人受苦时伯克希尔会受益——不是乐见其苦，而是金融市场混乱时（2002 年垃圾债、1974 年股票），他们通常手里有钱。他认为未必会出现美联储主导的信贷紧缩，但很可能出现某个外生事件在市场中自我强化——而且比过去大多数时期更容易自我强化，会带来信用利差大幅扩大、股价变便宜。1998 年 LTCM 出事时，信贷市场冻结，人们连最安全的工具都恐慌，信用利差出现前所未有的变化——那不是一百年前，而是不到十年前，华尔街满是高智商的人和现金，却仅仅因为人们恐慌、并觉得别人会恐慌，发生了非凡的事。“我们会再次看到这种事，不会一样，但正如马克·吐温所说，历史不会重复，但会押韵——会有与 1998 年押韵的事。”芒格：如果在这样一个充满过度、引发嫉妒与怨恨的时期之后出现真正的大信贷紧缩，我们会得到大多数人都不喜欢的立法。（一年后，2008 年金融危机爆发。）
+q: But you could very well see some exogenous event that starts feeding on itself in markets. ||| if you really got a shock to the system.
+q: And you had some really extraordinary things happen in credit markets simply because people panicked ||| And we will have something that rhymes with 1998.
+q: And I would predict that if we ever had a really big credit contraction after a period like the one we’re in with all this excess ||| that we would get legislation that most of us wouldn’t like.
+zh: 但你很可能看到某个外生事件开始在市场中自我强化。事实上，如果系统真的受到冲击，我认为它比过去大多数时期都更容易在市场中自我强化。……仅仅因为人们恐慌、并且觉得其他人会恐慌，信贷市场就发生了一些真正非凡的事情。你会在市场中看到这些二级、三级的反应。我们会再次看到这种事。它不会一样，但正如马克·吐温所说，历史不会重复，但会押韵。我们会遇到与 1998 年押韵的事情。（芒格：）我预测，如果我们在一个像现在这样充满过度、引发如此多嫉妒与怨恨的时期之后，真的发生一场大规模的信贷紧缩，我们会得到大多数人都不喜欢的立法。
+l: 为“与 1998 年押韵”的时刻保持流动性；高杠杆、高相关的市场结构会放大外部冲击。
+r: 5/4/5
+rel: 2005-M10, 2006-A12, 2003-M38
+
+@ 2007-M11
+t: 企业利润占 GDP 8% 不可持续；找能想象“从未发生之事”的人
+s: BM
+th: 宏观与社会; 市场周期
+k: crisis
+c: 美国企业利润占 GDP 的比例长期在 4%–6%，如今跃升到 8% 以上，这不太可能长期持续：在长期国债 4.75% 的世界里，大量企业赚 20%–25% 的有形资本回报，这在 40 年前的经济学书里找不到；利润占比上升意味着别人（劳动）的占比下降，国会有能力很快改变这一比例。“企业美国此刻生活在最好的世界里，而历史表明这种状况不会无限持续。”芒格：很多利润来自金融业——银行、投行、各类资产管理和私募——这没有先例；部分来自被推向极端的消费信贷，韩国曾因此崩溃，现在不是挥棒打全垒打的时候。巴菲特：银行以 15 倍杠杆在商品化的“钱”上赚 20% 以上回报，本应自我中和，却持续了很久。寻找投资接班人时，他们极其看重的是：不仅了解已经发生过的一切风险，还能想象从未经历过的事情——很多聪明人“没有这种布线”，就像诺亚的前 40 天。
+q: But corporate profits, when they get up to 8 percent plus of GDP, you know, that is very high. ||| That’s extraordinary.
+q: So I would say that, at the moment, corporate America is kind of living in the best of all worlds ||| But I would not expect corporate profits to be eight-and-a-fraction percent of GDP, on average, in the future.
+q: Some of this has come from consumer credit, which I think has been pushed to extremes that we’ve never before seen in the history of this country. ||| So I don’t think this is a time to just swing for the fences.
+q: I mention in the annual report, in looking for an investment manager to succeed me ||| they’re just not wired to think about troubles that they haven’t actually witnessed before.
+zh: 但企业利润达到 GDP 的 8% 以上，那是非常高的。……在一个长期政府债券利率为 4.75% 的世界里，有大量企业在有形资本上赚取 20% 或 25% 的回报。这是非同寻常的。……所以我要说，此刻企业美国有点像生活在所有世界中最好的那个里，而历史表明这样的状况不会无限持续。……我不会期望企业利润在未来平均占 GDP 的 8% 多。（芒格：）其中一部分来自消费信贷，我认为它已被推到了这个国家历史上前所未见的极端。其他一些大力推动消费信贷的国家都出现了巨大的崩溃，比如韩国……所以我认为现在不是全力挥棒打全垒打的时候。（巴菲特：）我在年报里提到，在寻找接替我的投资经理时，我们极其看重找到这样一个人：他不仅清楚所有已经发生过的风险，还能设想尚未经历过的事情。……有很多人非常聪明，但他们就是没有这种布线，去思考他们从未亲眼见过的麻烦。
+l: 利润率处于历史极端高位时，估值应假设其回归；风险管理者的核心能力是想象“没见过的灾难”。
+r: 5/4/5
+rel: 2007-M09, 2005-M21
+
+@ 2007-M13
+t: 赌博是对无知的征税：政府利用国民的弱点是可耻的
+s: BM
+th: 宏观与社会; 人生智慧
+k: speculation
+c: 只要合法，赌博公司会有非常好的前景——人类赌博的倾向巨大，日内交易很多时候也接近赌博。各州发现这是巨大的收入来源后，让赌博变得越来越容易，而越容易，人们赌得越多。40 年前他在家三楼放了一台老虎机，给孩子们的零花钱只要是一角硬币，天黑前就全收回来了。“在很大程度上，赌博是对无知的征税”——政府利用国民的弱点而不是服务他们，让人拿着社保支票去拉老虎机、买彩票，是相当犬儒的做法：它有效，并减轻了那些不上当的人的税负。芒格：赌场用聪明的心理把戏让人伤害自己，其中有很多无害的娱乐，但也有大量蓄意造成的严重伤害——这是肮脏的生意，伯克希尔近期不会有赌场。
+q: the human propensity to gamble is huge. ||| And, believe me, the easier it’s made, the more people will gamble.
+q: I’m not a prude about it, but I do think that to quite an extent, gambling is a tax on ignorance. ||| I find it kind of socially revolting when a government preys on the weaknesses of its citizenry rather than acts to serve them.
+q: You know, I would argue that the gambling casinos use clever psychological tricks to cause people to hurt themselves. ||| It’s a dirty business, and I don’t think you’ll find a casino soon in Berkshire Hathaway.
+zh: 但人类赌博的倾向是巨大的。……相信我，赌博变得越容易，赌的人就越多。……我对此并不假正经，但我确实认为在相当程度上，赌博是对无知的征税。……我觉得，当一个政府利用其国民的弱点而不是为他们服务时，在社会意义上是有点令人反感的。（芒格：）我会说，赌场使用聪明的心理把戏，让人们伤害自己。毫无疑问，赌场里有很多无害的娱乐，但也有很多由赌场蓄意造成的严重伤害。这是一门肮脏的生意，我想你不会很快在伯克希尔看到一家赌场。
+l: 对“期望值为负”的活动保持距离，无论它是彩票、赌场还是伪装成投资的频繁交易；投资时也要考量企业是否靠伤害客户赚钱。
+r: 3/3/4
+rel: 2006-A23, 2004-A10
+
+@ 2007-M14
+t: 黄色便笺测试：写不出“为什么要以这个价格买下整家公司”，就别买一股
+s: BM
+th: 投资方法; 投资理念
+k: stock_as_business
+c: 读你能读到的一切——不限于投资；用各种相互竞争的思想填满头脑，再随着时间筛选什么真正有道理。然后要下水：纸上投资和真金白银投资的差别，就像读言情小说和亲身经历；在不会伤害你财务的小规模上自己动手，你会很快知道是否喜欢。他 76 岁时仍在用 19 岁读的那本书形成的思维模式处理问题。芒格：伯克希尔董事戈特斯曼面试年轻人只问：“你持有什么？为什么持有？”若你还没兴趣到已经参与其中，他宁愿你去别处。巴菲特：买农场时你会算每英亩产多少玉米、多少大豆，股票也一样——他总建议学生拿一本黄色便笺写下：“我要以 180 亿美元买下通用汽车公司，理由如下。”写不出好文章，就没有资格以 30 美元买 100 股、10 股甚至 1 股，因为你没有让它接受商业的检验。
+q: But you’ve just got to fill up your mind with various competing thoughts and sort them out as to what really makes sense over time. ||| is like the difference between reading a romance novel and doing something else.
+q: When a young man comes to Sandy, he asks a very simple question, no matter how young the man is. ||| why, he’d rather you go somewhere else.
+q: I used to always recommend to my students that they take a yellow pad like this ||| because they are not subjecting it to business tests.
+zh: 你必须用各种相互竞争的想法填满你的头脑，然后随着时间推移把它们整理出来，看什么真正有道理。然后一旦你做了大量这样的事，我认为你就必须跳进水里，因为在纸上投资和用真金白银投资的区别，就像读一本言情小说和做别的事的区别。（芒格：）当一个年轻人来找桑迪（戈特斯曼）时，不管这个人多年轻，他都问一个非常简单的问题。他说：“你持有什么，为什么持有它？”如果你对这个主题的兴趣还不足以让你已经参与其中，那么他宁愿你去别的地方。（巴菲特：）我过去总是建议我的学生拿一本像这样的黄色便笺，如果他们要以 30 美元买 100 股通用汽车，而通用汽车有大约 6 亿股流通在外，他们就要说：“我要以 180 亿美元买下通用汽车公司，理由如下。”如果他们无法就这个主题写出一篇好文章，他们就没有资格以每股 30 美元买 100 股、10 股或 1 股，因为他们没有让它接受商业的检验。
+l: 每次买入前写一段“收购整家公司”的论证：总市值、为什么值这个价、主要风险是什么；写不出来就不买。
+r: 5/5/5
+rel: 2002-M26, 2005-M11
+
+@ 2007-M15
+t: 对伟大企业不需要巨大的安全边际：你一眼能看出一个人胖，不必知道他是 300 还是 325 磅
+s: BM
+th: 企业估值; 投资方法
+k: mos
+c: 他们偏好真正知道答案的企业；如果行业、竞争地位太难以确定，他们不会试图用超大的安全边际来补偿，而是转向更理解的东西。买喜诗这样的企业或可口可乐这样的股票，不需要巨大的安全边际，因为不认为假设会出现重大错误。理想的是长期高资本回报、管理层善待股东的伟大企业——希望以 4 毛钱买 1 块钱，但也会以接近 1 块钱的价格买。“看到一个人走进门，你不知道他是 300 磅还是 325 磅，但你知道他胖”——财务上明显“胖”的东西不必精确，能以相当于 270 磅的价格买到就很好。投资就是往前看：你得到报酬是因为将要发生的事，而非已经发生的事；过去只在能提供对未来的洞察时才有用。有时能以四分之一的价格买到出色企业（如最近的韩国），但很少见，不该为等这种机会坐等 10–15 年。芒格：安全边际归结为得到的价值多于付出的价格，价值可以有很多形式——一个对半开的赌局给你 4 比 1 的赔率，也是价值主张；这是高中代数，不会用的人该换个行当。
+q: And, therefore, if a business gets to the point where we think the industry in which it operates ||| We really want to try to go on to something that we understand better.
+q: And if we really get to something — you know, when we see a great business ||| we’ll feel good.
+q: You don’t get paid for what’s already happened. ||| and sometimes the past doesn’t give you any insights into the future.
+q: Yeah. You’re — that margin of safety concept boils down to getting more value than you’re paying. ||| And people who don’t know how to use high school algebra should take up some other activity.
+zh: 因此，如果一家企业到了这样的地步——我们认为它所处的行业、竞争地位或任何方面都如此不确定，以至于我们真的无法得出一个数字——我们并不会真的试图用某种特别大的安全边际来弥补。我们真的会尝试转向我们更了解的东西。……当我们看到一家伟大的企业，就像你看到某人走进门，你不知道他是 300 磅还是 325 磅，但你仍然知道他胖，对吧？所以如果我们看到某样东西，我们知道它在财务上是“胖”的，我们就不担心是否精确。如果在那个例子中我们能以相当于 270 磅的价格进场，我们就会感觉很好。……你得到报酬不是因为已经发生的事，你只因将要在未来发生的事而得到报酬。过去只在它能让你洞察未来的范围内对你有用，而有时过去不能给你任何对未来的洞察。（芒格：）是的。安全边际这个概念归结起来就是得到的价值多于你付出的。而价值可以以许多不同的形式存在。如果在一个胜负各半的事情上给你四比一的赔率，那也是一个价值主张。这是高中代数。不懂得使用高中代数的人应该去从事别的活动。
+l: 安全边际与确定性成反比：对确定性高的伟大企业可接受较小折扣；对不确定的企业，加大折扣并不能弥补“看不懂”。
+r: 5/5/5
+rel: 2004-M29, 2003-M30
+
+@ 2007-M17
+t: 伯克希尔极端成功的原因：一台终身学习的机器，加上长期集中的权力
+s: BM
+th: 管理与治理; 人生智慧
+k: learning
+c: 伯克希尔的内在价值是到审判日可交付现金的折现，另一个看法是：现有企业值多少（有价证券约值账面，经营企业看他们披露的数字），再加上留存利润将被多有效地使用——1965 年纺织业务每股约值 12 美元，但真正的价值取决于用现金买入更好的企业。芒格：伯克希尔的结果极端到历史上很难找到类似先例。原因何在？那个十岁就读完能读到的一切的少年成了一台学习机器，很早获得权力，又拥有很长的、持续学习的岁月——如果沃伦没有一直学习，记录会黯然失色；过了退休年龄后他还在进步——在这个领域，人老了也能进步。多数组织在 65 岁和 59 岁的人之间反复交接权力，而这个领域从实践中获得巨大优势，权力长期集中在一个凶猛的学习者手中让股东大受其益——“我们的系统应该被更多地复制”。巴菲特：资本配置上，伯克希尔需要的是一个基本不做蠢事、偶尔做点相当好的事的人；这个组织有理性、以所有者为导向的强大文化，会拒绝真正不理性的想法——你会惊讶于有多少决策出于“动物精神”而非理性。
+q: But since Berkshire retains all of its earnings, it becomes very important to evaluate what will be done with those earnings over time. ||| It’s a judgment on the efficiency or the effectiveness with which retained earnings will be used.
+q: I would argue that the young man who was reading everything he could read when he was 10-years-old became a learning machine ||| In other words, in this field, at least, you can improve when you’re old.
+q: And so what happened accidentally in the case of Warren has helped you shareholders greatly ||| Our system ought to be more copied than it is.
+q: But we will need somebody that never does — basically doesn’t do any dumb things, and occasionally does something that’s reasonably good. ||| And we have our animal spirits but we devote them to other areas.
+zh: 但由于伯克希尔留存了它的全部盈利，评估这些盈利随着时间推移会被如何使用就变得非常重要。这不仅仅是现有企业值多少的问题，而是对留存盈利使用的效率或成效的判断。（芒格：）我会说，那个 10 岁时就读遍了所有他能读的东西的年轻人，成了一台学习机器。他很早就获得了很大的权力，然后又有了很长时间不断学习的岁月。如果沃伦没有一直在学习——我是近距离观察过这个过程才这么说的——这个记录会黯然失色。而沃伦在过了人类的退休年龄之后还在进步。换句话说，至少在这个领域，你老了也能进步。……所以在沃伦身上偶然发生的事情，极大地帮助了你们股东，因为你们拥有了这样一段很长的时期：权力极度集中，而掌握权力的人是一个凶猛的学习者。我们的系统应该比现在被更多地复制。（巴菲特：）但我们需要的是一个从不——基本上不做任何蠢事、偶尔做一些相当好的事的人。……你会惊讶于有多少事情是在回应“动物精神”而不是理性。我们也有动物精神，但我们把它用在了其他领域。
+l: 评估留存利润型公司，核心是资本配置者的能力和持续学习；投资领域经验会复利，长期在位的优秀配置者是罕见资产。
+r: 5/4/5
+rel: 2001-A31, 2004-A28, 2003-A30
+
+@ 2007-M19
+t: 电子羊群与高斯分布的谬误：市场不服从正态分布
+s: BM
+th: 市场周期; 风险管理
+k: efficient_market
+c: 债券和股票中，由可能明天早上就因某个刺激改变主意的人持有的比例高得多——全球有一群“电子羊群”，管理巨额资金，认为组合里的一切都应按天、按小时甚至按分钟做决定；纽交所换手率从 40 年前约 15%–20% 升到 100% 以上，债券也一样。这本身不邪恶，但参与者在玩不同的游戏，可能带来与买入持有环境不同的后果。在所罗门时，人们总谈“五西格玛、六西格玛事件”，那对抛硬币是对的，但涉及人类行为时毫无意义——非常聪明、受过教育的人会成群结队做完全不理性的事，1998、2002 年都见过，还会再见到，尤其当人们试图每天打败市场时——“这是傻瓜的游戏”。芒格：用西格玛谈市场灾难可能性的人都疯了——他们以为市场的坏结果服从高斯分布，因为这让一切都容易计算；你得相信牙仙才会相信这个，灾难比高斯预测的更大、更恼人。巴菲特：学了高深数学、写了教科书，然后发现它毫无用处甚至有反作用——很少有人能好好面对，所以他们就继续教。
+q: There is an electronic herd of people around the world managing huge amounts of money ||| basically, daily or hourly or by the minute.
+q: and that’s fine if you’re talking about flipping coins, but it doesn’t mean anything when you get human behavior involved. ||| and they do them en masse.
+q: Yeah. When people talk about sigmas, in terms of disaster potentialities in markets, they’re all crazy. ||| And the disasters are bigger and more irritating than [German mathematician Carl Friedrich] Gauss would have predicted.
+q: It’s very discouraging to learn advanced mathematics ||| And I think they just generally keep on teaching.
+zh: 世界各地有一群电子羊群，管理着巨额资金，他们认为对投资组合中一切的决定基本上应该每天、每小时或每分钟做出。……如果你谈论的是抛硬币，那没问题；但当涉及人类行为时，它就毫无意义了。人们会做——聪明人会做——非常聪明、受过良好教育的人会做完全不理性的事，而且他们会成群结队地做。（芒格：）是的。当人们用西格玛来谈论市场中灾难的可能性时，他们全都疯了。他们有这样一种想法，认为市场中的坏结果可以用高斯分布来预测。而他们决定采用这个结论的方式，是因为它让一切都那么容易计算。市场并不服从高斯分布。你得相信牙仙才会相信那个。灾难比高斯所预测的更大、更恼人。（巴菲特：）学习高深的数学，学会如何做你所在领域里只有祭司阶层才能做的事，然后发现它没有任何意义，这是非常令人沮丧的。……在你投入多年攻读博士、也许写了一本教科书和一两篇论文之后，突然领悟到那些东西毫无用处、实际上有反作用——我不确定有多少人能很好地应对。我想他们通常就继续教下去。
+l: 风险模型若假设正态分布，会系统性低估尾部；短期化、同质化的资金结构会放大羊群行为。
+r: 5/4/5
+rel: 2003-A06, 2003-M16, 2007-M09
+
+@ 2007-M20
+t: 伊索的投资数学：一鸟在手胜过二鸟在林——什么时候得到两只？有多确定？
+s: BM
+th: 企业估值; 投资方法
+k: iv
+c: 芒格：确定内在价值没有一种简单的、计算机按按钮就能让人变富的机械方法，必须用多种技术、多种模型，经验很有帮助——成为伟大投资者不会比成为优秀的骨肿瘤病理学家更快，所以早开始很有益。巴菲特：像买奥马哈以北 30 英里的农场：每英亩 120 蒲式耳玉米、45 蒲式耳大豆，扣除化肥、税、人工，保守估计每英亩给所有者 70 美元；若要 7% 回报就付 1000 美元，900 美元有买入信号，1200 美元就看别的——这就是他们对企业做的事。投资的数学由伊索在公元前 600 年写下：“一鸟在手胜过二鸟在林”——问题是何时得到两只、等多久、有多确定林中有两只、会不会更多、正确的折现率是多少。路过一家麦当劳店，你会想竞争、加盟条款、人们是否还吃汉堡——投资就这么回事；但你必须知道什么时候你知道自己在做什么，什么时候已出了能力圈、毫无头绪。芒格：我们从来没有一个能正确评估所有企业的体系，几乎把所有决定都扔进“太难”一堆，只筛出少数容易的——这是一个比较的过程。
+q: Yeah. When you’re trying to determine something like intrinsic value and margin of safety and so on ||| and a lot of experience is very helpful.
+q: And you might decide that for $70 an acre ||| That’s what we do in businesses.
+q: But the mathematics of investment were set out by Aesop in 600BC. ||| What’s the right discount rate?
+q: And that’s all investing is. But you have to know when you know what you’re doing ||| you don’t have the faintest idea.
+q: We throw almost all decisions into the too hard pile ||| And if you’re looking for an ability to correctly value all investments at all times, we can’t help you.
+zh: （芒格：）当你试图确定像内在价值、安全边际这样的东西时，没有一种简单的方法可以被——比如说计算机——机械地应用，让任何会按按钮的人致富。就其定义而言，这将是一场需要用多种技术、多种模型来玩的游戏，大量的经验非常有帮助。（巴菲特：）……你可能会决定，对于每英亩 70 美元……如果你决定要 7% 的回报，你会为每英亩付 1000 美元。如果农地卖 900，你知道你有了买入信号；如果卖 1200，你会去看别的东西。这就是我们对企业所做的。……但投资的数学是伊索在公元前 600 年阐明的。他说：“一鸟在手胜过二鸟在林。”现在我们的问题是：我们什么时候得到那两只？要等多久？我们有多确定林中有两只？会不会更多？正确的折现率是多少？……投资就是这么回事。但你必须知道什么时候你知道自己在做什么，并且你必须知道什么时候你已经走出了我所说的能力圈，毫无头绪。（芒格：）我们几乎把所有决定都扔进“太难”的那一堆，只筛选出少数几个我们能做出的、容易的决定。这是一个比较的过程。如果你在寻找一种在任何时候都能正确评估所有投资的能力，我们帮不了你。
+l: 把每一项投资想成“林中之鸟”：数量（现金流）、时间、确定性、折现率，与当前价格比较；不能回答这四个问题就放入“太难”。
+r: 5/5/5
+rel: 2003-A30, 2005-A25, 2006-M12
+
+@ 2007-M21
+t: 寻找投资接班人：任何数乘以零都是零——要能看到从未发生的风险
+s: BM
+th: 风险管理; 管理与治理
+k: leverage
+c: 他们在找一个或几个接班的投资经理，不是来教、不是来当导师，而是找已经会做的人；已有六七百人申请。最大的问题是能否放大规模——管理 1000 亿和管理 1 亿是不同的工作，回报也不可能接近；他们只希望比整体证券表现“略好”，用 1000 亿美元每年跑赢标普 10 个百分点是不可能的。真正关心的是：在人们从未见过的条件下，这个人不会把一切搞砸——“任何数乘以零都是零，中间有多少漂亮数字都无所谓”。他们见过很多非常聪明的人破产，或 100 件事里 99 件都做得聪明，却毁在第 100 件上。1969 年他解散合伙企业时找到三个人选：芒格、戈特斯曼、鲁安——不仅是出色的基金经理，而且永远不会给你一个糟糕的结果；1979 年在机场与卢·辛普森谈了几个小时，就知道他是资本的好管家。芒格：莫扎特对想写交响乐的 25 岁年轻人说你太年轻了，“我 10 岁写交响乐时可没问别人怎么写”。
+q: But we think maybe we can find somebody or some group ||| And I don’t care how many wonderful figures are in between.
+q: So we are looking for somebody that’s wired in a way that they see risks that other people don’t see that haven’t occurred ||| where, you know, 99 out of the 100 things they did were intelligent but the hundredth did them in.
+q: So I really identified three people in 1969 that were not only superior money managers ||| and that were terrific stewards of capital.
+zh: 但我们想也许能找到某个人或某个团队……也许能比（市场）好几个百分点，但我们真正感兴趣的是确定我们找到的人，在人们甚至还没见过的条件下，不会把事情搞砸。任何数乘以零都是零，中间有多少漂亮的数字我都不在乎。所以我们在寻找这样一个人：他的布线方式使他能看到别人看不到的、尚未发生的风险，同时也充分意识到已经发生过的风险。这样的人相当罕见。查理和我见过很多非常聪明的人破产，或者最终业绩非常平庸——他们做的 100 件事中有 99 件是明智的，但第 100 件让他们完蛋了。……所以我在 1969 年真正找到了三个人，他们不仅是卓越的资金管理者，而且是那种永远不会给你一个糟糕结果的人，是出色的资本管家。
+l: 复利的前提是永不归零：评估管理者（包括自己）时，先看他会不会在极端情况下“乘以零”，再看平均回报。
+r: 5/4/5
+rel: 2007-M11, 2004-M32
+
+@ 2007-M24
+t: 股票 vs 20 年期债券：轻松的选择；不要“分层”配置
+s: BM
+th: 投资方法; 市场周期
+k: no_forecast
+c: 1969 年解散合伙企业时，他判断未来十年股票与市政债的税后预期回报差不多，结果大致如此；但他不认为现在是同样的情形。若管理一个大型捐赠基金，要么 100% 股票，要么 100% 长债，要么 100% 短债——他不信“60% 这个、30% 那个”的分层：如果你认为 60% 的那个更合理，为什么要持有 30% 的另一个？若必须在 20 年里选择持有标普 500 指数还是 20 年期债券，他会买股票——这不是一个接近的决定（但不要付一大笔钱给别人把股票回报大幅拉低）。他们不知道三年后标普或长债在哪里，但知道 20 年持有哪个更好。芒格：我们也预期当前局面在不太多年后会造成真正的混乱。巴菲特：回看一百年，几乎任何时期都会不时出现混乱，那时有现金、有胆量很好；但预测或等待混乱不是我们的游戏——一季度买了约 50 亿美元股票，远不如 1974 年便宜，但宁愿持有它们而不是现金或坐等更便宜：“你可能把自己无限期地冻结在场外。”
+q: I mean, I don’t believe in layering things and saying I’m going to have 60 percent of this and 30 percent of that. ||| Why do I have the 30 percent if I think the 60 percent makes more sense?
+q: We don’t have the faintest idea where the S&P will be in three years ||| but we do know which we would rather own on a 20-year basis.
+q: That’s true, but if you go back a hundred years ||| You — you can freeze yourself out indefinitely.
+zh: 我不相信分层的做法，说我要持有 60% 的这个、30% 的那个。如果我认为 60% 的那个更有道理，我为什么要持有那 30%？……我们完全不知道三年后标普会在哪里，或者长期债券会在哪里，但我们确实知道在 20 年的基础上我们更愿意持有哪一个。（芒格：）沃伦，我们也预期当前的局面会在不太多年后造成一些真正的混乱。（巴菲特：）这是真的，但如果你回溯一百年，你几乎可以说，在几乎任何时期，你都会不时遇到混乱。那时有大量现金、并且有胆量用它做点什么，是非常好的。但预测它们或坐等它们，诸如此类的事，不是我们的游戏。……我们决定宁愿持有它们而不是现金，也不愿坐等东西变得便宜很多。我们不花很多时间做那种事。你可能会把自己无限期地冻结在场外。
+l: 长期视角下比较资产类别的预期回报，选择更好的那个而非机械分散；等待“完美时机”可能让你永远踏空。
+r: 4/4/4
+rel: 2004-M22, 2005-A13
+
+@ 2007-M27
+t: 小资金总能获得很高回报：可选范围是大资金的成千上万倍
+s: BM
+th: 投资方法
+k: concentration
+c: 如果用很小的资金工作，他会做几乎完全不同的事——投资 1 万美元时可考虑的选择是投资 1000 亿美元时的成千上万倍：大资金的所有选项（除买下整家企业）你都有，还有所有其他选项。“你可以用很小的资金获得非常高的回报，而且永远会是这样。”不是人人都能做到，但如果懂价值和投资，你会在小资金中找到机会，而且不会是伯克希尔持有的那种组合；伯克希尔把 30、40、50 亿美元投进一只股票不可能获得惊人的回报。若他或芒格只有 100 万、50 万或 200 万美元，会在各处找到小东西——不一定是股票——获得很高的资本回报。芒格：但我们现在想这个也没意义。
+q: I mean, there’s — your universe expands. ||| if you’re investing $10,000 than if you’re investing a hundred billion.
+q: So you can earn very high returns with very small amounts of money, and it will always be such. ||| and it will not be with a portfolio that Berkshire itself owns.
+zh: 我是说，你的范围扩大了。如果你投资 1 万美元，你可以考虑的选择比投资 1000 亿美元多成千上万倍。……所以你可以用很小的资金获得非常高的回报，而且永远会是这样。我不是说每个人都能做到，但如果你懂一些关于价值和投资的东西，你会在小额资金中找到机会，而且那不会是伯克希尔自己持有的那种组合。
+l: 小资金投资者应利用规模优势，去大机构无法涉足的小市值、特殊情况和低效市场。
+r: 4/5/4
+rel: 2006-A13, 2007-A02
+
+@ 2007-A01
+t: 区域不会创造机会，头脑才会：没有哪种“形式”能产生投资回报
+s: BM
+th: 投资方法; 投资理念
+k: index
+c: 最合乎逻辑的基金是伯克希尔这样的：可以做任何有意义的事，也不被迫做任何没意义的事；任何只能投资于某一有限市场领域的实体，相对于拥有全部授权（且由对的人掌管）的实体都处于劣势——不要缩小可能性的范围。但没有哪种形式能产生投资回报：对冲基金、私募股权、共同基金都不会——如果只是形式问题，大家都会叫那个名字。真正的区别是掌管者是否知道自己的局限与长处，在有优势时出手、看不到机会时置身事外。芒格：平均而言，我预期管理期货基金每美元每年的回报介于糟糕和负数之间。巴菲特：这些通常是销售工具，人们找到能卖的东西就会一直卖到卖不动为止，于是大量资金涌入、争夺有限的机会——被“这是一个充满机会的领域”说服是错误的：“区域不会创造机会，头脑才会创造机会。”
+q: So I think it’s a mistake to shrink the universe of possibilities. ||| But in the end, there’s no form that produces investment results.
+q: What really makes the difference is whether the person that’s running it knows what their limitations are ||| and stays out when they don’t see any opportunities.
+q: Usually those are sales tools. ||| Areas don’t make opportunities; brains make opportunities, basically.
+zh: 所以我认为缩小可能性的范围是一个错误。……但归根结底，没有哪种形式能产生投资回报。……真正起决定作用的，是管理它的人是否知道自己的局限在哪里，知道自己的长处在哪里，在有机会能有利地出手时出手，在看不到任何机会时置身事外。……这些通常是销售工具。人们发现了能卖的东西……当他们找到能卖的东西，它就会被卖给公众，会一直卖到卖不动为止。这意味着大量资金涌入，大量竞争争夺有限数量的机会。我认为基于“这是一个机会巨大的领域”而被推销某种东西，是一个错误。基本上，区域不会创造机会，头脑才会创造机会。
+l: 选择投资工具时看管理者的判断力与纪律，而不是产品类别或“热门赛道”；热门领域的资金涌入本身就会压低回报。
+r: 4/4/5
+rel: 2004-A26, 2006-M29
+
+@ 2007-A02
+t: 大量阅读、寻找机会、避免灾难：去低效的市场，找强度不对等的交易
+s: BM
+th: 投资方法; 风险管理
+k: learning
+c: 读一切；20 岁时与洛里默·戴维森谈的四五个小时，比大学学到的还多（除了会计等少数课程）。如果你有那些素质，机会会随时间出现——他们以许多没预料到的方式赚过钱；关键是知道什么时候自己懂、什么时候不懂，并持续寻找。LTCM 危机时，每天读和想八到十个小时，就能覆盖大量可能性，很多很好，有些惊人。不能事先画路线图，但可以有一个思考的蓄水池。最重要的是让自己被设定成永远不做可能亏很多的事：他们最好的点子并不比别人最好的点子好，但从没有很多把他们大幅拉回的东西——两步前进、零点几步后退。芒格：年轻时要去低效的市场，不要去猜哪家药企的研发管线更好。巴菲特：RTC 是绝佳例子——卖方是政府，经办人毫无经济利益、急于结束，在最糟的时刻抛售数千亿美元房地产，激进的贷款人和投资者已出局，只剩谨慎的买家——环境有利，双方分析的强度又不对等。
+q: But you can have a reservoir of thinking, looking at different kinds of businesses ||| and you will then spot a reasonable number of things that come along.
+q: But the biggest thing, too, is to have something in the way you’re programmed so that you don’t ever do anything where you can lose a lot. ||| We probably went two steps forward and a fraction of a step back.
+q: Yeah. And, of course, the place to look when you’re young is in the inefficient markets. ||| You want to go, when you’re young, someplace that’s very inefficient.
+q: So you had a great background of environment, and then you had an imbalance of intensity ||| And there were huge amounts of property.
+zh: 但你可以有一个思考的蓄水池，看不同种类的企业，看不同种类的证券，看不同地方的市场，然后你就会发现相当数量的机会出现。……但最重要的一点，还在于你的程序设定中要有某种东西，让你永远不做任何可能让你损失很多的事。我们最好的点子并不比别人最好的点子好，但我们从来没有很多把我们大幅拉回的事情。所以我们从来不是前进两步、后退一步。我们大概是前进两步、后退零点几步。（芒格：）当然，年轻时要去寻找的地方是低效的市场。你不应该试图猜测一家制药公司的研发管线是否比另一家好。年轻时，你要去非常低效的地方。（巴菲特：）……所以你有一个很好的环境背景，然后又有一种强度上的不平衡——卖方是政府，一群人对此毫无经济利益、可能急于完成工作，而另一边的买方是普遍谨慎的类型，因为更激进的那类人已经让自己出局了。而且还有大量的房产。
+l: 机会常出现在“卖方无所谓、买方稀少”的不对称交易中；收益的平均水平不重要，关键是避免大幅回撤。
+r: 5/5/5
+rel: 2007-M21, 2007-M27, 2003-A02
+
+@ 2007-A06
+t: 波动不是风险：同一块农场跌到 600 美元时反而更“危险”？
+s: BM
+th: 风险管理; 投资理念
+k: mr_market
+c: 波动不是风险的衡量标准。写过、教过风险的人不知道如何衡量风险；贝塔的好处是它很数学化，但在衡量风险上是错的——它衡量的是过去的波动，而过去的波动并不决定投资风险。80 年代初，每英亩 2000 美元的农场跌到 600 美元，他买下一块——按标准理论，农场贝塔飙升，他以 600 美元买的资产比 2000 美元时风险更大；对农地人们会觉得这是胡扯，但股票价格每分钟跳动，又能让教金融的人用上数学，于是过去的波动被转译成各种风险度量。风险来自某些行业的经济特性，也来自不知道自己在做什么；如果你懂所在行业的经济性、了解打交道的人、付出的价格合理，就没有真正的风险。伯克希尔在有价证券上的永久损失从未达到净资产的 1%（德克斯特鞋业是对企业判断错误，与波动无关）。芒格：大学里的公司金融和投资管理课至少一半是胡扯，而这些人智商很高；我们很早就认识到非常聪明的人会做非常蠢的事，并试图弄清为什么、以及是谁，以便避开他们。巴菲特：轮盘偶尔以 35 比 1 赔付，但我很乐意拥有很多轮盘。
+q: Yes. Volatility is not a measure of risk. ||| but past volatility does not determine the risk of investing.
+q: And the beta of farms shot way up. ||| than the same farm was at 2,000 an acre.
+q: And it’s nonsense. Risk comes from the nature of certain kinds of businesses. ||| you don’t run any real risk.
+q: One of the reasons we’ve been able to do pretty well is that we early recognized that very smart people do very dumb things ||| and also wanted to know, who so we could avoid them.
+zh: 是的。波动性不是风险的衡量标准。……贝塔作为一种波动性度量，它的好处是很数学化，而在衡量风险方面是错误的。它是对波动性的衡量，但过去的波动性并不决定投资的风险。……农场的贝塔值飙升了。按照标准的经济理论或市场理论，我以每英亩 600 美元买入的资产，比同一块农场在每英亩 2000 美元时风险大得多。……这是胡扯。风险来自某些类型企业的本质。仅仅因为你所处行业类型的简单经济特性，身处某些行业就可能有风险；风险也来自不知道自己在做什么。如果你理解你所从事的行业的经济特性，了解与你打交道的人，并且知道你支付的价格是合理的，你就不会承担任何真正的风险。（芒格：）我们之所以能做得相当好，原因之一是我们很早就认识到，非常聪明的人会做非常愚蠢的事，我们试图弄清楚为什么，也想知道是谁，以便避开他们。
+l: 价格下跌后同一资产的风险通常更低而非更高；风险=企业经济特性的不确定 + 自身认知的缺失 + 价格不合理。
+r: 5/5/5
+rel: 2001-A20, 2005-M17, 1997-M12
+
+@ 2007-A07
+t: 从年报看 CEO：找不到最重要的数字，或像公关部写的，就要当心
+s: BM
+th: 管理与治理; 会计与财务
+k: management
+c: 一季度买的约 50 亿美元股票，多数公司的管理层他从未见过；他们读年报、读竞争对手、读行业。他和芒格最近读了一家大石油公司的年报——一百页、公关人员、大量照片，花了一大笔钱，却找不到去年每桶油或每千立方英尺气的发现成本——这是石油公司多年来最重要的数字，没讨论是因为它很糟，触及时也不诚实；从管理层那里得到不诚实的信息，对他们有影响。如果致股东信明显出自投资者关系部门或外部顾问之手，也说明了这个人的一些东西——一年都不愿用几页纸跟把钱交给他的人说话，这很成问题；他喜欢感觉是在直接听一个把他视为合伙人的人说话。他们也会买入那些管理层不太讨喜、但好到管理层搞不砸的企业。芒格：企业质量与管理层质量两件事——企业足够好，可以扛得住糟糕的经理；好经理进了糟糕的行业，通常记录不佳。巴菲特：即使让他首选全美所有 CEO 去经营福特这样艰难的企业，他也不会做——太依赖外部许多好事发生。
+q: And the company — you know, hundred pages, public relations people, lots of pictures — spent a fortune on it. ||| When we read things where we basically are getting dishonest messages from the management, it makes a difference to us.
+q: But I think you can learn a lot by reading the annual letters. ||| So I like that feeling that I’m hearing directly from somebody who regards me as a partner.
+q: There are two things: the quality of the business and the quality of the management. ||| he’ll ordinarily have a very imperfect record.
+zh: 而这家公司——一百页、公关人员、大量照片——在上面花了一大笔钱。你却在那份报告里找不到他们去年每千立方英尺或每桶石油的发现成本是多少。这是一家油气公司多年来最重要的数字……而它甚至不被讨论——它不被讨论的原因是它绝对糟糕——而且在提及它的范围内，是以不诚实的方式进行的。当我们读到一些东西，基本上是从管理层那里得到了不诚实的信息时，这对我们是有影响的。……但我认为通过阅读年度信件你可以学到很多。首先，如果它明显是某个投资者关系部门或外部顾问之类的产物，那就告诉了你一些关于这个人的事情。……所以我喜欢那种感觉：我是在直接听一个把我当作合伙人的人说话。（芒格：）有两样东西：企业的质量和管理层的质量。如果企业足够好，它能扛得住一个糟糕的经理。反过来，一个真正好的经理进入一个真正糟糕的企业，他通常会有一个非常不完美的记录。
+l: 读年报时先找该行业“最重要的那个数字”是否被坦率披露；致股东信的语气和作者身份是管理层诚信的线索。
+r: 5/5/5
+rel: 2004-A01, 2005-M08, 1994-M18
