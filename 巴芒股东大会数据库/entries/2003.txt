@@ -307,3 +307,60 @@ zh: 理想的企业是这样的：它的资本回报率很高，并能持续以�
 l: 区分“能把利润以现金取出”的企业和“利润都变成存货与设备”的企业；高 ROE 但再投资机会少的企业，价值取决于谁来配置它产生的现金。
 r: 5/5/5
 rel: 2003-M30, 2001-A22
+
+@ 2003-A27
+t: 薪酬不是火箭科学：简单方案、资本占用计费、不请顾问
+s: BM
+th: 管理与治理
+k: incentives
+c: 芒格：几乎不需要资本的企业，按盈利奖励管理层；一旦需要资本，就在薪酬中加入资本因素；没有统一标准体系，各有历史原因。巴菲特：我们不搞薪酬顾问建议的各种细枝末节——顾问靠复杂化来开大账单，每年还要再修修补补；委托书比年报还厚，讲的全是高管薪酬。优秀企业的奖金门槛很高，艰难行业门槛较低，但达到门槛所需的管理才能一样多；不按《布法罗新闻报》的业绩给喜诗的人发钱。38 年来几乎没有 CEO 离开去别的公司。经理们之所以做得好，是因为他们喜欢打出 .400 的成绩，薪酬只要公平即可。芒格：EVA 里隐含的合理部分（基于机会成本的门槛率）我们在用，但那套标签和行话是我们不需要的包袱。
+q: Where a business requires practically no capital, we tend to reward the management based on the earnings. ||| The minute the business starts requiring capital we tend to put a capital factor into this compensation system.
+q: So, we don’t try for little — all kinds of little refinements ||| and the following year, and so on.
+q: It’s not a — compensation is not rocket science. ||| because they’re talking about the compensation of people.
+q: The main reason we get good results out of our managers is that, you know, they like hitting .400. ||| the pay is incidental.
+zh: （芒格：）在几乎不需要资本的企业里，我们倾向于根据盈利来奖励管理层。一旦企业开始需要资本，我们就倾向于在薪酬体系中加入资本因素。（巴菲特：）……所以我们不追求各种小小的改良——那是薪酬顾问会进来告诉你需要的，因为他要靠这个来证明一大笔账单的合理性。他第二年还会进来稍作修补，第三年也是，如此循环。……薪酬不是火箭科学。人们会想让你以为它是。你读那些委托书会大吃一惊，看他们弄出了什么名堂。委托书比年报还厚，因为里面在讲人们的薪酬。……我们之所以能从经理人那里得到好结果，主要原因是他们喜欢打出 .400 的成绩。他们喜欢打出 .400 并得到公平的报酬，但对他们来说，打出 .400 才是人生中最重要的事。这有点像我们的感受：如果我们在经营业绩上有好的击球率，薪酬是次要的。
+l: 好的激励方案简单、针对本单位、对资本收费，并考虑行业难度；越复杂的薪酬设计越可能是为了掩盖或抬高报酬。
+r: 4/4/4
+rel: 2002-A09, 1996-A27
+
+@ 2003-A30
+t: 内在价值：模糊，但必不可少——到审判日的现金流折现
+s: BM
+th: 企业估值
+k: iv
+c: 任何金融资产的内在价值，都是它从现在到审判日产出的现金流，用一个使各类资产之间相互平衡的利率折现——石油特许权、农场、公寓、股票、柠檬水摊都一样。它不科学，计算起来模糊，但这不妨碍它是正确的思考方式。对伯克希尔要问两个问题：现有企业值多少；以及你愿意如何假设他们配置这些企业产生的资本。每次收购（McLane、克莱顿房屋）都是在问：这家企业长期能产生多少现金？我们有多确定？收购价相对于它如何？对预测要有相当的信心，价格要与之理性相称。过去惊喜多于预期，但因规模和竞争加剧，今后不会了。
+q: I mean, the intrinsic value of any financial asset, you know, is the stream of cash that it’ll produce between now and Judgment Day ||| I mean the fact that it’s fuzzy to calculate doesn’t mean that it’s not the proper way to think about it.
+q: When we buy anything, we are attempting to look out into the economic future and say ||| And how does the purchase price compare with that?”
+zh: 任何金融资产的内在价值，就是它从现在到审判日将产生的现金流，用一个能使所有不同可能资产相互平衡的利率来折现。这对石油特许权、农场、公寓楼、股票、经营中的企业、柠檬水摊都适用。你必须决定，你认为自己能足够理解哪类企业，从而做出某种合理的计算。它不科学，但它就是内在价值。计算起来模糊，并不意味着它不是正确的思考方式。……当我们买任何东西时，我们都在试图展望经济的未来，问：“这家企业长期能产生什么样的现金？我们对此有多确定？收购价格与之相比如何？”
+l: 估值的三个问题：未来现金多少、确定性多高、价格是否相称。不要因为模糊而放弃正确的方法，换用精确但错误的指标。
+r: 5/5/4
+rel: 2003-A05, 2002-M19
+
+@ 2003-A33
+t: 好主意太稀缺，一旦找到就别吝啬：我们喜欢重仓
+s: BM
+th: 投资方法; 投资心理
+k: concentration
+c: 他们不喜欢小仓位，不信奉“这个买一点、那个买一点”；以伯克希尔的规模，限制来自能买到的数量，而非组合比例。几乎从不因为想停而停止买入——除非价格上涨（芒格）；而这恰恰是他们犯大错的地方：在能力圈内、可以大量买入的东西，涨了一点就因价格放弃了。若一个点子值得投 5 亿美元，能投 30 或 40 亿会更高兴。“好主意太稀缺了，一旦找到就不该吝啬。”芒格：差点在喜诗上犯了不肯多付钱的错，后来在有价证券上又犯了几次同样的错——我们学得很慢；这些机会成本的数十亿不会出现在财报上，但总部愚蠢决策浪费的钱多得惊人。
+q: Yeah, we like to go in heavy. ||| You know, we do not believe in a little of this and a little of that.
+q: There have been a couple of things that we knew enough to buy, that were in our circle of competence ||| Good ideas are too scarce to be parsimonious with once you find them.
+q: Yeah, having narrowly averted the mistake of being unwilling to pay up at See’s Capital [Candies] ||| the amount of money that’s been blown by dumb decisions at headquarters at Berkshire Hathaway is awesome.
+zh: 是的，我们喜欢重仓买入。如果我们想通过股市投资一家企业，我们就想投入很多钱。我们不相信这个买一点、那个买一点。……有那么几只股票，我们足够了解，可以买入，它们在我们的能力圈内，我们本可以买很多，结果它们涨了一点，我们就因为价格而退缩了。我们退缩并不是因为不想投入超过 X 美元。如果我们找到一个想投 5 亿美元的点子，要是能投 30 亿或 40 亿，我们可能会更高兴。好主意太稀缺了，一旦找到，就不该吝啬。（芒格：）是的，在喜诗上险些犯了不愿多付钱的错误之后，我们在有价证券上又犯了好几次同样的该死的错误。我们显然学得很慢。（巴菲特：）这让我们损失了很多很多个十亿美元。（芒格：）那些是机会成本上的数十亿，它们不会出现在财务报表上，但伯克希尔总部因愚蠢决策而浪费的钱数量惊人。
+l: 对能力圈内的高把握机会集中下注；建仓时别因小幅上涨而放弃——“错过的错误”（不作为的错误）往往代价最大。
+r: 5/5/5
+rel: 2003-M32, 2003-M29
+
+@ 2003-A36
+t: 10% 的门槛：基于对未来机会成本的猜测
+s: BM
+th: 资本配置; 企业估值
+k: discount
+c: 他们不买真实预期回报低于 10% 的股票，不论短期利率是 6% 还是 1%——再往下就会变得“草率”。这个数字是任意的，没有科学研究支持，但他们相信将来总能找到能理解的、回报 10% 以上的股票；在达到门槛的一组里，买最有吸引力、通常是最有把握的那只。芒格：归根结底一切都是机会成本，而且在相当程度上是在猜测未来的机会成本——巴菲特猜将来会有更好的机会，所以不在低回报上浪费火力；若利率永久停在 1%，他会改变数字——凯恩斯：“当事实变了，我就改变做法。”巴菲特：160 亿现金只赚 1.25%，买 20 年国债可得约 5%，但他宁愿暂时少赚，也不愿一年后好机会来时手里的长债已有大额本金损失。别人过于看重平滑，所以伯克希尔愿意承担“块状”的回报来换取更高现值。
+q: You know, basically that’s the figure we quit on. ||| We just feel that it would get very sloppy to start dipping below that.
+q: There’s just some businesses that possess economic characteristics ||| and you just have to forget about them.
+q: Yeah. The — I think in the last analysis, everything we do comes back to opportunity cost. ||| he would change the numbers.
+q: And we won’t give up a lot in expectable return for smoothness ||| we do get a spread, in our view, for lumpy returns.
+zh: 基本上，那就是我们退出的数字。我们不想买真实预期回报低于 10% 的股票。不论短期利率是 6% 还是 1%，都是如此。我们只是觉得，开始降到这个数以下会变得非常草率。……有些企业拥有的经济特征，使它们遥远未来的前景比其他企业可预测得多。有各种各样的企业，你根本无法稍微预测它们会赚多少，你只能把它们忘掉。（芒格：）是的，我认为归根结底，我们做的一切都回到机会成本。但在某种程度上——实际上在相当大程度上——我们是在猜测我们未来的机会成本。……如果利率大体上永久地停留在 1% 左右，而沃伦重新评估他对未来机会成本的看法，他会改变这些数字。（巴菲特：）……我们不会为了平滑而放弃很多预期回报。……但如果你让我们在更高现值的块状回报之间选择，我们会选块状的。……别人如此看重平滑性，以至于在我们看来，我们确实能为块状回报得到一个溢价。
+l: 设定一个与你预期未来机会相匹配的最低回报门槛，宁可持币等待；愿意承受波动（“块状回报”）本身就是一种可以获取溢价的优势。
+r: 5/5/5
+rel: 2003-A20, 2003-A04, 2001-A22
