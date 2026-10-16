@@ -1,0 +1,272 @@
+# 2018 年股东大会（5 月 5 日）
+
+@ 2018-M03
+t: 1942 年的大师课：在战争最糟的时刻买入美国，1 万美元变成 5100 万；买黄金只值 40 万
+s: B
+th: 投资理念; 宏观与社会
+k: america
+c: 巴菲特开场拿出 1942 年 3 月 12 日的《纽约时报》：太平洋战事节节失利，11 岁的他用全部积蓄让父亲买了 3 股城市服务优先股，买在当日最高价 38.25 美元，当天跌到 37，后来跌到 27，涨回 40 时赚 5 美元卖出，这只股票后来被以 200 多美元赎回。但人人都知道美国会赢得战争，美国体制自 1776 年以来运行良好。如果那天把 1 万美元投入标普 500，像买农场一样一辈子持有、不看报价、不听任何人建议，现在会有 5100 万美元——不需要懂会计、不需要选股选时，一生只需做一个决定。如果听末日论者的话买了约 300 盎司黄金，今天只值约 40 万美元——不足企业投资的百分之一。“这个国家拥有你能想象的最强劲的顺风……你真的不可能失败，除非买错股票或在错误时候兴奋。”跳进跳出、付费请顾问都无法相比；美联储加息两次还是三次，在一生的投资中根本不重要，“重要的是拥有一套你理解、并坚持的哲学，然后忘掉那些你不知道怎么做的事”。
+q: But everybody in this country knew America was going to win the war. ||| And we knew that the American system had been working well since 1776.
+q: You’d have $51 million. And you wouldn’t have had to do anything. ||| You basically just had to make one investment decision in your life.
+q: But it didn’t produce anything. It was never going to produce anything. ||| which people tell you to run to every time you get scared by the headlines or something of the sort.
+q: It’s just remarkable to me that we have operated in this country with the greatest tailwind ||| there’s no comparison against owning something that’s going to produce nothing.
+q: None of that counts at all, really, in a lifetime of investing. ||| and then you forget about doing things that you don’t know how to do.
+zh: （巴菲特：）但这个国家的每个人都知道美国会赢得战争。我们会赢得战争。我们也知道美国的体制自 1776 年以来一直运转良好。……你会有 5100 万美元。而且你什么都不用做。你不需要懂会计。你不需要像我第一天那样每天看报价……你所要做的只是认定美国会长期发展良好，我们会克服当前的困难，如果美国表现良好，美国企业也会表现良好。你不需要挑选赢家股票。你不需要挑选获胜的时机之类的。你基本上一生只需做出一个投资决定。……但它（黄金）什么也不生产。它永远不会生产任何东西。你今天会有什么？你会有 300 盎司黄金，和 1942 年 3 月时一样，价值大约 40 万美元。所以，如果你选择了一种非生产性资产——黄金——而不是一种生产性资产……你现在拥有的价值是非生产性资产的 100 多倍。换句话说，你在美国企业里每赚 1 美元，买入这种价值储存手段只能赚不到 1 美分——而每当你被头条新闻吓到时，人们总会告诉你要跑向它。……让我惊叹的是，我们在这个国家一直拥有你能想象到的最强劲的顺风。这是投资者的天堂——我是说，你真的不可能失败，除非你买错了股票或者在错误的时候兴奋起来。但如果你拥有美国的一个横截面，并且多年来持续投入资金，那与拥有一样什么也不生产的东西根本无法相比。……在一生的投资中，那些都根本不重要。重要的是拥有一套你坚持的哲学，你明白自己为什么身在其中，然后忘掉那些你不知道怎么做的事情。
+l: 长期投资最大的决定是“持有美国企业的横截面并坚持下去”；生产性资产长期碾压非生产性资产，恐慌时的“避险”往往代价最大。
+r: 5/5/5
+rel: 2013-M38, 2005-A12, 2016-M18
+
+@ 2018-M07
+t: 声誉已属于伯克希尔：对在乎企业归宿的卖家，我们永远是第一个电话
+s: BM
+th: 管理与治理; 资本配置
+k: reputation
+c: 被问交易是否依赖巴菲特个人声望：巴菲特说伯克希尔作为企业好归宿的声誉不依赖于他或芒格，继任者会有一段考验期，但钱一直在，人们能看到子公司如何运作；“如果情况足够糟糕，你不用担心，他们无论如何都会打电话给我们。”“声誉现在属于伯克希尔了”——对于在乎父辈祖辈几十年心血之归宿的人，我们绝对是第一个电话。芒格：许多子公司早已在做补强收购，比总部还多；99% 的上市公司控制权转手是在投行主持的拍卖中进行的，买家通常把杠杆加到极限，好转后再加杠杆，资金来自捐赠基金和养老金——“迟早这不会一直顺利，会有不愉快的一幕，我想那时我们会安然在场。”
+q: The — there’s no question. I think the reputation of Berkshire as being a very good home for companies ||| I don’t think that reputation is dependent on me or Charlie.
+q: Berkshire — the reputation belongs to Berkshire now. ||| whether Charlie or I answer the phone or somebody else does.
+q: And it is weird that about 99 percent of the public companies that change hands ||| And I think we’ll be around and in good shape at that time.
+zh: （巴菲特：）毫无疑问。我认为伯克希尔作为企业——尤其是私人企业——的一个很好归宿的声誉，并不依赖于我或查理。……伯克希尔——声誉现在属于伯克希尔了。对于那些在乎一家由他们自己、他们的父母、也许还有祖父母几十年来用心建立起来的企业的人——如果出于某种原因他们不想或不能把它留在家族中，而他们在乎这家企业之后的归宿——我们绝对是第一个电话。无论是查理或我接电话，还是别人接，我们都会继续是第一个电话。（芒格：）奇怪的是，大约 99% 的上市公司控制权易手，都是在一种由投资银行家主持的拍卖中进行的。买家通常把它杠杆加到极限，等它表现好一点，再重新加杠杆。而这些钱来自慈善捐赠基金和养老金计划，它们以非常高的价格对所有这些易手的公司进行高杠杆投资。迟早这不会运转得完美无缺。会有一段不愉快的插曲。我想到那时我们会安然在场、状态良好。
+l: 机构声誉若已制度化，就能超越创始人传承；杠杆收购的繁荣终将经历一次清算，保持实力的买家将受益。
+r: 3/3/3
+rel: 2017-M30, 2015-M16
+
+@ 2018-M13
+t: 把持仓市值变动计入利润表“极具欺骗性”：会计盈利与经营盈利要分开看
+s: BM
+th: 会计与财务
+k: accounting
+c: 会计专家质疑巴菲特批评新规（持股市值变动计入净利润）：巴菲特反问，持有 1700 亿美元打算持有几十年的部分持股公司，每季度通过利润表上下标记是否合理？同时全资企业大多已增值许多倍（GEICO 当初半数股权约 5000 万美元），是否也要每季度重估计入利润？那会变成评估过程——这是封闭式或开放式基金的做法；而 99% 的投资者把净利润当作经营产出，“这将极具欺骗性”。今年一季度经营利润创历史最佳，而证券下跌约 60 亿美元；若每天计入，分析师预测季度盈利到每一美分就毫无意义；重估还可能导致各种操纵。“我不想以那种方式接收数据，所以也不想以那种方式发出数据。”芒格：估值变化应当被记录，也一直计入净资产，“所以提问者不懂他自己的专业”。
+q: That becomes an appraisal process. ||| that’s what a closed-end investment fund, or an open-investment fund would do.
+q: I mean, in the first quarter of this year ||| I think you’re doing a great disservice by running those through the income account.
+q: I don’t want to receive data in that manner and therefore I don’t want to send it out in that manner. ||| I don’t want to receive data in that manner and therefore I don’t want to send it out in that manner.
+q: Well, to me it’s obvious that the change in valuation should be noted ||| So the questioner doesn’t understand his own profession.
+zh: （巴菲特：）那就变成了一个评估过程。就估值而言，这样做没有什么错。你可以称之为资产净值的增加或减少——那是封闭式投资基金或开放式投资基金会做的事。……我是说，今年第一季度……我们取得了我所说的历史上最好的经营利润，而我们的证券下跌了 60 亿美元左右，如果每天都把它计入利润表，你会说我们周五可能赚了，大概赚了 25 亿美元。如果你让投资者、评论员、分析师和其他所有人都依据那些净利润数字工作，并试图把季度和未来几年的盈利预测到每一美分，我认为把这些计入利润表是对他们的极大损害。……我不想以那种方式接收数据，因此我也不想以那种方式发出数据。（芒格：）在我看来，估值的变化显然应该被记录下来，而且它一直都被记录了——它直接计入净资产数字。所以提问者不理解他自己的专业。
+l: 分析持有大量股票的公司（尤其是保险和控股公司）时，应剥离未实现投资损益，关注经营利润与净资产变化。
+r: 3/4/3
+rel: 2017-A29
+
+@ 2018-M24
+t: 当前利率下长期债券“近乎荒谬”：美联储告诉你只给你 0.5% 的实际收益
+s: BM
+th: 投资理念; 宏观与社会
+k: inflation
+c: 被问国债供应增加对债市的影响：巴菲特说“我不知道，好消息是别人也不知道，包括美联储”；我们确知的是，按当前或接近当前的利率，长期债券是糟糕的投资，所以等待部署的资金都放在平均期限约四个月的国库券上。美联储说希望通胀每年 2%，而超长期国债收益率只比 3% 多一点，个人交税后约 2.5%——“美联储在告诉你，他们会尽一切力量确保你每年获得不超过 0.5% 的通胀调整后收入”；坚持持有生产性企业或资产要好得多。芒格：货币当局把主要支付给老年储户的利率压得这么低不公平，但为对抗大衰退大概不得不如此；这推高了资产价格，包括伯克希尔股价，“所以我们都是不配的人，希望我们继续如此”。巴菲特：1942 年 18.75 美元买战争债券，10 年后拿回 25 美元，复利 2.9%，11 岁孩子都知道不是好投资；80 年代初零息国债能锁定 30 年约 14% 的复利——“市场时不时会发生非常奇怪的事，诀窍不仅是做好准备，还要在它发生时采取行动。”
+q: Yeah. The answer is, I don’t know. ||| at current rates or anything close to current rates.
+q: But long-term bonds — they’re basically, at these rates — it’s almost ridiculous when you think about it. ||| I think I would stick with productive businesses, or productive — certain other productive assets — by far.
+q: Well, it really wasn’t fair for our monetary authorities to reduce the savings rates ||| and I hope that we continue to be so.
+q: I mean, you really had a chance to buy ||| and the trick is to not only be prepared but to take action when it happens.
+zh: （巴菲特：）答案是，我不知道。好消息是，其他人也不知道，包括美联储的成员和所有人——……我们知道的一件事是，我们认为在当前利率或任何接近当前利率的水平下，长期债券都是糟糕的投资。……但长期债券——在这样的利率下，当你想一想，几乎是荒谬的。因为美联储在告诉你，我们希望每年有 2% 的通胀。而超长期债券也不过 3% 多一点。当然，如果你是个人，你还要交税……假设这让你的税后回报降到 2.5%。所以美联储在告诉你，他们会尽其所能确保你每年获得的通胀调整后收入不超过 0.5%。在我看来——我不会回到仙股——但我想我会坚持持有生产性企业，或者某些其他生产性资产，这样好得多。（芒格：）我们的货币当局把储蓄利率——主要支付给有储蓄账户的老年人——降得那么低，真的不公平。但为了应对大衰退，他们大概也不得不这样做，这是恰当的。……它推高了资产价格，包括伯克希尔·哈撒韦的股价。所以我们都是一群不配得到的人，我希望我们继续这样。（巴菲特：）我是说，那时你确实有机会买——你有机会通过买零息国债来投资，实际上可以保证你一生中的 30 年里获得大约 14% 的复利回报。所以市场时不时会发生一些非常奇怪的事，诀窍不仅在于做好准备，而且在于在它发生时采取行动。
+l: 比较资产要看扣税、扣通胀后的实际回报；低利率时期长期固定收益几乎锁定了亏损购买力，而极端高利率是一生难得的机会。
+r: 4/5/4
+rel: 2016-A17, 2007-M24, 2015-A02
+
+@ 2018-M25
+t: 官僚体系就像癌症：伯克希尔从不做预算，总部只有 30 人
+s: BM
+th: 管理与治理
+k: culture
+c: 被问是否在其他子公司推广 3G 式零基预算：巴菲特说一般不期望经理们处于需要大改的境地——“为什么你不一直这样想呢？”3G 进入的是有大量不能带来一美元价值的开支的地方，快速改变了本不该存在的状况；GEICO 从 8000 人增至 3.9 万人，但都非常有生产力。很赚钱的企业（如烟草公司）往往养着很多不需要的人，因为钱源源流入。“伯克希尔从来没有预算”，经理们从不需要向他提交预算；不做月度合并报表——“我们知道自己的位置……我们不在伯克希尔做不必要的事，而大公司做的很多事是不必要的。”芒格：总部 30 人，一半是内审，这不是美国大公司的常规；我们失去了一些规模优势，也失去了没完没了开会的官僚机构的劣势；“不只是降低成本，消除官僚体系后决策会做得更好……官僚体系有点像癌症，它的运作方式也像癌症。”巴菲特：总部可以说是“零下预算”。
+q: Well, in general, we do not expect the managers, generally, to get in the position ||| why in the world aren’t you thinking that way all of the time?
+q: That’s what happened with the tobacco companies, actually. ||| the money just flowed in.
+q: We know where we stand. ||| And that’s why a 3G finds opportunities from time to time.
+q: Well, if you’ve got 30 people at headquarters and half of those are internal auditors ||| with endless meeting after meeting after meeting around headquarters.
+q: But it isn’t just the cost reduction. ||| And it functions sort of like a cancer.
+zh: （巴菲特：）总的来说，我们不期望经理们陷入需要因零基预算而大幅改变的境地。换句话说，你究竟为什么不一直这样思考呢？……烟草公司实际上就是这样。它们太赚钱了，以至于周围养着各种并不真正需要的人。但钱就是源源不断地流进来。……我们知道自己处在什么位置。……我相信我们大概是整个财富 500 强里唯一不这样做的公司。但我们在伯克希尔不做不必要的事。而大公司做的很多事情是不必要的。这就是为什么 3G 时不时能找到机会。（芒格：）如果你总部有 30 个人，其中一半是内部审计，那不是美国经营大公司的常规方式。有意思的是，显然我们失去了一些大规模的优势。但我们也失去了某些劣势：总部那种没完没了开一个又一个会议的大官僚机构。……但这不只是成本的降低。我认为如果你消除了官僚体系，决策会做得更好。……我认为官僚体系有点像癌症。它的运作方式也有点像癌症。
+l: 精简总部与去官僚化不仅省钱，更提升决策质量；超高利润率的公司更容易滋生冗余，也是成本优化者的猎场。
+r: 4/3/4
+rel: 2017-M24, 2014-M26
+
+@ 2018-M28
+t: 马斯克说护城河“很逊”：芒格——沃伦并不打算真挖一条护城河；低成本生产者是重要的护城河
+s: BM
+th: 护城河
+k: moat
+c: 被问马斯克称“护城河很逊，创新速度才是唯一防御”：芒格说马斯克说传统护城河过时——对一摊水来说确实如此；他说最好的护城河是强大的竞争地位——那也对，“这很荒唐，沃伦并不打算真的挖一条护城河”。巴菲特：近年护城河被攻破的速度确实加快，更多护城河变得易受入侵，但这种尝试一直存在；有些地方护城河依然强大；“你当然应该一直努力加深和守护自己的护城河。”马斯克可能在某些领域颠覆一切，但大概不会来跟我们抢糖果生意；成为低成本生产者是极其重要的护城河——GEICO 在大公司中是低成本生产者，在销售必需品时这很不错。
+q: Elon says a conventional moat is quaint. ||| Warren does not intend to build an actual moat.
+q: There’s certainly a great number of businesses ||| And Elon may turn things upside down in some areas.
+q: But — there are some pretty good moats around. Being the low-cost producer, for example, is a terribly important moat. ||| and that is not bad when you’re selling an essential item.
+zh: （芒格：）埃隆说传统的护城河很古雅过时。对一摊水来说确实如此。他说最好的护城河是拥有强大的竞争地位。那也是对的。你知道，这很荒唐。沃伦并不打算建一条真正的护城河。（巴菲特：）……当然有大量企业——这一直是真的，但看起来近年来节奏加快了——有更多的护城河变得容易被入侵，比早年看起来要多。但这种尝试一直都存在。在这里那里，可能有些地方的护城河和以往一样坚固。但当然——你当然应该一直努力改善自己的护城河、守护自己的护城河。埃隆可能会在某些领域把事情颠覆过来。……但周围还是有一些相当好的护城河。比如，成为低成本生产者就是一条极其重要的护城河。……在大公司中，我们是低成本生产者，而当你销售必需品时，这一点也不坏。
+l: “护城河”是竞争优势的比喻而非静态壁垒；在必需品行业，持续的低成本是最可靠的护城河之一，但需要不断加固。
+r: 4/4/4
+rel: 2017-M09, 2017-M23
+
+@ 2018-A02
+t: 为什么不买微软：早年是愚蠢，后来是为避免“内幕”嫌疑
+s: BM
+th: 管理与治理
+k: reputation
+c: 被问为何从不买微软：巴菲特说早年的答案“显然是愚蠢”；比尔·盖茨加入董事会后、甚至更早因为友谊，伯克希尔买微软会是错误——如果买入后一周或一个月对方业绩超预期或宣布收购，两人都会（错误地）成为暗示和指控的对象。有少数东西因为会被推断“我们谈过”而不碰，也告诉了托德和泰德；“这和我的愚蠢都让我们损失了很多钱。”芒格：神学里说迟来的皈依胜过永不——你已大有长进。
+q: Since Bill has — particularly since Bill has joined the board ||| that somehow he had told me something or vice versa.
+q: So I’ve told the fellows, Ted [Weschler] and Todd [Combs] for example ||| But both that and my stupidity have cost us a lot of money.
+zh: （巴菲特：）尤其是自从比尔加入董事会以来——甚至更早，由于我们的友谊——伯克希尔买微软会是一个错误。因为如果一周后、一个月后发生了什么事，比如他们的盈利好于预期，或者进行了一次收购——任何事情——比尔和我都会（尽管是错误地）成为种种暗示乃至指控的对象，说他不知怎么告诉了我什么，或者反过来。……所以我告诉了泰德和托德这些人，有少数几样东西是不在名单上的，因为如果我们买入后立刻发生了什么好事，会有很多人不相信我们。……但这一点和我的愚蠢都让我们损失了很多钱。
+l: 为声誉放弃部分利润是值得的；避免任何可能被解读为利益冲突或信息不对称的交易。
+r: 2/2/3
+rel: 2017-M06
+
+@ 2018-A03
+t: 一生经历 14 位总统：分裂、危机、战争之后，美国依然一次次前进
+s: BM
+th: 宏观与社会
+k: america
+c: 被问美国是否比 50 年前更分裂：巴菲特说他一生中多次听到人们觉得国家前所未有地分裂、另一个党上台后再也不会有选举。自 1942 年以来经历了 14 位总统，7 位共和党、7 位民主党，一位被刺、一位被迫辞职；古巴导弹危机、核武器、2008 年金融恐慌、多次衰退、60 年代末的街头冲突——“如果一开始就告诉你这些，你会说‘你到底为什么还要买股票？’”“而在这一切之中，美国断断续续但真真切切地向前发展。”往前推三个他的寿命，杰斐逊才 12 岁，这里什么都没有；如今有 7500 多万套自住房、2.6 亿辆车、伟大的大学和医疗；1952 年未来岳父对他说“你会失败的”，因为民主党要上台。人均 GDP 是他出生时的六倍，在座每个人的生活在多方面都好于老洛克菲勒。芒格：人们总觉得现在的政客比过去更糟，但忘了过去的政客有多糟。
+q: It works, you know. ||| “Why the hell are you buying stocks?”
+q: And through it all, you know, America — in fits and starts — but America really, really moves ahead. ||| And through it all, you know, America — in fits and starts — but America really, really moves ahead.
+q: So — and we’ve had these events since I started buying my first stock. ||| “How could this happen?”
+q: I mean, I’ve seen a lot of American public opinion over the years. ||| that it had when I was born.
+zh: （巴菲特：）它是有效的。如果你在一开始就告诉我，你会有古巴导弹危机，会有核武器，会有一次金融恐慌，会有很多次衰退，60 年代末还会因国家分裂而出现街头战争，你会说：“你到底为什么还要买股票？”而在这一切之中，你知道，美国——断断续续地——但美国真的、真的在向前发展。……所以——自从我开始买第一只股票以来，我们经历了这些事件。这个国家真的、真的行得通。它总会有很多分歧，每次选举之后都会有人觉得世界末日到了，“这怎么可能发生？”……我是说，这些年我看到了很多美国公众舆论。我看到了很多媒体评论。我看到了那些头条新闻。而当你把这一切都经历完，这个国家的人均 GDP 是我出生时的六倍。
+l: 政治与社会噪音从不缺席，但长期投资者应把赌注押在制度的韧性和生产力的复利上，而非每次选举的情绪上。
+r: 3/3/4
+rel: 2018-M03, 2013-M38
+
+@ 2018-M22
+t: 芒格：保持信念，我们走后不要卖掉伯克希尔
+s: BM
+th: 投资理念; 管理与治理
+k: holding
+c: 被问 50 年后的伯克希尔：巴菲特说不知道，50 年前也不知道现在会怎样，但它将基于某些原则——像世界上任何大公司一样以股东为导向，把股东视为合伙人，用他们的钱做与自己的钱一样的事，不谋求占他们便宜。芒格对年轻股东说：“那些在我们走后、在许多朋友的‘帮助’下卖掉伯克希尔去做别的事的人，我认为会做得更差。所以我建议你们保持信念。”
+q: We will be — I very much hope and believe that we will be ||| not seeking to get an edge on them.
+q: Well, I want to talk to the younger shareholders in the group. ||| So I would advise you to keep the faith.
+zh: （巴菲特：）我们将会——我非常希望也相信我们将会——像世界上任何一家大公司一样以股东为导向。我们会把股东看作合伙人，我们会努力用他们的钱去做我们用自己的钱会做的事，不谋求占他们的便宜。（芒格：）嗯，我想对在座的年轻股东说。你们当中那些在我们走后，在许多朋友的帮助下卖掉伯克希尔股票去做别的事的人，我认为会做得更差。所以我建议你们保持信念。
+l: 对一家文化制度化、以股东为导向的企业，创始人离开引起的恐慌往往是错误的卖出理由。
+r: 3/3/3
+rel: 2018-M07, 2015-M16
+
+@ 2018-A05
+t: 芒格：我没法把它简化成公式——Costco 12 倍市盈率时荒谬地便宜
+s: BM
+th: 企业估值; 投资方法
+k: iv
+c: 被问能否用虚构数据演示内在价值的计算：芒格说“我给不出公式化的方法，因为我不用公式”；把所有因素混在一起，如果价值与价格的差距不够有吸引力就去看别的。Costco 以 12–13 倍市盈率交易时，他认为那是荒谬的低价，因为其竞争力如此强大，很可能越做越好——“我喜欢它便宜的房地产，喜欢它的竞争地位，喜欢它的人事制度，喜欢它的一切”，尽管是三倍账面价值，仍认为值得更多。“如果你想要公式，就该回研究生院去，他们会给你很多不起作用的公式。”
+q: Well, I can’t give you a formulaic approach because I don’t use one. ||| I go on to something else.
+q: And sometimes it’s just quantitative. ||| If you want a formula, you should go back to graduate school.
+q: They’ll give you lots of formulas that won’t work. ||| They’ll give you lots of formulas that won’t work.
+zh: （芒格：）嗯，我没法给你一个公式化的方法，因为我不用公式。我只是把所有因素混在一起，如果价值与价格之间的差距没有吸引力，我就去看别的东西。有时候它只是定量的。比如，当 Costco 以大约 12 或 13 倍市盈率交易时，我认为那是一个荒谬的低价，仅仅因为这门生意的竞争力太强了，而且它很可能会越做越好。我没法把它简化成一个公式给你。我喜欢它便宜的房地产。我喜欢它的竞争地位。我喜欢它人事制度的运作方式。我喜欢它的一切。我当时认为，即使它是三倍账面价值之类的，它也值更多。但那不是任何人都能用的公式——如果你想要一个公式，你应该回研究生院去。他们会给你很多不起作用的公式。
+l: 估值是多因素的综合判断：竞争地位、管理制度、资产质量共同决定价值，账面倍数和市盈率只是起点。
+r: 4/4/4
+rel: 2017-A18, 2014-A16
+
+@ 2018-A06
+t: 为什么看好苹果回购：不花一分钱，持股比例从 5% 升到 6–7%
+s: BM
+th: 资本配置; 护城河
+k: buyback
+c: 被问苹果是否应花 1000 亿美元回购而非收购：巴菲特说除非股价低于价值，否则根本不应回购；若低于价值、有钱、又找不到更好的收购，就应回购——很难找到 500 亿到 2000 亿美元规模、对苹果有增益的收购。伯克希尔持有约 2.5 亿股，占约 5%，随着回购可能升至 6–7%，“如果你拥有一个非凡的产品和生态系统……我喜欢我们的 5% 在不花一分钱的情况下涨到 6% 或 7%”；但必须是非常特别、生态极广、粘性极强的产品。“从我们的角度，我们希望苹果股价下跌”：三人合伙企业价值 300 万美元，若一人愿以 80 万美元卖出他的三分之一，我们会立刻买；要价 120 万就不买——这是简单的数学，却在讨论中被忽视。芒格：美国公司一心要收购别的公司，交易后往往价值更低，平均而言是向下的路；很多公司没有比回购自家股票更好的事可做；但为托股价而回购“是疯狂的，也是不道德的”。
+q: Apple has a incredible consumer product which you understand a lot better than I do. ||| they should buy in their shares.
+q: I find that if you’ve got an extraordinary product, and ecosystem, and there’s lots to be done ||| and the product’s extremely sticky, and all of that sort of thing.
+q: From our standpoint, we would love to see Apple go down in price. ||| It’s very simple math, but it gets lost in all these discussions.
+q: I think, generally speaking in America, when companies go out hell-bent to buy other companies ||| Averaged out, it’s a way down, not up.
+q: No, no, no. I think some people just buy it to keep the stock up. ||| And immoral.
+zh: （巴菲特：）苹果有一个不可思议的消费产品，你们比我懂得多。至于他们是否应该回购股票——除非他们认为股价低于其价值，否则根本不应该回购。如果股价低于价值，他们有钱，又看不到更有吸引力的收购，那就应该回购股票。……我发现，如果你有一个非凡的产品和生态系统，还有很多事可做，我很喜欢我们的 5% 或不管多少，在我们不花一分钱的情况下涨到 6% 或 7%。……但你必须有一个非常、非常、非常特别的产品，拥有极其广泛的生态系统，产品粘性极强，诸如此类。……从我们的角度来看，我们很希望看到苹果股价下跌。……如果安德鲁、查理和我是一家价值 300 万美元企业的合伙人，每人拥有 100 万美元的权益，如果安德鲁提出以 80 万美元出售他三分之一的权益，而我们手头有钱，我们会立即抓住机会把他买断。我是说，这太简单了。……这是非常简单的数学，但在所有这些讨论中被忽略了。（芒格：）我认为，总的来说，在美国，当公司一心要去收购其他公司时，交易完成后它们的价值比交易前更低。……平均下来，这是一条向下的路，而不是向上的路。……（芒格：）不，不，不。我认为有些人回购只是为了托住股价。这当然是疯狂的。也是不道德的。
+l: 对拥有强大生态和高粘性产品的公司，低估时的持续回购能让长期股东“免费”增持；作为长期持有者，应欢迎股价下跌期间的回购。
+r: 5/5/4
+rel: 2016-A04, 2015-M14
+
+@ 2018-A08
+t: 八岁股东问为何买重资产的铁路：轻资本生意买不到足够多，次优选择也是好选择
+s: BM
+th: 资本配置; 商业模式
+k: business_model
+c: 八岁股东问为何从轻资本企业转向 BNSF 这类需巨额资本、回报受监管的企业：巴菲特说我们始终更喜欢资本回报极高的企业，但无法以合理价格把足够多的钱投入轻资本企业，于是进入资本密集但优秀的企业——“如果铁路没有火车、轨道、隧道和桥梁也能运营，那该多好？”这些企业回报尚可、买价合理、经营良好；作为第二选择仍是好选择，但不如最佳选择。芒格：这位小姑娘想要的是“从别人的销售里收特许权使用费”，那是很好的模式，如果人人能做到就没人做别的了；公用事业和铁路的回报“足够好”，我希望再有两家一样的；你是要我们追求完美。巴菲特：我们从未因买这些企业而放弃任何以合理价格买入高股本回报企业的机会；“你在我们的资本配置部门肯定有一个职位。”
+q: The fact that we buy a Burlington — BNSF, Burlington Northern ||| But wouldn’t it be wonderful if we could run the railroad without trains, and track, and tunnels, and bridges, and a few things?
+q: We can’t deploy as much money as we have in doing that. ||| It’s not as good as the best choice.
+q: Yes, I like the aspiration of that young lady. ||| I wish we had two more just like them.
+q: And the answer is we have not foregone any opportunity to buy businesses that earn high returns ||| So they haven’t shoved anything else off the table.
+zh: （巴菲特：）我们买伯灵顿北方——BNSF——这件事本质上意味着，我们无法以对我们有意义的价格把更多的钱投入轻资本企业。所以我们进入了资本更密集、但也是好企业的行业。但如果我们能在没有火车、轨道、隧道、桥梁和另外几样东西的情况下运营铁路，那岂不是太好了？……我们无法把我们拥有的那么多钱都投到那上面。所以作为次优选择——仍然是一个好选择——答案是肯定的。它不如最佳选择好。（芒格：）是的，我喜欢那位年轻女士的志向。她基本上想要从别人的销售中收取特许权使用费。那当然是一种非常好的模式，如果每个人都能做到，就没有人会做别的事了。我们之所以对公用事业和铁路的回报感到满意，是因为它们相当令人满意……我希望我们再有两家完全一样的。（巴菲特：）答案是，我们没有因为买这些其他企业，而放弃任何以合理价格买入那些股本回报率很高——非常高——的企业的机会。所以它们并没有把别的东西挤下桌。
+l: 资本规模决定了选择集；当最佳选项（轻资本高回报）不可得时，以合理价格买入“足够好”的重资产企业仍能创造价值，但要接受较低的回报率。
+r: 4/4/4
+rel: 2016-M07, 2017-M23
+
+@ 2018-A12
+t: 加密货币会以糟糕的结局收场：买非生产性资产就是指望下一个人出更高价
+s: BM
+th: 投资理念; 风险管理
+k: speculation
+c: 被问加密货币：巴菲特说非生产性资产——如果在耶稣时代买黄金，年化复利可能只有零点几个百分点——除了所谓的稀缺性不会交付任何东西。支票是个好主意，但并不让支票本身值很多钱。“任何时候你买一个非生产性资产，你都在指望以后有别人来买，因为他们认为能以更高价卖给另一个人”——郁金香等都试过，“结局都很糟”。最终是在生产性资产上赚钱：买农场就估算每英亩产量、付给农民的钱、税等，基于资产本身的产出下结论——“那才是投资”。当你买某样东西只是希望明早醒来价格更高，你需要进来的人比离开的人多；它会自我强化一段时间，有时很长、到达惊人的数字，但“加密货币会以糟糕的结局收场”；还会吸引大量骗子，去宰那些因为邻居发财而买入两人都不懂的东西的人。芒格：对我来说就是痴呆；专业交易员去交易加密货币令人作呕。
+q: Well, generally non-productive assets remain not only ||| I mean, what does it produce itself?
+q: I think that anytime you buy a nonproductive asset you are counting on somebody else ||| And it does come to a bad ending.
+q: And in the end you make your money on productive assets. ||| And that’s an investment.
+q: When you buy something because you’re hoping tomorrow morning you’re going to wake up ||| And cryptocurrencies will come to bad endings.
+q: You know, it’s something where people who are of less than stellar character see an opportunity ||| It will come to a bad ending.
+zh: （巴菲特：）嗯，一般来说，非生产性资产——如果你在耶稣时代买了黄金，算一下它的复合增长率，大概只有零点几个百分点。它基本上不会交付任何东西，除了所谓的稀缺性……但那又怎样？我是说，它本身生产什么呢？……我认为任何时候你买一个非生产性资产，你都是在指望以后有别人来买一个非生产性资产，因为他们认为能以更高的价格卖给另一个人。郁金香试过这个，各种东西都试过。而它确实会有糟糕的结局。……最终你是在生产性资产上赚钱的。如果你买一个农场，你会尝试估计每英亩能产多少大豆或玉米，你要付给帮你耕种的农民多少钱，你的税是多少，诸如此类。你根据资产本身长期能产出什么来得出结论。那才是投资。当你买某样东西是因为你希望明天早上醒来价格会更高时，唯一的理由就是，你需要进来的人比离开的人多。……它会自我强化一段时间，有时很长时间，有时达到非凡的数字。但最终——它们会有糟糕的结局。加密货币会有糟糕的结局。……你知道，这是那些品格不怎么样的人看到机会，去宰那些因为邻居买这东西发了财、而两人都不理解它的人的地方。它会有一个糟糕的结局。
+l: 区分投资与投机的标准：价值来自资产自身的产出，还是来自下一个买家；对后者，结局取决于新资金流入能持续多久。
+r: 4/4/4
+rel: 2018-M03, 2017-M20
+
+@ 2018-A16
+t: 伯克希尔的文化会延续，因为它有效：股东即伙伴，董事是真正的所有者
+s: BM
+th: 管理与治理
+k: culture
+c: 被问收购的大型上市公司能否保持伯克希尔文化：巴菲特说文化非常强，并被股东强化——我们乐于有公众股东、喜欢个人股东、不偏袒机构、不给指引；董事会是他参加过的 19 个董事会中独一无二的，都是持有大量股票、没有特殊待遇、以所有者为导向的商业人士；经理们自己选择加入这种文化，说的就是做的，不会一边说“我们是美妙的伙伴关系”一边给自己投票发巨额期权。“文化会被传承……净来说它变得更强。”芒格：每次参加经理人午餐会，都更强烈地感到伯克希尔的文化和价值观会在现任管理层离开后延续很久，甚至在所有现任经理都离开后；“它会持续的原因之一是它不那么容易复制”；巴菲特：它有效。芒格：它值得持续，它会有效。
+q: Yeah, I think the culture is very, very strong. ||| we want shareholders who are partners, basically.
+q: But in terms of having a common, strong, positive culture ||| so you do — what you talk about is what you do.
+q: Every time I come to one of these meetings and sit in the manager’s luncheon ||| And one of the reasons it will last is it’s not that damned easy to duplicate.
+zh: （巴菲特：）是的，我认为这种文化非常、非常强大。而且我认为它被我们拥有的股东所强化……我是说，我认为有相当多的上市公司希望自己没有公众股东。我们乐于有公众股东。我们喜欢有个人股东。我们不偏袒机构。我们不会给出指引，也不会在投资者电话会上专门跟他们谈之类的。我们希望——我们希望是直接的——我们想要的股东基本上是合伙人。……但就拥有一种共同的、强大的、积极的文化而言，我认为没有哪家大型上市公司比伯克希尔做得更好。我认为这会持续下去，因为人们在很大程度上是主动选择加入的。文化会被传承下去。你做与文化一致的事情，所以——你说的就是你做的。（芒格：）每次我来参加这些会议、坐在经理人午餐会上，到午餐结束时我都更强烈地感到，伯克希尔·哈撒韦的文化和价值观将在现任管理层离开后长久延续下去。事实上，我认为在所有现任经理都离开后它还会延续。我认为我们在这里开创了某种足够有效、能够持久的东西。它能持久的原因之一是，它没那么容易复制。
+l: 公司文化的护城河来自“言行一致+自我选择”：股东、董事、经理都因认同而聚集，难以复制也难以被侵蚀。
+r: 3/3/4
+rel: 2015-M16, 2015-M19
+
+@ 2018-A18
+t: 轻资产经济的惊人盈利：美国前四大公司几乎不需要有形净资产
+s: BM
+th: 商业模式; 宏观与社会
+k: business_model
+c: 被问 1999 年认为税后企业利润/GDP 难以长期高于 6%，如今 8–10% 是否是永久转变：巴菲特说美国市值前四的公司（在 30 万亿美元市场中约占 10%）基本上不需要任何有形净资产；过去最大的公司——AT&T、通用汽车、埃克森——都需要大量资本才能盈利。标普 500 的有形净资产收益率与 20 年前相比“令人惊叹”，这是因为它在某种程度上变成了“轻资产经济”，甚至是“负资产”——IBM 有形净资产为负，这没什么问题，但不是 30 年前的世界；“1999 年写那篇文章时我没看到这一点”；重资产行业的有形资产回报并没有提高多少，是新的一群几乎不需要有形资产的公司进来了。芒格：还有大量金融工程，即使在资本密集行业也提高了杠杆；沃伦预测有点错，但投资没错——说明经济预测很难。
+q: Well, it’s been an interesting development during that period. ||| four companies that essentially don’t need any net tangible assets.
+q: So that what has happened is that, I think if you look at the earnings on tangible net worth of the S&P 500 ||| you could call it an asset-light economy.
+q: And in that sense, I didn’t see that coming in 1999 when I wrote whatever I wrote there. ||| they don’t need any net tangible assets at all, or they need very minor amounts.
+q: There’s also a lot of financial engineering that’s raised leverage ||| And so it just shows that it’s hard to make these economic predictions.
+zh: （巴菲特：）嗯，那段时间里出现了一个有趣的发展。……你现在有了美国市值最大的四家公司——在一个 30 万亿美元的市场里——四家公司基本上不需要任何有形净资产。……所以现在的情况是，我认为如果你看标普 500 的有形净资产收益率，和 20 年前比较，是惊人的。这实际上是因为它在某种程度上变成了——你可以称之为——轻资产经济。……从这个意义上说，我 1999 年写那篇文章时没有预见到这一点。它并没有特别改变重资产公司的盈利能力。……但你会发现，有这么一群公司进来了，它们根本不需要任何有形净资产，或者只需要非常少的量。（芒格：）还有大量的金融工程提高了杠杆，即使在资本密集型行业也是如此。你知道，虽然沃伦在写那篇非常学术的文章时预测得有点错，但他没有投资错。所以这恰恰说明了做这些经济预测有多难。
+l: 整体市场估值“看起来高”可能部分源于成分股结构变成轻资产高回报企业；用历史均值比较时要考虑经济结构的变化。
+r: 4/4/4
+rel: 2017-M23, 2015-M20
+
+@ 2018-A20
+t: 我们想要让人想亲吻你的产品：运通的百夫长、喜诗的情人节、可口可乐的“真东西”
+s: BM
+th: 护城河; 投资方法
+k: moat
+c: 被问如何判断某个具体产品的未来成功——为何选运通、可口可乐而不是大来卡、RC 可乐：巴菲特说大来卡先入场，但运通以更高价格进入，卡上的百夫长让你拿出来像 J.P. 摩根，拿出大来卡则像在开空头支票。可口可乐是“真东西”，按实际价格计算，每份享受的成本大幅下降，是物美价廉的产品。喜诗：加州少年把糖果送给女友或她父母、被亲了一下，“那一刻你就失去了价格敏感性”——“所以我们真的想要让人想亲吻你、而不是扇你耳光的产品。”运通 1963 年色拉油丑闻时没人停止用卡和旅行支票。芒格：如果可口可乐刚发明时让我们投，我们大概会拒绝。巴菲特：我们不预见没有大量证据的东西，要看消费产品在多种环境下的表现；费雪的“闲聊法”（现在叫渠道调查）是重要的投资技巧；芒格总在发现 Costco 的新优点——“让顾客惊喜和愉悦，商业中没有什么能比得上；有了欣喜的顾客，你就离成功不远了。”
+q: And the American Express centurion was on that card. ||| you looked like a guy that was kiting his checks from one month to the next
+q: You know, you have to look at — See’s Candy, you know, if you live in California and you were a teenage boy ||| rather than slapping you.
+q: But nobody quit using the card. Nobody quit using the traveler’s checks. ||| And then sometimes we make mistakes.
+q: No, he’s right. I mean, we don’t foresee things that we haven’t got a lot of evidence in on. ||| And you can learn a lot, you know, just by going out and using some shoe leather.
+q: I mean, all the time he is finding new virtues in Costco ||| You have delighted customers, you’re a long way home.
+zh: （巴菲特：）而且那张卡上有美国运通的百夫长。……老实说，如果你是一名销售人员，和某人在外面，你掏出那张印着百夫长的美国运通卡，你看起来就像 J.P. 摩根。而如果你掏出大来卡，上面有一堆花哨的符号，你看起来就像一个月复一月开空头支票的家伙。……你得看看——喜诗糖果，如果你住在加州，是个十几岁的男孩，你去女朋友家，把一盒糖果送给她或她的父母，她亲了你一下，那一刻你就失去了价格敏感性。所以我们真的想要那种让人们想亲吻你、而不是扇你耳光的产品。……但没有人停止使用那张卡。没有人停止使用旅行支票。……所以有些围绕消费品的东西，你能看出来，有时能让你对未来有相当好的洞察。然后有时候我们也会犯错。……不，他是对的。我是说，我们不会去预见那些没有大量证据的东西。……如果我们谈的是消费品，我们想看到一个消费品在很多不同情况下的表现……费雪……讲了投资的“闲聊法”……你可以学到很多，只要走出去磨点鞋底。……我是说，他总是在 Costco 身上发现新的优点……Costco 对它的客户群有巨大的吸引力。它们让顾客惊喜和愉悦。商业中没有什么能比得上这个。你有了欣喜的顾客，你就离成功不远了。
+l: 定价权的根源是情感价值与品牌承诺；用实地调研（闲聊法/渠道调查）验证产品在危机和竞争中的顾客忠诚度。
+r: 5/5/5
+rel: 2017-M08, 2015-M36
+
+@ 2018-A23
+t: 投资不需要高深学问：宁要把《聪明的投资者》第 8 章刻进骨子里的人
+s: BM
+th: 投资理念; 投资方法
+k: learning
+c: 被问商学院、CFA 等学术训练是否必要：巴菲特说他上过三所商学院，每所都找到一两位让他受益良多的老师；但三四十年前有效市场理论的“祭司阶层”偏离了投资现实。如果在顶尖商学院前五名毕业生与一个聪明且把《聪明的投资者》第 8 章（市场先生）刻进骨子里的人之间选，他选后者。“我们做的不是复杂的生意，必须有纪律，但不需要超高智商”；有几个基本原则极其重要，你确实要懂会计，像消费者一样思考也有帮助。芒格：格雷厄姆去世前就认识到他寻找低估公司的方法不会永远适用；我们逐渐转向在低估时买更好的公司，而不是低估的烂公司；像按营运资本三分之一的价格买公司，现在很难找到，找到也太小；“如果你要活得长，就必须不断学习……如果不学会不断修正早期结论，你就像踢屁股比赛里的独腿人。”巴菲特：格雷厄姆的方法无法规模化；第 8 章（把股票当企业看）和第 20 章（安全边际）价值巨大，但并不复杂。芒格：公司金融老师教很多错误的东西，就像名医院仍做过时的白内障手术——“因为它很好教”。巴菲特：每当你听到某个理论被形容为“优雅”，就要当心。
+q: We do think that the priesthood, say, 30 years ago ||| I’d take the person from chapter eight.
+q: This is not — what we do is not a complicated business. ||| But it just doesn’t require advanced learning.
+q: But the world changed. Before he died, Bill Graham ||| And of course, that worked pretty well for us.
+q: So we’ve had to learn a different game. ||| You’re like a one-legged man in an ass-kicking contest.
+q: And so the utility of chapter eight, in terms of looking at stocks as a business, is of enormous value. ||| But that’s not complicated stuff.
+q: Yeah, whenever you hear a theory described as elegant, watch out, you know. ||| Yeah, whenever you hear a theory described as elegant, watch out, you know.
+zh: （巴菲特：）我们确实认为，比如 30 或 40 年前，在有效市场理论之类的问题上，那个“祭司阶层”偏离投资现实相当远。如果我能在排名第一、二、三的商学院的前五名毕业生中雇一个人，而我的另一个选择是某个聪明、并且把《聪明的投资者》第 8 章完全内化——它对他来说是天性，基本上刻在骨子里——的人，我会选那个第 8 章的人。……这不是——我们做的不是一个复杂的生意。它必须是一个有纪律的生意，但它不需要超高的智商之类的东西。有几个基本原则极其重要，你确实必须懂会计。……但它就是不需要高深的学问。（芒格：）但世界变了。格雷厄姆在去世前就认识到，他寻找低估公司的那套确切方法，并不一定在所有时期、所有条件下都有效。对我们来说当然也是这样。我们逐渐转变为试图在更好的公司被低估时买入，而不是在烂公司被低估时买入。……所以我们不得不学一种不同的游戏。这对在座所有年轻人都是一个教训。如果你要活很久，你必须不断学习。……你以前知道的永远不够。所以如果你不学会不断修正你早先的结论……你就像一个参加踢屁股比赛的独腿人。（巴菲特：）所以第 8 章——把股票看作企业——的用处价值巨大。第 20 章关于安全边际的用处价值巨大。但那不是复杂的东西。（巴菲特：）是的，每当你听到某个理论被描述为“优雅”时，要当心。
+l: 投资的核心是少数朴素原则（市场先生、安全边际、股票即企业）加持续修正的学习，而不是复杂模型与学历。
+r: 5/5/5
+rel: 2013-A06, 2017-A22
+
+@ 2018-A28
+t: 贝佐斯的成就接近奇迹，而“如果我认为某件事会是奇迹，我往往不会押注”
+s: BM
+th: 投资方法; 护城河
+k: mistakes
+c: 被问为何不投亚马逊、谷歌这类几乎没有竞争对手的科技公司：巴菲特说我们不考虑“该不该进科技公司”，看的是竞争优势的持久性，以及我们对持久性概率的判断是否比别人好。“我认为贝佐斯所做的接近奇迹。问题是，如果我认为某件事会是奇迹，我往往不会押注它。”盖茨早年建议他从 AltaVista 换到 Google，但他看到 Google 超过了 AltaVista，就怀疑有没有人能超过 Google；在 GEICO 付了大量广告费却没能得出结论。买苹果不是因为它是科技股，而是对资本使用的明智程度、生态系统的价值与持久性、威胁等的判断，这不需要拆开 iPhone，而是消费者行为的本质。“在投资中，不挥棒打好球区里的球没有惩罚，只要最终你在某个时刻挥棒”；“我们会错过很多东西。”芒格：我们有个绝妙的系统——如果一个人在某领域很蠢，另一个也是；泰德和托德的加入用年轻的眼睛改善了总部“与年龄有关的愚蠢”。巴菲特：谷歌做的事对他并不神秘，神秘的是会有多少竞争、四五家会不会互相厮杀；“我在谷歌上做了错误的决定”，低估了贝佐斯。
+q: Well, we certainly looked at them. ||| in assessing the probability of the durability, so to speak.
+q: But the truth is that I’ve watched Amazon from the start ||| I tend not to bet on it.
+q: And I didn’t go into Apple because it was a tech stock in the least. ||| And some things strike me as having a lot more permanence than others.
+q: And there is no penalty in investing if you don’t swing at a ball that’s in the strike zone ||| We’ll try to stay within our circle of competence.
+q: But it wasn’t like what they were doing was a mystery to me. ||| whether it would be a game where four or five people were slugging it out without making as much money as they could if one company dominated.
+q: Some of the age-related stupidity at headquarters has been ameliorated by Ted [Weschler] and Todd [Combs] joining us. ||| Because there’s a lot of ignorance in the older generation that needs removal.
+zh: （巴菲特：）我们当然研究过它们。我们不去考虑是否应该投资科技公司之类的问题。我们在寻找的，是竞争优势的持久性，以及我们认为自己在评估这种持久性的概率时，是否可能比别人判断得更好。但事实是，我从一开始就看着亚马逊，我认为杰夫·贝佐斯所做的接近于一个奇迹。问题是，如果我认为某件事会是一个奇迹，我往往不会押注它。……我买苹果根本不是因为它是一只科技股。我买苹果是因为我得出了某些结论：关于资本运用的明智程度，但更重要的是，关于一个生态系统的价值、这个生态系统能有多持久、它面临哪些威胁，以及一大堆事情。……那更多是消费者行为的本质。有些东西在我看来比其他东西持久得多。……在投资中，如果你没有挥棒去打一个在好球区里的球，是没有惩罚的，只要你在某个时候挥棒打某个球，最终你会找到你喜欢的球。我们会继续这样做。我们会努力待在我们的能力圈内。……但他们在做的事对我来说并不是一个谜。谜在于会出现多少竞争，竞争对手会有多有效，以及这会不会变成一场四五家互相厮杀、赚的钱不如一家公司主导时那么多的游戏。（芒格：）泰德和托德的加入，改善了总部的一些与年龄有关的愚蠢。我们现在借助一些更年轻的眼睛来看世界。……因为老一代有很多无知需要消除。
+l: 竞争格局（一家独大还是多家厮杀）往往比技术本身更决定回报；投资不必每球都挥，但要承认并从错过中学习，并引入新视角弥补盲点。
+r: 5/4/5
+rel: 2017-A15, 2017-M12
