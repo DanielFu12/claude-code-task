@@ -118,3 +118,118 @@ zh: 我们犯的错误——有些是大错——分为两种。一种是我们�
 l: 建立“错失清单”复盘不作为之错；对高确定性的机会，价格的小幅上涨无关紧要，要克服锚定效应。
 r: 5/5/5
 rel: 2003-A33, 2003-M32
+
+@ 2004-M21
+t: 难得找到好的投资经理；找到好机会时别吝啬——高度分散对聪明人是“疯狂”
+s: BM
+th: 投资方法; 管理与治理
+k: concentration
+c: 芒格：寻找机会是人生乐趣的一部分，但最重要的教训是一生中你不太可能找到很多；当你真正想清楚并有信心时，看在上帝的份上，别小气。认为有投资技能的聪明人应该高度分散，这是一种非常传统的疯狂，所有商学院都在教，但它们错了。巴菲特：1969 年解散合伙企业时，他认识那么多人，却只能推荐两位既出色又诚实的经理——桑迪·戈特斯曼和比尔·鲁安，因为他不仅知道他们的结果，还知道结果是怎么取得的。四处向机构推销自己的人，很少能通过长期的能力（有时是诚信）检验。偶尔你会看到应该重仓的东西；如果你以为每周都能看到机会，你会亏很多钱。芒格：基金公司经理收受贿赂背叛持有人，就像有人提议“我把你母亲杀了，我们平分保险金”——而他们本已富有。
+q: Well, of course you’re hunting, that’s part of the fun of life. ||| But they’re wrong.
+q: So I not only knew their results, but I knew how they’d accomplished their results, which is terribly important. ||| says something about the difficulties of finding managers.
+q: You will occasionally see something that you should load up on. ||| If you think you’re going to see an opportunity every week, you’re going to lose a lot of money
+zh: （芒格：）当然，你在寻找，这是人生乐趣的一部分。但我会说，最主要的教训是，你一生中不太可能找到很多（这样的机会）。当你找到一个你真正想透了、并且有信心的机会时，看在上帝的份上，不要小气地去做。认为有投资技能的非常聪明的人应该持有高度分散的投资组合，这是疯狂的。这是一种非常传统的疯狂，所有商学院都在教，但他们错了。（巴菲特：）……所以我不仅知道他们的结果，还知道他们是如何取得这些结果的，这极其重要。……以我当时认识的人数之多，在我非常活跃的时候，却只能举出两个人，这说明了寻找经理人的困难。……你偶尔会看到一些你应该重仓的东西。正如查理所说，这就是你真正要做的。……如果你以为每周都能看到一个机会，你会亏很多钱。
+l: 评估基金经理时，重点了解“业绩是怎么来的”和其诚信；对少数真正想透的机会集中投入。
+r: 4/4/4
+rel: 2003-A33, 2002-M17
+
+@ 2004-M22
+t: 资产配置模型纯属胡扯：最好的降低风险方法是思考
+s: BM
+th: 投资方法; 风险管理
+k: capital_alloc
+c: 降低风险最好的办法是思考。“60% 股票 40% 债券”然后隆重宣布改成 65/35，纯属胡扯。默认状态永远是短期工具，看到聪明的事就去做，不要去凑某个比例目标。谷歌两位创始人即将拥有数十亿美元，文章说他们会有各种麻烦、需要律师和财务顾问——其实他们比来找他们的人聪明，真正有问题的是想向他们推销服务的人。很多资产配置只是营销：让你以为不知道该 60/40 还是 65/35 就需要他们。“不在于你怎么卖，而在于你怎么讲。”芒格：人们一直渴望知道未来，国王曾雇人看羊肠占卜战争——如今同样疯狂。共同基金每年大约跑输市场两个点，再加上经纪人为佣金让投资者在基金间来回倒腾，又损失三四个点——普通大众找专家，得到了糟糕的结果。
+q: Yeah, we think the best way to minimize risk is to think. ||| I mean, that has to be pure nonsense.
+q: What you ought to do is have — your default position is always short-term instruments. ||| And you shouldn’t be trying to match up with some goal like that.
+q: But so much of what you see when you talk about asset allocation — it’s just merchandising. ||| And you don’t need them at all in investing.
+q: Yeah, people have always had this craving to know the future. ||| It’s just as crazy as when the king was hiring the forecaster who looked at the sheep guts.
+q: The really interesting figures are when you combine the underperformance of the market ||| So the poor guy in the general public is getting a terrible result from contacting the experts.
+zh: 是的，我们认为把风险降到最低的最好方法是思考。……你说：“我有 60% 在股票、40% 在债券。”然后隆重宣布，我们现在调到 65/35，就像华尔街一些策略师之类的人做的那样。那一定是纯粹的胡扯。……你应该做的是，你的默认仓位永远是短期工具。无论何时你看到任何明智的事可做，就去做。你不应该试图去匹配那样的目标。……当你谈论资产配置时，你看到的很多东西只是推销。这是一种让你以为，如果你不知道如何确定应该是 60/40 还是 65/35，你就需要这些人的方式。而在投资中你根本不需要他们。（芒格：）是的，人们一直渴望知道未来。过去国王会雇魔法师或预言家，他会在羊肠里寻找如何应对下一场战争的答案。……这和国王雇佣看羊肠的预言家一样疯狂。……真正有意思的数字是，把共同基金业跑输市场的幅度——每年大概两个百分点，而这还低估了——再加上所有被一帮想赚佣金的经纪人不断从一只基金倒到另一只基金的投资者……再损失三四个百分点。所以普通大众中的可怜人通过联系专家得到了糟糕的结果。
+l: 以“现金为默认、机会为驱动”取代固定比例配置；把费用和换手造成的损耗视为最确定的负收益。
+r: 5/5/5
+rel: 2004-M12, 2002-M17
+
+@ 2004-M29
+t: 每个变量都保守估计但别层层加码，最后再整体施加安全边际
+s: BM
+th: 企业估值; 风险管理
+k: mos
+c: 如何结合增长估计与安全边际？把所有变量都合理、保守地估计，但不要在每一层都加太多“风偏修正”；尽量现实，误差偏保守，最后再整体施加安全边际。格雷厄姆的简单公式是以营运资本打三分之一折扣买入。保险定价也一样：过去一百年加州发生约 26 次 6.0 级以上地震，他会假设下个世纪多一点，比如 30–32 次，但不会假设 50 次（那样就做不了生意）；算出合理费率后，再加一层溢价作为安全边际。芒格：幂律能告诉你不同规模地震的分布，大地震比小地震少得多。巴菲特：投资的美妙在于，你不必去评估那些需要极端假设的公司——只看能评估的，跳过其余。
+q: You calculate — I think you take all of the variables and calculate them reasonably conservatively. ||| And then when you get all through, you apply the margin of safety.
+q: Well, we would look at the history and we’d say, “Well, there’ve been 26 in the last century.” ||| If we did, we wouldn’t write any business.
+q: But that is not what you’re looking at in investments. ||| You only have to look at the ones that you feel capable of evaluating and you skip all rest.
+zh: 你计算——我认为你要把所有变量都合理保守地计算，但不要在每一层都加入太多风偏修正。然后当你全部算完时，再施加安全边际。所以我会说，不要过分专注于在每一个变量上——折现率、增长率等——都留余地，而是尽可能现实地估计这些数字，任何误差都偏向保守的一边。然后当你全部算完时，再施加安全边际。……我们会看历史，然后说：“嗯，过去一个世纪里发生过 26 次。”我们可能会假设下个世纪的次数稍高一些，这只是我们的天性。但我们不会假设 50 次。如果那样，我们就做不了任何业务。……但那不是你在投资中要看的东西。你不会想去找那些需要做出如此极端假设的公司。你也不必那样做，这就是投资的美妙之处。你只需看那些你觉得有能力评估的，跳过其余所有。
+l: 避免“层层保守”导致的系统性低估（会让你什么都不买），也避免“层层乐观”；把安全边际放在最终价格与价值的差距上。
+r: 5/5/4
+rel: 2003-A30, 2003-A05
+
+@ 2004-M32
+t: 聪明人被击垮的唯一方式是杠杆：它会让你无法打完一手好牌
+s: BM
+th: 风险管理; 市场周期
+k: leverage
+c: 人们在低概率事件最近没发生时低估它，刚发生过时高估它——诺亚也遇到过。若某重大核事件每年发生概率 10%，50 年内安然无恙的概率只有 0.5%；降到 1%，则有约 60% 的概率平安度过。最可能带来巨大后果的低概率事件更可能出在金融领域而非自然领域。芒格：2002 年垃圾债收益率一度达到 35%–40%，然后在短时间内翻了四倍，底部一片混乱——而那还不是最混乱的；接下来 50 年，我们都必须让自己即使遇上真正的金融危机也不至于太糟。巴菲特：你可以认为 15% 收益率的垃圾债很好，最终到了 6%；但如果中途欠了很多钱，你就等不到最后的派对。金融市场几乎什么都可能发生，聪明人被击垮的唯一方式就是杠杆。华尔街满是高智商的人和钱，却依然出现这种极端摆动——在奥马哈的公寓、麦当劳加盟店、农场上不会发生。至少要保护自己不被这种疯狂消灭，最好还能准备好利用它。
+q: Well, you’re quite correct that people tend to underestimate low-probability events when they haven’t happened recently ||| That is the nature of the human animal.
+q: For example, if there is a 10 percent chance in any given year of a major nuclear event ||| there’s a 60 percent chance you get through the next 50 years without it happening.
+q: So I think if you’re talking about the next 50 years ||| that people used to have a great many decades ago.
+q: But if you owed a lot of money against them in between, you know, you wouldn’t have been around for the party at the end. ||| But you do have to be able to play them out.
+q: And the big thing you want to do is, at a minimum, you want to protect yourself against that sort of insanity wiping you out. ||| And better yet, you want to be prepared to take advantage of it when I happens.
+zh: 你说得很对，人们在低概率事件最近没发生时往往低估它们，在刚发生过时又往往高估它们。这是人类这种动物的本性。……例如，如果每年发生重大核事件的概率是 10%，假如 10% 是对的，你能在 50 年里都不碰上它的概率只有 0.5%。……如果你能把它降到 1%，你就有 60% 的机会在未来 50 年里不碰上它。（芒格：）所以我认为，如果谈的是未来 50 年，我们都必须这样行事：即使某种真正的金融危机来临——无论是通胀型的，还是几十年前人们常经历的那种典型通缩型危机——情况也不会那么糟。（巴菲特：）……但如果在这期间你为它们欠了很多钱，你就不会在最后的派对上了。所以我们相信，在金融市场几乎任何事情都可能发生。聪明人真正被击垮的唯一方式，就是通过杠杆。如果你能拿得住，你就没有真正的问题。……它是唯一会迫使你——会终结你、或者阻止你打完你那手牌的东西。我们参与的每一手牌在我们看来都相当不错，但你确实必须能把它们打完。……你要做的最重要的事，至少是保护自己不被那种疯狂消灭。更好的是，你要准备好在它发生时利用它。
+l: 用多年累积概率看待“小概率”风险；永远不要让杠杆剥夺你等待正确结果的能力——生存优先，然后才是利用疯狂。
+r: 5/5/5
+rel: 1994-M55, 2003-A06, 2004-A33
+
+@ 2004-A01
+t: 如何判断一家公司有没有道德？连壳牌都能造假
+s: BM
+th: 管理与治理; 人生智慧
+k: reputation
+c: 底层员工能从同事、出版物、领导者的公开言论中捕捉一些信号，但很容易被骗。他们对过分强调股价的公司有戒心——总部大厅挂着股价会让他们紧张。芒格：埃伯斯、雷这种近乎精神病的漫画式人物很好识别，真正骗过你的是荷兰皇家壳牌这样的公司——若让我猜文化健全、工程价值观良好的大公司，它会在榜单前列，却虚报油气储量多年，内部报告里有人说厌倦了撒谎；“如果壳牌会发生，相信我，很多地方都会发生”。巴菲特：90 年代高层逐渐、后来不那么逐渐地接受了“怎么都行”；看到俱乐部里、公司会议上受人尊敬的商业领袖一个接一个地走捷径，情境伦理就会占上风——人们向更低的普遍道德下沉得快，向更高的普遍道德上升得慢。
+q: I’ve — we’ve been suspicious of companies, for example, that place a whole lot of emphasis on the price of their stock. ||| you know, things like that make us nervous.
+q: But what fools you is a place like Royal Dutch. ||| If it can happen at Royal Dutch, believe me, it can happen a lot of other places.
+q: And, you know, situational ethics can take over in that. ||| than they rise to a higher prevailing morality.
+zh: 我们一直对那些非常强调自己股价的公司心存怀疑。比如当我们看到总部大厅里挂着股价之类的东西，会让我们紧张。……（芒格：）但真正骗过你的是荷兰皇家壳牌这样的地方。如果让我猜哪些大公司拥有健全的长期文化、良好的工程价值观等等，壳牌会接近我榜单的顶部。而它多年来虚报石油储量，内部报告里还有人说厌倦了撒谎。如果这能在壳牌发生，相信我，它能在很多其他地方发生。（巴菲特：）……情境伦理可能会占上风。我认为，人们向更低的普遍道德下沉的速度，比向更高的普遍道德上升的速度更快。
+l: 把对股价的过度关注视为文化警示；即便是声誉卓著的公司，也要为“文化腐蚀”保留风险折扣——尤其是在全行业风气下滑时。
+r: 4/3/4
+rel: 2002-M20, 2003-A17
+
+@ 2004-A05
+t: “唯一能出卖你的人是我”：伯克希尔作为家族企业首选买家
+s: B
+th: 资本配置; 管理与治理
+k: culture
+c: 私募股权基金是伯克希尔收购企业的竞争对手。收购企业不会像股票那样便宜：股票在拍卖市场定价，可以走极端；企业是谈判出售，不会那么极端。即便如此，他们强烈偏好以合理价格买企业，胜过以略低价格买股票。卖方之所以来找伯克希尔，是不想像拍卖一块肉那样卖掉心爱的企业，不想被加杠杆、改会计、两年后转卖——这不会带来超级便宜货，但能让资金以合理回报投出去。“把你的女儿拍卖给出价最高的男人是愚蠢的”，对一家几十年精心建立的企业也是如此。他告诉卖方：“唯一能出卖你的人是我”——承诺不在合同里，但不会有管理顾问来重组业务，也不会让华尔街发号施令。
+q: But businesses are sold in a negotiated transaction, and that doesn’t get as extreme. ||| Nevertheless, our preference — our strong preference — is that we would rather buy businesses at fair prices than stocks even a little cheaper.
+q: If they have a tax reason, if they have a family situation, or whatever ||| they come to us.
+q: I think it’s kind of crazy, you know, to spend — I think it’d be kind of silly to auction off your daughter ||| And I feel the same way about a business you’ve created lovingly over decades, and decades, and decades.
+q: I tell perspective sellers basically, “I’m the only one that can double-cross you.” ||| or we’re not going to get Wall Street dictating to us.
+zh: 但企业是在谈判交易中出售的，不会那么极端。尽管如此，我们的偏好——强烈的偏好——是宁愿以合理价格买企业，也不愿以哪怕稍便宜一点的价格买股票。……如果他们有税务原因、家庭情况或其他什么原因，想卖掉某个他们热爱的企业，又不想像拍卖一块肉那样把它拍卖掉，也不想让某个家伙买下后加杠杆，然后在改动会计之类的东西后两年就转卖，他们就会来找我们。……我认为把你的女儿拍卖给愿意为她付最多钱的男人，是有点愚蠢的。对于一家你几十年如一日精心创建的企业，我也是同样的感受。……我基本上告诉潜在的卖家：“唯一能出卖你的人是我。”我是可以出卖他们的。我是说，如果第二天我想对他们耍点什么，我可以——我对他们说的话很可能不是合同条款。但其他人都不能。我们不会请一些管理顾问进来，说你应该重组业务；我们也不会让华尔街对我们发号施令。
+l: 收购方的声誉与承诺可信度可以成为一种竞争优势，在不靠出价最高的情况下赢得优质资产。
+r: 4/3/4
+rel: 2003-A08, 2003-M39, 2001-A26
+
+@ 2004-A09
+t: 流动性对资本主义贡献很大？“大多是胡扯”
+s: M
+th: 宏观与社会; 市场周期
+k: speculation
+c: 芒格：现代学术界宣扬可交易股票的流动性是资本主义的巨大贡献者，这大多是胡扯。美国 GNP 在股票市场高度流动之前就增长得很好；流动性带来了这些疯狂的繁荣，有很多问题也有优点。南海泡沫之后，英国数十年禁止可交易的普通股，英国在那段时期也过得很好。如果你认为流动性对文明贡献巨大，那你大概也会认为美国相对缺乏流动性的房地产都没有得到妥善开发。巴菲特：凯恩斯也评论过流动性带来的扭曲。
+q: Yeah, and on the second part of that question, I think the notion, which is taught in so much of modern academia ||| I think the liquidity gives us these crazy booms, which have many problems as well as virtues.
+q: So, if you think that liquidity is a great contributor to civilization ||| hasn’t been developed properly.
+zh: （芒格：）现代学术界大量教授的一种观念是，可交易普通股的流动性是资本主义的巨大贡献者——我认为这大多是胡扯。美国的 GNP 在我们拥有高度流动的普通股市场之前很久，就以非常好的速度增长了。我不知道人们从哪里得来这种愚蠢的观念。我认为流动性给我们带来了这些疯狂的繁荣，它们有很多问题，也有优点。……所以，如果你认为流动性是对文明的巨大贡献，那么你大概也会认为美国所有相对缺乏流动性的房地产都没有得到妥善开发。
+l: 流动性是双刃剑：它让价格偏离价值，也让投资者更容易被情绪驱动交易。像拥有一家私人企业那样持有股票，可以免受流动性带来的诱惑。
+r: 3/3/4
+rel: 2003-M32, 2002-A13
+
+@ 2004-A10
+t: 道德的界线：可以持有股票，但不会全资拥有并经营某些企业
+s: BM
+th: 管理与治理; 人生智慧
+k: reputation
+c: 他们曾在见过一家极赚钱公司的（体面的）管理层后，在酒店大堂决定不参与——但会买它的公开交易股票。他们不介意持有从事自己未必认同的合法业务的公司的股票或债券（如曾持有雷诺烟草的股票和债券），但不会全资拥有并主导其经营——“我不能告诉你这是完美的界线，但我就把线划在这里”。芒格：我们不声称拥有完美的道德，你可以在你想的地方划线，但至少我们有一大片完全合法、但我们认为有失身份的事情不会去做；美国越来越多地形成一种文化：只要不太可能进监狱、看起来能赚钱的事就可以做，这是非常糟糕的发展。
+q: So, I do not have a problem buying stock in companies ||| I would have trouble owning outright, and actually directing the activities, of some of those companies.
+q: We don’t claim to have some kind of perfect morals. ||| And that is a very bad development.
+zh: 所以，我对买入某些公司的股票——有价证券——或在市场上买它们的债券并不介意，即使这些公司从事的活动我自己可能不会认可。但对于完全拥有并实际指挥其中一些公司的活动，我会有困难。（芒格：）我们并不声称拥有某种完美的道德。你可以在你想的地方划线。但至少我们有一大片完全合法、而我们认为有失身份的事情，所以我们不会做。而我们看到美国越来越多地形成这样一种文化：只要不太可能把你送进监狱、看起来能赚钱的事，就都可以做。这是一个非常糟糕的发展。
+l: 为自己划定“合法但不做”的范围，并区分被动持股与主动经营的道德责任。
+r: 3/2/4
+rel: 2004-A01
