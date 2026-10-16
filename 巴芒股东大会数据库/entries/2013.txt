@@ -1,0 +1,210 @@
+# 2013 年股东大会（5 月 4 日）
+
+@ 2013-M27
+t: 伯克希尔的竞争优势：保持理智、待子公司如待己、做“唯一还站着的人”
+s: BM
+th: 管理与治理; 护城河
+k: culture
+c: 芒格给 13 岁女孩的伯克希尔两分钟讲解：第一，我们一直努力保持理智，而很多人喜欢发疯，这就是竞争优势；第二，规模变大后奉行“黄金法则”——像我们自己若身处子公司时希望被对待的那样对待子公司，这在美国企业界极为罕见，吸引了不愿投奔别人的卖家；第三，做需要更多资金的人的好伙伴。我们离开了竞争激烈的领域，进入了一个更与众不同的位置——“这是个好主意，可惜不是我们有意为之”。巴菲特讲了一个卖家的故事：卖给竞争对手，“协同效应”意味着跟随他 30 年的员工被裁掉；卖给私募，会被加满杠杆再转手；“你是唯一还站着的人”——伯克希尔能给永久的家。“我们的竞争优势就是我们没有竞争对手。”
+q: We’ve always tried to stay sane, and other people, a lot of them, like to go crazy. ||| That is a long-term competitive advantage.
+q: And so, we are leaving behind a field that’s very competitive ||| I wish we had done it on purpose.
+q: They would have all these ideas about synergy ||| he just didn’t want to do that to the people that helped him over the years.
+q: But he said, “You’re the only guy left standing. ||| and I won’t have to worry about what will happen if something happens to me tonight.”
+q: Well, that company has turned out to be a wonderful acquisition for Berkshire, and our competitive advantage is we had no competitors. ||| Well, that company has turned out to be a wonderful acquisition for Berkshire, and our competitive advantage is we had no competitors.
+zh: （芒格：）我们一直努力保持理智，而其他很多人喜欢发疯。这就是一种竞争优势。第二，随着我们变大，我们一直奉行一种黄金法则：我们希望像自己身处子公司时希望被对待的那样去对待子公司。这在美国企业界又是一种非常罕见的态度，它让那些不愿投奔任何其他人的人来找我们。这是一种长期竞争优势。……所以，我们正在离开一个竞争非常激烈的领域，进入一个我们更加与众不同的位置。这是个非常好的主意。我真希望我们是有意这么做的。（巴菲特：）他们会有各种关于“协同效应”的想法，而协同效应意味着 30 年来帮他建立企业的人都会被解雇，收购方会像匈奴王阿提拉一样作为征服者进驻，而他就是不想这样对待那些多年来帮助过他的人。……但他说：“你是唯一还站着的人。你不是竞争对手，你不是私募股权公司，我知道我会在伯克希尔得到一个永久的家，多年来跟着我的人会继续得到机会、继续为我工作。我会继续做我热爱的事，也不必担心如果今晚我出了什么事会怎样。”……那家公司后来成了伯克希尔一次绝妙的收购，而我们的竞争优势就是我们没有竞争对手。
+l: 一种独特的、长期坚持的文化本身就是护城河：当所有买家都相似时，“不一样”能在交易中以更好的价格和更好的伙伴胜出。
+rel: 1995-M30
+r: 4/3/5
+
+@ 2013-M34
+t: 亨利·辛格尔顿的启示：拆分伯克希尔只会更差；高价发股、低价回购是另一种游戏
+s: BM
+th: 资本配置; 管理与治理
+k: capital_alloc
+c: 被问到是否学辛格尔顿把伯克希尔拆分：巴菲特说伯克希尔是能想象的最容易管理的公司，拆成几家“只会产生更差的结果”。芒格：辛格尔顿是能蒙眼下近大师级象棋的天才，但起初作为企业集团热衷于持续报告更高盈利以维持“菊花链”，下行时又理性地大举回购；他管理旗下公司比伯克希尔集中得多。巴菲特：他在公开市场上玩得好得多，为跟随他的股东赚了大钱，但某种程度上把股东当作可利用的对象——高价疯狂增发股票做了至少 50 次收购，再以极低价回购，最后还想以高于价值的价格卖给伯克希尔换股票。芒格：“我更喜欢我们的体系，我们比 Teledyne 更像慈祥的叔叔。”
+q: Breaking it up into several companies, I’m convinced, would produce a poorer result. ||| Certainly now, and I believe in the future.
+q: But he started as a conglomerate where he was very interested in reporting higher earnings all the time ||| like a great chess player should.
+q: But he was — to some extent, he looked at the shareholder group as somebody to be taken advantage of ||| sell it to us for more than it was worth.
+q: It was the wrong stock. But he was an enormously talented man ||| We’re more avuncular than Teledyne was.
+zh: （巴菲特：）我确信，把它拆成几家公司只会产生更差的结果。现在肯定如此，我相信将来也是。（芒格：）但他起初经营的是一家企业集团，他非常热衷于不断报告更高的盈利，好让这个“菊花链”持续下去。而在下行时管理公司，他坚持不懈且非常合乎逻辑地回购股票，就像一位伟大的棋手应该做的那样。（巴菲特：）但他——在某种程度上——把股东群体视为可以利用的对象，他疯狂地发行股票。我敢打赌他至少做了 50 次收购……他想用一只定价非常高的股票。他玩的是 60 年代的游戏，而我们从未想参与那种游戏。……他基本上要进入第三阶段——先以高估价格发行股票，再以严重低估的价格买回，然后他还要——（芒格：）——以高于其价值的价格卖给我们。……那是只错误的股票。但他是个极有天赋的人，那种冷静的理性值得钦佩。我更喜欢我们的体系。我们比 Teledyne 更像慈爱的叔叔。
+l: 高估时发股、低估时回购是理性的资本配置，但若以牺牲股东为代价“玩股票”，就不是伯克希尔的做法；评估管理层要同时看能力与对股东的态度。
+r: 4/4/4
+
+@ 2013-M38
+t: 运气与时代：今天出生在美国的婴儿是有史以来最幸运的人
+s: BM
+th: 人生智慧; 宏观与社会
+k: america
+c: 回应比尔·格罗斯“他们这代投资人的成功很大程度上归于时机”：巴菲特承认生在美国是巨大优势，生为男性也是——1930 年出生的女性不可能有他那样的机会；1929 年股灾后十多年人们厌恶股票，这是有利环境。但“我羡慕今天在美国出生的婴儿，从概率上讲，那是有史以来最幸运的人”；今天出生、对投资有热情的人 20 年后很可能做得很好。芒格：你早年的竞争非常弱，现在没那么弱了，我们确实从时机中获益，但不代表以后无事可做。巴菲特反驳：2008-09 年有成千上万高智商专业人士，你在每日期刊投资的股票已涨了三四倍。芒格：可我等了很多年才出手；你刚认识我时被机会淹没，缺的是钱。巴菲特：“现在我们有钱了，却没有主意。”
+q: Yeah, there’s no question that being born in the United States was a huge, huge, huge advantage to me ||| that I’ve had if I’d been a female born in 1930.
+q: But, it— I envy the baby that’s being born today in the United States. ||| that’s the luckiest individual that’s ever been born.
+q: The person that has a passion for investing, born today ||| is likely, in my view, to do very well
+q: Well, the competition was very weak in your early days ||| And I don’t think that means there’s nothing to be done ahead.
+q: But I sat for a lot of years before I did it. ||| Well, now we’ve got money and no ideas.
+zh: （巴菲特：）毫无疑问，出生在美国对我是一个巨大、巨大、巨大的优势，而且正如我在最近一篇文章里指出的，生为男性也是一大优势。如果我是 1930 年出生的女性，我在投资界或商界远不可能拥有我所拥有的机会。……但我羡慕今天在美国出生的婴儿。我是说，从概率上讲，那是有史以来最幸运的人。……今天出生、对投资怀有热情、20 年后长大成人的人，在我看来很可能会做得非常好。（芒格：）嗯，你早年的竞争非常弱，我认为现在的竞争没那么弱了。所以我认为，我们当然从时机中获得了优势。但我不认为这意味着未来没什么可做的。……（芒格：）但我在出手之前坐等了很多年。（巴菲特：）但机会还是出现了。（芒格：）哦，是的。但我刚认识你的时候，你被机会淹没了。（巴菲特：）可惜我没有被钱淹没。（芒格：）不，你缺的是钱。（巴菲特：）是啊。现在我们有钱了，却没有主意。
+l: 承认运气，但不要因此低估未来：竞争更激烈了，可危机仍会周期性地把机会送到有耐心、有准备的人面前。
+r: 3/3/4
+rel: 1997-M28
+
+@ 2013-M39
+t: 只在自己喜欢的事上取得成功：找到让你兴奋的工作
+s: BM
+th: 人生智慧
+k: life
+c: 30 岁的提问者问给 50 年前的自己什么建议。芒格：我们老派到陈腐——坚持不懈、保持理性、保持精力，所有古老的美德依然有效；你得在让你兴奋的地方工作，“我从未在不喜欢做的事情上取得过多大成功”。巴菲特：我们很幸运，很早就找到了喜欢做的事，然后努力去做，同时乐在其中，“经营伯克希尔太有趣了，几乎是一种罪过”。
+q: We think you ought to keep plugging along and stay rational and stay energetic ||| I have never succeeded to any great extent in something I didn’t like doing.
+q: It’s really — I mean, if you’re lucky ||| We have had so much fun running Berkshire, I mean, it’s almost sinful.
+zh: （芒格：）我们认为你应该坚持不懈、保持理性、保持精力充沛，所有古老的美德依然有效——（巴菲特：）但要找到让你兴奋的东西。（芒格：）你得在让你兴奋的地方工作。我不知道沃伦怎样，但我从未在任何不喜欢做的事情上取得过多大的成功。……（巴菲特：）如果你幸运的话——查理和我在这方面很幸运。我们很幸运生在这个国家，而且我们很早就找到了喜欢做的事，然后非常努力地去做，但做的时候乐在其中。我们经营伯克希尔太有乐趣了，简直是一种罪过。
+l: 长期卓越来自热爱驱动的持续投入；选择职业时把“是否真正喜欢”放在首位。
+r: 3/2/4
+rel: 2008-A27
+
+@ 2013-A03
+t: 不按数字买股票：看的是企业，而不是股票的指标
+s: BM
+th: 投资方法; 企业估值
+k: stock_as_business
+c: 被问五大量化指标及理想数值：巴菲特说我们看的不是股票的特征，而是企业的特征——买 100 股还是整家公司，都当企业看。不同行业看重的数字不同，就像篮球教练找 7 英尺高的球员。积累的行业知识让某些东西“向我们喊话”；买美国银行优先股的点子不是在浴缸里想出的，而是 50 年前读《一家银行的传记》后持续跟踪的结果。不是因为算出某个精确的市盈率或市净率，而是“我对这家公司五年或十年后的样子有一些概念，对这个判断有合理的信心，而价格和价值之间存在巨大差距”。芒格：我们不知道如何仅凭财务数据和比率买股票，从不用电脑筛选；对伯灵顿北方 15 年后的竞争优势有高度信心，对苹果则无论财报如何都不会有这种信心；“你必须理解公司及其竞争地位，以及它为什么是这样，而这些往往不是数学能揭示的。”巴菲特：如果只按数字管钱——芒格：“你会做得很差。”
+q: Well, we’re looking at quantitative and quality — we aren’t looking at the aspects of the stock ||| We always think of them as businesses.
+q: But on balance, we would say, “Well, good luck, son, but, you know, we’re looking for 7-footers.” ||| But we see certain things that shout out to us, look further or think further.
+q: And it’s not because I calculate some price ||| and there’s a disparity in price and value, and it’s big.
+q: We don’t know how to buy stocks just by looking at financial figures ||| but we need to know more about how the company actually functions.
+q: We think that the Burlington Northern will have a computer ||| We would never have that degree of confidence about Apple, no matter what their financial statement showed.
+q: People with very high IQs who are good at math ||| You’d do it poorly.
+zh: （巴菲特：）我们看的是定量和定性——我们看的不是股票的特征，我们看的是企业的特征。拥有这种心态非常重要：我们是在买企业，无论买的是某家公司的 100 股还是整家公司。我们始终把它们看作企业。……但总的来说，我们会说：“祝你好运，孩子，但我们要找的是 7 英尺高的人。”……但我们会看到某些向我们大声呼喊的东西：再深入看看、再深入想想。……而且这不是因为我计算了某个精确的市盈率或市净率之类的东西。而是因为我对这家公司五年或十年后可能的样子有一些概念，我对这个判断有合理的信心，而价格和价值之间存在差距，而且很大。（芒格：）我们不知道如何只看财务数据、根据比率做判断来买股票。我们可能会受到一些数据的少许影响，但我们需要更多地了解公司实际是如何运作的。……我们认为伯灵顿北方 15 年后会拥有竞争优势，并且对此有很高的信心。无论苹果的财务报表显示什么，我们都永远不会对它有那种程度的信心。……智商很高、擅长数学的人自然会寻找一种只看数学就知道买哪只证券的系统。没那么简单。你真的必须理解这家公司及其竞争地位，以及它的竞争地位为何如此，而这往往不是数学所能揭示的。（巴菲特：）……这不是我从本·格雷厄姆那里学到的，尽管把股票视为企业、对市场的态度等基本原则，绝对仍是教义的一部分。但我不知道如果只靠数字我会怎样管钱——（芒格：）你会做得很差。
+l: 量化筛选只是起点；真正的判断来自对行业的长期积累和对未来五到十年企业样貌的把握，以及价格与价值之间的“大差距”。
+r: 5/5/5
+rel: 2003-A02, 1995-M21
+
+@ 2013-A04
+t: 不理会“新常态”：因为预测不知道的东西而忽视已知的东西，简直愚蠢
+s: BM
+th: 投资理念; 市场周期
+k: no_forecast
+c: 被问是否认同格罗斯“新常态”下回报大降的观点：巴菲特说我们不关注宏观预测，合作 54 年从没在一次买股或收购决策中讨论过宏观；我们不知道，也认为别人也不知道。真正知道的是：BNSF 10 年、20 年后运量会更大，服务无可替代，西部和东部各有两条重要铁路，资产重置价值惊人，会获得公平回报。“因为对你不知道的——或者没人知道的——事情的预测而忽视你知道的东西，在我们看来简直愚蠢。”只要买好企业且不付太高价格，持有 10 年、20 年、30 年都会很好；按预测择时买卖，只会让经纪人赚钱。芒格：我们钱多，不管外部环境如何都要做自己的事；但对考虑是否再工作两年的外科医生，“新常态”值得关心，我会建议他多工作两年——某种程度上我同意格罗斯，未来回报会低于我们这一生的水平。巴菲特：“那就各取所需吧。”
+q: Yeah, Charlie and I don’t pay any attention to macro forecasts. ||| where we’ve talked about macro.
+q: What you do know, with a very high degree of certainty, in my view, is that BNSF ||| it’s just plain silly.
+q: My own guess is that people will do very well owning good businesses ||| and not so well for themselves.
+q: If you’re a busy surgeon and trying to decide whether to work two more years before you retire ||| In other words, I kind of agree with Bill Gross.
+zh: （巴菲特：）是的，查理和我从不理会宏观预测。我们已经合作了 54 年，我想不起有哪一次我们在对一只股票或一家公司做决策时讨论过宏观。……在我看来，你非常确定知道的是：BNSF 在 10 年、20 年后会运送更多车皮；它提供的服务没有替代品；西部会有两条重要铁路，东部也会有两条；它们拥有重置价值惊人的资产，没人能造出类似的东西；而且它们会为所做的事获得合理报酬。这并不复杂。而因为对你不知道的——或者没有人知道的——事情的预测而忽视你知道的东西，在我们看来简直愚蠢。……我自己的猜测是，人们只要拥有好企业、且不为之付出过高价格，无论持有 10 年、20 年还是 30 年，都会做得很好。而如果他们试图通过听取对商业走势的预测来为买卖择时，他们会让经纪人赚得很好，自己却不怎么样。（芒格：）如果你是个忙碌的外科医生，正在决定退休前是否再工作两年，那么你可能会更关心——而且是理性地关心——新常态。我个人会建议这个人多工作几年。换句话说，我有点同意比尔·格罗斯。
+l: 把决策建立在可知的企业事实上，而非不可知的宏观预测上；但对个人财务规划，适当下调长期回报预期是审慎的。
+r: 5/5/4
+rel: 2012-M25
+
+@ 2013-A06
+t: 格雷厄姆给了我一套没有缺陷的基石哲学；钱主要是从十只股票上赚的
+s: BM
+th: 投资理念; 人生智慧
+k: learning
+c: 问最有影响的十本书和合伙基金持仓：巴菲特说一生大概持有过四五百只股票，但大部分钱是从大约 10 只上赚的。11 岁前读遍奥马哈图书馆所有投资书，画过 K 线，但没有形成哲学；《聪明的投资者》改变了人生——教他如何思考股票和股市，市场是为我服务而不是指导我，股票是企业的一部分而非代码。费雪和芒格告诉他同一件事：进入经济特性好、能骑上几十年的企业，而不是每天从一朵花跳到另一朵花。“我没有发现那套基石哲学有任何缺陷，你只需学会以不同方式应用它。”芒格：我的头脑是许多书的混合，已经分不清了。巴菲特：读书带来巨大好处，但读书的原因是它有趣。
+q: I’ve literally owned — I bet I’ve owned 4- or 500 names at one time or another ||| but most of the money’s been made in about 10 of them.
+q: Graham’s book gave me a philosophy, a bedrock philosophy, on investing that made sense. ||| rather than one where you had to go from flower to flower every day.
+q: I have not found any aspect of that bedrock philosophy that has flaws in it. ||| You have to learn how to apply it in different ways.
+q: We read for the enjoyment of it. ||| And, you know, it’s still fun.
+zh: （巴菲特：）我真的持有过——我敢打赌，前前后后持有过四五百只股票，但大部分钱是从其中大约 10 只上赚到的。……格雷厄姆的书给了我一套哲学，一套合乎情理的投资基石哲学。他教我如何思考一只股票，教我如何思考股票市场，他教我市场的存在不是为了指导我，而是为了服务我。他用了那个著名的“市场先生”的例子。他教我把股票看作企业的一部分，而不是股票代码或可以画图的东西。……而菲利普·费雪告诉我的和查理告诉我的是同一件事：进入一家基本经济特性良好、可以跟随几十年的企业非常重要，而不是每天不得不从一朵花飞到另一朵花。……我没有发现那套基石哲学有任何缺陷。你必须学会以不同方式去应用它。……我们读书是为了享受。我是说，它给我们带来了巨大的好处，但我们读书的原因是它有趣。而且它现在仍然有趣。
+l: 投资收益高度集中于少数伟大决策；先建立一套正确的基本哲学，再在实践中不断学习它的新用法。
+r: 4/4/4
+rel: 2004-M17, 2008-A27
+
+@ 2013-A12
+t: 遇到伟大企业要“咬牙多付一点”：为最后 5% 的价格痛苦是常态
+s: BM
+th: 企业估值; 资本配置
+k: quality
+c: 被问亨氏收购如何判断合理价格：巴菲特说我们通常觉得付多了，但企业和管理层太有吸引力，于是“咬着牙”接受价格；没有完美的数学公式。回头看，买下后依然伟大的企业，当初多付很多也仍是好决策。如果有机会买一家能长期获得异常高资本回报、最好还能以高回报投入更多资本的企业——那是最好的企业——“你也许应该稍微伸展一下”。喜诗糖果就是芒格说“看在上帝的份上，沃伦，签支票吧”。芒格：几乎每次都这样，现代价格不便宜。巴菲特：协议收购中卖方可以选择卖或不卖、挑时间，股票市场是拍卖市场，会发生疯狂的事（如闪崩），所以股市能提供协议收购中永远见不到的机会；但现金不断涌入时，更想部署在可以永远持有的伟大企业。芒格：如果我们固守早期模式、从不学习，就不会做得很好；“人生的游戏是一场永不停止的学习游戏，至少如果你想赢的话。”
+q: Well, we usually — we usually feel we’re paying too much. ||| that we gag and we get there on the price.
+q: Looking back, when we’ve bought wonderful businesses that turned out to continue to be wonderful ||| And you probably should stretch a little.
+q: We did that with See’s Candy. ||| I was the one that was suffering.
+q: The stock market will offer you opportunities for profit, percentage-wise ||| So you will see opportunities in the stock market that you’ll never really get in the business market.
+q: No. It — we’re sort of in a different mode now ||| At least it is if you want to win.
+zh: （巴菲特：）我们通常——我们通常觉得自己付多了。……但我们觉得这家企业、管理层、我们的合作伙伴太有吸引力了，于是我们咬着牙在价格上达成一致。……回头看，当我们买下的出色企业后来依然出色时，我们当初本可以多付很多钱，而那仍然会是很棒的商业决策。但你永远无法百分之百确定。……一般来说，如果你有机会买下一家出色的企业——我指的是其经济特性让你高度确信它会长期获得不同寻常的、异常高的资本回报，更好的是，如果它还有机会以高回报率投入更多资本——那是所有企业中最好的。你大概应该稍微多出一点。……我们买喜诗糖果时就是这样。查理是那个说“看在上帝的份上，沃伦，签支票吧”的人。我才是那个受折磨的人。……股票市场会给你提供一些按百分比计算的获利机会，那是你在协议收购企业中永远看不到的。在协议收购中，你几乎总是在和一个可以选择卖或不卖、可以挑选出售时机的人打交道。股票市场是拍卖市场，疯狂的事情会发生。……所以你会在股市中看到在企业并购市场中永远得不到的机会。（芒格：）不，我们现在算是处在一种不同的模式中，这里有一个重大教训：如果我们固守早期的模式，如果我们从未学习，我们就不会做得很好。人生的游戏是一场永无止境的学习游戏。至少如果你想赢的话是这样。
+l: 对真正伟大的企业，价格上的小幅让步远不如错过的代价大；股票市场的定价错误往往比私下谈判的收购更大，两条渠道应各取所长。
+r: 5/5/5
+rel: 2002-A33, 1997-A29
+
+@ 2013-A13
+t: 金融危机中的财政刺激是必要的；国债的真正危险是印钞比自律更容易
+s: BM
+th: 宏观与社会
+k: crisis
+c: 被问如何支持让国债升至 16 万亿美元的政府：巴菲特说过去四年的赤字与财政刺激，相对于他一生中最大的恐慌对经济的威胁是恰当的——通用电气都要打电话向伯克希尔要钱，房利美房地美被接管，货币基金三天被提走 5%；真正的问题是如何退出，但比 2008 年就搞紧缩要好。小布什 2008 年 9 月说出了“史上最伟大的十个经济学单词”：“If money doesn’t loosen up, this sucker could go down.”二战后国债/GDP 比现在还高，国家表现极好；真正危险是债务持续增长、印钱比自律更容易，但“这远不是我们国家最艰难的时刻”。芒格：“如果你没有感到困惑，我认为你没有很好地理解它”；表外的未来承诺比账面债务还大；“只要人均 GDP 每年增长 2%，我们所有的问题都微不足道。”
+q: The amount of deficit spending in the last four years ||| and we were the last stop.
+q: But George Bush went out there in September of 2008 and said ||| I mean, that is a man that knew how to get to the point.
+q: But, you know, we came out of World War II with a debt higher ||| I mean, this is not our country’s toughest hour, by a huge margin.
+q: And I also think that our current problems are quite confusing. ||| In fact, if you aren’t confused, I don’t think you understand it very well.
+q: Of course — that’s the great problem. All of our problems are trivial ||| All these problems that the Republicans are screaming about fade into insignificance if we can do that.
+zh: （巴菲特：）过去四年的赤字支出规模、所提供的财政刺激规模，相对于我一生中最大的恐慌对经济构成的威胁，我认为是相当恰当的。我是说，当时的情形是，伯克希尔·哈撒韦接到电话是因为通用电气需要钱，而我们是最后一站。……但乔治·布什在 2008 年 9 月走出来说：“如果钱不松动，这玩意儿可能会垮掉。”我是说，那是一个懂得切中要害的人。……但我们走出二战时的债务——总债务或净债务——相对 GDP 比现在更高，当时人们因此预言会发生可怕的事，而这个国家表现得极为出色。真正的危险是它一直增长下去，印钱变得比保持自律更容易。但我们遇到过比现在糟糕得多的问题。我是说，这远不是我们国家最艰难的时刻。（芒格：）而且我也认为我们当前的问题相当令人困惑。事实上，如果你不感到困惑，我认为你没有很好地理解它。……（芒格：）当然——这就是那个大问题。只要人均 GDP 每年增长 2%，我们所有的问题都是微不足道的。共和党人大声疾呼的所有这些问题，只要我们能做到这一点，都会变得无足轻重。
+l: 判断宏观风险要放到历史尺度上衡量；危机中政府“最后贷款人”的行动是投资者敢于逆势的底气，而长期真正值得警惕的是通胀式“印钞”。
+r: 3/2/3
+rel: 1995-A42, 2009-M22
+
+@ 2013-A15
+t: 指数基金的意义不是买对时机，而是避免在错误的时候买错误的股票
+s: BM
+th: 投资方法; 投资心理
+k: index
+c: 被问买 20 家最好的美国公司能否跑赢指数：巴菲特说这 20 家多半与指数结果差不多。真正的区别——格雷厄姆在书里讲过——在于是愿意花大量时间成为企业专家的人，还是忙于其他职业但想持有股票的人；后者的真正问题是会在错误的时候对股票兴奋。“随时间买入指数基金的意义不在于在正确的时间买正确的股票，而在于避免在错误的时间买错误的股票。”业余投资者没什么不对，有一条非常合乎逻辑且有利可图的路：以广泛分散的方式买入美国企业、分批投入。芒格：知道自己能力的边界非常重要，如果你以为自己知道的比实际多，就是在自找大麻烦——在婚姻中也一样。
+q: But the real distinction — and Graham made this in his book, basically ||| and that is simply to buy into American business in a broadly diversified way and put your money in over time.
+q: Well, I have nothing to add. I do think it’s — that knowing the edge of your own competency is very important. ||| If you think you know a lot more than you do, well, you’re really asking for a lot of trouble.
+zh: （巴菲特：）但真正的区别——格雷厄姆在他的书里基本上讲过——在于：一种人会花相当多的时间成为企业方面的某种专家，因为股票就是企业；另一种人忙于其他职业，想持有股票，而且实际上会在股票上做得很好。但他们真正的问题是，可能会在错误的时候对股票兴奋起来。你知道，随着时间推移买入指数基金，其理念不是在正确的时间买入正确的股票，而是避免在错误的时间买入错误的股票。所以股票长期会表现良好，你只需避免在别人兴奋时兴奋，避免在别人追捧某些行业时追捧，避免在你没有投入时间、也没有带来专业所需的东西时却试图表现得像专业人士。如果你是业余投资者，做业余投资者没有任何问题，你有一条非常合乎逻辑、有利可图的行动路线，那就是以广泛分散的方式买入美国企业，并随时间逐步投入资金。（芒格：）嗯，我没什么要补充的。我确实认为，知道自己能力的边界非常重要。如果你以为自己知道的比实际知道的多得多，那你真是在自找大麻烦。
+l: 普通投资者的最大敌人是情绪化择时；定投宽基指数的价值在于“防错”，而非“选对”。
+r: 4/5/4
+rel: 2008-M35, 2002-M17
+
+@ 2013-A22
+t: IBM 的护城河不如可口可乐清晰；永远接受期权，永远不要给出期权
+s: BM
+th: 护城河; 风险管理; 保险与浮存金
+k: moat
+c: 被问 IBM 的护城河：巴菲特坦言对 IBM 护城河的理解不如对可口可乐、箭牌或亨氏，对其竞争地位的信心也不如对 BNSF——想不出 BNSF 会出什么问题，但能想到 IBM 的几种可能；IBM 有 750–800 亿美元的养老金资产负债，相当于旁边挂着一家大年金公司，负债比资产确定得多。芒格：全世界寿险公司开始遭受地狱般的折磨，日本承诺 3% 的利率却无法赚到。巴菲特：我们不喜欢给出期权——你总想接受期权，永远不想给出期权，而寿险业正好相反；30 年期房贷对贷款人是糟糕的工具（借款人可随时提前还），对买房者则很好，建议每个人都尽可能借 30 年房贷。一些寿险公司就像弹簧刀打斗中挨了一刀还说“你没碰到我”的人——“等你摇头试试”。
+q: Oh, IBM. Well, I would say that I do not understand the moat around an IBM as well as I understand the mode around a Coca-Cola. ||| than an IBM.
+q: I like their financial policies. ||| I could think of some things that could go wrong with IBM.
+q: Yeah. We do not like giving options in this world ||| But the life business is in just the reverse side of that.
+q: They’re kind of like the fellow in the switchblade fight ||| Well, that’s a little bit like where some of the life companies are right now.
+zh: （巴菲特：）哦，IBM。嗯，我会说，我对 IBM 护城河的理解，不如我对可口可乐护城河的理解。我认为我对它有一些理解，但我觉得自己对可口可乐、箭牌，或者说亨氏的护城河，会比对 IBM 有更强的信念。……我喜欢他们的财务政策。我认为他们的地位能长期保持强势的可能性很大，但我对此的信念程度不如对 BNSF 铁路。我是说，我很难想到 BNSF 会出什么问题，而我能想到 IBM 可能出问题的一些地方。……是的，在这个世界上我们不喜欢给出期权，而人们往往——尤其是在有销售团队推着走的情况下，就像寿险业那样——向客户给出了期权，在某些情况下让他们付出了巨大代价。你知道，你总是愿意接受期权，你永远不想给出期权。但寿险业务正好站在相反的一边。……他们有点像弹簧刀打斗中的那个人：对手用弹簧刀狠狠划了他一下，他说“你没碰到我”，对手说“等你摇头试试看”。嗯，有些寿险公司现在就有点处在那种境地。
+l: 对护城河的确信度要分级，并在仓位与价格中体现；在任何合约中都要识别谁持有期权——不要把免费期权白送给对手方。
+r: 4/4/5
+rel: 2002-A26
+
+@ 2013-A23
+t: 管理一百万和管理几百亿是完全不同的游戏：小资金要翻遍石头找小的差价
+s: BM
+th: 投资方法
+k: concentration
+c: 被问积累财富阶段与管理数十亿时的策略有何不同：巴菲特说管理 100 万美元与经营伯克希尔或 200–500 亿美元基金是完全不同的游戏；如果现在只管 100 万或 10 万，会去看非常小的东西，寻找特定情境中的小差价，“机会就在那里，而且周期性地非常惊人”。如今每年要处理 120–140 亿美元现金流入，只能找大交易。芒格：庆幸不用再处理那个问题，那时我们非常努力，翻了很多石头；他甚至用自己的所得税“浮存金”赚到足以交税的钱。
+q: Well, managing a million dollars is an entirely different game ||| And the opportunities are out there, and periodically, they’re extraordinary.
+q: Yeah, yeah. We looked under a lot of rocks ||| It was working for small amounts of money and doing it on most things.
+zh: （巴菲特：）管理一百万美元，与经营伯克希尔·哈撒韦、或者管理一只两百亿或五百亿美元的基金，是完全不同的游戏。如果查理和我现在管理一百万美元或十万美元，我们会去看——很可能是一些非常小的东西。我们会在某些特定情形中寻找小的差价。机会就在那里，而且周期性地，它们非比寻常。……（巴菲特：）是的，是的。我们翻过很多石头——（芒格：）我过去常用我自己所得税的浮存金赚取高回报。从拿到钱到把它交给政府之间，我经常赚到足以缴税的钱。那是小额资金的做法，而且大多数事情都这么做。
+l: 规模是收益率的敌人；小资金投资者的优势在于可以去大机构看不到的小角落“翻石头”。
+r: 3/4/4
+rel: 1999-M16, 2007-M27
+
+@ 2013-A24
+t: 不按国家或类别投资：只要以有吸引力的价格买入好企业
+s: BM
+th: 投资方法; 投资理念
+k: circle
+c: 被问是否投资新兴市场和中国：巴菲特说我们从不从新兴市场或具体国家出发，从没在早上讨论过“现在投巴西、印度或中国是好主意”这类话题——我们知道我们的强项不在那里，大多数人的强项可能也不在。我们愿意买海外资产（中石油、比亚迪），但如果只能投资美国也不算多大困难。芒格：搞一大堆类别是兜售投资建议的好方法——佣金多、建议多、动作多；很多东西我们觉得没有足够优势就不玩。巴菲特：听到有人谈任何概念，包括按国家划分的概念，我们倾向于认为他们更擅长推销而不是投资；“要做的就是找到一家价格有吸引力的好企业，然后买下它。”芒格：“我们的专家很喜欢玻利维亚。”“去年你们喜欢斯里兰卡。”
+q: Yeah. We don’t really start out looking to either emerging markets or specific countries ||| I mean, it sounds good, but I don’t really think it’s the best way to look at investments.
+q: Yeah. It’s a great way to sell investment advice ||| we don’t feel we’ve got enough of an edge so that we want to play.
+q: Yeah. When we hear somebody talking concepts ||| The thing to do is just find a good business at an attractive price and buy it.
+zh: （巴菲特：）是的，我们从不以新兴市场或特定国家之类的东西作为出发点。……我们不认为那是我们的强项所在。我们知道我们的强项不在那里。而且我们认为，大多数人的强项可能也不在那里。我是说，这听起来不错，但我真的不认为那是看待投资的最佳方式。（芒格：）是的，搞一大堆不同的类别，是兜售投资建议的好方法：大量佣金、大量建议、大量动作。而很多东西我们只是觉得自己没有足够的优势，所以不想参与。（巴菲特：）是的。当我们听到有人谈论任何类型的概念，包括按国家划分的概念之类，我们倾向于认为他们在推销上可能比在投资上做得更好。……要做的就是找到一家价格有吸引力的好企业，然后买下它。
+l: 自上而下的“国家/主题配置”多是销售话术；投资决策应从具体企业和价格出发。
+r: 4/4/4
+rel: 2009-A10
+
+@ 2013-A28
+t: 识别财务造假：人会露出“马脚”；会计并非精确科学
+s: BM
+th: 会计与财务; 管理与治理
+k: accounting
+c: 被问如何从报表中识别造假：巴菲特说无法识别全部，但有些会自己跳出来——人会露出“马脚”，就像扑克里的 tell；收购企业时评估卖方至关重要，只需在作出肯定决定的那些人身上判断正确。保险公司在上市前一两年准备金可疑地下降；但给不出 40 项检查清单。芒格：有人推销只承保“水下混凝土建筑”火险的公司，说“就像从婴儿手里拿糖”——立刻知道是骗局；很多人并非故意造假，而是自欺，他们相信自己说的话。巴菲特：“如果你有疑虑，就算了。”会计披露越来越多，但今天的报表未必比 30–40 年前更有用；大银行报表难懂得多；通用再保险有 2.3 万份衍生品合约，花了约 4 亿美元才搞清楚；同一审计所为合约两端的公司给出不同估值。芒格发明了一类资产：“够不着时才是好的（Good until reached for）”。所罗门曾有一个“轧差数字”被插了十年，安达信也没搞清。
+q: Well, it varies just enormously over the years ||| We just have to be right about the ones where we make an affirmative decision.
+q: But there’s a million different ways. ||| They give themselves away.
+q: A lot of it, they’re not being deliberately fraudulent, because they’re deluded. ||| If you’ve got doubts, forget it.
+q: It’s interesting. The accounting — they worked harder and harder ||| as useful as I found them 30 or 40 years ago.
+q: I mean, we bought a company that — Gen Re — where they had 23,000 derivative contracts. ||| I said, “Good until reached for.”
+zh: （巴菲特：）这些年来差别非常大，但——我们无法识别 100% 的欺诈，或 90%、80%，但有一些会向你跳出来——人们也常常自己露馅。我是说，打扑克时人们说“马脚”。查理和我买过很多企业，买的时候准确评估卖方的为人非常重要。因为他们把股票交给我们，我们给他们一大笔钱，然后指望他们在拿到钱后仍像以前一样热情地经营企业。所以我们在评估人。我们不认为能准确评估每一个人。我们只需在做出肯定决定的那些人身上判断正确。……但方法有上百万种。我不敢说知道所有方法，但这些年我见过足够多的情形，见过推销者如何行事。你能认出某些以这样或那样方式在数字上玩把戏的人。他们会露馅。（芒格：）很多人并不是故意欺诈，因为他们是自欺。换句话说，他们相信自己说的话。（巴菲特：）是的，人们喜欢雇他们做销售员。如果你有疑虑，那就算了。……有意思的是，会计界越来越努力地制定披露规则。而我不确定我觉得现在的财务报表比三四十年前更有用，在某些情况下甚至不如那时有用。……我们买了一家公司——通用再保险——它有 23,000 份衍生品合约。查理和我就算一天 24 小时工作，再有 10 到 20 个数学博士帮忙，也还是搞不清发生了什么。我们花了大约 4 亿美元才弄明白……（芒格：）而会计师已经认证了资产负债表。……那是一种新型资产，我给它起了个名字：“伸手去拿之前都是好的。”
+l: 识别欺诈靠对人的判断与经验积累而非清单；对复杂的金融报表与衍生品，保持“看不懂就不碰”的纪律，有疑虑就放弃。
+r: 4/4/4
+rel: 2002-M20, 2002-A26
