@@ -1,0 +1,255 @@
+# 2002 年股东大会（5 月 4 日）
+
+@ 2002-M14
+t: 什么时候卖出：重新评估了企业的经济特征
+s: B
+th: 投资方法; 护城河
+k: holding
+c: 卖出不是天性。40 年前卖出全是因为找到了更便宜的东西——那时点子比钱多；现在钱比点子多，卖出主要是因为重新评估了企业的经济特征：不认为它会陷入灾难，而是认为其竞争优势没有买入时以为的那么强。典型例子是报纸：1970 年他们认为报纸是最坚不可摧的特许经营权之一，到 2002 年已不同；1965 年的电视网络台也一样。这类认知的改变是渐进的，也未必正确。
+q: Forty years ago my sales were all because I found something that I liked even better. ||| Now I’ve got more money than ideas, and that’s a different equation.
+q: So now we sell — really when we think that we’ve — when we’re reevaluating the economic characteristics of the business. ||| we thought it was — when we initially made the decision.
+q: I mean, in 1970, Charlie and I were looking at the newspaper business. ||| We do not think the franchise of a network television station in 2002 is the same as it was in 1965.
+zh: 四十年前，我卖出全是因为找到了更喜欢的东西。我讨厌卖出，但我也不想借钱，所以我会勉强卖掉我认为非常便宜的东西，去买更便宜的东西。那时我的点子比钱多。现在我的钱比点子多，这是另一个等式了。所以现在我们卖出，真的是在我们重新评估企业的经济特征时……我们可能不再认为它们的竞争优势像我们最初做决定时所认为的那样强。……1970 年，查理和我研究报纸业，我们觉得它几乎是能找到的最坚不可摧的特许经营权。我们仍然认为这是一门相当好的生意，但不认为 2002 年的特许经营权还和 1970 年一样。我们也不认为 2002 年电视网络台的特许经营权和 1965 年一样。
+l: 卖出的理由应是“护城河判断变了”或“有明显更好的机会”，而不是价格波动。持续追问：这家企业的竞争优势比我买入时更强还是更弱？
+r: 4/5/4
+rel: 2001-A13, 2002-M28
+
+@ 2002-M15
+t: 浮存金的成本比规模更重要
+s: BM
+th: 保险与浮存金
+k: insurance
+c: 浮存金像油田：每天都在赔付流出，问题是你当天发现的油是否多于产出。伯克希尔 370 亿美元浮存金久期长、自然流失少，但依然在流失。告诉保险经理“去大力增长”在商业上是自杀。2001 年浮存金成本约 12.8%，“我们没办法用 12.8% 的钱赚钱”；若能零成本获得，就能赚大钱。芒格：以很低成本快速增长浮存金几乎不可能，但我们还是打算做到。巴菲特：两个变量中最重要的是成本——零成本拿到 370 亿，还赚不到钱就是我们的耻辱。
+q: Yeah, in a sense, float is somewhat similar to being in the oil business. ||| did you find more oil than you produced that day?
+q: But I think it’s suicide, from a business standpoint, to tell a bunch of insurance managers to go out and grow a lot. ||| But I think it’s suicide, from a business standpoint, to tell a bunch of insurance managers to go out and grow a lot.
+q: That float did us no good last year at all. ||| We will make a lot of money if we can obtain a float at no cost, as we did in the first quarter.
+q: Yeah, I think the questioner realizes that growing float at a good clip, with very low costs, is extremely difficult. ||| So the important thing is the cost of the float and not the size of the float
+zh: 某种意义上，浮存金有点像石油生意。每天都有一些因支付理赔而流出，问题是：你当天发现的油是否比你开采的多？……我认为从商业角度讲，告诉一群保险经理出去大幅增长，无异于自杀。……那笔浮存金去年对我们毫无好处。它在 2001 年让我们亏了很多钱，因为它的成本大约是 12.8%，而我们没办法用 12.8% 的钱赚钱。如果我们能像第一季度那样零成本获得浮存金，就会赚很多钱。（芒格：）我想提问者意识到，以很低的成本快速增长浮存金极其困难。它几乎不可能，但我们还是打算做到。（巴菲特：）在两个变量中，最重要的是专注于以极低成本获得它。如果我们以零成本或极低成本获得 370 亿美元，却没能用它赚钱，那是我们的耻辱。……所以重要的是浮存金的成本，而不是浮存金的规模。
+l: 分析保险公司先看承保利润（浮存金成本），再看规模；用增长指标激励保险经理会导致低价承保。
+r: 4/4/4
+rel: 1994-M55, 2002-A18
+
+@ 2002-M17
+t: 普通人怎么买指数基金：宽基、低费、分批、长期
+s: BM
+th: 投资方法; 市场周期
+k: index
+c: 选最宽的指数（如标普 500），费用要极低（如先锋），在 20–30 年里大致等额投入，不要一次性投入。买指数基金就是承认“我认为美国企业长期会表现不错，但我不知道如何挑选赢家，也不知道如何挑选时机”，这没什么错。没有任何单一指标——市盈率、市净率、市销率——能告诉你现在是不是买股票的好时候，否则就太容易了。一旦开始想“这次买小盘、下次买大盘、或者某个外国市场”，就进入了你不具备能力的游戏。芒格：股票有可能贵到买指数也回报平平，并长期停留在那里；日本指数 13 年回报为负，这在美国也可以想象。巴菲特：但若所有利率都很低，你只是生活在一个资本回报普遍较低的不同世界。
+q: If I were going to put money into an index fund in relatively equal amounts over a 20 or 30-year period ||| because it’s just a matter of math.
+q: because the very nature of index funds is that you are saying ||| I don’t know enough to pick the winning times.
+q: there’s no single metric I can give you, or that anybody else can give you ||| It couldn’t be that easy when you think about it.
+q: But I think if you start getting beyond that ||| you’re not equipped to play, in all candor.
+q: Well, in Japan, where something like this happened ||| I think the answer is yes.
+zh: 如果我要在 20 或 30 年里以大致相等的金额投资指数基金，我会选一只——我知道先锋的成本很低……我会非常注意费用，因为他们为你做的只是买下那个指数。……指数基金的本质就是你在说：我认为美国企业在很长时期内会表现得不错，但我懂得不够多，挑不出赢家，也挑不出好时机。……没有任何单一的指标——我能给你的，或任何人能给你的——能告诉你现在是买股票的好时机还是坏时机。……它不是这样运作的，这是一门更复杂的生意。想想看，它不可能那么容易。……但我认为一旦你开始越出这个范围——开始认为这次应该买小盘股、那次买大盘股，或者买这个外国股票——一旦你这么做，坦白讲，你就进入了一场你不具备能力去玩的游戏。（芒格：）在日本，类似的事情发生了，持有一个不错的指数过去 13 年左右的回报是负的。这种可怕的事会在这里发生吗？可以想象吗？我认为答案是肯定的。
+l: 不懂选股就买宽基低费指数，并用时间分散入场点来对冲“不会择时”；不要在指数之间来回切换。也要接受高起点估值可能带来长期低回报。
+r: 4/5/4
+rel: 2004-M31, 2008-M35, 2014-M16
+
+@ 2002-M19
+t: 估值没有公式：所有现金都一样花，关键是哪门生意能产生它
+s: BM
+th: 企业估值; 投资理念
+k: iv
+c: 一个行业相对标普的“合适市盈率”取决于它的 ROE 以及增量资本的增量回报。人们总想要公式，以为《聪明的投资者》里有个能代入数字的小公式，现实并非如此。你要做的是估算企业从现在到“审判日”产生的全部现金，以合适的利率折现，再以低得多的价格买入；无论钱来自银行、互联网公司还是砖厂，花起来都一样。银行并非同质：有的几十年不冒风险赚 2% 的资产回报，有的被人带进坟墓——“银行比银行家多”。芒格坦承：我们低估了银行业的整体好结果，因为太害怕非银行家掌管银行时会干什么——“我们没诊断对，更糟的是我们没改变。”
+q: People always want a formula. ||| And it really doesn’t work that way.
+q: What you’re trying to do is look at all the cash a business will produce between now and judgment day ||| the money all spends the same.
+q: I would argue that Warren and I have failed to properly diagnose banking. ||| because we were so afraid of what non-bankers might do when they were in charge of banks.
+q: No, I say again, we didn’t diagnose it as it actually turned out and, even worse than that, we haven’t changed. ||| And even worse than that, we won’t.
+zh: 人们总是想要一个公式。他们读《聪明的投资者》，以为某处会给他们一个小公式，把数字代进去就知道能赚很多钱。现实并不是这样运作的。你要做的，是看一家企业从现在到审判日将产生的全部现金，以一个合适的利率折现，然后以比这便宜得多的价格买下它。无论钱来自银行、互联网公司还是砖厂，钱花起来都一样。（芒格：）我会说，沃伦和我未能正确诊断银行业。我认为我们低估了将会发生的普遍良好结果，因为我们太害怕非银行家掌管银行时可能做的事。……我再说一遍，我们没能按实际结果那样诊断它，更糟的是，我们没有改变。（巴菲特：）更糟的是，我们也不会改变。
+l: 拒绝用“行业相对市盈率”这类捷径；估值永远是现金流的折现，区别在于你能否看清这门生意未来的现金。承认自己系统性的偏见（如对银行的过度谨慎）同样重要。
+r: 5/4/4
+rel: 2002-M26, 1994-M53
+
+@ 2002-M20
+t: 谈 EBITDA 的人里骗子比例高得多；折旧是最糟的一种费用
+s: BM
+th: 会计与财务; 管理与治理
+k: accounting
+c: 芒格：没有简单方法避免被骗，聪明人会刻意或被文化裹挟着慢慢滑向欺诈；识破骗局是获得人生智慧的一部分，有些领域欺诈太多，干脆退出不玩。巴菲特：伯克希尔买入谈论 EBITDA 的公司的次数大约是零；把世界上谈 EBITDA 和不谈的人分两组，前者骗子比例高得多。沃尔玛、GE、微软的年报从没出现过这个词。谈它的人要么在骗你，要么已经骗了自己（芒格：“或者两者都有”）。折旧是你先掏钱、后拿扣除的“最糟的一种费用”，与先收钱后付款的浮存金正好相反。很多骗子看起来就像骗子：告诉你太好以至不真实的事，把平庸生意说成美妙生意；华尔街对他们毫无过滤。
+q: If you stop to think about it, enormously talented people deliberately go into fraud ||| I think there are whole fields that you can just quit playing because it looks like there’s too much fraud in it.
+q: I would say the number of times we’re going to buy into a company ||| Very substantial.
+q: so when people start talking about that sort of thing, either they’re trying to con you in some way, or they’ve conned themselves ||| Or both.
+q: you get depreciation by laying out money ahead of time. It’s the worst kind of expense. ||| It’s the worst kind of expense there is.
+q: Charlie and I have found, actually, that — at least to us — many of the crooks look like crooks. ||| they tell you very mediocre businesses are wonderful businesses for one reason or another.
+zh: （芒格：）想一想，极有才华的人会刻意走向欺诈，或因文化的裹挟逐渐滑入其中……我认为避免被欺诈之徒所骗，是获得人生智慧的一部分。……有些整个领域，你可以干脆不玩了，因为看起来那里欺诈太多。（巴菲特：）我要说，我们买入一家人们在谈论 EBITDA 的公司——无论是买股票还是买整个公司——的次数大约会是零。如果把世界上所有谈论 EBITDA 的人和所有没谈论过 EBITDA 的人分开，按比例，第一组里的骗子多得多，多出一大截。……所以当人们开始谈论这种东西，要么他们在以某种方式骗你，要么他们在很大程度上骗了自己。（芒格：）或者两者都有。（巴菲特：）……折旧是你提前掏钱才得到的，这是最糟的一种费用。我们寻找浮存金——先拿钱、后付款；而折旧是你先买资产、后得到扣除。这是最糟的一种费用。……查理和我发现，至少在我们看来，很多骗子看起来就像骗子。……他们通常告诉你一些好得不真实的事……他们把非常平庸的企业说成出色的企业。
+l: 把“强调 EBITDA、调整后利润”视为警示信号；折旧是真实的现金成本。对欺诈高发的行业直接放弃，比提高识别能力更可靠。
+r: 5/5/5
+rel: 1994-M29, 2003-A17, 2001-A14
+
+@ 2002-M25
+t: 怎样交到对的朋友：列出你欣赏的品质，然后去拥有它们
+s: BM
+th: 人生智慧
+k: life
+c: 12 岁的提问者问如何长久做朋友和伙伴。巴菲特与芒格 43 年意见不同但从未争吵。芒格：我们都认识一些非常成功却在世上没有一个真朋友的商人——“而且活该”，那不是生活之道；如果你努力成为对的人，遇到对的朋友时你会认出来，剩下的就是抓住不放。巴菲特：想想你欣赏他人的哪些品质，再问自己哪一项是身体或心智上不可能拥有的——答案是没有；令你反感的品质（吹嘘、不诚实）也会让别人反感。这些都不是基因，而是选择和习惯——60、70 岁才想改就改不掉了。富兰克林就列出他欣赏的品质，然后着手去获得。
+q: Well, that’s a wonderful question you’ve asked, because Warren and I both know some very successful businessmen who have not one true friend on earth. ||| then all you have to do is hang on.
+q: And then look at those qualities and say to yourself ||| And the answer will be none, you know.
+q: You know, very few of those things, you know, are in your DNA. They are choices. ||| And if you have habits that repel people, you’re not going to cure it when you’re 60 or 70.
+zh: （芒格：）你问了一个很棒的问题，因为沃伦和我都认识一些非常成功的商人，他们在世上没有一个真正的朋友。而且这是他们应得的。那不是生活之道。如果你问这个问题是想知道如何得到对的朋友，那你真的问到了点子上。当你和对的朋友在一起时，如果你一直努力成为对的那种人，我想你会认出你所拥有的，然后你要做的就是坚持下去。（巴菲特：）……然后审视这些品质，问问自己：“其中哪一项是我在身体上或心智上不可能拥有的？”答案会是没有。……这些东西很少是你 DNA 里的，它们是选择。它们也是习惯。如果你早年就有吸引人的习惯，以后也会有；如果你有让人反感的习惯，到 60 或 70 岁时你是改不掉的。
+l: 品格是可以“刻意获得”的资产，越早养成越好；与人合作的长期回报取决于你先成为什么样的人。
+r: 4/3/5
+rel: 2004-A30
+
+@ 2002-M26
+t: 伟大投资者是后天造就的：智商不是关键，气质与“为什么”的求知欲才是
+s: BM
+th: 投资理念; 投资心理
+k: learning
+c: 巴菲特 11 到 19 岁读遍了技术分析类书籍，没有投资哲学，也没赚到钱；1949 年读到格雷厄姆的书，把股票当作企业的一部分——这块“罗塞塔石碑”奠定了理性投资的基础，不需要高智商。需要的是脱离群体的能力、准确界定能力圈、知道自己不知道什么而不受诱惑；要对钱有兴趣，但太贪婪会压倒理性；要隔绝大众意见。25 年来没见过有什么能改进格雷厄姆和费雪的基本方法。芒格：如果你对“为什么会这样、为什么不会那样”有强烈的求知欲，并长期保持，就会逐步提高你应对现实的能力；没有这种思维习惯，即便智商很高也注定失败。巴菲特：投资结果与智商的相关性很低；研究高智商的人为何失败，然后剔除这些因素。
+q: And I read Ben’s book in 1949 ||| But it is a Rosetta Stone, in a sense.
+q: You have to just define your circle of competence accurately. ||| But I think if you’re very greedy, it’ll be a disaster, because that will overcome rationality.
+q: It requires insulating yourself from popular opinion. ||| You’d be better off just sitting and thinking a little bit.
+q: If you have a passionate interest in knowing why things are happening ||| I think you’re destined, probably, for failure, even if you’ve got a pretty high IQ.
+q: I would say we’ve seen relatively little correlation between investment results and IQ. ||| see if you can cast them out in yourself, and leave a residual that will work.
+zh: 1949 年我在内布拉斯加大学读了本（格雷厄姆）的书，它彻底改变了我对投资的看法。它基本上告诉我，要把股票看作企业的一部分。这看起来如此显而易见，你会说为什么要把它当作罗塞塔石碑？但在某种意义上，它就是罗塞塔石碑。……你必须准确界定你的能力圈。你必须知道自己不知道什么，并且不被它诱惑。你得对钱有兴趣，否则你做不好投资；但我认为如果你非常贪婪，那将是一场灾难，因为贪婪会压倒理性。……它需要把你自己与大众意见隔离开。你根本不能——你不能理会它，它毫无意义。所以听很多人告诉你各种事情的想法，纯粹是浪费时间。你最好坐下来稍微思考一下。（芒格：）如果你怀有强烈的兴趣去了解事情为何发生，你总是试图从“为什么会这样、为什么不会那样”的角度去理解世界，这种思维习惯长期保持下去，会逐渐提高你应对现实的能力。如果你没有这种思维习惯，我认为你很可能注定失败，即使你的智商相当高。（巴菲特：）我要说，我们看到投资结果与智商之间的相关性相对很低。……研究那些高智商的人为何不成功，然后把这些因素剔除掉，看看你能否在自己身上剔除它们，留下能起作用的部分。
+l: 投资能力的核心是正确的框架（股票=企业）+ 气质（独立、不贪、知边界）+ 持续追问“为什么”。用逆向思考：研究聪明人如何失败，然后避开。
+r: 5/5/5
+rel: 2001-A31, 1998-M14
+
+@ 2002-M28
+t: 挖一条护城河要多久？快速获得的优势也可能快速失去
+s: BM
+th: 护城河; 商业模式
+k: moat
+c: 取决于行业。微软操作系统在爆炸式增长的行业里很快建立了优势；喜诗 1921 年起一家店一家店地开，不用几十年无法建立可识别的优势；可口可乐 1886 年诞生，靠几十年“一次刷一面谷仓”的广告，加上二战时艾森豪威尔要求“每个美国军人伸手就能拿到可乐”的海外装瓶厂才大扩张；NetJets 1986 年才起步，正在建立并加固优势。芒格：建立持久竞争优势的模式很多，迅速失去的模式也有——问问安达信；失去箭牌口香糖的好名声比失去安达信的难。投资的大麻烦是这些优势太明显，股价很高。巴菲特：士力架当了三四十年第一，有些东西人们满意后就不再尝试；通常能很快获得竞争优势的东西，也得担心它很快失去。
+q: On the other hand, if you go back to See’s Candy, which started in 1921 ||| in times measured shorter than decades.
+q: Yeah, there are a lot of different models that create a sustainable competitive advantage. ||| that the stocks sell at very high prices.
+q: I mean, there’s just things that you experiment a lot with, and there’re things that you don’t fool around with once you’re happy. ||| I mean, there’s just things that you experiment a lot with, and there’re things that you don’t fool around with once you’re happy.
+q: But there’s other — usually if something can gain competitive advantage very quickly, you have to worry about them losing it quickly, too. ||| where it turns out otherwise.
+zh: 另一方面，回到始于 1921 年的喜诗糖果，你无法在短于几十年的时间里建立起持久的竞争优势——至少是可以被识别的优势。（芒格：）是的，创造持久竞争优势的模式有很多，也有一些模式会让你很快失去它。问问安达信就知道了，不久前它还是美国一个很好的名字。我认为失去箭牌口香糖的好名声，要比失去安达信的好名声更难。……投资过程最大的麻烦在于，这些优势太明显了，以至于股票卖得非常贵。（巴菲特：）……有些东西你会经常尝试新的，有些东西一旦满意你就不再折腾。……通常如果某样东西能很快获得竞争优势，你就得担心它也会很快失去。……当一个行业处于变动之中时，很多人以为自己是幸存者或将会繁荣的那一个，结果却并非如此。
+l: 优势建立得越慢、越依赖消费习惯（“满意后不再尝试”），往往越持久；在快速变化的行业里，快速建立的优势同样可能快速消失。声誉类护城河可能一夜崩塌。
+r: 5/5/5
+rel: 2001-A13, 2001-A24, 1995-M25
+
+@ 2002-M30
+t: 人最擅长的是让新信息不改变旧结论：用不服从的伙伴对抗确认偏误
+s: BM
+th: 投资心理; 管理与治理
+k: psychology
+c: 人类最擅长的，就是把所有新信息解读成让既有结论保持不变——这是人人都精通的天赋。他们也因不愿重新审视而犯过大错。防范机制：如实报告自己的年报；最好的机制是一个不顺从、极其讲逻辑的伙伴。典型的公司组织恰恰相反：CEO 的观点和偏见被各种方式强化，幕僚知道你想买，就会给出推荐，无论门槛回报率是多少；董事会也很少能在 CEO 在乎的事上说不。芒格：还要愿意在很痛苦时掉头——伯克希尔可能是美国唯一在清理衍生品账簿的大公司；“说美国的衍生品会计是下水道，是对污水的侮辱。”巴菲特：让交易员能在没人能核实的纸上写数字创造收入，必然失控；最长的合约 40 年，签约者当周就拿了报酬——设计不出更糟的体系。衍生品像地狱：容易进，很难出。
+q: There’s no question, the human mind — what the human being is best at doing ||| I mean, that is a talent everyone seems to have mastered.
+q: But there — I would say a partner, who is not subservient, and who himself is extremely logical ||| probably the best mechanism you can have.
+q: I would say the typical corporate organization is designed so that the CEO opinions and biases and previous beliefs are reinforced in every possible way. ||| they’re going to come back with whatever they feel that you want.
+q: Yeah, I think it also helps to be willing to reverse course even when it’s quite painful. ||| is an insult to sewage.
+q: You give a whole bunch of traders the ability to create income by putting little numbers down on a piece of paper that nobody can really check ||| It will get out of control.
+q: I mean, it’s, you know, it’s a little like hell. ||| It’s easy to get into, and it’s hard — very hard — to get out of.
+zh: 毫无疑问，人类最擅长的事，就是解读所有新信息，以使他们先前的结论保持不变。这似乎是人人都掌握了的天赋。……我会说，一个不顺从、本人又极其讲逻辑的伙伴，可能是你能拥有的最好的机制。……我会说，典型的公司组织被设计成以一切可能的方式强化 CEO 的观点、偏见和先前信念……大多数幕僚，如果知道你想收购一家公司，你就会得到一份推荐。不管你的门槛是 15% 的内部收益率——很少有交易能达到——还是 12%……他们都会带回他们觉得你想要的东西。（芒格：）我认为愿意掉转方向，即使相当痛苦，也很有帮助。……至少在我看来，说美国的衍生品会计是下水道，简直是对污水的侮辱。（巴菲特：）你给一大群交易员这样的能力：在一张没有人能真正核实的纸上写下小数字就能创造收入，它就可能失控。它一定会失控。……这有点像地狱。很容易进去，很难——非常难——出来。
+l: 给自己建立“反确认偏误”的机制：书面复盘、诚实的报告、敢说不的伙伴。在组织中警惕被“需要什么就给什么”的分析所包围；发现错误后愿意承受痛苦去纠正。
+r: 5/5/5
+rel: 2001-A14, 2003-M38
+
+@ 2002-A05
+t: 会计是起点，但我们脑中有自己的模型
+s: B
+th: 会计与财务; 企业估值
+k: accounting
+c: 会计数字总是分析的起点，但有时反映现实，有时不。有公司用 12% 的养老金投资回报假设，有的用 6% 以下；用 12% 的公司不会比用 6% 的做得更好，用 6% 的反而可能因更现实而做得更好。所以他们从报表数字出发，但脑中有自己的模型来重构企业的真实面貌；子公司有无负债也用同一套标准看待，因为伯克希尔会偿还一切债务。
+q: And sometimes we think accounting reflects reality, and sometimes we don’t. ||| It’s a good starting point for us always
+q: But, in our minds, we don’t think the company that’s using a 12 percent assumption ||| we’ve got our own model in mind as to what they will look like.
+zh: 有时我们认为会计反映了现实，有时则不。它对我们来说总是一个好的起点……但在我们看来，我们不认为使用 12% 假设的公司在养老金上会比使用 6% 假设的公司做得更好。事实上，我们甚至可能认为用 6% 的那家更可能做得好，因为我们可能认为他们对世界更现实。所以，我们从所研究公司的数字出发，但我们心里有自己的模型，知道它们（真实情况）会是什么样子。
+l: 读财报时把激进假设（养老金回报率、折旧年限等）调回保守口径再比较；假设越乐观，越要打折。
+r: 3/4/3
+rel: 2001-M18, 2002-M20
+
+@ 2002-A09
+t: 给年迈 CEO 发期权是“疯狂的”“不道德的”：期权必须计入资本成本
+s: BM
+th: 管理与治理; 会计与财务
+k: incentives
+c: 芒格：已持有数亿美元股票、与公司彼此忠诚几十年的老 CEO，董事会每年再给他大额期权来“保持忠诚和热情”，这是疯狂的，也是不道德的——给 60 多岁的梅奥诊所外科医生发期权并不会改善他们的行为。巴菲特：伯克希尔意外地“证明”了期权的随意性：通用再保险拖累了伯克希尔的价值，其期权持有人赚的钱却超过其他所有子公司加起来。合理的期权必须内含每年的资本成本——伯克希尔不分红，凭什么免费用你的钱？把钱存进储蓄账户，10 年期固定价格期权也会大幅增值；期权行权价也不应低于内在价值。芒格引亚里士多德：当多数人认为结果公平时制度运转更好。巴菲特：CEO 手握开关，加上顾问煽风点火，薪酬棘轮式上涨；CEO 们游说国会不让期权费用化，是可耻的。
+q: He’s been loyal to the company and the company’s been loyal to him for decades ||| I think it’s demented.
+q: I don’t think you would improve the behavior of the surgeons at the Mayo Clinic ||| than whether you take another hundred million for yourself.
+q: But a logically constructed plan would have a cost of capital built into it for every year. ||| for putting the money in a savings account or in government bonds.
+q: You know, Aristotle said that systems work better when people look at the different outcomes and basically appraise them as fair. ||| it’s not good for the country.
+q: And in the end, the CEOs tend to get pretty much what they want. ||| And it’s very difficult to get changed.
+zh: （芒格：）他几十年来对公司忠诚，公司也对他忠诚，而他让董事们每年投票给他一大笔股票期权，以维持他对公司的忠诚和对事业的热情——在他已经老了的时候——我认为这是疯狂的。……我认为给梅奥诊所的外科医生或 Cravath 律所的合伙人在 60 多岁时发股票期权，并不能改善他们的行为。到那时，你应该已经有了稳定的忠诚，你应该更多地考虑为公司树立正确的榜样，而不是自己是否再拿一亿美元。（巴菲特：）但一个合乎逻辑的方案，应该每年都内含资本成本。我们不派任何股息，凭什么我们要免费从你们那里拿钱？我们可以把钱放进储蓄账户，它不需要我们做任何事也会增值。而一份 10 年期的固定价格期权，如果规模大，会让掌舵者仅仅因为把钱放进储蓄账户或国债就获得巨大价值。（芒格：）亚里士多德说过，当人们审视不同的结果并基本认为它们公平时，制度会运转得更好。当很大比例的人认为企业薪酬做法不公平时，这对国家不好。（巴菲特：）最终，CEO 们往往得到他们想要的。而他们想要的往往每年都在上涨，因为他们看到别人每年拿得更多。这里有棘轮效应，顾问们煽风点火，很难改变。
+l: 评估管理层时看期权设计：是否有资本成本、行权价是否不低于内在价值、是否奖励了与个人业绩无关的结果。薪酬“公平感”关乎企业文化与社会稳定。
+r: 5/4/4
+rel: 1996-A27, 2001-A14
+
+@ 2002-A12
+t: 投资与投机的区别：钱从资产本身产出，还是从下一个买家口袋里来
+s: B
+th: 投资理念; 市场周期
+k: speculation
+c: 除非特殊情况，我对债券的预期回报就是债券当时的收益率——我不认为自己比债券市场聪明。他对经济相关性非常警惕：年轻时把股价和世上一切都做过相关性分析。任何经济资产的价值都取决于它一生产出的现金——油田、农场、公寓都一样。投资就是现在付出一些钱，以便将来拿回更多。拿回钱有两种方式：一是资产本身的产出，这是投资；二是不论资产产出多少，别人以后愿意付给你多少，这是投机——社会从中什么也得不到，只是一群人从另一群人那里获利。泡沫中，很多东西作为投资是灾难，作为财富转移工具对某些人很棒。伯克希尔 1972 年买喜诗，成功来自之后产出的现金，而不是每天问经纪人喜诗值多少。
+q: I’m very leery of economic correlations. ||| and you know, the problem was when I found a correlation.
+q: But all investment is, is laying out some money now to get more money back in the future. ||| but one group profits at the expense of another.
+q: As investments, you know, they were a disaster. ||| they were disasters.
+q: But you just look at — every asset class, every business, every farm, every REIT ||| that just means one person is profiting against another, and that’s not our game.
+zh: 我对经济相关性非常警惕。我花了好几年摆弄这类东西，把股价与世上的一切做相关性分析。问题恰恰出在我找到了一个相关性的时候。……所有投资，不过就是现在付出一些钱，以便将来拿回更多的钱。拿回钱有两种看待方式：一种是从资产本身将产出的东西，那是投资；另一种是不管资产产出什么，别人以后愿意为它付给你多少，我称之为投机。……如果你着眼于资产本身，你就不在乎报价，因为资产本身会为你产出钱……另一种看法是明天别人会为它付你多少，即使它毫无价值。那是投机。当然，社会最终从中一无所获，只是一群人以另一群人为代价获利。……作为投资，它们是灾难；作为财富转移的手段，它们对某些人来说棒极了，而对财富转移另一边的人来说是灾难。……你就看每一种资产类别、每一家企业、每一块农场、每一个 REIT，无论是什么，问：“这个东西随着时间可能产出多少？”那就是它的价值。它在不同时候可能以截然不同的价格出售，但那只意味着一个人从另一个人身上获利，那不是我们的游戏。
+l: 每买一项资产前先问：我的回报来自它的产出，还是来自更高价的接盘者？前者是投资，后者是零和的财富转移。
+r: 5/5/5
+rel: 2002-A13, 2001-M15, 2005-A12
+
+@ 2002-A13
+t: 市场会自发形成“庞氏骗局”：看得出泡沫，却预测不了何时破裂
+s: BM
+th: 市场周期; 投资心理
+k: speculation
+c: 芒格：股价之所以难以预测，是因为流动的股票市场时不时会在某个板块或整体市场里形成庞氏骗局——人们被吸进来，因为上个月或去年奏效，价格可以涨到荒谬水平并持续相当长时间，所以即使严重高估也很难做空。巴菲特：我们一致认为是欺诈或泡沫的公司至少有一百家，做空的话现在可能已经破产，但判断大约百发百中。这不是某人设计的骗局，而是一种被推销者、投行、风投呵护的自然现象，利用人性产生自我动量，最后破灭，没人知道何时。不需要 200 的智商就能看出这种时期并让财富从别人那里转移到你手里，这不是资本主义最值得称道的一面。
+q: Yeah, what makes common stock prices so hard to predict is that a general liquid market for common stocks creates ||| and the levels can last for considerable periods.
+q: we have probably agreed on at least a hundred companies, maybe more, that we felt were frauds ||| but we were right on probably just about a hundred out of a hundred.
+q: It just — it plays on human nature in certain ways and it creates its own momentum ||| at least we don’t find it makes good sense to short those things.
+zh: （芒格：）是的，普通股价格之所以如此难以预测，是因为一个具有普遍流动性的股票市场会不时在市场某些板块或整个市场中制造出一个庞氏骗局。换句话说，有一个自动的过程：人们被吸进来，其他人因为它上个月或去年奏效而进来。它可能涨到完全荒谬的水平，而且这些水平可能持续相当长的时间。（巴菲特：）……我们可能在至少一百家公司上达成了一致，认为它们是欺诈、泡沫类的东西。如果这些年我们按此做空，我们现在可能已经破产了，但我们大概一百个里对了一百个。……它以某些方式利用人性，并产生自身的动量，最终破灭。没有人知道它何时破灭，这就是为什么你不能做空——至少我们觉得做空这些东西不明智。
+l: 认出泡沫是一种能力，预测泡沫何时破裂几乎不可能——因此正确做法是远离，而非对赌其破裂时点。
+r: 5/4/5
+rel: 2002-A12, 2001-A25, 2002-A16
+
+@ 2002-A15
+t: 日本的教训：别以为“不可想象”的事永远不会在美国发生
+s: BM
+th: 宏观与社会; 市场周期
+k: crisis
+c: 芒格：利率大幅上升当然会让股价大幅缩水；但日本的有趣之处在于，没有人想到一个拥有优秀工程、质量与创新文化的现代凯恩斯式民主国家，会在没有大萧条的情况下出现 13 年负回报，而且是在利率下降而非上升时发生——新到过去的模型完全没能预测。认为阿根廷、日本发生的事在美国永远不可想象是疯狂的。巴菲特：泡沫后的余波取决于泡沫多大、参与的人多少，不是每个人都能预测好。
+q: What’s interesting about Japan is that I don’t think anybody thought that a major modern Keynesian democracy ||| I think it’s crazy for Americans to assume that what’s happening in Argentina, what has happened in Japan, are totally inconceivable forever in America. They are not totally inconceivable.
+q: Post-bubble periods, I think, depending on how big the bubble is ||| can produce fallout that not everyone will be terribly good at predicting.
+zh: （芒格：）日本的有趣之处在于，我认为没有人想到，一个主要的现代凯恩斯式民主国家，在工程、产品质量、产品创新等方面拥有良好文化，竟会出现一个 13 年负回报、却也没有大萧条的时期。……而且这发生在利率下降而非上升的时候。我认为这太新奇了，以至于过去的模型完全没能预测到它。……我认为美国人假定阿根廷正在发生的、日本已经发生的事情在美国永远完全不可想象，这是疯狂的。它们并非完全不可想象。（巴菲特：）……泡沫之后的时期，取决于泡沫有多大、有多少人参与，可能产生并非每个人都能很好预测的后果。
+l: 不要把“美国股市长期必涨”当作物理定律；为极端但可能的长期低回报情景留出余地，避免使用会让你出局的杠杆。
+r: 4/3/4
+rel: 2002-M17, 2002-A13
+
+@ 2002-A16
+t: 格雷厄姆 1924 年就做了对冲基金：做空“十年后对、十周后错”
+s: BM
+th: 风险管理; 投资方法
+k: leverage
+c: 美联储把 A.W. Jones 视为对冲基金之父，但格雷厄姆 1924 年就设立了多空配对、按利润提成的基金，早了 30 年。格雷厄姆并不觉得这特别成功：配对大多数做对了，但四次里错的那一次亏的比三次对的平均赚的多得多。巴菲特自己做空时，从 10 年后看几乎没错过，但从 10 周后看错过——而那恰恰是相关的时间段，净资产在蒸发。A.W. Jones 在 60 年代末是宠儿，到 1979 年没人再写他；他分出去的许多人“销声匿迹”。逻辑上应可行，但数学不对称：你可以买下整家公司，却不能做空整家公司；股价上涨时你需要越来越多的钱，而已付清的多头可以静坐等待验证。
+q: But the one time out of four, or whatever it was, that he was wrong lost a lot more money than the average of the three that he was right on. ||| But the one time out of four, or whatever it was, that he was wrong lost a lot more money than the average of the three that he was right on.
+q: I can hardly think of a situation where I was wrong, if viewed from 10 years later. ||| So, it’s — all I can tell you is it’s very difficult.
+q: Logically, it should work well, but the math of only — you can’t short a lot of something. ||| but you can’t short the whole company.
+q: And you need more and more money as the stock goes up. ||| But you can’t necessarily sit and find out whether you’re right on being short a stock.
+zh: 但四次里他错的那一次（或者不管比例是多少），亏的钱比他做对的三次平均赚的多得多。……我几乎想不出哪次我是错的——如果从 10 年后来看。但我能想到一些从 10 周后来看我肯定是错的情况，而那恰好是相关的时期，在此期间我的净资产在蒸发，我的流动资产变得越来越不流动……我能告诉你的就是这非常困难。……从逻辑上讲它应该很有效，但数学上——你不能大量做空某样东西。如果你有钱，你可以一直买到天荒地老，必要时可以买下整个公司，但你不能做空整个公司。……股价上涨时你需要越来越多的钱。如果你当初付清了股款、没有用保证金，股价下跌时你并不需要更多的钱，你只需坐着看自己是否正确。但做空时，你未必能坐着等待验证自己是否正确。
+l: 一个策略即使胜率高，也可能因“错一次亏很多”的赔率结构而失败；要能熬过“10 周后错”的路径，才谈得上“10 年后对”。
+r: 4/4/5
+rel: 2001-A25, 2002-A13
+
+@ 2002-A17
+t: 创造性会计是文明的诅咒；可口可乐的价值在商标，不在装瓶厂
+s: BM
+th: 会计与财务; 护城河
+k: accounting
+c: 芒格：复式记账是人类伟大的发明之一，由北意大利一位修士推广；任何把这一伟大体系变成欺诈与愚蠢工具、毁掉修士工作的做法，都对国家造成巨大伤害。民主制度通常要靠大丑闻推动改革，安然是多年来最令人作呕的商业文化堕落的例子，还把许多好人卷入漩涡。巴菲特：可口可乐把资本放到装瓶商身上并非会计把戏——即使可口可乐不持有任何装瓶商股份，经济实质也差不多；装瓶生意不错，但价值大头在商标，装瓶系统之所以值钱，是因为它有权分销一个每天数亿人点名要买的商标产品。
+q: Creative accounting is an absolute curse to a civilization. ||| does enormous damage to the country.
+q: And there may be some favorable fallout from Enron ||| that you wouldn’t have expected to sink into the whirlpool.
+q: And there is more money in owning the trademark. ||| And the right to distribute that product is worth good money.
+zh: （芒格：）创造性会计对文明是一种绝对的诅咒。你可以说，人类最伟大的发明之一是复式记账，它让我们能更好地掌控经济事务。它是北意大利的发明，由一位修士传播开来。任何破坏修士的工作、把这个伟大体系变成欺诈和愚蠢工具的东西，我认为都对国家造成巨大伤害。……安然或许会带来一些好的后果，因为那无疑是我们多年来见过的商业文化堕落最令人作呕的例子。尤其有意思的是，它最终把许多你想不到会沉入漩涡的好人也卷了进去。（巴菲特：）拥有商标能赚更多钱。不是工厂生产糖浆或什么东西去卖，大量的价值在于商标。……如果让我在拥有商标和拥有装瓶业务之间选择，我宁愿拥有商标，但这并不意味着装瓶业务是糟糕的生意。……它是骑在商标背上的。装瓶系统之所以有价值，是因为它有权销售一个每天有数亿人走进店里点名要的商标产品。分销该产品的权利值很多钱。
+l: 在价值链里找“经济租金”落在哪一环：品牌所有者通常比依附于品牌的资本密集环节更值钱。
+r: 4/4/4
+rel: 2002-M20, 2001-A14
+
+@ 2002-A18
+t: 如果你怀疑某样东西是否在能力圈内，那它就不在
+s: BM
+th: 投资方法; 投资心理
+k: circle
+c: 如果你对某样东西是否在你的能力圈内有疑问，那它就不在。你能理解可口可乐、装瓶商、麦当劳、沃尔玛、Costco——理解不等于会定价。朋友在买、人人说能赚大钱、你不确定是否理解的东西，你就是不理解。宁可待在圈子里面，也不要沿着边界踮脚走；能力圈小不可怕，够用就行。一家大型金融公司，每笔交易他都懂，但不确定能否独立于伯克希尔信用持续融资，所以整体不在能力圈内。芒格：如果你有能力，你几乎自动知道边界在哪里——不知道边界的能力算不上能力；要扩展边界，就得下功夫、包括练习。
+q: I would say this, if you have doubts about something being into your circle of competence, it isn’t. ||| I would say this, if you have doubts about something being into your circle of competence, it isn’t.
+q: And if you get to something that your friend is buying ||| it’s better to be well within the circle than to be trying to tiptoe along the line.
+q: I mean, it’s not terrible to have a small circle of competence. ||| but it’s big enough.
+q: Yeah, I think that if you have competence, you almost automatically have a feeling of where the edge of the competence is. ||| it wouldn’t be much of a competence if you didn’t know its boundary.
+q: And I think you also probably know pretty well where you want to stretch the boundary. ||| And you’ve got to stretch the boundary by working at it, including practice.
+zh: 我会这样说：如果你怀疑某样东西是否在你的能力圈内，那它就不在。……如果你碰到一个你朋友在买、或者人人都说能赚很多钱的东西，而你不确定自己是否理解它，那你就不理解。……待在圈子里面很深的地方，要比沿着边界踮着脚走好。……能力圈小并不可怕。我会说我的能力圈相当小，但它足够大。（芒格：）是的，我认为如果你有能力，你几乎会自动感觉到能力的边界在哪里。毕竟，如果你不知道它的边界，那就算不上什么能力了。……我想你可能也很清楚你想把边界扩展到哪里。而扩展边界，你得下功夫，包括练习。
+l: 用“是否有疑问”作为能力圈的快速检验；把仓位集中在圈子的中心，而不是边缘；有意识、有练习地扩展能力圈。
+r: 5/5/5
+rel: 2002-M26, 1999-A02
