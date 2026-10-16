@@ -1,0 +1,120 @@
+# 2004 年股东大会（5 月 1 日）
+
+@ 2004-M09
+t: 抵御通胀：最好的办法是你自己的赚钱能力，其次是能提价、少资本的企业
+s: BM
+th: 宏观与社会; 商业模式
+k: inflation
+c: 抵御通胀最好的办法是拥有强大的个人赚钱能力——城里最好的脑外科医生，无论人们用贝壳还是什么当钱，都能保持收入的购买力。投资上，最好的答案是拥有能按通胀定价、且不需要大量资本投入来支撑更大名义销售额的优秀企业，如喜诗。多数企业在通胀中实际表现不佳：盈利可能上升，但被迫投入越来越多的钱才能原地不动——最糟的企业就是不断要你往桌上放钱、却不给你更多盈利。担心通胀者也可考虑 TIPS。芒格：扣除通胀和税后，多数人投资的实际回报很低，这是世界的铁律；对抗通胀的一大防线是生活中没有许多愚蠢的需求。
+q: The best thing is to have a lot of earning power of your own. ||| whether people are using seashells for money, or whatever as time goes by.
+q: But Charlie and I think the best answer is to own fine businesses that will be able to price in inflationary terms ||| to handle the larger dollar volume of sales.
+q: You know, the worst kind of a business is one that’s — makes you put more money on the table all the time ||| But inflation is the enemy of the investor, in terms of real returns.
+q: Yeah, most people are going to get a very small real return from investment after considering inflation and taxes. ||| you have a considerable defense against the vicissitudes of life.
+zh: 最好的办法是拥有大量属于你自己的赚钱能力。如果你是城里最好的脑外科医生，甚至是城里最好的律师，无论发生什么——无论人们随着时间推移是用贝壳当钱还是用别的什么——你的收入都能保持购买力。……但查理和我认为最好的答案，是拥有那些能以通胀后的价格定价、并且不需要巨额资本投资来应对更大美元销售额的优秀企业。……最糟的一种企业，是总要你往桌上放更多钱、却不给你更多盈利的企业。所以你真正想要的，是一家定价能反映通胀、而资本投资又不太需要反映通胀的企业。但就实际回报而言，通胀是投资者的敌人。（芒格：）是的，在考虑通胀和税收之后，大多数人从投资中只会得到非常小的实际回报。我认为这是世界的铁律……对通胀担忧的一大防线，是不要在生活中有许多愚蠢的需求。换句话说，如果你没有为自己制造大量沉溺于消费品的人为需求，那么你就对人生的变迁有了相当的防御。
+l: 通胀环境下首选“定价权强 + 资本需求低”的企业；对重资产、需要不断追加投资才能维持的企业保持警惕。个人层面，提升自身能力与控制欲望是最好的通胀对冲。
+r: 5/5/5
+rel: 2003-M19, 2003-A23
+
+@ 2004-M11
+t: 薪酬方案：针对本业务、简单、慷慨——“宁可往衬衫里扔毒蛇，也不请薪酬顾问”
+s: BM
+th: 管理与治理
+k: incentives
+c: 在伯克希尔可以赚很多钱，但必须与业绩相关，平庸业绩不会拿高薪。MidAmerican 的激励方案是巴菲特在黄色便笺上用三分钟写的；喜诗与哈金斯的安排 1972 年定下沿用至今；GEICO 只用两个关键变量。没有统一公式——那是愚蠢的；方案不能复杂，几页纸的合同会损害伯克希尔与经理的关系。总部没有人力、法务、公关、投资者关系部门，因为这些部门会让生活复杂化并自我繁殖。典型大公司的薪酬委员会“不放杜宾犬，而是找被镇静过的吉娃娃”；从没见过人力主管或顾问说“这家伙只值你付的一半”；董事处理的是“玩具钱”，CEO 处理的是心头所爱，必然被博弈；对标数据让每个 CEO 都在前 25%，形成棘轮效应。芒格：我宁愿往衬衫里扔一条毒蛇，也不愿雇薪酬顾问。
+q: Yeah, we — you could make a lot of money working for Berkshire. ||| No one is going to make lots of money at Berkshire for average performance.
+q: It’s not highly complex. You have to understand the businesses. ||| It establishes a relationship between us and the manager that’s not good.
+q: In the typical large corporation, there’s a comp committee. ||| They — they look for Chihuahuas that have been sedated
+q: So it’s, you know — it’s a situation where the intensity of interest on both sides is seldom equal. ||| So you’ve got to expect a situation like that to get gamed over time. Not over time, promptly, actually.
+q: Well, I would rather throw a viper down my shirtfront than hire a compensation consultant. ||| Well, I would rather throw a viper down my shirtfront than hire a compensation consultant.
+zh: 在伯克希尔工作可以赚很多钱。如果你是董事长或副董事长就不行，但有机会赚很多钱。不过这将与业绩挂钩。在伯克希尔，没有人会因为平庸的业绩赚很多钱。……它并不高度复杂。你必须理解这些企业。在伯克希尔，没有一个公式能适用于我们所有的企业，那是愚蠢的。你不希望它们复杂。我们没有任何长达好几页的东西，没有必要。那会在我们和经理之间建立一种不好的关系。……在典型的大公司里，有一个薪酬委员会。而且，正如我过去指出的，他们通常不会把杜宾犬放进薪酬委员会，他们找的是被镇静过的吉娃娃。……所以这种情形下，双方的利益强度很少对等。董事们处理的往往是我的朋友汤姆·墨菲过去所说的“玩具钱”，而 CEO 处理的是他心头非常珍爱的东西。所以你必须预料到这种情况会随着时间被博弈。其实不是随着时间，而是很快。（芒格：）我宁愿往衬衫前襟里扔一条毒蛇，也不愿雇一个薪酬顾问。
+l: 审视公司治理时看薪酬方案的复杂度与“对标”逻辑：简单、与可控业务绩效挂钩、对平庸不慷慨，往往意味着健康的文化。
+r: 4/4/4
+rel: 2003-A27, 2002-A09
+
+@ 2004-M12
+t: 我们不按“资产类别”思考，也不做资产配置：只看今天哪个具体机会越过门槛
+s: BM
+th: 投资方法; 资本配置
+k: capital_alloc
+c: 股票、长期债券、套利等都只是替代选择，他们只把范围缩小到能理解的投资，而不是给类别排序。2002 年夏到秋，他们大量买入垃圾债，并非做出“买垃圾债”的大决定，而是看到一个个具体证券在“尖叫着让你买”——收益率 30%–40%，并以买股票的心态买入；12 个月内同一批证券收益率跌到 6%，在一个没有萧条的国家，这非常惊人。“我们没有每天、每月、每年讨论的类别优先级清单”，一旦有好主意就大举行动。有人说“50% 债券、35% 股票、15%……”，我们认为那是胡扯。芒格：你让我们为几个目前都没兴趣的领域排先后顺序——我们手握现金正是因为都不喜欢，为明知不会做的事排序毫无意义。
+q: We don’t think about the categories by themselves. ||| we just started seeing things, individual items, that started screaming at us, you know, “buy, buy, buy.”
+q: Now, we buy those with a mental attitude of buying common stocks. ||| when you think about that happening in a country that was not in the throes of depression or anything.
+q: And there’s, you know, this business where somebody says ||| I mean, we regard that as nonsense.
+zh: 我们并不单独考虑类别本身。……比如在 2002 年夏天到秋天中期那段时间，垃圾债券变得非常有吸引力，我们买了很多。但我们并没有做出买垃圾债券的什么重大决定，我们只是开始看到一些东西、一个个具体的证券开始对我们尖叫：“买，买，买。”……我们以买普通股的心态买入这些债券。有意思的是，在 12 个月内，其中一些收益率曾达 30% 或 35% 的证券，价格涨到收益率只有 6% 的水平。想想这发生在一个并未陷入萧条之类的国家，真是非常惊人。……还有那种说法，有人说：“你应该把 50% 的钱放在债券，35% 放在股票，还有 15%……”我们不做任何那样的事。我们认为那是胡扯。
+l: 自下而上地比较具体机会，而非自上而下地分配类别比例；任何资产只要以足够低的价格出现，都应以“买企业”的心态评估。
+r: 4/4/4
+rel: 2003-A04, 2003-A36, 2004-M22
+
+@ 2004-M13
+t: 预测高增长非常危险：增长率高于折现率就会得到“无穷大”
+s: BM
+th: 企业估值
+k: projections
+c: 若在现值折现公式中放入高于折现率的永续增长率，结果就是无穷大——很多管理层愿意相信自家股票值无穷大，但他们还没见过一家。杜兰德的《圣彼得堡悖论》讨论过这个问题。长期预测极高增长率让投资者损失了巨额资金：看看 50 年前的财富 500 强，能长期保持远高于 10% 增长的很少，到 15% 就是“稀薄的大气层”了。他和芒格几乎从不使用高两位数的增长率——可能错过机会，但没见过有人靠这个持续成功。芒格：算出无穷大时就该退后一步——人们会假设增长率逐步下降、最终停止，才能得到更现实的数字。
+q: Because if you’re using a present value discount formula and you put in a growth rate that is higher than the discount rate ||| but we — (laughs) — haven’t found one yet.
+q: It gets very dangerous to project out high growth rates because you get into this paradox. ||| has caused investors to lose, you know, very, very large sums of money.
+q: There aren’t many companies — just take a look at the Fortune 500, go back 50 years ||| And when you get up to 15, you know, you’re in the atmosphere and rarified atmosphere.
+zh: 因为如果你使用现值折现公式，并放入一个高于折现率的增长率，正如你假设的那样，答案当然会是无穷大。很多管理层喜欢认为他们的股票值无穷大，但我们还没找到过一家。……预测很高的增长率非常危险，因为你会陷入这个悖论。如果你说一家公司从现在到审判日的增长率是 9%，而你用 7% 的折现率，结果就趋向无穷大。这就是人们陷入大麻烦的地方。在很长时期内预测极高增长率的想法，已经让投资者损失了非常非常巨大的金额。没有多少公司——看看财富 500 强，回溯 50 年……看看当时的那些公司，有多少真正保持了远高于 10% 的增长率。这不是一个容易跨越的门槛。而当你到了 15%，你就进入了大气层、稀薄的大气层。
+l: 估值中使用保守、递减的增长假设；如果结论依赖于长期高增长，就说明价格已经把最乐观的情景包含在内。
+r: 5/5/4
+rel: 2001-M32, 2003-A05
+
+@ 2004-M15
+t: 衍生品：房地美的 60 亿美元，以及“后果的后果”
+s: BM
+th: 风险管理; 会计与财务
+k: derivatives
+c: 房地美有数十位分析师跟踪、国会设立的监管办公室、顶级固收专家坐镇董事会、审计师在场，却在短时间内错报约 60 亿美元盈利，很大一部分借助衍生品——如果他们想，可能是 120 亿。复杂衍生品交易本是零和，但两家投行的交易员当天都记录了利润——“从没见过两边都记亏损的”。许多大型衍生品业务的管理层并不理解发生了什么；1991 年某个周日，所罗门已在准备破产文件，那时有 1.2 万亿美元衍生品合约。金融世界在“一触即发”的扳机上运转，很多人们没料到会相关的东西会相关。他预测未来 10 年会出现由衍生品引发或大幅放大的大问题。芒格：问题在于人们没有充分思考“后果的后果”：先对冲利率风险，会计让季度结果变得不平稳，再用衍生品去平滑——这就演变成了撒谎；董事会里有杰出的金融专家也救不了你，需要有人有常识说“我们就是不去那里”。
+q: And, with an auditor present, they managed to misstate earnings by some $6 billion in a fairly short period of time. ||| And, with an auditor present, they managed to misstate earnings by some $6 billion in a fairly short period of time.
+q: and they record a transaction — which has to be a zero-sum game between the two of them — and both put on the books a profit that day ||| And the scale is absolutely huge and getting larger all the time.
+q: A lot of things correlate in the securities world that people don’t expect to correlate. ||| People want to jump the gun and move just ahead of the other fellow.
+q: Yeah, I think part of the trouble in — you were talking about — came because people didn’t think enough about the consequences of the consequences. ||| It’s too tough.
+q: Anytime you have incentives, with people who are quite smart, to mismark things ||| or temptations to take on risk in an inappropriate manner.
+zh: 而且在审计师在场的情况下，他们在相当短的时间里错报了大约 60 亿美元的盈利。……他们记录一笔交易——这对双方而言必然是零和游戏——而且双方当天都在账上记了利润，我从没见过双方当天都记亏损的。这很容易产生恶作剧。而规模绝对巨大，并且一直在变大。……在证券世界里，很多人们没料到会相关的东西会产生相关性。……金融世界在某种程度上是在一触即发的扳机上运转的。人们想抢先一步，赶在别人前面行动。（芒格：）是的，我认为你所说的部分问题，是因为人们没有充分思考后果的后果。这是一个常见的错误。你开始尝试对冲利率变化……然后，在会计惯例下，对冲让季度业绩变得不平稳，而不是所有机构分析师喜欢的那样平稳规律。于是他们又给我们弄来一堆衍生品来平滑回报。好了，现在你已经演变成撒谎了。……这表明精明救不了你。必须有人有常识说：“我们就是不去那里。”这太难了。（巴菲特：）……任何时候，只要你给相当聪明的人以错误定价的激励，你就会得到错误定价，或者以不恰当方式承担风险的诱惑。
+l: 用“后果的后果”检验每一个对冲和财务工程；当报表变得过于平滑时，要问是谁、用什么工具把波动藏起来了。
+r: 5/4/5
+rel: 2003-M38, 2003-A06, 2002-M30
+
+@ 2004-M17
+t: 读一切能理解的东西——但阅读不够，还需要抓住正确想法的性情
+s: BM
+th: 投资心理; 投资方法
+k: learning
+c: 如果重来，他们会用几乎同样的方法：看一切能理解的公司，读关于这些企业和行业的一切，寻找相对价值明显便宜的东西；资金小时可选范围大得多，这是巨大优势。分析证券和 50 年前没有不同。芒格：我不认识任何不大量阅读的智者，但光读书不够，你需要一种能抓住正确想法并付诸行动的性情；多数读很多书的人没有这种性情，或被海量材料搞糊涂了。巴菲特：这一行不需要非凡的智力，但需要非凡的自律；不能控制自己，带来再大的智力也会出现灾难；我们从历史中学到的是人们不从历史中学习。芒格：牛顿在南海泡沫中亏掉了大部分身家——世上最聪明的人投资了一场彻头彻尾的骗局，光有智商不行。
+q: We would look at everything in sight that we thought we could understand. ||| which means the universe of potential ideas would be far greater.
+q: Yeah, we read a lot and we thought a lot. I don’t know anybody who is wise who doesn’t read a lot. ||| And, of course, that won’t work.
+q: I mean, if you can’t control yourself, no matter what the intellect you bring to the process ||| It does require extraordinary discipline.
+q: But, you know, what we learn from history is that people don’t learn from history. ||| But, you know, what we learn from history is that people don’t learn from history.
+q: chunk of his net worth in the South Sea Bubble. ||| So just IQ points alone won’t do it.
+zh: 我们会看一切我们认为能理解的东西。……我们会读关于那些我们认为能理解的企业和行业的一切。我们会寻找相对于价值而言明显非常便宜的东西。而且我们会有一个巨大的优势，因为我们用的资本少得多，这意味着潜在想法的范围要大得多。（芒格：）是的，我们读了很多，也想了很多。我不认识任何一个不大量阅读的智者。但另一方面，光靠这个是不够的。你必须有一种性情，真正能抓住正确的想法并用这些想法做些事情。我认为大多数读很多书的人没有必要的性情，他们抓住了想法，或者只是被海量材料搞糊涂了。当然，那是行不通的。（巴菲特：）如果你控制不了自己，无论你在这个过程中带来怎样的智力，你都会遭遇灾难。……这不是一个需要非凡智力的行业，但它确实需要非凡的自律。……但我们从历史中学到的是，人们不会从历史中学习。（芒格：）……（牛顿）在南海泡沫中损失了他净资产的一大块……所以单靠智商是不行的。
+l: 阅读是必要条件，性情与自律是充分条件；小资金的优势在于可选范围大，应充分利用。
+r: 5/4/5
+rel: 2002-M26, 2003-A02
+
+@ 2004-M19
+t: 商业中不识数就是笨手笨脚，但高等数学可能是一种劣势
+s: BM
+th: 投资方法; 人生智慧
+k: learning
+c: 芒格：好像上帝把世界造成只有精通数学的人才能理解；想理解科学离不开数学，而在商业里，不识数的人会笨手笨脚。好在商业不需要任何高等数学。巴菲特：懂高等数学可能是一种劣势。芒格：是的，因为你会去找机会使用这个美妙复杂的工具，而总体上它远不如简单数学好用。巴菲特：我母亲给我唱复利之歌时，就已经没有必要再往前学了。
+q: If you — it’s as though God made the world so that only people fluent in math could understand it. ||| And in business, if you’re innumerate, you’re going to be a klutz.
+q: The good thing about business is you don’t have to know any high math. ||| When my mother sang me songs about compound interest, there really wasn’t any need to go further.
+zh: （芒格：）就好像上帝把世界造成只有精通数学的人才能理解。我认为你能把普通的人类活动处理得相当好。但如果你想理解比如说科学，没有数学是不行的，事情就是这样。而在商业中，如果你不识数，你就会笨手笨脚。……商业的好处是你不需要懂任何高等数学。（巴菲特：）懂高等数学可能是一种劣势，查理。（芒格：）是的，我认为是。因为你会寻找机会使用这个奇妙而复杂的工具，而总体而言，这远不如只用简单的数学效果好。（巴菲特：）当我母亲给我唱关于复利的歌时，真的就没有必要再学下去了。
+l: 熟练掌握百分比、复利、概率等基础数学；警惕为了使用复杂模型而使用复杂模型。
+r: 3/4/4
+rel: 2003-M16
+
+@ 2004-M20
+t: 沃尔玛的 100 亿美元错误：被初始价格“锚定”的不作为
+s: BM
+th: 投资心理; 投资方法
+k: mistakes
+c: 他们犯的错有两种：一是对理解且便宜的东西完全没投资（没认真看或没行动）；二是开始买入本可以重仓的东西却没买足。往往是开始以 X 买入，涨到 X 加八分之一这种“不可容忍”的幅度就停手或等回落——被初始价格锚定，错失了数十亿美元。他计划以约 23 美元买 1 亿股沃尔玛（拆股前），芒格说这“听起来不是最糟的主意”——已是极高赞美；买了一点股价小涨就停了，这种“吮手指”式的不愿多付一点点，代价已达约 100 亿美元。未来的错误更多是“疏忽之错”而非“作为之错”。芒格：至少我们总在回想错失的机会；这些不出现在财报上，多数人懒得想，我们却拿自己的鼻子去蹭这些错误。
+q: Well, the mistakes we made, and we made them — some of them big time — are of two kinds. ||| And the second was starting in on something that could have been a very large investment and not maximizing it.
+q: and I quit or waited for it to come back. ||| when I could have paid more subsequently and it really was inconsequential.
+q: I cost us about 10 billion. ||| the current cost is in the area of 10 billion.
+q: Yeah. At least we are constantly thinking about the past occasions when we blew opportunities. ||| We rub our own noses in our mistakes in blowing opportunities, as we just did.
+zh: 我们犯的错误——有些是大错——分为两种。一种是我们根本没投资于我们理解的、便宜的东西……第二种是开始投资于某个本可以成为一笔非常大投资的东西，却没有把它做到最大。……我停手了，或者等它回落。在某些情况下，我们错过了数十亿美元的利润，因为实际上我被某个初始价格锚定了，而我本可以随后付更高的价格，那其实无关紧要。……我让我们损失了大约 100 亿美元。我打算以大约 23 美元的价格买 1 亿股沃尔玛（拆股前）。查理说这听起来不是他听过的最糟糕的主意——对他来说，这简直是天大的赞美。然后，我们买了一点，股价涨了一点。我想：“嗯，也许它会回落……”……那种吮手指、不愿多付一点点的态度——目前的代价大约是 100 亿美元。（芒格：）是的。至少我们一直在思考过去那些我们搞砸了的机会。由于这些机会——你拥有却没有接受的机会——不会出现在财务报告上，大多数人不会费心多想。至少这是我们不犯的错误。我们拿自己的鼻子去蹭我们错失机会的错误，就像我们刚才做的那样。
+l: 建立“错失清单”复盘不作为之错；对高确定性的机会，价格的小幅上涨无关紧要，要克服锚定效应。
+r: 5/5/5
+rel: 2003-A33, 2003-M32
