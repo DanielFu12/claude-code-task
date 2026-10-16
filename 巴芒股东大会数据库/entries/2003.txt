@@ -216,3 +216,94 @@ zh: 实际上，如果你把内在价值算作未来现金流的折现值，那�
 l: 估值时主动预设“盈利下滑”的情景，竞争恶化应在买入价中体现；对一路向上的预测天然怀疑；无法估计就放弃。
 r: 5/5/5
 rel: 2002-A28, 2003-M25, 2003-A30
+
+@ 2003-A06
+t: 抵押贷款的“期权性”、六西格玛事件与对手方风险：最好靠自己的资源
+s: BM
+th: 风险管理; 宏观与社会
+k: derivatives
+c: 房利美、房地美和当年的储贷机构面临同一个内在问题：抵押贷款对借款人来说是期权——对你不利时它是 30 年期工具，对你有利时只有约 30 分钟。高杠杆机构只能尽力用衍生品等工具匹配资产负债久期，但不可能完美。真正毁掉人的，是学者所谓“六西格玛”这类本不该发生的事件，它们在金融市场中发生的次数比任何概率曲线预测的都多；市场跳空、关闭时机构就会倒闭，而衍生品放大了其可能性与破坏程度。对冲基金经理告诉他“30%–40% 回报的概率是 28%”——在金融里给出精确数字的人，要当心。当有人承诺在你遭遇灾难时付你一大笔钱，你得确定他能付且会付，因为让你遭难的事可能也在让他遭难——所以再保险应收款是危险资产。芒格：对手方的行为常比房利美更危险，并把麻烦传给自以为已对冲的人。巴菲特：过度依赖他人，再精明也救不了你；最好的办法是能依靠自己的资源。
+q: you have a 30-year instrument if it’s a bad deal and you have about a 30-minute instrument if it’s a good deal. ||| you have a 30-year instrument if it’s a bad deal and you have about a 30-minute instrument if it’s a good deal.
+q: the thing that really destroys people are what the academics would call six-sigma ||| than any study of probability curves would ever come up with.
+q: Anybody comes up with exact figures in finance, watch out. ||| Anybody comes up with exact figures in finance, watch out.
+q: because anytime somebody promises to pay you a lot of money if something terrible happens to you ||| And that’s why reinsurance recoverables are a dangerous asset to have.
+q: But if you depend too much on other people ||| We do not need to stay up at night.
+zh: ……如果是笔坏交易，你持有的是一个 30 年期的工具；如果是笔好交易，你持有的大约是一个 30 分钟的工具。……真正毁掉人的，是学术界所说的六西格玛、五西格玛或七西格玛事件，也就是基本上本不该发生的事。……金融市场并不适合基于这种方法建模。大部分时间它管用，直到它不管用。而当它不管用时，就天下大乱。金融市场中发生的六西格玛事件——或者说理论上的六西格玛事件——比任何概率曲线研究所能得出的都要多。……在金融领域，任何人给出精确的数字，你都要当心。……因为任何时候，如果有人承诺在你遭遇可怕的事时付给你一大笔钱，你最好非常确定他们能够、而且会付，因为发生在你身上的可怕事情，可能也在给他们带来可怕的事情。……这就是为什么再保险应收款是一种危险的资产。（巴菲特：）但如果你过度依赖别人，金融史上可能会有那样的时期，世上所有的精明都救不了你。最好的办法是能依靠自己的资源。在伯克希尔，我们基本上就是这样运作的。也许这比必要的更安全，但查理和我已经够富了，我们不需要夜里睡不着。
+l: 识别资产中隐含的“对方期权”；对冲的价值取决于最坏时刻对手方能否履约；对“精确概率”保持怀疑，以自有资源（低杠杆、充足流动性）作为最终保障。
+r: 5/4/5
+rel: 2003-M38, 1999-M10
+
+@ 2003-A08
+t: 收购机会像滚雪球：靠口碑而不是“交易流”
+s: BM
+th: 资本配置; 管理与治理
+k: culture
+c: 他不喜欢“交易流”一词，因为它暗含“买来再卖”。伯克希尔要做的，只是让该来的电话打来。20–30 年前几乎没人找他们，现在美国国内该接的电话大多会打来——卖方满意就会带来更多卖方：1983 年第一家家具企业带来了另外四笔交易。芒格把复利比作在一座很大的山顶上，从一团湿雪开始往下滚雪球；伯克希尔已经滚了 38 年，雪球很大、速度很快，会吸引更多雪。芒格：早年没有人送机会上门，他们自己在公开市场里翻找；开始收购企业后有 20 年每年最多一两家；“我们不是坐在桌后等佣金推销员上门把机会递给我们签字。”
+q: It’s a term I actually don’t like very much, because we don’t think of them as deals, exactly. ||| and then again something to be sold.
+q: It feeds on itself, obviously. ||| And that’s a little bit like the acquisition situation works.
+q: But it’s fair to say that we were rooting around for those opportunities. ||| I can’t think of anything we bought in the early days that way.
+zh: 我其实不太喜欢“交易流”这个词，因为我们并不完全把它们看作交易。这个词有点太多“买来、再卖掉”的意味。……显然，它会自我强化。如果我们收购了公司，而卖给我们的人对交易满意，我们就会从更多的人那里听到消息。我们 1983 年买下第一家家具企业，这实际上带来了另外四笔交易，因为第一家的人很满意，他们就和我们谈起了第二家；第二家的人满意，以此类推。所以，这就像——查理总是把复利描述成：站在一座很大的山顶上，有湿的雪，你从一个雪球开始让它滚下山。收购的情况有点像这样。（芒格：）但可以公平地说，我们是在四处翻找这些机会。我们并不是坐在办公桌后等某个拿佣金的推销员上门，给我们送来机会让我们签字。我想不出我们早年有哪笔收购是那样来的。
+l: 声誉和对卖方的公平对待会产生复利；在声誉建立之前，机会要靠自己主动寻找。
+r: 4/3/4
+rel: 2001-A26, 2003-M39
+
+@ 2003-A16
+t: 我们痛恨用会计手段解决经营问题：那像海洛因
+s: BM
+th: 会计与财务; 管理与治理
+k: accounting
+c: 芒格：看到周围许多人依赖过度乐观的会计做出糟糕的商业决策，伯克希尔几乎是主动寻找机会把会计做得非常保守——这保护了经营决策，也保护了财务诚信；所有数字都稍微少报一点，世界有什么不好？巴菲特：他用 1960 年的财报比用 2000 年的感觉好得多，虽然细节少得多，却让他更了解公司。最痛恨的是用会计操纵解决经营问题——通用再保险在 80 年代中期开始对工伤赔付准备金折现，是快速见效的办法，但像海洛因，一旦上瘾很难戒掉。不如立即面对现实，采取必要的经营措施；解决不了就放弃。玩弄数字从来行不通——“除非你 64 岁半、65 岁退休”。
+q: We are so horrified by the terrible business decisions we see made all around us ||| We think it protects our business decision-making, as well as our financial integrity.
+q: And I felt much better working with the financial statements in 1960 than I feel working with financial statements in 2000. ||| even though there was far less detail.
+q: And what we really deplore is solving operating problems by accounting maneuvers. ||| And you get on it and it’s not easy to get off.
+q: You might as well face reality immediately ||| Or, if you can’t solve them, just give up on them.
+zh: （芒格：）我们对周围那些依赖过度乐观会计的人所做的糟糕商业决策感到如此震惊，以至于我们几乎是主动寻找机会让我们的会计非常保守，远比别人保守。我们认为这既保护了我们的商业决策，也保护了我们的财务诚信。（巴菲特：）……与 2000 年的财务报表相比，我在使用 1960 年的财务报表时感觉好得多。坦白说，在很多方面，我认为它们让我更了解公司的真实情况，尽管细节少得多。……我们真正痛恨的，是用会计手段来解决经营问题。……那是个快速见效的办法，但它就像海洛因。你一旦用上，就不容易戒掉。……你不如立刻面对现实，采取一切必要的经营措施来解决问题；如果解决不了，就放弃它们。
+l: 偏保守的会计是决策的护栏；看到“准备金释放”“折现假设变化”等改善利润的手段，先问它是否在掩盖经营问题。
+r: 4/4/4
+rel: 2002-M20, 2003-A17
+
+@ 2003-A17
+t: 把 EBITDA 一律替换成“狗屎利润”；折旧是反向浮存金
+s: BM
+th: 会计与财务; 企业估值
+k: accounting
+c: 伯克希尔愿意告诉股东忽略某些 GAAP 项目（如商誉摊销），但不把折旧当费用“绝对是疯了”：折旧是真实的、最糟的一种费用，是反向浮存金——先付钱，后有收入。“等你告诉我你来承担全部资本开支时，我再看 EBITDA 这个数字。”电信业疯狂花钱又假装折旧不是费用，一代投资者被教坏。折旧不是非现金费用，而是先花掉现金、延后记账的现金费用。芒格：每次看到 EBITDA，就把它替换成“狗屎利润”，你就能理解任何这类陈述。真正的巨型问题是养老金和退休医疗负债会计，严重低估。巴菲特：期权放在附注里不计费用——那为什么不把所有费用都放附注里，让销售额等于净利润？高智商的人为自己的钱包找理由的能力惊人。芒格：把基础会计搞错，就像造桥时把工程算错；那些体面的、你乐意让他娶你女儿的人，其实处于“疯狂与欺诈之间”。
+q: Not thinking of depreciation as an expense, though, strikes us as absolutely crazy. ||| And you are out cash with nothing coming in.
+q: I just tell them, you know, “I’ll look at that figure when you tell me you’ll make all the capital expenditures.” ||| So I think the EBITDA has been a term that has cost a lot of investors a lot of money.
+q: It’s not a non-cash expense. It’s a cash expense. ||| How anybody can turn that into something they use as a metric that talks about earnings is beyond me.
+q: Yeah, I think you would understand any presentation using the word EBITDA, if every time you saw that word you just substituted the phrase, “bullshit earnings.” ||| Yeah, I think you would understand any presentation using the word EBITDA, if every time you saw that word you just substituted the phrase, “bullshit earnings.”
+q: And, you know, why not put all expenses in footnotes? ||| It’s amazing what people with high IQs will do to rationalize their own, you know, their own pocketbooks.
+q: It’s such a rotten way to run a civilization. To make the basic accounting wrong is very much like making the engineering wrong when you’re building a bridge. ||| It’s such a rotten way to run a civilization. To make the basic accounting wrong is very much like making the engineering wrong when you’re building a bridge.
+zh: 但不把折旧当作费用，在我们看来简直是疯了。……折旧是真实的，而且是最糟的一种费用。它是反向的浮存金。你在获得收入之前就把钱花出去了，你的现金没了，却没有任何进账。……我只告诉他们：“等你告诉我你会承担全部资本开支时，我再看那个数字。”……所以我认为 EBITDA 这个词让很多投资者损失了很多钱。……它不是非现金费用，它是现金费用。你只是先花掉了它。现金已经没了，这只是对现金的延迟记录。怎么会有人把它变成谈论盈利的指标，我无法理解。（芒格：）是的，我认为如果每次看到 EBITDA 这个词，你就把它替换成“狗屎利润”，你就能理解任何使用这个词的陈述。（巴菲特：）……为什么不把所有费用都放到附注里？只在那里列一项“销售额”，然后净利润也是同一个数字，再把所有费用都放进附注。……高智商的人为了替自己的钱包找理由会做出什么事，真是令人惊讶。（芒格：）这是一种运转文明的糟糕方式。把基础会计搞错，就很像在建桥时把工程搞错。
+l: 估值时用“所有者收益 = 净利润 + 折旧摊销 − 维持性资本开支”，而不是 EBITDA；对养老金、退休医疗、期权等“附注里的费用”一律加回成本。
+r: 5/5/5
+rel: 2002-M20, 2002-A09, 2003-A16
+
+@ 2003-A20
+t: 我们完全不知道伯克希尔的资本成本是多少：只比较机会成本
+s: BM
+th: 资本配置; 企业估值
+k: discount
+c: 巴菲特：查理和我对伯克希尔的资本成本是多少毫无概念，觉得整个概念有点疯狂，只是商学院要考。他们的做法很简单：寻找能做的最聪明的事；在有价证券上，若找到价格为价值 50% 的东西，而持有的是价值 90% 的东西，可能会换仓；把各种选择互相比较，也与分红、回购比较。芒格：曼昆的经济学入门教材几乎在第一页就说“聪明人根据机会成本做决策”——重要的是争夺你时间和金钱的替代选择，而它们因时因公司而异；世界其他地方却跑去造一个标准公式，甚至给又老又富的企业算股权资本成本，这是惊人的思维故障。
+q: because Charlie and I don’t have the faintest idea what our cost of capital is at Berkshire ||| and we think the whole concept is a little crazy, frankly.
+q: if we find something that’s at 50 percent of value, and we own something else at 90 percent of value ||| and we measure alternatives against repurchase of shares.
+q: In other words, it’s your alternatives that are competing for the use of your time or money ||| It’s a perfectly amazing mental malfunction.
+zh: 因为查理和我对伯克希尔的资本成本是多少毫无概念，坦白说，我们认为整个概念有点疯狂。……如果我们找到某样以价值 50% 出售的东西，而我们持有另一样以价值 90% 出售的东西，我们很可能会从一个换到另一个。我们会用手中的资本做我们能做的最聪明的事。所以我们把各种选择互相比较，把它们与分红比较，也把它们与回购股票比较。（芒格：）换句话说，是那些争夺你时间或金钱使用权的替代选择，决定了你是否采取行动。当然，这些选择因时而异、因公司而异。我们倾向于根据机会成本做出所有财务决策，就像大一经济学教的那样。……而世界其他地方却走上了某种疯狂的路子，以为能创造一个标准公式，并称之为成本。他们甚至给一些又老又极其富有的企业算出股权资本成本。这是一种非常惊人的思维故障。
+l: 每个投资决策的门槛是你手头最好的替代方案（包括已有持仓和回购），而不是一个固定的折现率公式。
+r: 4/5/4
+rel: 2001-A22, 1998-M30
+
+@ 2003-A23
+t: 理想企业能把大量增量资本投在高回报上——但这种企业极少，所以要能把现金挪走
+s: BM
+th: 商业模式; 资本配置
+k: business_model
+c: 理想企业是资本回报率很高、并能持续以同样高回报使用大量资本的复利机器：投 1 亿赚 20%，第二年在 1.2 亿上赚 20%……但这种企业极少。好企业如可口可乐、喜诗并不需要多少资本，增量资本的回报远不及其基于无形资产的基础回报：喜诗投入 X 赚很多，投入 5X 也不会多赚。伯克希尔结构的优势在于能把这些企业产生的现金挪到别处收购企业——喜诗自 1972 年以来贡献约 10 亿美元税前利润，若留在糖果业回报会很糟。报业也曾很赚钱，但只能高价收购别的报纸。芒格：不够好的好企业分两类：一类利润年底以现金躺在那里，可以取走而不影响经营；另一类报告 12% 回报却永远没有现金——“利润每年都在，就停在场院里”，我们讨厌后一种。巴菲特：美国企业整体再配置资本的击球率并不好——某种意义上我们在贬低让我们走到今天的做法。
+q: The ideal business is one that earns very high returns on capital and could keep using lots of capital at those high returns. ||| I mean that becomes a compounding machine.
+q: Most of the great businesses generate lots of money. ||| We can earn high returns on X at The Buffalo News, but if we try to make it 5X we don’t earn any more money.
+q: Now, the one good thing about our structure at Berkshire ||| and we can move that money around to buy more businesses.
+q: One is the business where the whole reported profit just sits there in surplus cash at the end of the year. ||| We hate that kind of a business.
+zh: 理想的企业是这样的：它的资本回报率很高，并能持续以这样的高回报使用大量资本。那就成了一台复利机器。……大多数伟大的企业能产生大量的钱，但它们并不能产生大量以高回报运用增量资本的机会。……我们可以在喜诗投入 X 并赚很多钱，但如果我们投入 5X，并不会多赚多少钱。我们可以在《布法罗新闻报》上以 X 获得高回报，但如果试图把它变成 5X，我们也不会多赚钱。……伯克希尔的结构有一个好处：我们可以把那些在本业上回报很好、但没有机会让增量资金获得类似回报的企业所产生的钱，挪到别处去买更多企业。（芒格：）一类是全部报告利润在年底都以多余现金的形式躺在那里的企业。你可以把它从企业里拿出来，企业没有它也会做得一样好。第二类企业报告的资本回报率是 12%，却从来没有现金。这让我想起我的老朋友约翰·安德森的二手工程机械生意，他常说：“在我这行，每年你都有利润，它就在那儿，停在场院里。”……有大量企业是这样的：只是为了维持运转、原地不动，就永远没有现金。这种企业不能让总部把现金全部取出来投资到别处。我们讨厌那种企业。
+l: 区分“能把利润以现金取出”的企业和“利润都变成存货与设备”的企业；高 ROE 但再投资机会少的企业，价值取决于谁来配置它产生的现金。
+r: 5/5/5
+rel: 2003-M30, 2001-A22
