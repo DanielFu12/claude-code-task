@@ -233,3 +233,166 @@ zh: 所以，我对买入某些公司的股票——有价证券——或在市�
 l: 为自己划定“合法但不做”的范围，并区分被动持股与主动经营的道德责任。
 r: 3/2/4
 rel: 2004-A01
+
+@ 2004-A13
+t: 中石油：不因为是中国而买，也不因为是中国而回避——足够便宜就能承受更多国家风险
+s: BM
+th: 企业估值; 风险管理
+k: iv
+c: 中石油并不复杂也不不透明：日产原油约为埃克森的 80%–85%，大型一体化石油公司的经济特征很容易理解，其年报甚至比其他石油巨头讲得更清楚，而且明确派发约 45% 的盈利。买它不是因为它在中国，而是因为相对于盈利、储量、日产量、炼化能力——无论用什么指标——都远比埃克森、BP、壳牌便宜。政府持股 90% 是估值中要考虑的因素，但解释不了如此巨大的价差。芒格：只要足够便宜，你显然可以承受更多国家风险或监管风险，这不复杂。巴菲特：比较俄罗斯尤科斯与中国的国家风险，在我们看来中石油既更便宜、风险也更小。
+q: It was bought not because it was in China, but it was bought simply because it was very, very cheap ||| it was far cheaper than Exxon, or BP, or Shell, or companies like that.
+q: We weren’t — we aren’t there because it’s China, but we’re not avoiding it because it’s China, either. ||| We just — we stick in a fairly appropriate number.
+q: If a thing is cheap enough, obviously you can afford a little more country risk, or regulatory risk, or whatever. This is not complicated. ||| But in our view, something like PetroChina was both cheaper and had less risk.
+zh: 买它不是因为它在中国，而仅仅是因为它相对于盈利、相对于储量、相对于日产油量、相对于炼油能力都非常非常便宜。无论你想用什么指标，它都比埃克森、BP、壳牌那样的公司便宜得多。……我们在那里不是因为它是中国，但我们也不因为它是中国而回避它。我们只是放进一个相当合适的数字。（芒格：）如果一样东西足够便宜，显然你可以承受多一点的国家风险、监管风险或其他什么风险。这并不复杂。（巴菲特：）……但在我们看来，像中石油这样的公司既更便宜，风险也更小。
+l: 把国家/监管风险量化为估值折扣，而不是一票否决；当价差远超风险折扣时，便宜本身就降低了风险。
+r: 4/4/4
+rel: 2003-A30
+
+@ 2004-A15
+t: 回购还是分红：只有股价低于内在价值时回购才是最佳用途
+s: BM
+th: 资本配置; 会计与财务
+k: buyback
+c: 只要对股东诚实、不压低股价，当股价远低于企业价值时，回购大概是现金的最佳用途——华盛顿邮报 70 年代大规模回购，Teledyne 回购了近 90% 的股份。如今回购很流行，但往往是为了让股价不跌，价格对留下来的股东并不合理；股价高估时一股都不该买。分红会形成预期，上市公司一旦确定分红政策，改变前要深思熟虑。芒格：把不必要的交易、投资建议、各种错误、进出成本算进去，美国上市公司支付的股息总额大约等于这些浪费——股东净得的股息约等于零，这是治理一个共和国的古怪方式。巴菲特：若企业能稳定赚到超过可有效再投资的钱，就应当分红——喜诗若是上市公司，接近 100% 的派息率都合理。伯克希尔若无法长期有效运用 300 多亿美元，保留在公司形式里就是错误。
+q: when a stock can be bought well below its business value, that probably is the best use of cash. ||| when a stock can be bought well below its business value, that probably is the best use of cash.
+q: you know, I think it’s often done for people that are hoping that it causes their stock price not to go down ||| and often done at prices that don’t really make a lot of sense for continuing shareholders.
+q: But I think the best use of cash, if you don’t have a good use for it in the business, if the stock is underpriced, is to repurchase it. ||| But a lot of companies do it.
+q: Yeah, dividends are a very interesting subject. ||| This is a very peculiar way to run a republic.
+q: So — but getting to the individual corporation level, a company that expects to regularly earn more than it can profitably employ in its business, should be paying out dividends. ||| So it should be paying out its earnings.
+zh: 当一只股票能以远低于其企业价值的价格买入时，那大概就是现金的最佳用途。……我认为回购常常是为那些希望它能让股价不下跌的人做的……而且往往是以对继续持股的股东来说并不太合理的价格进行的。……但我认为，如果企业内部没有很好的用途，而股价被低估，现金的最佳用途就是回购。如果股价被高估，你就没有理由回购哪怕一股。但很多公司这么做了。（芒格：）是的，股息是一个非常有意思的话题。如果你把不必要的股票交易、投资建议的成本、犯大量错误的成本、进进出出的交易成本都算上，我想说现在支付的股息总额大致等于在这些交易和投资建议上浪费掉的金额，并不算太极端。所以股东得到的净股息大约是零。这是一种非常奇特的治理共和国的方式。（巴菲特：）……但具体到单个公司层面，一家预期能定期赚到超过其业务能有效运用的钱的公司，应该派发股息。拿我们的子公司喜诗糖果来说……它应该把盈利派发出来。
+l: 看回购要看价格：低于内在价值的回购创造价值，高于则毁灭价值；无法高回报再投资的利润应返还股东。投资者自己的交易摩擦是股息最大的“吞噬者”。
+r: 5/5/4
+rel: 2003-A23, 2001-A22
+
+@ 2004-A16
+t: 低成本者终将胜出：车险从代理人到直销的百年演进
+s: B
+th: 商业模式; 护城河
+k: moat
+c: 车险最初由大型火险公司的意外险分支通过高佣金代理人、类卡特尔的费率局销售；20 年代州立农业以专属代理人降低了成本，成为最大车险公司；随后 USAA 与 GEICO 用直销绕过代理人，进一步降低成本。每个美国家庭都想要车，却不想要保险，但不买保险就不能开车——这是一种他们不喜欢、却占家庭预算相当比例的必需品，所以成本至关重要，“低成本者终将胜出”；更好的系统随时间推移会赢。戴尔、Costco、沃尔玛都是如此。成为人们必需品的低成本生产者，通常会是非常好的生意。“当投资最像经营企业时，它是最明智的”——这句话出自格雷厄姆。
+q: Now, every American family, virtually, wants to have a car. ||| So the low cost is going to win.
+q: is a better system, and better systems win over time. ||| is a better system, and better systems win over time.
+q: It’s always a good idea to go with a low-cost producer over time. ||| it’s going to be a very good business usually.
+zh: 几乎每个美国家庭都想要一辆车。他们不想要保险，但没有保险就不能开车。所以他们在买一个自己并不怎么喜欢的产品，而且它占了家庭预算相当大的一部分。因此成本变得非常重要。它不是奢侈品，它几乎是强制性的。省下可观的钱对许多家庭预算真的很重要。所以低成本者终将胜出。……（直销）是一个更好的系统，而更好的系统随着时间推移会赢。……长期而言，选择低成本生产者总是个好主意。你可能会在别的方面搞砸，但成为人们必需品的低成本生产者，通常会是一门非常好的生意。
+l: 对于“不情愿但必须购买”的商品型服务，持续的成本优势就是护城河；关注分销模式的代际变化。
+r: 4/5/4
+rel: 2002-M28, 2001-A24
+
+@ 2004-A19
+t: 怀念菲利普·费雪：找到少数了解透彻的好企业并集中投资
+s: BM
+th: 投资理念; 投资方法
+k: concentration
+c: 费雪 1958 年的《怎样选择成长股》和之后的第二本书都是了不起的书；和格雷厄姆一样，读书就能得到一切——他们写得那么好、思想那么清晰，不需要见本人。巴菲特只见过费雪一次。1959 年遇到芒格时，芒格也在以稍有不同的形式宣扬与费雪相似的理念，所以他从两边同时接受。芒格：基本理念是好股票、好投资很难找到，所以你只需找到少数你非常了解的并集中投资——这显然是个好主意，也被证明是个好主意，但 98% 的投资界并不遵循，这对我们、对你们都是好事。
+q: And as with Ben Graham, you could really get it all by reading the books. ||| But they got it across in words.
+q: The basic idea of that it was hard to find good stocks ||| Yet, 98 percent of the investing world doesn’t follow it. That’s been good for us. It’s been good for you.
+zh: 和本·格雷厄姆一样，你真的可以通过读他们的书得到一切。……他们写得如此之好，思想如此清晰，你不需要亲自见他们。我当然很高兴见到他们本人，但他们用文字把东西传达出来了。（芒格：）基本理念是，好股票很难找，好投资很难找，而你想待在好投资里。因此，你只需找到少数几个你非常了解的，并集中投资于它们。在我看来，这显然是个好主意。事实上，它也被证明显然是个好主意。然而 98% 的投资界并不遵循它。这对我们有好处，对你们也有好处。
+l: 格雷厄姆教“价格”，费雪教“质量与集中”——两者结合才是伯克希尔模式。
+r: 4/4/4
+rel: 2003-M30, 2004-M21
+
+@ 2004-A21
+t: IPO 很难有便宜货：拍卖市场 vs 谈判出售
+s: BM
+th: 投资方法; 市场周期
+k: mr_market
+c: 芒格：用我们的思维模型在大量 IPO 中找到少数确定的好机会是可能的，但买 IPO 的普通人会被宰。巴菲特：股票市场是拍卖市场，有人会以价值的四分之一卖出公司 0.5% 或 1% 的股份，所以偶尔会出现非凡的便宜货；而 IPO 更接近谈判出售——卖方决定何时上市，选的不是对你有利的时机，而是信息充分的卖方认为市场准备好了的时候。如同奥马哈的房子：邻居卖了 8 万，你的差不多的房子不会以 5 万卖；但如果每栋房子的 1% 都在拍卖市场交易，偶尔会以疯狂的价格成交。
+q: But the average person buying IPOs is going to get creamed. ||| But the average person buying IPOs is going to get creamed.
+q: An IPO situation more closely approximates a negotiated deal. ||| And they don’t pick a time necessarily that’s good for you.
+q: Now if, on the other hand, there were some — a whole bunch of entities that owned one percent of each house in Omaha ||| It’s just the nature of things.
+q: They come when the seller thinks that the market is ready for them. ||| you’ll make better buys, in my view, in an auction market.
+zh: （芒格：）但买 IPO 的普通人会被宰得很惨。（巴菲特：）……IPO 的情形更接近于谈判交易。卖方在大多数情况下决定何时上市，而他们选的时机不一定对你有利。……另一方面，如果有一大群实体各自拥有奥马哈每栋房子的 1%，而这些 1% 份额有一个拍卖市场，它们可能会以几乎任何价格成交，偶尔会以疯狂的价格成交。所以在我看来，你在拍卖市场中获得惊人便宜货的可能性大得多。这就是事物的本质。……它们在卖方认为市场已经为它们准备好时出现。……在我看来，你在拍卖市场中会买到更好的东西。
+l: 交易对手越知情、越能选择时机，你买到便宜货的可能性越小；在被动卖出、情绪化的拍卖市场中寻找机会。
+r: 4/5/4
+rel: 2004-A05, 2003-M32
+
+@ 2004-A23
+t: 美国企业从未让投资者失望，是投资者自己毁了自己
+s: BM
+th: 宏观与社会; 投资心理
+k: america
+c: 在历史上任何时点，包括股票最便宜的时候，你都能列出同样多令人印象深刻的负面因素；1974 年股票便宜得尖叫时，你也能写下一堆理由说未来会很糟。他们对此不予理会：基本前提是这个国家会表现很好，尤其对企业。20 世纪道琼斯从 66 点涨到 1 万多点，期间有两次世界大战、核弹、流感、冷战。从 1959 年至今，他们从没有因为外部条件放弃一个好的企业收购机会，也从没因为觉得世界会很美好就买平庸的东西。在 5、10、20 年里毁掉投资者的不会是美国经济，而是投资者自己；20 世纪持有股票不加杠杆，你会得到很不错的回报。芒格：我们过去三年也说过，专业投资的钱在未来相当长时间里回报可能平平——到目前为止这是对的。
+q: Well, I would say that at any given point in history, including when stocks were their cheapest ||| you could find an equally impressive number of negative factors.
+q: You know, the Dow went from 66 to 10,000-plus in the hundred years of the 20th century. ||| And in this country the opportunities have won out over the problems over time.
+q: I can’t remember any discussions Charlie and I have had, ever, going back to 1959 ||| simply because we thought the world was going to be wonderful.
+q: It won’t be the American economy, in my view, that does in investors over a five, or 10, or 20-year period. It will be the investors themselves. ||| you’d have gotten a perfectly decent return.
+q: But American business, really, has never let investors down as a group, but investors have done themselves in quite frequently. ||| But American business, really, has never let investors down as a group, but investors have done themselves in quite frequently.
+zh: 我会说，在历史上的任何时点，包括股票最便宜的时候，你都能找到同样多令人印象深刻的负面因素。……20 世纪的一百年里，道琼斯指数从 66 点涨到一万多点。我们经历了两次世界大战、核弹、流感疫情，你能想到的，还有冷战。……未来总会有问题，未来也总会有机会。在这个国家，随着时间推移，机会战胜了问题。……我想不起查理和我自 1959 年以来有过任何一次讨论，最终得出结论：因为外部条件而放弃一个绝佳的商业机会——一家可以收购的企业。我们也从来没有仅仅因为认为世界会很美好就去买我们认为平庸的东西。……在我看来，在 5 年、10 年或 20 年的期间里，毁掉投资者的不会是美国经济，而是投资者自己。……但如果你只是一直持有股票，不加杠杆，你会得到一个相当不错的回报。……美国企业作为一个整体，真的从未让投资者失望，但投资者却常常毁了自己。
+l: 不要因宏观担忧放弃好企业，也不要因宏观乐观买入平庸企业；投资者最大的敌人是杠杆、频繁交易和情绪，而不是经济本身。
+r: 5/5/5
+rel: 2003-M21, 1994-M47, 2004-M32
+
+@ 2004-A26
+t: 对冲基金是一场高收费的时尚：门上挂着“对冲基金”不会让人变成天才
+s: BM
+th: 投资方法; 管理与治理
+k: index
+c: 整体而言，现在投资对冲基金的人会失望。你不会因为经营的东西叫对冲基金、私募股权或 LBO 基金就变得更聪明，但你周期性地获得了推销它们的能力——华尔街会卖它能卖的东西。对冲基金正处在时尚之中，它的特征不是更会赚钱，而是收取异常高的费用：6000 亿美元收 2% 加利润分成，输家消失、赢家持续一阵并把钱拿走，投资者整体体验不会好。芒格：为什么要投资给这样一个人，他的基本思路是“如果在第一层可观费用上再加第二层费用对投资者好，那么第三层费用一定更好”？巴菲特：这种安排对视为合伙人的投资者基本上不公平，和提出不公平安排的人合作通常是错误；他们擅长的可能是营销——擅长营销就不必擅长别的。
+q: You don’t get smarter because you’re running something called a hedge fund ||| and Wall Street will sell what it can sell, just remember that.
+q: And the hedge fund right now is in the midst of a fad. ||| it is not going to be a great experience, in aggregate, for investors.
+q: Yeah, why would you want to invest with a guy whose basic thought process runs something like this ||| then a third layer of fees must be better yet?”
+q: And I don’t like getting in — in general, I think it’s a mistake to get in with people who propose unfair arrangements. ||| And I don’t like getting in — in general, I think it’s a mistake to get in with people who propose unfair arrangements.
+q: And believe me, people don’t become a genius just because you walk into some office, and it says “hedge funds” on the door. ||| In fact, if they’re good at marketing, they don’t have to be good at anything else.
+zh: 你不会因为经营的东西叫对冲基金、私募股权、或者叫 LBO 基金之类的任何名字就变得更聪明。但你周期性地获得的，是推销这些东西的能力。华尔街有时尚，华尔街会卖它能卖的东西，记住这一点。……对冲基金现在正处在一场时尚之中。它的特点不在于赚更多钱的能力，而在于收取的费用多得惊人。相信我，如果全世界 6000 亿美元的资金支付 2% 的费用外加利润分成，输家退出、赢家持续一阵并把钱拿走，那么对投资者整体而言，这不会是一次美好的经历。（芒格：）为什么你会想把钱交给这样一个人，他的基本思路是这样的：“如果在第一层可观费用之上再加一层费用对投资者是好的，那么第三层费用一定更好”？（巴菲特：）……总的来说，我认为与提出不公平安排的人合作是一个错误。……相信我，人们不会仅仅因为你走进一间门上写着“对冲基金”的办公室就成了天才。他们可能非常擅长的是营销。事实上，如果他们擅长营销，他们就不必擅长其他任何事。
+l: 费用结构就是对你回报的确定性扣减；对收费安排不公平的管理人，即使业绩看起来好也应回避。
+r: 4/5/4
+rel: 2004-M22, 2002-M17
+
+@ 2004-A27
+t: “不寻常的常识”：迅速排除愚蠢，大脑才有空间容纳少数明智的事
+s: BM
+th: 投资心理; 投资方法
+k: psychology
+c: 巴菲特：基本原则从格雷厄姆以来没变，受芒格和费雪影响转向更好的企业，但没有抛弃格雷厄姆；学到的是更多关于企业如何运作的知识。框架来自《聪明的投资者》，然后尽可能了解你能理解的行业和企业，再加上合适的性情。芒格：他这几十年其实学到了很多，那些基本原则本身不足以让他做出最近的投资决定——这是终身游戏，不学习就会被超越。两人一致：性情最重要，但光有性情不够，还需要正确的基本观念，并以强烈的好奇心长期坚持。买中石油不需要过人的洞察，只需愿意读报告——但芒格指出，当时几乎没人在买，可见洞察并不常见：一位奥马哈老友说，“没有常识这回事，人们说常识时，指的是不寻常的常识”。部分在于能把愚蠢排除出去：整类整类地拍掉，大脑不被塞满，就能更好地挑出少数明智的事。巴菲特：象棋大师不是算得比电脑快，而是不假思索地排除了 99.99% 的可能；别人电话里第一句话就知道不是好主意，就别出于礼貌听完。
+q: But those basic principles alone, that he knew a long time ago ||| It’s a life-long game, and it you don’t keep learning, other people will pass you by.
+q: You have to have the temperament, and the right basic idea. ||| And then you have to keep at it with a lot of curiosity for a long, long time.
+q: No, I think that takes a certain amount of what an old Omaha friend used to call “uncommon sense.” ||| then you’re better able to pick up a few sensible things to do.
+q: but a Fischer or Spassky, essentially, was eliminating about 99.99 percent of the possibilities without even thinking about it. ||| that really had any chance of success.
+zh: （芒格：）但仅凭他很久以前就知道的那些基本原则，并不能让他把最近的投资决策做得这么好。这是一场终身的游戏，如果你不持续学习，别人就会超过你。……你必须拥有合适的性情和正确的基本观念，然后你必须怀着强烈的好奇心，长久地坚持下去。……不，我认为这需要一定程度的、我一位奥马哈老朋友过去所说的“不寻常的常识”。他常说：“根本没有常识这回事。人们说常识时，指的是不寻常的常识。”我认为其中一部分是能够屏蔽愚蠢，这与识别智慧是不同的。如果你把一整类一整类的东西直接拍掉，让你的大脑不被它们塞满，你就能更好地挑出几件明智的事去做。（巴菲特：）……但像菲舍尔或斯帕斯基这样的头脑，基本上是不假思索地排除了大约 99.99% 的可能性……他们拥有一种你可以称之为归类或排除的能力，基本上直接锁定到无数可能性中真正有成功机会的少数几个。
+l: 建立快速“否决清单”，节省注意力给少数高质量机会；原则可以不变，但对行业与企业的知识必须终身积累。
+r: 5/5/5
+rel: 2002-M26, 2004-M17, 2003-A02
+
+@ 2004-A28
+t: 给伯克希尔估值：方法对了，关键在变量——到审判日可分配现金的现值
+s: BM
+th: 企业估值
+k: iv
+c: 一位股东展示了用看穿收益、资本开支与折旧、两阶段增长（15% 后 10%）、7% 折现估算伯克希尔内在价值的方法。巴菲特：思路正确，只取决于你代入什么变量——我们也可能有不同的想法，而谁也不知道答案。企业的价值是从现在到审判日所能分配的全部现金的现值；若留存现金的回报高于折现率，留存就有好处。资本开支平均会略高于折旧（除非高通胀）；伯克希尔还必须不断用留存利润去收购企业，问题是能获得什么回报；他们自己可能接受比提问者更低的盈利增长假设，因为规模越大越难运用资金。芒格：别对去年过于兴奋，那是各方面都配合得很好的异常年份；伯克希尔当前估值的有趣之处在于有那么多现金等待运用。
+q: The line of thinking is correct, it just depends on what variables you plug in. ||| And we might have different ideas on variables, and neither one of us knows.
+q: But it’s worth the present value of all the cash it can distribute between now and Judgment Day. ||| obviously, you’ll get some benefit from that retention.
+q: And I think we might settle for lower numbers on earnings gains than you postulated because we’re very large ||| to deploy the kind of funds that keep flowing into Omaha.
+zh: 思路是对的，只是取决于你代入什么变量。我们对变量可能有不同的想法，而我们谁都不知道答案。……但它的价值是从现在到审判日它所能分配的全部现金的现值。如果现金能够留存，并且以高于你折现率的回报率产出，显然你会从留存中得到一些好处。……我想我们可能会接受比你假设的更低的盈利增长数字，因为我们规模非常大，要运用不断流入奥马哈的那种规模的资金，变得越来越难。
+l: 估值时最重要的是变量的合理性，尤其是“留存资本的再投资回报率”——它决定了留存是创造还是毁灭价值；规模本身是增长率的天敌。
+r: 4/4/4
+rel: 2003-A30, 2004-M13
+
+@ 2004-A30
+t: 给年轻人的建议：老生常谈最管用，别负债，和比你好的人在一起
+s: BM
+th: 人生智慧
+k: life
+c: 巴菲特更愿意花时间和年轻人交流，因为他们更容易接受改变、养成有用的习惯；人们在变老之前低估了习惯有多重要、到 45 或 50 岁时有多难改。芒格：所有老生常谈的东西都管用——避免真正愚蠢的事（和火车抢道、尝试可卡因等），远离那些会把人拖垮的标准陷阱；培养好品格、好的思维习惯，从每一个错误中学习。巴菲特：如果只给年轻人一条建议，就是别负债——领先一点时游戏容易得多；他常给陷入债务困境的人回信建议破产重来，并且余生别再碰信用卡。和比你行为更好的人交往，你会向那个方向漂移；和坏人混，你的行为也会变坏。芒格：尤其要避开邪恶或严重不理性的人，特别是有魅力的异性；如果这让你在同龄人中暂时不受欢迎，让他们见鬼去吧。
+q: And I think that people underestimate — until they get older — they underestimate just how important habits are ||| and how important it is that you form the right ones when you’re young.
+q: Well, all the trite stuff is what works. ||| It’s pretty obvious, isn’t it?
+q: The game plays a lot easier if you’re a little bit ahead of the game than if you’re behind the game. ||| The game plays a lot easier if you’re a little bit ahead of the game than if you’re behind the game.
+q: But if you’re picking associates, pick out those whose behavior is somewhat better than yours, and you’ll drift in that direction. ||| And similarly if you hang out with a bad bunch, you’re very likely to find your own behavior worse over time.
+q: And my final word of advice would be, if this gives you a little temporary unpopularity in your peer group, the hell with them. ||| And my final word of advice would be, if this gives you a little temporary unpopularity in your peer group, the hell with them.
+zh: 我认为人们在变老之前，低估了习惯有多么重要，低估了到 45 或 50 岁时习惯有多难改变，以及年轻时养成正确的习惯有多么重要。（芒格：）嗯，所有老生常谈的东西才是管用的。……有很多标准的事情会把人拖垮，你只要离它们远远的就行。然后你要培养良好的品格和良好的思维习惯，你要从你的错误中学习，每一个错误都要，一路走下去。这很明显，不是吗？（巴菲特：）……如果你在游戏中稍稍领先，比你落后时要容易玩得多。……但如果你要挑选同伴，就挑那些行为比你好一些的人，你会朝那个方向漂移。同样，如果你和一群坏人混在一起，随着时间推移，你很可能会发现自己的行为变得更糟。（芒格：）我最后一条建议是，如果这让你在同龄人中暂时有点不受欢迎，让他们见鬼去吧。
+l: 人生的复利来自习惯：远离致命的愚蠢、不负债、选择比自己好的同伴，并愿意为此承受短期不合群。
+r: 4/3/5
+rel: 2002-M25, 2001-A09, 2002-A22
+
+@ 2004-A33
+t: 聪明且自律的人陷入麻烦的唯一途径是杠杆
+s: BM
+th: 风险管理
+k: leverage
+c: 在大银行的存款、大券商托管的证券（现金账户而非保证金账户），不必太担心——对无辜方存在“大到不能倒”，对股东则没有，也不应该有。一个聪明、看投资相当有纪律的人陷入麻烦的唯一途径就是杠杆：如果别人能在某场普遍金融灾难最糟的时刻拔掉你的插头，你就破产了——他们都有朋友遭遇过。没有杠杆、不在估值上发疯，证券世界长期不会伤害你；危机时期若有余钱就买入。伯克希尔在任何金融灾难中都处于异常强势的位置，“我们肯定会是最后一个站着的人，而且远不止”；他们不像殡仪员那样盼着瘟疫，但过去几次在世界恐慌时有现金也有勇气，结果都不错。
+q: Really, the only way a smart person that’s reasonably disciplined in how they look at investments can get in trouble is through leverage. ||| And Charlie and I both have friends that have — where that’s happened to them.
+q: But absent leverage, and absent just kind of going crazy in terms of valuation on things, the world won’t hurt you over time in securities. ||| If you have any more money during periods like that, you buy.
+q: And that’s happened a couple of times, actually, in the past, where we’ve had cash, and we’ve had courage when the world was panicking ||| and we’ve done reasonably well during that period.
+zh: 真的，一个在看待投资方面相当有纪律的聪明人，唯一可能陷入麻烦的途径就是杠杆。我的意思是，如果别人能在某种普遍金融灾难最糟糕的时刻拔掉你的插头，你就破产了。查理和我都有朋友遭遇过这种事。但如果没有杠杆，也不在估值上发疯，长期来看证券世界不会伤害你。……在那样的时期，如果你有更多的钱，你就买入。……过去实际上发生过几次这样的情况：我们有现金，在世界恐慌时我们有勇气，我们在那期间做得相当不错。
+l: 生存的两个条件：不用会被强制平仓的杠杆、不为疯狂估值买单；危机中现金与勇气是最稀缺的资产。
+r: 5/5/5
+rel: 2004-M32, 1994-M55
