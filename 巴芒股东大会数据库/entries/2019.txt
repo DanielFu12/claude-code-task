@@ -1,0 +1,118 @@
+# 2019 年股东大会（5 月 4 日；逐字稿仅含上午场）
+
+@ 2019-M10
+t: 富国银行与所罗门：发现问题后必须立即行动；让犯大错的银行 CEO 失去全部身家
+s: BM
+th: 管理与治理; 风险管理
+k: incentives
+c: 被问为何对富国银行丑闻相对沉默：巴菲特说富国在激励上犯了大错——设立数百万个余额为零、不可能盈利的假账户，“你可以激励出一些疯狂的事”；但关键错误是发现问题后没有行动。所罗门的古特弗罗因德得知莫泽违规后没有立即通知美联储，“他听说有个纵火狂，却让他继续拿着火柴盒”。伯克希尔有 39 万员工，此刻一定有人在做错事，“没有警察和法院就不可能有一座 39 万人的城市”；“如果你身居最高职位，发现某件事导致坏结果或坏行为时，必须迅速行动。”股东为银行的不当行为付出了数十亿美元，没人坐牢令人愤怒；他曾提议，如果银行需要政府救助，负责的 CEO 应失去他及配偶的全部净资产，董事也应退还过去五年所得。FDIC 没花政府一分钱，全部由银行自己出资。芒格：诚实的判断失误不应坐牢，丢掉工作已经够糟。
+q: The interesting thing is, to the extent that they set up fake accounts ||| So, you can incentivize some crazy things.
+q: But when he heard about it, he didn’t immediately notify the Federal Reserve. ||| Because, essentially, he heard about a pyromaniac, and he let him keep the box of matches.
+q: And Charlie has beaten me over the head all the years at Berkshire because we have 390,000 employees ||| You’ve got to do something about it when it happens.
+q: I actually proposed — think it may have been in one of the annual reports even. ||| If he doesn’t want the job under those circumstances, you know
+zh: （巴菲特：）有意思的是，就他们开设的假账户而言——有几百万个余额为零——那对富国银行不可能有利可图。所以，你可以激励出一些疯狂的事情。……但他听说这件事后，没有立即通知美联储。……从那一刻起，所罗门的命运就一路下滑。因为本质上，他听说有一个纵火狂，却让他继续拿着火柴盒。……这些年来查理一直敲打我，因为我们有 39 万名员工，我敢保证其中一些人此刻正在做错事。不可能有一座 39 万人的城市却不需要警察或法院系统。有些人不遵守规则。而你可能激励了错误的行为。发生时你必须对它采取行动。……我实际上提议过——我想可能甚至写在某份年报里——如果一家银行到了需要政府援助的地步，基本上，负责的 CEO 应该失去他的净资产以及他配偶的净资产。如果他在这种条件下不想要这份工作，那就算了。
+l: 风险控制的关键不在规则多寡而在高层的反应速度；激励条款应让高管与股东共担下行损失。
+r: 4/3/4
+rel: 2017-M06, 2016-A21
+
+@ 2019-M16
+t: 我们欢迎变化，但不会总是适应它：有些企业会枯萎，那就把钱用到别处
+s: B
+th: 管理与治理; 商业模式
+k: tech_change
+c: 被问 5G 时代应掌握何种核心能力：巴菲特说伯克希尔最高层没有核心能力，我们依靠子公司经理预见自己行业的变化，不集中管理；经理们在很大程度上拥有自己的企业，我们希望他们有主人翁感，而不是迷失在层层下达指令的庞大集团里。54 年来世界剧变，有些变化伤害了我们——纺织、制鞋、百货、印花票，正是伯克希尔的起家业务；有些企业会被世界的变化摧毁，“但我仍然是持证的资本主义者”。1800 年 80% 的人在农场工作，没有变化就是完全不同的社会。“所以我们欢迎变化……但有时我们会错，那些企业会枯萎死亡，我们最好把钱用到别处。”
+q: The world is going to change in dramatic ways. ||| But we do adjust. And we’ve got a group, overall, of very good businesses.
+q: So, we welcome change. ||| And we’d better use the money someplace else.
+zh: （巴菲特：）世界将以戏剧性的方式改变。想想在我们拥有伯克希尔的 54 年里它改变了多少。其中一些变化伤害了我们。它们在纺织业伤害了我们。在制鞋业伤害了我们。在百货商店业务中伤害了我们。在印花票业务中伤害了我们。这些都是这家公司的起家业务。但我们确实会调整。而且总体上我们拥有一组非常好的企业。……所以，我们欢迎变化。我们当然希望有能够预见并适应变化的经理人。但有时我们会错。那些企业会枯萎、死亡。那我们最好把钱用到别的地方。
+l: 资本配置者的优势在于不必与衰退行业共存亡：允许个别企业衰落，把现金转移到更好的地方。
+r: 3/3/4
+rel: 2016-M12, 2014-A02
+
+@ 2019-M17
+t: 为卡夫付了太多钱：你可以通过付太多把任何投资变成坏交易
+s: BM
+th: 企业估值; 护城河
+k: quality
+c: 被问卡夫亨氏减值及品牌护城河：巴菲特说亨氏部分价格合适、做得不错，“我们为卡夫付了太多钱”，部分是自己的行动推高了价格。卡夫亨氏 70 亿美元有形资产赚约 60 亿美元税前利润，是很棒的生意，“但你可以为一家很棒的企业付太多钱”——即使喜诗也有一个买了就不成功的价格；“企业并不知道你为它付了多少钱。”零售商相对品牌获得了权力：Costco 的 Kirkland 是 390 亿美元的品牌，比整个卡夫亨氏（260 亿）还大，比可口可乐销售额还多，而且能跨产品延伸；亚马逊本身也成了品牌。“你可以通过付太多钱把任何投资变成坏交易。你不能做的，是通过付很少的钱把任何投资变成好交易——我就是那样开始的。”不再买正在衰落的烟蒂，而是以合理价格买好企业。芒格：两笔交易一笔成功一笔不太成功，不是悲剧。
+q: Now, Kraft Heinz, the profits of that business, 6 billion ||| So, the business does not know how much you paid for it.
+q: But you’re quite correct that Amazon itself has become a brand. ||| Kirkland does more business than Coca Cola does.
+q: But basically, retailers — certain retailers ||| has gained in power relative to brands.
+q: You can turn any investment into a bad deal by paying too much. ||| We try to buy good businesses at a decent price.
+zh: （巴菲特：）现在，卡夫亨氏这门生意的利润——非常非常粗略地说，我不是在做预测——在 70 亿美元的有形资产上赚 60 亿美元税前利润，是一门很棒的生意。但你可能为一门很棒的生意付出太多。我们买了喜诗糖果。结果证明那是一笔很好的收购。我们本可以付得更多。但存在某个价格，即使是喜诗糖果，我们以那个价格买下也不会成功。所以，企业并不知道你为它付了多少钱。……但你说得很对，亚马逊本身已经成为一个品牌。Costco 的 Kirkland 是一个 390 亿美元的品牌。整个卡夫亨氏是 260 亿美元……而 Kirkland 的生意比可口可乐还大。……但基本上，零售商——某些零售商——零售体系——已经获得了一些权力。尤其是亚马逊、沃尔玛及其应对，还有 Costco——以及 Aldi 和其他一些我能说出名字的——相对于品牌获得了权力。……你可以通过付出太多把任何投资变成一笔坏交易。你不能做的，是通过付很少的钱把任何投资变成一笔好交易，而那差不多就是我在这个世界上起步的方式。但买那些正在衰退的烟蒂或糟糕企业、以便宜价格买入，不再是我们试图做的事。我们努力以合理的价格买好企业。
+l: 好企业也有错误的价格；评估消费品牌时要关注渠道权力的转移——强大的零售商自有品牌正在侵蚀传统品牌的定价权。
+r: 5/5/5
+rel: 2015-M36, 2017-M08
+
+@ 2019-M19
+t: 养老金应避开“另类投资”：杠杆、薄弱契约、不诚实的回报计算与锁定的费用
+s: BM
+th: 风险管理; 投资方法
+k: leverage
+c: 一位公共养老金另类投资从业者问私募股权、私人信贷的前景：巴菲特说如果给普通股加杠杆并能挺过下跌，回报当然惊人；如果资产收益 7–8%、能以 4–5% 无契约地借钱，会有一些破产，但很多情况下结果更好。但不加杠杆比较，“我不认为今天被购买和推销的东西会表现好”。伯克希尔不会加杠杆；见过太多智商极高的人被杠杆毁掉——长期资本管理公司那些用自己的钱、经验丰富的聪明人，1998 年“全都变回了南瓜和老鼠”，有人之后还重蹈覆辙。约 1 万亿美元承诺资金、加杠杆后 3 万亿购买力在追逐收购，供求关系已剧变；见过一些私募基金的回报计算方式“我不认为是诚实的”。“在华尔街，如果在当伟大分析师和伟大销售员之间选择，当销售员才能发财”——募集 100 亿美元、收 1.5% 管理费、锁定十年，即使是最笨的投资者，子孙三代都不用干活。芒格：很多养老金喜欢这些投资，是因为恐慌中不必像应该的那样减记——这是买东西的愚蠢理由；“他们所做的只是撒一点谎来让钱流进来。”巴菲特：承诺但未调用的资金也要付费，还不计入内部收益率。
+q: My personal opinion is, if you take unleveraged returns against unleveraged common stocks ||| But you’re going to also have better results in many cases.
+q: But both Charlie and I, probably, have seen some more high-IQ people ||| And then we saw some of those same people, after that happened to them once, go on and do the same thing again.
+q: And I’m sure it doesn’t happen with your Winnipeg operation ||| if you are the dumbest investor in the world.
+q: What I don’t like about a lot of the pension fund investments ||| Because you’re given leniency in marking it down.
+q: They count it in terms of getting a fee on it. ||| Warren, all they’re doing is lying a little bit to make the money come in.
+zh: （巴菲特：）我个人的看法是，如果你拿不加杠杆的回报与不加杠杆的普通股比较，我不认为今天被买入和推销的东西会表现良好。但如果你能借钱——如果你能买入收益率 7% 或 8% 的资产，又能以 4% 或 5% 借到足够的钱，而且没有任何契约要满足，你会有一些破产。但在很多情况下你也会得到更好的结果。……但查理和我大概都见过更多高智商的人——真正智商极高的人——被杠杆摧毁。我们看到了长期资本管理公司……真正非常聪明的人，用自己的钱，有着多年的从业经验。结果 1998 年一切都变回了南瓜和老鼠。……然后我们看到其中一些人，在这种事发生过一次之后，又去做同样的事。……我们见过一些私募股权基金的提案，其回报的计算方式——我不认为是诚实的。所以如果我管理一只养老基金，我会对别人推销给我的东西非常谨慎。如果你在华尔街可以选择成为一个伟大的分析师或一个伟大的销售员，销售员才是发财的路。如果你能为一只基金募集 100 亿美元，收 1.5% 的费用，把人们的钱锁定十年，你和你的子孙都永远不用做任何事，即使你是世界上最笨的投资者。（芒格：）我不喜欢很多养老基金投资的地方是，我认为他们喜欢这些投资，是因为在恐慌中不必像应该的那样减记。我认为这是买东西的一个愚蠢理由——因为你在减记时得到了宽容。（巴菲特：）他们在收费时会计入它。但在计算所谓内部收益率时不计入。它并不像看起来那么好。……（芒格：）沃伦，他们所做的一切只是撒一点谎，让钱流进来。
+l: 另类投资的高回报多来自杠杆和估值平滑；评估时要剔除杠杆、看清费用结构与 IRR 计算口径，警惕“看起来波动低”的假象。
+r: 5/5/4
+rel: 2017-M34, 2015-M28
+
+@ 2019-M20
+t: 所有投资都是价值投资：买亚马逊与买 0.7 倍净资产的银行是同一个计算
+s: BM
+th: 企业估值; 投资理念
+k: iv
+c: 被问基金经理买入亚马逊是否偏离价值投资：巴菲特说买亚马逊的人绝对是价值投资者。“认为价值与账面价值或低市盈率有关的想法——正如查理所说，所有投资都是价值投资”：现在付出一些钱以便日后得到更多，计算得到钱的概率、时间以及其间的利率；无论以 0.7 倍账面价值买银行，还是以很高的市盈率买亚马逊，都是同样的计算。当前销售、利润率、有形资产、多余现金、多余负债都纳入比较 A、B、C 的计算。“归根结底都回到伊索……尽管商学院教了很多方程，基本方程是伊索的”——林中有几只鸟、多远、多确定、谁会来抢、最坏情况是什么。芒格：我们年纪大、不够灵活；错过亚马逊可以原谅，那人是奇迹创造者，但“没更好地识别谷歌，我觉得自己像个蠢驴”——在 GEICO 亲眼看到谷歌广告的效果，“却坐在那里吮手指”；也许苹果是赎罪。
+q: The idea that value is somehow connected to book value or low price/earnings ratios ||| or you’re buying Amazon at some very high multiple of reported earnings.
+q: And when we buy Amazon, we try and figure out whether the ||| and the possibilities of four or five or ten or 20 being there.
+q: But I feel like a horse’s ass for not identifying Google better. ||| Maybe Apple was atonement.
+zh: （巴菲特：）认为价值在某种程度上与账面价值或低市盈率之类相关的想法——正如查理所说，所有投资都是价值投资。我是说，你现在投出一些钱，是为了以后得到更多。你在计算得到那笔钱的概率、什么时候得到、以及其间的利率是多少。无论你是在以 70% 的账面价值买某家银行，还是以报告盈利的很高倍数买亚马逊，都是同样的计算。……当我们买亚马逊时，我们试图弄清——那个买它的人试图弄清——林子里是三只、四只还是五只鸟，到林子要多久，他有多确定能到达林子，然后还有谁会来试图夺走那片林子，诸如此类。我们做的是同样的事情。而真的，尽管你在商学院学了很多方程式，基本的方程式是伊索的。你投资的成功，取决于你能多好地弄清林子有多确定、有多远，以及最坏的情况是什么——不是两只鸟在那里，而是只有一只——以及有四只、五只、十只或二十只在那里的可能性。（芒格：）但我为没有更好地识别出谷歌而觉得自己像个蠢驴。……我们能在自己的运营中看到谷歌广告的效果有多好。而我们就坐在那里吮手指。所以，我们很惭愧。我们在努力赎罪。也许苹果就是赎罪。
+l: “价值”与“成长”不是对立的流派，而是同一个折现计算中的不同输入；关键是对未来现金流数量、时间与确定性的判断。
+r: 5/5/5
+rel: 2014-A16, 2017-A15
+
+@ 2019-M22
+t: 不要在延迟满足上走火入魔：快乐与金钱超过某个点后不相关
+s: BM
+th: 人生智慧
+k: life
+c: 13 岁提问者问孩子如何培养延迟满足能力：芒格说孩子们生来要么能延迟满足，要么什么都要立刻得到，他从没能改变过他们，“所以我们识别它，而不是训练它”；可能有位 95 岁、衣着破旧的老太太一直延迟满足到最后，手里有 4000 股 A 股，买珠宝的是第二、第三代。巴菲特：30 年期国债 3%，扣税后再遇上 2% 通胀，持有长期国债的延迟满足意味着 30 年后在迪士尼乐园能坐的项目和现在一样多。并非所有家庭在所有情况下存钱都是最好的选择，“做能给你和家人带来快乐的事，而不是试图省下每一分钱，这有很多好处”。“如果你拥有 5 万或 10 万美元还不快乐，有 5000 万或 1 亿美元也不会快乐”；富人不是因为超级富有而更快乐，而是因为不必为钱担心时更快乐；“超过某个点，快乐与金钱之间看不到相关性。所以不要在延迟满足上走火入魔。”
+q: And my answer is that they sort of come out of the womb with the delayed gratification thing ||| We don’t train it in.
+q: The low interest rates, for people who invest in fixed-dollar investments ||| which is what I used to preach to my wife and children and anybody else that would listen, many years ago.
+q: I think there’s a lot to be said for doing things that bring you and your family enjoyment, rather than trying to save every dime. ||| I think there’s a lot to be said for doing things that bring you and your family enjoyment, rather than trying to save every dime.
+q: But I’ve always had everything I wanted. ||| you’re not going to be happy if you have 50 million or a hundred million.
+q: But loads and loads of money — I probably know as many rich people as just about anybody. ||| So, don’t go overboard on delayed gratification.
+zh: （芒格：）我的回答是，他们差不多一出娘胎就要么带着延迟满足的能力，要么就是什么都必须马上得到。而我从来没能改变过他们。所以，我们识别它，而不是训练它。（巴菲特：）对于投资固定收益的人来说，低利率真的意味着，你现在吃汉堡并不会让你以后吃上牛排——这正是我多年前常对妻子、孩子和任何愿意听的人宣扬的。……我认为，做那些能给你和你的家人带来快乐的事，而不是试图省下每一毛钱，有很多可取之处。……但我一直拥有我想要的一切。我是说，你应该明白一件事：如果你拥有 5 万或 10 万美元却不快乐，那你拥有 5000 万或 1 亿美元也不会快乐。……但大量大量的钱——我认识的富人大概和任何人一样多。我不认为他们因为变得超级富有而更快乐。我认为当他们不必为钱担心时，他们更快乐。但超过某个点，你看不到快乐和金钱之间的相关性。所以，不要在延迟满足上走火入魔。
+l: 延迟满足的价值取决于实际回报率；财务目标是“不为钱担心”，超过之后，金钱对幸福的边际贡献很小。
+r: 3/3/4
+rel: 2015-A16, 2018-M24
+
+@ 2019-M26
+t: 何时可以管理别人的钱：先确保你的投资人与你步调一致，并为他们设定预期
+s: BM
+th: 投资心理; 人生智慧
+k: psychology
+c: 27 岁的提问者问何时可以开始管理他人资金：巴菲特说 1956 年家人请他帮忙打理股票，他不想做股票销售，而是设立合伙基金；“如果我认为有任何真正亏钱的可能，我就不会做”；他担心的不是自己会如何表现，而是投资人会如何表现——需要步调一致的人。晚餐时给七个人看合伙协议，“这是我认为我能做到什么、我希望如何被评判的基本规则”，如果你们与我一致，我就不担心你们在市场下跌或别人劝说时恐慌；合伙基金里没有一家机构，因为机构意味着委员会。“不要接受那些对你有你无法满足的期望的人”，这意味着要拒绝很多人，从很小开始，拿到经审计的记录；当你有信心对父母说“我可能不会有最好的记录，但能确保你长期得到不错的记录”时，就准备好了。芒格：莫扎特对 22 岁想写交响乐的年轻人说“你太年轻了”——“但你 10 岁就写交响乐了。”“是的，但我没有到处问别人怎么写。”
+q: But I would not have done that, if I thought there was any chance, really, that I would lose the money. ||| because I needed people who were in sync with me.
+q: So, I don’t you want to manage other people’s money until you have a vehicle ||| when they should you roses and when they should throw bricks at you.
+q: And so, it’s enormously important that you don’t take people that have expectations of you that you can’t meet. ||| that’s when you’re ready to go on the
+q: And Mozart said, “How old are you?” ||| “Yes, but I wasn’t running around asking other people how to do it.”
+zh: （巴菲特：）但如果我认为真的有任何亏掉那些钱的可能，我就不会那样做。我担心的不是我会如何表现，而是他们会如何表现，因为我需要和我步调一致的人。……所以，我不认为你应该管理别人的钱，直到你拥有一个载体，并且能接触到那些会与你步调一致的人。我认为你应该有你自己的基本规则，说明你的预期是什么，什么时候他们应该给你送玫瑰，什么时候应该向你扔砖头。……所以，极其重要的是，你不要接受那些对你抱有你无法满足的期望的人。这意味着你要拒绝很多人。这意味着你可能要从很小开始，获得一份经过审计的记录。当你有了这样的信心——如果你自己的父母来找你，要把他们所有的钱交给你投资，你会说“我可能不会有最好的记录，但我会确保你们长期获得一个不错的记录”——那时你就准备好了。（芒格：）莫扎特说：“你多大了？”那人说：“22 岁。”莫扎特说：“你太年轻了，写不了交响乐。”那人说：“但你 10 岁时就在写交响乐了。”他说：“是的，但我当时没有到处跑着问别人该怎么做。”
+l: 资金来源的质量决定策略能否执行：选择与你理念一致、不会在下跌中恐慌赎回的出资人，事先讲清评判标准。
+r: 4/4/4
+rel: 2017-M34
+
+@ 2019-M29
+t: 年纪越大越懂人性：芒格引李光耀“弄清什么有效，然后去做”
+s: BM
+th: 人生智慧; 投资心理
+k: psychology
+c: 11 岁中国小股东问年纪越大越懂人性指什么：巴菲特说按几乎任何标准自己都在走下坡路，SAT 分数会很难看；但年纪越大，你可以而且应该更懂人的行为，因为经验更多。年轻时读遍所有感兴趣的书、研究别人的人生学到很多，“但我不认为靠读书能成为人类行为的专家，无论你智商多高、老师是谁”，有时需要多次经历才能学会；他心算和阅读都慢了，但比二三十岁时懂人性多得多。芒格：李光耀可能是有史以来最伟大的国家建设者，他一生反复说一句话：“弄清什么有效，然后去做。”巴菲特：弄清什么有效，就是弄清别人会如何行事。
+q: But I would say this. It’s absolutely true in my view that you can and should understand human behavior better as you do get older. ||| Sometimes you have to learn it by having multiple experiences.
+q: And he said one thing over and over and over again all his life. ||| Figure out what works, and do it.
+zh: （巴菲特：）但我要说的是，在我看来，随着年龄增长，你能够也应该更好地理解人的行为，这绝对是真的。你只是对它有了更多经验。……但我不认为你能通过读书成为人类行为方面的专家，无论你的智商多高，无论老师是谁。我认为你确实会学到很多关于人类行为的东西。有时你必须通过多次经历才能学会。（芒格：）他一生中一遍又一遍地说一件事：“弄清什么有效，然后去做。”如果你就带着这样一个来自你们自己民族的简单哲学去面对人生，你会发现它效果极好。弄清什么有效，然后去做。
+l: 对人的判断力来自长期、反复的实践经验；务实地“弄清什么有效并去做”，胜过追求理论上的完美。
+r: 3/2/4
+rel: 2016-A12
