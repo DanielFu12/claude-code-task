@@ -1,0 +1,293 @@
+@ 2001-M07
+t: 代价最大的是错失的机会：在能力圈内“吮手指”
+s: BM
+th: 投资心理
+k: mistakes
+c: 芒格：伯克希尔历史上最严重的错误是不作为的错误，它们不出现在财务数字里，而体现在机会成本中；很少有管理层思考或谈论机会成本。巴菲特：几十亿、几十亿、几十亿——干脆说出来。芒格：年轻时有人卖给他 300 股贝尔里奇石油，任何傻瓜都看得出不可能亏、很可能大赚，他买了；三天后对方又给他 1500 股，这次他得卖掉别的东西才能买，结果没买——这个错误追溯下来让他损失了 2 亿美元，只因为要稍微麻烦一下卖点东西。巴菲特：错误只算能力圈内的；不懂可可豆或软件而错过不算。真正的错误是看得懂、站在那儿盯着却什么都不做，更糟的是只用滴管那么一点点去做——查理称之为“吮手指”。常规会计完全不反映这些，但它们记在我们的计分簿上。
+q: The mistakes that have been most extreme in Berkshire’s history are mistakes of omission. ||| They show up in opportunity costs.
+q: That mistake, if you traced it through, has cost me $200 million. ||| And I — it was all because I had to go to a slight inconvenience and sell something.
+q: We only regard errors as being things that are within our circle of competence. ||| that is not an error, as far as we’re concerned.
+q: What’s an error is when it’s something we understand, and we stand there and stare at it, and we don’t do anything. ||| We do an eyedropper’s worth of it, when we could do it very big.
+q: Conventional accounting, of course, does not pick those up at all. But they’re in our scorebook. ||| Conventional accounting, of course, does not pick those up at all. But they’re in our scorebook.
+zh: （芒格：）伯克希尔历史上最严重的错误是不作为的错误。它们不会出现在我们的数字里，而是体现在机会成本中。……那个错误如果追溯下来，让我损失了 2 亿美元。而这全都是因为我得稍微麻烦一下，卖掉点什么东西。（巴菲特：）我们只把能力圈之内的事情算作错误。……真正的错误是：那是我们理解的东西，而我们站在那里盯着它，什么也不做。或者更糟的是……我们只做了一滴管的量，而本来可以做得非常大。……传统会计当然完全不会记录这些。但它们记在我们的计分簿上。
+l: 建立自己的“机会成本计分簿”：记录能力圈内看懂却未买或买得太少的标的。对极少见的高确定性机会，不要因为卖出其他持仓的“小麻烦”或价格小幅上涨而放弃。
+r: 5/5/5
+rel: 1997-A11, 2004-M20
+
+@ 2001-M11
+t: 大宗商品型行业：成本必须不高于对手，否则迟早被低成本者杀死
+s: BM
+th: 商业模式; 护城河
+k: business_model
+c: 航空业的真正问题不是总薪酬水平，而是你的成本是否高于竞争对手：看单位可用座位英里成本、再结合上座率。他和芒格做 USAir 董事时，每座位英里成本约 12 美分，西南航空不到 8 美分——他们今年没来，明年或后年也会来，你迟早会被杀死。在航空座位这种大宗商品式业务里，劳动力成本显著高于对手是撑不长的；资本主义的本质是低成本者进来杀死你。无法承受长期罢工的企业，等于定期与工会玩“胆小鬼游戏”——越弱的一方谈判地位反而越强。芒格：客运铁路即使在以前也很难赚钱，航空也没什么不同。NetJets 在阿斯彭空难当天拒绝飞往阿斯彭，人们会记住这种事。
+q: The real problem is when you’re in the airline business and your wage rates are out of line with your competitors. ||| The real problem is when you’re in the airline business and your wage rates are out of line with your competitors.
+q: you just can’t take labor costs that are materially higher than your competitor in a business that has commodity-like characteristics ||| the nature of a capitalist society is that the guy with the lower cost comes in and kills you.
+q: if you’re in a business that cannot take a long strike, you’re basically playing a game of chicken ||| So you’re playing a game of chicken periodically.
+zh: 真正的问题在于，当你身处航空业，而你的工资水平与竞争对手不一致的时候。……在一个具有类似大宗商品特征的行业里——比如航空座位——你就是无法承受显著高于竞争对手的劳动力成本。你可以暂时这样撑着，但迟早，资本主义社会的本质就是：成本更低的那个人进来，把你干掉。……如果你身处一个无法承受长期罢工的行业，你基本上就是在和工会玩胆小鬼游戏。……你会周期性地玩这个胆小鬼游戏。
+l: 在同质化行业里，唯一可持续的护城河是相对成本优势；分析时比较单位成本（如每座位英里成本），并评估劳资结构是否让企业处于“无法承受停工”的脆弱地位。
+r: 4/4/4
+rel: 2013-A07, 2007-M17
+
+@ 2001-M13
+t: 没有所谓的成长股和价值股
+s: BM
+th: 企业估值; 投资理念
+k: iv
+c: 成长和价值不可区分，它们是同一个方程的一部分——成长是价值方程的一部分。只有当现在追加资本、将来能以显著高于当前利率的回报获得更多现金时，增长才增加价值。FlightSafety 今年买 2 亿美元模拟器、折旧约 7000 万，高出折旧的 1.3 亿是增长，好坏取决于这 1.3 亿的回报。航空业自莱特兄弟起飞就一直在增长，但增长是最糟糕的事——越来越多资本以不足的回报投入；喜诗糖果的增长则很美妙，因为多卖几磅糖几乎不需要增量投资。任何告诉你该把钱放在成长股或价值股的人，其实不懂投资。芒格：总部人少且年纪大，我们特别偏爱在不需要再次变聪明的情况下投出大笔资金——以合理价格买由好人经营的好企业，某种意义上就是成长股投资。
+q: there is no such thing as growth stocks or value stocks, the way Wall Street generally portrays them as being contrasting asset classes. ||| there is no such thing as growth stocks or value stocks, the way Wall Street generally portrays them as being contrasting asset classes.
+q: Growth, usually, is a chance to — growth, usually, is a positive for value ||| at a rate that’s considerably higher than the current rate of interest.
+q: The airline business has been a growth business ever since, well, you know, Orville [Wright] took off. But the growth has been the worst thing that happened to it. ||| because more and more capital has been put into the business at inadequate returns.
+q: we are especially partial to laying out large sums of money under circumstances where we won’t have to be smart again. ||| we are especially partial to laying out large sums of money under circumstances where we won’t have to be smart again.
+zh: 不存在华尔街通常描绘的、作为对立资产类别的“成长股”或“价值股”。……增长通常对价值是正面的，但只有当它意味着现在追加资本，将来能以显著高于当前利率的回报率获得更多可用现金时才是如此。……航空业自从奥维尔·莱特起飞以来一直是一个增长行业，但增长是它所遇到的最糟糕的事情……因为越来越多的资本以不足的回报率被投入这个行业。（芒格：）我们特别偏爱在那种我们不必再次变聪明的情况下投出大笔资金。
+l: 不按“风格”配置，而按“增长的经济性”评估：增量资本回报率高于资本成本的增长才值钱。
+r: 5/5/5
+rel: 2000-M03, 1994-A23, 1998-A08
+
+@ 2001-M14
+t: 最好的投资是投资你自己；只会被动积累财富的人生是失败的人生
+s: BM
+th: 人生智慧
+k: life
+c: 一位 10 岁的股东问如何教孩子赚钱存钱。巴菲特：父母在这方面能比老师做更多。他对学生说，愿意花 5 万美元买任何一个聪明学生未来终生收入的 10%，所以你站在那里就是一项 50 万美元的资产，如何开发头脑和才能极其重要；早年最好的投资是投资自己。芒格：提醒一句——如果你一生只成功地靠被动持有小纸片早早致富，并且一辈子只在这一点上越来越好，那是失败的人生；人生不只是精于被动的财富积累。
+q: I would pay any bright student probably $50,000 for 10 percent of his future earnings the rest of his life. ||| So he’s a $500,000 asset just standing there.
+q: The best investment you can make, at an early age, is in yourself. ||| The best investment you can make, at an early age, is in yourself.
+q: If all you succeed in doing in your life is to get early rich from passive holding of little bits of paper ||| it’s a failed life.
+q: Life is more ||| than being shrewd at passive wealth accumulation.
+zh: 我愿意花大约 5 万美元，买任何一个聪明学生余生未来收入的 10%。所以他站在那里就是一项价值 50 万美元的资产。……在年轻时你能做的最好的投资，就是投资你自己。（芒格：）如果你一生中所成功做到的，只是靠被动持有小纸片早早致富，并且一辈子只在这方面越来越好，那就是失败的人生。人生不只是精明地被动积累财富。
+l: 把自己的“人力资本”视为最大的资产，优先投资技能、健康与品格；同时把投资视为生活的一部分，而不是全部。
+r: 5/3/5
+rel: 1998-A13, 2022-M22, 2008-A14
+
+@ 2001-M15
+t: 互联网热潮是把别人的希望变现：钱从轻信者流向推销者
+s: BM
+th: 市场周期
+k: speculation
+c: 当年估值数亿美元、号称要打败实体珠宝和家具零售的网络公司很快消失，互联网对零售的威胁比两年前看起来小得多；但互联网对 GEICO、喜诗等是巨大机会（喜诗网上业务今年增长 40%）。认为几乎任何商业点子都能在互联网上变成财富——很多确实通过推销给公众变成了财富，但极少通过持续产生现金实现。芒格：我们曾经做过赊账送货的杂货生意，一个家庭每周工作 90 小时，一百年也就勉强养活一家；有人竟认为它是未来的潮流并做成网络创意（Webvan），这只能叫狂热，还吸进了很多聪明人。巴菲特：互联网让人们得以把别人的希望变现，把数百万人的贪婪和梦想通过风投和市场换成现金；大量金钱从轻信者转移给推销者，纯互联网企业迄今几乎没有创造财富，对公众是巨大的陷阱。
+q: many were turned into wealth by promoting them to the public. ||| But very few have been turned into wealth by actually producing cash results over time.
+q: And somebody actually got the idea that was the wave of the future ||| And it sucked in a lot of intelligent people.
+q: What the internet offered was a chance for people to monetize the hopes of others, in effect. ||| It’s been a huge trap for the public.
+zh: 很多（商业点子）通过向公众推销而变成了财富。但极少有通过长期实际产生现金结果而变成财富的。（芒格：）……居然有人认为那是未来的潮流，把它变成了一个了不起的互联网创意。这只能被描述为狂热，而且它吸进去了很多聪明人。（巴菲特：）互联网提供的，实际上是一个让人们把他人的希望变现的机会。……在这个过程中，大量金钱从轻信者转移到了推销者手里。但到目前为止，纯互联网企业几乎没有创造出钱来。它对公众来说是一个巨大的陷阱。
+l: 新商业模式要回到单位经济：如果线下版本是烂生意（如送货上门杂货），换上互联网外衣并不会改变成本结构。
+r: 4/4/4
+rel: 2000-M04, 1999-A27
+
+@ 2001-M18
+t: 企业利润约占 GDP 6%：期待 15% 回报是活在梦里
+s: BM
+th: 市场周期; 会计与财务
+k: projections
+c: 美国企业利润占 GDP 历史区间是 4-6%，最近在 6%；要变成更大一块，就得挤占其他部分（如个人收入），10-12% 会被民众视为分配不公。若利润与 GDP 同步、估值倍数已不低，那企业价值增长也不会比 GDP 快多少——约 5%。几十年前买股票还有 5% 股息率，现在只有 1.5%，同样的增长带来的总回报小得多。股票未来 15-20 年获得 6-7% 是体面的，期望 15% 是活在梦里。前景更好的 70 年代末，养老金假设回报约 6%；如今前景更差，却普遍假设 9% 以上——下调假设会大幅减少利润，所以没人想动，顾问也只说客户想听的。芒格：养老金会计正因不合理的投资假设滑向丑闻；人类会外推最近的过去——就像住在应力逐年积累的断层上，却假设越久没地震越不会地震，这是写地震保险的愚蠢方式，也是愚蠢且不当的养老金规划与会计。巴菲特：大洗澡式的一次性冲销是会计欺骗。
+q: I talked about the unlikelihood of corporate profits in the United States getting much larger than 6 percent of GDP. ||| And historically, the band has been between 4 and 6 percent.
+q: I think stocks are a perfectly decent way to make 6 or 7 percent a year over the next 15 or 20 years. ||| is living in a dream world.
+q: pension funds were using investment rate assumptions that were often in the 6 percent or thereabout range. ||| I don’t know how they’re going to get 9 percent or better on investments.
+q: The way they’re doing things would be like living right on an earthquake fault ||| That is a dumb way to write earthquake insurance.
+zh: 我谈到美国企业利润不太可能显著超过 GDP 的 6%。历史上，这个区间在 4% 到 6% 之间。……我认为在未来 15 到 20 年里，股票是每年赚 6% 或 7% 的一个相当不错的方式。但任何期望每年赚 15%、或期望他的经纪人或投资顾问赚到这种钱的人，都活在梦里。……（70 年代末前景好得多时）养老基金使用的投资回报假设通常在 6% 左右。而现在前景差得多，大多数养老基金却在计算中使用 9% 或更高的回报。我不知道他们怎么才能在投资上获得 9% 或更高。（芒格：）他们的做法就像住在一条每年都在积累应力的地震断层上，却预测越久没发生地震，地震就越不可能发生。那是承保地震险的愚蠢方式。
+l: 用“利润/GDP + 股息率 + 增长”估算市场长期回报；检查持仓公司的养老金回报假设是否激进，激进假设意味着利润被高估。
+r: 4/4/4
+rel: 1999-A03, 2001-M33
+
+@ 2001-M20
+t: 愚蠢保单的市场无限大：任何人都能产生浮存金，难的是低成本
+s: BM
+th: 保险与浮存金
+k: insurance
+c: 伯克希尔的浮存金今年预计增长至少 25 亿，约占年初的 10%，已接近全美财险业浮存金（约 3000 亿）的 10%，不可能长期以 10% 增长。增长浮存金是主要目标，但更大的目标是保持低成本。1967 年买林沃尔特的公司时浮存金不到 1500 万，从没想到会接近 300 亿。芒格：好，但没那么好。巴菲特：任何人都能产生浮存金——如果给经理人定 50 亿的浮存金目标，他们一分钟就能做到，而我们会在未来几十年付出代价。愚蠢保单的市场是无限的，它们很令人愉快——第一天保费进来，那是你最后一次看到新钱，之后全是流出。
+q: But we’re doing everything possible that makes sense to grow float. ||| But the even bigger objective is to keep it low-cost.
+q: Anybody can generate float. ||| and we would be paying the price for decades to come.
+q: There’s an unlimited market for dumb insurance policies. ||| From then on, it’s all going out. And that’s not our aim in life.
+zh: 我们正在做一切合理的事情来增长浮存金。这是一个非常非常重要的目标。但更重要的目标是让它保持低成本。……任何人都能产生浮存金。我的意思是，如果我们给经理人定一个明年产生 50 亿美元浮存金的目标，他们一分钟就能做到，而我们会在未来几十年里为此付出代价。……愚蠢保单的市场是无限的。而且它们非常令人愉快，因为第一天保费进来了，那是你最后一次看到新钱进来。从那以后，全是往外流的钱。这不是我们的人生目标。
+l: 不要以规模指标（保费、浮存金、贷款量）激励金融业务——任何人都能用低价换来规模，代价在未来几年才显现。
+r: 4/4/4
+rel: 1996-M35, 2003-M15
+
+@ 2001-M26
+t: 承保的诀窍：找到真正有预测力的变量，不必知道为什么
+s: B
+th: 保险与浮存金; 投资方法
+k: insurance
+c: 车险的诀窍是找出决定一个人事故倾向的变量，但变量不能太多，因为还要让人填表，也不要无意义的问题。信用记录好的人开车也明显更好——为什么？我们不太在乎，因为知道原因也没用，我们需要知道的是两者相关；我们一直在寻找相关性，并避免虚假相关。经验数据越多越好，州立农业数据最丰富。快速公平的理赔也很重要，因为本来没受伤的人和越多律师交谈就感觉越糟。
+q: the trick is to find out what questions you need to ask to determine in which category to place people ||| as to their propensity to have an accident.
+q: People with a good credit history are better drivers by a significant margin than people with a lousy credit history. ||| and we’re trying to avoid spurious correlations, which you can have.
+zh: 诀窍是找出你需要问哪些问题，以确定该把人们放进哪个类别，以反映他们发生事故的倾向。……信用记录良好的人比信用记录糟糕的人是好得多的司机。为什么？我们不太在乎为什么，因为那帮不上忙。我们真正需要知道的是这两个因素相关。我们一直在寻找相关性，也在努力避免可能出现的虚假相关。
+l: 在保险、信贷等以数据定价的业务中，竞争优势来自更大的数据量与更精准的风险分层；分析此类公司时关注其承保纪律与数据积累。
+r: 3/3/3
+rel: 2013-M14
+
+@ 2001-M28
+t: 挂上“对冲基金”的招牌不会让你变聪明；华尔街最赚钱的是推销而非业绩
+s: BM
+th: 投资方法; 市场周期
+k: speculation
+c: 私募股权、国际投资、对冲基金……华尔街推销的东西没有魔法：某些东西因为少数人最近的成功而变得很好推销，新进入者外推少数人的成功来向现在的人募集新资金；在门前挂上“对冲基金”或“资产配置公司”的招牌，不会让任何人更聪明，形式创造不了才能。他愿意下大注：从今天起 15 年，对冲基金整体给合伙人的回报不会达到 10%。芒格：现在有对冲基金大会，20 年代末你可以上一门教你怎么运作操纵股价资金池的课；时尚会走向极端。巴菲特（2001-M30）：有朋友过去 20 年的投资记录看起来该去修草坪，却要成立 1.25 亿美元的对冲基金，还可能募到——近年华尔街赚最多钱的不是出色的业绩，而是出色的推销。
+q: there is no magic to private equity funds, international investing, hedge funds — all of the baloney that gets promoted in Wall Street. ||| there is no magic to private equity funds, international investing, hedge funds — all of the baloney that gets promoted in Wall Street.
+q: it doesn’t make anybody any smarter if they hang out a shingle in front of their house that says, “hedge fund” ||| The form doesn’t create talent.
+q: if you take the aggregate experience of all the hedge funds ||| it will not hit 10 percent, in terms of return to partners.
+zh: 私募股权基金、国际投资、对冲基金——华尔街推销的所有这些胡扯——都没有任何魔法。……如果他们在房子前面挂一块写着“对冲基金”或“资产配置公司”之类的招牌，并不会让任何人变得更聪明。形式创造不了才能。……如果你把所有对冲基金的整体经历——从今天开始算接下来 15 年——我愿意押很多钱，它给合伙人的回报不会达到 10%。
+l: 评估投资产品时剥掉“包装”（名称、结构、费率模式），只看管理人真实的长期能力与扣费后的回报。热门产品类别往往意味着未来回报下降。
+r: 4/4/4
+rel: 2004-A26, 2008-M35, 2017-M34
+
+@ 2001-M32
+t: 预测 15% 增长是个错误；股票有时像伦勃朗的画一样被定价
+s: BM
+th: 企业估值; 管理与治理
+k: projections
+c: 任何公司预测每年 15% 增长都是错误，除非美国经济以 15% 增长，否则迟早会追上你；从财富 500 强里挑 10 家当前创纪录盈利的公司，赌其中一半以上无法在未来 20 年保持 15% 以上增长。这类预测会诱使人们在会计上动手脚、改变交易惯例（如向渠道压货）。伯克希尔若预测 15%，20 年后市值就是 1.6 万亿，数字变得疯狂；一家今天不派现、市值 5000 亿的企业，要给你 15% 回报，今年就得给 750 亿，明年 862.5 亿，第三年近 1000 亿——这些估值的含义属于《格列佛游记》。芒格：股票在某种程度上像伦勃朗的画，不是按人们看画得到的价值，而是按伦勃朗过去涨了多少来卖；如果每个养老基金都只装伦勃朗，它们会越涨越高，20 年后会是多大的烂摊子？巴菲特：一旦开始，人们就有巨大的利益去推销伦勃朗，它会自己创造支持者。
+q: I think it’s a mistake for any company to predict 15 percent a year growth. ||| eventually any 15 percent number catches up with you.
+q: I think it leads people to stretch on accounting. I think it tends to make them change trade practices. ||| I think it leads people to stretch on accounting. I think it tends to make them change trade practices.
+q: the implications involved in certain market valuations really, you know, belong in “Gulliver’s Travels” or something. ||| But people take them very seriously.
+q: stocks sell like Rembrandts. ||| They sell based on the fact that Rembrandts have gone up in value in the past.
+zh: 我认为任何一家公司预测每年 15% 的增长都是错误的。……除非美国经济以每年 15% 的速度增长，否则任何 15% 的数字最终都会追上你。……我认为这会导致人们在会计上弄虚作假，我认为这往往会让他们改变交易惯例。……某些市场估值所隐含的意义，真的属于《格列佛游记》之类的东西，但人们却非常认真地对待它们。（芒格：）在某种程度上，股票像伦勃朗的画一样被出售。它们不是基于人们看画所能获得的价值来出售，而是基于伦勃朗的画过去一直在升值这一事实来出售。
+l: 把“管理层承诺高增长”视为风险信号——它往往先导致激进会计与渠道压货。对于高估值，倒推所需现金流并与现实对照；警惕仅凭过去涨幅定价的“伦勃朗化”资产。
+r: 5/5/5
+rel: 1995-M32, 2005-M23, 2000-M03
+
+@ 2001-M33
+t: 降低预期是获得幸福最有效的方式
+s: BM
+th: 投资心理; 人生智慧
+k: psychology
+c: 伯克希尔长期实现 15% 盈利增长的概率接近零，大公司中能长期做到的不会超过一两家。他们的模式是：一群能大量产生现金、本身也增长、由优秀人才经营的好企业，再不时加入同类企业、不增发股票——这对一家这种规模的公司是近乎最好的商业模式。芒格：美国的持股阶层应该大幅降低预期，人们外推过去的方式很愚蠢——不是有点愚蠢，而是极其愚蠢。巴菲特：没有人有经济利益说出这些话，而有各种经济利益说相反的话，所以金融界的信息流是不平衡的；坚持让客户使用 6% 投资回报假设的精算顾问，恐怕一个客户都没有。芒格：总体而言，降低预期能带来的幸福比任何其他方式都多；适度的预期对我们所有人都足够。
+q: I think, generally, the shareholding class in America should reduce its expectations a lot. ||| I think, generally, the shareholding class in America should reduce its expectations a lot.
+q: It’s stupid the way people are extrapolating the past. Not slightly stupid, massively stupid. ||| It’s stupid the way people are extrapolating the past. Not slightly stupid, massively stupid.
+q: nobody has any interest in saying this — a financial interest in saying it ||| because the money is in believing something different.
+q: there’s more felicity to be gained by — from reducing expectations than in any other way. ||| Moderate expectations will do fine for all of us.
+zh: （芒格：）我认为总体而言，美国的持股阶层应该大幅降低他们的预期。……人们外推过去的方式很愚蠢。不是有点愚蠢，而是极其愚蠢。（巴菲特：）……没有人有利益——经济利益——去说这些话，而人们有各种各样的经济利益去说完全相反的话。……所以你得不到平衡的信息流……因为钱在于相信不同的东西。（芒格：）一般来说，通过降低预期获得的幸福，比通过任何其他方式都多。……适度的预期对我们所有人来说就足够好了。
+l: 识别信息源的利益结构：金融媒体和服务商天然偏向乐观外推。为自己设定适度的回报预期，既利于投资决策，也利于心理健康。
+r: 5/4/5
+rel: 1999-A03, 2001-M18, 1997-M09
+
+
+@ 2001-A02
+t: 高 ROE 的另一面：杠杆、高价回购与“一笔勾销”
+s: BM
+th: 会计与财务; 企业估值
+k: accounting
+c: 美国企业 ROE 高于其他发达国家，不全是会计花招——美国更接近精英制、阶层流动性强，这是真实的优势。但芒格指出，很大一部分来自刻意的财务操作：靠声誉加杠杆、即使在数倍于账面价值时也大量回购、把一切能核销的都核销以减轻未来成本——管理层有意把公司打扮成资本使用效率极高。伯克希尔若愿意用足杠杆，ROE 可以是任何数字，甚至可以“零权益”运营。巴菲特补充：标普成分股“特殊费用前后”的利润差距很大，频繁核销会压低权益、抬高未来利润。
+q: It isn’t so much accounting shenanigans as it is deliberate financial practice. ||| removing the burden of past costs from future earnings.
+q: Think of how high we could drive our return on equity at Berkshire. ||| they deliberately pound on the net worth as much as they can.
+q: American business likes to frequently write off things and say that doesn’t count. ||| because you remove costs that would otherwise hit the income statement in future years.
+zh: （芒格：）与其说是会计把戏，不如说是刻意的财务做法。拿通用电气来说，它刻意提高了财务杠杆——这得益于它美好且应得的声誉；它刻意增加股票回购，即便在支付数倍于账面价值的价格时也照回购不误。这类做法，加上把视野里的一切都核销、计提各种非常项目、把过去的成本负担从未来盈利中移除，都能让报告的净资产收益率大为好看。……想想我们能把伯克希尔的 ROE 推到多高——只要用足够的杠杆，几乎想要多少就有多少。……我们可以零权益运营伯克希尔，然后人们会说：“天哪，这帮家伙终于学会管这玩意儿了。”……在别的地方，为了让 ROE 好看，他们刻意尽可能地打压净资产。（巴菲特：）美国企业喜欢频繁核销，然后说那不算数。这当然会压低权益，而且常常有利于未来盈利，因为它移除了原本要在未来年度计入利润表的成本。
+l: 看 ROE 要拆解来源：杠杆、回购、反复的“一次性”核销都能制造高 ROE。比较“特殊费用前/后”利润的长期差距，频繁出现的“非经常性”费用其实是经常性的。
+r: 4/5/4
+rel: 2001-M18, 1998-A22
+
+@ 2001-A03
+t: 给 11 岁孩子的投资建议：早存钱、早积累知识、远离信用卡
+s: B
+th: 人生智慧; 投资方法
+k: learning
+c: 巴菲特 21 岁前存下 1 万美元，是巨大的先发优势；青少年时期存下的每一美元相当于日后的 10 或 20 美元。若对金融感兴趣：阅读财经出版物，好奇身边的企业如何运作——谁有好生意、为什么好；谁倒闭了、为什么倒闭。这一行的美妙之处在于一切都是累积的：20 岁学到的东西今天仍有用，你在脑中建立一个会随时间带来回报的数据库。但手里得有点钱可用，远离信用卡。
+q: So it’s much easier to save in those teenage years ||| Every dollar then is, you know, worth making $10 or $20 later on.
+q: learn about who’s got good businesses in Kearney and why they’re good businesses. ||| Stay away from credit cards.
+zh: 在青少年时期存钱要容易得多……那时的每一美元，相当于日后挣的 10 美元或 20 美元。……了解在科尔尼谁拥有好企业、为什么它们是好企业；了解那些倒闭的企业、它们为什么倒闭。然后不断积累知识。这是查理和我所从事的这一行的美妙之处之一：一切都是累积的。我 20 岁时学到的东西今天依然有用——不一定以同样的方式，也不一定每天都用得上，但它有用。所以你在脑中建立一个会随时间带来回报的数据库。但你得有点钱可用，所以没有什么比领先几美元更好的了。远离信用卡。
+l: 投资的两种复利——资本与知识——都越早开始越好；从身边的企业开始研究“为什么好、为什么死”。
+r: 3/4/4
+rel: 2004-A30
+
+@ 2001-A08
+t: 投资课应该只教一件事：如何给企业估值
+s: BM
+th: 投资理念; 企业估值
+k: efficient_market
+c: 一门投资课真正该教的是如何给企业估值——不会给企业估值，就不会给股票估值。最终你要决定一家企业值 4 亿、6 亿还是 8 亿美元，再和价格比较，这就是投资的全部。商学院不教，因为没有会教的老师；他们自己不懂，就教“谁也不懂”的有效市场理论。芒格：学会聪明地思考投资，会让你成为更好的企业经营者；商学院在投资上教得糟糕，错失了改善管理职业的巨大机会。巴菲特：不会思考收购估值的 CEO 只能去请投行，而投行“做成拿 20X、不做拿 X”，建议会是什么可想而知。
+q: I mean, what you really want a course on investing to be is how to value a business. ||| And I don’t know any other kind of investing, you know, basically to do.
+q: And since they don’t know themselves, they teach something that says, “Nobody knows anything,” which is the efficiency market theory. ||| And since they don’t know themselves, they teach something that says, “Nobody knows anything,” which is the efficiency market theory.
+q: If you learn to think intelligently about how to invest successfully in businesses ||| by doing such a lousy job in teaching investment.
+q: The investment banker tells them what to do, tells them to do it because they get 20X if they do it and X if they don’t do it. ||| And guess how the advice comes out.
+zh: 你真正希望一门投资课教的，是如何给企业估值。这才是这场游戏的本质。如果你不知道如何给企业估值，你就不知道如何给股票估值。……最终，你必须决定一家企业值 4 亿、6 亿还是 8 亿美元，然后把它和价格比较。这就是投资。我不知道还有别的什么投资方式。……既然他们自己都不懂，他们就教一种说“没有人知道任何事”的东西——那就是有效市场理论。（芒格：）如果你学会聪明地思考如何成功投资于企业，你会成为一个好得多的企业经理人……所以他们因为把投资教得如此糟糕，错失了改善管理职业的巨大机会。（巴菲特：）投资银行家告诉他们该做什么，告诉他们去做，因为做成了投行拿 20X，做不成只拿 X。猜猜建议会是什么。
+l: 把一切投资问题还原为“这家企业值多少钱 vs. 价格是多少”。听取顾问意见时先看其报酬结构。
+r: 5/4/4
+rel: 1998-M09, 2009-M15, 2012-M14
+
+@ 2001-A09
+t: 借 18% 的钱，别想在人生中领先
+s: B
+th: 人生智慧; 风险管理
+k: leverage
+c: 给年轻人的建议：不要一开始就落后。负债容易，脱身很难；用信用卡可以，但在开始循环计息前还清。连查理和我都没法用 18% 的资金赚钱——我们四处寻找浮存金，就是因为连 5% 的钱都不想付。
+q: just don’t start out behind the eight ball. ||| but I urge them to pay it off before it starts revolving because it’s just — it’s too expensive.
+q: Charlie and I can’t make money with 18 percent money. ||| But once you get in it, it is hell to get out.
+zh: ……就是不要一开始就身处劣势。我的意思是，负债是疯狂的，因为摆脱债务太难了。……想以 18% 的利率借钱，还觉得自己能在人生中领先，这是行不通的。我敦促人们——可以用信用卡，但我敦促他们在开始循环计息之前还清，因为那实在太贵了。查理和我都没法用 18% 的钱赚钱。我们一直在找浮存金，因为我们连 5% 的钱都不想付。……一旦陷入债务，脱身就像下地狱一样难。
+l: 高息消费债是对复利的反向利用；个人理财的第一步是消灭循环信用卡债。
+r: 3/5/3
+rel: 2004-A30, 2001-A03
+
+@ 2001-A13
+t: 护城河在变难找吗？——巴菲特与芒格的分歧，以及“加宽护城河”
+s: BM
+th: 护城河; 管理与治理
+k: moat
+c: 提问者把波特的竞争定位模型与“护城河”对应。巴菲特认为 30–40 年来美国企业护城河的数量与持久性并无剧变，难以评估护城河的是那些快速变化的行业；芒格明确不同意：一些旧护城河正在被填平，新护城河比旧的更难预测，“我认为是变难了”。无论哪种，伯克希尔要做的不变：没有预算、没有复杂汇报，只告诉经理们不仅要保护、还要加宽护城河，护城河加宽了，其他一切随之而来。
+q: I don’t think that the quantity or sustainability of moats in American business has changed that dramatically in 30 or 40 years. ||| those are the businesses of rapid change.
+q: No, I would argue that the old moats, some of them are getting filled in. ||| No, I would say it’s getting harder.
+q: Our instructions to our managers ||| And if you enlarge the moat, everything else follows.
+zh: 我不认为美国企业中护城河的数量或可持续性在 30 或 40 年里有那么大的变化。……但我认为有许多行业的护城河很难评估，那些是快速变化的行业。（芒格：）不，我认为一些旧的护城河正在被填平，而新的护城河比一些旧的更难预测。不，我会说它正在变难。……（巴菲特：）我们给经理们的指示——我们没有预算，也没有各种汇报系统——但我们确实告诉他们，不仅要保护护城河，还要加宽它。如果你加宽了护城河，其他一切都会随之而来。
+l: 评估护城河时要考虑“被填平”的速度；管理层的核心 KPI 应是竞争优势是否在扩大，而非短期预算。
+r: 4/4/5
+rel: 1995-M25, 2002-M28, 2001-A24
+
+@ 2001-A14
+t: 衍生品是“潜在的炸药”：预支利润的薪酬与被出卖的会计
+s: BM
+th: 风险管理; 会计与财务
+k: derivatives
+c: 通用再保险的衍生品业务连 CEO 都难以理解，巴菲特坦言他和芒格并不完全懂其中在发生什么（约 1.7 万张未平仓合约，彼此交织）。危险在于：一大群人按“预支的潜在利润”拿报酬，结果要 15–20 年后才知道，必有人在压力下崩溃。芒格：会计行业出卖了自己，衍生品会计不当、过度前置收入、非理性乐观，因为这样薪酬更高——这是内在不负责任的体系，“就像以 30 年折旧率去开出租车公司”。
+q: It is a hard business to understand. And it’s a hard business to understand if you own it ||| I would say that most of the CEOs probably don’t understand it.
+q: Yeah, we regard that area as potentially being dynamite ||| You’re going to find people who will crack under that, in terms of what they will do.
+q: So it’s dangerous to pay people to make deals where you won’t know the outcome for 15 or 20 years ||| and give them a lot of money upfront for doing it.
+q: Yeah, the derivatives business has the very significant problem that the accounting profession sold out. ||| And it’s another case where the accounting profession has failed the wider civilization.
+q: The main problem is the whole system of accounting is wrong. ||| It would be like going into the taxi cab business with a 30-year depreciation rate.
+zh: 这是一个难以理解的业务。即使你拥有它也难以理解，更别提在别人的年报里读到它了。……我猜大多数 CEO 可能并不理解它。……我们把那个领域视为潜在的炸药，因为如果你有一大群人……按预支潜在利润的方式领取报酬……把一百个人放在那种处境中是危险的，你会发现有人在压力下崩溃，做出不该做的事。……为那些 15 或 20 年后才知道结果的交易，预先付给人们大笔钱，这是危险的。（芒格：）衍生品业务有一个非常重大的问题：会计行业出卖了自己。会计处理不当，前置了过多收入。它非理性地乐观，因为该领域的从业者希望如此，因为这能带来更高的薪酬。这本质上是一个不负责任的体系，又一次，会计行业辜负了更广泛的文明。……主要问题是整个会计体系是错的，整个会计体系太乐观了。就像以 30 年折旧率去经营出租车业务。
+l: 对“结果要多年后才揭晓、但现在就确认利润和奖金”的业务保持高度警惕；看不懂的衍生品敞口本身就是风险。
+r: 5/4/5
+rel: 1999-M10, 2003-M38, 2007-M18
+
+@ 2001-A20
+t: 把波动当作风险“简直是疯了”
+s: BM
+th: 风险管理; 投资理念
+k: mr_market
+c: 学术界用波动衡量风险，是因为他们想谈风险，却不知道如何在企业层面衡量它。伯克希尔的风险只有两种：永久性资本损失的风险，以及投入资本回报不足的风险，与波动毫无关系。喜诗糖果一年四个季度里有两个季度亏损，盈利波动巨大，却是巴菲特所知风险最低的企业之一；一个什么都不做的企业，结果每季度都不变。芒格：如此聪明的教授群体，怎么能提出如此愚蠢的观点并传遍全国？“我等这股疯狂消退已经几十年了，它有所动摇，但没有消失。”巴菲特：如果有人开始跟你谈贝塔，捂紧钱包。
+q: Yeah, we regard volatility as a measure of risk to be nuts. ||| And the truth is, they don’t know how to measure it in business.
+q: One is the risk of permanent capital loss. ||| It’s one of the least risky businesses I know.
+q: I mean, you could have a business that did nothing, you know? ||| volatility into risk.
+q: Well, it raises an interesting question, which is how can a professoriate that is so smart come up with such silly ideas and spread them all over the country? ||| Well, it raises an interesting question, which is how can a professoriate that is so smart come up with such silly ideas and spread them all over the country?
+q: If somebody starts talking to you about beta, you know, zip up your pocketbook. ||| If somebody starts talking to you about beta, you know, zip up your pocketbook.
+zh: 是的，我们认为把波动性当作风险的衡量标准简直是疯了。之所以用它，是因为教书的人想谈论风险，而事实是，他们不知道如何衡量企业的风险。……一种是永久性资本损失的风险，另一种就是投入的资本回报不足的风险。它与波动性完全无关。我们的喜诗糖果——取决于复活节在哪天——一年四个季度里有两个季度会亏损，所以它年内的盈利波动巨大。它是我所知道的风险最低的企业之一。……你可以有一个什么都不做的企业，它的业绩每个季度都不会变，对吧？所以把波动性等同于风险根本说不通。（芒格：）这引出了一个有趣的问题：一个如此聪明的教授群体，怎么能想出如此愚蠢的观点，还把它传遍全国？（巴菲特：）如果有人开始跟你谈贝塔，捂紧你的钱包。
+l: 用“永久损失概率 + 回报是否足够”定义风险，而非价格或盈利的平滑度；平滑的业绩可能掩盖糟糕的生意。
+r: 5/5/5
+rel: 1997-M12, 2007-A06
+
+@ 2001-A22
+t: 资本成本的荒谬：每笔交易的成本是“次优交易”
+s: BM
+th: 资本配置; 企业估值
+k: discount
+c: 芒格：资本当然不是免费的，机会成本是经济学也是人生的基本学说；但理论家给股权定成本时“发了疯”——赚 100% 的好企业资本成本就是 100%，于是不该看只赚 80% 的机会。资本资产定价模型得出“最赚钱的公司资本成本最高”，纯属荒谬。巴菲特：现实中，资本成本总是比 CEO 想做的交易所承诺的回报低 0.25%。伯克希尔对资本只问三个问题：留存一美元能否创造超过一美元价值（否则派出）；若派出，回购还是分红——股价显著低于保守估算的内在价值才回购；若留存，怎样以最低风险创造最多价值——那是业务风险，不是波动率。每笔交易的成本由当时可得的次优交易衡量。
+q: They said if you earned a hundred percent on capital ||| that I’ve always considered inanity.
+q: At any given time when we consider an investment, we have to compare it to the best alternative investment we have at that time. ||| which concluded that the companies that made the most money had the highest costs of capital.
+q: Yeah, what you find, of course, is that the cost of capital is about a quarter percent below the return promised by any deal that the CEO wants to do. ||| very simple.
+q: The test for whether we pay it out in dividends is ||| that’s a use for capital.
+q: The cost of every deal we do is measured by the second best deal that’s around at a given time ||| including more — doing more of some of the things we’re already in.
+zh: （芒格：）他们说，如果你因为拥有某个了不起的企业而获得 100% 的资本回报，你的资本成本就是 100%，因此你不该考虑任何只能带来区区 80% 回报的机会。这种源自资本资产定价模型之类的思维，我一直认为是愚蠢的。……任何时候我们考虑一项投资，都必须把它与我们当时拥有的最佳替代投资相比较。我们有非常好的、老式的、非常基本的理念可用，但对这些现代理论家来说还不够好。于是他们发明了这一大堆荒谬的数学，得出结论：赚钱最多的公司资本成本最高。（巴菲特：）你会发现，资本成本大约总是比 CEO 想做的任何交易所承诺的回报低 0.25 个百分点。非常简单。……检验是否以分红派出的标准是：我们能否用这一美元在公司内部创造超过一美元的价值？……如果你能以显著低于保守计算的内在价值的价格买回股票，并且能买到合理的数量，这就是资本的一种用途。……我们做的每一笔交易的成本，都以当时存在的次优交易来衡量，包括加码我们已经在做的一些事情。
+l: 用机会成本取代公式化的 WACC：把每个新机会与手头最好的现有替代方案（包括加仓已有持仓）比较。董事会听到的“资本成本”往往是为交易背书的数字。
+r: 5/5/5
+rel: 1998-M30, 2003-A20, 2007-A12
+
+@ 2001-A23
+t: 怎样知道自己遇到了“大点子”：机会只青睐有准备的头脑
+s: BM
+th: 投资方法; 投资心理
+k: learning
+c: 遇到大点子时你自己会知道。两人一生大约各有 25 个好点子；芒格说，把伯克希尔最好的 15 个拿掉，在座多数人就不会在这里——大约每两年一个。巴菲特 50 年前翻《穆迪手册》时，看到大点子就知道，至今留着几份复印件；1951 年 1 月听洛里默·戴维森讲了四五个小时 GEICO，就知道这是大点子。玩笑：“我打电话给查理，他只说‘不’而不是‘这是我听过最糟的主意’，那就是个绝妙的点子。”芒格：这场游戏是在好点子罕见出现时认出它，这需要长期准备——机会青睐有准备的头脑。人们教容易教的（CAPM）而非正确的（机会成本）；“一切都应该尽可能简单，但不能更简单。”
+q: If you took the top 15 out of Berkshire Hathaway, most of you people wouldn’t be here. ||| So, roughly one every two years.
+q: When I met Lorimer Davidson ||| I knew it was a big idea.
+q: My idea of a truly big idea is ||| But if he just says no, it’s a hell of an idea.
+q: You know, the game in our kind of life is being able to recognize a good idea when you rarely get it ||| But that’s the game.
+q: But it’s very hard to teach business based on opportunity cost. ||| “Everything should be made as simple as possible, but no more simple.”
+zh: （芒格：）如果把伯克希尔最好的 15 个决策拿掉，你们大多数人都不会在这里。所以大约每两年一个。（巴菲特：）……1951 年 1 月底我见到洛里默·戴维森，他花了四五个小时向我解释 GEICO，我知道这是一个大点子。……我对真正的大点子的定义是：我打电话给查理，他只说“不”，而不是“这是我听过的最糟糕的主意”。只要他只说“不”，那就是个了不起的主意。（芒格：）在我们这种人生里，游戏就是在你很少得到好点子——或者好点子很少出现在你面前时——能够认出它。我认为这需要你长期准备。那句老话怎么说的？机会青睐有准备的头脑。我认为你没法在两分钟里教会人们如何拥有有准备的头脑，但这就是游戏。……但基于机会成本来教商业非常难，教资本资产定价模型要容易得多，你只要输入数字就会得出数字。所以人们教容易教的，而不是正确该教的。这让我想起爱因斯坦的名言：“一切都应该尽可能简单，但不能更简单。”
+l: 一生的财富来自少数几个大点子；平时的阅读与积累是为了在罕见机会出现时认出它并下重注。
+r: 5/4/5
+rel: 2001-A22
