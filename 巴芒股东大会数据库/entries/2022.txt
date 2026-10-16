@@ -1,0 +1,291 @@
+# 2022 年股东大会（4 月 30 日）
+
+@ 2022-M06
+t: 对永久损失你们的钱有极度厌恶：我们每天醒来都想让你们的投资更安全
+s: BM
+th: 风险管理; 投资理念
+k: leverage
+c: 巴菲特说一季度经营利润约 70 亿美元，是“真实的钱”，伯克希尔偏好报告扣除折旧、利息和税后的经营利润，“不像其他公司喜欢告诉你除了他们赚了什么以外的一切”。“我们对用你们的资金招致任何永久损失有极度的厌恶。”如果他自己破产无所谓，照样读报、看电视、和查理聊天；但永久性地亏掉信任他们的人的钱，“那是我不想要的未来”。芒格：“我只想知道我会死在哪里，这样我就永远不去那儿。”——“到目前为止有效。”巴菲特：无法预测盈利、股价或经济，“但我们知道我们每天早上醒来都想更安全……我们不想让你们因为决定成为我们的合伙人而得到糟糕的结果。这是一个你们可以依赖的承诺。”
+q: And in the end, as you can see, we prefer to use something called operating earnings. ||| unlike other companies that prefer to tell you anything but what they earned.
+q: And we have a — we have a — extreme aversion to incurring any permanent loss with your funds. ||| And as Charlie says, “All I want to know is where I’ll die so I’ll never go there.”
+q: But we do know that we wake up every morning and we want to be safer ||| And that’s a pledge you can live by.
+zh: （巴菲特：）最后，正如你们所看到的，我们更喜欢使用一种叫做经营利润的东西。那是扣除了折旧、利息和税之后的利润，不像其他公司喜欢告诉你除了他们赚了多少之外的一切。……我们对用你们的资金招致任何永久性损失，有一种极度的厌恶。……但永久性地亏掉别人的钱——那些信任我们的人的钱——那是一个我真的不想要的未来。正如查理所说：“我只想知道我会死在哪里，这样我就永远不去那儿。”……但我们确实知道，我们每天早上醒来都想更安全——就你们的最终投资而言。现在，至于你们是否能赚到最多的钱之类，我们不希望你们因为决定成为我们的合伙人而得到一个糟糕的结果。这是一个你们可以依赖的承诺。
+l: 投资的第一原则是避免永久性资本损失；用逆向思维（先找出会让你“死”的地方并避开）来做风险管理。
+r: 4/4/4
+rel: 2020-F20, 2015-M28
+
+@ 2022-M08
+t: 现金就像氧气：平时一直都在，但消失几分钟就全完了
+s: B
+th: 风险管理; 宏观与社会
+k: crisis
+c: 巴菲特说伯克希尔会永远持有大量现金——不是商业票据或货币基金，而是国库券。“历史上有过几次，将来还会有，如果你没有现金，你就不能参与第二天的游戏。它就像氧气，一直都在，但如果它消失几分钟，一切就结束了。”联邦储备券上写着“此钞票为所有公私债务的法定货币”，这才是钱，是国税局唯一会收的东西；人们会告诉你他们在发行新形式的货币，但在某些情况下这是唯一能付账的东西。2008 年和 2020 年 3 月都差点重演，美联储必须迅速行动——过去的银行挤兑是人排队，现在是按按钮，一眨眼就完。沃尔克曾对他说：“我们能做任何需要做的事。”“你希望下次也是如此，但我们希望伯克希尔在经济停顿时仍处于能运作的位置。这随时可能发生。”
+q: And there have been a few times in history ||| It’s like oxygen, you know? It’s there all the time. But if it disappears for a few minutes, it’s all over.
+q: It may turn out that it becomes worth dramatically less in purchasing power. ||| this is the only thing that will pay bills, under some circumstances.
+q: And you hope it happens again next time. ||| That can always happen.
+zh: （巴菲特：）历史上有过几次，将来还会有更多次，如果你没有现金，你就无法参与第二天的游戏。我是说，就是——它就像氧气，你知道吗？它一直都在。但如果它消失几分钟，一切就结束了。……它可能会变得购买力大幅下降。它可能变得几乎像废纸一样，就像在许多国家发生过的那样。但这就是全部——当人们告诉你他们在发行新形式的货币时，在某些情况下，这是唯一能付账的东西。……你希望下一次它也会发生。但你要——我们希望伯克希尔·哈撒韦在经济停顿时，能在那里并处于一个能够运作的位置。而那种事随时可能发生。随时可能发生。
+l: 流动性是生存条件而非收益来源；关键时刻能用的只有法定货币，所谓“现金等价物”在危机中可能失效。
+r: 4/4/4
+rel: 2020-F20, 2021-M11
+
+@ 2022-M10
+t: 两周买下西方石油 14%：市场变成了赌场，但这正是我们得到机会的原因
+s: BM
+th: 市场周期; 投资心理
+k: speculation
+c: 巴菲特说股市一直是赌场与投资场所的混合，过去两年极端地变成了赌场，华尔街鼓励它，因为钱在交易周转中——“你持有伯克希尔从 1965 年到现在很棒，但你的经纪人会饿死”；赌徒每天交易 20 次就像拉老虎机手柄。贝莱德、道富、先锋和 Dodge & Cox 合计持有西方石油约 40% 且不动，剩下 60% 中，他让办公室里唯一负责交易的人买入，两周就买到 14%——“那不是投资”；想想两周买下全国 14% 的农场或公寓楼。读了 Vicki Hollub 的分析师说明会材料，“说的全是道理”。芒格：这几乎是一场投机狂热，电脑算法对赌，什么都不懂的人听更不懂的经纪人的建议；“为什么你会希望你国家的股票以赌场的方式交易？”巴菲特：1952 年新婚时在拉斯维加斯 Flamingo，看着人们飞几千英里来做明知数学上愚蠢的事，“我对妻子说，我会发财的”；投资是现在放弃购买力以期以后得到更多；“这不是因为我们聪明……我想我们是理智的，那是这行的主要要求。”芒格：几十年来疯狂的赌博让我们更容易赚钱。巴菲特：我们依赖市场对企业的错误定价，而我们不对这些错误定价负责——“它不需要高智商，只需要正确的态度。”
+q: And that existed to an extraordinary degree in the last couple of years ||| But your broker would’ve starved to death.
+q: And they make a lot more money when people are gambling than when they’re investing. ||| just like pulling the handle on a slot machine.
+q: And in two weeks, he buys 14% out of 60%. That’s not investment. ||| And the more people — times people pull the handle on the machine, the more money the machine makes.
+q: We have computers with algorithms trading against other computers. ||| I think it’s crazy.
+q: And I said to my wife, I said, you know, I’m going to get rich. ||| If people are willing to do this, you know, this is a land of opportunity.
+q: It’s not because we’re smart. ||| I think we’re sane. You know, I mean, and that’s the main requirement in this business.
+q: Well, I think we’ve made more because of the crazy gambling. ||| It just takes the right attitude.
+zh: （巴菲特：）在过去几年里，这种情况达到了非同寻常的程度——受到了华尔街的鼓励，因为钱就在股票的周转之中。我是说，人们说如果你在 1965 年买了伯克希尔并一直持有，你会做得多么好。但你的经纪人会饿死。……当人们赌博时，他们比人们投资时赚的钱多得多。有一个人每天交易 20 次、对此激动不已，就像拉老虎机的手柄一样，那要好得多。……两周内，他在那 60% 中买到了 14%。那不是投资。……但绝大多数美国大公司——嗯，全部——都变成了扑克筹码。人们在买卖三天期看涨期权或两天期看涨期权。人们拉机器手柄的次数越多，机器赚的钱就越多。（芒格：）我们有带着算法的电脑在和其他电脑对着交易。我们有对股票一无所知的人，在接受懂得更少的股票经纪人的建议。……你为什么会希望你国家的股票以赌场的方式，交易给那些就像在赌场里玩掷骰子和轮盘赌的人一样的人？我认为这是疯狂的。（巴菲特：）我对我妻子说，你知道吗，我会发财的。我是说，怎么可能失手呢？如果人们愿意这样做，你知道，这是一片充满机会的土地。……这不是因为我们聪明。我唯一能说我们具备的资格——有时我也怀疑这一点——但我认为我们是理智的。你知道，我是说，那是这一行的主要要求。（芒格：）我认为我们因为疯狂的赌博赚得更多了。我认为在我们经营的几十年里，总体上它让我们更容易了。（巴菲特：）我们依靠的是通过一个我们不对错误定价负责的机制被错误定价的企业。总的来说，我们很久以前就学到了：它不需要高智商。它不需要任何东西。它只需要正确的态度。
+l: 市场的赌场化是长期投资者的机会来源；保持理智与准备好资金，在“扑克筹码化”的市场里以企业视角大额买入。
+r: 5/4/5
+rel: 2021-M28, 2021-A30
+
+@ 2022-M12
+t: 以合适的价格回购自家企业，没有比这更好的事：运通持股从 11.2% 变成 20%
+s: BM
+th: 资本配置
+k: buyback
+c: 芒格：想象一下买回 600 亿美元自家股票——我们喜欢这些企业，喜欢我们支付的价格，没有间接费用、没有成本，只是在已拥有的东西上获得更多权益。巴菲特：关于回购写了成千上万字，其实不复杂——柠檬水摊三个合伙人中一个想卖出，价格对留下的两人有利，你就会买。伯克希尔 1998 年左右买完运通最后一股时持有 11.2%，此后每季度收到分红，现在持有 20%，因为运通回购——“我们没有投入任何钱就做到了”。想象你有 640 英亩农场，20 年后不知怎么变成了 1100–1200 英亩，你会问这是不是非美国的、是否合理利用资本成本……“如果以合适的价格去做，没有比买回你自己的企业更好的事了。”苹果每年赚 1000 亿美元，回购让我们的权益每提高千分之一，就增加 1 亿美元盈利；“这是世界上最简单的事，然后我读到所有这些东西。”
+q: Well, but think in the scheme of things, imagine buying in $60 billion worth of our own stock. ||| It isn’t that we’re totally wasting our time.
+q: And now we own 20% of American Express. ||| and we’ve done it without putting up any money.
+q: If you do it at the right price, there’s nothing better than buying in your own business. ||| If you do it at the right price, there’s nothing better than buying in your own business.
+q: It is unbelievable how people can’t figure out something that ||| you’d feel very good about it.
+zh: （芒格：）嗯，但想想看，在整体格局中，想象一下买回价值 600 亿美元的我们自己的股票。我们喜欢这些企业。我们喜欢我们支付的价格。没有管理费用，没有成本，什么都没有，只是在我们已经拥有的东西中拥有更多的权益。这并不是说我们完全在浪费时间。（巴菲特：）现在我们拥有美国运通 20% 的股份。那之所以发生，是因为他们回购了股票。……正如我所说，我们从 11.2% 涨到了 20%……而且我们没有投入任何钱就做到了。……如果你以合适的价格去做，没有比买回你自己的企业更好的事了。……人们竟然无法理解这样一件事，真是令人难以置信：如果他们拥有一个农场，隔壁的人也有一个农场，而你在耕种自己农场的同时，不知怎么一直在不投入任何钱的情况下得到他越来越多的农场——至少是用了一部分收益来做这件事——你会感觉非常好。
+l: 持有持续回购的优质公司，等于在不追加资金的情况下自动增持；关键前提是“合适的价格”。
+r: 4/5/4
+rel: 2021-A01, 2018-A06
+
+@ 2022-M17
+t: 我们从未择时：2008 年在一个非常愚蠢的时间点花了一大笔钱
+s: BM
+th: 投资理念; 市场周期
+k: no_forecast
+c: 提问者说巴菲特 1969 年离场、72–74 年重返、87 年、99–2000 年都择时完美：巴菲特说“我们完全不知道周一开盘股市会怎样，从来都不知道”；与芒格合作这么多年，从未基于对市场或经济的看法做买卖决定。人们称赞他 2008 年乐观，但“我们在一个非常愚蠢的时间点花掉了净资产的很大一部分”——三四周内在箭牌、高盛等上花了 150–160 亿美元，还写了《买入美国》，如果有择时能力就该等到 2009 年 3 月；2020 年 3 月也完全错过。“我们一直不擅长择时。我们只是相当擅长判断我们的钱能否换来足够多的东西。”买入时总希望它跌一阵好买更多，买完后希望便宜时公司继续回购——“这些四年级就能学会，但学校不教”。11 岁买第一只股票时道指约 100，现在 34000，一个决定就够了：拥有美国企业是好事。哈佛基金会和养老金若找 11 岁的他，还不如扔飞镖；“人们把这么简单的游戏搞得这么复杂真令人惊讶”，因为如果告诉大家有多简单，90% 的从业者收入就会消失；扣除管理费后，他赌猴子扔飞镖。
+q: The interesting thing is, you know, obviously we haven’t the faintest idea ||| we should buy or sell based on what the market’s going to do.
+q: You know, we spent a big percentage of our net worth at a very dumb time. ||| I shouldn’t say we, it’s I.
+q: We have not been good at timing. ||| I mean, that’s stuff you can learn it in fourth grade. But it’s not what’s taught in school.
+q: They’d have just done better if they’d just taken some darts and thrown them ||| It’s amazing how hard people make what a simple game it is.
+q: But of course, if they told everybody what a simple game it was ||| take away the management fees and everything, I’ll bet on the monkeys.
+zh: （巴菲特：）有意思的是，显然我们完全不知道股市周一开盘会怎样。我们从来都不知道。……查理和我——我想在我们合作的这么多时间里……我们从来没有做过一个决定，是我们中任何一个人说过或想过，应该基于市场将会怎样而买入或卖出。……你知道，我们在一个非常愚蠢的时间点花掉了我们净资产的很大一部分。我不应该说我们，是我。……我们一直不擅长择时。我们一直还算擅长判断我们的钱什么时候能换到足够多的东西。当我们买任何东西时，我们都不知道——嗯，我们总是希望它会跌一段时间，这样我们可以买更多，甚至在我们买完、钱花光之后，我们也希望如果它便宜，公司会继续回购，实际上提高我们的权益。我是说，这些是你四年级就能学会的东西。但学校不教。……他们要是拿几支飞镖随便扔一扔，说我们 50 年后、100 年后都会在美国，持有股票会比持有债券做得更好，结果都会更好。人们把一个如此简单的游戏搞得多么困难，真是令人惊讶。但当然，如果他们告诉每个人这是一个多么简单的游戏，那么讲话的那些人 90% 以上的收入就会消失。……扣除管理费之类的，我会押注猴子。
+l: 成功不来自择时，而来自判断“价格是否划算”并坚持持有美国企业；复杂化投资往往是为了收费。
+r: 5/5/5
+rel: 2013-A04, 2018-M03
+
+@ 2022-M18
+t: 资本主义分配回报的方式非常奇特：看似任性，但整体运作得极好
+s: BM
+th: 宏观与社会; 人生智慧
+k: america
+c: 芒格：财富顾问业的方式是——你问顾问如何保护未来，他说“先给我 5 万美元，这是我对你未来的贡献”，这是个奇特的行业。巴菲特：如果你的孩子想按每单位智商和精力赚最多的钱，就让他们去华尔街，它会自我筛选。所罗门事件时纽约联储主席科里根说，所罗门去年收入最高的人 26 岁、拿 2000 万美元，“而且他连橄榄球都扔不了”；现在扔橄榄球的钱多多了——泰德·威廉姆斯当年年薪两三万美元，如今打击率 .230 的球员进入大联盟就财源滚滚，他们应该感谢发明电视、有线电视、付费电视的人，而没人知道那些人的名字。“资本主义分配回报的方式非常、非常、非常奇特……回报看起来非常任性，而且确实如此。”但它运转得极好，即使被体系亏待的人也比体系没有改变时好得多；你不必放弃推动变革，但要认识到人性的局限。
+q: Well, frequently in the wealth advisory business, the way it used to be ||| It’s a peculiar business.
+q: If you have a son or daughter that really wants to make money per point of IQ ||| I mean, don’t have them enter the priesthood or anything.
+q: And nobody knows the names of those people. But capitalism is very, very, very peculiar in how it dishes out rewards. ||| So, it’s a crazy world. Rewards seem very, very, very, very capricious, and they are.
+q: But it’s worked awfully well. ||| but you should recognize the limitations of what you can do with humans, put it that way.
+zh: （芒格：）嗯，在财富顾问行业里，过去常常是这样：你去找你的投资顾问，说，我应该怎么做来保护自己的未来？他说，你为什么不现在把你净资产中的 5 万美元给我呢？那是我对你未来的贡献。这是个奇特的行业。（巴菲特：）如果你有一个儿子或女儿，真的想按每一分智商、每一尔格精力赚最多的钱，诸如此类，那就让他们去华尔街。我是说，别让他们去当牧师之类的。……没有人知道那些人的名字。但资本主义在分配回报的方式上非常、非常、非常奇特。……所以，这是一个疯狂的世界。回报看起来非常、非常、非常、非常任性，而它们确实如此。……但它运转得非常好。即使那些没有利用它的人——被这个体系亏待的人——也比体系没有改变的情况下过得好得多、好得多。这并不意味着你就不应该为变革而努力，但你应该认识到你对人类能做的事情的局限，就这么说吧。
+l: 市场经济的回报分配不讲公平而讲稀缺与杠杆效应；理解这一点能帮助判断哪些行业与职业能长期获得超额报酬。
+r: 3/2/3
+rel: 2017-A30, 2017-M34
+
+@ 2022-M19
+t: 隐性指数化与人生下半场：命运厚待你，就该在下半生做个更好的人
+s: BM
+th: 人生智慧; 投资方法
+k: life
+c: 芒格：在很多财富顾问业务中，人们为技能收费，交付的却是“隐性指数化”——没人受得了在结果上与众不同，怕丢掉费用，所以大家都做同样的事，“有点可笑，世界有点可笑”。巴菲特：不能指望人们不按自身利益行事。“如果命运把各种好东西都洒在你身上，你应该在人生的下半场成为比上半场更好的人，这不算苛求”——如果你赢了卵巢彩票、生在美国、有机会看到自己曾经多蠢，为什么不让下半生更好？有些东西只能通过与人打交道学会，30–40 年与人打交道的经验让你更好；“我宁愿以我人生的下半场被评判，而不是上半场。”芒格：我甚至不去看年轻时做的事，因为会难为情。
+q: I would argue that in a lot of the wealth advisory business ||| So, everybody does the same thing. It’s mildly ridiculous.
+q: That’s a really interesting point, because if fortune has just showered you with all kinds of good things ||| why not have the second half of your life be better than the first half?
+q: And I’d rather be judged by the second half of my life than the first half, and so would Charlie. ||| And I’d rather be judged by the second half of my life than the first half, and so would Charlie.
+zh: （芒格：）我会说，在很多财富顾问业务中，人们为技能收费，交付的却是隐性的指数化。换句话说，没有人受得了在结果上与人群有那么大的不同。他们怕会失去他们的费用。所以，每个人都做同样的事。这有点荒谬。（巴菲特：）这是一个非常有意思的观点，因为如果命运把各种好东西都洒在你身上，你就应该在人生的后半段成为比前半段更好的人。我是说，这真的不应该是对人要求太多。如果他们赢了卵巢彩票，出生在美国，各种好事都发生在他们身上，而你也有机会看到自己曾经多么愚蠢、做过各种各样的事，那么，为什么不让你人生的后半段比前半段更好呢？……我宁愿以我人生的后半段来被评判，而不是前半段，查理也是。
+l: 为“主动管理”付费时要识别隐性指数化；个人层面，持续的自我修正是最有复利效应的投资。
+r: 3/3/4
+rel: 2017-M34, 2022-M24
+
+@ 2022-M22
+t: 最好的投资是让自己在某件事上格外出色：才能无法被通胀夺走，也不用交税
+s: BM
+th: 人生智慧; 宏观与社会
+k: inflation
+c: 一位 13 岁左右的股东问通胀时期只能押一只股票会选哪只：巴菲特说比一只股票更好的是——“你能做的最好的事，就是在某件事上格外出色”：如果你是城里最好的医生、律师，人们会用他们生产的东西来换你提供的东西，无论货币价值如何；“你拥有的任何能力都不会被夺走，也不会被通胀掉……到目前为止最好的投资就是任何能发展你自己的东西，而且它不用交税。”芒格：当你有了自己的退休账户，你友好的顾问建议你把钱全放进比特币时，就说不。巴菲特：格拉德威尔说一万小时，但他花一万小时练重量级拳击也不会好；你会偶然发现自己真正喜欢、擅长、对社会有用的事，那时美元购买力是一美分还是百分之一美分都无所谓——“如果你是城里最好的医生，他们会给你带鸡来”；“我们愿意买下你未来收入的 10%，那是我们能做的最好投资。”
+q: But the best thing you can do is to be exceptionally good at something. ||| they can’t actually be inflated away from you.
+q: So, the best investment by far is anything that develops yourself. ||| And, again, it’s not taxed.
+q: When you have your own retirement account, and your friendly advisor suggests you put all the money into bitcoin ||| just say no.
+q: And, you know, you stumble into what you really like doing, what you’re good at, what is useful to society. ||| but they can’t take it away from you.
+zh: （巴菲特：）但你能做的最好的事，就是在某件事上格外出色。如果你是城里最好的医生，如果你是城里最好的律师，如果你是城里最好的不管什么，无论人们付给你无数美元还是付给你——他们都会拿出一部分他们生产的东西，来换取你提供的东西。……你拥有的任何能力都不能从你身上被拿走，它们实际上不能被通胀掉。……所以，到目前为止最好的投资，是任何能发展你自己的东西。而且，再说一遍，它不用交税。（芒格：）当你有了自己的退休账户，而你友好的顾问建议你把所有钱都放进比特币时——就说不。（巴菲特：）……你会偶然发现自己真正喜欢做的事、擅长的事、对社会有用的事。然后，美元现在值多少——就购买力而言，一美分、半美分还是百分之一美分——就都无所谓了。如果你是城里最好的医生，你知道——他们会给你带来鸡，不管他们做什么——但他们无法把它从你身上夺走。
+l: 应对通胀的终极资产是个人的稀缺能力与“盈利能力”；投资自己是回报最高、免税且不可剥夺的投资。
+r: 4/4/5
+rel: 2014-A10, 2015-A02
+
+@ 2022-M23
+t: 伯克希尔为永续而建，没有终点：继任者只是一种已嵌入文化的保管人
+s: B
+th: 管理与治理
+k: culture
+c: 被问两人离开后如何评估保险风险与管理延续：巴菲特说未来很长时间里这几乎是世界上最有保障的事——有一种行之有效的文化，有能延续它的股权和股东；董事会明白“文化是经营这家企业的 99.9%”，不认为开委员会会议、请外部专家有什么意义。“我们是一家为了让人们信任我们而存在的企业，履行这种信任需要做的是相当简单的事。”最大的担心是有人进来想靠拆分、私有化、“纯粹”化赚几十亿——“我们是纯粹的合伙关系，这才是我们纯粹之处”；股权结构和规模使没人能接管。“伯克希尔为永续而建，没有终点。”没有人等着退休或期权归属，猎头也挖不走人。合伙基金从 7 个人开始，不找机构、不付中介费，给他们一张写明基本规则的纸，以确保彼此一致；“新的管理层，以及之后的管理层，只是一种已嵌入文化的保管人。”
+q: You’ve got the shares held in a place that it can’t happen. ||| You’ve got a board of directors that understands that our culture is 99.9% of running the business.
+q: We are a business that exists for people to trust us. ||| And all we have to do to fulfill that trust is fairly simple things.
+q: But Berkshire is built for forever. There is no finish point. ||| You know, they’re doing what they want to do in life.
+q: So, the new management — and the management after them ||| People that work there believe in it.
+zh: （巴菲特：）股票被持有在一个让那种事不可能发生的地方。你有一个董事会，它明白我们的文化是经营这家企业的 99.9%。……我们是一家为了让人们信任我们而存在的企业。而为了履行这种信任，我们所要做的只是相当简单的事情。……但伯克希尔是为永续而建的。没有终点。没有人在等着退休，或者等着期权归属，或者在想——我们没有任何人在想，我是不是该换一份工作？他们在做他们一生中想做的事。……所以，新的管理层——以及他们之后的管理层，再之后的管理层——他们只是一种已经嵌入的文化的保管人。所有者相信它。在那里工作的人相信它。
+l: 长期投资一家公司，要看它的文化是否被股权结构、董事会和员工共同守护；能抵御“拆分套利”的组织才能真正永续。
+r: 4/3/4
+rel: 2018-A16, 2015-M16
+
+@ 2022-M24
+t: 纺织厂是“凝固的电力”：承认可怕的现实并采取行动，往往只需要最基本的常识
+s: BM
+th: 商业模式; 投资理念
+k: mistakes
+c: 芒格：纺织品在现代技术下就是“凝固的电力”，田纳西流域的电价比新英格兰低 60%，那是绝对没有希望的一手牌，你有理智把它弃掉了——巴菲特：25 年后。芒格：但你没有往里继续砸钱；“认清现实——当它真的很糟时——并采取适当行动，往往只需要最基本的常识。”巴菲特：另一个问题是他派去经营的人非常诚实正派、懂纺织，如果他是个混蛋反而更容易下决心；七八年后他还在新罕布什尔买了第二家纺织厂。1966 年和芒格、戈特斯曼买巴尔的摩百货公司——“我们到底为什么要那样做？”芒格：“因为我们愚蠢。”多元零售公司每股 6 美元，若百货成功也许值 30 美元，正因为它失败了，钱被转去做别的，如今相当于每股 15 万美元——“生活就是这样”。芒格：“继续学习，这就是秘密。”
+q: — and the textiles are really just congealed electricity, the way modern technology works. ||| It was an absolutely hopeless hand, and you had the sense to fold it.
+q: And, no — recognizing reality, when it’s really awful, and taking appropriate action ||| How in the hell can you run a textile mill in New England when your competitors are paying way lower power rates?
+q: And if he’d been a jerk, it would have been a lot easier. ||| And if he’d been a jerk, it would have been a lot easier.
+q: And, you know, now I don’t know whether it’s ||| And because it failed, we made hundreds of thousands of dollars per share.
+q: And keep learning, that’s the secret. ||| Keep learning.
+zh: （芒格：）——纺织品，按现代技术的运作方式，其实就是凝固的电力。而田纳西流域管理局的电价比新英格兰低 60%。那是一手绝对没有希望的牌，而你有理智把它弃了。（巴菲特：）25 年以后，是的。（芒格：）嗯，你没有往里面砸更多的钱。……认清现实——当现实真的很糟糕时——并采取适当的行动，常常只涉及最基本的常识。当你的竞争对手支付低得多的电价时，你他妈的怎么可能在新英格兰经营一家纺织厂？（巴菲特：）……如果他是个混蛋，事情会容易得多。……现在不知道是每股 15 万美元左右还是多少，从 6 美元起步。所以如果它成功了，我们也许能赚到几美元。而因为它失败了，我们每股赚了几十万美元。……（芒格：）还有继续学习，这就是秘密。（巴菲特：）继续学习。
+l: 结构性成本劣势无法靠管理弥补；止损的决定常被对好人的感情拖延，而及时把资本转移出失败的业务，可能成就更大的事业。
+r: 4/4/4
+rel: 2014-A02, 2017-A19
+
+@ 2022-M25
+t: 改变一切的“顿悟时刻”：读到《聪明的投资者》第 8 章，发现自己一直看错了
+s: BM
+th: 投资理念; 投资心理
+k: learning
+c: 巴菲特说 11 岁开始买股票，读遍图书馆，9 岁去过纽交所，懂专家制度、零股交易、金融史，又痴迷技术分析、画图、做空——花了无数小时。十九或二十岁时在林肯读到一本书的一段话，“它告诉我我一直都做错了……我以为我做的是挑选会上涨的股票，而在一段话里，我看到那完全是愚蠢的。”他展示花瓶/人脸、鸭子/兔子错觉图：心智会突然从一边翻到另一边；有足够智商、动机和阅读，却要等到读了《聪明的投资者》第 8 章一段话才看到另一面，“它改变了我的人生”，否则不知还要找多久头肩顶、200 日均线和零股比率。人生中这样的时刻有几次：为什么我当初没看到？对行为的顿悟比赚钱的顿悟更好；芒格说写下你的讣告然后倒推。芒格：大脑就是这样工作的，很容易弄错，诀窍之一是学会纠正自己的错误——“常常太晚了”。巴菲特：我们在纠正错误上做得比好主意还好。
+q: And then I got very interested in technical analysis ||| And I just did everything.
+q: It wasn’t a textbook at school, but it was in Lincoln, Nebraska. ||| And, in one paragraph, I saw that that was totally foolish.
+q: Now, it took me, in stocks, which I was intensely interested in ||| I mean, it changed my life.
+q: If I hadn’t read that book, I don’t know how long I would have gone on looking for head-and-shoulders formations ||| Except it was the wrong stuff I was looking at.
+q: It’s better, actually, if it produces insight into your behavior than whether it produces insight to make money. ||| It’s better, actually, if it produces insight into your behavior than whether it produces insight to make money.
+q: Well, I know that that’s the way the brain works. ||| We’ve done better with the mistakes than we have with the good — the reasonably good ideas.
+zh: （巴菲特：）然后我对技术分析非常感兴趣，画股票图表，做了各种疯狂的事情。一小时又一小时又一小时。攒钱去买别的股票。还尝试做空。我什么都做了。……那不是学校的教科书，但那是在内布拉斯加州林肯市。我——你知道，我看着这本书，看到一个段落，它告诉我我一直都在做错。我的整个方法都错了。我以为我做的生意是挑选会上涨的股票。而在一个段落里，我看到那完全是愚蠢的。……现在，在股票这件我极其感兴趣的事情上，我智商还不错，我在阅读、在思考。赚点钱对我很重要。我有世界上所有的动机。然后我读了一章——实际上是一段——我想是《聪明的投资者》第 8 章，它告诉我我看的不是鸭子，而是——现在是兔子了——不管是什么。不管你叫它灯泡亮了，还是真相大白的时刻，不管是什么——它发生在我身上，在林肯。我是说，它改变了我的人生。如果我没有读到那本书，我不知道我还要继续寻找头肩顶形态、200 日移动平均线、零股比率和无数东西多久。我喜欢那类东西。只不过我看的是错误的东西。……实际上，如果它带来的是对你自身行为的洞见，那比带来赚钱的洞见更好。（芒格：）嗯，我知道大脑就是这样工作的。而且很容易弄错。诀窍之一是让自己学会纠正自己的错误。我们做了很多这样的事。（巴菲特：）是的。（芒格：）常常太晚了。（巴菲特：）是的。我们在处理错误上做得比在好的——还算好的主意上更好。
+l: 正确的范式比勤奋更重要：从“猜价格”转向“估企业”是投资者最关键的认知跃迁；同时要建立纠错机制。
+r: 5/5/5
+rel: 2018-A23, 2013-A06
+
+@ 2022-A04
+t: 多学科思维：只有锤子的人看什么都像钉子——但闯入别人的领域会招人恨
+s: M
+th: 人生智慧; 投资心理
+k: learning
+c: 被问如何在投资和生活中实践多学科框架：芒格说显然知道不止一门学科有帮助，“只拿着锤子的人会把一切都看成钉子”，如果没有对各门学科的掌握，你可能做出错误决定，“这就是我说过的全部”。但当你闯进别人的领域，说“我是多学科的，你是专家，我比你懂”时，会让人极度恼火，他们会恨你——“我可以作证，我这样做过好几次。”
+q: Well, obviously, it helps you to know more than one discipline. ||| And you may go on wrong decisions if you don’t have some command of all the disciplines.
+q: That’s all I ever said. But you do irritate people terribly when you come into their territory ||| I’ve done it several times.
+zh: （芒格：）嗯，显然，懂不止一门学科对你有帮助。有一句老话：只拿着一把锤子的人会认为其他一切都是钉子。如果你没有对所有学科的一定掌握，你可能会做出错误的决定。这就是我说过的全部。但当你闯入别人的领地，说“我是多学科的。你是专家，而我比你懂得多”时，你确实会让人极度恼火。他们会因此恨你。我可以作证。我这样做过好几次。
+l: 多元思维模型帮助避免单一视角的偏差；但应用时要保持谦逊，用于自己的判断而非炫耀。
+r: 3/3/4
+rel: 2017-A22, 2016-A08
+
+@ 2022-A06
+t: “说谎文化”如何形成：盈利预测是最具破坏性的事，一旦开始撒谎就停不下来
+s: BM
+th: 管理与治理; 会计与财务
+k: incentives
+c: 被问指数基金影响力上升下如何培养股东文化：巴菲特说伯克希尔有固定的“座位”，现有股东就是理想的群体，为什么要招新人替换你们？“如果我们有一座教堂，我们会希望人们一周又一周地回来”；他会问每月做分析师演示的公司：“你想赶走现有的哪些股东？”每月向分析师重复“每位客户的服务数必须从 6.2 增加到 7”之类的话，就变成了教义，继任 CEO 无法说“我们一直在作弊”；为达成盈利目标而作弊“就像从收银机里拿 5 美元，第一次你说会放回去……拿一次你大概就永远停不下来”。“如果某件事会具有破坏性，就不要开始。而预测盈利，我想不出有什么更具破坏性。”36 万员工知道他是否在撒谎；“如果你有一种说谎文化，流程就真的不起作用——它们就消失了。”伯克希尔从没让任何人改过一个数字，也永远不会。芒格：美国其他公司越来越不同，很快股东大会都在线上开、股东都不来；指数基金比投票更重要。
+q: We like the group we have. ||| we’d want the people to keep coming back week after week after week.
+q: You can’t quit. It’s like taking $5 out of the cash register. ||| In fact, do it once and you probably never stop.
+q: But if something is going to be destructive, the thing to do is not start it. ||| I’ve got 360,000 people out there, and they know whether I’m lying or not.
+q: And, you know, you can have all these processes, but if you have a culture of lying ||| they just disappear.
+q: And I just don’t know any way around that ||| And it just deteriorates.
+zh: （巴菲特：）我们喜欢我们现有的这群人。……如果我们有一座教堂，我们会希望人们一周又一周又一周地回来。……你停不下来。就像从收银机里拿 5 美元。你知道，第一次你拿走 5 美元时，你会说：“嗯，我会把它放回去的。”然后做几次，你就永远停不下来了。事实上，做一次你大概就永远停不下来了。但如果某件事会具有破坏性，要做的就是不要开始。而预测盈利，我想象不出还有什么比这更具破坏性的了。我有 36 万人在外面，他们知道我是否在撒谎。……你可以有所有这些流程，但如果你有一种说谎的文化，这些流程就真的不起作用——它们就那样消失了。……而且我只是不知道有什么方法能绕过这一点，除了尽一切办法不——如果你在高层树立了错误的榜样，你就有真正的问题了。……我们从来没有告诉任何人去改一个数字。我们永远也不会。……而且它只会不断恶化。
+l: 季度盈利指引会制造“必须达标”的压力，进而侵蚀诚信；评估公司治理时，看管理层是否回避盈利预测、是否对数字保持零容忍。
+r: 5/4/5
+rel: 2021-A26, 2015-M31
+
+@ 2022-A11
+t: 浮存金：我们只在概率加权判断其有用多于有害时才做保险；关键是机会来时立即大举行动
+s: BM
+th: 保险与浮存金; 资本配置
+k: insurance
+c: 被问为何确信伯克希尔浮存金能长期稳定且接近零成本：巴菲特说竞争对手其实并非在做同样的事；“如果不是我判断浮存金有用的加权概率高于有害的概率，我们就不会做这门生意”，但这是判断，可能出错，9·11 这类事无法预料。芒格：如果全部浮存金能买到税后 8% 的股票，每年就是 110–120 亿美元。巴菲特讲 1967 年林沃尔特“发情期”来卖国民赔偿：对方提什么条件他都答应，15 分钟后对方只好以每股 50 美元成交——“纯属运气”；1986 年阿吉特走进办公室，后来又有 GEICO。“你必须做的一件事是机会来时做好准备，你真的必须立即行动”；如果董事会要设委员会审查每笔收购，“你们可以找别人”。芒格：伯克希尔相对没有官僚体系，长期为公司多赚了很多钱。巴菲特：永远不做出无法兑现的承诺；早年两家小保险子公司是灾难，本可以让它们破产，但我们没有那样做。
+q: Yeah, well, they really aren’t trying to do the same thing, which is kind of interesting. ||| the weighted probabilities are higher that the float will be useful to us rather than costly to us.
+q: Just think of what the potential is, though, when you’re reviewing it. ||| that would be a hell of a lot of money.
+q: And who knew that GEICO would come along later? ||| And then you’ve got to be sure you’ve got the resources to do it.
+q: The relative absence of bureaucracy at Berkshire ||| has made the company a lot of extra money for a very, very long time.
+q: Yeah, but in the end, we are extraordinarily well-positioned to do exactly what we want to do with float ||| never coming close to making a promise we can’t keep.
+zh: （巴菲特：）嗯，其实他们并不是在努力做同样的事，这挺有意思的。你问题的答案是，除非我判断浮存金对我们有用而不是让我们付出代价的加权概率更高，否则我们不会做这门生意。（芒格：）想想当你回顾它时它的潜力。如果我们能用全部浮存金买入我们几乎确信能给我们税后 8% 的普通股，那会是一大笔钱。……（巴菲特：）谁知道 GEICO 后来会出现？有各种各样的事情。你必须做的一件事是，当机会来临时做好准备。你真的必须马上行动。……运气如此之多，但你确实必须在心理上做好准备，在合理的时候做点什么，而且大手笔地做，立即做。然后你必须确保你有资源去做。（芒格：）伯克希尔相对没有官僚体系——（巴菲特：）难以置信。（芒格：）——在非常、非常长的时间里为公司多赚了很多钱。（巴菲特：）是的，但归根结底，我们处于一个极其有利的位置，能完全按照我们想要的方式使用浮存金，同时永远不让自己处于——永远不会接近——做出一个我们无法兑现的承诺的位置。
+l: 浮存金的价值取决于承保纪律与投资能力两端；组织的决策速度（少官僚）本身就是把握稀有机会的竞争优势。
+r: 4/3/4
+rel: 2016-M16, 2015-M15
+
+@ 2022-A12
+t: 我把伯克希尔看作一幅画：画布无限大，我想画什么就画什么
+s: B
+th: 人生智慧; 管理与治理
+k: life
+c: 巴菲特说：“以一种疯狂的方式，我把伯克希尔看作一幅画。它的大小没有限制，画布不断扩大，我可以画我想画的东西。”他对绘画一窍不通，去美术馆只想知道洗手间在哪；但对他来说伯克希尔就是一幅画，目标当然是让合伙人有好结果，“但我真正喜欢的是这幅画”——这是他能做到的最接近每分钟都在享受的事；有时会看到“我当时应该那样画”，就回去重新画，令人满足。“我确实知道什么让我快乐、什么不让我快乐。我找到了让我快乐的东西，那我到底为什么要改变它呢？”
+q: I mean, Berkshire, you know, in a crazy way, I look at Berkshire as a painting. ||| It’s got an ever-expanding canvas and I get to paint what I want.
+q: But the real thing I like is the painting. ||| the closest thing I can come to enjoying myself every minute of the day.
+q: But I do know what makes me happy and what doesn’t make me happy. ||| So why in the world would I change it?
+zh: （巴菲特：）我是说，伯克希尔，你知道，以一种疯狂的方式，我把伯克希尔看作一幅画。你知道，它的尺寸是无限的。它有一张不断扩展的画布，我可以画我想画的东西。……但我真正喜欢的是这幅画。只要它在我的脑海里，我在过程中不断在其中看到不同的东西，这就是我能做到的最接近每一分钟都在享受的事情。……但我确实知道什么让我快乐、什么不让我快乐。而且我找到了让我快乐的东西。那我到底为什么要改变它呢？
+l: 长期卓越来自对工作本身的热爱，而非外部奖赏；找到让你“每分钟都享受”的事并坚持下去。
+r: 2/1/4
+rel: 2013-M39, 2021-A29
+
+@ 2022-A18
+t: 即使 25 美元卖我全世界的比特币我也不要：资产要有价值，必须向某人交付某种东西
+s: BM
+th: 投资理念; 风险管理
+k: speculation
+c: 被问是否改变了对比特币的看法：巴菲特说如果在座的人拥有全美所有农地，以 250 亿美元卖给他 1%，他今天下午就开支票；公寓楼的 1% 也一样。“如果你告诉我你拥有全世界的比特币，以 25 美元卖给我，我也不会要，因为我能拿它做什么？我必须以某种方式把它卖回给你……它不会做任何事。”公寓会产生租金，农场会产出粮食；这就是生产性资产与依赖下一个人付更高价之间的区别；净来看，大量佣金和成本付给了促成这个游戏的人，钱只是在房间里换手。“资产要有价值，就必须向某人交付某种东西。”美国只有一种可接受的货币。华尔街的目标是创造魔法——“我们不是保险公司，我们是科技公司”。芒格：我尽量避免愚蠢的、邪恶的、让我与别人相比显得难看的东西，比特币三者兼备：它很可能归零，所以愚蠢；它破坏联储与国家货币体系，所以邪恶；中国领导人聪明到禁止了比特币，让我们显得更蠢。
+q: But I would say this, that if the people in this room owned all of the farmland in the United States ||| I’ll write you a check this afternoon, $25 billion, now I own 1% of the farmland.
+q: Now, if you told me you owned all of the bitcoin in the world, and you offered it to me for $25, I wouldn’t take it ||| but it isn’t going to do anything.
+q: And you’d be right, incidentally. But that explains the difference between productive assets ||| it just changed hands with a lot of maybe fraud and costs involved and, you know, a whole bunch of things.
+q: But basically assets, to have value they have to deliver something to somebody. ||| And there’s only one currency that’s acceptable in the United States.
+q: Well, (Laughs) in my life I try and avoid things that are stupid and evil ||| we are a lot dumber than the communist leader in China.
+zh: （巴菲特：）但我要说的是，如果这个房间里的人拥有美国所有的农地，你们提出卖给我 1% 的权益，你说为了全美农地的 1% 权益，付给我们这个群体——这个便宜价格，250 亿美元——我今天下午就给你们开一张 250 亿美元的支票，现在我拥有了 1% 的农地。……现在，如果你告诉我你拥有全世界所有的比特币，你提出以 25 美元卖给我，我不会要，因为我拿它做什么呢？我必须以某种方式把它卖回给你。我是说，也许不是卖给同样这些人，但它不会做任何事情。……顺便说一句，你是对的。但这就解释了生产性资产与某种依赖于下一个人付给你比上一个人得到的更多的东西之间的区别。……但房间里并没有更多的钱，它只是换了手，其中可能涉及大量的欺诈和成本，以及一大堆东西。……但基本上，资产要有价值，就必须向某人交付某种东西。而在美国，只有一种货币是被接受的。（芒格：）嗯，在我的生活中，我努力避免那些愚蠢的、邪恶的、让我与别人相比显得难看的东西。而比特币三者兼备。首先，它是愚蠢的，因为它很可能归零。其次，它是邪恶的，因为它破坏了美联储体系和国家货币体系……第三，它让我们与中国的共产党领导人相比显得愚蠢。他足够聪明地在中国禁止了比特币，而以我们所有自以为是的文明优势，我们比中国的共产党领导人要蠢得多。
+l: 用“它能产出什么”检验任何资产；不产生现金流的资产，其价格只能依赖后来者的买入意愿，交易成本使其成为负和游戏。
+r: 4/4/4
+rel: 2018-A12, 2018-M03
+
+@ 2022-A20
+t: 如何找到志业：找到你热爱的事，为你最钦佩的人工作；先弄清你不擅长什么并全部避开
+s: BM
+th: 人生智慧
+k: life
+c: 大一学生问如何找到自己的志业：巴菲特说他非常幸运，父亲办公室里有书，他爱父亲、去读书，就产生了兴趣，“完全是偶然”，但“你看到时就会知道”；“找到你热爱做的事……为你最钦佩的人工作。”毕业后想为格雷厄姆工作，不在乎薪水，缠了三年才被雇用；后来发现更想为自己工作。芒格：“我可以给那位年轻女士一个建议：弄清你不擅长什么，然后全部避开。沃伦和我就是这样找到职业的——我们在其他一切上都失败了。”巴菲特说要为你钦佩的人工作——芒格：“他唯一认识的那个人就是镜子里刮胡子的那个。”芒格：我们俩从未在不感兴趣的事上取得成功，也从未在真正困难而我们缺乏天赋的事上取得成功；“你会以为聪明人能把不感兴趣的事做好，但你做不到。”
+q: I would tell the students, as I wrote in the report ||| Just work for whomever you admire the most.
+q: Well — you know, I could give that young lady the advice. ||| We failed at everything else.
+q: Well — if you stop to think about it, there are two things that neither one of us has ever succeeded at ||| And we’ve never succeeded at anything that was really hard where we didn’t have much aptitude for it.
+q: I’m just amazed. You’d think, if you’re smart, you could do things that don’t interest you well. ||| But you can’t.
+zh: （巴菲特：）我会告诉学生们，就像我在报告里写的，你知道：“找到你热爱做的事。”我是说，你一生的大部分时间都在做它，你究竟为什么要一辈子和你不喜欢的人一起工作呢？除非你不得不这样，有时确实会这样。就为你最钦佩的人工作吧。（芒格：）嗯——你知道，我可以给那位年轻女士一个建议。弄清楚你不擅长什么，然后把它全部避开。（巴菲特：）是的。（芒格：）沃伦和我就是这样找到我们的职业的。（巴菲特：）绝对是。（芒格：）我们在其他所有事情上都失败了。……（芒格：）嗯——如果你停下来想一想，有两件事我们俩都从未成功过：第一，我们从未在任何不让我们感兴趣的事情上取得成功，对吧？（巴菲特：）对。（芒格：）第二，我们从未在任何真正困难、而我们又没什么天赋的事情上取得成功。……我真是惊讶。你会以为，如果你聪明，你就能把不感兴趣的事情做好。但你做不到。
+l: 职业选择的两条过滤器：兴趣与天赋；用排除法（避开不擅长与不感兴趣的）比追逐热门更可靠。
+r: 3/2/4
+rel: 2014-A10, 2013-M39
+
+@ 2022-A22
+t: 回购决定并不难：没有公式，只有原则——以有吸引力的价格买下想退出的合伙人
+s: B
+th: 资本配置
+k: buyback
+c: 被问回购节奏是否固定在每月 10–30 亿美元：巴菲特说“你其实错了”——如果过去几个月有人以某个价格卖给我们 500 亿美元股票，我们会接；4 月一股没买。如果认为能为留下的股东改善状况就回购，否则不回购；如果能买喜欢的企业，宁愿买企业；不做公式，但绝不在任何可设想的情况下带来财务风险。辛格尔顿在高估时大量发股、低估时回购了 89% 的公司，关键是要有人认为你做错了，伯克希尔没有这个机会，“因为我们的股东很明智……如果股东是持有两天期看跌期权的那群人，我们很快就能买回整个公司”。他 13–14 岁买的第二只股票德州太平洋土地信托每年用卖地收入回购，他算过活到 100 岁就会拥有全部；后来不断发现石油，长期持有者回报极好。“有些东西很简单……要么你以有吸引力的价格买下合伙人，要么没有。”“不会有公式，但会有我刚才说的原则。”继任者也会有类似的计算，因为我们寻找的是理性且忠于伯克希尔的人。
+q: Well, after you were so nice in your introduction ||| You know, it’s that simple.
+q: But we do feel an obligation to do things that we think are intelligent ||| But it never can be that big a factor.
+q: Charlie, I think, spoke the other day, in connection with Henry Singleton. ||| we could buy back the whole company, you know, in a very short period of time.
+q: So, some of this stuff is so simple, you know? ||| You’ve got to come out ahead by doing it.
+q: There won’t be any formula, but there will be the principles that I’ve just expressed. ||| because we’re looking for people that are rational and devoted to Berkshire.
+zh: （巴菲特：）嗯，在你那么友善的开场白之后，我不得不说，你在这一点上其实是错的。如果在过去三四个、五个月里的某个时点，有人以某个价格卖给我们价值 500 亿美元的股票，我们会接下。你知道，就这么简单。……但我们确实觉得有义务去做我们认为明智的事，并且绝不——绝对不——在我们能设想的任何情况下（也许核战争之类除外）带来任何财务问题的风险，我们会去做。但它永远不可能成为那么大的一个因素。……我想查理前几天谈到了亨利·辛格尔顿。我想他前后回购了公司的 89%。……如果我们的股东和那些持有两天期看跌期权的人是同一群人，我们可以在很短的时间内买回整个公司。……所以，有些东西非常简单，你知道吗？但是，你知道，如果有人想拿博士学位……他们会写出几百页，用很多希腊字母之类的，而实际上，要么你是在以有吸引力的价格买断你的合伙人，要么你不是。如果你手头有钱，价格有吸引力，你又没有别的机会，你知道，为什么不做呢？这样做你一定会获益。……不会有任何公式，但会有我刚才表达的原则。我猜我的继任者，以及他们的继任者，会有类似的计算，因为我们在寻找理性且忠于伯克希尔的人。
+l: 回购是机会主义的而非程序化的：取决于价格相对价值、替代机会和财务安全；股东越理性，低价回购的机会越少。
+r: 4/4/4
+rel: 2022-M12, 2013-M34
+
+@ 2022-A23
+t: “独立董事”并不独立：靠 30 万美元董事费生活的人，就像奴隶一样“独立”
+s: BM
+th: 管理与治理
+k: incentives
+c: 被问阿贝尔将来能否像他一样迅速做出数十亿美元决策：巴菲特说董事会大概会像人们通常那样，增加一些限制或咨询。伯克希尔不买董事责任保险；人们加入博物馆或大学董事会还要捐钱，而上市公司董事每年能拿 30 万美元，这对有些人极其重要，“整个‘独立董事’的概念坦白说没有意义”。芒格：“一个需要 30 万美元才来这里的董事，你不认为他是独立的？他就像奴隶一样‘独立’。”巴菲特读了一封多年前的来信：写信人急需几百万美元，“我的收入 100% 来自董事费”，而他同时是五家知名公司的“独立董事”；相反，伯克希尔持有可口可乐 9% 时，有机构认为他不独立而投反对票，他的得票率从 96–98% 降到 84%。芒格：现在光独立还不够，还要非常多元化的独立；“那不是我们心目中的‘独立董事’。”
+q: But people have found that they can make $300,000 a year ||| The whole idea of the “independent director,” frankly, is it just doesn’t really make any sense.
+q: You don’t think a director is independent who needs $300,000 to be here? ||| He’s “independent” the way a slave is independent.
+q: But he was desperate for money, and he says he’s “getting 100% of it from board fees.” ||| And it’s just astounding to me.
+q: Yeah, yeah. And if they desperately need the money ||| All I can say is it’s not our idea of an “independent director.”
+zh: （巴菲特：）但人们发现他们一年可以赚 30 万美元，这对有些人极其重要，对另一些人毫无意义。……但实际上，那是来得非常容易的钱。坦白说，整个“独立董事”的概念就是没什么道理。（芒格：）一个需要 30 万美元才来这里的董事，你不认为他是独立的？（巴菲特：）他需要这笔钱，是的。（芒格：）他“独立”得就像一个奴隶是独立的一样。（巴菲特：）……但他急需用钱，他说他的收入“100% 来自董事费”。而他在每一家公司都被归类为“独立董事”。这真让我震惊。……（巴菲特：）是的，是的。如果他们急需这笔钱——在这个例子里，100% 的收入来自董事费；而你在全国五家最有声望的董事会任职；在每一家都被归类为“独立”；你所希望的只是你的 CEO 接到另一位 CEO 的电话问“这个人还行吗？”而你说：“当然，他还行。”意思是“因为他不惹麻烦”，于是他进入了第六个董事会。……（芒格：）我只能说，那不是我们心目中的“独立董事”。
+l: 判断董事独立性要看经济依赖而非形式标签；真正的独立来自董事自身持有大量股票、与股东利益一致，而非靠董事费生活。
+r: 4/3/4
+rel: 2018-A16, 2016-A21
