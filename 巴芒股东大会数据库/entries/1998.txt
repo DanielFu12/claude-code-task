@@ -1,0 +1,586 @@
+@ 1998-M08
+t: 投资不是跳水比赛，没有难度系数
+s: BM
+th: 投资理念; 投资方法
+k: circle
+c: 芒格：如果我们的预测比别人好一点，那是因为我们做的预测更少。巴菲特：奥运跳水有难度系数，投资没有——只要动作干净，从池边简单跳下去和翻腾三周半拿的报酬一样；所以他们寻找可以跨过的一尺高栏杆，而不是七八尺的。
+q: if our predictions have been a little better than other people’s, it’s because we tried to make fewer of them. ||| if our predictions have been a little better than other people’s, it’s because we tried to make fewer of them.
+q: this is not like Olympic diving. ||| You get paid just as well for the most simple dive, as long as you execute it all right.
+q: So we look for one-foot bars to step over ||| And it’s very nice, because you get paid just as well for the one-foot bars.
+zh: （芒格：）在这里，如果说我们的预测比别人好一点，那是因为我们尽量少做预测。（巴菲特：）这不像奥运会跳水。跳水有难度系数……投资可不是这样。只要你执行得好，最简单的跳水动作拿到的报酬一样多。……所以我们寻找的是一尺高、可以跨过去的栏杆，而不是试图跳过七八尺高的栏杆去创造奥运纪录。很美妙的是，跨过一尺高的栏杆，你拿到的报酬一样多。
+l: 投资回报不取决于分析的复杂度。主动回避需要高难度预测的标的，把精力集中在结论明显的机会上。
+r: 5/5/5
+rel: 1994-M39, 2005-A25
+
+@ 1998-M09
+t: 有效市场理论：如果对手都相信地球是平的
+s: BM
+th: 投资理念
+k: efficient_market
+c: 有效市场理论在大学里已不像 15-20 年前那样被奉为圣经。如果你的航运竞争对手都相信地球是平的，那是巨大的优势，所以应该鼓励大学教有效市场理论。读了多年金融博士、学会普通人不会的数学，就成了“大祭司”，自我和职业安全都押在这些理论上，很难回头。学术界把无法解释的东西称为“异常”而不是重新审视理论；遇到与珍视信念相悖的信息时，有特别的义务尽快审视它。芒格：有效市场理论家先说巴菲特是六个标准差的运气，被嘲笑后改成六个标准差的技能——他唯一舍不得放弃的是“六个标准差”。
+q: If you had a merchant shipping business, if all of your competitors believe the world is flat ||| And so we should be encouraging the teaching of efficient market theories in universities.
+q: you become sort of a high priest. ||| And I think that to some extent has contaminated the teaching of investing in the universities.
+q: when you find information that contradicts previously cherished beliefs ||| that you’ve got a special obligation to look at it and look at it quickly.
+zh: 如果你经营一家商船运输公司，而你所有的竞争对手都相信地球是平的，那就是巨大的优势，因为他们不会接任何要去到他们认为会掉下去的地方的货物。所以我们应该鼓励大学教授有效市场理论。……你会变成某种大祭司，你把大量的自我、甚至职业安全感都投入到这些理念中，到了某个点之后就很难回头了。我认为这在某种程度上污染了大学里的投资教学。……当你发现与之前珍视的信念相矛盾的信息时，你有特殊的义务去审视它，而且要尽快审视。
+l: 市场“大体有效”但并非总是有效，别人对理论的固执正是机会来源。对自己也是一样：主动寻找与持仓逻辑相悖的证据，并尽快处理。
+r: 4/3/4
+rel: 1999-A11, 1997-A28
+
+@ 1998-M10
+t: 时间是好生意的朋友，是烂生意的敌人
+s: BM
+th: 商业模式; 投资理念
+k: quality
+c: 日本很多公司股本回报率极低，作为低回报企业的所有者很难致富。他们早已放弃“烟蒂”投资：找一家很差但便宜到还能免费吸一口的公司——那确实赚过钱，但不适合大资金，而且现在也找不到多少。如果企业只赚 5-6% 的股本回报，即使买得便宜，长期持有也不会有好结果；时间是烂生意的敌人、好生意的朋友。芒格：买一家你只希望它在破产之前先清算的企业，没什么乐趣。巴菲特：伯克希尔本身就是一个烟蒂、一个错误，如果从中性基础而非负基础开始，效果会更好。
+q: it’s extremely difficult to get rich by owning — by being the owner of a business that earns a low return on equity. ||| it’s extremely difficult to get rich by owning — by being the owner of a business that earns a low return on equity.
+q: we gave up what I’ve labeled the “cigar butt” approach to investing ||| but it sells so cheap that you think there’s one good free puff left in it.
+q: Time is the enemy of the poor business, and it’s the friend of the great business. ||| time is your friend.
+q: it’s not that much fun to buy a business where you really hope this sucker liquidates before it goes broke. ||| it’s not that much fun to buy a business where you really hope this sucker liquidates before it goes broke.
+zh: 作为一家股本回报率很低的企业的所有者，是极难致富的。……很多年前，我们就放弃了我所说的“烟蒂”投资法，就是去找一家相当可怜的公司，但它卖得非常便宜，便宜到你觉得还能再免费吸上一口。……时间是烂生意的敌人，是好生意的朋友。如果你拥有一家股本回报率 20% 或 25% 的企业，并且它能长期保持，时间就是你的朋友。（芒格：）买一家你真心希望这玩意儿在破产之前先清算掉的企业，没有多大乐趣。
+l: 低估值不能弥补低回报：长期持有时，你的回报会趋近企业的资本回报率。只对高 ROE 且可持续的企业做长期持有。
+r: 5/5/5
+rel: 1995-A46, 2003-M30, 2003-A23
+
+@ 1998-M11
+t: 过滤器就是防止自身能力不足造成后果
+s: BM
+th: 投资方法
+k: circle
+c: 十秒钟内能对 90% 以上的提案说“不”。技术是很简单的问题：有重要技术成分或未来技术可能伤害现有业务的，就过不了过滤器。他们要能看懂的、好的生意，以及能力和诚信都让人放心的人。芒格：必须是 A，一个好主意；B，一个我们能理解的好主意。这些过滤器是用来防范我们自身才能不足的后果的。
+q: we really can say in ten seconds or so “no” to 90 percent-plus of all the things that come in ||| We have some filters in regard to people, too.
+q: if something comes in where there’s a technological component that’s of significance ||| it won’t make it through the filter.
+q: we have to have an idea that is A, a good idea, and B, a good idea that we can understand. ||| And so those filters are filters against consequences from our own lack of talent.
+zh: 我们真的能在十秒钟左右对 90% 以上的提案说“不”，就因为我们有这些过滤器。我们对人也有一些过滤器。……如果某个东西有重要的技术成分，或者我们认为未来的技术可能伤害现有业务，我们会把它当成要担心的事……它过不了过滤器。（芒格：）我们必须有一个想法，A，它是个好主意；B，它是个我们能理解的好主意。就这么简单。所以这些过滤器是用来防范我们自身才能不足所带来的后果的。
+l: 过滤器的本质是对自身局限的诚实。列出你的“直接拒绝清单”（看不懂的技术、可疑的人、差的经济特性），让大多数想法在开始研究前就被淘汰。
+r: 4/5/4
+rel: 1997-M32, 1997-A38
+
+@ 1998-M13
+t: 最好买一只永远不想卖的股票
+s: BM
+th: 投资方法
+k: holding
+c: 最好的办法是买你永远不想卖的股票，就像买下 GEICO、喜诗、水牛城新闻是为了永远持有。卖出的理由：需要钱做别的事（1952 年卖出 1951 年买的 GEICO，之后涨了 100 倍以上），或认为不同市场之间估值失衡——但这也可能是错误，对伟大企业真正该做的是“死死抓住”。芒格：理想的卖出是找到了你喜欢得多的东西。巴菲特：理想的买入是你本来就喜欢的东西跌到让你想加仓。
+q: the best thing to do is buy a stock that you don’t ever want to sell. ||| the best thing to do is buy a stock that you don’t ever want to sell.
+q: The GEICO stock that I bought in 1951, I sold in 1952. ||| So you sell if you need money for something else.
+q: the real thing to do with a great business is just hang on for dear life. ||| the real thing to do with a great business is just hang on for dear life.
+q: the ideal way is when you found something you like immensely better. ||| Isn’t that obvious that’s the ideal way to sell?
+q: the ideal purchase is to find — is to have something that you already liked be selling at a price where you feel like buying more of it. ||| the ideal purchase is to find — is to have something that you already liked be selling at a price where you feel like buying more of it.
+zh: 最好的做法是买一只你永远都不想卖的股票。……我 1951 年买的 GEICO 股票，1952 年就卖了。它后来涨到——在 1976 年出问题之前——我买价的 100 倍以上。但我当时没有钱去做别的事。所以如果你需要钱做别的事，你会卖出。……对一家伟大的企业，真正该做的就是死死抓住不放。（芒格：）理想的卖出方式，是你找到了你喜欢得多得多的东西。这不是很明显吗？（巴菲特：）理想的买入是：你本来就喜欢的东西，卖到了让你想多买一些的价格。
+l: 卖出纪律：只有当（1）发现明显更好的机会、（2）原逻辑被证伪、（3）估值极端时才卖。对伟大企业，“卖出去换钱用”往往是代价最大的错误。
+r: 5/5/4
+rel: 1996-A35, 2002-M14, 2004-A23
+
+@ 1998-M16
+t: 没有战略规划、没有使命宣言、没有顾问
+s: BM
+th: 管理与治理; 资本配置
+k: culture
+c: 保险会是伯克希尔最重要的业务，但第二、第三大业务是什么，将由机会决定——伯克希尔没有预定的行动路线、没有战略规划部门、没有战略规划，只对看懂的机会作出反应，越大越好。芒格：我们还自豪地没有使命宣言。巴菲特：从未请过顾问，总部 12 人，员工 4 万，希望公司大大增长，但不希望总部增长。
+q: So we have no predetermined course of action whatsoever at Berkshire. ||| We don’t have any strategic plan.
+q: We react to what we think are opportunities. ||| we would love to make it number two.
+q: I also want to say proudly that we have no mission statement. ||| I also want to say proudly that we have no mission statement.
+zh: 所以伯克希尔没有任何预先确定的行动路线。我们没有战略规划部门，我们没有任何战略规划。我们对我们认为是机会的东西做出反应。如果它是一门我们能理解的生意，尤其如果它规模很大，我们会很乐意让它成为第二大业务。（芒格：）我还要自豪地说，我们没有使命宣言。
+l: 对资本配置者来说，预设计划会制造“为完成计划而行动”的压力。保持机会驱动、在能力圈内等待大机会，比按规划扩张更能避免错误。
+r: 3/3/4
+rel: 1997-M20, 2001-M16
+
+@ 1998-M19
+t: 人生的秘诀是弱竞争
+s: BM
+th: 商业模式; 护城河
+k: moat
+c: 银行业有形股本回报率接近 30%，这能持续吗？在名义 GDP 只增长 4-5% 的经济中，企业如果保留大部分利润，不可能一直赚 20% 股本回报，否则利润占 GDP 的比例会变得荒谬；他们不会以此为前提买东西。芒格：杰克·韦尔奇“做不到第一就退出”的理念流行，加上高价回购，推高了 ROE。巴菲特：如果由 500 个克隆的韦尔奇经营财富 500 强，ROE 未必更高，可能更低——竞争者都很优秀时会互相抵消，就像 500 个国际象棋高手对弈仍有很多输家。在证券市场里，你智商 100 而别人都是 80，远好过你 140 而别人也都是 140。人生的秘诀是弱竞争——怎么赢鲍比·菲舍尔？和他下除了国际象棋之外的任何棋。
+q: if you had 500 Jack Welches and they were running the Fortune ||| But there’s a self-neutralizing effect
+q: It’s way better to be in securities markets if you have a hundred IQ and everybody else operating has an 80 ||| than if you have 140 and all the rest of them also have 140.
+q: So the secret of life is weak competition, you know. ||| You play him in any game except chess
+zh: 如果你有 500 个杰克·韦尔奇——克隆出来的——由他们经营所有财富 500 强公司，美国企业的股本回报率会比现在高还是低？……如果你有 500 个出色的竞争者，他们都可以是理性的……但存在一种自我抵消的效应，就像 500 个国际象棋高手或 500 个桥牌高手聚在一起比赛，仍然会有很多输家。……在证券市场上，如果你的智商是 100、而其他参与者都是 80，要比你是 140、其他人也都是 140 好得多。所以，人生的秘诀是弱竞争。有人问：“怎么才能打败鲍比·菲舍尔？”和他下除了国际象棋以外的任何棋。
+l: 选择竞争对手较弱、参与者较少的领域（行业、市场、资产类别），比在强手如林的赛场上拼能力更容易获得超额回报。
+r: 5/4/5
+rel: 1997-A16, 2001-M33
+
+@ 1998-M22
+t: 有担心的事就去解决，然后回去睡觉
+s: BM
+th: 投资心理; 人生智慧
+k: psychology
+c: 巴菲特常问子公司管理层：你的噩梦是什么？如果只有一颗银弹，你会射向哪个竞争对手？但他自己并不担忧：如果担心什么，就去纠正，然后回去睡觉；找不到用钱的好主意也无法强求，只能继续寻找。芒格：30 多年来，唯一能让他睡不着的是家人生病；其余时候他们都喜欢这场游戏，即使在别人觉得艰难的时期也很有乐趣。巴菲特：市场大跌对他们不是艰难时期，正是部署资本的好机会。
+q: if you’re worried about something, the thing to do is get it corrected and get back to sleep. ||| if you’re worried about something, the thing to do is get it corrected and get back to sleep.
+q: Warren likes the game. I like the game. ||| it’s a lot of fun.
+q: usually when the stock is going down, it means other things are going down. ||| And it’s a better chance for us to deploy capital, and that’s our business.
+zh: 如果你在担心什么，该做的就是把它纠正过来，然后回去睡觉。（芒格：）……沃伦喜欢这场游戏，我也喜欢这场游戏。即使在别人看来艰难的时期，这也是很有乐趣的。（巴菲特：）通常股价下跌时，意味着其他东西也在下跌。那对我们来说是部署资本的更好机会，而这正是我们的业务。
+l: 把焦虑转化为行动清单：能改变的立即处理，不能改变的就接受。为企业做“噩梦/银弹”分析，以识别最大的风险源。
+r: 3/3/4
+rel: 2008-A07
+
+@ 1998-M23
+t: 只思考既重要又可知的事
+s: BM
+th: 投资理念; 投资方法
+k: no_forecast
+c: 他们只思考两类交集：重要的、且可知的。有些事重要但不可知（如未来十年世界金融环境、美国经济竞争力），有些事可知但不重要，都不要占据头脑。他们确实认为自己知道可口可乐、吉列、迪士尼十年后的样子。可口可乐 1919 年上市时一股 40 美元，第一年跌到 19 美元；如果你有完美的预见，会看到大萧条、二战、原子弹，总能找到理由推迟购买——但重要的是看到它会每天卖出十亿份饮料。40 美元加上分红再投资如今已超过 500 万美元。芒格：我们不预测洋流，只预测某些东西在洋流中会游得怎样。
+q: We try to think about things that are important and things that are knowable. ||| We don’t want to clutter our minds up with those.
+q: And you could always find a reason to postpone why you should buy that share of Coca-Cola. ||| The important thing was to see they were going to be selling a billion eight-ounce servings of beverages a day this year.
+q: if you developed a view on these other subjects that in any way forestalled you acting on this more important, specific narrow view about the future of the company ||| you would have missed a great ride.
+q: we’re predicting the currents that will come, just how some things will swim in the currents, whatever they are. ||| we’re predicting the currents that will come, just how some things will swim in the currents, whatever they are.
+zh: 我们努力思考两类东西：重要的事情，和可知的事情。有些事情很重要，但不可知……有些事情可知，但不重要，我们不想让它们塞满我们的大脑。……你总能找到一个理由，推迟购买那一股可口可乐。但重要的不是看到那些，重要的是看到他们今年每天会卖出十亿份八盎司的饮料……如果你对其他问题形成了某种看法，并以任何方式阻止了你根据关于这家公司未来的、更重要也更具体的看法而行动，你就会错过一段了不起的旅程。（芒格：）（我们不是在预测会出现什么样的洋流，）我们只是在预测，不管洋流如何，某些东西在洋流中会游得怎样。
+l: 用“重要 × 可知”二维矩阵管理注意力：宏观大势放进“重要但不可知”，忽略；把研究集中在企业层面可知且决定长期价值的少数因素。
+r: 5/5/5
+rel: 1994-M47, 2012-M25, 2016-A08
+
+@ 1998-M26
+t: 伟大企业的回购，即使价格让人“流鼻血”也值得
+s: BM
+th: 资本配置
+k: buyback
+c: 可口可乐 112 年历史中，几乎没有哪个时候回购是不明智的。伯克希尔 1988 年持有 6.3%，如今因回购超过 8%，相当于每天多 1200 万份饮料的收益。他更希望 15 倍市盈率回购，但对比其他资本用途仍认为是好用途。但很多公司回购理由愚蠢——大量发期权后又高价回购，等于“低卖高买”。芒格：任何公司的股价都可能高到回购是愚蠢的，甚至会被滥用，崩盘前英萨尔的公用事业公司疯狂回购来推高股价，最后就像庞氏骗局；但真正伟大的公司在高市盈率回购可以是明智的。
+q: When we own stock in a wonderful business, we like the idea of repurchases, even at prices that may give you nose bleeds. ||| It generally turns out to be a pretty good policy.
+q: these companies, through their options, you know, they sell low and then they buy high. ||| And they’ve got a different formula than I was taught.
+q: in any company the stock could get to a price so high it would be foolish for the corporation to repurchase its shares. ||| in any company the stock could get to a price so high it would be foolish for the corporation to repurchase its shares.
+zh: 当我们持有一家伟大企业的股票时，我们喜欢回购的主意，即使价格可能高到让你流鼻血。结果通常证明这是一个相当好的政策。……这些公司通过它们的期权，先低价卖出，然后高价买入。他们用的是一套和我学到的不同的公式。（芒格：）在任何公司，股价都可能涨到一个高得离谱的水平，以至于公司回购自己的股票是愚蠢的。
+l: 评估回购要看三点：企业是否足够优秀、回购价相对内在价值如何、回购是否只是在对冲期权稀释。对平庸企业的高价回购是价值毁灭。
+r: 4/4/4
+rel: 1996-M26, 2004-A15, 2022-M12
+
+@ 1998-M27
+t: 负成本的浮存金比同等规模的股本更有价值
+s: BM
+th: 保险与浮存金
+k: insurance
+c: 伯克希尔 70 亿美元的浮存金以负成本获得（附带承保利润），所以若能退出保险业、让 70 亿负债消失、净资产增加 70 亿且无税务影响，他们会拒绝。账面上是负债，从经济价值看根本不是负债。关键不是今天的浮存金和成本，而是 10-15 年后它会有多大、成本是多少。芒格：伯克希尔的保险业务比大多数保险业务更不容易遭受重创，下行更安全，上行更好。
+q: if we were offered the opportunity to go out of the insurance business ||| we would turn down that proposition.
+q: The key is what is the float going to be 10 or 15 years from now ||| and what is the cost going to be
+zh: 如果有机会让我们退出保险业，而作为这个决定的一部分，那 70 亿美元的负债会从我们的资产负债表上消失，使我们的净资产增加 70 亿美元，而且没有税务影响，我们会拒绝这个提议。……关键是 10 年或 15 年后浮存金会是多少，以及那时它的成本会是多少。
+l: 会计上的负债未必是经济上的负债；低成本、可增长的预收款（浮存金、预收账款、客户存款）可能是企业最有价值的资产。
+r: 4/4/4
+rel: 1996-M35, 2022-A11
+
+@ 1998-M30
+t: 资本成本的真正测试：留存一美元能否创造超过一美元的价值
+s: BM
+th: 资本配置; 企业估值
+k: discount
+c: 芒格：商学院所教的资本成本概念不连贯，这是个愚蠢的问题——伯克希尔淹没在现金洪流中，资本成本是多少？巴菲特：只需两个问题：第一，留着资本好还是还给股东好？如果不能用一美元创造超过一美元的价值，就该还给股东。第二，通过这一门槛后，就找你最有把握、按确定性加权后回报最高的事情去做。他没找到任何改进这个公式的方法；危险在于管理层即使做得不如自己以为的那样好，也不愿分配，雇人算出一个资本成本只会帮他们合理化留存。
+q: The way that is taught in most business schools now, I find incoherent. ||| I don’t have a good answer to a question I consider kind of a stupid question.
+q: It’s better to return it to shareholders when you cannot create more than a dollar of value with that capital. ||| that promises the greatest return weighted for that certainty.
+zh: （芒格：）现在大多数商学院教的那一套，我觉得是不连贯的……对于一个我认为有点愚蠢的问题，我没有好答案。（巴菲特：）当你无法用这笔资本创造出超过一美元的价值时，最好把它还给股东。这是第一个测试。如果你通过了这道门槛，认为每留存一美元能实现超过一美元的价值，那么你只需四处寻找你最有把握、并且按这种确定性加权后承诺回报最高的东西。
+l: 抛开复杂的 WACC 计算，用两个问题检验资本配置：留存的钱能否创造更多价值？在所有用途中，按确定性加权后哪个回报最高？
+r: 4/4/4
+rel: 2003-A20, 2014-M14, 1995-A13
+
+@ 1998-M32
+t: 地震不知道你收了多少保费；你不可能比最蠢的对手更聪明
+s: B
+th: 风险管理; 保险与浮存金
+k: insurance
+c: 为极低频事件提供保险，你可以把价格定错一半而很长时间都不知道：一份 36 年一遇、应收约 150 万的 5000 万保单，收 100 万的话十年后有 70% 多的概率以为自己赚钱——收 1 美元也一样。巨灾债券引来更多“愚蠢的竞争者”，比如对冲基金经理有利润时拿 20%、发生灾害时损失由有限合伙人承担；这会让伯克希尔的业务量大幅下降，但不会改变他们的价格。地震不知道你收的保费是多少，它照样发生。
+q: when you are selling insurance against very infrequent events, you can totally misprice them but not know about it for a long time. ||| when you are selling insurance against very infrequent events, you can totally misprice them but not know about it for a long time.
+q: So it’s very likely to be a competitive factor that brings our volume down a lot. It won’t change our prices. ||| So it’s very likely to be a competitive factor that brings our volume down a lot. It won’t change our prices.
+q: the earthquake does not know the premium that you receive. ||| the earthquake does not know the premium that you receive.
+zh: 当你为非常罕见的事件出售保险时，你可能完全定错价，却在很长时间里都不知道。……所以它很可能成为一个让我们业务量大幅下降的竞争因素。但它不会改变我们的价格。……要记住的是，地震并不知道你收了多少保费。
+l: 对“低频高损”类风险，短期盈利不能证明定价正确；当竞争者的激励是“赚了分成、亏了别人承担”时，宁可缩量也不降价。
+r: 5/4/5
+rel: 1994-M62, 1995-M09
+
+@ 1998-M33
+t: 读年报：读完应该比读之前更懂这门生意
+s: BM
+th: 管理与治理; 投资方法
+k: management
+c: 先读看得懂的企业的年报，再看管理层是否告诉你“如果你拥有 100% 的公司会想知道的事”，是否像子公司经理对他们那样坦诚、用他们能懂的语言。满篇公关套话、只有图片没有事实，会影响他们的态度。买可口可乐完全基于年报和对其商业运作的了解，没有和管理层谈过。他们对经理人唯一的建议是“立即告诉我们坏消息”。芒格：年报里很少看到“这是个非常严重的问题，我们还没想好怎么处理”这样的句子，但相信我，这在很多时候是准确的描述。
+q: we see from that report whether the management is telling us about the things that we would want to know about if we owned a hundred percent of the company. ||| we see from that report whether the management is telling us about the things that we would want to know about if we owned a hundred percent of the company.
+q: We want to understand the business better when we get through with the annual report than when we picked it up. ||| And that is not difficult for a management to do if they want to do it.
+q: one thing we always do say is to tell us the bad news immediately. ||| one thing we always do say is to tell us the bad news immediately.
+q: What you seldom see in an annual report is a sentence like this ||| that is an accurate statement much of the time.
+zh: 我们会从年报中看管理层是否在告诉我们那些——如果我们拥有公司 100%——我们会想知道的事情。……我们希望读完年报时，比拿起它的时候更了解这门生意。如果管理层愿意，这并不难做到。……我们给经理人的建议很少，但有一条我们总会说：坏消息要立刻告诉我们。（芒格：）你在年报里很少看到这样的句子：“这是一个非常严重的问题，我们还没想清楚该怎么处理。”但相信我，在很多时候，这才是准确的陈述。
+l: 把“年报的坦诚度”当作管理层质量指标：是否主动披露问题、是否用平实语言解释经济实质、是否前后一致。喜欢“报喜不报忧”的投资者关系，是负面信号。
+r: 4/5/4
+rel: 2007-A07, 1994-M18
+
+@ 1998-M37
+t: 如果教投资：一个接一个的估值案例，期末考试给互联网公司估值，答出数字就不及格
+s: BM
+th: 投资方法; 企业估值
+k: iv
+c: 格雷厄姆的课程就是给公司估值，还会让学生分别评估 A、B 两家公司，结果发现是同一家公司的不同时期。若巴菲特教投资，会让学生一个接一个做估值研究，找出关键变量并先评估其可预测性——不可预测就放弃；一生只需做对几个好决定。他和芒格做过十几个相对净资产很大的决定，进场时就知道自己是对的，因为不复杂、关键变量明确且占主导——这就是“好球”。期末考试他会出一道“这家互联网公司值多少钱”，任何给出答案的人都不及格。芒格：想像教房地产评估那样教会学生给任何公司估值，是在尝试不可能的事。
+q: trying to identify the key variables in that particular business, and evaluating how predictable they were first, because that is the first step. ||| You have to make a few good decisions in your lifetime.
+q: Charlie and I made a dozen or so very big decisions relative to net worth ||| And we knew we were focusing on the right variables and they were dominant.
+q: And that’s what we look for. The fat pitch. ||| And I would not try to teach them to think they could do the impossible.
+q: on the final exam I would take an internet company ||| And anybody that gave me an answer I would flunk.
+zh: （我会让学生）找出那个特定企业的关键变量，并首先评估它们的可预测性，因为那是第一步。如果某样东西不太可预测，就忘了它。你不需要对每家公司都判断正确，你一生中只需要做出几个好决定。……查理和我做过十几个相对于净资产而言非常大的决定……我们进场时就知道自己是对的。它们并不复杂，我们知道自己关注的是正确的变量，而且这些变量起主导作用。……这就是我们寻找的：好打的球。这也是我要教学生做的。我不会教他们以为自己能做到不可能的事。……期末考试我可能会拿一家互联网公司，问“这家公司值多少钱？”谁给出了答案，我就让谁不及格。
+l: 估值训练的重点是识别“关键变量 + 可预测性”。面对无法预测的企业，最专业的回答是“不知道”。
+r: 5/5/5
+rel: 1994-A22, 2003-A02, 2000-M12
+
+@ 1998-M41
+t: 牛市的三个驱动力：两个是基本面，一个是自我强化
+s: BM
+th: 市场周期
+k: crisis
+c: 推动牛市的有三个因素：股本回报率提高、利率下降，以及价格上涨本身吸引买盘——它不会永远持续，但会产生自身的动量。很多人因为觉得错过了班车、或有了愉快经历而加大投入，抱有不切实际的预期。你在投资上做得好，是因为以合适价格买入、企业此后表现良好，而不是过去的经验。芒格：不会再有 18 年每年 17%-18% 的回报，几乎可以保证。
+q: I think the two big factors are in — well, there’s three big factors. ||| but it creates its own momentum, to some extent, if you have these underlying factors that started to push it along.
+q: Past experience doesn’t — does not mean much, in terms of what you should expect from your investments. ||| You will do well in your investments because you own or bought things at the right price and the businesses behaved well from that point forward.
+zh: 我认为有两个大因素——嗯，有三个大因素。一是股本回报率的提高，这是推高股价的基本面因素。二是利率下降推高了股价。最后，股价上涨本身会带来买盘。这不会永远持续下去，但如果你有这些启动它的基础因素，它在某种程度上会产生自身的动量。……过去的经验对于你应该从投资中期待什么，意义不大。你在投资上做得好，是因为你以合适的价格拥有或买入了东西，而且企业从那时起表现良好。
+l: 拆解行情来源：盈利能力、利率、情绪动量。当第三项占比越来越大时，提高警惕、降低预期。
+r: 4/4/4
+rel: 1997-M06, 1999-A03
+
+@ 1998-M45
+t: 科技是我跳不过的七尺高栏，不如打容易的球
+s: BM
+th: 投资方法
+k: circle
+c: 他一直欣赏格鲁夫和盖茨，遗憾没有用钱支持这种欣赏；但他不知道微软和英特尔 10 年后的世界是什么样，不想在别人比他有优势的游戏里玩。即使花一年时间研究科技，他也不会是全国前一百、一千甚至一万聪明的人——那是他无论怎么训练都跳不过的七八尺高栏。有人会在科技上赚很多钱，也有人在可可豆上赚钱，这不困扰他。打容易的球要好得多。
+q: I don’t want to play in a game where I think the other guys have got an advantage over me ||| I wouldn’t be the hundredth or the thousandth or the 10,000th smartest guy in the country in looking at those businesses.
+q: So that is a seven or eight foot bar that I can’t clear. ||| And no matter how I train, I can’t clear it.
+q: It’s much better for us to swing at the easy pitches. ||| It’s much better for us to swing at the easy pitches.
+zh: 我不想参加一个我认为别人比我更有优势的游戏。……即使我接下来一年把所有时间都花在思考科技上，我也不会成为这个国家看这些企业的第一百、第一千甚至第一万聪明的人。所以那是一个七八英尺高、我跳不过去的横杆。有人能跳过去，但我不能，无论我怎么训练都跳不过去。……对我们来说，挥棒去打那些容易打的球要好得多。
+l: 能力圈的关键不是“懂不懂”，而是“相对于其他参与者是否有优势”。在没有比较优势的领域，即使机会巨大也应放弃。
+r: 4/4/4
+rel: 1997-M17, 1999-A08, 2000-M12
+
+@ 1998-M48
+t: 白银：等三四十年，只为动用 2% 的资产
+s: BM
+th: 投资方法; 投资心理
+k: speculation
+c: 白银年需求约 8 亿盎司，矿产约 5 亿、回收约 1.5 亿，缺口靠地上库存填补且库存已显著减少；白银多是金铜铅锌的副产品，供给对价格不敏感，需求也缺乏弹性，所以当前价格不是均衡价格，均衡价格的变化未必小。他从 60 年代就开始跟踪这些数字。芒格：这件事对伯克希尔的影响和巴菲特打桥牌差不多——每三四十年能动用 2% 资产做一次；想想看，为了动用 2% 的资产思考某件事三四十年，需要多大的纪律，这意味着会有一些沉闷的时期。
+q: the present price for silver does not produce an equilibrium between supply ||| as measured by newly-mined silver plus reclaimed silver, and usage.
+q: Think of the discipline it takes to think about something for three or four decades, waiting for a chance to employ ||| 2 percent of your assets.
+q: It means there’ll be some dull stretches. ||| It means there’ll be some dull stretches.
+zh: 目前的白银价格并没有在供给——以新开采的白银加上回收的白银衡量——与用量之间形成均衡。（芒格：）想想看，为了等待一个动用 2% 资产的机会，思考一件事长达三四十年，需要多大的纪律。……这意味着会有一些沉闷的时期。
+l: 商品投资的逻辑是供需与库存，而不是故事；即使发现了失衡，也应控制仓位。更重要的启示是耐心：长期跟踪、等待条件成熟。（注：巴菲特后来在 2006 年承认买得早、卖得也早。）
+r: 3/3/4
+rel: 2006-M25, 2007-M25
+
+@ 1998-M53
+t: 内在价值：说起来容易，算出来不可能
+s: B
+th: 企业估值
+k: iv
+c: 按定义，内在价值是任何金融资产从现在到世界末日产生的现金流的现值，说起来容易、算出来不可能；但他们评估可口可乐的未来现金流比评估英特尔容易得多。伯克希尔的估值更复杂，因为它没有能自然吸收所有流入现金的业务，取决于机会与运用现金的智慧；传统的自来水或电力公司则容易计算。
+q: intrinsic value is the present value of the stream of cash that’s going to be generated by any financial asset between now and doomsday. ||| And that’s easy to say and impossible to figure
+q: Some businesses have a natural use for the cash. ||| But we do not have a natural use.
+zh: 按定义，内在价值就是任何金融资产从现在到世界末日所产生的现金流的现值。说起来容易，算出来不可能……有些企业对现金有天然的用途……但我们没有天然的用途。
+l: 内在价值是一个区间概念；对于需要不断寻找新用途来再投资的公司（如投资型控股公司），其价值部分取决于资本配置者的能力。
+r: 4/3/4
+rel: 1994-A22, 2003-A05
+
+@ 1998-M54
+t: 多元思维模型：手里只有锤子的人，看什么都像钉子
+s: M
+th: 投资理念; 人生智慧
+k: learning
+c: 芒格处理现实的方法是在头脑中有多个模型，然后用多个模型去检验现实；只用一两个模型看现实是彻底的灾难——“对一个只有锤子的人来说，每个问题看起来都像钉子”。模型数量其实并不多，但多元模型才是关键。
+q: the Munger system for dealing with reality is to have multiple models in the head ||| and then run reality against multiple models.
+q: I think it’s a perfect disaster to look at reality through just one model or two. ||| I think it’s a perfect disaster to look at reality through just one model or two.
+q: “To the man with only a hammer, every problem looks pretty much like a nail.” ||| But multiple models is the game.
+zh: 芒格处理现实的方法，是在头脑中拥有多个模型，然后用这些模型去检验现实。我认为只通过一两个模型去看现实，是彻头彻尾的灾难。……有一句老话说：“对于一个只有锤子的人来说，每个问题看起来都很像钉子。”这不是我们的方法。……多元模型才是关键。
+l: 系统性地学习各学科最重要的基本模型（数学、会计、经济学、心理学、生物学、工程学等），分析投资问题时用多个模型交叉检验，避免单一框架的盲点。
+r: 5/4/5
+rel: 1996-A26, 2022-A04, 2004-A27
+
+@ 1998-M56
+t: 看卖家爱的是生意还是钱
+s: BM
+th: 管理与治理
+k: management
+c: 伯克希尔收购时不派管理人员，四分之三的情况下经理人就是卖方，拿到数千万甚至数亿美元后无需工作。他们必须在见面时判断对方爱的是生意还是钱——不做道德判断，但必须知道哪个是首要动机；爱生意的人不需要工作也比 95% 的人更努力，“他们就是喜欢击球”。对极端情形——只会带来麻烦或只会带来快乐的人——可以有很高的判断准确率。芒格：诚信、智慧、经验和投入，人类事业运转良好需要的就是这些。
+q: we have to decide in that time when we meet them whether they love the business or love money. ||| it’s very important for me to know which of the two is the primary motivator with them.
+q: they probably outwork, you know, 95 percent or more of the people in the world ||| because they just love smacking the ball.
+q: You’ve got integrity, intelligence, and experience, and dedication. ||| And that’s what human enterprises need to run well
+zh: 我们必须在见到他们的时候判断，他们爱的是生意还是钱。我们不做道德判断……但对我来说，知道两者中哪一个是他们的首要动机非常重要。……他们可能比世界上 95% 以上的人都更努力，他们这么做就是因为他们热爱击球。（芒格：）你需要的是诚信、智慧、经验和投入。这就是人类事业运转良好所需要的。
+l: 评估管理层时观察其动机：对业务的热情（产品、客户、细节）还是对财富与地位的关注？后者在股权激励兑现后容易“失去动力”。
+r: 4/4/4
+rel: 1997-M32, 2003-M39
+
+@ 1998-A01
+t: 什么时候买房？先别卖掉木匠的工具
+s: BM
+th: 人生智慧
+k: life
+c: 巴菲特 1952 年结婚时约有 1 万美元，对妻子说买房会用光全部资本，就像木匠被拿走了工具；他们等到 1956 年、首付约占净资产 10% 时才买房。如果有想买的房子，就去买，相当于隐含约 7-8% 的投资回报。芒格：买房的时间是你需要的时候。巴菲特：什么时候需要？当你妻子想要的时候。
+q: We can either buy a house, which will use up all my capital and clean me out ||| it’ll be like a carpenter who’s had his tools taken away for him.
+q: I decided to buy a house when it was about — when the down payment was about 10 percent or so of my net worth ||| because I really felt I wanted to use the capital for other purposes.
+q: I think the time to buy a house is when you need one. ||| I think the time to buy a house is when you need one.
+zh: 我们可以买一套房子，那会用光我所有的资本，把我掏空，就像一个木匠的工具被拿走了一样。……我决定在首付款大约占我净资产 10% 左右的时候买房，因为我真的想把资本用于其他用途。（芒格：）我认为买房的时机就是你需要一套房子的时候。
+l: 早期积累阶段，资本是“生产工具”，要警惕大额自住消费挤占投资本金；同时自住需求是真实的生活价值，不必过度精算。
+r: 2/3/3
+rel: 2008-M36
+
+@ 1998-A02
+t: 最贵的不是高薪，而是为平庸付高薪
+s: BM
+th: 管理与治理
+k: incentives
+c: 最离谱的不一定是最大的数字，而是为平庸支付大笔薪酬。为杰出业绩付高薪他们没意见，可以带来 10-50 倍回报。CEO 都看别家的代理声明，“既然你不会雇低于平均的人，怎么能给我低于平均的薪酬？”顾问再把奖励推高；手握开关的人正是体系的受益者，所以很难改变。芒格：当领导者被普遍认为没有公平对待其领导的机构，对文明不是好事；至于给薪酬提建议的顾问，“当妓女对他们来说都算往上走了”。
+q: What really bothers me is when companies pay a lot of money for mediocrity ||| and that happens all too often.
+q: And they tell the directors that, “Certainly you wouldn’t be hiring anybody that was below average, so how can you pay me below average?” ||| And the consultants come in and ratchet up the rewards.
+q: The people who have their hands on the switch are the beneficiaries of the system. ||| And it’s very hard to change the system
+zh: 真正让我困扰的，是公司为平庸支付大量的钱，而这种事太常见了。……他们对董事说：“你们当然不会雇一个低于平均水平的人，那怎么能付给我低于平均水平的薪酬呢？”然后顾问进来，把奖励一路往上抬。……手放在开关上的人，正是这个体系的受益者。
+l: 研究薪酬时不看绝对数额，而看“薪酬与创造的价值是否匹配”；警惕以同业中位数为锚、由顾问主导的薪酬棘轮。
+r: 3/3/4
+rel: 1997-M34, 2009-A23
+
+@ 1998-A07
+t: 分权到“仅次于完全放弃”的程度
+s: BM
+th: 管理与治理
+k: culture
+c: 伯克希尔没有任何正式制度：不要求开会、不要求向总部提交经营计划；经理人风格各异，不会因为别人握棒方式不同就去干预一个打 .375 的人。人才是稀缺品，找到有自己方法的人才，他们希望对方按自己的方式做。芒格：我们把经营权力分散到“仅次于完全放弃”的程度，但这不适合所有人。巴菲特：我们集中的是资金，其他几乎全部分散；FlightSafety 创始人每年在模拟器上花约一亿美元，他花几个小时也无法为其知识增加万分之一，那样做是浪费时间和傲慢。如果经理人不行，他们会换人，而不是建一堆制度。
+q: we have no formal system whatsoever, and we will never have a formal system. ||| We have no operating plan submitted to headquarters.
+q: talent is the scarce commodity ||| We don’t want to change them.
+q: we have decentralized power in the operating businesses to a point just short of total abdication. ||| we have decentralized power in the operating businesses to a point just short of total abdication.
+q: if they didn’t, we would, you know, we’d do something about the manager, we wouldn’t try and build a bunch of systems. ||| if they didn’t, we would, you know, we’d do something about the manager, we wouldn’t try and build a bunch of systems.
+zh: 我们没有任何正式的制度，将来也永远不会有。……没有任何经营计划需要提交到总部。……人才是稀缺品。当你找到有才能的人，而他们有自己的做事方式时，我们很乐意让他们去做——不只是让他们做，我们希望他们按自己的方式做，我们不想改变他们。（芒格：）我们把经营业务中的权力下放到了仅次于完全放弃的程度。（巴菲特：）如果他们不行……我们会对经理人采取措施，而不会去建立一大堆制度。
+l: 分权的前提是“选人 + 信任 + 资本集中”。投资多元化企业时，关注总部是否以资本配置为核心、是否避免对优秀子公司的过度干预。
+r: 4/3/4
+rel: 1994-M19, 2017-M24, 2010-A02
+
+@ 1998-A08
+t: 最好、次好与最差的生意；EBITDA 是彻头彻尾的胡扯
+s: BM
+th: 商业模式; 会计与财务; 企业估值
+k: business_model
+c: 用长期国债利率折现只是统一尺度；企业只能按每年剩下的净现金计价，而不是总现金流。最好的生意是每年给你越来越多的钱，却几乎不需要投入；次好的是需要投入，但再投资回报率令人满意；最差的是增长很快、被迫增长才能留在游戏中、而再投资回报很低——有时人们身处其中而不自知。格雷厄姆课上讲“冻结公司”：章程禁止向所有者支付任何东西、禁止清算或出售，它值多少钱？这迫使你思考生意的本质——今天投入钱，以后拿回更多钱。芒格：有一类企业“最终回收现金”是幻觉，不断投钱，突然有一天不行了；乐趣在于避开它们，找到让你淹没在现金里的企业。巴菲特：EBITDA 是彻底的胡扯——任何有大量固定资产的企业都必须再投资才能原地踏步。芒格：投行学会用 EBITDA 说话不值得称赞，明知是胡扯还在上面堆推理，当所有人都说胡话时它就成了标准。
+q: The best business is one that gives you more and more money every year without putting up anything to get it ||| And sometimes people are in those businesses without knowing about it.
+q: Investing is the art, essentially, of laying out cash now to get a whole lot more cash later on ||| and something at some point better deliver cash.
+q: I think there is a class of businesses where the eventual cash back part of the equation tends to be an illusion. ||| and get in the alternative kind that drowns you in cash.
+q: The one figure we regard as utter nonsense is the so-called EBITDA. ||| is absolute folly and it’s been misused by lots of people to sell lots of merchandise in recent years.
+q: It’s not to the credit of the investment banking fraternity that it has learned to speak in terms of EBITDA. ||| And then once everybody is talking in terms of nonsense, why, it gets to be standard.
+zh: 最好的生意是每年给你越来越多的钱，而你几乎不需要投入任何东西。……次好的生意也给你越来越多的钱，它需要更多的钱，但你为获得增长而再投资的回报率非常令人满意。最差的生意是增长很快、而你实际上被迫增长才能留在游戏中、并且再投资的回报率很低的那种。有时人们身处这样的生意却不自知。……投资本质上是一门艺术：现在投出现金，以便日后收回多得多的现金，而且在某个时点上它最好真的交出现金。（芒格：）我认为有一类企业，其方程中“最终收回现金”的部分往往是一种幻觉……我们生活中有趣的地方就在于努力避开它们，进入另一种会让你被现金淹没的企业。（巴菲特：）我们认为完全是胡扯的一个数字就是所谓的 EBITDA……看一个在这些现金需求之前的数字，是绝对的愚蠢，近年来被很多人滥用来推销大量商品。（芒格：）投行界学会用 EBITDA 说话，这可不是什么光彩的事。明知一个衡量标准是胡扯，还在这个错误假设上堆砌更多推理，这不是值得称道的智力表现。而一旦所有人都在说胡话，它就成了标准。
+l: 把企业按“增长所需资本 × 再投资回报率”分三类；只对第一、二类做长期投资。估值时用扣除维持性资本开支后的自由现金流，不用 EBITDA。
+r: 5/5/5
+rel: 1994-A23, 1997-M14, 2002-M20
+
+@ 1998-A09
+t: 选股清单：简单但不容易
+s: B
+th: 投资方法
+k: stock_as_business
+c: 选股标准就是选企业的标准：能看懂（产品、竞争性质、可能出什么问题）；企业经济特性决定 5/10/15 年的盈利能力是越来越好还是越来越差；与可以放心的人为伍；为此付出合适的价格。他们做的事简单但不一定容易：知道自己不知道什么很重要也不容易，预知未来在很多情况下不可能、在一些情况下困难、偶尔相对容易——他们找的就是相对容易的。就像在奥马哈用一生积蓄买一家加油站、干洗店或便利店，你会想同样的问题，因为股票不过是企业的一部分。
+q: We are looking for a business we can understand. ||| what could go wrong with it over time.
+q: what we do is simple but not necessarily easy. ||| Knowing what you don’t know is important, and sometimes that’s not easy.
+q: If you were thinking of buying a service station, or a dry cleaning establishment, or a convenience store in Omaha ||| you’d think about the same sort of things.
+q: because the stock is nothing other than a piece of a business. ||| because the stock is nothing other than a piece of a business.
+zh: 我们寻找的是一家我们能理解的企业。这意味着它卖的产品我们认为自己能理解，或者我们理解竞争的性质，以及随着时间推移它可能会出什么问题。……我们做的事情简单，但不一定容易。……知道自己不知道什么很重要，而有时这并不容易。……如果你想在奥马哈买一家加油站、干洗店或便利店，把你一生的积蓄投进去自己经营，你会考虑同样的事情。……因为股票不过是企业的一部分。
+l: 四步清单：能力圈 → 长期经济特性 → 管理层 → 价格。每次买入前像“用全部身家买下街角小店”一样问自己这些问题。
+r: 5/5/5
+rel: 1995-M33, 2008-M05
+
+@ 1998-A10
+t: 金融应该用“决策很容易”的案例来教：国民收银机
+s: BM
+th: 投资方法; 护城河
+k: learning
+c: 芒格：如果正确地教金融，应该从投资决策很容易的案例教起。国民收银机公司由一位狂热者创办，他买下所有专利、拥有最好的销售队伍和最好的工厂，非常聪明且全身心投入收银机业务——收银机对当时的零售业是天赐之物，相当于那个时代的制药业。读一读帕特森写的早期年报，傻瓜都能看出这是一个有天赋的狂热者，位置极其有利，投资决策很容易。他会收集一百个这样的案例来教学生。巴菲特：那份年报还告诉你，想和他竞争就是傻瓜。
+q: when finance is properly taught, it should be taught from cases where the investment decision is easy. ||| when finance is properly taught, it should be taught from cases where the investment decision is easy.
+q: an idiot could see that this was a talented fanatic. ||| therefore, the investment decision was easy.
+q: If I were teaching finance, I would collect a hundred cases like that. ||| If I were teaching finance, I would collect a hundred cases like that.
+zh: （芒格：）如果金融被正确地教授，它应该从那些投资决策很容易的案例教起。……读一读帕特森准备的早期年报，傻瓜都能看出这是一位有才华的狂热者，处境非常有利，因此投资决策很容易。……如果我来教金融，我会收集一百个这样的案例，用这种方式教学生。
+l: 建立自己的“显而易见案例库”：才华横溢且专注的经营者 + 革命性产品 + 强大的竞争壁垒。学会识别“容易”的机会，比学会处理困难问题更有价值。
+r: 4/4/4
+rel: 1997-A28
+
+@ 1998-A13
+t: 给年轻人的建议：学会计、多见生意、少花多存
+s: BM
+th: 人生智慧; 投资方法
+k: life
+c: 如果对商业感兴趣，二十出头前尽可能学会计——会计是商业的语言，但要知道它的局限；在各种企业打工，看看什么竞争激烈、什么不激烈、为什么。大量阅读，和做生意的人聊他们的运营与问题。懂了商业就懂了投资，投资就是以资本配置形式做的商业决策。芒格：还有一件小事——年复一年地花得比挣的少，坚持下去真的有效。巴菲特：组建家庭前存下的每一美元，以后可能值十美元；储蓄很大程度是习惯。
+q: Accounting is the language of business. ||| so you have to know the limitations of that language, as well as all aspects of it.
+q: if you understand business you understand investments. ||| Investments are simply business decisions in terms of capital allocation.
+q: there’s also the little matter of underspending your income year after year after year. ||| That really works if you keep at it.
+q: any money you save before you get out and start having a family ||| is probably worth $10 later on simply because you can save it.
+zh: 会计是商业的语言。当然这并不意味着它是一门完美的语言，所以你必须了解这门语言的局限，以及它的方方面面。……如果你懂商业，你就懂投资。投资不过是以资本配置形式做出的商业决策。（芒格：）还有一件小事，就是年复一年地让支出低于收入。只要坚持下去，这真的很管用。（巴菲特：）你在走出校门、组建家庭之前存下的任何一美元，以后大概都值 10 美元……
+l: 年轻时最值得的投资：会计能力、真实的商业经验、储蓄习惯。早期储蓄因复利时间最长而价值最高。
+r: 4/4/4
+rel: 2001-M14, 2004-A30
+
+@ 1998-A17
+t: 卖出后股价上涨不是问题；卖在顶点才说明你在玩“博傻”
+s: BM
+th: 投资心理; 投资方法
+k: mistakes
+c: 11 岁时以 38 美元买入城市服务优先股、40 美元卖出，后来涨到 200；他卖过的几乎所有东西后来都涨了，60 年代卖出迪士尼是巨大的错误——应该买入，而不是只是持有。但他认为好企业卖出后上涨是正常的；如果总是卖在顶点，才说明在玩“更大的傻瓜”游戏，那长期行不通。最成功的投资者若卖出，卖掉的东西多半后来涨得更高。芒格：被提醒自己的错误很有用，我们会在心里“把鼻子按在自己的错误里”，这是很好的思维习惯。巴菲特：每个收购决策都应做事后复盘，但大多数公司不愿意复盘资本开支。芒格：想象董事会花三个小时检讨自己所有愚蠢的失误，那多令人耳目一新。
+q: I would worry, frankly, if I sold a bunch of things right at the top ||| and I don’t think that can be practiced successfully over time.
+q: we kind of mentally rub our own noses in our own mistakes. And that is a very good mental habit. ||| we kind of mentally rub our own noses in our own mistakes. And that is a very good mental habit.
+q: every acquisition decision, that kind of thing, you know, there should be postmortems. ||| Now, most companies don’t like to do postmortems on their capital expenditures.
+q: Think of how refreshing a board of directors meeting would be ||| “And now we’ll spend three hours examining all our stupid blunders and how much we’ve blown.”
+zh: 坦白说，如果我卖掉的一堆东西正好卖在最高点，我会感到担心，因为那会表明我实际上在践行“更大的傻瓜”式的投资方法，我认为那是无法长期成功的。（芒格：）我们会在心里把自己的鼻子按在自己犯的错误里。这是一个非常好的思维习惯。（巴菲特：）每一个收购决策之类的事情，都应该做事后复盘。但大多数公司不喜欢对它们的资本开支做复盘。（芒格：）想想看，如果董事会开会时说：“现在我们花三个小时检讨我们所有愚蠢的失误，以及我们搞砸了多少钱。”那该多么令人耳目一新。
+l: 建立系统的事后复盘：对卖出、买入、未行动的决策定期回顾。卖出后上涨若因企业优秀，说明选股是对的，卖出才是问题。
+r: 4/4/5
+rel: 1997-A11, 1999-A29
+
+@ 1998-A22
+t: 遗产：给孩子足够做任何事的钱，但不足以让他们无所事事
+s: BM
+th: 人生智慧
+k: life
+c: 巴菲特引用凯·格雷厄姆父亲的话：如果非常富有，留给孩子的钱应该“足以让他们做任何事，但不足以让他们什么都不做”。他相信精英制度，若设计制度会对遗产（作为一种消费）征重税；他碰巧在对的时代拥有对的“布线”，比尔·盖茨说他若生在几千年前早成了动物的午餐，这不让他比别人更有价值，只是幸运。（芒格在紧接着的 1998-A23 章补充：资本主义体系应有遗产税，交完税后个人怎么安排是自己的事；他很少看到被钱毁掉的人，很多有钱但被毁掉的人，没钱也会被毁掉。）
+q: the idea of leaving your children enough so they can do anything, but not enough so they can do nothing ||| is not a bad formula.
+q: And that doesn’t make me a more worthwhile human being than anybody else or anything. It just means I was lucky. ||| And that doesn’t make me a more worthwhile human being than anybody else or anything. It just means I was lucky.
+zh: 留给孩子的钱，足以让他们做任何事情，但不足以让他们什么都不做——这不是一个坏公式。……这并不使我成为一个比别人更有价值的人，只是意味着我很幸运。
+l: 财富传承的核心是保留后代的奋斗动力；同时以谦逊看待自身财富中的运气成分。
+r: 4/2/4
+rel: 1998-A23, 1997-M28, 2013-A30, 2023-M14
+
+@ 1998-A24
+t: 市场不贵的两个前提：利率不升、企业盈利能力不降
+s: B
+th: 市场周期; 企业估值
+k: no_forecast
+c: 他们从不推荐买卖伯克希尔。整体市场是否高估取决于两个条件：利率维持或下降，以及美国企业盈利能力维持在接近史无前例的水平——两个都是大“如果”。如果你得出“这些价格下股票没问题”的结论，你也必须得出“企业盈利能力会维持”的结论，而这并不显然。
+q: the general market is not overvalued if two conditions are met ||| which are virtually unprecedented.
+q: if you’re predicating your answer that stocks are OK at these prices ||| I don’t think it’s obvious that that’s the case.
+zh: 如果满足两个条件，整个市场就没有被高估——在我们看来，这两个条件是：利率维持在目前水平附近或更低，以及美国企业的盈利能力保持在目前——或接近目前——的水平，而这个水平几乎是前所未有的。……如果你的结论是股票在这些价格上没问题，那么在我们看来，你也必须得出这样的结论：企业盈利在目前水平上很可能会维持下去。这就是你必须得出的结论。我不认为这是显而易见的。
+l: 评估市场估值时，不仅看市盈率，更要看“当前盈利是否处于周期高位”；在利润率高位时用正常化盈利估值。
+r: 3/4/3
+rel: 1997-A03, 1999-A03
+
+@ 1998-A29
+t: 市净率低毫无意义：低市净率往往意味着坏生意
+s: B
+th: 企业估值
+k: iv
+c: 日本股票市净率低，只是因为日本公司的股本回报率远低于美国公司；决定价值的是盈利而不是账面价值。如果一家公司账面回报率只有 5% 而且会一直这样，他不会按账面价值买它。低市净率对他们毫无吸引力，如果非要说，他们更可能去看市净率高的公司，因为那更可能是好生意。
+q: earnings are what determine value, not book value. Book value is not a factor we consider. ||| Future earnings are a factor we consider.
+q: if a company’s earning 5 percent on book value ||| I don’t want to buy it at book value if I think it’s going to keep earning 5 percent on book value.
+q: we are less likely to look at something that sells at a low relationship to book ||| because the chances are we’re looking at a poor business in the first case and a good business in the second case.
+zh: 决定价值的是盈利，而不是账面价值。账面价值不是我们考虑的因素，未来的盈利才是。……如果一家公司的账面价值回报率是 5%，而我认为它会一直保持 5%，我不想以账面价值买它。……事实上，如果说有什么区别的话，我们更不可能去看那些相对于账面价值售价很低的东西，而更可能去看相对账面价值售价很高的东西，因为在前一种情况下我们很可能看到的是一门糟糕的生意，在后一种情况下是一门好生意。
+l: 市净率必须与 ROE 一起看：合理市净率 ≈ ROE / 要求回报率。低 PB + 低 ROE 是价值陷阱，高 PB + 高且可持续的 ROE 可能是便宜货。
+r: 4/5/4
+rel: 1995-M31, 2017-A11
+
+@ 1998-A32
+t: 我们只关心价格和价值；贝塔、相关系数对我们毫无意义
+s: BM
+th: 投资理念; 投资心理
+k: mr_market
+c: 伯克希尔与标普 500 的相关系数可以算，但没意义。标普年度对比有意义，因为股东不需要伯克希尔也能买标普，管理层必须证明增值。他们不关注贝塔，只关心价格和价值；不知道伯克希尔今天的股价，也不在乎——重要的是 10 年后在哪里。青少年时期他沉迷于成交量、价格走势、相对强度，画图表、写文章，但现在这些在他们的运作中毫无位置。芒格：和巴菲特共事多年的一大乐事是他从不谈论相关系数——如果相关性没有极端到肉眼可见，他就不计算。
+q: We’re only interested in price and value. ||| And that’s what we’re focusing on all the time, and any kind of market movements or anything don’t mean anything.
+q: What does count is where it is 10 years from now. ||| What does count is where it is 10 years from now.
+q: when I was in my teens I used to eat that stuff up. ||| But it just — it just has no place in the operation now.
+q: If the correlation isn’t so extreme you can see it with the naked eye, he doesn’t compute it. ||| If the correlation isn’t so extreme you can see it with the naked eye, he doesn’t compute it.
+zh: 我们只对价格和价值感兴趣。这是我们一直关注的东西，任何市场波动之类的东西对我们都毫无意义。……重要的是它 10 年后在哪里。……我十几岁的时候对那些东西（成交量、价格走势、相对强度）着迷……但它们在我们现在的运作中毫无位置。（芒格：）如果相关性没有极端到用肉眼就能看出来，他就不去计算。
+l: 把注意力从价格行为（技术指标、相关性、贝塔）转向价值创造（企业 10 年后的状况）。对需要精密统计才能发现的“规律”保持怀疑。
+r: 4/4/4
+rel: 1997-M12, 1994-M50
+
+@ 1998-A33
+t: 好生意不断给你容易的决定，坏生意不断给你痛苦的抉择
+s: BM
+th: 商业模式
+k: business_model
+c: 可口可乐、吉列的折旧大致等于维持性资本开支，所以报告利润加无形资产摊销基本反映盈利能力。航空业必须疯狂花钱——有吸引力时要花，没吸引力时也得花；纺织业为保持竞争力也得投钱而看不到回报——这些是真正的陷阱。喜诗糖果很想投入 1 亿、5 亿获得过去的回报，但做不到，那不是靠资本产生利润的生意；FlightSafety 则是资本产生利润。芒格：巴菲特很早就说过，好生意不断抛给你一个又一个容易的决定，坏生意给你可怕的选择——这真的行得通吗？值这个钱吗？巴菲特：在可口可乐董事会，每个项目都有 ROI，但几乎任何巩固和扩展其全球主导地位的决定都会是对的；在 USAir 董事会，每个决定都是煎熬——一个游戏逼你不断往桌上推钱却不知手里是什么牌，另一个让你有机会加注且知道自己一直握着好牌。
+q: In the airlines, you know, you just have to keep spending money like crazy. ||| And you have to spend money like crazy if it’s attractive to spend money, and you have to spend it the same way if it’s unattractive.
+q: the difference between a good business and a bad business is usually the good business just throws up one easy decision after another ||| And is it worth the money?
+q: So one game is just forcing you to push more money in to the table with no idea of what kind of a hand you hold ||| knowing that you’ve got a winning hand all the way.
+zh: 在航空业，你就是得不停地疯狂花钱。花钱有吸引力时你得疯狂花钱，没吸引力时你也得照样花。……（芒格：）我从沃伦很早的时候就听他说过：好生意和坏生意的区别通常在于，好生意会一个接一个地抛给你容易的决定，而坏生意给你可怕的选择，决定很难做——这真的行得通吗？值得花这笔钱吗？……（巴菲特：）所以一种游戏是逼着你不断往桌上推更多的钱，而你完全不知道自己手里握着什么牌；另一种游戏你也有机会推更多的钱，但你知道自己一直握着一手好牌。
+l: 观察管理层面临的决策性质：如果企业需要不断在“不得不投”的大额资本开支中做艰难抉择，它很可能是坏生意；好生意的再投资决定显而易见。
+r: 5/5/5
+rel: 1998-A08, 2001-M11, 2007-M17
+
+@ 1998-A37
+t: 我们会无限期等待：你不会因为忙碌而得到报酬，只会因为正确
+s: BM
+th: 投资方法; 投资心理
+k: holding
+c: 好几个月都没在股票上找到什么。要等多久？无限期。不会为了买而买，便宜 5% 或 10% 也不会改变什么。钱堆起来就堆起来，看到合理的机会会非常快、非常大地出手，但不会对任何没通过检验的东西行动——你不会因为活跃而得到报酬，只会因为正确而得到报酬。芒格：投资生涯中偶尔有一段沉闷的新买入空窗期，算不上悲剧。巴菲特：企业不会因为你坐不住决定买点什么而表现更好。
+q: The question of how long we wait, we wait indefinitely. ||| We will only buy something if we think we’re getting something attractive.
+q: If the money piles up, the money piles up. ||| But we’re not willing to act on anything that doesn’t check out in our view.
+q: you don’t get paid for activity, you only get paid for being right. ||| you don’t get paid for activity, you only get paid for being right.
+q: An occasional dull stretch for new buying, this is no great tragedy in an investment lifetime. ||| An occasional dull stretch for new buying, this is no great tragedy in an investment lifetime.
+q: The businesses aren’t going to perform better in the future just because you got antsy and decided you had to buy something. ||| The businesses aren’t going to perform better in the future just because you got antsy and decided you had to buy something.
+zh: 关于我们要等多久的问题——我们会无限期地等待。我们不会为了买而买。我们只有在认为得到了有吸引力的东西时才会买。……如果钱堆起来了，那就让它堆起来。当我们看到有意义的东西时，我们愿意非常快、非常大规模地行动。但对于任何在我们看来经不起检验的东西，我们都不愿意行动。……你不会因为活跃而得到报酬，你只会因为正确而得到报酬。（芒格：）在投资生涯中，偶尔有一段没有新买入的沉闷期，算不上什么大悲剧。（巴菲特：）企业未来不会因为你坐立不安、决定必须买点什么而表现得更好。
+l: 现金不是罪过，错误的买入才是。为自己设定“不行动也是行动”的心理预期，避免为缓解焦虑而降低标准。
+r: 5/5/5
+rel: 1995-M22, 2003-A02, 2024-M22
+
+@ 1998-A42
+t: 费雪的“闲聊法”：先有八成把握，再用调研去推翻假设
+s: B
+th: 投资方法
+k: due_diligence
+c: 早年他大量使用费雪的“闲聊法”（scuttlebutt），认为做得再多也不为过；但对一家企业感兴趣的大前提应占 80% 左右，闲聊调研是最后的 10-20%——像篮球教练在街上遇到一个七尺高的人，先感兴趣，再了解他能否留在学校、是否协调。和竞争对手、客户、供应商、前员工、现员工交谈，问他们最怕哪个对手、为什么，你会比行业里大多数人更懂这个行业，因为你带着独立视角在听所有人说话。目的是可能推翻你最初的假设，或在确认后更坚定——60 年代他这样调研美国运通，越调研越买；1951 年在 GEICO 拜访戴维森改变了他的人生。
+q: the general premise of why you’re interested in something should be 80 percent of it or thereabouts. ||| so you should have a strong presumption.
+q: You should be like a basketball coach who runs into a seven-footer on the street. ||| That’s the scuttlebutt aspect of it.
+q: and then you want to go out with a scuttlebutt approach to possibly reject your original hypothesis. ||| and then you want to go out with a scuttlebutt approach to possibly reject your original hypothesis.
+q: if you talk to a bunch of people on an industry and you ask them what competitor they fear the most ||| you’re going to learn a lot about it.
+zh: 你对某样东西感兴趣的大前提，应该占 80% 左右。……你应该像一个在街上碰到七英尺高的人的篮球教练。你一开始就感兴趣；现在你要弄清楚能不能让他留在学校、他协调性好不好等等。这就是闲聊调研的部分。……然后你带着闲聊法出去，可能推翻你最初的假设。……如果你和一个行业里的一群人交谈，问他们最害怕哪个竞争对手、为什么害怕……你会学到很多东西。
+l: 调研流程：先用公开资料确立“经济特性很好”的强假设，再通过客户、竞争对手、供应商访谈去证伪。问“你最怕谁”是了解竞争格局的捷径。
+r: 5/5/4
+rel: 1997-A32, 1995-A36, 1997-A40
+
+@ 1998-A44
+t: 我们宁可要别人所说的风险：业务稳定、股价波动最好
+s: BM
+th: 风险管理; 企业估值
+k: mr_market
+c: 如果能完美预见每家企业的未来，钱来自有轨电车还是软件毫无差别。风险是“能否预见”的开关：不知道未来，不一定代表有风险，只代表对他们有风险，于是直接放弃，而不是把折现率从 7% 调到 9%；一旦通过“非常确定”的门槛，同一个折现率适用于所有企业。资本资产定价模型那一套是胡扯。芒格：只要胜算在我们这边、又不是孤注一掷，我们不在乎结果的波动。巴菲特：对一家结果非常确定的企业，他们更希望股价高波动——如果喜诗作为独立公司因为一年八个月亏钱而股价剧烈波动，他们就七月买、一月卖。华盛顿邮报几个月跌 50% 是最好的事——业务稳定、股价波动，这是绝佳组合。
+q: We look at riskiness, essentially, as being sort of a go/no-go valve in terms of looking at the future businesses. ||| It might not be risky for someone else who understands the business.
+q: as long as the odds are in our favor and we’re not risking the whole company on one throw or anything close to it ||| We figure the volatility, over time, will take care of itself at Berkshire.
+q: If we have a business about which we’re extremely confident as to the business result ||| We will make more money out of a business where we know where the endgame is going to be if it bounces around a lot.
+q: So we think that — we actually would prefer what other people would call risk. ||| So we think that — we actually would prefer what other people would call risk.
+zh: 我们基本上把风险看作一种“通过/不通过”的阀门，用于审视企业的未来。换句话说，如果我们认为自己根本不知道未来会发生什么，那并不一定意味着它有风险，只是意味着我们不知道。它对我们来说有风险，对理解这门生意的其他人来说可能并没有风险。……（芒格：）只要胜算在我们这边，而且我们不是把整个公司押在一次投掷上或接近于此，我们就不介意结果的波动。我们要的是有利的胜算。我们认为，长期来看，波动在伯克希尔会自行消化。（巴菲特：）如果我们对一家企业的经营结果非常有信心，我们宁愿它的股价高波动而不是低波动。如果它上蹿下跳，而我们知道最终结局是什么，我们就能从中赚更多的钱。……所以我们实际上更喜欢别人所说的风险。
+l: 风险管理三步：用能力圈过滤不确定性；对通过过滤的企业不再加风险溢价；把价格波动视为在确定性高的企业上低买高卖的机会，前提是不加杠杆、不孤注一掷。
+r: 5/5/5
+rel: 1996-M39, 1997-M12, 1994-M50
+
+@ 1998-A46
+t: 投资的诀窍：得到的质量多于你付出的价格
+s: BM
+th: 投资理念; 企业估值
+k: quality
+c: 如果投资期只有三到五年，就会偏向“更大的傻瓜”理论；看任何投资最好的方式是：如果永远持有、并把全家净资产都放进去，我会怎么想？质量指的是企业按预期表现的确定性——可能结果的区间很窄。他们愿意付一个舒服的价格，这在一定程度上取决于利率。芒格：投资总是同时考虑质量和价格，诀窍是得到的质量多于你付出的价格，就这么简单。巴菲特：但不容易。
+q: The best way to look at any investment is, how will I feel if I own it forever ||| and put all my family’s net worth in it?
+q: if you talk about quality meaning the certainty that the business will perform as you expect it to perform ||| that’s the kind of business we like to buy.
+q: And the trick is to get more quality than you’re paying for in the price. It’s just that simple. ||| And the trick is to get more quality than you’re paying for in the price. It’s just that simple.
+zh: 看待任何投资的最好方式是：如果我永远拥有它，并且把全家的净资产都投进去，我会有什么感觉？……如果你说的质量是指企业将按你预期的方式表现的确定性，可能表现的范围相当窄——那正是我们喜欢买的企业。（芒格：）投资游戏总是同时考虑质量和价格。诀窍就是在价格中得到比你所付出的更多的质量。就这么简单。（巴菲特：）但并不容易。（芒格：）是的，但不容易。
+l: 用“确定性区间”定义质量，用“质量/价格比”做决策。买入前做“全家净资产永久持有”测试。
+r: 5/5/5
+rel: 1997-M06, 1995-M31
+
+@ 1998-A51
+t: 麦当劳与冷饮皇后：两种截然不同的特许经营经济模型
+s: BM
+th: 商业模式
+k: business_model
+c: 麦当劳在全球约三分之一门店自营，其余很多由公司持有物业再租给加盟商，在实体设施上投入巨大并获得很好回报，收入包括较高比例的提成加租金；冷饮皇后 6000 多家门店中公司自营仅 30 多家，主要收取加盟商销售额 4% 的特许权使用费，公司占用资本相对很小。两者最终都依赖加盟商的成功。芒格：4% 用来提供全国知名品牌、质量控制和各种经营帮助并不多；低收费正是吸引他们的部分原因。巴菲特：成功的加盟商能以远高于有形资产投入的价格卖出门店——要让加盟商赚钱、创造出比投入更值钱的资产，这才是目标。
+q: So the investment in fixed assets is dramatically different between the two. ||| So the investment in fixed assets is dramatically different between the two.
+q: They both depend on the success of the franchisee in the end. ||| I mean, you have to have a good business for the franchisee to, over time, have a good business for the parent company.
+q: you want the franchise operator to make money and you want him to create a capital asset that’s worth more than he’s put in it. ||| That’s the goal.
+zh: 所以两者在固定资产上的投资有着天壤之别。……它们最终都取决于加盟商的成功。也就是说，加盟商必须有一门好生意，母公司长期才能有一门好生意。……你希望加盟商赚钱，希望他创造出一项比他投入更值钱的资本资产。这就是目标。
+l: 分析平台/特许经营模式时，看两件事：母公司的资本密集度，以及生态伙伴（加盟商、商家）是否赚钱——伙伴不赚钱的平台不可持续。
+r: 3/4/3
+rel: 1997-M05
+
+@ 1998-A54
+t: 你可以拥有你想要的声誉：做配得上你想要之物的人
+s: BM
+th: 人生智慧; 管理与治理
+k: reputation
+c: 判断一个人是否诚实需要观察其行为；共事几个月后就能有很高的判断准确率。像汤姆·墨菲那样的人总是竭力让你得到交易中更好的一方，不揽不属于自己的功劳。芒格：人在生活中会留下记录，到二十二三岁时世界就能看清你；如果从早年开始就在诚实这类简单的事上保持完美记录，你就已经走在成功的路上。阿涅利说“年纪大了，你就有你应得的声誉”。巴菲特：列出你钦佩的人的品质，几乎全都是你只要下决心就能拥有的。芒格：得到你想要之物的最好方法，是让自己配得上它。
+q: people leave track records in life. ||| if you start early, trying to have a perfect record in some simple thing like honesty, you’re well on the way to success in this world.
+q: “When you get older, you have the reputation you deserve.” ||| And the truth is you can have the reputation that you want.
+q: If you list all of the things that you admire in other people ||| they’re qualities that you can have if you just set out to do that.
+q: I always say that the best way to get what you want is to deserve what you want. ||| I always say that the best way to get what you want is to deserve what you want.
+zh: （芒格：）人在生活中会留下记录。……如果你很早就开始努力在诚实这样简单的事情上保持完美的记录，你就已经在通往成功的路上走得很远了。（巴菲特：）詹尼·阿涅利有一次对我说：“当你上了年纪，你就会有你应得的声誉。”……而事实是，你可以拥有你想要的声誉。如果你把你在别人身上钦佩的所有东西列出来……你会发现，几乎所有你列出的东西，都是只要你下定决心就能拥有的品质。（芒格：）我总是说，得到你想要之物的最好方法，就是让自己配得上你想要的东西。
+l: 判断管理层诚信看长期行为记录与“利益让渡”细节；修身方面，把钦佩的品质写成清单并刻意练习。
+r: 5/3/5
+rel: 1995-A31, 2010-M27
+
+@ 1998-A58
+t: 尽职调查大多是走过场：真正重要的是人和企业经济特性
+s: BM
+th: 投资方法
+k: due_diligence
+c: 收购 Star Furniture 只看了一会儿财务、和梅尔文·沃尔夫谈了两小时就成交。他们唯一被伤到的，是误判了企业未来的经济特性，这与尽职调查无关。通常所说的尽职调查大多是套话，大公司觉得必须走这个流程，却忽略了真正重要的：评估合作的人和企业的经济特性——那是交易的 99%。问对方“有没有不好的租约”是最简单的办法。董事会被律师和投行的演示迷住，没人关注企业五年、十年后在哪里；很多时候尽调只是一根拐杖，帮助完成本来就想做的交易，专业人士都明白，所以“不管是否尽职，都会带回勤勉的报告”。30 多年来，传统尽职调查从未帮他们避免过一笔坏交易。
+q: we’ve been burned only in the sense that we’ve made mistakes on judging the future economics of the business ||| which would’ve had nothing to do with due diligence.
+q: they’re ignoring what really counts, which is evaluating the people they’re getting in with ||| That’s 99 percent of the deal.
+q: I think too often they do it as a crutch just to go through with the deal that they want to go through with anyway ||| whether due or not.
+zh: 我们被伤到，只是在判断企业未来经济特性时犯了错，而这与尽职调查毫无关系。……他们常常忽略了真正重要的东西，那就是评估你要合作的人，以及评估企业的经济特性。那是交易的 99%。……我认为人们太多时候把它当作一根拐杖，只是为了完成他们无论如何都想完成的交易。当然，所有专业人士都明白这一点。所以相信我，他们总会带回尽职调查的结果，不管是否真的尽职。
+l: 把研究时间按重要性分配：经济特性与管理层（99%）> 法律、合同细节（1%）。警惕把繁复流程当作决策质量的替代品。
+r: 4/5/4
+rel: 1997-M32, 2008-A03, 2016-A12
+
