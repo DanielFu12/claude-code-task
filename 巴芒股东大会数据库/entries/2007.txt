@@ -154,7 +154,7 @@ k: no_forecast
 c: 1969 年解散合伙企业时，他判断未来十年股票与市政债的税后预期回报差不多，结果大致如此；但他不认为现在是同样的情形。若管理一个大型捐赠基金，要么 100% 股票，要么 100% 长债，要么 100% 短债——他不信“60% 这个、30% 那个”的分层：如果你认为 60% 的那个更合理，为什么要持有 30% 的另一个？若必须在 20 年里选择持有标普 500 指数还是 20 年期债券，他会买股票——这不是一个接近的决定（但不要付一大笔钱给别人把股票回报大幅拉低）。他们不知道三年后标普或长债在哪里，但知道 20 年持有哪个更好。芒格：我们也预期当前局面在不太多年后会造成真正的混乱。巴菲特：回看一百年，几乎任何时期都会不时出现混乱，那时有现金、有胆量很好；但预测或等待混乱不是我们的游戏——一季度买了约 50 亿美元股票，远不如 1974 年便宜，但宁愿持有它们而不是现金或坐等更便宜：“你可能把自己无限期地冻结在场外。”
 q: I mean, I don’t believe in layering things and saying I’m going to have 60 percent of this and 30 percent of that. ||| Why do I have the 30 percent if I think the 60 percent makes more sense?
 q: We don’t have the faintest idea where the S&P will be in three years ||| but we do know which we would rather own on a 20-year basis.
-q: That’s true, but if you go back a hundred years ||| You — you can freeze yourself out indefinitely.
+q: That’s true, but if you go back a hundred years ||| you can freeze yourself out indefinitely.
 zh: 我不相信分层的做法，说我要持有 60% 的这个、30% 的那个。如果我认为 60% 的那个更有道理，我为什么要持有那 30%？……我们完全不知道三年后标普会在哪里，或者长期债券会在哪里，但我们确实知道在 20 年的基础上我们更愿意持有哪一个。（芒格：）沃伦，我们也预期当前的局面会在不太多年后造成一些真正的混乱。（巴菲特：）这是真的，但如果你回溯一百年，你几乎可以说，在几乎任何时期，你都会不时遇到混乱。那时有大量现金、并且有胆量用它做点什么，是非常好的。但预测它们或坐等它们，诸如此类的事，不是我们的游戏。……我们决定宁愿持有它们而不是现金，也不愿坐等东西变得便宜很多。我们不花很多时间做那种事。你可能会把自己无限期地冻结在场外。
 l: 长期视角下比较资产类别的预期回报，选择更好的那个而非机械分散；等待“完美时机”可能让你永远踏空。
 r: 4/4/4
