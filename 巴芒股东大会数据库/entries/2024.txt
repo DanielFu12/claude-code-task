@@ -1,0 +1,223 @@
+# 2024 年股东大会（5 月 4 日；芒格去世后首次股东大会。CNBC 章节标题为中文译名，原话为英文逐字稿）
+
+@ 2024-M03
+t: 伯克希尔的成就靠持之以恒的储蓄：增加经营利润、减少流通股，从不接近致命错误
+s: B
+th: 资本配置; 投资理念
+k: buyback
+c: 巴菲特说伯克希尔报告经营利润，剔除市场剧烈波动——“我们在伯克希尔不理会那些”。去年留存约 370 亿美元盈利，“伯克希尔的经济目标是增加经营利润并减少流通股，描述起来就这么简单”；扣除折旧、摊销和税后，每天（包括周末和假日）有略多于 1 亿美元流入待部署。除了 1968 或 1969 年那次每股 10 美分的分红（“我当时大概在洗手间”），一直留存盈利；“有时我们做了很大的错误，但从未接近致命错误，偶尔做的事真的奏效”——正如查理所说，58 年里大概只有六到十几个真正重要的大决定。股东权益 5710 亿美元，远超第二名摩根大通的 3380 亿美元，“这展示了长期储蓄、不需要任何奇迹能做到什么”。现金和国库券约 1820 亿美元，“我们很想花，但除非风险很小又能赚很多钱，否则不会花”；“每天查股价的人，赚的钱不如那些基本把它忘了的人。”
+q: But we would expect our earnings should go up modestly from year to year ||| It’s not quite so simple pull off, necessarily. But that’s what we’re attempting to do.
+q: So if you leave out that period of madness, we’ve been retaining. ||| and there’s been nothing close to fatal. So that continues to be the guideline.
+q: And this does show what can be done, really,without any miracles, if you save money over time. ||| And this does show what can be done, really,without any miracles, if you save money over time.
+q: So our cash and treasury bills were 182 billion at the quarter end. ||| but we won’t spend it unless we think we’re doing something that has very little risk and can make us a lot of money.
+q: The people who check the price daily have not made the money ||| The people who check the price daily have not made the money that the people who have forgotten about it basically have over the years.
+zh: （巴菲特：）但我们会预期我们的盈利应该逐年适度增长，因为毕竟我们去年留存了大约 370 亿美元的盈利。……伯克希尔的目标，经济目标，是增加经营利润并减少流通股。描述起来就这么简单。做到却不一定那么简单。但那就是我们正在努力做的。……所以如果你把那段疯狂时期排除在外，我们一直在留存。我们一直在储蓄你们的钱，让它发挥作用，有时我们做了一些是大错误的事，但我们从未接近致命的错误，时不时我们做的某件事真的很奏效。正如查理过去指出的，在 57 或 58 年左右的时间里，大概有半打到一打真正重要的大决定，而且没有任何接近致命的。所以这一直是指导方针。……这确实表明了，只要长期储蓄，实际上不需要任何奇迹就能做到什么。……所以我们的现金和国库券在季度末是 1820 亿美元。……我们很想把它花掉，但除非我们认为自己在做的事风险很小、又能让我们赚很多钱，否则我们不会花。……那些每天查看股价的人，并没有赚到那些基本上把它忘了的人这些年赚到的钱。
+l: 复利的引擎是持续留存并合理再投资盈利，同时避免致命错误；对长期持有者，少看股价反而赚得更多。
+r: 4/4/4
+rel: 2022-M06, 2016-A04
+
+@ 2024-M04
+t: 我们把股票看作背后的生意；不预测市场、不挑股票；乐于以 21% 的税率为卖出苹果缴税
+s: B
+th: 投资理念; 宏观与社会
+k: stock_as_business
+c: 被问减持 1.15 亿股苹果：巴菲特说年底苹果极可能仍是最大持股。“查理和我把普通股或有价证券看作企业”——拥有 Dairy Queen 是生意，拥有可口可乐、运通、苹果也是生意，只是无法买下 80–90%；“我们不试图预测市场，也不试图挑选股票”。早年做了很多年错事，直到在林肯读到《聪明的投资者》：把股票当企业，把市场当成来服务你而不是指导你的东西；“这是一种简单到几乎具有欺骗性的方法……投资你并不需要学更多数学或物理，你真正需要的是正确的心态。”除非发生真正非凡的事，格雷格接手时伯克希尔仍会持有苹果、运通、可口可乐。目前不介意积累现金。伯克希尔不介意纳税：联邦政府拥有我们盈利的一部分（现在 21%，曾是 35%、52%），鉴于财政政策，更高的税率很可能；去年缴了 50 多亿美元联邦税，“如果另外 800 家公司也这样，美国其他任何人都不用交一毛钱联邦税”。
+q: One interesting thing is that Charlie and I look at common stocks or marketable equities as businesses. ||| One interesting thing is that Charlie and I look at common stocks or marketable equities as businesses.
+q: But in terms of deploying your money, we always look at every stock as a business ||| We have no attempt made to pick stocks.
+q: And it’s such a simple approach that it’s almost deceptive. ||| You really have to have your mindset properly.
+q: And the percentage that they’ve decreed currently is 21%. ||| and I think that higher taxes are quite likely
+zh: （巴菲特：）一件有意思的事是，查理和我把普通股或有价证券看作企业。……但在部署你们的钱方面，我们总是把每只股票看作一门生意，而且我们没有——我们不尝试预测市场。我们不尝试挑选股票。……这是一种如此简单的方法，简单得几乎具有欺骗性。大多数事情，如果你越来越努力地钻研，你会多学一点数学或多学一点物理，但投资，你真的不必那样做。你真正需要的是正确的心态。……他们目前规定的比例是 21%。我会说，以目前的财政政策，我认为某些东西必须让步，我认为更高的税很可能出现。
+l: 把股票视为企业的部分所有权是投资的根本心态；税务因素应纳入长期持有决策，但不应凌驾于企业价值判断之上。
+r: 5/4/4
+rel: 2022-M25, 2013-A03
+
+@ 2024-M07
+t: AI 是一把双刃剑：精灵已经部分出了瓶子；深度伪造可能让诈骗成为“史上最大的增长行业”
+s: B
+th: 宏观与社会; 风险管理
+k: tech_change
+c: 被问生成式 AI 对传统行业的影响：巴菲特说“我对 AI 一无所知，但这不意味着我否认它的存在或重要性”。去年说过发展核武器是把精灵放出瓶子，那个精灵最近在做可怕的事，他不知道如何把它收回；AI 也有些类似，已经部分出了瓶子，极其重要，总会有人使用它——我们可能希望从没见过它，也可能它做出美妙的事，他不是能评估它的人。最近他在屏幕上看到一个自己——自己的声音、自己的衣着，妻子或女儿都分辨不出——传达的却完全不是他的信息；“想想诈骗的潜力……如果我对投资诈骗感兴趣，它将是有史以来最大的增长行业”。“它有巨大的行善潜力，也有巨大的作恶潜力，我不知道结果会怎样。”
+q: I don’t know anything about AI ||| And then I don’t know any way to get the genie back in the bottle.
+q: And AI is somewhat similar. It’s partway out of the bottle ||| and I’m certainly not the person that can evaluate that
+q: When you think of the potential for scamming people ||| it’s going to be the growth industry of all time
+q: But I do think, as someone who doesn’t understand a damn thing about it ||| And I just don’t know how that plays out.
+zh: （巴菲特：）我对 AI 一无所知，但我确实——这并不意味着我否认它的存在或重要性之类的。去年我说过，当我们开发核武器时，我们把一个精灵放出了瓶子，而那个精灵最近一直在做一些可怕的事情。那个精灵的力量，你知道，把我吓坏了。而我不知道有什么办法能把精灵收回瓶子里。AI 有点类似。它已经部分出了瓶子，它极其重要，而且会被某人使用。我们可能会希望从没见过那个精灵，或者它可能会做出美妙的事情，而我当然不是能评估这一点的人。……所以当你想到诈骗人们的潜力……如果我对投资诈骗感兴趣，它将成为有史以来最大的增长行业。……但作为一个对它一窍不通的人，我确实认为，它有巨大的行善潜力，也有巨大的作恶潜力。我只是不知道它会如何发展。
+l: 面对不懂的颠覆性技术，承认“不知道”比假装预测更理性；同时要警惕它在欺诈等领域带来的新型风险。
+r: 3/2/4
+rel: 2023-M10
+
+@ 2024-M09
+t: 让自己身边只有你信任的人：查理从未对我撒谎，连“半个谎”都没有
+s: B
+th: 人生智慧; 管理与治理
+k: reputation
+c: 被问现在最信任的顾问是谁：巴菲特说取决于是在钱的方面还是其他方面——他完全信任孩子和妻子，但不问他们买什么股票；几十年来谈钱没有比查理更好的人；“如果我认为自己做不到，我就不会去做”，所以投资上某种程度是和自己对话。“如果你不过一种让自己身边只有、并且只限于你信任的人的生活，那不会有多少乐趣。”从二十多岁起就能让自己身边都是信任的人，偶尔看错，但随时间会被过滤掉。查理在共事的所有岁月里“不仅从未对我撒过一次谎，甚至从不把事情加以塑造，说半个谎或四分之一个谎，来让局面倒向他想要的方向。他认为绝不撒谎是至关重要的。”“当你的生活中有这样的人，你会珍惜他们，而忘掉其余的人。”
+q: In terms of managing money, there wasn’t anybody better in the world to talk to for many, many decades than Charlie. ||| So to some extent, I talked to myself on investments
+q: If you don’t live a life where you surround yourself and limit yourself to people you trust, it won’t be much fun. ||| And I’ve made mistakes occasionally, but they filter out over time.
+q: In all the years we worked together, not only never once lied to me ||| He absolutely considered, total, of utmost importance that he never lied.
+q: So when you get that in your life, you know, you cherish those people and you sort of forget about the rest. ||| So when you get that in your life, you know, you cherish those people and you sort of forget about the rest.
+zh: （巴菲特：）在管理钱方面，几十年来世界上没有比查理更好的谈话对象了。这并不意味着我没有和其他人谈。但如果我认为自己做不到，我就不会去做。所以在某种程度上，在投资上我是在和自己对话。……如果你不过一种让自己身边围绕着、并且仅限于你信任的人的生活，那不会有多少乐趣。……我偶尔犯过错，但它们会随着时间被过滤掉。……在我们共事的所有岁月里，他不仅从未对我撒过一次谎，而且他甚至从不把事情加以塑造，说半个谎或四分之一个谎，来让局面倒向他想要的方向。他绝对地、完全地认为，永不撒谎是最重要的。……所以当你的生活中有了这样的人，你会珍惜他们，然后基本上忘掉其余的人。
+l: 投资决策最终要独立负责，但合作者的绝对诚实是最宝贵的资产；选择伙伴时，以“是否连半个谎都不说”为标准。
+r: 3/2/4
+rel: 2023-A06, 2016-M28
+
+@ 2024-M17
+t: 一个值得所有人听的建议：想想你希望讣告怎么写，然后从今天开始走上那条路
+s: B
+th: 人生智慧
+k: life
+c: 被问希望每个人都听到的建议：巴菲特说首先你很幸运生活在这个国家。“我真的想用查理的建议：想想你希望你的讣告怎么写，然后据此选择你的教育路径、社交路径”，在他那个时代还包括选择最能帮你做到这一点的伴侣（查理会说你也要给对方同样的好处）。几个世纪前牧羊人的孙子 100 年后还是牧羊人，而过去 200 年工业革命、科学、教育、健康带来巨变，“你正在进入有史以来最好的世界”。“我总是告诉学生：找那份如果你不需要工作也会想做的工作。”有时很早就找到，有时要经历各种事，但不要忘记你真正想做的是什么；“试着弄清你希望将来如何回顾一生、如何看待自己，从今天开始走上通往那个目标的路，并预期途中会有困难。”
+q: But I would like, I would like to really sort of use Charlie’s advice of thinking how you like your obituary to read ||| it would have been marrying the person that would best help you do that.
+q: You’re entering the best world that’s ever existed ||| find the job that you would like to have if you didn’t need a job.
+q: But I would try to, in a very,  very general way ||| But if you’re thinking that way, you’re more likely to get there.
+zh: （巴菲特：）但我真的想用查理的建议：想想你希望你的讣告怎么写，然后开始选择教育路径、社交路径，无论什么——取决于你的具体情况、你与谁交往——当然在我那个年代，还包括与最能帮助你做到这一点的人结婚。……你正在进入有史以来最好的世界，你要找到与之分享的人，以及适合你参与的活动。如果你像查理和我一样幸运，你会在年轻时找到让你感兴趣的事。但如果你没有马上找到，你就继续寻找。我总是告诉学生，去找那份如果你不需要工作也会想做的工作。……但我会尝试——以一种非常、非常笼统的方式——我会试着弄清你希望将来如何回顾你的人生、如何看待你自己，然后从今天开始走上通往那个目标的道路，并预期途中会有一些困难。但如果你这样思考，你就更有可能到达那里。
+l: 逆向设计人生：以终为始确定价值观和方向，选择“不需要钱也愿意做”的工作，长期坚持。
+r: 3/2/4
+rel: 2023-A06, 2022-A20
+
+@ 2024-M21
+t: 关键是找到下一个汤姆·墨菲，再交给他一批好生意；想 65 岁退休的人不能当伯克希尔 CEO
+s: B
+th: 管理与治理; 资本配置
+k: management
+c: 被问疫情五年来在资本配置等方面的最大收获：巴菲特说他的工作是资本配置；“想在 65 岁退休的人会被取消伯克希尔 CEO 资格”；接班安排很可能解决了未来 20 年，但必须为意外做准备。“合适的 CEO 无法把一门糟糕的生意变成伟大的生意”——墨菲是他见过最好的经营者，墨菲说真正的关键是买对生意；即使请墨菲来经营纺织厂也只会稍好一点，仍然失败；他坚持纺织业那么久，是因为太喜欢肯·蔡斯，“如果他是个混蛋，我们会更快退出，结果会更好”。墨菲从奥尔巴尼一家可怜的电视台起家，在退休修女之家办公、只粉刷面向街道的那一面，只有一辆车却称之为“6 号新闻车”，最终超越 CBS 和 ABC。“关键是找到另一个汤姆·墨菲，然后交给他或她一批好生意。”董事会每 20 年左右做一次正确的决定、错了就纠正，不必为显得忙碌而做事；在偶尔只有我们愿意行动的时候，要确保美国政府视伯克希尔为资产，而不是像 2008 年的银行那样的乞求者。
+q: I would say that, for example, that anybody that wants to retire at 65 would be disqualified from being CEO of Berkshire. ||| But you have to provide for the contingency.
+q: There are a few people who know my thoughts on that ||| and the right CEO can’t make a terrible business great.
+q: But basically, we could have brought in Tom Murphy and told him his job was to run the textile business ||| If he’d been a jerk, you know, we’d have quit the textile business much faster, and we’d have been better off.
+q: But from that, he built an incredible company ||| And the key will be to find another Tom Murphy and then hand them a bunch of good businesses, and he or she will know what to do with it.
+q: And there will be occasional times when we’re the only one willing to act. ||| and not a liability or a supplicant, as the banks were in say in 2008 and 2009
+zh: （巴菲特：）比如，我会说，任何想在 65 岁退休的人都会被取消担任伯克希尔 CEO 的资格。……但你必须为意外情况做好准备。……有几个人知道我在这方面的想法，但董事的工作就是到时候找出合适的 CEO，而合适的 CEO 无法把一门糟糕的生意变成伟大的生意。……但基本上，我们本可以请来汤姆·墨菲，告诉他他的工作是经营纺织业务，它会做得稍微好一点，但仍然会失败。我在纺织业务上坚持了那么久的原因之一，是我太喜欢肯·蔡斯了……如果他是个混蛋，你知道，我们会更快地退出纺织业，我们的境况会更好。……但从那里，他建立了一家不可思议的公司，他之所以能建立起来，是因为他是我见过最好的经理人。但除此之外，他处在一门好生意里。关键将是找到另一个汤姆·墨菲，然后交给他们一批好生意，他或她会知道该怎么做。……而偶尔会有只有我们愿意行动的时候。在那些时候，我们要确保美国政府认为我们是这个局面中的一项资产，而不是一项负债或一个乞求者，就像 2008 和 2009 年的银行那样。
+l: 生意的质量比经理的能力更决定结果；最佳组合是卓越经理+好生意，而投资者对优秀但身处烂生意的管理层要克制感情。
+r: 5/4/5
+rel: 2023-M32, 2022-M24
+
+@ 2024-M22
+t: 只在喜欢的球上挥棒：没人知道如何有效使用这些现金，所以我们不用
+s: B
+th: 投资方法; 资本配置
+k: holding
+c: 被问坐拥 1820 亿美元现金在等什么：巴菲特说“我认为这很容易回答。我不认为这张桌子旁的任何人知道如何有效地使用它，因此我们不用它”——现在收益率 5.4% 不用，即使是 1% 也不会用。“我们只在我们喜欢的球上挥棒”，不会因为前两个球没挥棒就觉得第三个必须挥。他不想现在管理 100 亿美元；如果只管 1000 万，他或查理能获得高回报，因为有些事只在非常小的规模上发生；日本那样的机会如果出现，他会为伯克希尔去做——“我又不是在搞绝食”；“只是现在东西不够有吸引力，有些方式能改变这一点，我们会看看是否会改变。”
+q: Well, I think that’s pretty easy to answer. ||| But we wouldn’t use it if it was. If it was at 1%.
+q: We only swing at pitches we like. ||| they ought to swing at the third one or something like that.
+q: But if we had 10 billion, I wouldn’t basically see many more opportunities than we found now. ||| It isn’t like I’ve got a hunger strike or something like that going on.
+zh: （巴菲特：）嗯，我认为这很容易回答。我不认为坐在这张桌子旁的任何人知道如何有效地使用它。因此，我们不使用它。我们现在以 5.4% 的收益率也不使用它。但即使它是——即使是 1%，我们也不会使用它。……我们只在我们喜欢的球上挥棒。如果有人试图对每个球都挥棒，或者觉得因为前两个球没有挥棒，就应该对第三个球挥棒之类的。……但如果我们有 100 亿，我基本上不会看到比我们现在找到的多得多的机会。确实，像日本那样的事情，如果公司只有 300 或 400 亿，我们也能做，并且会有很高的股本回报率。但如果我现在看到一个那样的机会，我会为伯克希尔去做。我又不是在搞绝食之类的。
+l: 现金的持有理由不是利率而是缺乏好机会；投资纪律是“没有好球就不挥棒”，不为了显得忙碌而行动。
+r: 4/5/4
+rel: 2017-A02, 2018-A28
+
+@ 2024-A02
+t: 资本配置的责任应完全归 CEO：懂企业就懂股票；世界越复杂越脆弱，要能在别人瘫痪时行动
+s: BA
+th: 资本配置; 管理与治理
+k: capital_alloc
+c: 被问阿贝尔接任后股票组合由谁管理：巴菲特说那将由董事会决定，但如果他在董事会，会把资本配置交给格雷格——“如果你理解企业，你就理解普通股。如果你真的知道企业如何运作，你就是一个投资经理。”如果你主要感兴趣的是管理资产规模（那才是钱所在），你就不必懂这些；责任应完全归 CEO。规模这么大，不能让 200 人每人管 10 亿美元，必须从战略上思考如何做大事。可能每五到十年就会有需要极快动用巨额资金的时候；“世界越复杂、越相互交织，能出错的就越多”——2008 年人们不是没钱，而是瘫痪了。阿贝尔：伯克希尔的资本配置原则会延续——给经营企业提供成长所需资本、收回多余现金；无论 1% 还是 100%，都把股票看作企业，看其经济前景、可持续性和十年后的样子；多余现金放在最安全的美国国债，维持堡垒般的资产负债表——既为行动，也为保护股东。巴菲特：不可能获得远超美国企业平均的回报；“只要不被说服放弃过去有效的做法、不被潮流冲昏头脑、不听那些利益与股东不同的人的话”，获得不错结果应该相当容易。
+q: And heunderstands businesses extremely well. ||| I mean, if you really know how business works, you are an investment manager.
+q: But you do want to be able to act when it happens. ||| It's that they were paralyzed.
+q: It solves a lot of small problems, but it leaves it more vulnerable to large problems. ||| It solves a lot of small problems, but it leaves it more vulnerable to large problems.
+q: Without directly answering the question, I think there's one important thing ||| At the same time, we're expecting return of capital from them when they have excess cash.
+q: Getting a decent result actually is reasonably, should be reasonably easy ||| and don't listen to people who have different interests in mind than the interests of our shareholders.
+zh: （巴菲特：）他对企业的理解非常好。如果你理解企业，你就理解普通股。我是说，如果你真的知道企业是如何运作的，你就是一个投资经理。……但当它发生时，你确实想能够行动。我认为首席执行官应该是这样一个人：在没有其他人愿意行动的时候，他能权衡收购企业、购买股票、做各种可能出现的事情。2008 年并不是人们没有钱。而是他们瘫痪了。……它解决了很多小问题，但它让它更容易受到大问题的冲击。（阿贝尔：）……在我们经历任何过渡时，重要的是要知道，伯克希尔今天所遵循的资本配置原则将继续存在……我们有我们的经营企业，保险和非保险……如果合适，我们会为它们提供成功和成长所需的资本。同时，当它们有多余现金时，我们期望它们返还资本。（巴菲特：）实际上，获得一个不错的结果相当——应该相当容易，只要你不被说服放弃过去行之有效的做法，不被潮流冲昏头脑，不去听那些心里想的利益与我们股东利益不同的人的话。
+l: 懂企业是选股的基础；规模越大越需要集中决策与在危机中快速行动的能力；坚持有效的原则、远离潮流和利益冲突者，足以获得不错的结果。
+r: 4/4/4
+rel: 2024-M21, 2022-A11
+
+@ 2024-A04
+t: 只看今天能做什么：我们从不担心错过不理解的东西，真正后悔的是错过了很大的机会
+s: B
+th: 投资方法; 投资心理
+k: circle
+c: 被问减持苹果、积累现金是否意味着估值像 1999 年：巴菲特说一生中有些时候机会多到天黑前就能投完所有钱，有些时候整年都看不到能“移动指针”的事；子公司在做小收购，经理人有不同的方程式，有些可以放手，有些不擅长资本配置但擅长服务顾客、懂行业，也能是好经理。“现在不是电话会经常响的时候。”“查理和我错过了很多东西，我们真正后悔的是错过了后来变得非常大的东西。我们从不担心错过我们不理解的东西。为什么我们应该能预测每门生意的未来，就像我们不能预测明年伊利诺伊州的玉米产量一样？”不用年代类比思考，“我只看每天我能做什么。”
+q: Well, one thing has changed dramatically from. ||| we haven't seen anything that makes sense that moves the needle.
+q: Over time, Charlie and I, we missed a lot of things ||| We never worried about missing something that we didn't understand.
+q: Why should we be able to predict the future of every business ||| I just look at what I can do every day.
+zh: （巴菲特：）……在我一生中，有些时候我被如此多的机会淹没，以至于我可以在天黑前把所有钱都投出去。然后也有些时候，一年过去了——早年不是这样，但现在——我们就是没有看到任何有意义、能移动指针的东西。……长期以来，查理和我错过了很多东西，我们真正后悔的是错过了某个后来变得非常大的东西。我们从来不担心错过我们不理解的东西。为什么我们应该能预测每一门生意的未来，就像我们不能预测明年伊利诺伊州的小麦产量一样？……所以我不太去想它是否类似于 1999 年……我只是看每天我能做什么。
+l: 错过能力圈外的机会无需后悔；要反省的是在能力圈内看懂却没下重注的时候；不用历史类比择时，专注于当下可做的事。
+r: 4/4/4
+rel: 2017-M12, 2024-M22
+
+@ 2024-A05
+t: 统觉团：多年积累的观察突然结晶为行动——苹果、GEICO、西方石油；派拉蒙是我一个人的错
+s: BA
+th: 投资方法; 护城河
+k: due_diligence
+c: 被问为何有时进出仓位：巴菲特说他和芒格决策极快，但那是多年思考参数之后的结果。从巴尔的摩百货公司的错误中学到消费者行为（没学会如何经营百货），喜诗也是消费者行为研究，这些背景通向对苹果产品的研究——内布拉斯加家具城即使卖苹果不赚钱，没货顾客就会离开去百思买。“心理学家称之为统觉团……有某个东西出现，把你做过的大量观察和你拥有的知识结晶成行动——在苹果的例子里是大行动。”大多数人如果只能保留 iPhone 或第二辆车（花了 20 倍的钱），会放弃车；“我不知道它怎么运作……但我知道它对人们意味着什么……它是最伟大的产品之一，也许是有史以来最伟大的产品”；库克是与乔布斯“依次合作”的完美伙伴。1950 年在 GEICO，戴维森一个周六四小时填补了他脑中的所有空白。“我们心中迷人的夜晚，就是想出一门生意……你无法让它明天发生，但可以为它明天发生做准备。”阿贝尔：西方石油是另一个例子，越了解其资产和 CEO 的资本配置，信心越强。巴菲特：派拉蒙“百分之百是我的决定，我们全部卖出并亏了不少钱”，但让他更深入思考了人们如何使用闲暇时间。
+q: But in any event, the decision process is really quite interesting in certain ways ||| after years of thinking about the parameters that would enable us to make the quick decision when it presented itself.
+q: But I think the psychologists call this apperceptive mass. ||| Big action in the case of Apple.
+q: But I also know what it means. ||| And the value it offers is incredible.
+q: Well, our idea of an enchanted evening is to come up with a business ||| but you can prepare yourself for it happening tomorrow, and it will happen sometimes.
+q: Oh, incidentally, I should just throw this out, since there's been speculation on it. ||| and that happens in this business, too.
+zh: （巴菲特：）但无论如何，这个决策过程在某些方面真的非常有趣，因为我们——查理和我——做决定极快。但实际上，那是在经过多年思考那些参数之后，让我们能在机会出现时迅速做出决定。……但我认为心理学家称之为统觉团。有某样东西出现，它把你所做的一大堆观察和你拥有的知识，结晶成行动。在苹果的例子里是大的行动。……但我也知道它意味着什么。我知道它对人们意味着什么，我知道他们如何使用它。我认为我对消费者行为了解得足够多，知道它是最伟大的产品之一，也许是有史以来最伟大的产品。它提供的价值令人难以置信。……嗯，我们心中“迷人的夜晚”，就是想出一门生意——查理和我——有这样一个方面：知道很多很多东西，有很多很多经历，然后看到某样东西让灯泡亮起来。这还会继续发生。我希望它在你身上发生几次，但你无法让它明天就发生，不过你可以为它明天发生做好准备，而它有时会发生。……哦，顺便说一句，既然有人在猜测，我就直说了。我们卖掉了——第一，派拉蒙的决定百分之百是我负责的。……我们全部卖掉了，我们亏了不少钱，这在这一行也是会发生的。
+l: 快速而重大的决策来自长期积累后的“顿悟”；平时持续积累对消费者行为与商业模式的观察，机会出现时才能果断出手；错误要坦然认领。
+r: 5/4/5
+rel: 2022-M25, 2021-M24
+
+@ 2024-A07
+t: 如果只有不到 100 万美元：翻遍 2 万页，了解所有小东西的一切；你必须爱上这个主题，而不只是爱钱
+s: B
+th: 投资方法; 人生智慧
+k: learning
+c: 被问如果明天醒来只有不到 100 万美元会怎么做（他曾说能年赚 50%）：巴菲特说会去翻那 2 万页；年轻时把穆迪运输手册读了好几遍，了解数百家铁路公司，比如绰号“抓起行李就走”的绿湾西部铁路——它的债券其实是普通股，普通股其实是债券；这类东西对几百万美元以上的资金不起作用，但收集一大堆就有用。正是因为他知道西海岸那些小公司的细节，芒格第一次见他就产生了共鸣。“我会努力了解所有小东西的一切，然后我会找到点什么。有 100 万美元，你可以每年赚 50%。但你必须爱上这个主题，你不能只爱钱”——就像生物学家寻找发现。见过很多在自己领域聪明绝顶、在别的领域做蠢事的人；“人脑在你找到它真正适合什么之后，就全力以赴地钻研时表现最好。”
+q: Good question. I'm glad you came. The answer would be, in my particular case, it would be going through the 20,000 pages. ||| Good question. I'm glad you came. The answer would be, in my particular case, it would be going through the 20,000 pages.
+q: So to answer your question, I don't know what the equivalent of Moody's manuals or anything would be now ||| And with a million dollars you could earn 50% a year.
+q: But you have to be in love with the subject. ||| You can't just be in love with the money.
+q: So all I know is the human brain is complicated ||| and then you just pound the hell out of it from that point.
+zh: （巴菲特：）好问题。我很高兴你来了。就我的情况而言，答案会是：翻遍那两万页。……所以回答你的问题，我不知道现在相当于穆迪手册之类的东西会是什么，但我会努力了解所有小东西的一切，然后我会找到点什么。有一百万美元，你可以每年赚 50%。但你必须爱上这个主题。你不能只是爱上钱。……所以我所知道的就是，人脑很复杂，但当你弄清你的大脑真正适合做什么，然后从那一刻起全力以赴地猛攻它时，它表现得最好。
+l: 小资金的优势在于能深挖大机构无法涉足的小角落；穷尽式阅读与对主题本身的热爱，是超额回报的真正来源。
+r: 4/5/5
+rel: 2013-A23, 2023-M23
+
+@ 2024-A08
+t: 想清楚人性你就领先大多数人：芒格懂得操纵人的所有方法，却认为亲自使用它们有失身份
+s: B
+th: 投资心理; 人生智慧
+k: psychology
+c: 被问委托代理问题（养老金、资管机构的代理人）：巴菲特说你必须想清楚政治现实，要被视为国家的资产而不是邪恶的东西；“几乎每个接近你的人，如果你有大量资源，都有兴趣弄清如何用你的资源为他们谋利”——寿险代理人看到买寿险的好处，按管理资产收费的投资经理有兴趣推销服务。想象 1965 年有顾问建议你买伯克希尔，如果他现在还在收 1%，每年会从不拿任何分红的人那里收 80 亿美元——最好的做法是一次性付佣金然后持有股票。“你必须警惕人性对他人和对你自己的作用……如果你认真听查理告诉你的，你会比大多数人领先一大截。”芒格很早就明白心理学、人类行为和激励的重要性，讲过二十五种左右一个人可利用他人弱点的方式，“但他认为亲自用这些方法去操纵别人有失身份”；他承认自己用过几次，不引以为荣，也从未对他撒谎。《穷查理宝典》值得读三四遍，他读格雷厄姆的书五六遍——好的指导读几遍胜过把图书馆每本书读一遍。
+q: and they need to think for themselves on this rather than bow to conventional wisdom ||| get interested in selling you their services.
+q: And best thing to do was just pay them a commission one time and own the stock. ||| you'll have a big head start on most people.
+q: He believed in understanding what others would do ||| but he thought it was beneath him to actually use those methods to manipulate people.
+q: So that's part of acquiring human wisdom. ||| it's better to read it several times than to just figure you'll just read every book once it's in the library.
+zh: （巴菲特：）……他们需要在这件事上独立思考，而不是屈从于传统观念。从某种意义上说，你不想变成一个对人生愤世嫉俗的人，但如果你拥有大量资源，几乎每个接近你的人都有兴趣弄清如何利用你的资源为他们谋利，无论他们是在政界、在投资银行，还是在向你推销——不管推销什么。我不想伤害任何人，但人寿保险代理人看到购买人寿保险的好处，而按管理资产获得报酬的投资经理会有兴趣向你推销他们的服务。……最好的做法就是一次性付给他们佣金，然后持有股票。但你必须警惕人性对其他人和对你自己的影响。然后，如果你把它想清楚，并且真正听查理告诉你的话，你就会比大多数人领先一大截。……他相信要理解别人会怎么做，但他认为真正使用那些方法去操纵别人有失他的身份。……所以那是获得人类智慧的一部分。……如果你有一些伟大的指导，就像你从查理那里得到的那样，读几遍比只想着把图书馆里的每本书都读一遍要好。
+l: 识别每个建议者背后的激励是保护自己的第一步；深刻理解人性弱点，但用于防御而非操纵；经典值得反复精读。
+r: 5/4/5
+rel: 2016-A21, 2017-M34
+
+@ 2024-A11
+t: 你必须运气好：任何说“全靠我自己”的人都是在自欺；抓住你的运气
+s: B
+th: 人生智慧; 宏观与社会
+k: life
+c: 中国年轻股东问成功之道：巴菲特说“你就是必须运气好”——有一百、一千次可能被醉汉开车撞上；“我可以说我最大的技能是避免了坏运气，但那不是技能，是运气”；如果看他的高中同学，他不会是活到 93 岁的热门人选。“当你得到运气时，应该充分利用它。”如果重来会做很多不同的选择，但很难想象结果能更好；“如果你只是坚持下去，你能犯多少错误还能成功，真是有趣”——查理说的就是“坚持下去”。“任何说‘我全靠自己做到’的人都是在开玩笑……他们是妄想的。”他的姐妹和他一样聪明，深爱他们的父亲却告诉姐妹们趁着还有美貌早点嫁人，告诉他“你内在的力量是全新的，你能做任何事”——即使最善意的父母传递给女性和男性的信息也截然不同；进步非凡，但花的时间长得难以置信。“无论情况如何，你对孩子未来的感觉都应该好于 100 年前。”
+q: You know, you have to be just plain lucky. ||| Now, you should make the most of your luck when you get it.
+q: But it is interesting how many mistakes you can make if you just keep going. ||| that you just soldier through, you just keep going, and.
+q: But you still need luck, you know, you don't want to. ||| They're delusional
+zh: （巴菲特：）你知道，你就是必须运气好。我是说，毫无疑问，有一百次或一千次——你可以把这个数字乘上去——某个醉汉可能把车开出来，从侧面撞上我，或者，你知道，你在人生中可能遭遇的种种坏运气。我可以说我最大的技能是避免坏运气，但那不是一种技能。那是运气……现在，当你得到运气时，你应该充分利用它。……但有意思的是，如果你只是坚持下去，你可以犯多少错误。查理以前谈到这一点时说，你就是硬着头皮挺过去，你就是继续前进。……但你仍然需要运气……任何说“我全靠自己做到”的人都只是在开玩笑。我是说，就是——他们是在妄想。
+l: 承认运气的作用能让人保持谦逊与风险意识；在无法控制的运气之外，能做的是避免致命错误、持续前进、抓住来临的机会。
+r: 3/2/4
+rel: 2013-M38, 2015-M15
+
+@ 2024-A15
+t: 不要因悔恨过去而苛责自己：找到你擅长和享受的事，并且——你可以做个善良的人
+s: B
+th: 人生智慧
+k: life
+c: 被问如果重来是否会改变工作与家庭的优先次序：巴菲特说可以想出很多本该做得不同的事，“但那又怎样，我并不完美。我不相信大量的自我批评，也不相信对自己是什么、取得了什么、想做什么不切实际”；你不知道其他道路会通向哪里，“我认为没有任何必要为过去发生的事痛打自己。它已经发生了，你还要过余下的人生，而你不知道它有多长”。他享受为信任他的人管理资金，不是为钱——没有在经营对冲基金拿业绩分成——“我就是喜欢被信任的感觉，查理也一样”。“我相信要努力找到你擅长、你享受的事……有一件你可以追求的事，任何人都能做到，而且令人惊讶的是它和钱毫无关系：你可以善良。你可以善良，然后世界就会变得更好。”我不确定我更富了世界是否会更好，但善良的人毫无疑问会让它更好。
+q: I don't think, I mean, I can figure out all kinds of things that should have been done differently ||| or what you'd like to do.
+q: You don't know what the paths would have led. ||| And you keep trying to do the things that are important to you.
+q: If I was a doctor or if I was all kinds of different professions ||| but I just like the feeling of being trusted. Charlie felt the same way.
+q: But I don't believe in beating yourself up over anything you've done in the past. ||| You can be kind if you're. And then the world's better off.
+zh: （巴菲特：）我不认为——我是说，我能想出各种本该做得不同的事情，但那又怎样，你知道，我是说，我并不完美。我不相信大量的自我批评，也不相信对你是谁、你取得了什么或你想做什么抱有不切实际的看法。……你不知道那些道路会通向哪里。我觉得——我不认为有任何空间为过去发生的事痛打自己。它已经发生了，你可以过余下的人生，而你不知道它会有多长。你就继续努力去做那些对你重要的事。……如果我是一名医生，或者从事各种不同的职业，我可能会做不同的事，但我真的享受为那些信任我的人管理钱。我没有任何出于财务原因去做它的理由。我不是在经营对冲基金或拿业绩分成之类的，但我就是喜欢被信任的感觉。查理也有同样的感受。……但我不相信为你过去做过的任何事痛打自己。……我相信要努力找到你擅长的事、你享受的事。然后我认为有一件你可以追求成为的事，因为任何人都可以做到，而且令人惊讶的是，它与钱毫无关系。但你可以善良。你可以善良，那么世界就会更好。
+l: 复盘是为了改进而非自责；把精力放在未来和让你享受的事情上，以“被信任”和“善良”作为长期目标。
+r: 3/2/5
+rel: 2023-A06, 2022-M19
+
+@ 2024-A16
+t: 如果你在人生中幸运，就确保一群其他人也幸运
+s: B
+th: 人生智慧; 宏观与社会
+k: life
+c: 被问芒格遗嘱附录中“漫长的一生是受眷顾的一生，因家庭赋予的责任而更好”这一条款：巴菲特说他会说去读查理写的，他表达得很好；“如果你在善待他人，你就在做大多数富人即使在捐钱时也没有做到的事……如果你在人生中幸运，确保一群其他人也幸运。”这是他在这段时间里给自己的建议。会议以“我不仅希望你们明年来，我也希望我明年能来”结束。
+q: I'd probably say read, Charlie. I mean, he's expressed it well, and I would. ||| And I would say, if you're lucky in life, make sure a bunch of other people are lucky, too.
+zh: （巴菲特：）我大概会说，去读查理写的。我是说，他表达得很好，我会——嗯，我会说，如果他们经济上并不富裕，如果你在善待他人，你就是在做大多数富人即使在捐钱时也没有做到的事。但那是关于你是富是穷的问题。我会说，如果你在人生中幸运，确保一群其他人也幸运。
+l: 财富与运气伴随着责任；把好运传递给他人，是对幸运最好的回应。
+r: 2/1/4
+rel: 2015-A16, 2024-A15
