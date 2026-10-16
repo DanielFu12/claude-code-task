@@ -1,0 +1,133 @@
+# 2020 年股东大会（5 月 2 日，线上；逐字稿为巴菲特主题演讲部分，Q&A 未收录）
+
+@ 2020-F07
+t: 美国财富 231 年增长约 5000 倍：一片荒地加一个愿景
+s: B
+th: 宏观与社会; 投资理念
+k: america
+c: 巴菲特试图估算 1789 年美国的财富：1803 年以 1500 万美元完成路易斯安那购地（约占本土 48 州的四分之一，每英亩 3 美分），其中 300 万美元用 20 万盎司黄金支付，而购地中南达科他的 Homestake 金矿后来产出 4000 多万盎司黄金（约 600 亿美元），堪萨斯和俄克拉荷马产出 210 亿桶石油。据此，1789 年全国财富约 10 亿美元“不是疯狂的数字”。美联储数据显示如今家庭净资产超过 100 万亿美元；即使假设 20 倍通胀，美国以实际价值计算增长了约 5000 倍——“一个只占世界人口 0.5% 的国家、一片荒地，但有一个愿景，在 231 年里完成这些，超出了任何人早先的想象。”
+q: And the Federal Reserve tells us ||| even though the stock market’s gone down somewhat since the last quarterly report.
+q: But I will assume again for this calculation that ||| has increased in wealth at something in the area of 5000-for-1.
+q: Which is really — its mind blowing — 5000-for-1 ||| that’s beyond what anybody could have dreamt earlier.
+zh: （巴菲特：）美联储告诉我们——我请你们去看看那些数据，挺有意思的——231 年后的今天，美国的家庭财富超过了 100 万亿美元，尽管股市自上一个季度报告以来有所下跌。……但我在这个计算中再次假设，存在 20 比 1 的通胀——许多商品的通胀远少于此……但我认为可以合理地说，美国以实际价值计算，财富增长了大约 5000 比 1。这真的令人难以置信——5000 比 1——以实际价值计算——在一个只拥有世界一半百分比人口和一大片荒地、但拥有一个愿景的国家，在 231 年里完成了这些。这一点是无可否认的——这超出了任何人早先的梦想。
+l: 长期看，生产力与制度带来的财富复利是最强大的投资顺风；在恐慌中要把眼光放到几十年尺度。
+r: 3/3/4
+rel: 2018-M03, 2018-A03
+
+@ 2020-F09
+t: 1929 年大崩盘：股市从高点跌去 89%，父亲的银行倒闭
+s: B
+th: 市场周期; 风险管理
+k: crisis
+c: 巴菲特讲述大萧条：1929 年 9 月 3 日道指 381.17，人们开心地用保证金买股票，汽车、航空、家电、电话、电影让人觉得一片繁荣；随后两个月指数几乎腰斩。他父亲当时 26 岁，是证券推销员，股市下跌 48% 后不好意思见客户，“居家避险”，九个月后巴菲特出生——那时股市已从低点反弹 20% 多，人们以为只是一次普通衰退。之后道指从 240 跌到 41：“如果有人在我出生那天给我 1000 美元买道指，不到两年就变成 170 美元”，从 1929 年 9 月的高点跌去 89%，这是在座没人经历过的；不到一年，父亲工作和存款的银行都关门了。
+q: And on September 3rd, 1929, the Dow Jones average closed at 381.17 ||| It was a happy place.
+q: People did not think in the fall of 1930 ||| and this did not look like it was something dramatically out of the ordinary.
+q: But that’s the last day — well, from that point ||| my thousand dollars would have become $170 in less than two years.
+q: And that is something that none of us here have ever experienced ||| and marked down 89 percent of the peak that was September 3rd, 1929, was extraordinary.
+zh: （巴菲特：）1929 年 9 月 3 日，道琼斯指数收于 381.17 点，人们非常高兴地用保证金买股票。这很管用。咆哮的 20 年代有一种美好的感觉：汽车时代到来，航空旅行的时代即将来临，各种新电器，电话更广泛使用……电影也兴起了。那是一个快乐的地方。……1930 年秋天，人们并不认为他们处在一场大萧条中。他们认为这是一次衰退，就像至少发生过十几次的那样……这看起来并不是什么特别出格的事情。……但从那一点开始，股市从 240 点跌到了 41 点……因为如果有人在我出生那天给了我一千美元，我拿去买了股票、买了道琼斯指数，我的一千美元在不到两年里就会变成 170 美元。这是我们在座的人从未经历过的……整个美国被大范围地减价 83%——两年内——比 1929 年 9 月 3 日的高点低了 89%，这是非同寻常的。
+l: 极端情况确实会发生：在最乐观的时期使用保证金，可能在一次周期里永久出局；风险管理要能承受 80% 以上的回撤。
+r: 4/3/4
+rel: 2020-F11, 2015-M28
+
+@ 2020-F11
+t: 大萧条的心理创伤比经济影响更久：道指直到 1951 年才回到 1929 年的水平
+s: B
+th: 市场周期; 投资心理
+k: mr_market
+c: 巴菲特说大萧条持续了很久，但在人们心中持续得比实际影响更久；二战时美国“非自愿地”采用了凯恩斯主义，巨额赤字带来巨大经济复苏，但 1929 年像 1776、1492 一样成了符号。直到 1951 年 1 月——他大学毕业时——股市才回到他出生时的水平；那 20 年里企业实际表现好得多，但市场价格水平一直没恢复。1954 年是他股市最好的一年，道指突破 1929 年的 381 点后，人人都问“是不是又一个 1929？”，参议院富布赖特召开专门听证会；他的老板格雷厄姆作证说：“股市是高的……但没有看起来那么高。”他说：“我们正在忍受几个月，还会忍受更多个月，不知道结果如何——30 年代的人也不知道结果如何——但他们坚持了、挺过来了、繁荣了，美国奇迹继续。”
+q: So, the Great Depression went on. ||| but it lasted a lot longer in the minds of people than it did actually in its effects.
+q: And it affected stock prices in a rather remarkable way ||| before the stock market got back to where it was at that earlier time.
+q: So, if you think about the fact that we’re enduring a few months ||| but they endured, persevered, prospered, and the American miracle continued.
+q: And when he testified, with the Dow at 404 ||| But he said it is high.
+zh: （巴菲特：）所以，大萧条继续着。它持续了很长时间，但它在人们心中持续的时间比它实际产生影响的时间长得多。……它以一种相当惊人的方式影响了股价，以至于——直到 1951 年 1 月 4 日——那个 1930 年 8 月 30 日出生的孩子已经大学毕业——股市才回到之前的水平。……所以，如果你想想我们正在忍受几个月，我们还会忍受更多个月——我们不知道结果会怎样——30 年代的人也不知道结果会怎样——但他们忍受了、坚持了、繁荣了，美国奇迹继续。……当他在道指 404 点时作证，他在书面证词开头附近有一句话，他说：股市是高的——看起来高——它确实是高的，但它没有看起来那么高。但他说它是高的。
+l: 市场情绪的创伤会长期压低估值，为后来者创造机会；但若在高点重仓入场，也可能需要二十年才能回本——估值与耐心同样重要。
+r: 4/4/4
+rel: 2020-F09, 2013-M38
+
+@ 2020-F14
+t: 押注美国，但要小心你下注的方式：市场什么都可能发生
+s: B
+th: 风险管理; 市场周期
+k: leverage
+c: 巴菲特谈“我不知道的事”：“我不知道——也许带着偏见，我不相信任何人知道——市场明天、下周、下个月、明年会怎样。”他知道美国会随时间前进，但 9·11 和这次病毒都告诉我们，在市场上什么都可能发生：1987 年 10 月一天下跌 22%，1914 年股市关闭约四个月，9·11 后关闭四天。“你可以押注美国，但必须小心你下注的方式，仅仅因为市场可以做出任何事。”他从 11 岁开始就乘着美国巨大的顺风，“但它不会每天都朝我的方向吹”。
+q: And I don’t know — and perhaps with a bias, I don’t believe anybody knows ||| what the market is going to do tomorrow, next week, next month, next year.
+q: And if you — you can bet on America, but you got to have to be careful about how you bet ||| simply because markets can do anything.
+q: I caught a huge, huge, huge tailwind in America. ||| and you don’t know what’s going to happen tomorrow.
+zh: （巴菲特：）而我不知道——也许带着一种偏见，我不相信有任何人知道——市场明天、下周、下个月、明年会怎样。……你可以押注美国，但你必须小心你下注的方式，仅仅因为市场可以做出任何事情。……我赶上了美国巨大、巨大、巨大的顺风。但它不会每一天都朝我的方向吹，你也不知道明天会发生什么。
+l: 长期乐观与短期谨慎并不矛盾：不加杠杆、保证不被迫卖出，才能真正吃到长期顺风。
+r: 4/5/4
+rel: 2020-F17, 2016-M15
+
+@ 2020-F16
+t: 股票会跑赢 1.25% 的 30 年期国债，前提是把它当投资而不是赌博工具
+s: B
+th: 投资理念
+k: inflation
+c: 巴菲特说 30 年期国债收益率 1.25%，还要交税，而美联储目标是每年 2% 通胀；“股票会跑赢这只债券，会跑赢国库券，会跑赢你塞在床垫下的钱。它们是一种极其稳健的投资，只要它们是一种投资，而不是赌博工具或你以为可以安全地用保证金买入的东西。”股票是企业的一小部分；1789 年的储蓄者只能买一小块地或一栋出租房，没有机会与十个在美国顺风下创业的人合伙。他的衡量标尺永远是美国国债，当有人给你远高于国债的收益时，通常是因为风险大得多。
+q: And the idea that equities will not produce better results than the 30-year Treasury bond ||| or something that you think you can safely, you know, buy on margin or whatever it may be.
+q: I mean, the yardstick for me is always the U.S. Treasury. ||| there’s much more risk.
+zh: （巴菲特：）认为股票不会比 30 年期国债产生更好结果的想法——它现在收益率 1.25%，是应税收入，而美联储的目标是每年 2% 的通胀。股票会跑赢那只债券。它们会跑赢国库券。它们会跑赢你塞在床垫下面的钱。我是说，它们是一种极其稳健的投资，只要它们是一种投资，而不是一种赌博工具，或是你认为可以安全地用保证金买入之类的东西。……我是说，对我来说衡量标准始终是美国国债。当有人给你比美国国债高很多的收益时，通常是有原因的——风险要大得多。
+l: 极低利率下，长期持有股票的实际回报优势巨大；但“投资”与“赌博”的分界在于是否用杠杆、是否把股票当企业。
+r: 3/4/3
+rel: 2018-M24, 2020-F17
+
+@ 2020-F17
+t: 买股票应像买农场：隔壁那个躁郁的邻居每天报价，他是来服务你而不是指导你的
+s: B
+th: 投资理念; 投资心理
+k: mr_market
+c: 巴菲特说人们因为股票流动且每分钟都有报价，就觉得必须每分钟形成观点，“这真的很愚蠢”——1949 年格雷厄姆教他：股票是企业的一部分。设想你买了 160 英亩农场，隔壁有块一模一样的地，那位农夫每天都报一个愿意买或卖的价格；他还有点躁郁、会喝酒抽点大麻，报价上蹿下跳。“你唯一要记住的是，隔壁这个人是来服务你的，不是来指导你的。”你买农场是看它的产出潜力，不需要报价；他报出荒唐的高价时可以卖，报出很低的价格时可以买，但你不必，也不要让自己处于必须卖的境地。如果他今天出价每英亩 2000 美元、明天 1200、后天 800，你会因为数字越来越低就卖掉吗？“股票有这种巨大的内在优势，很多人却把它变成了劣势。”大多数人不适合选个股，最好买美国的横截面——标普 500 指数基金——然后忘掉它；别让自己因为杠杆或心理上无法承受数字而受到中断的影响。
+q: But going back to stocks, people bring the attitude to them too often ||| that it’s important that you develop an opinion on them, minute-by-minute.
+q: Now, the only thing you have to do is to remember that this guy next door is there to serve you and not to instruct you. ||| You don’t really need a quote on it.
+q: But you get this added advantage that you do have this neighbor ||| And you don’t want to put yourself in a position where you have to sell.
+q: Stocks have this enormous inherent advantage of people yelling out prices all the time to you. ||| And many people turn that into a disadvantage.
+q: The American tailwind is marvelous. ||| either because you’re leveraged or because you’re psychologically unable to handle looking at a bunch of numbers.
+q: So, find businesses — get a cross section. ||| People will try and sell you other things because there’s more money in it for them if they do.
+zh: （巴菲特：）但回到股票，人们太常带着这样一种态度：因为股票流动性好、每分钟都有报价，所以每分钟都对它们形成看法很重要。……现在，你唯一要做的就是记住，隔壁这个家伙是来为你服务的，而不是来指导你的。你买下农场，是因为你认为这个农场有潜力。你真的不需要它的报价。……但你得到了额外的好处：你确实有这样一个邻居——你完全没有义务听他的——他每天都会给你一个价格。他会有起有落。也许他会喊出一个愚蠢的高价愿意买，那你如果愿意就卖。或者他会喊出一个很低的价格，你就从他那里买下他的农场。但你不必这么做。而且你不想让自己处于一个必须卖出的位置。股票有这样一个巨大的内在优势：人们一直在向你喊出价格。而很多人把这变成了一个劣势。……美国的顺风是了不起的。……它会有中断，你也无法预见那些中断，你不想让自己处于那些中断能够影响你的位置——无论是因为你用了杠杆，还是因为你在心理上无法面对一堆数字。……所以，找到企业——买一个横截面。在我看来，对大多数人来说，最好的做法是持有标普 500 指数基金。人们会试图卖给你别的东西，因为如果他们这么做，他们能赚到更多钱。
+l: 报价是选择权而非命令：只在价格极端时利用它，永不让自己被迫卖出；普通投资者以低成本指数持有美国横截面即可。
+r: 5/5/5
+rel: 2013-A06, 2015-M37
+
+@ 2020-F20
+t: 伯克希尔永远保持充足现金：不依赖陌生人的善意，甚至不依赖朋友的善意
+s: B
+th: 风险管理; 保险与浮存金
+k: leverage
+c: 巴菲特说伯克希尔永远让自己处于极强的财务位置，这是根本。结构化理赔的客户把未来 10–50 年的生活押在伯克希尔的承诺上；他和芒格都从管理合伙基金起家，从未有过一家机构投资者，每一分钱都来自“有面孔的人”，“我们一直认为我们的工作基本上是受托人的工作”，所以总是从实力出发。一季度末有约 1250 亿美元现金和国库券，看似相对 1800 亿美元股票很多，但伯克希尔还全资拥有数千亿美元的企业，现金占比远低于此。“我们会永远在任何情况下保持充足的现金”——9·11、一战时股市关闭；“布兰奇说她依赖陌生人的善意，而我们甚至不想依赖朋友的善意，因为有时候钱几乎会停止流动。”
+q: Now, I would be — I would never take real chances with money under ||| or money with faces attached to them.
+q: And so, we’ve always felt that our job is basically that of a trustee ||| So we always operate from a position of strength.
+q: We want to be in a position at Berkshire where ||| because there are times when money almost stops.
+zh: （巴菲特：）现在，我永远不会在任何情况下拿别人的钱真正冒险。……我们两人从来没有一家机构的投资……我们为别人管理的每一分钱都来自个人，来自有面孔的人——或者实体——或者背后有面孔的钱。所以，我们一直觉得我们的工作基本上是受托人的工作，希望是一个相当聪明的受托人……但受托人这一面一直非常重要。……所以我们总是从实力的位置出发运作。……我们希望伯克希尔处于这样一个位置——你还记得《欲望号街车》里的布兰奇·杜波依斯——她说她依赖陌生人的善意。而我们甚至不想依赖朋友的善意，因为有时候钱几乎会停止流动。
+l: 受托人心态要求在最坏情境下仍有流动性；危机中“钱会停止流动”，此时持有现金的人掌握主动权。
+r: 4/4/4
+rel: 2016-A28, 2017-A02
+
+@ 2020-F21
+t: 恐惧是最具传染性的疾病：鲍威尔的美联储在 2020 年 3 月做了“不惜一切代价的平方”
+s: B
+th: 市场周期; 宏观与社会
+k: crisis
+c: 巴菲特说 3 月中旬投资级公司几乎被挤出市场：CFO 们被教导最大化股本回报，靠廉价商业票据融资、债务慢慢上升，被市场吓坏后纷纷提取信贷额度，华尔街吸收流动性挤兑的能力到了极限，连最深的美国国债市场都有些失序——“恐惧是你能想象的最具传染性的疾病，它让病毒都相形见绌”，我们差一点让全球最大公司的信贷完全冻结。美联储 3 月 23 日采取行动后，3 月和 4 月成为史上企业发债最多的月份，每个在 3 月底、4 月发债的人都应给美联储写感谢信。我们不知道膨胀资产负债表的后果，但知道什么都不做的后果；德拉吉带来“不惜一切代价”，美联储做了“不惜一切代价的平方”。“但伯克希尔总是基于美联储主席也许不会这样做的假设做准备。”
+q: And then of course, they had the hell scared out of them by what was happening in markets ||| That surprised the people who had extended those lines of credit, and they got very nervous.
+q: We got to the point where the U.S. Treasury market, the deepest of all markets, got somewhat disorganized. ||| And we came very close to having a total freeze of credit to the largest companies in the world who were depending on it.
+q: But we do know the consequences of doing nothing. ||| And we owe them a huge thank you.
+q: But we’re prepared at Berkshire. ||| And we really want to be prepared for anything.
+zh: （巴菲特：）然后当然，他们被市场上——尤其是股票市场上——发生的事吓坏了，于是急忙提取信贷额度。这让那些提供信贷额度的人感到意外，他们变得非常紧张。……我们到了这样一个地步：美国国债市场——所有市场中最有深度的——都变得有些失序。当这种情况发生时，相信我，全国每一家银行、每一个 CFO 都知道，他们会以恐惧作出反应，而恐惧是你能想象的最具传染性的疾病。它让病毒都显得微不足道。我们非常接近于让世界上那些依赖信贷的最大公司的信贷完全冻结。……但我们确实知道什么都不做的后果。……马里奥·德拉吉把“不惜一切代价”带到了欧洲。而美联储在 3 月中旬做了某种“不惜一切代价的平方”。我们欠他们一个巨大的感谢。但我们在伯克希尔做好了准备。我们总是基于这样的假设做准备：也许美联储的主席不会像那样行事。我们真的想为任何事情做好准备。
+l: 流动性危机来得极快，杠杆化的“优化”资产负债表最先受伤；政策救助是可能的，但不能作为风险管理的前提。
+r: 4/3/4
+rel: 2013-A13, 2017-M20
+
+@ 2020-F23
+t: 卖出航空股：疫情改变了这个行业，我对这门生意的判断错了
+s: B
+th: 投资方法; 风险管理
+k: mistakes
+c: 巴菲特披露 4 月净卖出约 60 亿美元证券——“不是因为认为股市会跌”，而是认为自己在评估航空业时犯了错（可以理解的错误，当时是基于概率加权的决定）。约 70–80 亿美元买入四大航空公司各约 10%，相当于分享约 10 亿美元盈利，并认为会周期性向上——“我们在心理上完全像买下整个企业一样对待它”。四位 CEO 都很优秀，这不是他们的错；但行业可能已发生重大改变：四家公司各需借 100–120 亿美元，未来要从盈利中偿还，有的还要增发股票；两三年后客运里程能否恢复到去年水平并不清楚；即使业务恢复 70–80%，飞机不会消失，会有太多飞机。“如果我们的某只持股下跌 20%、30%、40%，我们不觉得自己变穷了”，但就航空业实际发生的事而言，“我们觉得变穷了，就像我们拥有它们 100% 一样”；这不涉及任何市场预测。
+q: I just decided that I’d made a mistake in evaluating ||| that we were getting an attractive amount for our money when investing across the airlines business.
+q: But — but it was — it was as if we’d bought the whole company ||| we treat it mentally exactly as if we were buying a business.
+q: But the — but the airline business — and I may be wrong, and I hope I’m wrong ||| So, you’ve got — you’ve got too many planes.
+q: The virus will cost Berkshire money. ||| just as if we owned a hundred percent of them.
+zh: （巴菲特：）我只是判断自己在评估上犯了一个错误——那是一个可以理解的错误。买入时，那是一个概率加权的决定：投资整个航空业，我们的钱能换来有吸引力的回报。……这就好像我们买下了整家公司，只不过我们是通过纽约证券交易所买的，实际上只能买到四家公司各大约 10%。我们在心理上完全把它当作买一家企业来对待。……但航空业——我可能错了，我也希望我错了——但我认为它发生了非常重大的变化。……那是一个低概率事件。它发生了，并且恰好特别伤害了——旅游业、酒店业、邮轮业、主题公园业——但尤其是航空业，当然航空业还有一个问题：如果业务恢复到 70% 或 80%，飞机不会消失。所以你有太多的飞机。……病毒会让伯克希尔亏钱。它让我们亏钱，不是因为我们的股票和其他各种业务的价格波动。我是说，如果 XYZ——比如说是我们的持股之一，我们把它当作一门生意持有，并且喜欢这门生意——如果股价下跌 20%、30% 或 40%，我们不会觉得自己在这种情况下变穷了。但就那些航空企业实际发生的事情而言，我们觉得自己变穷了，就像我们 100% 拥有它们一样。
+l: 卖出的正确理由是“企业的长期经济状况发生了根本改变”，而不是价格下跌；对资本密集、产能刚性的行业，低概率冲击可能永久损害价值。
+r: 5/4/5
+rel: 2017-M13, 2016-A19
