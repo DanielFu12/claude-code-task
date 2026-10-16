@@ -230,3 +230,103 @@ zh: 而这家公司——一百页、公关人员、大量照片——在上面�
 l: 读年报时先找该行业“最重要的那个数字”是否被坦率披露；致股东信的语气和作者身份是管理层诚信的线索。
 r: 5/5/5
 rel: 2004-A01, 2005-M08, 1994-M18
+
+@ 2007-A08
+t: 不必每天都有观点：只有极端时才值得说话
+s: BM
+th: 市场周期; 投资心理
+k: no_forecast
+c: 1999 年《财富》文章里的“两个 17 年”只是文学上的夸张，时间跨度没有魔力；那篇文章的目的是指出人们把过去 17 年外推、以为持有股票有魔力，必然失望。现在若写，他会说：宁可持有股票而不是长债，但对股票不要有高期望，只是高于 4.75% 若干。芒格：文章发表以来股票回报相当贫瘠，沃伦到目前是对的，现在说“适度预期”大概也对。巴菲特：在市场里，你无法每天、每周、每月都说出重要或聪明的话——这是常上电视或要写周报的人的问题。偶尔事情真的极端失衡（1969、1974、1981–82），中间的层次太难判断。好处是你不必每天都有观点：拥有以合适价格买的好企业，到了愚蠢的价格可能该卖；若一切都极其便宜，像 1974 年，就该把每一分能用的钱投入股票。
+q: I did not feel — I felt, in 1999, that people were extrapolating the experience of the previous 17 years ||| and that was the main purpose of that article.
+q: Yeah. You really don’t have — in markets you can’t say something terribly important or intelligent every day or every week or every month. ||| But the gradations in between, they’re too tough.
+q: But the nice thing about it is you don’t have to have an opinion every day or every week or every month. ||| And that’s what we’ve tried to do.
+zh: 我在 1999 年觉得，人们在外推之前 17 年的经验，以为拥有股票有某种魔力。人们的预期注定会落空。他们只是通过外推形成了不现实的看法，这就是那篇文章的主要目的。……在市场上，你无法每天、每周或每月都说出非常重要或明智的话。……每隔一段时间你会遇到某种极端情况……每隔一段时间，事情真的会严重失衡。但中间的那些层次，太难判断了。但好处是，你不必每天、每周或每月都有一个观点。如果你拥有一些好企业，并且以合适的价格买入，如果它们涨到了愚蠢的价格，你大概应该卖掉。如果你发现一切都极其便宜，就像 1974 年那样，你就应该把每一分能用的钱都投入股票。这就是我们一直努力去做的。
+l: 对市场只在极端时下判断；平时让持仓的估值与企业表现说话。
+r: 4/4/4
+rel: 2005-A13, 1999-A03
+
+@ 2007-A11
+t: 学会信任谁：当心说“这太容易了”的人和不公平的收费
+s: BM
+th: 管理与治理; 人生智慧
+k: reputation
+c: 他们在收购企业、托付于人方面运气极好，成功率远高于 90%，但他们过滤掉了很多人。人们常常会暴露自己——当有人带着企业来时，他们谈论什么、认为什么重要或不重要，有很多关于未来行为的线索。芒格：当一件事好得不像真的，我们就深深怀疑；一位推销者说他们“只为被水覆盖的混凝土桥承保火险，就像从婴儿手里拿糖”——我们能过滤掉这样的提议。巴菲特：任何人在言谈中暗示“这太容易了”——它没那么容易，我们会很快起疑。他们排除掉 90% 的人，也许错杀了不少，重要的是选进来的那些是对的。1969 年在“新一代华尔街”对冲基金盛行时，他挑出芒格、戈特斯曼、鲁安——不知道谁会做得最好，但确信他们会是出色的资金管家，在乎客户结果胜过自己拿 X 还是 2X 的佣金和费用。任何时候发现不公平的收费结构、并说“反正我拿得到”，他就把他们排除。
+q: I would say — I think Charlie will agree with this — people give themselves away fairly often. ||| there are a lot of clues that come as to subsequent behavior.
+q: Well, partly we’re deeply suspicious when the proposition is too good to be true. ||| We are able to filter out propositions like that.
+q: Yeah. Anybody that, implicit in their comments or what they kind of laugh about ||| The important thing is whether the ones we’re ruling in we’re right about.
+q: Anytime I find somebody with a — what I regard as an unfair fee structure ||| But the ones that are left in, I feel very good about.
+zh: 我会说——我想查理会同意——人们相当经常地暴露自己。……当有人带着企业来找我时……就他们谈论的东西、他们认为什么重要什么不重要，就有很多关于他们日后行为的线索。（芒格：）部分原因是，当一个提议好得不像真的时，我们会深深地怀疑。沃伦曾经给我介绍过一位推销者，想诱使我们参与一个保险计划。他说：“我们只给被水覆盖的混凝土桥承保火险。”他说：“这就像从婴儿手里拿糖果。”我们能够过滤掉这样的提议。（巴菲特：）……任何人，在他们的言谈中隐含着、或者他们拿来开玩笑的东西里透露出……“这太容易了”——事情没那么容易，我们会很快起疑。事实是，我们排除了 90% 的情况。我们可能在排除的人中错了不少，重要的是我们选进来的那些是否正确。……任何时候，当我发现某人有我认为不公平的收费结构，还说“嗯，我拿得到”，我就把他们排除。我可能排除了一些不该排除的人，但留下来的那些，我感觉非常好。
+l: 信任的筛选宁严勿宽：对“太容易”的说法、不公平的分成、谈话中暴露的价值观保持敏感；目标是保证选中的人可靠，而不是不错过任何人。
+r: 4/4/5
+rel: 2005-M08, 2004-A26, 2002-M20
+
+@ 2007-A12
+t: 门槛率有道理，但比较更有效：把董事会看过的 IRR 演示都烧掉会更好
+s: BM
+th: 资本配置; 企业估值
+k: discount
+c: 他们没有正式的折现率（芒格提醒他从没做过电子表格），但心里有：企业相对于投入要产生明显高于国债的现金回报；国债 2% 时也不会买 3%–3.5% 预期回报的企业，宁愿等。他想要的是：即使股市关闭几年、利率再上升 100–200 个基点，仍对所买的东西满意——听起来模糊，因为它本来就模糊。芒格：门槛率的概念完全合理，但很多可怕的错误恰恰由谈门槛率的人犯下——能测量和猜测某样东西，不代表它是混乱世界中的决定性变量；没有什么能替代思考大量投资选项、比较哪个更好。如果我有一个确定的 8% 可以随意买，你有一个很好的 7%，我不必浪费 5 分钟听你说——这就是机会成本，经济学入门就教，但公司金融系因为不适合他们想用的数学就忽略了。巴菲特：在 19 个董事会上看到的每份收购演示都有 IRR 计算，若全烧掉，董事会会更好——演示者知道听众想听什么、CEO 想做什么。芒格：一位卖私募份额的年轻朋友说目标回报 20%，“选更低的数字他们就不给我钱”。
+q: But I can’t tell you that we sit down every morning and I call Charlie in Los Angeles and say, “What’s our hurdle rate today?” ||| I know it sounds kind of fuzzy, but it is fuzzy.
+q: Yeah. The concept of a hurdle rate makes nothing but sense, and yet a lot of terrible errors are made by people who are talking about hurdle rates. ||| is it doesn’t work as well as a system of comparing things.
+q: In other words, if I have something available that I think will give me 8 percent for sure and I can buy all I want of it ||| I don’t have to waste 5 minutes with you.
+q: I would say that of the presentations I’ve seen — and I’ve seen a lot of them — and every one of them had a calculation of internal rate of return ||| you just get nonsense figures.
+q: And I said, “What return do you tell them you’re aiming for?” ||| “If I chose any lower number, they wouldn’t give me the money.”
+zh: 但我不能告诉你，我们每天早上坐下来，我打电话给洛杉矶的查理说：“我们今天的门槛率是多少？”……我们想要足够的回报，使我们在股市关闭几年、利率再上涨 100 或 200 个基点的情况下，仍然对我们买的东西感到满意。……我知道这听起来有点模糊，但它确实是模糊的。（芒格：）门槛率的概念完全有道理，然而很多可怕的错误正是那些谈论门槛率的人犯下的。仅仅因为你能测量和猜测某样东西，并不意味着它是你在一个混乱世界中所面对的事物的决定性变量。……门槛率概念的问题——不是说我们在某种意义上没有门槛率——是它不如一个比较事物的系统那样有效。换句话说，如果我有某样东西可以确定地给我 8%，我想买多少就能买多少，而你有一个完全不错的投资，我认为能赚 7%，我就不必在你身上浪费 5 分钟。（巴菲特：）……我会说，我看过的那些演示——我看过很多——每一个都有内部收益率的计算，如果把它们全烧了，董事会会过得更好。……因为演示者基本上知道听众想听到什么，以及要通过 CEO 无论如何都想做的事需要什么——你就得到了胡扯的数字。（芒格：）……我说：“你告诉他们你的目标回报是多少？”他说：“20%。”我说：“你怎么选的这个数字？”他说：“如果我选任何更低的数字，他们就不会给我钱。”
+l: 用“确定可得的最佳替代方案”作为门槛；对精确的 IRR 和高承诺回报保持怀疑，追问数字背后的激励。
+r: 5/5/5
+rel: 2003-A20, 2003-A36, 2006-A13
+
+@ 2007-A13
+t: “太难”篮子只适用于可选的问题：有些问题太重要，不能放进去
+s: BM
+th: 人生智慧; 投资方法
+k: circle
+c: 芒格：如果你的孩子患了可怕的疾病，你就有一个不能放进“太难”篮子的问题——人生中很多事你别无选择、必须面对；但像从众多投资中选一个这样自愿的事，“太难”篮子是筛选日常素材的绝妙方式。巴菲特：桌上有一个劳拉·格雷厄姆送的“太难”文件夹，可选又太难的事就扔进去；但像大规模杀伤性武器这种问题，太难却必须持续与之搏斗——哪怕只把概率降低一点点，也是在做事。
+q: Sure. If you’ve got a child dying of some horrible disease, you have a problem you can’t just put in a “too difficult” pile. ||| then the “too difficult” pile is a marvelous way of sifting your daily grist.
+q: If you’ve got the problems of weapons of mass destruction, it is too hard, but you have to keep wrestling with it. ||| But you’re never going to solve it.
+zh: （芒格：）当然。如果你有一个孩子正死于某种可怕的疾病，你就面临一个你不能简单地放进“太难”那一堆的问题。所以人生中有很多事情找上门来，你别无选择，不能不去考虑。但在自愿的情况下，比如从众多投资中选择一个，“太难”那一堆就是筛选日常素材的绝妙方式。（巴菲特：）……如果你面对的是大规模杀伤性武器的问题，它太难了，但你必须持续与之搏斗。因为即使你只把概率降低一点点，你也是在做点事。但你永远解决不了它。
+l: 在可选的投资领域大胆说“不”；在不可回避的人生与社会问题上，即使无法解决也要努力降低坏结果的概率。
+r: 3/3/4
+rel: 2006-M12, 2005-A25
+
+@ 2007-A14
+t: 点子多于钱时，机会成本是你最不吸引人的那只股票
+s: BM
+th: 投资方法; 资本配置
+k: holding
+c: 他的人生分两个阶段：点子比钱多时，他时刻想着每一只持仓，因为在考虑买下一只、为此要卖掉哪一只——那时的机会成本就是组合里最不吸引人的那只股票；10 万美元满仓时想投 1–2 万到更有吸引力的东西，就一直在想该卖哪一只。如今钱比点子多，替代选择是现金，所以不必每分钟重新审视；但他们一直在想所拥有的企业，脑中归档大量信息，不断获得关于公司和竞争对手的增量信息——这是持续的过程，但不是为了日、周、月的交易，而是为了不断深化对每家企业的思考；若需要卖出 100 亿美元股票支持大交易，就会用上这些日积月累的信息。芒格：即使在点子多于钱的年代，他也不在头号选择上花太多时间——放在一边，把精力用于其他。
+q: Well, that sort of breaks down into two periods in my life. ||| So my opportunity cost, as Charlie would put it, then, was the least attractive stock which I would give up to buy something more attractive.
+q: Now our situation is such that we have more money than ideas ||| because the option is cash and not doing something that we really are excited about.
+q: So it’s — you know, it is a continuous process ||| refining it further about every business that we’re in.
+zh: 嗯，这在我的人生中分为两个阶段。当我的点子比钱多时，我一直在思考每一只（持仓），因为我在想着买下一只，以及为了买更有吸引力的东西我得卖掉哪一只。所以正如查理所说，我那时的机会成本，就是我会放弃以买入更有吸引力之物的、最不吸引人的那只股票。……现在我们的情况是钱比点子多，这意味着我们并不会每分钟都重新审视某样东西，因为替代选项是现金，而不是去做某件我们真正兴奋的事。……所以这是一个持续的过程，但它并不是一个期望每天、每周或每月都产生交易活动的持续过程。我们只是想不断增加我们的思考和知识，进一步完善我们对所在的每一家企业的认识。
+l: 满仓的小投资者应持续用“最弱持仓 vs 新机会”比较来升级组合；持续追踪持仓信息，是为关键时刻的决策做准备，而不是为了频繁交易。
+r: 4/5/4
+rel: 2007-A12, 2006-A13
+
+@ 2007-A18
+t: 选择你的英雄很重要：和比你更好的人交往——最好的导师有些已经去世
+s: BM
+th: 人生智慧
+k: life
+c: 他很幸运，所敬仰的人从未让他失望——对你极为仰慕的人失望是可怕且难以平复的经历，在婚姻、生意中都有人经历过，最糟的是父母，而他恰恰相反。选择你的英雄非常重要，因为你会向周围人的行为靠拢。他对学生说：一定要和比你更好的人交往；“高攀婚姻，并希望找到一个不介意低就的人”——这会对你大有裨益。芒格：选择导师时不必局限于活着的人，最好的人中有些已经去世了。
+q: So I can just tell you that choosing your heroes is very important. ||| Because you are going to gravitate toward the behavior of those around you.
+q: I tell people to be sure and associate with people who are better than you are. ||| And it will do wonders for you.
+q: Yeah. I would say that you’re not restricted to living people when picking your mentors. ||| Some of the very best people are dead.
+zh: 所以我可以告诉你，选择你的英雄非常重要。我对来访的学生也这么说。因为你会向周围人的行为靠拢。我告诉人们，一定要和比你更好的人交往。往高处娶，并希望你找到一个不介意往低处嫁的人。这会对你大有裨益。（芒格：）是的。我会说，在选择导师时，你不局限于活着的人。一些最好的人已经去世了。
+l: 主动选择榜样与圈子；通过阅读向历史上最优秀的人学习。
+r: 3/2/5
+rel: 2004-A30, 2002-M25
+
+@ 2007-A25
+t: 重要的是全球竞争者，而不是全球趋势：不买高劳动力含量、易被进口替代的企业
+s: BM
+th: 护城河; 商业模式
+k: moat
+c: 他们不根据世界趋势买企业，但一定会考虑国际竞争：不想买劳动力含量高、产品容易从国外运进来的企业，迟早会出问题。他曾投资全美航空，航线受保护，所以能以每座英里 12 美分的成本运营，因为成本 8 美分的西南航空还没到——但对手终会到来；你不想拥有竞争地位会随时间侵蚀的东西。伯克希尔大多数企业竞争地位相当强，一直从实力出发行事，“手里永远有一把上了膛的枪”，有对的价值观和所有者导向的文化——不会带来巨大回报，但很可能不错。芒格：我们在鞋业上学到了外国劳动力竞争的教训；威尔·罗杰斯认为人不该以如此艰难的方式学到简单的教训——你应该学会不往通电的围栏上撒尿，而不必真的去试。
+q: I mean, we do not want to buy into a business that has a very high labor content ||| Because, sooner or later, that will probably be trouble
+q: But they get there. And you do not want to have something whose competitive position is going to erode over time. ||| But they get there. And you do not want to have something whose competitive position is going to erode over time.
+q: Well, we learned about foreign labor competition in our shoe business. ||| Will Rogers believed that you should learn not to pee on an electrified fence without actually trying it.
+zh: 我们不想买入一家劳动力含量很高、产品又很容易从国外运进来的企业。因为迟早这大概会成为麻烦……但它们终究会到来。你不想拥有一个竞争地位会随时间推移而受侵蚀的东西。（芒格：）我们在鞋业上学到了外国劳动力竞争的教训。这让我想起威尔·罗杰斯，他认为人不应该以如此艰难的方式学习这些简单的教训。威尔·罗杰斯认为，你应该学会不往通电的围栏上撒尿，而不必真的去尝试。
+l: 检查企业的“可替代性”：劳动密集、可贸易、成本劣势的企业，即使当下受保护，护城河也在被侵蚀；尽量从别人的错误中学习。
+r: 4/4/4
+rel: 2002-A28, 2004-A16
