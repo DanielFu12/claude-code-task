@@ -1,0 +1,259 @@
+# 2009 年股东大会（5 月 2 日，金融危机之后）
+
+@ 2009-M03
+t: 负收益率的国库券：放在床垫下都比买美国国债强
+s: B
+th: 市场周期; 宏观与社会
+k: crisis
+c: 2008 年 12 月 19 日，伯克希尔卖出 500 万美元、次年 4 月 29 日到期的国库券，成交价是 5,000,090.07 美元——买家若把钱放进“紧张内莉”床垫下，四个月后会多 90 美元。美国国债收益率为负，从美国财政部拿到的比放在床垫下还少，这是非同寻常的事——“我不确定你一生中还会再看到”。它说明了 2008 年是多么特殊的一年：恐慌到人们愿意为安全付费。
+q: And the remarkable thing is, and this tells you about what an extraordinary year it was ||| we sold them for five million and ninety dollars and seven cents.
+q: Negative yields on U.S. Treasury bills are really an extraordinary thing. ||| I’m not sure you’ll see that again in your lifetime.
+zh: 引人注目的是——这告诉你这是多么非同寻常的一年——我们卖出了那 500 万美元的国库券，它们将于 2009 年 4 月 29 日按 500 万美元兑付，而我们在 2008 年 12 月以 5,000,090.07 美元卖出了它们。……美国国库券的负收益率真是一件非同寻常的事。你从美国财政部得到的，比把钱塞在床垫下得到的还少。我不确定你一生中还会再见到这种情况。（注：此后欧洲和日本曾出现大范围负利率，美国国库券在 2015、2020 年也短暂出现过负收益。）
+l: 极端恐慌时，“最安全”的资产会被定价到荒谬的水平——此时风险资产往往最便宜。
+r: 3/3/4
+rel: 2008-M18, 2007-M09
+
+@ 2009-M07
+t: 金融素养：人们乘飞机去做期望值为负的事，这是个能致富的国家
+s: BM
+th: 人生智慧; 投资心理
+k: psychology
+c: 不仅下一代，当前这一代的金融素养也有问题；在信用卡和计算器的世界里，这很难教。1952 年蜜月途经拉斯维加斯，他看到许多衣着体面的人飞越数千英里，去做每一步数学期望都是负数的蠢事——“我想，这是一个你会变得非常富有的国家”：那是一个充满机会的世界。芒格：各州以彩票形式合法开赌、鼓励人们逆着赔率下注，高成本信用卡债务被大量滥用，我们在往错误的方向走；你没法教那些连信用卡都用不明智的人高级金融。巴菲特：18%–21% 的信用卡利率借钱不可能在财务上出头；但这可能对伯克希尔有好处——越多人认为用信用卡借钱聪明，他们越不会认为做长期股指看跌合约聪明，大家各走各路。
+q: But I looked around at that casino and I saw all kinds of well-dressed people who had traveled thousands of miles to do something very dumb. ||| that is a world of opportunity.
+q: Well, a world where legalized gambling is now conducted by a great many states in the form of lotteries ||| So I don’t think you can teach people high finance who can’t use a credit card
+q: I mean, one of — you know — we are looking for things that are mispriced. ||| And we’ll go our way and they’ll go their way.
+zh: 但我环顾那个赌场，看到各种衣着体面的人，他们远行数千英里去做一件非常愚蠢的事。我想，这是一个你会变得非常富有的国家。……如果人们愿意在纽约登上飞机，飞几千英里，站在那里做每一个动作的数学期望都是负数的事，那是一个充满机会的世界。（芒格：）在一个现在有很多州以彩票形式开展合法赌博、鼓励人们逆着赔率下注的世界，在一个高成本信用卡债务被大量过度使用的世界，需要多得多的金融素养。……我认为我们一直在往错误的方向走。所以我认为你无法教那些连信用卡都不能明智使用的人高级金融。（巴菲特：）……我们在寻找被错误定价的东西。越多人认为用信用卡借钱是明智的，他们大概就越不会认为做长期股票看跌合约是明智的。我们走我们的路，他们走他们的路。
+l: 市场的错误定价来自人们普遍的非理性；先确保自己不做“期望值为负”的事（高息借贷、赌博），再去利用别人的非理性。
+r: 3/3/4
+rel: 2007-M13, 2001-A09
+
+@ 2009-M09
+t: 需要计算器才能算清的投资就别买：高等数学可能是危险的
+s: BM
+th: 企业估值; 风险管理
+k: iv
+c: 一切投资就是现在付出现金，以后拿回更多现金：拿回多少、多确定、何时拿回——伊索的“一鸟在手胜过二鸟在林”；若利率是 20%，你得比利率 5% 时更快拿到那两只鸟。“如果你需要用电脑或计算器来算，就不应该买”——它应当显而易见到不必算到十分位或百分位，应当对你“尖叫”；若需要计算器来判断折现率是 9.6% 还是 9.8%，就忘掉整个练习，去找对你大喊的东西。他们不做电子表格，只是看到某样明显比周围一切都好、又能理解的东西，然后行动。芒格：我见过的一些最糟糕的商业决策，恰恰来自大量正式预测和折现——壳牌收购贝尔里奇石油时，工程师们做了精细的数字，问题是你会开始相信这些数字；更多虚假精确的高等数学似乎应该有帮助，但平均效果是负的；商学院这么做是因为他们总得做点什么。巴菲特：站在课堂上说“一鸟在手胜过二鸟在林”，你拿不到终身教职。说某事是“两个或三个标准差事件，所以我们能承受这么多风险”，这种虚假精确完全是疯狂的——LTCM、2008 年 9 月大机构担心下周如何融资，都无法用标准差计算；由会害怕、会贪婪的人构成的市场，不遵循抛硬币的分布规律；而这只发生在高智商的人身上——“智商 120 的人都很安全”。
+q: You mentioned that I don’t use a computer or a calculator. ||| It should scream at you.
+q: Well, I’d go further. I’d say some of the worst business decisions I’ve ever seen are those that are done with a lot of formal projections and discounts back. ||| And it seems that the higher mathematics, with more false precision, should help you. But it doesn’t.
+q: So, the false precision that goes into saying that this is a two standard deviation event ||| it’s totally crazy.
+q: It’s going to arise much more often than people think, in markets that are made by people that get scared and get greedy. ||| And higher mathematics may actually be dangerous and it will lead you down pathways that are better left untrod.
+zh: 你提到我不用电脑或计算器。如果你需要用电脑或计算器来做这个计算，你就不应该买它。它应该显而易见到你不必把它算到十分之一个百分点或百分之一个百分点。它应该冲你尖叫。（芒格：）我会更进一步。我会说，我见过的一些最糟糕的商业决策，正是那些用大量正式预测并折现回来的方法做出的。壳牌石油收购贝尔里奇石油公司时就是这样做的……问题在于你会开始相信那些数字。看起来高等数学、更多的虚假精确，似乎应该对你有帮助，但它没有。（巴菲特：）……所以，说这是一个两个标准差的事件或三个标准差的事件、因此我们能承受这么多风险之类的虚假精确，完全是疯狂的。……在由会恐惧、会贪婪的人所构成的市场中，它（极端事件）出现的频率比人们想象的高得多。他们在结果的分布上并不遵守抛硬币的规律。认为数学能在投资中带你走很远，是一个可怕的错误。你需要理解数学的某些方面，但你不需要理解高等数学。而高等数学实际上可能是危险的，它会把你引上那些最好不要踏足的道路。
+l: 让好机会“尖叫”而不是靠精细模型证明；对模型输出的精确数字保持警惕，尤其是风险概率。
+r: 5/5/5
+rel: 2007-M20, 2007-M19, 2008-A03
+
+@ 2009-M10
+t: 评级机构的错误：全国都相信房价不会下跌——“别人都在做”不是理由
+s: BM
+th: 风险管理; 宏观与社会
+k: psychology
+c: 利益冲突远不是评级机构失误的主因。五年前几乎全国上下都有一个模型——房价不可能大幅下跌：国会、银行、买家、贷款人、借款人都错了；人们想着明年买房会更贵，贷款人觉得借款人撒谎、没收入也无所谓，因为房价会涨。在美国家庭 50 万亿总资产中，20 万亿的房产被高度杠杆化，一旦开始融化，就会在下行中自我强化。评级机构若四五年前持不同看法，反而会被国会质问“怎么能如此不美国，剥夺这么多人买房的权利”。他们持股时不会去改变公司——改变的成功率很低。他们从不理会评级，不外包投资决策；评级偏低反而可能帮他们以好价格买债。芒格：评级机构擅长数学计算，于是热切地寻找能让他们做聪明数学的愚蠢假设——“对拿锤子的人来说，每个问题都像钉子”。巴菲特：制造 AAA 的人最终自己持有了大量 AAA——自己调的“酷爱”自己喝了。他每隔几年给经理们写信：在伯克希尔，任何行动都不能以“别人都在做”为理由。
+q: Basically, five years ago, virtually everybody in the country had this model in their mind ||| Lenders — the borrowers were wrong.
+q: And so you had a $20 trillion asset class in a $50 trillion of total assets of American families that got leveraged up very high. ||| it had self-reinforcing aspects on the downside.
+q: Yeah, I think the rating agencies, being good at doing mathematical calculations, eagerly sought stupid assumptions ||| “To a man with hammer, every problem looks pretty much like a nail.”
+q: I send out a letter to our managers, only every couple of years. ||| is that everybody else is doing it.
+zh: 基本上，五年前，这个国家几乎每个人脑子里都有这样一个模型——无论是正式的还是非正式的——房价不可能大幅下跌。他们错了。国会错了。银行家错了。买这些金融工具的人错了。放贷者——借款人也错了。……所以你在美国家庭 50 万亿美元的总资产中，有一个 20 万亿美元的资产类别被高度杠杆化了。一旦它开始崩溃，它在下行中就有自我强化的特点。（芒格：）是的，我认为评级机构由于擅长数学计算，热切地寻找愚蠢的假设，好让他们能做聪明的数学。这是一个聪明反被聪明误的例子。有句老话说：“对一个拿着锤子的人来说，每个问题看起来都很像钉子。”（巴菲特：）我每隔几年才给我们的经理们发一封信。但在伯克希尔，就我而言，你不能为任何行动给出的一个理由，就是“其他所有人都在这么做”。
+l: 当全社会共享同一个“不可能”的假设时，风险最大；不要外包判断给评级或共识，也不要用“别人都在做”替自己开脱。
+r: 5/4/5
+rel: 2005-M21, 2007-M19, 2008-A02
+
+@ 2009-M15
+t: 巴菲特的商学院：只开两门课——如何给企业估值，如何看待市场
+s: BM
+th: 投资理念; 投资心理
+k: efficient_market
+c: 若办商学院教投资，只开两门课：一是如何给企业估值，二是如何思考市场——现代投资组合理论、贝塔、有效市场在头十分钟就扔掉。你不必能给所有企业估值——纽交所四五千家，不必对 4000、400、40 家都判断对，只需待在能力圈里，在能估值的企业中找价格低于价值的；能力圈可以从小开始，随时间扩展；很多企业根本无法估值，就忘掉它们。要懂会计——它是商业语言——但也要知道其巨大局限，何时有意义、何时要忽略；要懂得竞争优势何时持久、何时短暂，区分呼啦圈公司与可口可乐；要懂得市场是为你服务而不是指导你。智商 150 的话卖掉 30 分，你不需要；但需要情绪稳定、对自己决策的内心平静，以及独立思考——“简单，但不容易”。芒格：世界上未来的投资者恰好有一半会在后 50%；现代投资实践、投行、商学院乃至经济系有那么多虚假荒诞的东西，减少一些胡说就已足够。若你以为自己智商 160 而实际 150，那是灾难——远不如一个智商 130、在自身能力范围内运作的人。巴菲特：有效市场理论 25 年前是圣典——头五分钟说“一切定价都正确”，剩下的时间怎么打发？普朗克说：“科学的进步，是一次葬礼接着一次葬礼。”
+q: And I’d tell them I’d only have two courses. ||| We’d get rid of that in the first 10 minutes.
+q: You don’t have to be right on 4,000 or 5,000. ||| And look for things that are selling for less than they’re worth, of the ones you can value.
+q: But you do have to have an emotional stability. You have to have sort of an inner peace about your decisions. ||| You have to be able to think for yourself.
+q: Absolutely. And if you think your talent — if you think your IQ is 160 and it’s 150, you’re a disaster. ||| much better a guy with a 130 that’s operating well within himself.
+q: And he said, “Science advances one funeral at a time.” ||| Certainly been true in the world of finance.
+zh: 我告诉他们我只会开两门课。一门是如何给企业估值，第二门是如何思考市场。不会有任何关于现代投资组合理论、贝塔或有效市场之类的东西。我们会在头十分钟内把那些扔掉。……你不必在 4000 或 5000 家上都判断正确。你不必在 400 家上判断正确。你不必在 40 家上判断正确。你只需要待在能力圈之内，在那些你能理解的东西里，寻找那些售价低于其价值的。……但你确实必须有情绪上的稳定性。你必须对你的决策有某种内心的平静。因为这是一个你每分每秒都受到刺激、人们一直在发表意见的游戏。你必须能够独立思考。（芒格：）当然。如果你认为你的智商是 160 而实际上是 150，你就是一场灾难。一个智商 130、在自己能力范围内很好地运作的人要好得多。（巴菲特：）……他说：“科学的进步，是一次葬礼接着一次葬礼。”我认为这话有很多道理。在金融界当然也是如此。
+l: 投资教育的核心只有两件事；能力的关键不是智商高低，而是准确认识自己的边界、保持情绪稳定。
+r: 5/5/5
+rel: 2008-M07, 2001-A08, 2002-M26
+
+@ 2009-M17
+t: 每只股票都受其他所有股票价格的影响：比较林中之鸟，要和所有其他树丛比
+s: BM
+th: 企业估值; 市场周期
+k: iv
+c: 2008 年伯克希尔投资组合跌约 13%、经营盈利跌约 4%，股价却跌约 31%。把伯克希尔看作两部分——价格公允甚至被低估的有价证券，以及将努力提升的经营盈利能力（不计承保盈亏）——是完全合理的；按这种看法，2008 年底伯克希尔相对内在价值比 2007 年底便宜。但几乎所有证券都是如此：每只股票都受其他所有股票价格的影响——如果能以 8、9 倍市盈率买到好公司，伯克希尔的价值相对于股票卖 18–20 倍时就降低了；“一鸟在手胜过二鸟在林”时，你必须和所有其他可得的树丛比较。芒格：去年对浮存金业务是坏年份，但长期以负成本拥有大量浮存金是大优势；有人在伯克希尔最高点笨拙地买了一万股，这在长期大局中有什么意义？重要的是：我们的财产意外险业务大概是世界上最好的大型财险业务，公用事业子公司若有更好的我不知道，若只押一家硬质合金刀具企业我押伊斯卡——如果你以为达到伯克希尔这样的位置很容易，那你和我活在不同的世界。
+q: And if you look at it that way, you would come to the conclusion that Berkshire was cheaper in relation to its intrinsic value at the end of 2008 than it was at the end of 2007. ||| In other words, the whole level of securities.
+q: And every stock is affected by what every other stock sells for. ||| you’ve got to compare that to every other bush that’s available.
+q: What matters are things like this: our casualty insurance business is probably the best big casualty business in the world ||| you are living in a different world from the one I inhabit.
+zh: 如果你那样看，你会得出结论：2008 年底伯克希尔相对于其内在价值，比 2007 年底更便宜。但你也会得出结论，大多数证券都是如此。换句话说，整个证券的水平都是如此。每只股票都受到其他每只股票售价的影响。……如果你能以 8 倍或 9 倍市盈率买到好公司的股票，相对于股票卖 18 或 20 倍市盈率时，这就降低了伯克希尔的价值。……当你说一鸟在手胜过二鸟在林时，你必须把它与所有其他可得的树丛相比较。（芒格：）重要的是这样一些东西：我们的意外险业务大概是世界上最好的大型意外险业务——我们的公用事业子公司，如果有更好的我也不知道——如果我必须押注全世界一家硬质合金切削工具企业，我会押伊斯卡对抗任何其他对手。……如果你以为进入伯克希尔所处的那种位置很容易，那你生活在一个与我所居住的不同的世界里。
+l: 内在价值是相对的：利率与其他资产的价格都会改变任何一项资产的“合理价格”；危机中关注企业竞争地位，而非报价的下跌。
+r: 4/4/4
+rel: 2007-M20, 2003-M15
+
+@ 2009-M20
+t: 富国银行跌破 9 美元：不要让别人、也不要让自己的情绪把你踢出局
+s: BM
+th: 投资心理; 风险管理
+k: leverage
+c: 芒格：富国银行会更强大地走出这场混乱，底部吓坏很多人只是暂时现象。巴菲特：它跌破 9 美元时，业务利差从未更好、存款流入从未更好、资金成本优势从未更大；那天一个学生班级硬逼他点名一只股票，他说若必须把全部净资产放在一只股票上，就是它——能并入拥有全美第四大存款基础的美联银行，是绝佳的商业机会；只要不大量增发，几年后它会比没发生这一切时好得多。你必须做好准备：杠杆是这个世界上让人陷入麻烦的原因——永远不要处在别人能抽走你脚下地毯的位置，也永远不要在情绪上处于自己抽走自己地毯的位置；既不要让别人强迫你卖，也不要让自己的恐惧或情绪使你在错误时间卖。25 美元买入、企业更好了却在 9 美元卖出，这是市场行为的怪事——人们太受价格影响。买奥马哈附近的农场时，你看玉米大豆产量、价格和化肥成本，而不是每天的报价；股票投资者却让每天可得的报价从资产变成负债——回去读《聪明的投资者》第 8 章，比学现代投资组合理论有用得多。
+q: Leverage is what causes people trouble in this world. ||| And you also never want to be emotionally in a position where you pull the rug out from under yourself.
+q: I mean, why anybody sells Wells Fargo at $9 a share when they owned it at $25 and the business is better off ||| And they get very affected by looking at prices.
+q: But people in stocks tend to look at the price. ||| They let the fact that a quote is available every day turn into a liability rather than an asset.
+zh: 杠杆是在这个世界上让人们陷入麻烦的东西。所以你永远不想处于一个别人能从你脚下抽走地毯的位置。你也永远不想在情绪上处于一个你自己从脚下抽走地毯的位置。我是说，你不希望别人强迫你卖出，你也不希望让自己的恐惧或情绪使你在错误的时间卖出。我是说，为什么有人在 25 美元持有富国银行，而在企业变得更好时以 9 美元卖出，这是市场行为中奇怪的事情之一。但人们确实这么做。他们看价格时会受到很大影响。……但股票投资者往往看价格。所以他们让价格告诉他们应该有什么感受……在我们看来这有点疯狂。……他们让每天都能获得报价这一事实，变成了一种负债，而不是一种资产。
+l: 两种出局方式都要避免：被杠杆强制出局，被情绪自我出局。危机中检查企业的经营数据是否真的变坏了，而不是只看价格。
+r: 5/5/5
+rel: 2004-M32, 2003-M32, 2002-M19
+
+@ 2009-M25
+t: 卖不卖与成本价无关：只看价格与价值
+s: BM
+th: 投资方法; 投资心理
+k: holding
+c: 若用 2600 万美元的小基金，持有的 10 只股票中有 5 只很快翻倍，是否应止盈再分配？他会持有最喜欢的五六只股票，这与成本毫无关系，只与对价格与价值的评估有关——即使跌了 50%，也是同样的说法。他和芒格管理基金时不关心某样东西是涨是跌，只关心它值多少、卖多少；把大部分钱放在很少几个非常了解的仓位上——现在如此，一百年后也会如此。芒格：他在委婉地建议你换一种思考方式。
+q: We would own the half of dozen or so stocks we like best. ||| It doesn’t make any difference what the cost is.
+q: When Charlie and I ran funds, we didn’t worry about whether something was up or down. ||| We’d do the same thing a hundred years from now.
+zh: 我们会持有大约半打我们最喜欢的股票。这与我们在它们身上的成本毫无关系。它只与我们对其价格与价值的评估有关。成本是多少没有任何区别。……当查理和我管理基金时，我们并不担心某样东西是涨了还是跌了。我们担心的是它值多少与它卖多少相比如何。我们努力把大部分钱放在相对少数——非常少数——我们认为自己非常了解的仓位上。我们现在也这样做。一百年后我们还会这样做。
+l: 摆脱“成本锚定”：卖出或加仓只基于当前价格与内在价值的关系。
+r: 4/5/4
+rel: 2004-M20, 2007-A14
+
+@ 2009-M26
+t: 伯克希尔的竞争优势不再依赖我们：文化、股东结构与“首选买家”地位
+s: BM
+th: 管理与治理; 护城河
+k: culture
+c: 有人说伯克希尔的持久竞争优势是巴菲特和芒格本人，不可持续。巴菲特：“我拒绝这种失败主义”——我们的持久竞争优势是一种别人很难复制、甚至半复制的文化和商业模式：股东结构不同（年换手率约 20%，标普 500 几乎都是 100%），股东以不同方式理解这门生意；能让私人企业的所有者继续像过去那样经营，摆脱律师和银行家的麻烦——他看不到美国还有哪家公司能做到。这不是他和芒格的个人特质，也许最初是，但已不再是：经理们加入这种文化，股东加入这种文化，它不断被强化，大家看到它有效。芒格：美国很多公司被总部愚蠢地经营——逼迫各部门每个季度的利润都高于去年同期，于是各种糟糕的决策与做法悄然渗入；伯克希尔模式中不会发生这种事。沃伦和查理很快会离开，但其他企业界管理实践中的愚蠢，很可能会足够丰富，让伯克希尔在很远的未来仍拥有比较优势。
+q: No, our sustainable competitive advantage is we have a culture and a business model ||| which people are going to find very, very difficult to copy, even semi-copy.
+q: So I think anybody wanting to copy Berkshire is going to have a very hard time. ||| But no longer.
+q: Yes. I might state that a little differently. ||| to give this company some comparative advantage way into the future.
+zh: 不，我们的持久竞争优势在于我们拥有一种文化和一种商业模式，人们会发现非常非常难以复制，甚至半复制都很难。……所以我认为任何想复制伯克希尔的人都会非常困难。我认为我们拥有的优势会非常非常持久。它们已不再取决于查理和我坐在这上面这一事实。它们可能最初是，但不再是了。（芒格：）是的。我也许会换个说法。美国很多公司被总部愚蠢地经营，它们试图强迫各部门每个季度都拿出比上年同季度更好的利润。很多可怕的决策和可怕的做法悄悄渗入这些企业。在伯克希尔模式中，这不会发生。所以，虽然沃伦和查理很快就会离开——我的情况不会太快，但我有点担心沃伦——企业界其他地方管理实践的愚蠢，很可能会足够丰富，让这家公司在很远的未来仍拥有某种比较优势。
+l: 组织层面的护城河（文化、股东结构、声誉）可以比个人更持久；竞争对手的系统性愚蠢本身就是你的优势来源。
+r: 4/3/4
+rel: 2005-A06, 2006-M09, 2005-M23
+
+@ 2009-M35
+t: 危机中的机会成本：我们对“宽裕”的定义是真正的宽裕
+s: B
+th: 资本配置; 风险管理
+k: crisis
+c: 过去 18 个月，机会成本前所未有地占据心头：价格和（某些情况下）企业内在价值都在以多年未见的速度变化，比较 A、B、C 更难、更有趣、更具挑战，也可能更赚钱。伯克希尔有多层额外安全措施，永远不会依赖银行或别人的钱。他们接到很多电话，大多忽略，但被忽略的电话也帮助校准了那些值得关注的电话：高盛的 50 亿美元交易，上一个周三做不成，下一个周三也可能做不成；同时还有对陶氏化学 30 亿、星座能源 50 亿、玛氏-箭牌 65 亿的承诺。所以他们卖掉了若价格高 10–15 个点平时根本不会考虑卖的强生，并设了底价，以确保最后不会比“舒适”少几十亿。混乱市场中大量卖出比大量买入更难，大资金要小心交易成本。“我们对‘宽裕’的定义是真正的宽裕：我们要有好几十亿、好几十亿放在手边，然后再考虑剩余的钱做什么。”
+q: When things are moving very fast, when both prices are moving ||| But it’s a different task then when everything was moving at a more leisurely pace.
+q: We have all kinds of levels — extra levels of safety — that we follow at Berkshire. ||| We’re just not going to run the company that way.
+q: So we were seeing things happen. I mean, we got a call — we got lots of calls. ||| But the calls that we got that we ignored helped us calibrate the calls that we paid attention to, too.
+q: Our definition of comfortable is really comfortable. ||| And then we’ll think about what we do with the surplus.
+zh: 当事情变化得非常快，当价格在变化，在某些情况下企业的内在价值也以一种我们很久未见的速度变化时，这意味着在校准 A 对 B 对 C 方面更难了。它更有趣，更具挑战性。它也可能有利可图得多。但这是一项不同于一切都以更从容的节奏变化时的任务。……我们在伯克希尔遵循各种层次——额外层次——的安全措施。我们永远不会变得依赖银行或别人的钱或其他任何东西。我们就是不会那样经营公司。……所以我们看着事情发生。我们接到电话——我们接到了很多电话。但大多数我们都忽略了。但那些被我们忽略的电话，也帮助我们校准了那些我们关注的电话。……我们对“宽裕”的定义是真正的宽裕。我们想要手边有好几十亿、好几十亿、好几十亿。然后我们才会考虑如何处理剩余的部分。
+l: 危机中的机会成本决策需要充足的流动性做底；为了把握更好的机会，可以卖出平时不会卖的好资产，但永远保持“真正宽裕”的现金。
+r: 4/4/4
+rel: 2008-M18, 2008-A07, 2007-A12
+
+@ 2009-A03
+t: “价值投资”？难道还有别的投资吗？
+s: B
+th: 投资理念
+k: iv
+c: 有人说比亚迪更像风险投资式的投机，而非价值投资。巴菲特：查理和我认为，除了价值投资没有别的投资——我们不知道怎么会有人做“非价值投资”，所以一直对“价值”这个词、以及把它与成长对立的说法感到困惑。价值关乎：相对于今天付出的，你为未来可预期的现金流得到了很多。每当有人称我们为价值投资者，我们总问：还能有什么别的投资？
+q: But Charlie and I think there is no other kind of investment than a value investment. ||| So we’ve always been puzzled by the term, “value,” and saying that contrasts with growth or anything.
+q: Value relates to getting a lot for the expectable flow of cash in the future, in terms of what you’re laying out today. ||| we always ask them, what other kind can there be?
+zh: 但查理和我认为，除了价值投资，没有其他类型的投资。换句话说，我们不知道任何人会如何进行一项非价值投资。所以我们一直对“价值”这个词，以及说它与成长或其他什么形成对比，感到困惑。价值关乎的是，相对于你今天付出的东西，你为未来可预期的现金流得到了很多。所以每当有人把我们称为价值投资者时，我们总是问他们：还能有什么其他类型的投资？
+l: 不要被“价值 vs 成长”的标签束缚：成长是价值计算的一个输入，所有投资都应是“以低于未来现金流现值的价格买入”。
+r: 5/4/5
+rel: 2007-M20, 2003-A30
+
+@ 2009-A04
+t: 芒格谈比亚迪：“该死的奇迹”——一万七千名工程师与一位创始人
+s: M
+th: 投资方法; 管理与治理
+k: management
+c: 比亚迪并不是早期风投公司：创始人王传福只有 43 岁，却从零做到全球主要的可充电锂电池制造商之一，又进入手机部件并占据巨大份额；然后在几乎零汽车经验、很少资本的情况下进入汽车业，迅速造出中国最畅销的单一车型，对手是全球各大车企的合资企业。“这不是未经验证的高度投机，而是一个该死的奇迹。”王传福雇了 1.7 万名工程专业毕业生，从 13 亿人中挑选名列前茅者；中国人在摆脱错误的统治时会非常成功。锂电池是世界未来必需的——每家公用事业公司都需要，利用太阳能离不开出色的电池，比亚迪正处于甜蜜点；它的车除了玻璃和橡胶几乎所有零件都自己造。芒格：对伯克希尔财务上不会那么重要，但他一生从未像对比亚迪那样感到能与之关联是一种荣幸。巴菲特：比亚迪去年是查理的，爱尔兰银行是我的——他赢了；比亚迪年营收 40 亿美元，并不小。（注：伯克希尔 2008 年入股比亚迪，并于 2022 年起逐步减持。）
+q: This is not some unproven, highly speculative activity. What it is, is a damn miracle. ||| This is not some unproven, highly speculative activity. What it is, is a damn miracle.
+q: And of course, Wang Chuanfu has hired 17,000 engineering graduates. ||| And — so you get a remarkable aggregation of human talent.
+q: And I don’t want to bet against 17,000 Chinese engineers led by Wang Chuanfu ||| I will be amazed, if great things don’t happen here.
+zh: （芒格：）这不是某种未经验证的、高度投机的活动。它是一个该死的奇迹。……当然，王传福雇用了 1.7 万名工程专业毕业生。这些工程专业毕业生是从中国 13 亿人中挑选出来的。他在招聘名列前茅的人。所以你得到了一个非凡的人才聚合。……我不想押注反对由王传福领导的 1.7 万名中国工程师，加上另外 10 万名在一个全新领域里、按他们想要的方式构建起来的有才华的中国人。如果这里不发生伟大的事情，我会感到惊讶。
+l: 对非凡的创业者-经营者，记录（从零到全球领先的次数）与组织人才密度是评估核心；但这类投资的规模应与确定性相匹配。
+r: 3/3/4
+rel: 2005-M08, 2003-M39
+
+@ 2009-A05
+t: 美元未来一定会买得更少：可以押注通胀
+s: BM
+th: 宏观与社会
+k: inflation
+c: 汇率很难预测，但他敢保证 5、10、20 年后美元能买的东西会更少，可能少很多——我们正在做损害美元购买力的事。其他国家也一样：英国今年赤字占 GDP 的 12% 以上，向来害怕通胀的德国也有 6% 以上；各国政府选择（他认为是正确地）大规模赤字以抵消民众需求收缩，除战时外几乎前所未有。相对汇率如何难说，但货币单位的购买力会大幅下降——不是一两年内，但市场某个时点会开始预期；决策者不知道结果，他也不知道，但一定会有后果，“你可以押注通胀”。芒格：我记得两美分的邮票和五美分的汉堡，一生经历了大量通胀，却生活在历史上最优越的时代——一点通胀不会毁掉任何人的生活，诀窍是避免失控的通胀。巴菲特：100 年前 6.5 盎司可乐五美分，几乎没涨；一分钱的报纸现在一美元，还亏钱——通胀的影响非常不均匀。
+q: Yeah. It’s pretty unpredictable. But the — I will guarantee you that the dollar will buy less ||| And it may be — it may buy very, very substantially less.
+q: And how that plays out in relative exchange rates, I can’t tell you. ||| it’s going to cause units of currency to buy a lot less over time.
+q: And in my life, I think I’ve had the most privileged era of all history in which to live. ||| The trick is to avoid the runaway inflation.
+zh: 是的，这很难预测。但我向你保证，五年、十年、二十年后美元能买的东西会更少。它可能会少得非常非常多。……这在相对汇率上会如何表现，我无法告诉你。它在这些货币未来相对于现在的购买力方面会如何表现，我认为是相当容易说的，那就是它会导致货币单位随时间推移能买的东西少得多。……我们正在做我们过去从未见过的事情。决策者不知道其结果。我也不知道其结果。你确实知道它会有后果。而且——你可以押注通胀。（芒格：）……在我的一生中，我认为我拥有了全部历史上最优越的时代。所以一点通胀不会毁掉我们任何人的生活。诀窍在于避免失控的通胀。
+l: 长期资产配置应以货币购买力下降为基准情景，偏好有定价权的实物与生产性资产；同时注意通胀对不同商品和行业的影响极不均匀。
+r: 4/4/4
+rel: 2004-M09, 2003-M19, 2005-A12
+
+@ 2009-A14
+t: 收购通用再保险时我“错得离谱”；化柠檬为柠檬水，复盘要看自己的决定
+s: BM
+th: 资本配置; 保险与浮存金
+k: mistakes
+c: 1998 年收购通用再保险时，他以为它还是 15 年前那个在保险界声誉首屈一指的公司——“我错得离谱”：准备金和承保做法已经变了。2001 年 9 月起，蒙特罗斯和布兰登接手，正面处理准备金、承保等所有问题，如今通用再保险成了他当初以为买到的那家公司；收紧一个已陷入松懈的组织非常不容易，他们本可以去别处赚同样多的钱。芒格：能够把柠檬变成柠檬水非常重要；修复通用再保险需要非常强硬的头脑，这不是普通经理会做的。巴菲特：复盘时，他们审视的是自己的手笔——不是某个战略部门、负责收购的副总裁或管理顾问让他们买的，而是自己的决定；伯克希尔做过一些蠢决定，多数是他的——但公开讨论具体的蠢决定可能影响相关经理，所以不会披露。
+q: Gen Re has worked out well after a terrible, terrible start. ||| which had absolutely the premier reputation in the insurance world.
+q: Well, I think that’s right. And — but it’s very important that you have an ability to turn your lemons into lemonade. ||| You had to be very tough minded to fix General Re. And they really did fix it.
+q: When we do the post-mortems, we, in a sense, are looking at our own handiwork. ||| We’re looking at our decisions.
+zh: 通用再保险在一个糟糕透顶的开局之后，结果很好。我在 1998 年买它时错得离谱，以为它还是 15 年前的那个通用再保险——那时它在保险界拥有绝对首屈一指的声誉。（芒格：）我认为那是对的。但非常重要的是，你要有把柠檬变成柠檬水的能力。……这不是普通经理很可能会做的事。你必须有非常强硬的头脑才能修复通用再保险。而他们真的修复了它。（巴菲特：）当我们做事后复盘时，在某种意义上，我们是在审视自己的作品。我是说，决定是我们做的。不是某个地方的战略部门，或者负责收购的副总裁，或者某个进来告诉我们应该买这个或那个的管理顾问。我们审视的是我们自己的决定。
+l: 收购时不要依赖目标公司“过去的声誉”，要核实当前的准备金与承保实践；复盘时直面自己的决定，不把责任推给流程或顾问。
+r: 4/3/4
+rel: 2002-A28, 2001-A14, 2002-M30
+
+@ 2009-A16
+t: 为了更高估值而分拆？想让巴菲特把你赶出办公室就这么说
+s: BM
+th: 资本配置; 管理与治理
+k: culture
+c: 若有人说“你的估值是 X，把某子公司分拆出去能卖到 1.5 倍 X”，他们迫不及待要把他赶出办公室——他们不追求一个月的市值跳升。伯克希尔内部能在合并纳税下把资金无税成本地挪到各种机会中：喜诗是很好的企业，但产生的资本无法在本业有效使用，就挪到别处或买其他企业——这是股东自己无法同样节税完成的资本配置优势。何况买企业时他们作出承诺：这是一场会持续的婚姻，不会因为一时能拿到更高倍数就分拆；人们可以信任他们守诺。芒格：很多分拆是因为华尔街能收费才被推销，对大多数人没什么好处。巴菲特：他们听过一次又一次投行演示“只要做这件美妙的事，市场就会爱你”——有多少是有意识的、多少是潜意识的我们永远不知道，但我们确实知道，总有一笔费用相随。
+q: But, we — if somebody comes around us and says ||| we can’t wait to throw them out of the office.
+q: So if a See’s Candy is a wonderful business, which it is ||| that a shareholder, basically, can’t do as tax efficiently as we can do it within the company.
+q: But, as Charlie said, we have listened to presentation after presentation ||| But the one thing we do know is there’s always a fee that accompanies it.
+zh: 但如果有人来找我们说：“哎呀，你们的市盈率是 X，如果你们把这家子公司分拆出去，它能有 1.5 倍 X 的市盈率”，我们会迫不及待地把他们赶出办公室。……所以如果喜诗糖果是一家出色的企业——它确实是——但它产生了大量无法在该业务中有效使用的资本，我们可以把它挪到其他企业或用它买其他企业。我们在资本配置上拥有一个真正的优势，这是一个股东基本上无法像我们在公司内部那样节税地完成的。……正如查理所说，多年来我们听了一场又一场投资银行家的演示……有多少是有意识的，有多少是潜意识的，我们永远不会知道。但我们确实知道的一件事是，总有一笔费用伴随着它。
+l: 对“分拆创造价值”的提议，先问内部资本再配置和对合作方的承诺是否会受损，再问是谁在收费。
+r: 3/3/4
+rel: 2003-A23, 2006-A21
+
+@ 2009-A23
+t: 薪酬委员会找的是摇尾巴的可卡犬；拿高薪的董事并不独立
+s: BM
+th: 管理与治理
+k: incentives
+c: 资本密集型企业的薪酬必须包含资本成本因素；喜诗、Business Wire 这种几乎不需要资本的企业则大不相同。40 年、19 个董事会的经验：董事会对薪酬影响很小，CEO 在很大程度上决定了自己的薪酬——他们挑选薪酬委员会成员，找的不是杜宾犬，而是摇着尾巴、非常友好的可卡犬；人力副总裁直接向 CEO 汇报，推荐的顾问不会去打翻苹果车。彼得·基威特 50 多年前就想出了非常合理的薪酬办法，没请任何顾问——但不是每个 CEO 都想要理性的薪酬体系：“当不理性的回报更高时，谁要理性？”他认为不该有薪酬委员会，应由整个董事会讨论；选对 CEO、防止其过度攫取、对重大收购剥离独立判断——这三件做对了，其他清单式的东西可以忘掉。芒格：给大公司董事高薪是适得其反的——“你给我加薪，我给你加薪”，像俱乐部；如果董事不拿报酬，美国企业会管理得更好。巴菲特：一个年薪 20–25 万、外部收入不多、渴望再拿一个董事席位的人，不会坐在那里和 CEO 争论；当报酬是董事福祉的重要部分时，他就不独立——讽刺的是，这些人往往正被视为独立董事。100 页的委托书解释怎么给人发钱，一定有问题。
+q: But you have to understand that not every CEO wants a rational compensation system, you know? ||| Who wants rationality, when irrationality pays off more?
+q: I would argue that a liberally paid board of directors in a big American public corporation ||| I think, by and large, the corporations of America would be managed better if the directors weren’t paid at all.
+q: And the truth is, if you get somebody that’s getting $200,000 a year, $250,000 a year, for being director of a company ||| they are very unlikely to sit there and argue with the CEO
+q: And I would say that, as Charlie — that when compensation is a very important part of a director’s wellbeing, you do not have an independent director. ||| those are the very people that tend to be regarded as the independent directors, in most cases.
+zh: 但你必须明白，并不是每个 CEO 都想要一个理性的薪酬体系，你知道吗？当不理性带来的回报更多时，谁想要理性？……（芒格：）我会说，一个大型美国上市公司中报酬优厚的董事会，其优厚的报酬对公司的良好管理是适得其反的。存在一种互惠：“你不断给我加薪，我不断给你加薪。”它变得非常像俱乐部。我认为，总的来说，如果董事们根本不拿报酬，美国的公司会被管理得更好。（巴菲特：）事实是，如果你找一个担任公司董事每年拿 20 万、25 万美元的人，而他在外面没有那么多收入或净资产，他非常想再得到一个董事职位、再拿 20 万美元，那他就非常不可能坐在那里和 CEO 争论……我会说，正如查理所说，当报酬是一位董事福祉的非常重要的部分时，你就没有一个独立董事。有趣的是，按照这个体系的安排方式，在大多数情况下，恰恰是这些人往往被视为独立董事。
+l: 评估董事会独立性：看董事薪酬占其收入的比重、其个人持股，而不是形式上的“独立”标签；冗长的薪酬披露本身是警示信号。
+r: 4/4/4
+rel: 2006-M11, 2007-M07, 2004-M11
+
+@ 2009-A27
+t: 用难堪而不是立法来对付离谱的 CEO 薪酬：“股东拥有荣誉，高管拥有制度”
+s: BM
+th: 管理与治理
+k: incentives
+c: 一位参议员打电话问他，有什么法律能让选民对高管薪酬满意？他的回答是：大概没有——上一次国会介入，是克林顿政府初期规定前五名高管超过 100 万美元的薪酬若与业绩无关则不能抵税，这可能是国会最适得其反的立法：税由股东付，高管不付；它引发大量规避安排、律师、顾问和委托书页数，最终让薪酬大幅上涨。他一直的建议是：只需要美国最大的五六家投资管理机构，在最离谱的个案上公开发声——让大人物改变行为的方法就是让他们难堪，董事们不喜欢自己的名字以愚蠢的形象见报。现在每个顾问都带来同行数据，没人愿意说自家 CEO 在后 25%，于是不断向更高的四分位数看齐——“我称之为荣誉制度：股东拥有荣誉，高管拥有制度”。芒格：我不太乐观——大投资机构里有很多人拿 2000 万美元年薪而贡献微小，就像住玻璃房的人扔石头；公共养老基金常被有自己议程的政客和工会主导，有时药方比病还糟。
+q: That was probably the most counterproductive piece of legislation that Congress has ever come up with ||| Compensation increased far more, in my view, because that was put on the books than otherwise.
+q: The way they get big shots to change their behavior is to embarrass them, you know, basically. ||| The directors don’t like to look foolish.
+q: Nobody wants to say their CEO is in the bottom quartile or something. ||| You know, the shareholders have the honor and the executives have the system.
+q: The big investor groups contain many an investment manager making $20 million a year for insignificant contributions. ||| So, sometimes, the cure is worse than the disease.
+zh: 那大概是国会想出的最适得其反的立法——这本身就是一个相当了不得的说法。……它导致了各种旨在绕开它的安排，涉及大量的律师工作、大量的顾问、大量的委托书页数，其净效果是使薪酬大幅上涨。在我看来，由于那条规定被写进法律，薪酬上涨得比没有它时多得多。……他们让大人物改变行为的方式，基本上就是让他们难堪。……董事们不喜欢看起来愚蠢。……没有人想说他们的 CEO 处在后四分之一之类的位置。所以他们总是把自己和更高的四分位数比较，然后从那里往上棘轮式上调。这是一个效果奇佳的游戏。我称之为荣誉制度：股东拥有荣誉，高管拥有制度。（芒格：）大型投资者群体中有许多投资经理，每年拿 2000 万美元，却只做出微不足道的贡献。他就像住在玻璃房子里开始扔石头的人。……所以有时候，治疗比疾病还糟。
+l: 治理改善靠大股东的声誉压力而非法规条文；设计规则时要预想“规避行为”会把结果推向反面。
+r: 3/3/4
+rel: 2009-A23, 2006-M11
+
+@ 2009-A29
+t: 不要试图择时：挑底部几乎不可能，定价才是我们的游戏
+s: BM
+th: 市场周期; 投资心理
+k: no_forecast
+c: 最近的下跌远不如 1974 年那么戏剧性——那时能以约 4 倍市盈率买到前景好的好公司，但利率也高得多；那是他见过的买入股票的最好时期。最近他买了一些股票，公司债利差极宽，也买了一些。东西越便宜，他越喜欢买：如果麦当劳的汉堡明天降到 90%，他会高兴，不会去想昨天付了多少——他一辈子都会买汉堡，也一辈子都会买投资，宁愿付 X 的一半也不愿付 X；只要知道企业的价值，昨天付了 X 也不困扰他。在《纽约时报》发文时他并没有预测股价——“我从不知道它们会怎么走，但我知道什么时候你开始物有所值，那时我就相信买入”。芒格：1973–74 年他知道那是他唯一一次去“买入柜台”的机会，可惜几乎没钱——那正是那种时候会出现的原因；所以别等 1973–74 年。巴菲特：“挑底部不是我们的游戏，定价才是”——挑底部大概不可能，而定价没那么难；当你开始物有所值时就买。芒格：危机中有些非常安全、带优厚赎回保护的债券收益率 9% 以上，已涨了 20%–25%——“机会常常在 A 壳下面，而你却在看 B 壳”；巴菲特：我们看所有的壳。
+q: But the cheaper things get, the better I like buying them. ||| The cheaper they get, the better I like it.
+q: But I do know when you’re starting to get a lot for your money. And that’s when I believe in buying. ||| But I do know when you’re starting to get a lot for your money. And that’s when I believe in buying.
+q: It’s nothing like ’73-4. I knew when that happened that that was my time and my only time. ||| So, if I were you, I wouldn’t wait for 1973-4.
+q: So picking bottoms is basically not our game. Pricing is our game. ||| When you get — when you start getting a lot for your money, you buy it.
+q: So the opportunities are frequently under shell A, when you’re looking at shell B. ||| Yeah. We try to look at all the shells.
+zh: 但东西越便宜，我越喜欢买它们。我是说，如果我前几天在麦当劳以 X 的价格买汉堡，而明天他们把价格降到 X 的 90%——不太可能——但如果他们这么做了，我会很高兴。我不会去想昨天我为汉堡付了多少。我想我会在余生一直买汉堡。它们越便宜，我越喜欢。……但我确实知道什么时候你开始为你的钱得到很多东西。那就是我相信买入的时候。（芒格：）这和 1973–74 年完全不同。当那发生时，我知道那是我的时刻，也是我唯一的时刻。我知道我再也不会有另一次那样去买入柜台的机会了。不幸的是，我几乎没有可用的钱……所以如果我是你，我不会等待 1973–74 年。（巴菲特：）所以挑底部基本上不是我们的游戏。定价才是我们的游戏，而那并不那么难。挑底部，我认为大概是不可能的……当你开始为你的钱得到很多东西时，你就买。（芒格：）所以机会常常在 A 壳下面，而你却在看 B 壳。（巴菲特：）是的。我们努力看所有的壳。
+l: 用“定价”而不是“择时”指导买入：当价格提供足够价值时就买，并愿意越跌越买；同时广泛扫描不同资产类别，机会可能出现在你没看的地方。
+r: 5/5/5
+rel: 2005-A03, 2008-M18, 2007-M24
