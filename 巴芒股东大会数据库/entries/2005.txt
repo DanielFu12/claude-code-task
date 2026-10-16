@@ -1,0 +1,250 @@
+# 2005 年股东大会（4 月 30 日）
+
+@ 2005-M08
+t: 选人三要素：智力、精力、诚信——没有诚信，前两者会要你的命
+s: BM
+th: 管理与治理
+k: management
+c: 最重要的是对企业的热情：伯克希尔常从已经很富有、只是想把一生心血变现的人手中买企业，付给对方一亿或十亿美元后，他们没有工作的经济需要，必须是“想”工作；伯克希尔没有合同，也没法拿鞭子站在旁边，所以只能希望他们热爱自己的企业，并尽一切可能不浇灭这份热爱。招聘时，在热情之外看三点：智力、精力、诚信——如果没有最后一项，前两项会要了你的命：雇了不诚信的人，你倒希望他又笨又懒。总部只有 16 个人，没人能派去经营这些企业。芒格：有趣的是它运作得这么好这么多年，却很少有人模仿。
+q: But we really want to buy from somebody who doesn’t want to sell. ||| They don’t work, as far as I’m concerned.
+q: I tell students that what we’re looking for when we hire somebody, beyond this passion ||| I mean, the last thing in the world you want is that they are smart energetic.
+q: Yeah. The interesting thing is how well it’s worked over a great many decades and how few people copy it. ||| Yeah. The interesting thing is how well it’s worked over a great many decades and how few people copy it.
+zh: 但我们真正想买的，是来自不想卖的人的企业。……因为如果我们为某人的企业付给他一亿或十亿美元，他就没有工作的经济需要了。他们必须是想要工作。我们不能拿着鞭子站在那里。在伯克希尔我们没有任何合同，在我看来，合同不管用。……我告诉学生们，我们在雇人时，除了这种热情之外，我们寻找的是智力，是精力，是诚信。我们告诉他们，如果他们没有最后一项，前两项会要了你的命。因为如果你雇了一个没有诚信的人，你真的希望他又笨又懒，不是吗？世界上你最不希望的就是他们聪明又精力充沛。（芒格：）是的。有意思的是，它在许多个十年里运作得如此之好，而模仿它的人却如此之少。
+l: 评估管理层的顺序：先看诚信，再看能力与精力；对所有者-经营者，判断其热情是否在变现后仍会延续。
+r: 4/4/5
+rel: 2003-M39, 1994-M18
+
+@ 2005-M10
+t: 太多钱追逐交易时，伯克希尔处于不利位置——但局面会剧变
+s: BM
+th: 市场周期; 资本配置
+k: crisis
+c: 现在追逐交易的钱远多于五年前，愿意为好而平凡的企业付更高价格；私募卖给私募，许多企业被买来短期内转卖——伯克希尔在这个领域无法竞争，近期并购处境很不利。但事情变化之快令人吃惊：1969 年他因“钱从墙缝里冒出来”而解散合伙企业，四年内就看到一生中最好的机会；1998 年 LTCM 危机时，30 年期与 29.5 年期美国国债收益率竟相差 30 个基点；2002 年秋，满是高智商 MBA 和资金的世界里，垃圾债被以 25%–70% 的收益率买入，12–14 个月后以 6% 卖出——“一生不需要做很多次”。芒格：私募基金的很多买入是为了收费——投资经理会为任何价格找理由，因为喜欢管理更多资产的额外费用；霍华德·马克斯在机会消失时把钱退给客户，这才是正确做法，但不常见。巴菲特：我们几乎全部身家都在伯克希尔，承担下行也享有上行；“2% 加 20% 利润再加亏损时的吻别”是完全不同的等式——我们不是为花钱拿报酬，而是为赚钱拿报酬。
+q: There have been at least three times, maybe more, where it’s looked to me in my own career ||| Within four years, I saw the greatest opportunities that I’ve ever seen in my lifetime.
+q: Now, people were just as smart then. ||| But the world became paralyzed for a short period.
+q: And you can see that he was buying bonds at anywhere from a 25 percent to 60 or 70 percent yield basis ||| You don’t need to do that very many times in a lifetime.
+q: Yeah. A lot of the buying by private equity funds in both real estate and stocks, and for companies, is fee-motivated. ||| That’s the right way to behave, but it’s not normal.
+q: You know, if we had a 2 percent fee and 20 percent of the profits and a goodbye kiss for the losses ||| we get paid for making money.
+zh: 在我的职业生涯中，至少有三次——也许更多——在我看来，有太多的钱在晃荡，以至于不可能用钱做出明智的事。我实际上在 1969 年底解散了一个合伙企业，因为我觉得钱从墙缝里冒出来……在四年之内，我看到了一生中见过的最大机会。……当时的人们一样聪明。他们有一大群智商 150 的人到处跑，而且他们确实有钱。但世界在短时间内陷入了瘫痪。……你可以看到他以 25% 到 60% 或 70% 的收益率买入债券，而在 12 或 14 个月内以 6% 的收益率卖出同样的债券。一生中你不需要做很多次这样的事。（芒格：）私募股权基金在房地产、股票和公司收购上的很多买入是由费用驱动的。换句话说，投资经理会为任何支付的价格找理由，因为他喜欢管理额外资产带来的额外费用。……那是正确的行为方式，但并不常见。（巴菲特：）如果我们有 2% 的管理费、20% 的利润分成，外加亏损时一个告别吻，那是一个不同于伯克希尔的等式。我们把它当作 100% 是我们自己的钱来经营——它也几乎是我们 100% 的净资产。我们将承担下行。我们不是因为花钱而得到报酬，我们是因为赚钱而得到报酬。
+l: 钱多、机会少时保持耐心，不为了“把钱投出去”而降低标准；极端机会会在看似最理性的市场中突然出现。选择与你利益一致（同样承担下行）的管理者。
+r: 5/4/5
+rel: 2004-A26, 2004-M12, 2003-A04
+
+@ 2005-M11
+t: 早点开始，读一切：投资需要的是性情而非智力——智商超过 125 的部分可以送人
+s: BM
+th: 投资心理; 人生智慧
+k: learning
+c: 巴菲特七岁左右开始对投资感兴趣，读遍奥马哈公共图书馆所有关于股市的书，11 岁买了三股股票，用过图表，19 岁读到《聪明的投资者》才改变整个框架。建议：读一切，越早开始越好，在几乎任何领域早开始都是巨大优势。这一行没有只有祭司才知道的秘密。它需要的性情远多于智力——智商超过 125，其余的分数可以扔掉或送给家人；但你需要能够独立思考的性情，然后建立一个框架（他的来自格雷厄姆），再一生中寻找符合框架的机会——“你可以每天学习，但不能每天行动”。他在投资可口可乐、吉列之前很久就读它们的年报，读了 25 年百威的年报。芒格：我有凯恩斯的看法——相比外科医生等，资金管理是一种较低的职业。
+q: But the advice I would give is to read everything in sight. ||| It’s a huge advantage in almost any field to start young.
+q: It’s not — it requires qualities of temperament way more than it requires qualities of intellect. ||| because you don’t need it in investing.
+q: But you do need a certain temperament that enables you to think for yourself. ||| You know, you can learn every day, but you can’t act every day.
+zh: 但我会给的建议是，读你能看到的一切。而且要很早开始。在几乎任何领域，早开始都是一个巨大的优势。……它需要的性情素质远多于智力素质。我的意思是，如果你的智商超过 125，你可以把剩下的分数扔掉，或者送给家里其他成员，或者随便做点什么，因为在投资中你用不着它。但你确实需要某种能让你独立思考的性情。然后你必须建立一个框架——我是从读本·格雷厄姆那里得来的，不是我自己想出来的——一个非常简单的框架。然后你必须在一生中寻找符合那个框架的机会，你不能每天都做点什么。你可以每天学习，但你不能每天行动。
+l: 早开始、广泛阅读、借用经过验证的框架，并把行动留给少数符合框架的机会。
+r: 4/4/5
+rel: 2002-M26, 2004-M17
+
+@ 2005-M12
+t: CEO 不敢决定 1 万美元的投资，却在两小时演示后决定数十亿美元的收购
+s: BM
+th: 管理与治理; 资本配置
+k: capital_alloc
+c: 芒格：企业经理人应该更好地学习投资，那样他们会是更好的管理者；思考投资过程的人会更了解世界如何运作。但他不喜欢 GDP 中有这么大比例流向资金管理及其摩擦，也不喜欢国家这么大比例的脑力进入各种高薪的资金管理——对国家不是好事，他讨厌伯克希尔也助长了这一点。巴菲特：做 CEO 的朋友让别人管自己的钱，问他该不该买可口可乐会说太难了；第二天投行来演示两小时，说买一家 30 亿美元的公司——那不过是买一家公司的大量股票——交给战略规划部，他们就觉得自己有资格做数十亿美元的决定，尽管对自己 1 万美元的决定都不自信。“就像做香肠和立法，最好别看。”芒格：现在这个时代，聪明阶层把注意力集中在买卖小纸片致富、以及收取高额分成的推销活动上，前所未有——有点像所多玛和蛾摩拉，嫉妒与模仿的狂热，过去曾带来恶果。
+q: I think the corporate types — the corporate managers — ought to study investing better because they’d be better managers. ||| And I think that’s very worth having.
+q: But I do not like as big a percentage of GDP as we now have going to money management and its attendant frictions. ||| I don’t think it’s a good thing for the country, and I hate the fact that we’ve contributed to it by our own predilections.
+q: And then some investment banker walks in the next day ||| when they really don’t feel they’re qualified to make $10,000 decisions with their own money.
+zh: （芒格：）我认为企业那类人——企业经理人——应该更好地学习投资，因为那样他们会成为更好的管理者。我认为每一个把投资过程想透的人都会更多地了解世界真正如何运作，我认为那是非常值得拥有的。但我不喜欢现在有这么大比例的 GDP 流向资金管理及其附带的摩擦。我也不喜欢国家如今有这么大比例的脑力进入各种形式的高薪资金管理。我认为这对国家不是好事，我讨厌我们以自己的偏好也助长了它。（巴菲特：）……然后第二天某个投资银行家走进来，提议他们买下一家 30 亿美元的公司——那不过就是买入一家公司的大量股票——他们看一个两小时的小演示，交给战略规划小组，然后就认为应该由他们来决定是否收购数十亿美元的企业，尽管他们真心觉得自己没有资格用自己的钱做 1 万美元的决定。
+l: 收购本质上是一次股票投资，应该用投资的标准来审视；不懂投资的 CEO 做并购是价值毁灭的高发区。
+r: 4/4/4
+rel: 2001-A08, 2002-M30
+
+@ 2005-M17
+t: 住房泡沫：内布拉斯加农地的教训——人们会周期性地在经济上发疯
+s: BM
+th: 市场周期; 宏观与社会
+k: speculation
+c: 若房市大幅下跌，伯克希尔的经营业务会受影响，但资本运用上的净效果可能相当正面。他们不擅长宏观预测，靠的是找到便宜的好企业。25 年前内布拉斯加和爱荷华的农地也疯狂过：70 年代末通胀失控、“现金是垃圾”，人们涌入农地，奥马哈以北一块约 1980 年每英亩 2000 美元成交的农场，几年后他从 FDIC 以 600 美元买下——每英亩产 45 蒲式耳大豆、120 蒲式耳玉米，没有任何理由翻三倍，但人们还是疯了，许多挺过大萧条的银行倒闭。人们周期性地以各种方式在经济上发疯。当房价上涨速度远超建筑成本和通胀，有时会有相当严重的后果。芒格：拉古纳、蒙特西托、华盛顿特区好的郊区存在真正的资产价格泡沫，“很有可能某天会朝另一个方向走”。巴菲特：他在拉古纳卖的房子，土地隐含价格约每英亩 6000 万美元。
+q: So, if there is indeed some kind of a bubble and it’s pricked at some point ||| the net effect to Berkshire might well be quite positive.
+q: There was a farm about 30 miles north of here that sold for about $2000 an acre in, roughly, 1980. ||| But the people went — they just want a little crazy.
+q: People go crazy in economics, periodically, in all different kinds of ways. ||| People go crazy in economics, periodically, in all different kinds of ways.
+q: But when you get prices increasing at far, far greater rates than construction costs or inflationary factors ||| sometimes there can be some pretty serious consequences.
+zh: 所以，如果确实存在某种泡沫并且在某个时刻被戳破，我猜我们会在经营业务上以各种方式感受到，但就我们能用资本做什么而言，对伯克希尔的净效果很可能相当正面。……这里以北约 30 英里有一个农场，大约在 1980 年以每英亩 2000 美元左右的价格出售。几年后，我从 FDIC 以每英亩 600 美元买下了它。你会说，人怎么会对农地发疯呢？它每英亩大约产 45 蒲式耳大豆、120 蒲式耳玉米。你根本无法梦想它会翻三倍……但人们为之疯狂。后果很严重，很多银行倒闭……人们只是有点发疯了。人们周期性地以各种不同方式在经济上发疯。……但当价格上涨的速度远远超过建筑成本或通胀因素时，有时会产生相当严重的后果。
+l: 用“产出 vs 价格”检验资产泡沫：当价格涨幅远超其产出或重置成本的增长时要警惕；泡沫破裂对有现金的人是机会。
+r: 4/4/4
+rel: 2002-A12, 2005-M21
+
+@ 2005-M18
+t: 出事时一切都相关：按最坏情况思考，永远不为不需要的东西冒险
+s: BM
+th: 风险管理; 保险与浮存金
+k: insurance
+c: 加州某次“错误地点”的大地震不仅会打击国民保险和通用再保险，还可能严重影响喜诗、富国银行、房地美——出事时一切都相关。巴菲特的工作是对各业务的风险有大致了解，并把它们与投资风险整合，绝对按最坏情况思考，确保无论 9.0 级地震还是 5 级飓风登陆长岛，他都不会失眠。“凡是可能发生的，终将发生”：美国历史上最强地震在密苏里州新马德里。伯克希尔愿意承接别人不写的大风险（机场 25 亿以上的 5 亿美元层、NCAA 四强赛取消险），愿意一天亏很多钱，但不愿第二天早上开支票时有任何不安；核、化学、生物风险在几乎所有保单中排除，否则公司可能面临灭绝。芒格：我们天生会想加州 60 英尺海啸这种从未发生过的事。巴菲特：拿你需要且重要的东西，去冒险换取你不需要且不重要的东西，是疯狂的——他的 98 岁姑妈把所有钱都放在伯克希尔，为了多几个百分点让她回到靠社保生活，太疯狂了。
+q: So, we find when there’s trouble, everything correlates. ||| and then integrate that into my own notion of the risk that we run, in terms of investments, in terms of all kinds of things.
+q: But that — my job is to think absolutely in terms of worst case. ||| Everything will — everything that can happen, will happen.
+q: I mean, we take on risks that very few people want to write. ||| but we’re not willing to do anything that causes us any discomfort, in terms of writing checks the following morning.
+q: We just naturally have minds that think about tidal waves in California ||| But it’s the kind of thing that we do think about.
+q: And the idea that you risk what you need and is important to you for something that you don’t need and it is unimportant, is just craziness. ||| I just think that’s kind of crazy for a manager.
+zh: 所以我们发现，出了麻烦时，一切都相关。我的部分工作是至少大致了解各个企业在经营中可能承担的风险，然后把它整合进我自己对我们所承担风险的认识中——在投资方面、在各方面。……但我的工作是绝对地按最坏情况去思考……凡是可能发生的事，终将发生。……我们承担很少有人愿意承保的风险。但归根结底，我们愿意在一天之内亏很多钱，但我们不愿做任何会让我们在第二天早上开支票时感到不安的事。（芒格：）我们天生就有会去想加州海啸的头脑，而在现代加州文明中从未发生过海啸……但这正是我们会去想的事情。（巴菲特：）拿你需要且对你重要的东西去冒险，换取你不需要且不重要的东西，这简直是疯狂。……我有一个 98 岁的姑妈凯蒂……她把所有的钱都放在伯克希尔。而我为了给自己的净资产多加几美元、或者给业绩记录多加几个百分点，冒让她回去靠社会保障生活的风险——我认为对一个经理人来说这有点疯狂。
+l: 压力测试要考虑跨业务、跨资产的相关性；可以接受单日大额亏损，但绝不接受威胁生存的风险。不要用必需的东西去换取多余的东西。
+r: 5/4/5
+rel: 1994-M36, 2004-M32, 2003-A06
+
+@ 2005-M21
+t: 零首付与“更大的傻瓜”游戏：价格越高、贷款条件越宽松，违背审慎放贷常识
+s: BM
+th: 市场周期; 宏观与社会
+k: speculation
+c: 房价越涨，贷款条件越宽松——这与放贷常识完全相反：资产越膨胀，审慎的银行家越应少贷。房贷经过房地美、房利美等中介后，买抵押贷款的人只看担保，不在乎借款人有没有首付。1980 年前后小镇银行也疯狂了，把农地当作“资产增值投资”而非收入投资，借出农地本身永远还不上的钱——一旦忽略所贷资产的基本经济性，谈的就是“更大的傻瓜”游戏，银行家不应参与。思想实验：奥马哈人口不变、禁止新建房，每户每年按更高价格把房子卖给邻居，并通过两房担保从纽约或东京借到更多钱——房子数量不变，大家却多了 5 万美元“收入”；现实中虽没那么明显，但行为的偶然聚合可以产生类似效果。芒格：任何现代经济中都有各种庞氏效应，它们非常重要，却很少在经济学中被研究。
+q: Now there’s no question that terms have become easier and easier ||| the less a prudent banker will lend.
+q: And once you talk about something that’s an asset appreciation investment ||| But it’s nothing that bankers should engage in.
+q: I mean, if you keep marking up something ||| the money can just flood in and everybody feels very happy for a long time.
+q: You have varied Ponzi effects in various parts of any modern economy. ||| And they’re very important and they’re very little studied in economics.
+zh: 毫无疑问，随着价格上涨，条件变得越来越宽松……这与人们一般对放贷的看法完全相反。一般来说，资产类别膨胀得越厉害，审慎的银行家就借得越少。……一旦你谈论的是一种资产增值型投资，而忽视你所放贷对象的基本经济性，你实际上就是在谈论“更大的傻瓜”游戏。你是在说：这是个愚蠢的价格，但会有一个更大的傻瓜出现。这实际上可能在一段时间内是个有利可图的游戏，但这不是银行家应该参与的事。……如果你不断地给某样东西加价，而在此过程中，为加价付款的钱来自另一个人，他因为中间有政府担保而觉得自己不承担任何风险，那么钱就会源源不断地涌入，每个人都会在很长一段时间里感到非常开心。（芒格：）在任何现代经济的各个部分，都存在各种各样的庞氏效应。它们非常重要，而经济学对它们的研究却非常少。
+l: 当放贷标准随资产价格上涨而放松、且风险被担保链条转移时，泡沫最危险；把“基于增值而非收入”的定价视为投机信号。（这一警告比 2007–2008 年次贷危机早约三年。）
+r: 5/4/5
+rel: 2005-M17, 2003-A06
+
+@ 2005-M23
+t: 总部对“平滑增长盈利”的期待，是邪恶的亲兄弟
+s: BM
+th: 管理与治理; 会计与财务
+k: incentives
+c: 不担心企业的经济性，担心的是出事——18 万员工里，此刻肯定某处正有事出错，只希望事不大或被及时发现。激励要对：在 NetJets 上，最不该对飞行员说“我赶时间”。子公司不向奥马哈提交预算，他不知道下季度赚多少，也没有任何暗示希望每股赚 X 美元——保险业里，若短期内写长尾业务，你基本可以报告任何想要的数字：450 亿准备金，谁知道该是 450 亿、460 亿还是 440 亿？即便薪酬不挂钩，只要他在华尔街宣扬了预算，经理们就会“不想让沃伦失望”而乐观估计准备金。芒格：现代企业资本主义中我们不喜欢的许多东西，都源于总部传达的不合理期待——盈利必须毫无波动、非常规律地上升；这种期待不只是邪恶的表亲，而是邪恶的亲兄弟。巴菲特：精确预测未来的人，要么在骗投资者，要么在骗自己，要么两者都是。
+q: None of our — our managers do not submit budgets into Omaha. ||| if you write long-tail business for a short period of time.
+q: Let’s assume at the start of the year I asked everybody to submit budgets ||| and then he won’t look like a jerk in front of Wall Street.
+q: Yeah. Well, if you stop to think about it, the history of much of which we don’t like in modern corporate capitalism ||| And we just don’t need that blood brother in our headquarters.
+q: Businesses do not meet expectations quarter after quarter and year after year. ||| or they’re kidding themselves, or they’re kidding both.
+zh: 我们的经理们不向奥马哈提交预算。我不知道我们下个季度会赚多少。……因为尤其在保险业，如果你在短期内承保长尾业务，你基本上可以报告任何你想要的数字。……假设年初我要求每个人提交预算，然后我在华尔街宣扬一堆数字。即使他们的薪酬不取决于此，经理们也会觉得：我们不想让沃伦失望。所以我们会在季末对准备金采取乐观看法——这很容易做到——这样就不会让他失望，他也不会在华尔街面前像个傻瓜。（芒格：）如果你停下来想一想，现代企业资本主义中我们不喜欢的许多东西，其历史都源于总部传达的不合理期待：企业盈利必须毫无波动、非常规律地上升。来自总部的这种期待，不只是邪恶的近亲，它是邪恶的亲兄弟。我们总部根本不需要这个亲兄弟。（巴菲特：）企业不会一个季度接一个季度、一年接一年地达到预期。经营企业的本质就不是这样。在我们看来，那些精确预测未来的人，要么在骗投资者，要么在骗自己，要么两者都骗。
+l: 把“每季度都恰好达标”视为危险信号；管理层公开做出的精确盈利指引会给组织施加造假压力。
+r: 5/5/5
+rel: 2001-M32, 2003-A16
+
+@ 2005-M24
+t: 识别经理人：等看过他的击球率再说——商业能力很大程度是“天生布线”
+s: BM
+th: 管理与治理
+k: management
+c: 在没有业绩记录前识别未来的伟大经理人很难：他不确定能在 50 人的 MBA 班里排好次序，就像在练习场看空挥杆判断谁能进巡回赛。伯克希尔走了捷径：买那些已经打了 10、20 甚至 50 年 .350 的人的企业。他记得一项研究：与商业成功相关性最高的，是第一次自己创业的年龄——从小就喜欢开柠檬水摊的人。天生布线很重要，比他三四十年前以为的更重要，但也能在已有基础上发展。他从没听芒格、GEICO 的托尼·奈斯利说过任何关于商业的蠢话——他们是为商业而布线的。芒格：一部分是智力，一部分是性情；有理智、有合适性情和智力的人，只要在我们的体系里活得够久，就会变富。
+q: Instead, we’ve taken the easy way ||| And we just make the assumption that we won’t screw it up by hiring them.
+q: and they found that the best correlation was with the age at which they started their own business first. ||| it tended to correlate better with business success than other variables.
+q: I don’t think that it’s all innate, and I don’t think you can’t improve. ||| more so than I would have thought 30 or 40 years ago.
+q: I think sensible people with the right temperament and the right intelligence, if they live long enough in our system, will get rich. ||| I think sensible people with the right temperament and the right intelligence, if they live long enough in our system, will get rich.
+zh: 相反，我们走了捷径。如果有人带着一家 10 年、15 年、20 年甚至 50 年来表现非凡的企业来找我们，我们已经看到了他们的击球率——我们确实看到他们在大联盟里打出了 .350 之类的成绩——我们就假设雇用他们不会把事情搞砸。……他们发现相关性最好的，是他们第一次创办自己企业的年龄。那些对开柠檬水摊之类的事情很感兴趣的人……这与商业成功的相关性往往比其他变量更好。……我不认为这全是天生的，也不认为你无法提高。我知道你可以在出生时被赋予的东西上有所提高，但我确实认为很大一部分是天生的布线，比我三四十年前所认为的要多。（芒格：）我认为，有理智、有合适性情和合适智力的人，如果在我们的体系中活得足够长，就会变得富有。
+l: 评估管理者首先看长期可验证的业绩记录；对“没有记录的天才”保持谦逊。
+r: 3/3/4
+rel: 2005-M08, 2002-A32
+
+@ 2005-M30
+t: 最好的投资是你自己的能力；“不值得做的事，就不值得做好”
+s: BM
+th: 人生智慧; 投资方法
+k: life
+c: 个人很难挑选个股、择时或选择货币，而且往往在错误的时间产生兴趣（逆向选择）。对大多数人，最好的投资是自己的能力：他愿意付 10 万美元现金买很多学生未来收入的 10%——等于每个人站在那里就值 100 万。发展自己的能力或自己的生意，比去做外汇押注更有成效；在美国拥有一门赚美元的好生意，你会过得不错。芒格：伯克希尔几乎不做传统的类别资产配置，只找机会，不让预设的人为类别支配搜寻——在这点上与现代投资管理完全脱节，但我们认为他们错了。巴菲特：垃圾债那次若持续更久，可能投 300 亿而不是 70 亿——只因它在尖叫；很多年里持有的股票超过伯克希尔净资产，因为便宜。芒格最爱的话：“一件根本不值得做的事，就不值得做好。”
+q: I mean, I just think that’s a game that they tend to get interested in at the wrong time. ||| the best investment you can have, for most people, is in your own abilities.
+q: Well, if you look at Berkshire, you will find that it really doesn’t do much of conventional asset allocation to categories. ||| In this sense, we’re totally out of step with modern investment management, but we think they’re wrong.
+q: And I want you to remember one of my favorite sayings as you do this asset allocation. ||| “If a thing’s not worth doing at all, it’s not worth doing well.”
+zh: 我只是认为那是一场他们往往在错误时间产生兴趣的游戏。对于不密切关注股票的人何时对股票产生兴趣，存在一种逆向选择。我认为，对大多数人来说，你能拥有的最好投资是你自己的能力。（芒格：）如果你看伯克希尔，你会发现它真的不怎么做传统的、按类别进行的资产配置。我们在寻找机会，并不怎么在乎它们属于什么类别，我们当然不希望我们对机会的搜寻被某种预先设定的、人为的一堆类别所支配。在这个意义上，我们与现代投资管理完全脱节，但我们认为他们是错的。……我希望你们在做资产配置时记住我最喜欢的一句话：“一件根本不值得做的事，就不值得做好。”
+l: 普通人优先投资自身技能；资产配置应由具体机会的吸引力驱动，而不是精心优化一个本身没有意义的比例。
+r: 4/5/4
+rel: 2004-M22, 2002-A22
+
+@ 2005-A03
+t: 不要做空美国：我们一辈子都要买“杂货”，当然希望价格更低
+s: BM
+th: 宏观与社会; 市场周期
+k: america
+c: 若市场变便宜，他们就有更多机会做明智的事。他们会一辈子买东西——经营企业、股票、高收益债——就像一辈子都要买杂货；作为净买家，价格越低越好。他们不擅长预测市场，只是大致知道 70 年代中期便宜、90 年代末疯狂，从不花时间讨论股市会怎样。总有一串理由说明国家明天会有问题，也总有一串很少被提及的机会。1790 年美国不到 400 万人，中国 2.9 亿、欧洲 1 亿，同样的智力、气候、资源；215 年后，这 390 万人的后代创造了约 30% 的世界 GDP——“押注美国落败是不明智的”。除了核、化学、生物威胁外，你的孩子会比你过得好，孙辈更好。芒格：经济会继续增长，但我怀疑在很重要的方面，我们处在或接近一个伟大文明的顶点。巴菲特：我见过太多人因为盯着单一经济变量或问题而错过机会；能以有吸引力的价格买到好企业时，因为“明年可能更便宜”“世界要完蛋”而观望是疯狂的。
+q: We have no — we’re not good at forecasting markets. ||| But we are not operating on the basis of any kind of macro forecast about stocks.
+q: Overall, I’m an enormous bull on the country. ||| So, it does not make sense to bet against America.
+q: Well, I agree with you that the economics of the country are probably going to increase for a considerable period ahead. ||| we are at or near the apex of a great civilization.
+q: I have seen more people pass up opportunities because they get focused on a single economic variable ||| and because the world’s going to go to hell.
+zh: 我们并不擅长预测市场。……查理和我不花任何时间思考或谈论股市会怎么走，因为我们不知道。我们有时确实知道，当我们买某些股票或债券时，我们的钱得到了非常好的价值。但我们不是基于任何关于股票的宏观预测来运作的。……总体而言，我是这个国家的超级多头。……1790 年我们这个国家不到 400 万人。中国有 2.9 亿人，欧洲有 1 亿人……215 年后，那 390 万人……拥有世界 GDP 的大约 30%。所以，押注美国落败是不明智的。（芒格：）我同意你的看法，这个国家的经济在相当长的时期内可能会继续增长。但我怀疑，在非常重要的方面，我们正处于或接近一个伟大文明的顶点。（巴菲特：）……我见过太多人因为专注于单一的经济变量或国家面临的单一问题而错过机会，他们忘记了好的方面。如果你能以有吸引力的价格买到非常好的企业，说“我想我会坐着观望，因为明年可能会更便宜一点”，或者因为“世界要下地狱了”，那是疯狂的。
+l: 作为长期净买家，应欢迎下跌；不要让宏观担忧阻止你以合理价格买入好企业。
+r: 5/4/5
+rel: 2004-A23, 1994-M47
+
+@ 2005-A06
+t: 伯克希尔的成功来自“缺乏监督”：小心选择，然后放手
+s: BM
+th: 管理与治理
+k: culture
+c: 多元化企业的历史大多不好：吉列买了二十几家企业，60 年代可口可乐、烟草公司、石油公司都乱买，进入陌生领域的结果一般不好——因为他们以为能接管并亲自经营。伯克希尔不抱这种幻想：总部没有集团副总裁、没有指令、不要求特殊汇报，没有人力、公关、法务部门指手画脚——那样会摧毁好企业，至少会摧毁那些已经富有的人继续留下来让我们变富的动力。继任者将来自内部，继承一个运转着的系统，让火车以 90 英里时速继续前进并不难；更大的担忧是有人篡改文化、过度操控，而董事会和股权结构不会让它发生。芒格：成功不是来自我们对子公司的监督，而是来自我们对子公司缺乏监督；继任者会提供“同样美妙的缺乏监督”——但如果不怎么监督，就必须非常小心你把什么带进企业大家庭，并光荣、善待那些你几乎不监督的经营者。巴菲特：我们是一家联合企业，我希望更是；成功不是因为复杂系统或神奇公式，而是因为极致的简单——让会打球的人去打球。
+q: But I think when those companies bought businesses, they really thought they were going to take them over and run them themselves. ||| as well as, or nearly as well as, the people that have been running them over time.
+q: Yeah. I don’t agree with you that the success at Berkshire has come from our oversight of the subsidiary — ||| that we have provided.
+q: And if you’re not going to use a lot of oversight, you’ve got to be very careful in what you bring into your corporate family. ||| the people who are running the businesses over which you’re not giving any oversight to speak of.
+q: We’ve succeeded because we don’t have — we have simplicity itself. ||| And it’s just worked in one field after another.
+zh: 但我认为当那些公司收购企业时，他们真的以为自己会接管这些企业并亲自经营。而查理和我毫无幻想，我们不认为自己能把买来的企业经营得像那些长期经营它们的人一样好，甚至接近一样好。（芒格：）是的。我不同意你说伯克希尔的成功来自我们对子公司的监督……它来自我们对子公司缺乏监督。我认为我们的继任者将能够提供与我们同样美妙的缺乏监督。如果你不打算使用大量的监督，你就必须非常小心你把什么带进你的企业大家庭。你必须非常小心地、光荣而善意地对待那些你几乎不加监督的企业的经营者。（巴菲特：）……我们之所以成功，是因为我们没有——我们有的是极致的简单。我们找那些非常懂得如何玩好自己游戏的人，让他们去玩。它在一个又一个领域里奏效了。
+l: 分权模式的前提是严格的“入口筛选”（买什么、跟谁合作）；评估多元化公司时，看总部是在配置资本还是在干预经营。
+r: 4/4/4
+rel: 1994-M19, 2003-M39, 2001-A27
+
+@ 2005-A11
+t: 既不买也不卖的区间：喜欢持有的企业，但不在当前价格加仓
+s: BM
+th: 投资方法; 市场周期
+k: holding
+c: 他们对所持有的可口可乐、美国运通、富国银行、穆迪等没有任何不满，但也不会在当前价格加仓——这些仓位处在一个“既不买也不卖”的区间：规模和税收使大仓位进出成本很高，而且他们喜欢这些企业。普通股占伯克希尔内在价值的比例几乎是历史最低（除 1969 年解散合伙企业时），所以他们并没有用买入股票来表态说现在是好时机；市场不再像五年前那么愚蠢，但也看不到很多有吸引力的股票。芒格：最近四五笔数十亿美元规模（相对伯克希尔很小）的股票操作，成绩和最好的日子差不多；大规模资金无法再像过去那样灵活赚钱，这不是永久状态，但也永远不会消失。
+q: We’re not unhappy with anything we own. ||| where we wouldn’t buy and we wouldn’t sell.
+q: But we would face significant costs — including taxes, but on top of taxes ||| And basically we like the businesses.
+q: But there is a zone, which because of size, because of taxes, where we would neither be a buyer nor a seller. ||| But there is a zone, which because of size, because of taxes, where we would neither be a buyer nor a seller.
+zh: 我们对拥有的任何东西都不感到不满。我们只是不乐意投入更多的钱，所以在其中一些证券上，我们处于一个既不会买、也不会卖的区间。……但如果试图在我们持有的大仓位中进进出出，我们将面临巨大的成本——包括税收，在税收之外还有别的成本。而且基本上我们喜欢这些企业。……但存在这样一个区间，由于规模、由于税收，我们既不是买家也不是卖家。
+l: 持有与买入的门槛不同：好企业略贵时可以继续持有而不加仓；把税收和交易成本计入卖出决策。
+r: 3/4/4
+rel: 2002-M14, 2003-A04
+
+@ 2005-A12
+t: 黄金不是价值储藏：它几乎什么也不产出
+s: BM
+th: 投资理念; 宏观与社会
+k: speculation
+c: 作为价值储藏手段，黄金在他的清单上排得很靠后——他宁愿拥有内布拉斯加附近的一百英亩土地、一栋公寓楼或一只指数基金。1900 年黄金约 20 美元，一百年后约 400 美元，期间还要付保险和存储费；同期道琼斯从 66 点涨到一万多点，还每季度付你股息。担心纸币长期贬值很有道理，但黄金几乎是那种情况下他最不想拥有的东西：农场、公寓有用途，企业会产生盈利，有些企业能产生实际意义上的盈利——20 年后若人们用贝壳交易，他卖一磅糖果就能换回相应数量的贝壳。每年从南非地下挖出几千吨黄金，又埋进诺克斯堡或纽约联储的地下，一路上对谁都没什么用。芒格：如果你是 1935 年维也纳一个富裕的犹太家庭，黄金极有用；但对 2005 年的伯克希尔，毫无吸引力。
+q: Yeah. I would say that gold would be way down on my list as a store of value. ||| or an apartment house, or an index fund.
+q: You know, it has — a farm has utility, an apartment house has utility, a business, you know, will produce earnings. ||| I’ll get an appropriate number of seashells instead of paper money for it.
+q: And, you know, we take it out of the ground in South Africa and we put it in the ground at Fort Knox ||| it doesn’t do much along the way, for anybody.
+q: Well, I think gold was — and similar items — that was a great thing to have if you were a well-to-do Jewish family in Vienna in 1935 ||| it just doesn’t interest us at all.
+zh: 我会说，作为价值储藏手段，黄金在我的清单上排得很靠后。我宁愿拥有这附近内布拉斯加的一百英亩土地，或者一栋公寓楼，或者一只指数基金。……农场有用途，公寓楼有用途，企业会产生盈利。有些企业在发展过程中会产生实际意义上的盈利。我宁愿拥有 20 年后向人们卖一磅糖果的能力。如果他们用贝壳交易，我就会得到相应数量的贝壳而不是纸币。……我们从南非的地下把它挖出来，再把它放进诺克斯堡或者纽约联储的地下。它在这个过程中对任何人都没起什么作用。（芒格：）我认为如果你是 1935 年维也纳一个富裕的犹太家庭，黄金以及类似的东西是非常好的东西，因为你面临各种危险，那时黄金对你有巨大的用处。但对于 2005 年坐在这里的伯克希尔来说，它根本引不起我们的兴趣。
+l: 对抗货币贬值的最好资产是有定价权、能持续产出的生产性资产，而不是不产生现金流的储值品；但在极端政治风险下，可携带的硬资产有其特殊效用。
+r: 4/4/4
+rel: 2002-A12, 2000-A19, 2004-M09
+
+@ 2005-A13
+t: 偶尔才能对整个市场说点聪明话：没有泡沫，也没有便宜货
+s: B
+th: 市场周期
+k: no_forecast
+c: 偶尔——很少——你能对整个市场说出几句五到十年后看起来还算聪明的话，只有在极端时刻：他在 1969、1974 年、1999 年太阳谷演讲时都发过声，知道大方向会对，但不知道何时、对到什么程度。大多数时候处在中间地带。现在：若必须在 4.5% 的长期国债与股票之间选择持有 20 年，他肯定选股票；但期望从股票赚 6%–7% 以上、尤其是两位数的人会犯大错——6%–7% 并不是世界末日，税收待遇也是他一生中最好的。股票估值不是泡沫，也远非便宜，这时期不够极端，无法明确表态；但用不了太多年，就会有比现在更“尖叫着聪明”的机会。
+q: Every now and then — I mean, and I agree — very infrequently, you probably can say something intelligent about markets as a whole. ||| Most of the time, you know, you’re in some in between zone.
+q: I think that if you had to make a choice between owning long-term bonds ||| I think they’re making a big mistake.
+q: So — I don’t think we’re in bubble-type, at all, valuations in equities. ||| that you can speak out in some very definitive way about the outlook.
+zh: 偶尔——我同意，非常罕见——你大概能对整个市场说出一些明智的话。也就是说，你确实会看到足够极端的情况，使你能做出一个五年或十年后看起来相当明智的判断。……大部分时候，你处于某个中间地带。……我认为，如果你必须在持有长期债券——国债现在收益率只略高于 4.5%——和在未来 20 年持有股票之间做选择，而且不能改变决定，我肯定更喜欢股票。但我认为那些期望从股票中赚到超过 6% 或 7% 的人，当然尤其是开始期待两位数回报的人……我认为他们在犯一个大错误。……所以，我不认为我们处于泡沫式的股票估值，完全不是。我也不认为我们接近——哪怕远远接近——便宜的估值。我也不认为这是一个足够极端的时期，可以对前景做出某种非常明确的表态。
+l: 只在极端估值时对市场整体下判断；平时专注于个别机会，并以 6%–7% 作为股票长期回报的合理预期。
+r: 4/4/4
+rel: 2003-M19, 2002-A20
+
+@ 2005-A25
+t: 投资没有“难度系数”：我们拿报酬，是因为跨过 1 英尺的横杆
+s: BM
+th: 投资方法; 投资心理
+k: circle
+c: 人生中有些事你不必做决定，而且它们太难了。投资的一个有趣之处是没有难度系数：奥运跳水中更难的动作得分更高，但在投资里，如果一件事摆在你面前、是世上最容易的决定，回报也可能巨大。“我们拿报酬，不是因为跳过 7 英尺的横杆，而是因为跨过 1 英尺的横杆。”最重要的是分辨哪些是 1 英尺、哪些是 7 英尺，这样迈步时不会撞上横杆。也许他们把太多东西归为“太难”，缩小了范围，但他宁愿把范围理解得比实际小一点，也不愿理解得比实际大。芒格：显然。
+q: And many years ago on one of the reports, I said one of the interesting things about investment is that there’s no degree of difficulty factor. ||| And we get paid, not for jumping over 7-foot bars, but for stepping over 1-foot bars.
+q: And the biggest thing we have to do is decide which ones are the 1-foot bars and which ones are the 7-foot bars ||| than being interpreted as larger than it is.
+zh: 多年前在一份年报中，我说过投资有趣的一点是没有难度系数。如果你去参加奥运会跳水想赢金牌，某些动作实际上得分更高，因为它们更难，他们会恰当地调整这个因素。但在投资中，没有难度系数。如果某样东西就摆在你面前，是世界上最容易的决定，回报可能是巨大的。我们拿报酬，不是因为跳过 7 英尺高的横杆，而是因为跨过 1 英尺高的横杆。我们必须做的最重要的事，是判断哪些是 1 英尺的横杆、哪些是 7 英尺的横杆，这样当我们迈步时就不会撞到横杆。……也许我们把太多东西当作太难的而剔除掉，从而缩小了我们的范围。但我宁愿把范围理解得比实际小一点，也不愿理解得比实际大。
+l: 不要为了显示聪明而做复杂的投资；寻找简单、显而易见的机会，把“太难”篮子用到极致。
+r: 5/5/5
+rel: 1994-M39, 2002-A18
+
+@ 2005-A26
+t: 你不必比熊跑得快：只需比别人少犯一点心理错误
+s: BM
+th: 投资心理
+k: psychology
+c: 继沃尔玛之后，中石油也出现了类似的“锚定”错误：持股披露后股价上涨，他们没有继续买。如何克服这类情绪陷阱？第一步是承认它们是陷阱，你会受影响，也会因此犯错；读《穷查理宝典》中关于心理误判的部分，你会比开始时更明智。他们的性格可能让他们比别人略少犯这类错，但记录清楚表明仍然会犯，且会再犯。好消息是：只要你比别人少犯这类错，别人会继续犯他们那份错，你就会变得非常富有。芒格：你不需要拥有完美的智慧才能变得非常富有，只需要在长时间里平均比别人多一点点。巴菲特：就像那个跑赢熊的故事——我不必跑得比熊快，只要比另一个人快。
+q: Well, that’s a good question. And, of course, it first — the first step is in recognition of the fact that they can be traps ||| And you will make some mistakes because of them.
+q: But, you know, the nice thing about it is, though, is that if you make fewer of those mistakes than others ||| they will continue making their share and you’ll get very rich.
+q: Yeah. You don’t have to have perfect wisdom to get very rich. ||| All you’ve got to do is have slightly more than other people, on average, over a long time.
+zh: 这是个好问题。当然，第一步是认识到它们可能是陷阱，你会受到它们的影响，你也会因此犯一些错误。……但好处在于，如果你犯的这类错误比别人少，他们会继续犯他们那一份，而你会变得非常富有。（芒格：）是的。你不需要拥有完美的智慧才能变得非常富有。你所需要的，只是在很长时间里，平均而言比别人多一点点。（巴菲特：）这就是那个跑赢熊的老故事。我不必跑得比熊快，我只需要跑得比另一个家伙快。
+l: 理性是相对优势：系统学习认知偏误清单，接受自己仍会犯错，目标是长期比市场平均少犯错。
+r: 5/4/5
+rel: 2004-M20, 2002-M30
+
