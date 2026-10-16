@@ -1,0 +1,128 @@
+# 2006 年股东大会（5 月 6 日）
+
+@ 2006-M08
+t: 周期行业的薪酬：奖励管理层能控制的东西；嫉妒是七宗罪中最愚蠢的
+s: BM
+th: 管理与治理; 投资心理
+k: incentives
+c: 铜价 3.5 美元时，连村里的傻瓜经营铜矿都能赚大钱。伯克希尔若全资拥有铜矿，会更多按生产成本而非铜价来衡量管理层——他们能控制经营条件，控制不了市场价格；奖金不会剧烈波动，而与经理能控制的东西挂钩。GEICO 只用两个指标：保单数量增长和成熟业务的盈利性（新业务要花钱，不计入经理的成本）。油价 70 美元不是哪个管理层的功劳，应奖励的是 5–10 年里以低于平均的单位成本发现和开发石油。芒格：约一半上市公司的薪酬体系严重不公平，高层拿得太多；在所罗门，巴菲特在薪酬委员会里温和地争取更理性的结果，被投票否决——那是一场“嫉妒的狂热”。巴菲特：嫉妒比贪婪更强大——给人 200 万奖金他很满意，直到发现旁边的人拿了 210 万，然后难受一整年；七宗罪里嫉妒最愚蠢，因为它不会让你感觉更好。
+q: If we owned a copper mining company in its entirety, we would measure it, probably, more by cost of production ||| They do not have control over market prices.
+q: We do not want to pay for anything that is not under their control. We do not want to pay for the wrong things. ||| I would give them credit for low finding costs for — over time.
+q: Charlie used the term “envy” rather than “greed,” which is interesting ||| and then they’re sick for the next year.
+q: Charlie has pointed out — you know, of the seven deadly sins — that envy is kind of the silliest because you don’t feel better. ||| I mean, if you get envious of somebody, you feel worse the whole time.
+zh: 如果我们全资拥有一家铜矿公司，我们大概会更多地以生产成本来衡量它，而不是看铜价是每磅 2 美元还是 1 美元。……他们当然能控制经营条件，但他们无法控制市场价格。……我们不想为任何不在他们控制范围内的东西付钱。我们不想为错误的东西付钱。……如果油价是每桶 70 美元，我不认为哪个管理层值得为此居功。……我会把功劳归于他们长期以来较低的勘探发现成本。……查理用了“嫉妒”而不是“贪婪”这个词，这很有意思，因为我们的经验是，就人们想进入前四分之一之类的动机而言，嫉妒可能比贪婪更大。这是一个非常有趣的现象：你可以给某人 200 万美元的奖金，他们都很好，直到他们发现旁边的人拿了 210 万，然后他们就难受了一整年。查理指出过，在七宗罪中，嫉妒是最愚蠢的，因为你不会感觉更好。如果你嫉妒某人，你会一直感觉更糟。
+l: 分析周期股的管理层时剥离价格因素，看单位成本、发现成本等可控指标；薪酬对标会被嫉妒驱动而棘轮式上升。
+r: 4/4/5
+rel: 2004-M11, 2003-A27
+
+@ 2006-M09
+t: 文化本身就是培训：一个家庭、一家企业、一个国家都有文化
+s: BM
+th: 管理与治理
+k: culture
+c: 致股东信和股东大会都是为了给伯克希尔一个性格和品质——“我们不说它比别人的更好，但它就是我们”。他们希望认同伙伴关系、终身承诺的经理加入，加入后所见所闻都强化这些价值观——这本身就是培训，就像孩子在家里从周围大人的行为中每天学习。家庭有文化，企业有文化，国家在某种程度上也有文化；他们努力做与之一致的事，不做不一致的事。文化定义得如此清晰，所以很少有人进入后出错，不需要正式培训；不合拍的人根本不会加入。芒格：沃伦坚守这种信念到 75 岁，难道会在传承上搞砸吗？在总部我们不培训高管，我们是发现他们——就像珠穆朗玛峰立在那里，你不必是天才也能认出它很高。
+q: This meeting, you know, in terms of what we do is intended to give a personality and a character to Berkshire. ||| but we do think it’s us.
+q: It’s the same sort of training you get as a child. ||| We try to do nothing that is inconsistent with that.
+q: Of course, at headquarters, we aren’t training executives. We find them. ||| you don’t have to be genius to recognize that it’s a high mountain.
+zh: 这个会议，就我们所做的而言，是要给伯克希尔一种个性和品格。我们并不说它一定比别人的更好，但我们确实认为它就是我们。……这和你小时候得到的那种训练是一样的。你在家里，每天都通过周围那些极其重要的人、那些大人们的行为学到一些东西。家庭有文化，企业有文化，在某种程度上，国家也可以有文化。我们努力做一切与之一致的事，努力不做任何与之不一致的事。（芒格：）当然，在总部，我们不培训高管，我们是找到他们，而且他们并不难找。如果一座山像珠穆朗玛峰一样耸立在那里，你不必是天才也能认出它是一座高山。
+l: 文化通过一致的行为而非培训课程传递；考察公司文化，看高层的公开言行是否长期一致。
+r: 4/3/4
+rel: 2005-A06, 2001-A27
+
+@ 2006-M11
+t: 董事会的三项工作：选对 CEO、防止其过度攫取、在重大收购上独立判断
+s: BM
+th: 管理与治理
+k: management
+c: 芒格：多数票选举董事之类的改革不会对董事会道德有任何影响，公司治理也有时尚。巴菲特：关键是董事会成员在多大程度上像所有者那样思考，以及是否懂商业——即使想像所有者那样思考，决策也未必好。董事会的工作是：找到对的 CEO；防止 CEO 过度攫取（有能力的人也可能想全部据为己有，但拿得少的错误 CEO 依然是灾难）；在重大收购上独立判断，因为即便聪明的 CEO 也常出于非理性的原因做收购。改善公司治理的唯一良方，是最大的几家机构股东真正聚焦于这些问题——如果最大的 8 到 10 个股东说“这个薪酬方案没道理，所以我们不投票给这些董事”，就会有改变；可惜不少大机构把投票权外包了，他们不想像所有者那样思考，我们都要承担代价。
+q: The question is to what extent do the people that are participating there think like owners ||| that their decisions will be any good.
+q: But the job of the board is to get the right CEO, to prevent that CEO from overreaching. ||| are motivated, frequently, in acquisitions by other than rational reasons.
+q: The only cure to better corporate governance, in my view, is that the very large shareholders start really zeroing in on whether those questions I just mentioned are being addressed properly. ||| But so far, they’ve been unwilling to do that.
+zh: 问题在于，参与其中的人在多大程度上像所有者一样思考，以及他们是否足够懂商业，以至于即使他们努力像所有者一样思考，他们的决策也会是好的。……但董事会的工作是找到对的 CEO，防止那个 CEO 过度攫取。因为有时有些人非常能干，但他们仍然想把一切都据为己有。但如果他们分文不取却是错误的 CEO，那仍然是一场灾难。所以低薪本身不是标准。所以你要对的 CEO，你不要他们过度攫取。然后我认为董事会需要在重要收购上行使独立判断，因为我认为 CEO——即使是聪明的 CEO——在收购上的动机常常并非出于理性。……在我看来，改善公司治理的唯一良方，是那些非常大的股东开始真正聚焦于我刚才提到的那些问题是否得到妥善处理。……但如果八到十个最大的股东群体，如果真正的大型机构投资者说：“这个薪酬方案毫无道理，我们不会投票给这些董事，原因如下”，你就会看到改变。但到目前为止，他们一直不愿意这样做。
+l: 评估公司治理只看三件事：CEO 是否合适、是否过度攫取、收购是否理性；形式化的治理清单意义有限。
+r: 4/4/4
+rel: 2004-M11, 2005-M12
+
+@ 2006-M12
+t: 科技仍在“太难”的篮子里：知道自己能力的边界比别人清楚
+s: BM
+th: 投资方法; 护城河
+k: circle
+c: 他知道的足够多，多到知道自己知道的不够多，无法对科技公司做投资决策。他们最擅长的是能判断五年、十年后看起来与现在差不多的企业——会更大、做的事会不同，但基本面不变，比如伊斯卡。电信业 15–20 年的变化惊人，即使事后看也难以弄清谁赚了钱。芒格说公司有三个盒子：进、出、太难——很多东西进了“太难”，这不困扰他们；奥运会上跑好 100 米就行，不必会扔铅球。老沃森：“我不是天才，但我在某些点上聪明，并且待在那些点附近。”他几乎见证了英特尔的诞生（格林内尔董事会、诺伊斯任董事长，买了 30 万美元首期债券），但当时和现在都不知道如何评估英特尔的未来。芒格：一位外国记者说“你们看起来不够聪明，却做得比别人好这么多”，我们答：“我们比大多数人更清楚自己能力的边界。”不知道边界的能力就不是能力。
+q: We are best at the businesses where we can come to a judgment that they’re going to look a good bit like they do now five years from now, ten years from now. ||| but the fundamentals will be the same.
+q: Charlie says, you know, “We’ve got three boxes at the company: in, out, and too hard.” ||| You know, we don’t have to be able to do everything well.
+q: Tom Watson, Sr. — I think it was Senior — yeah, Tom Watson, Sr. — many years ago said ||| Well, that was pretty damn smart, you know.
+q: And we said, “We know the edge of our competency better than most people do.” ||| And I always say it’s not a competency if you don’t know the edge of it.
+zh: 我们最擅长的，是那些我们能判断出五年后、十年后看起来与现在相当相似的企业。它们会更大，会做不同的事情，但基本面将是一样的。……查理说：“我们公司有三个盒子：进、出、太难。”很多东西最后进了“太难”的那一堆，这并不困扰我们。我们不必什么都做得好。……老托马斯·沃森很多年前说过：“我不是天才，但我在某些点上很聪明，而我就待在那些点附近。”嗯，那是相当聪明的。（芒格：）我们说：“我们比大多数人更清楚自己能力的边界。”知道自己能力的边界是非常有用的事情。我总是说，如果你不知道它的边界，那就不是能力。
+l: 用“十年后它是否基本还是这个样子”筛选企业；大方把看不懂的东西放进“太难”篮子，专注于自己的“那些点”。
+r: 5/5/5
+rel: 2002-A18, 2005-A25, 1999-A02
+
+@ 2006-M15
+t: 大宗商品泡沫与灰姑娘的舞会：墙上没有钟
+s: BM
+th: 市场周期; 投资心理
+k: speculation
+c: 农产品没有泡沫，但金属、石油涨幅惊人，铜最极端。像大多数趋势一样，开始由基本面驱动，到某个时点投机接管——“智者在开始时做的事，傻瓜在最后做”。任何基于基本面大涨的资产，都会吸引投机参与，投机最终可能占据主导：郁金香也许本就比蒲公英好看一点，但一旦形成价格历史，人们开始关注从未关注的资产，并嫉妒邻居毫不费力赚了钱，投机就接管了。他认为铜现在更多受投机力量而非基本面驱动，房地产也有一些。他们不擅长判断投机繁荣会走多远，可能赚不到疯狂狂欢最后 30 天、30 周的钱——而那往往是最疯狂的时候。灰姑娘在舞会上，潘趣酒不断，舞伴越来越帅，她知道午夜会变回南瓜和老鼠，却想“再跳一支舞”；每个人都以为自己能在午夜前离开，而问题是——墙上没有钟。
+q: it’s like most trends. At the beginning, it’s driven by fundamentals, and at some point, speculation takes over. ||| it’s that old story of what the wise man does in the beginning, the fool does in the end.
+q: But once a price history develops that causes people to start looking at an asset that they never looked at before ||| that takes over.
+q: But that gets back to the question, you know, of Cinderella at the ball. ||| And in the end, it does turn to pumpkins and mice.
+q: says the problem with that particular dance for Cinderella is that there are no clocks on the wall. ||| and then it does turn to pumpkins and mice.
+zh: 就像大多数趋势一样。在开始时它由基本面驱动，到了某个时点，投机就接管了。……这就是那个老故事：智者在开始时做的事，傻瓜在最后做。……但一旦形成了一段价格历史，使人们开始关注一种他们以前从未关注过的资产，并开始嫉妒邻居因为早早看到而毫不费力地赚了很多钱等等，投机就接管了。……这又回到了灰姑娘在舞会上的问题。你在那里，玩得非常开心，潘趣酒不断，舞伴越来越好看。而你知道到了午夜，一切都会变回南瓜和老鼠。你环顾房间，心想：“就再跳一支舞，再来一个帅哥，再喝一杯香槟。”你以为自己会在午夜离开，当然，其他每个人也都以为自己会在午夜离开。最终，它确实变回了南瓜和老鼠。……灰姑娘那场舞会的问题在于，墙上没有钟。……在市场上——无论你谈的是现在的铜、1999 年的互联网股票，还是 50 年代的铀矿股——墙上都没有钟。派对确实一分钟比一分钟、一小时比一小时更有趣，然后它确实变回了南瓜和老鼠。
+l: 识别“基本面 → 价格历史 → 嫉妒 → 投机主导”的阶段转换；不要以为自己能在午夜前离场。
+r: 5/4/5
+rel: 2002-A13, 2005-M17, 2001-M15
+
+@ 2006-M21
+t: 我们不喜欢多余的现金，但更讨厌愚蠢的交易——因为要永远持有
+s: B
+th: 资本配置
+k: capital_alloc
+c: 伯克希尔正常现金水平约 100 亿美元（巨灾保险业务需要），现在约 370 亿，太多了；他们更希望只有 100 亿现金、其余都在非常喜欢的东西里，并一直为此努力——但企业不会均匀地来。“我们不喜欢手里有多余的现金，更不喜欢做愚蠢的交易，因为我们做了就是永远”——一笔蠢交易就会一直待在那里，他们不会三个月后通过 IPO 转手。所以应当为持有现金感到不安，但不能不安到为了做点什么而去做点什么。现金的目标是随着时间转化为永久的盈利能力。芒格：拿十年前的年报和最近一份比较，尽管配置现金非常困难，我们还是把大量出色的东西放进了伯克希尔。
+q: And, what we care more — we don’t like having excess cash around. We like even less doing dumb deals because we do them forever. ||| We don’t resell it three months later by having an IPO of it or something of the sort.
+q: So you’re right to say that we should be very uncomfortable about the fact that we’ve got the cash. ||| But the goal of that cash is to be translated into permanent earning power over time.
+zh: 我们不喜欢手里有多余的现金。我们更不喜欢做愚蠢的交易，因为我们做了就是永远的。如果我们做了一笔愚蠢的交易，它就一直待在那里。我们不会三个月后通过 IPO 之类的方式把它转卖掉。所以你说得对，我们应该对持有现金感到非常不安。但同样重要的是，我们不要不安到为了做点什么而去做点什么。……我想说，三年后我们的现金大幅减少、而且——我希望——盈利能力大幅增加，是可能的，但远非确定。但这些现金的目标是随着时间推移转化为永久性的盈利能力。
+l: 长期持有者的错误是永久性的，所以出手门槛应更高；持有现金的不适感不能成为降低标准的理由。
+r: 4/4/4
+rel: 2003-A04, 2003-A36
+
+@ 2006-M22
+t: 可口可乐：伟大的企业，愚蠢的价格——50 倍市盈率时该卖
+s: B
+th: 企业估值; 投资心理
+k: holding
+c: 可口可乐每年卖出超过 210 亿箱饮料，并逐年增长，在全球人类液体摄入中的份额每年都略有提升；剔除装瓶后，约 50–60 亿美元有形资产赚取相近的税前利润——世界上没有多少大企业能在有形资产上赚 100% 的税前回报。但 1997–98 年股价超过 80 美元时，每股盈利约 1.5 美元，且质量不如现在。“一家真正出色的企业，几年前以一个非常愚蠢的价格出售……你完全可以批评我没有卖出——我一直认为它是出色的企业，但 50 倍市盈率显然是个愚蠢的价格。”他们仍喜欢它，十年后还会持有。
+q: They make fabulous returns on invested capital. ||| So, there are not lots of big businesses in the world that earn 100 percent pretax on tangible assets.
+q: So it strikes us as a really wonderful business that sold at a very silly price some years back. ||| but clearly, at 50 times earnings, it was a silly price on the stock.
+zh: 它们的投入资本回报率惊人。这是一门生意——不算装瓶部分——有 50 或 60 亿美元的有形资产，并赚取相近的利润。所以世界上没有多少大企业能在有形资产上赚取 100% 的税前回报。……所以在我们看来，这是一家真正出色的企业，几年前以一个非常愚蠢的价格出售。你完全可以批评我没有卖出这只股票。我一直认为它是一家出色的企业，但显然，在 50 倍市盈率时，那是一个愚蠢的股价。
+l: 伟大企业也可能被定价到未来十年回报为零的水平；“永远持有”不应成为忽视极端高估的借口。
+r: 4/4/5
+rel: 2002-M14, 2005-A11
+
+@ 2006-M26
+t: “我们不玩大趋势”：从未基于宏观做过任何买入决定
+s: BM
+th: 投资理念
+k: no_forecast
+c: 资源丰富地区是否值得投资？这对他们来说太宏观了——他们只关心人们是否会继续吃糖果、明年能否稍微提价。他们不玩大趋势，不考虑人口趋势之类，只考虑自己的年纪在变老；需要几十年才显现的东西意义不大，因为年复一年有太多钱可赚。他想不起任何一次企业、股票、垃圾债、货币的买入决定是基于宏观的。芒格：我们最近也没能从历史上最大的大宗商品繁荣之一中获利多少，而且大概会继续以同样的方式失败。巴菲特：但我们会寻找新的失败方式。
+q: Well, that would be a little macro for us. ||| There’s too much money to be made from year to year to think about things that take decades to manifest themselves.
+q: So I can’t recall of a decision we’ve ever made on a purchase of a business or a stock or a junk bond or a currency or anything else based on a macro. ||| And we’ll probably continue to fail in the same way.
+zh: 这对我们来说有点太宏观了。我们真正关注的只是人们是否会继续吃糖果，以及我们明年能否把价格提高一点。我们不玩大趋势。我们不考虑人口趋势或任何这类东西。我们只考虑我们自己的年纪在变老。……大趋势对我们并没有多大意义。年复一年有太多钱可赚，没必要去想那些要几十年才显现的东西。所以我想不起我们曾经基于宏观做出过任何购买企业、股票、垃圾债券、货币或其他任何东西的决定。（芒格：）不仅如此，我们最近还没能从历史上最大的大宗商品繁荣之一中获利多少。而且我们大概还会继续以同样的方式失败。
+l: 把研究精力放在具体企业的定价权与竞争地位上，而非宏大叙事；错过某个宏观主题并不可怕。
+r: 4/4/4
+rel: 2005-A03, 2003-M21
+
+@ 2006-M29
+t: 投资行业整体不创造附加价值：“价格等于价值”的错觉与高收费
+s: BM
+th: 投资方法; 宏观与社会
+k: index
+c: 芒格：要成为下一个巴菲特，最好的办法是降低你的预期。巴菲特：这个行业的专业人士的活动是相互抵消的——生孩子请产科医生、水管堵了请水管工都比自己做好，大多数职业都有附加价值，但投资行业整体没有：每年约 1400 亿美元的费用，整体上只能做到一个人每年花十分钟自己就能做到的事。他们学到的主要是：收费越高（至少暂时）吸金越多，人们以为价格等于价值，就像学费 5 万美元的商学院被认为比 1 万的好。2% 加 20% 的收费，好年景拿走，坏年景关掉合伙企业再开一个——在只能为投资者带来约 7% 的经济中，投资者整体不可能更好。他愿意下重注：任何人挑出 10 家管理 5 亿美元以上的合伙企业，扣费后 10 年跑不赢标普——这是后来著名“十年赌约”的雏形。少数人会做得好，若足够了解一个人的过去、性格、诚信，偶尔能做出明智选择；但州养老基金的负责人面对 50 个推销者，会选最好的推销员而非最好的投资人。芒格：款待州养老基金官员应当是犯罪，接受款待也应当是犯罪。
+q: Most professions have value added to them above what the laymen can accomplish themselves. In aggregate, the investment profession does not do that. ||| only accomplish what somebody can do, you know, in ten minutes a year by themselves.
+q: And, as I’ve pointed out in the report, the main thing that’s been learned is that the more you charge ||| people have this idea that price equals value.
+q: And, I am willing to bet a significant sum of money, we’ll put it up ||| And it isn’t going to happen.
+q: You’re going to go with the ones that are the best salespeople and not the ones that are the best investors. ||| and I think it ought to be a crime, if you are a state pension fund official, to accept the entertainment.
+zh: 大多数职业都有超出外行人自己能完成之事的附加价值。而从整体上看，投资行业并没有做到这一点。所以你有一大群人——我估计每年赚 1400 亿美元——他们在整体上只是、也只能完成一个人每年花十分钟自己就能做到的事。……正如我在年报中指出的，人们学到的主要一点是，你收费越高——至少暂时——吸引来的钱就越多，人们有一种“价格等于价值”的想法。……我愿意下一大笔钱——我们会拿出来——跟任何愿意挑出十家管理规模在 5 亿美元以上的合伙企业的人赌，在扣除费用后，让它们在十年期间与标普 500 对比。……这是不会发生的（它们不会跑赢）。……你会选择那些最好的推销员，而不是最好的投资者。（芒格：）关于州养老基金投资这个话题，我认为以任何方式款待州养老基金官员都应当是犯罪，而如果你是州养老基金官员，接受款待也应当是犯罪。
+l: 在整体零和（扣费后负和）的主动管理中，费用是决定性变量；选择管理人时警惕“贵即好”的心理和销售能力的迷惑。
+r: 5/5/5
+rel: 2004-A26, 2002-M17, 2008-M35
