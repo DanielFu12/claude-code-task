@@ -391,7 +391,7 @@ k: leverage
 c: 在大银行的存款、大券商托管的证券（现金账户而非保证金账户），不必太担心——对无辜方存在“大到不能倒”，对股东则没有，也不应该有。一个聪明、看投资相当有纪律的人陷入麻烦的唯一途径就是杠杆：如果别人能在某场普遍金融灾难最糟的时刻拔掉你的插头，你就破产了——他们都有朋友遭遇过。没有杠杆、不在估值上发疯，证券世界长期不会伤害你；危机时期若有余钱就买入。伯克希尔在任何金融灾难中都处于异常强势的位置，“我们肯定会是最后一个站着的人，而且远不止”；他们不像殡仪员那样盼着瘟疫，但过去几次在世界恐慌时有现金也有勇气，结果都不错。
 q: Really, the only way a smart person that’s reasonably disciplined in how they look at investments can get in trouble is through leverage. ||| And Charlie and I both have friends that have — where that’s happened to them.
 q: But absent leverage, and absent just kind of going crazy in terms of valuation on things, the world won’t hurt you over time in securities. ||| If you have any more money during periods like that, you buy.
-q: And that’s happened a couple of times, actually, in the past, where we’ve had cash, and we’ve had courage when the world was panicking ||| and we’ve done reasonably well during that period.
+q: And that’s happened a couple of times, actually, in the past, where we’ve had cash, and we’ve had courage when the world was panicking ||| we’ve done reasonably well during that period.
 zh: 真的，一个在看待投资方面相当有纪律的聪明人，唯一可能陷入麻烦的途径就是杠杆。我的意思是，如果别人能在某种普遍金融灾难最糟糕的时刻拔掉你的插头，你就破产了。查理和我都有朋友遭遇过这种事。但如果没有杠杆，也不在估值上发疯，长期来看证券世界不会伤害你。……在那样的时期，如果你有更多的钱，你就买入。……过去实际上发生过几次这样的情况：我们有现金，在世界恐慌时我们有勇气，我们在那期间做得相当不错。
 l: 生存的两个条件：不用会被强制平仓的杠杆、不为疯狂估值买单；危机中现金与勇气是最稀缺的资产。
 r: 5/5/5
