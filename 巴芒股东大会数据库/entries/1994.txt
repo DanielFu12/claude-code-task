@@ -1,0 +1,316 @@
+# 格式见 tools/build.py 顶部说明
+@ 1994-M11
+t: 衍生品：无知加上借来的钱
+s: B
+th: 风险管理
+k: derivatives
+c: 衍生品天然便于使用超常杠杆，而且参与者往往并不完全理解自己在做什么；“快速暴富或快速赤贫”的结构与大额借贷叠加，历来是麻烦的配方。宝洁从卖肥皂跳到给债券卖出看跌期权，就是典型的越界。
+q: they lend themselves to the use of unusual amounts of leverage ||| you can get some pretty interesting consequences.
+q: the ability to borrow enormous amounts of money ||| has historically been a recipe for trouble at some point.
+zh: 它们容易被用来承担异常大的杠杆，而且参与者有时并不完全理解它们。任何时候，只要把无知和借来的钱结合在一起，就会得到一些相当“有趣”的后果。……能借到巨额资金，再加上一个让人迅速暴富或迅速赤贫的机会，历史上迟早都会酿成麻烦。
+l: 判断一项金融安排是否危险，先看两点：杠杆有多大、自己是否真正理解。两者同时出现时，宁可放弃收益。也要警惕主业之外的“财务创新”——经营者离开本行去做金融投机，往往是风险信号。
+r: 4/4/4
+rel: 2003-M38, 2008-A23
+
+@ 1994-M13
+t: 折现率取决于确定性
+s: B
+th: 企业估值
+k: discount
+c: 买下整家企业时，不会被第一年的现金流吓退，关键是未来盈利能力的现值相对价格是否足够有吸引力。在长期国债 7% 的环境下，至少用 10% 折现税后现金流；越确定的生意，愿意给的折现率越接近无风险利率。
+q: if we think the present value of the future earning power ||| we would not be overwhelmed by what the first year’s figure would be.
+q: in a world of 7 percent long-term bond rates ||| The more certain we feel about a business, the closer we are willing to play it.
+zh: 如果我们认为未来盈利能力的现值相对于买价足够有吸引力，就不会被第一年的数字吓倒。……在长期国债利率 7% 的世界里，我们当然希望以至少 10% 的比率来折现未来的税后现金流。但这取决于我们对这门生意有多确定。越确定，我们愿意给的余地就越小。
+l: 估值不是机械套用一个折现率，而是“确定性”与“价格”的交换：对高度可预测的企业可以接受较低的预期回报，对可能出意外的企业要多要补偿。先问确定性，再谈折现率。
+r: 4/4/4
+rel: 1996-M39, 1998-M30, 2003-A20
+
+@ 1994-M18
+t: 评判管理层的两把尺子
+s: B
+th: 管理与治理
+k: management
+c: 普通投资者也能判断管理层：一看他们在“手里那副牌”的条件下经营得怎样、资本配置如何，可以对照竞争对手；二看他们如何对待股东，读代理声明，比较他们怎样对待自己与怎样对待股东。经营差的人往往也不在乎股东，两者常常同时出现。
+q: I think you judge management by two yardsticks. ||| seeing how they have allocated capital over time.
+q: And then the second thing you want to figure out is how well that they treat their owners. ||| The two often go hand in hand.
+q: read the proxy statements ||| compared to what is going on in the industry.
+zh: 我认为评价管理层有两把尺子。第一把是他们把企业经营得怎么样——读一读他们取得的成就、竞争对手取得的成就，看看他们这些年如何配置资本，就能了解很多。……第二件要弄清楚的事是他们如何对待股东。……有意思的是，在我看来经营能力差的人，往往也恰恰是不怎么为股东着想的人。两者常常相伴而生。……读一读代理声明，看看他们如何对待自己、又如何对待股东；结合他们接手时拿到的牌和整个行业的情况，看看他们做成了什么。
+l: 不必认识管理层本人：年报、代理声明与同业比较就是最好的尽调材料。重点看资本配置记录与薪酬安排——“怎样对待自己 vs 怎样对待股东”最能暴露人品。
+r: 4/5/4
+rel: 2007-A07, 2005-M08
+
+@ 1994-M19
+t: 找到 .400 击球手，然后别教他们怎么挥棒
+s: BM
+th: 管理与治理
+k: culture
+c: 伯克希尔总部只做两件事：识别并留住优秀经理人、配置资本。多数经理人已经财务自由，必须让经营比打高尔夫更有意思；不设全公司统一薪酬方案，按各业务的资本需求与难度量身定制，只为其负责的单元付酬。芒格补充：像你希望别人如何待你那样待人。
+q: Charlie and I have two jobs. ||| keep good managers interested after we’ve figured out who they are.
+q: the important thing we do with managers, generally, is to find the .400 hitters and then not tell them how to swing ||| The second thing we do is allocate capital.
+q: I think that concept of treating the other fellow the way you’d like to be treated if the roles were reversed ||| it’s so simple, when you stop to think about it
+zh: 查理和我有两项工作：一是找出优秀的经理人，二是在认定他们之后让他们一直保持兴趣。……我们对经理人做的最重要的事，就是找到打击率四成的击球手，然后不去教他们怎么挥棒，正如我在年报里写的那样。第二件事是配置资本。（芒格：）把对方当成如果角色互换你希望被对待的样子去对待——想一想，这是多么简单的道理。
+l: 投资一家公司也是在“雇用”管理层：好的分权必须以选人准确为前提，激励要与其可控的经营单元挂钩，而不是与集团股价挂钩。
+r: 3/3/4
+rel: 1998-A07, 2017-M24
+
+@ 1994-M27
+t: 风向标不会让你致富
+s: B
+th: 投资心理
+k: psychology
+c: 每天有大量投资者对同一只股票得出相反的结论，听别人怎么说毫无意义；民意测验不会让人在华尔街致富。巴菲特和芒格从不读宏观、市场预测或分析师观点，只坚持自己能评估的生意。
+q: you really should not make decisions in securities based on what other people think. ||| So you really want to stick with businesses that you feel you can somehow evaluate yourself.
+q: You cannot get rich with a weather vane. ||| You cannot get rich with a weather vane.
+zh: 你真的不应该根据别人的想法来做证券决策。如果你是这样做的，就该考虑换个行当……民意测验不会让你在华尔街发财。所以你确实应该坚持那些你觉得自己能够以某种方式评估的生意。……风向标是不可能让你致富的。
+l: 投资结论必须来自自己对生意的独立评估。若一笔交易的理由主要是“别人都这么看”，就意味着你不在能力圈内。
+r: 3/4/4
+rel: 1998-M14, 2003-A02
+
+@ 1994-M29
+t: 只关心交易的经济实质，不关心会计处理
+s: BM
+th: 会计与财务
+k: accounting
+c: 伯克希尔从不为了会计效果安排交易，并会在脑中把不同公司的报表“重写”为可比口径。芒格：公开报表是经济分析的起点，但本质上无法很好地对应经济现实。过度关注会计的管理层是负面信号；只讲清经济实质、不在意会计的管理层是加分项。
+q: it absolutely makes no difference to us what accounting treatment we get on something. We are interested in the economics of a transaction. ||| it absolutely makes no difference to us what accounting treatment we get on something. We are interested in the economics of a transaction.
+q: we sort of rewrite the accounting for any business that we’re looking at ||| a standardized way of looking at businesses.
+q: the published accounting results are in accordance with standard convention and they’re a place to start economic analysis. ||| The figures are frequently quite silly on a functional basis.
+zh: 对我们来说，一件事得到什么会计处理绝对无所谓，我们关心的是交易的经济实质。……我们会把所看的任何企业的会计在脑中重写一遍，因为我们想用一种标准化的方式来看待企业。（芒格：）公开的会计结果是按标准惯例编制的，是经济分析的起点。但从功能上看，这些数字常常相当荒唐。
+l: 读报表时先把会计口径“还原”成现金与经济实质，再做横向比较；把“管理层是否热衷于会计操作”作为治理质量的观察指标。
+r: 3/4/3
+rel: 2002-M20, 2003-A17
+
+@ 1994-M36
+t: 保险业把头埋在沙子里：尾部风险被系统性低估
+s: B
+th: 风险管理; 保险与浮存金
+k: insurance
+c: 洛杉矶地震远非最坏情形，却已远超一些保险公司自估的“可能最大损失”。行业长期低估超级巨灾的潜在破坏力；伯克希尔的承保有上限，愿意在价格合适时承接少数人能承担的巨灾风险。
+q: I think that the insurance industry has vastly underestimated ||| may have been something of a wake-up call.
+q: There were certain companies in the LA quake that thought they had a ||| turned out to far exceed those probable maximum losses.
+zh: 我认为保险业大大低估了——也许现在没有，但直到几年前还是如此——超级巨灾可能造成的全部破坏。安德鲁飓风和洛杉矶地震或许算是某种警钟。……有些公司以为自己对加州地震有一个所谓的“可能最大损失”。而洛杉矶地震远不是你能想象的最坏情况，结果却远远超过了那些可能最大损失。
+l: 任何模型给出的“最坏情况”都可能不是真正的最坏情况。对尾部风险要设硬上限，并只在价格足够补偿时承担。
+r: 3/3/3
+rel: 2005-M18, 1998-M32
+
+@ 1994-M39
+t: 不需要做非凡的事，也能取得非凡的结果
+s: BM
+th: 投资理念; 投资方法
+k: circle
+c: 投资不给“难度分”：跨过一尺高的栏杆和跳过七尺高的栏杆，奖励一样。巴菲特宁可乘以 3 也不愿乘以 π；可口可乐的投资没有任何几百万人不知道的信息，只是别人没行动。芒格：以为雇个有头衔的人就能做成很难的事，是人类最危险的想法之一；保持简单就不必把思考外包。卖方提供的盈利预测毫无用处——不要问理发师你是否需要理发。
+q: you don’t have to do exceptional things to get exceptional results. ||| it just isn’t true in the investment world, at all.
+q: so many people think if they just hire somebody with the appropriate labels they can do something very difficult. ||| That is one of the most dangerous ideas a human being can have.
+q: The big thing to do is avoid being wrong. ||| The big thing to do is avoid being wrong.
+zh: 你不需要做非凡的事情，也能取得非凡的结果。有些人以为，跳过七英尺高的横杆，别人给你别上的绶带会比跨过一英尺高的横杆更值钱。在投资世界里，这完全不是真的。（芒格：）很多人以为，只要雇一个有合适头衔的人，就能做成非常困难的事情。这是人类所能有的最危险的想法之一。（巴菲特：）最重要的是避免犯错。
+l: 主动挑选“容易”的问题：业务简单、结论显而易见、无需精确计算的机会。复杂本身不是优势，看不懂的千页报告不能替代理解。
+r: 5/5/5
+rel: 1998-M08, 2005-A25, 1995-M21
+
+@ 1994-M47
+t: 从不对市场发表看法：关心“会发生什么”，不猜“何时发生”
+s: BM
+th: 市场周期; 投资心理
+k: no_forecast
+c: 对市场的看法既无用、又会干扰真正有价值的判断。从 1942 年 11 岁买第一只股票至今，经历战争、核武器、总统辞职、恶性通胀——为宏观猜测放弃自己擅长的事毫无道理。作为长期买家，市场大跌反而最有利，真正害怕的是长期持续的非理性牛市。判断“会发生什么”不难，判断“什么时候发生”不可能。
+q: Charlie and I never have an opinion about the market because it wouldn’t be any good and it might interfere with the opinions we have that are good. ||| Charlie and I never have an opinion about the market because it wouldn’t be any good and it might interfere with the opinions we have that are good.
+q: if you’re going to be buyers of groceries over time, you like grocery prices to go down. ||| what we fear is an irrational bull market that’s sustained for some long period of time.
+q: It’s fairly, it’s not so difficult to figure out what will happen. ||| So we focus on what will happen.
+zh: 查理和我对市场从来没有看法，因为那种看法不会有什么用，还可能干扰我们那些真正有价值的看法。……如果你今后要不断买菜，你会希望菜价下跌；如果你今后要不断买车，你会希望车价下跌。我们买企业，买企业的一部分——股票。如果能以有吸引力的价格买到它们，我们的处境会好得多。所以我们一点也不害怕。我们害怕的是长期持续的非理性牛市。……弄清楚会发生什么并不那么难；在我们看来，弄清楚什么时候发生是不可能的。所以我们专注于会发生什么。
+l: 把精力全部用于研究具体企业，而不是预测宏观与指数。如果你是净买入者，下跌是好消息；把“何时”交给时间，把“是什么”留给分析。
+r: 5/5/5
+rel: 2000-A20, 2012-M25, 2022-M17
+
+@ 1994-M48
+t: 宁愿买下整家公司，但便宜货在股市里
+s: BM
+th: 投资方法; 资本配置
+k: capital_alloc
+c: 协商收购时卖方很聪明，不可能买到便宜货，而且竞争对手是用别人的钱、有上行无下行的经理人和杠杆收购基金；股票市场对企业的定价远不如协商市场有效，所以经常能以荒唐的价格买到伟大企业的一部分。
+q: we can usually get more for our money in wonderful businesses ||| far more inefficient in pricing businesses than is the negotiated market.
+q: The market does not do that. ||| that is why we end up with a lot of money in marketable securities.
+q: the average corporate buyer is being run by people who have the mindset of people buying with somebody else’s money. ||| we have the mindset of people buying with our own money.
+zh: 通过在市场上买入一小部分，我们通常能用同样的钱在优秀企业身上得到更多，因为（股票）市场给企业定价的效率远低于协商交易的市场。……市场不会那样（合理定价）。在股票市场上，你有机会以愚蠢的价格买到企业，这就是我们最终有大量资金放在有价证券上的原因。（芒格：）一般的企业买家，是由那些用别人的钱买东西的人在经营；而我们的心态是用自己的钱买东西。
+l: 二级市场的价值在于“偶尔的愚蠢定价”：耐心等待优秀企业被错误定价，比在拍卖式并购中与花别人钱的买家竞价更容易获得安全边际。
+r: 4/4/4
+rel: 1999-M27, 2014-A04
+
+@ 1994-M50
+t: 风险与持有期限密不可分；波动不是风险
+s: BM
+th: 风险管理; 投资理念
+k: mr_market
+c: 风险是“受到伤害或损失的可能性”，它和持有期限紧紧缠绕：早上买、收盘卖，一半概率受损；以合理价格买入可口可乐并长期持有，风险几乎为零。学术界把风险定义为波动（贝塔），按此逻辑每年回报在 +20% 到 +80% 之间的东西比每年稳定 5% 的东西“风险更大”，这是荒谬的。伯克希尔愿意在单笔交易上亏钱，但不做一组独立同类事件总体期望值为负的交易；无法写出方程的事情一律不做。芒格：像从未听说过现代金融理论的费马和帕斯卡那样思考。
+q: we do define risk as the possibility of harm or injury. ||| inextricably wound up in your time horizon for holding an asset.
+q: using conventional measures of risk, something whose return varies from year to year between plus-20 percent and plus-80 percent ||| We just think the financial world has gone haywire in terms of measures of risk.
+q: We are not willing to enter into transactions in which we think the probability ||| There are a whole bunch of things we just won’t do because we don’t think we can write the equation on them.
+q: we try and think like Fermat and Pascal as if they’d never heard of modern finance theory. ||| we try and think like Fermat and Pascal as if they’d never heard of modern finance theory.
+zh: 我们把风险定义为受到伤害或损失的可能性。从这个角度看，风险和你持有一项资产的时间长短紧密纠缠在一起。……有意思的是，按照传统的风险度量，一个每年回报在 +20% 到 +80% 之间波动的东西，被定义为比一个每年稳定回报 5% 的东西更有风险。我们认为金融界在风险度量上已经乱了套。……我们不愿意进行这样的交易：一组相互独立、但类型相似的事件，其数学期望是亏损的。……有一大堆事情我们根本不做，因为我们认为自己写不出它们的方程。（芒格：）我们努力像费马和帕斯卡那样思考——就当他们从来没听说过现代金融理论。
+l: 用“永久性损失的概率 × 持有期限”替代“波动率”来衡量风险。允许单笔亏损，但只做整体期望值为正、且自己能估算概率的事；估不出来的，直接放弃。
+r: 5/5/5
+rel: 1997-M12, 2001-A20, 2007-A06
+
+@ 1994-M53
+t: 所有资产的价值都 100% 对利率敏感，但无需预测利率
+s: B
+th: 企业估值
+k: discount
+c: 投资就是现在交出一笔钱、换取未来的一串现金流，利率越高现值越低，所以任何企业的内在价值都对利率百分之百敏感。至于利率变化让一家银行、保险公司的经营变好还是变坏，往往难以判断——伯克希尔不需要、也没有利率观点就能做投资决策。
+q: the value of every business, the value of a farm, the value of an apartment house ||| is 100 percent sensitive to interest rates
+q: all you are doing in investing is transferring some money to somebody now ||| the less that present value is going to be.
+q: So I do not have to have a view on interest rates — and I don’t have a view on interest rates ||| relative to making a judgment about Coke or Gillette.
+zh: 每一家企业、每一块农场、每一栋公寓楼、每一项经济资产的价值，都百分之百地对利率敏感。因为你在投资中所做的，不过是现在把一些钱交给别人，换取你预期在一段时间内流回来的一串现金。利率越高，现值就越低。……所以我不必对利率有什么看法——我也确实没有——就能对一家保险企业、一家按揭担保企业或一家银行做出判断，这和判断可口可乐或吉列是一样的。
+l: 利率是估值的“地心引力”，要在估值里体现；但不要把投资建立在对利率走势的预测之上。区分利率对“估值”的影响与对“经营”的影响。
+r: 4/4/4
+rel: 2017-M15, 1999-A03
+
+@ 1994-M55
+t: 潮水退去才知道谁在裸泳
+s: B
+th: 风险管理; 保险与浮存金
+k: leverage
+c: 新资本涌入再保险业，急于开展业务的管理者会做出集体性的愚蠢决定；在再保险里你可以做着蠢事而浑然不觉，直到某天醒来发现钱没了。用保证金投机债券的人也刚刚学到同样的教训。
+q: Reinsurance business, by its nature, will be a business in which some very stupid things are done en masse periodically. ||| all of a sudden wake up and find out, you know, the money is gone.
+q: you don’t find out who’s been swimming naked until the tide goes out. ||| you don’t find out who’s been swimming naked until the tide goes out.
+zh: 再保险这门生意，从本质上说，会周期性地出现大家一起做非常愚蠢的事情的情况。你可能在再保险里做着蠢事而不自知，然后突然有一天醒来发现钱没了。……只有当潮水退去的时候，你才会发现谁在裸泳。
+l: 顺境中的利润并不能证明风控有效。评估一家公司（或自己的组合）时，要问“潮水退去时会怎样”——在压力情境下检验杠杆、承保纪律和流动性。
+r: 4/4/5
+rel: 2008-A07, 2002-M15
+
+@ 1994-M58
+t: 我们要的是干草堆，不是针
+s: B
+th: 投资方法
+k: circle
+c: 信息传播速度对伯克希尔的决策毫无影响：重要的不是快速信息，而是好的信息以及最终对“价格 vs 价值”做出判断。他们几乎所有决定都来自阅读公开报告，再打听一下行业地位与产品实力；好机会应当“对你大喊”，两三分钟就能决定是否感兴趣。
+q: It’s the processing and finally coming to some judgment that actually has some utility ||| It involves getting good information.
+q: we’re not looking for needles in haystacks ||| And we want it to shout at us.
+q: you could be in someplace where the mails were delayed three weeks ||| you could do just fine in investing.
+zh: 真正有用的是加工信息并最终形成判断——判断一家企业或企业的一部分（证券）的价格与其内在价值相比如何。这些都与信息快慢无关，而在于获得好的信息。……我们并不是在干草堆里找针。你知道，我们喜欢的是干草堆，而不是针。我们希望机会对我们大喊。……我认为，即使你待在一个邮件要晚三周、报价也要晚三周才到的地方，你的投资照样可以做得很好。
+l: 不要和市场比快，而要比“想得深、等得住”。只出手那种不需要精细计算就显而易见的机会；如果需要海底捞针才能找到理由，多半不值得做。
+r: 4/4/4
+rel: 1997-M32, 2008-A08
+
+@ 1994-M60
+t: 当心那些给你一大堆数字的人
+s: BM
+th: 企业估值; 会计与财务
+k: iv
+c: 伯克希尔不公布自己的内在价值数字，而是把自己估值时会用到的全部信息提供给股东，让股东自己计算。芒格：历史上不断向股东宣布内在价值的，多是公司化的房地产控股公司，其中的愚蠢和不当行为令人作呕；Webb & Knapp 精确到小数点后八位地公布内在价值，直到破产那天。
+q: Beware of people that give you a lot of numbers about their businesses. ||| in terms of projections or valuations or that sort of thing.
+q: We try to give you all of the numbers that we would use ourselves in making our own calculations of value. ||| But then we want you to make the calculation.
+zh: 要当心那些给你一大堆关于其企业的数字的人——无论是预测还是估值之类。我们努力把我们自己计算价值时会用到的全部数字都给你……但接下来我们希望你自己来算。
+l: 管理层主动给出的“估值”“目标”越精确，越要警惕。好的信息披露是给出可以自行估值的原材料，而不是结论。
+r: 3/3/4
+rel: 1995-M32, 2011-A26
+
+@ 1994-M62
+t: 按风险敞口定价，而不是按近期经验定价
+s: BM
+th: 风险管理; 保险与浮存金; 投资心理
+k: insurance
+c: 伯克希尔在价格合理时愿意大量承保，价格不合理时宁可不做；只做再保险的公司没有其他去处，往往价格不合理也照做。市场总是按“近期经验”定价——去年没有大飓风就降价，伦敦螺旋式转分保因此全军覆没。无论保险还是股票，都必须独立思考，不能让市场替你思考。
+q: We price to what we think is exposure. We don’t price to experience. ||| We price to what we think is exposure. We don’t price to experience.
+q: the market tends to price and respond to experience, and generally to recent experience. ||| they priced to experience rather than to exposure.
+q: when you lay out money or accept insurance risks, you really have to think for yourself. ||| You cannot let the market think for you.
+zh: 我们按照我们认为的风险敞口来定价，而不是按照经验来定价。……市场往往会按照经验来定价、做出反应，而且通常是按最近的经验。这就是为什么伦敦那些转分保（螺旋）业务全都破产了——在我们看来，它们是按经验而不是按风险敞口定价的。……当你投出资金或承接保险风险时，你真的必须独立思考。你不能让市场替你思考。
+l: “最近没出事”不等于“风险变小”。投资和承保都应基于对潜在损失的结构性分析，而非近期的顺利记录；手里有别的选择（能拒绝做生意）是纪律的前提。
+r: 5/4/5
+rel: 1998-M32, 2005-M18
+
+@ 1994-A05
+t: 止损单就像房子值 10 万却挂 9 万卖
+s: B
+th: 投资心理
+k: mr_market
+c: 有人在 16,000 美元附近对伯克希尔下了 15,500 美元的止损单——不愿意在 16,000 卖、却愿意在 15,500 卖，越跌越愿意卖。这就像住着一套喜欢的、值 10 万的房子，却告诉经纪人有人出 9 万就卖。这类以价格涨跌为中心的股东会加大股价波动，伯克希尔不会鼓励。
+q: why somebody wants to put in an order to sell something for 15,500 that they don’t want to sell at 16,000 is beyond me ||| why somebody wants to put in an order to sell something for 15,500 that they don’t want to sell at 16,000 is beyond me
+q: has always struck me as like having a house that you like ||| if anybody ever comes along and offers 90, you want to sell it.
+zh: 为什么有人不愿意在 16,000 美元卖，却下单要在 15,500 美元卖，我实在无法理解。……这一直让我觉得，就像你有一套自己喜欢、正住着的房子，它值 10 万美元，而你告诉经纪人：只要有人出价 9 万，你就卖。
+l: 机械止损把“价格下跌”当成卖出理由，与价值投资的逻辑相反。卖出应基于企业价值判断的改变，而不是价格本身。
+r: 3/4/4
+rel: 1997-M12
+
+@ 1994-A06
+t: 市场下跌 50%，伯克希尔反而更好
+s: B
+th: 市场周期
+k: mr_market
+c: 伯克希尔持续产生现金，不会因为预期下跌而囤积现金；但市场越便宜，越容易找到看得懂、喜欢且价格诱人的标的。如果问下个月整体市场下跌 50% 好还是维持现状好，答案是下跌 50% 更好，因为公司会不断产生现金去买东西。
+q: we will not husband cash, simply because we think the market’s going to go down ||| the more likely it is that we will find something that we understand and that we like
+q: if you asked us next month whether Berkshire would be better off if the whole stock market were down 50 percent ||| because we would be generating cash to buy things.
+zh: 我们不会因为认为市场要下跌就囤积现金以便日后买东西。……但显然，随着现金流入，我们总是在寻找可做的事。整个市场越便宜，我们就越有可能找到我们看得懂、喜欢并且价格诱人的东西。……如果你问我们，下个月整个股市下跌 50% 和维持现状相比，伯克希尔哪种情况更好？答案是下跌 50% 更好——无论我们手里现在有没有现金，因为我们会源源不断地产生现金去买东西。
+l: 对持续有新增资金（工资、分红、经营现金流）的投资者而言，下跌是机会而非威胁。关键是保持现金流入能力并避免被迫卖出。
+r: 3/4/4
+rel: 1994-M47, 2010-A18
+
+@ 1994-A11
+t: 看得懂就集中，看不懂就广泛分散
+s: BM
+th: 投资方法; 风险管理
+k: concentration
+c: 合伙基金时期巴菲特单只股票最高占比约 40%，芒格更高。只要真正理解企业、价格足够有吸引力、管理层可靠，把净资产的很大比例投入其中并不疯狂——人们把全部身家投入农场或加油站却被视为正常。但如果不懂企业，就应该广泛分散。芒格讲了信托官员要求分散遗产、继承人反问“如果我父亲像你那样想，他可能就是银行信托官而不会留下这笔遗产”的故事。
+q: When I ran the partnership, the limit I got to was about 40 percent in a single stock. ||| When I ran the partnership, the limit I got to was about 40 percent in a single stock.
+q: So it’s not crazy, if you understand the business well ||| then you’re better off diversifying and fairly widely diversifying.
+q: if my father believed the way you do, he might have been a trust officer in a bank ||| leaving this large estate.
+zh: 我管理合伙基金的时候，单只股票的上限大约到过 40%。……所以，如果你非常了解这门生意，价格又足够有吸引力，把净资产中很大的比例投进去并不疯狂。如果你不懂企业，那么你最好分散投资，而且要相当广泛地分散。（芒格转述继承人的话：）如果我父亲像你那样想，他可能就当了一名银行信托官，而不会留下这么大一笔遗产。
+l: 仓位应与“理解程度 × 价格吸引力”成正比，而不是与名气或流动性成正比。集中的前提是你愿意以同样的认识买下整家企业；做不到，就用分散（或指数）来保护自己。
+r: 5/5/4
+rel: 1996-A04, 2008-M29
+
+@ 1994-A22
+t: 内在价值：未来现金流的现值——没有把握，就不知道它值多少
+s: B
+th: 企业估值
+k: iv
+c: 任何资产的经济价值，就是以适当利率折现的未来全部现金流入流出的现值。很多企业他们完全不知道未来现金流会是什么样，因此也完全不知道它现在值多少。他们寻找能以较高概率预测一个区间的企业，宁要数字的确定性，也不要基于没把握的数字算出的“最便宜”。财务报表里没有答案，只有指引；数学不复杂，但必须懂生意。
+q: the economic value of any asset, essentially, is the present value ||| of all the future streams of cash going in or out of the business.
+q: if we don’t have the faintest idea what the future stream is going to look like ||| we don’t have the faintest idea what it’s worth, now.
+q: we are more concerned with the certainty of those numbers ||| we don’t have great confidence in.
+q: there are no answers in the financial statements. ||| you have to understand something about business.
+zh: 任何资产的经济价值，本质上就是以适当利率折现的、该企业未来全部现金流入和流出的现值。……如果我们对未来的现金流会是什么样子毫无头绪，那么我们对它现在值多少钱也毫无头绪。……我们更关心这些数字的确定性，而不是去找那个看起来绝对最便宜、却建立在我们没有多大把握的数字之上的东西。……财务报表里没有答案，只有帮助你找到答案的指引。要找到答案，你必须懂一些生意。
+l: 估值的第一步不是选折现率，而是判断“能否以合理把握预测现金流区间”。不能，就放进“太难”的一堆；能，再比较价格。确定性优先于便宜程度。
+r: 5/5/5
+rel: 1998-M53, 2003-A05, 2017-A18
+
+@ 1994-A23
+t: 增长本身不等于好投资：增长要不要吃资本是关键
+s: BM
+th: 企业估值; 商业模式
+k: business_model
+c: 伯克希尔愿意买完全不增长的企业，只要价格合适。一个不增长、但源源不断吐出现金的企业，可能比一个高速增长却需要大量资本投入的企业好得多。分析师很少重视“增长是否需要资本”这个区别。伯克希尔一些最好的全资企业并不增长，但产生大量现金用于买别的东西，于是资本在增长。
+q: you can certainly have a situation where there’s absolutely no growth in the business ||| particularly if they’re going to need capital in order to grow.
+q: There’s a huge difference in the business that grows and requires a lot of capital to do so ||| Believe me, if you’re investing, you should pay a lot of attention to it.
+q: some of our best businesses that we own outright don’t grow. ||| our capital is growing, without physical growth being in the business.
+zh: 你当然可能遇到这种情况：一家企业完全没有增长，却是比某家将以很高速度增长的公司好得多的投资——尤其当后者需要资本才能增长时。一家增长且需要大量资本的企业，和一家增长却不需要资本的企业，二者有天壤之别。我要说，金融分析师普遍没有给这种区别以足够的重视。事实上，对此的关注少得惊人。相信我，如果你做投资，你应该非常重视这一点。……我们全资拥有的一些最好的企业并不增长，但它们吐出大量现金，我们可以用来买别的东西。于是我们的资本在增长，而这些企业本身并没有实体上的增长。
+l: 估值时把“增长率”和“增长所需的再投资”放在一起看：高 ROIC、低资本需求的增长才创造价值；需要不断烧钱的增长可能毁灭价值。
+r: 5/5/5
+rel: 1998-A33, 2003-A23, 2021-A17
+
+@ 1994-A24
+t: 资本配置是 CEO 最重要的职责之一，不能外包
+s: BM
+th: 资本配置; 管理与治理
+k: capital_alloc
+c: 子公司的日常资本开支由经理人决定，超出经营需要的资本全部由巴菲特和芒格亲自配置，总部没有幕僚。一个 ROE 12%、派息三分之一的 CEO 在任 10 年，经手配置的资本非常可观，但大多数 CEO 并非因资本配置能力被选拔——像一辈子弹钢琴的人到了卡内基音乐厅却被递给一把小提琴。把这项关键职责交给幕僚或顾问是大错。
+q: if you take a CEO that’s in a job for 10 years ||| it’s an enormous factor over time.
+q: probably relatively few chief executives are either trained for, or are selected on, the basis of their ability to allocate capital. ||| they hand him a violin.
+q: so many CEOs, when they get there, think they can solve it by either having a staff that does it ||| it is, if not the key function of the CEO, it’s one of two or three key functions at say 80 or 90 percent of all companies.
+zh: 如果一位 CEO 在任 10 年，他的企业股本回报率是 12%，派发三分之一，那意味着他每年要配置相当于股本 8% 的资本。想想他在任期间配置了多少资本，这是长期中一个巨大的因素。然而，可能很少有 CEO 是因为资本配置能力而受过训练或被选中的……这就像一个人一辈子弹钢琴，终于登上卡内基音乐厅时，别人却递给他一把小提琴。……很多 CEO 上任后以为可以让幕僚去做，或者请顾问……在我们看来那是一个可怕的错误，因为在八九成的公司里，这即便不是 CEO 的头号职能，也是两三项关键职能之一。
+l: 评估管理层时，把“资本配置记录”作为核心指标：留存收益去了哪里、回报几何、并购是否创造价值。不懂资本配置的 CEO 会把好生意的现金浪费掉。
+r: 5/4/5
+rel: 1999-A32, 2023-M30
+
+@ 1994-A25
+t: 凯恩斯的转变：从预测周期到研究企业
+s: B
+th: 投资理念
+k: learning
+c: 除了《聪明的投资者》第 8 章和第 20 章，凯恩斯《通论》中关于市场心理的那一章（第 12 章）同样值得读。凯恩斯和格雷厄姆从截然不同的起点出发，在 30 年代得出相同的结论；凯恩斯早年试图预测经济周期与市场，后来转向企业基本面分析并大获成功，他比格雷厄姆更不主张分散。
+q: Keynes and Graham, from vastly different starting points, came to the same conclusion ||| Keynes believed in diversifying far less than did Graham.
+q: Keynes started off with the wrong theory, I would say, in the ’20s ||| and did extremely well.
+zh: 凯恩斯和格雷厄姆从截然不同的出发点出发，大约在 30 年代的同一时期，就长期而言最稳健的投资方式得出了相同的结论。他们在分散化问题上有些分歧，凯恩斯比格雷厄姆更不主张分散。……但我要说，凯恩斯在 20 年代是从错误的理论起步的，他实际上试图预测商业周期和市场，然后在 30 年代转向对企业的基本面分析，结果做得非常好。
+l: 即使是最聪明的经济学家，预测周期也行不通；真正有效的是对企业的基本面分析。原文中巴菲特对章节号不确定（说“可能是第八章”），实际为《通论》第 12 章。
+r: 3/3/4
+
+
