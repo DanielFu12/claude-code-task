@@ -126,3 +126,115 @@ zh: 大多数职业都有超出外行人自己能完成之事的附加价值。�
 l: 在整体零和（扣费后负和）的主动管理中，费用是决定性变量；选择管理人时警惕“贵即好”的心理和销售能力的迷惑。
 r: 5/5/5
 rel: 2004-A26, 2002-M17, 2008-M35
+
+@ 2006-A09
+t: 我们不是在“做交易”，而是在迎接合伙人：从不参加拍卖
+s: BM
+th: 资本配置; 管理与治理
+k: culture
+c: 伊斯卡、Business Wire、Medical Protective、PacifiCorp、Applied Underwriters 等收购，都是对方直接来找或一对一谈成的；伯克希尔从不参加拍卖。投行的卖方材料里的预测“简直愚蠢”，他很想和写这些材料的人赌四年后的盈利。一笔 40 亿美元的伊斯卡交易，两边都没有投行。芒格：这里的心态不是“做交易”，而是欢迎合伙人——做交易的人想做完、再拆掉、在不太远的将来赚大钱；我们喜欢买来就不再离开的东西，喜欢持久而富有成果的关系，对员工、客户和所有人都是如此；新涌入的“交易翻炒者”太多，会彼此妨碍。一位离开大投行的人说他们“从上面、下面、两边和中间赚钱”。
+q: But the one thing we haven’t done is we haven’t participated in any auctions. ||| They wouldn’t be met.
+q: Well, the interesting thing about it to me is the mindset. ||| We are trying to welcome partners. It’s a total different mindset.
+q: We like the things that we can buy and that never leave us ||| not just for us, but for the people working there and the customers and everybody else.
+zh: 但有一件事我们没做过，就是我们没参加过任何拍卖。我偶尔会收到关于各种企业的材料，里面的预测简直愚蠢。……我真想见见写那些投行材料的人，和他们就四年后预测的盈利打个赌。长期来看我会赢很多钱。那些预测不会实现。（芒格：）对我来说，有意思的是心态。在这个满是新“帮手”的世界里，他们谈论的是做交易。那不是伯克希尔的心态。我们在努力迎接合伙人。这是完全不同的心态。……我们喜欢那些能买下来、并且永远不会离开我们的东西，我们喜欢持久而富有成果的关系，不仅对我们，也对在那里工作的人、客户以及所有人。
+l: 交易心态追求退出，合伙心态追求长期价值；作为买方，远离拍卖与卖方预测，等待愿意选择你的卖方。
+r: 4/3/4
+rel: 2004-A05, 2006-A21
+
+@ 2006-A12
+t: 别让恐惧压倒逻辑：机会来自别人吓呆的时刻
+s: BM
+th: 投资心理; 市场周期
+k: crisis
+c: 不必寻找当代导师——汤姆·墨菲、唐·基奥的经验是永恒的，学会墨菲的课就不需要学别的商业课。投资的基本框架很简单；2002 年买垃圾债、LTCM 危机时的机会、1974 年以极低市盈率买股票，都不需要高智商，人人都知道便宜，只是被吓呆了——需要的是坚持信念的勇气，在别人都吓呆时愿意行动；“遵循逻辑而非情绪”是显而易见的道理，有些人做起来很难。芒格：我们年轻时竞争少得多，如今成群的聪明年轻人、自营交易台随时准备出手。巴菲特：2002 年有大量经验丰富、高智商、有钱的人，他们只是对那个领域感到恐惧；三四年前韩国一批资产负债表强、行业地位强的公司只有约 3 倍市盈率，信息和美国 SEC 文件一样容易获得。芒格：巨大的动荡就像这个礼堂突然着火，会有很多怪异行为；如果你能在别人都疯狂时保持明智，仍会有机会——但这种策略可能带来漫长而无聊的等待期。
+q: You really had to have, sort of, the courage of your convictions. ||| You had to have the willingness to do something when everybody else was petrified.
+q: They were just paralyzed for one reason or another. ||| And some people have great trouble with it, and others have less trouble.
+q: Well, when you have a huge convulsion, which is like a big fire in this auditorium right now ||| But that may give you long, dull stretches, if that’s your strategy.
+zh: 你真正需要的是某种坚持自己信念的勇气。你必须愿意在其他所有人都吓呆了的时候行动。……他们只是因为这样那样的原因瘫痪了。而遵循逻辑而非情绪这一课是显而易见的。有些人在这方面有很大困难，另一些人困难较少。（芒格：）当你遇到一场巨大的动荡，就像此刻这个礼堂里突然起了大火，你会看到很多怪异的行为。……如果你能在其他所有人都发疯时保持明智，当然，仍然会有机会。但如果这是你的策略，你可能要经历漫长而乏味的时期。
+l: 危机中的超额收益来自情绪纪律而非信息优势；准备好在漫长的平淡期里耐心等待。
+r: 5/4/5
+rel: 2005-M10, 2004-A33
+
+@ 2006-A13
+t: 如果从 100 万美元重新开始：找到一个就够，用机会成本衡量一切
+s: BM
+th: 投资方法; 资本配置
+k: concentration
+c: 第一个合伙企业成立于 1956 年 5 月 4 日，资金 10.5 万美元。若重新开始投资证券，他们会在全球寻找像韩国那样的机会——芒格说你找不到 20 个，但你不需要 20 个，只需要一个：这一行不需要大量好点子，只需偶尔一个值一大笔钱的好点子。资金小意味着可以买小盘股；想买企业则很难，因为没有声誉、规模太小。“几年前若我用少量资金管理合伙企业，我大概会 100% 投在韩国。”芒格：指望找到一个每年 20% 增长、然后坐享 40 年的东西是梦想；现实中要找到能理解的最好的东西，然后用它衡量其他一切，因为它就是你的机会成本——诀窍是获得足够的专业能力，让你的机会成本（默认选项）非常高。这就是为什么现代投资组合理论如此愚蠢；大多数人不会找到成千上万同样好的东西，只会找到少数几个，其中一两个远好于其他。
+q: And Charlie says you can’t find 20 of them, but you don’t have to find 20 of them; you only have to find one, really. ||| you just have a good idea that’s worth a ton, occasionally.
+q: You know, I think if I’d been running a partnership a couple of years ago with a small amount of money, I think I’d have probably been 100 percent in Korea. ||| You know, I think if I’d been running a partnership a couple of years ago with a small amount of money, I think I’d have probably been 100 percent in Korea.
+q: And in the real world, you have to find something that you can understand that’s the best you have available. ||| That’s why modern portfolio theory is so asinine.
+q: Most people aren’t going to find thousands of things that are equally good ||| And the right way to think about investing is to act thinking about your best opportunity cost.
+zh: 查理说你找不到 20 个那样的东西，但你不必找到 20 个，你真的只需要找到一个。在这一行，你不需要有成吨的好主意，你只需要偶尔有一个值一吨钱的好主意。……我想如果几年前我用一小笔钱管理一个合伙企业，我大概会 100% 投在韩国。（芒格：）在现实世界里，你必须找到你能理解的、你可得的最好的东西。一旦你找到了最好的东西，你就用它来衡量其他一切，因为它就是你的机会成本。小额资金就应该这样投资。当然，诀窍在于获得足够的专业能力，使你的机会成本——也就是你的默认选项，它仍然相当不错——非常高。所以就其基本算术而言，这个游戏根本没有改变。这就是为什么现代投资组合理论如此愚蠢。……大多数人不会找到成千上万个同样好的东西，他们会找到少数几个，其中一两个远比他们所知道的其他任何东西都好。正确的投资思维方式，是以你最好的机会成本来思考并行动。
+l: 小资金的优势是可以极度集中于最好的少数机会；提升能力圈，就是提高你的“默认选项”的质量。
+r: 5/5/5
+rel: 2003-A20, 2004-M21, 2003-A33
+
+@ 2006-A16
+t: 怎样读伯克希尔年报：如果角色互换，我想知道什么
+s: BM
+th: 企业估值; 会计与财务
+k: iv
+c: 年报里放的是“如果我们角色互换、我全部身家在伯克希尔、在荒岛上待了一年、由经理向我汇报”时我想知道的一切，用能理解的方式呈现，不用无关信息淹没你。值多少钱取决于：企业的种类、管理者、这些企业长期能赚多少，以及继续增添企业的资源和要找的企业类型；这不能算到小数点后四位——他和芒格若必须写一个数，两人会不同，今天和明天也会不同，但会在同一范围内、看相同的东西。十年后伯克希尔值多少，取决于届时的年度盈利、盈利质量、之后的前景以及流动资产。芒格：面对复杂任务，我先迅速处理掉那些不用动脑的简单决定——不涉及多余现金的经营企业最容易估值，再处理保险和多余现金的再配置。
+q: We try to — and we take it very seriously — we try to put everything in that report that we would want to know if the positions were reversed. ||| And we would try to present it to you in a way that’s understandable.
+q: Charlie and I, if we had to stick a number down on a piece of paper right now as to some pinpoint number ||| And the things we would be looking at we report to you in that report.
+q: Yeah. I generally try and approach a complex task, like the one you presented, by quickly disposing of what I call the no-brainer decisions ||| But I would go at it in that sequence: taking the no-brainers first.
+zh: 我们非常认真地对待这件事：我们努力把如果角色互换我们会想知道的一切都放进那份报告。如果我把全部净资产都放在伯克希尔，并在荒岛上待了一年，由经理向我汇报业务，我们会努力提供我想从他那里得到的同样的信息，并努力以一种可理解的方式呈现给你们。……如果查理和我现在必须在纸上写下一个精确的数字——我们不会这么做，因为我们知道那是不可能的。但如果我们必须写一个数，我们俩的数字会不一样。我今天写和明天写可能也不一样。但我们会在同一个范围内，我们会看同样的东西。而我们要看的那些东西，我们都在那份报告中向你们报告了。（芒格：）是的。面对像你提出的这种复杂任务，我通常会先迅速处理掉我所谓的不用动脑的决定，也就是那些简单的……我会按这个顺序来：先处理那些不用动脑的。
+l: 好的管理层沟通标准是“角色互换测试”；估值复杂企业时先拆出最容易估值的部分，再处理需要判断的部分（如资本再配置）。
+r: 3/4/4
+rel: 2004-A28, 2003-A30
+
+@ 2006-A17
+t: 保险的核心问题只有一个：价格够不够？——海水变暖，就该提价
+s: BM
+th: 保险与浮存金; 风险管理
+k: insurance
+c: 浮存金已接近美国财险业的 10%，很难再快速增长。关于大流行、恐怖主义、超级巨灾：每天都有人提出方案，他和贾因讨论 200 亿、500 亿美元以上事件的概率，归根到底就是判断你得到的报酬够不够；某年一笔大亏损不代表判断错误，会有峰谷。他认为过去 100–200 年地震经验的有效性高于飓风经验。芒格：热力学定律决定了，海洋变暖，天气就会有更多高能量的剧变——若假设全球变暖毫无影响去承保与天气相关的保险，那就是疯了；自然的反应是随风险上升而提价，提得够不够、风险控制得够不够，就是这门生意的艺术。巴菲特：1%–2% 的变化可能带来 100% 的概率性成本变化——这是一个爆炸性的方程；他们永远不必非玩不可，不喜欢报价就让别人排在前面。
+q: But that’s all there is to it. I mean, it’s a question of making judgments about whether you’re getting paid enough. ||| But there’s no magic to it.
+q: Well, I think the laws of thermodynamics are such that if the oceans get warmer ||| that’s the art of the business.
+q: And you have this possibility that, you know, 1 percent changes or 2 percent changes in something can produce 100 percent of probabilistic changes in cost. ||| somebody else can take our place in line. We’ll be happy to have them.
+zh: 但事情就是这样。这是一个关于你得到的报酬是否足够的判断问题。如果 30 年后我们有很多钱，那就意味着我们的判断总体上不错。如果今年我们在某笔业务上有一大笔亏损，并不意味着我们的判断错了，因为它会有高峰和低谷。但这里面没有魔法。（芒格：）我认为热力学定律是这样的：如果海洋变暖——我认为它们正在变暖——天气中就会有更多高能量的剧变。所以如果我们在假设全球变暖毫无影响的理论下承保与天气相关的保险，那我们就是疯了。自然的反应是随着风险上升而提高价格。而你提价是否足够、对风险的控制是否足够谨慎，这就是这门生意的艺术。（巴菲特：）是的。存在这样的可能性：某个东西 1% 或 2% 的变化，可能带来成本在概率上 100% 的变化。你所面对的是一种爆炸性的方程。……但那是我们所在的游戏，而我们永远不必非玩不可。如果我们不喜欢别人给出的条件……别人可以排在我们前面，我们很乐意让给他们。
+l: 当风险的基础分布在变化（如气候）时，历史数据会系统性低估尾部；保险与投资一样，可以拒绝不合适的价格。
+r: 4/3/4
+rel: 2005-M18, 2002-A21
+
+@ 2006-A19
+t: 复杂的破产案可能带来获利机会：越复杂，越可能错误定价
+s: BM
+th: 投资方法
+k: crisis
+c: 芒格：破产程序很糟糕——各地法院为争夺案源，竞相形成过度支付律师、受托人、顾问的文化。巴菲特：伯克希尔从破产中买下 Fruit of the Loom（最初只是买了它的债券），也在安然破产后买过其 Ospreys 债券，最终回报远超三倍。“一个复杂的破产案可能带来获利机会”——任何庞大而复杂的事情，都很可能出现错误定价；宾州中央铁路破产就因极其复杂而让很多人赚了大钱。目前研究破产的人太多，错误定价可能更多在高估一侧，但长期总会有有吸引力的机会。芒格：东方航空破产中法院严重亏待了优先债权人——读法律书得出一个结论，买错了证券就会发现自己猜错了。
+q: And a complicated bankruptcy can offer opportunities for profit. ||| but it has had promise in the past.
+q: So anytime there’s something big, complicated, there’s certainly a good chance of mispricing. ||| there will be some attractive things to do in bankruptcy situations.
+zh: 一个复杂的破产案可能带来获利机会。现在有太多人在关注破产或潜在的破产，所以我要说这个领域目前前景不大，但它在过去曾经很有前景。……所以任何时候出现某种庞大而复杂的事情，肯定很有可能出现错误定价。现在，最近的错误定价可能更多在高估的一边而不是低估的一边。但长期来看，你会发现在破产情境中会有一些有吸引力的事情可做。
+l: 复杂性和强制卖出会制造错误定价；但法律程序的不确定性同样是风险，需深刻理解优先级与法官裁量。
+r: 3/3/4
+rel: 2003-A32, 2005-M10
+
+@ 2006-A21
+t: “战略买家就是付得太多的人”：不从转手者那里买企业
+s: BM
+th: 资本配置; 企业估值
+k: due_diligence
+c: 财务投资者买下企业后很快就想转卖，几乎总是采用拍卖，并寻找所谓的“战略买家”——“战略买家就是付得太多的人”，他为了自圆其说才称之为战略性的；每当有人说“你可能是这项资产合乎逻辑的战略买家”，他挂电话比芒格还快。从买下那一刻起就在想“怎么退出”、怎样让这几年的数字好看以卖出最高价的人，伯克希尔不会从他们那里买到划算的东西，也不信任那些数字；他们想要的是前任经营者打算经营一百年、悉心照料企业、并不打算卖、只是出于某种原因最终需要变现的企业。基金 A 卖给基金 B 再卖给基金 C，每转一次就抽 20% 的利润分成，可能 C 和 A 的出资人还是同一批养老基金。芒格：30 年代某些房地产借到的钱比能卖的价格还多，如今一些私募交易也出现了这种情况——很怪。
+q: They seek what they call a strategic buyer. A strategic buyer is some guy that pays too much. ||| I mean, I have never understood being a strategic buyer.
+q: But the idea that we’re going to find a business to buy from some guy who, from the moment he bought it a few years ago, has been thinking, “How do I get out of this thing?” ||| We won’t trust the figures.
+q: You know, we — it just — it’s — what we like is a business that — where the guy before was running with the idea of running it a hundred years ||| but, for one reason or another, finally needs to monetize the company.
+q: I mean, I’ve seen some that have changed hands three or four times. ||| except that everybody’s just taking a big 20 percent slice out of it every time they move it from one place to another.
+zh: 他们寻找所谓的战略买家。战略买家就是那个付得太多的人。因为他想为此辩解，所以说这是战略性的。我从来不明白当一个战略买家是什么意思。……但我们要从一个人手里买企业，而这个人自从几年前买下它的那一刻起，就一直在想“我怎么从这玩意儿里脱身？”……“我怎么让它这几年的数字看起来某个样子，好在几年后卖出最高价？”——我们不会在那里买到任何有吸引力的东西，我们不会信任那些数字。……我们喜欢的是这样的企业：之前的经营者是抱着经营一百年的想法在经营它，以各种可能的方式照料企业，并不打算出售，但因为这样那样的原因，最终需要把公司变现。……我见过一些企业易手了三四次。他们只是不断给它加价……也许基金 C 或基金 D 的所有者和基金 A 是同一批养老基金，只不过每次把它从一个地方挪到另一个地方，每个人都从中切走 20% 的一大块。
+l: 收购时先问卖方是谁、持有多久、为何出售；对“为出售而包装”的企业，财务数据的可信度要大打折扣。
+r: 4/4/5
+rel: 2003-M39, 2006-A09, 2004-A05
+
+@ 2006-A23
+t: 保险与赌博的区别：转移已存在的风险 vs 制造不必要的风险
+s: BM
+th: 保险与浮存金; 人生智慧
+k: insurance
+c: 通常的区分是：赌博制造了不需要被制造的风险——押注轮盘上的小球落在哪里是被创造出来的风险；而沿海的住宅或企业，风险本来就存在，问题只是由谁承担——巨灾保险是对既有大风险的转移，而非创造不必要的风险。你可以看球赛而不赌，但你不能住在佛罗里达海边的房子里而不承担整笔投资消失的风险。芒格：“庄家优势”在现代商业中是个有趣的概念——许多私募股权合伙企业的所有者抽取的庄家优势，看起来很像蒙特卡洛赌场管理员的抽成，只是更大。
+q: Well, gambling, I think — I think the distinction that usually is made is that gambling involves creating risks that don’t need to be created. ||| as opposed to the creation of a risk that is not required.
+q: I think the proprietors of the partnerships are taking a house edge that looks a lot like the rake of the croupier in Monte Carlo, except it’s bigger. ||| I think the proprietors of the partnerships are taking a house edge that looks a lot like the rake of the croupier in Monte Carlo, except it’s bigger.
+zh: 嗯，赌博——我认为通常的区分是，赌博涉及制造本不需要被制造的风险。……而如果你在沿海地区有一栋房子或一家企业，风险本来就在那里。……然后问题是由谁来承担它。所以在巨灾保险的情况下，这是对已存在的大风险的转移，而不是创造一个并不需要的风险。（芒格：）……我认为这些合伙企业的所有者抽取的庄家优势，看起来很像蒙特卡洛赌场管理员的抽成，只不过更大。
+l: 判断一项活动是否创造价值：它是在转移和分担既有风险，还是在制造风险并从中抽成？
+r: 3/3/4
+rel: 2006-M29, 2004-A26
