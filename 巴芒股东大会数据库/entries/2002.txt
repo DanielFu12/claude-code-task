@@ -253,3 +253,114 @@ zh: 我会这样说：如果你怀疑某样东西是否在你的能力圈内，�
 l: 用“是否有疑问”作为能力圈的快速检验；把仓位集中在圈子的中心，而不是边缘；有意识、有练习地扩展能力圈。
 r: 5/5/5
 rel: 2002-M26, 1999-A02
+
+@ 2002-A20
+t: 资本凭什么每年赚远超 6%–7%？降低预期是成熟
+s: BM
+th: 市场周期; 投资心理
+k: psychology
+c: 伯克希尔未来回报会低于过去 20 年，但相对多数替代选择会令人满意。股票未来 20 年回报不会很糟，只是那些预期在 1982–1999 年间形成的人会非常失望。在低通胀世界里赚 6%–7% 没有什么不对——资本还有资格拿更多吗？回报必须出自某人；若资本长期在越来越大的规模上赚取高得多的回报，国民收入分配会整体移位。芒格：当前条件下最聪明的事之一，就是把预期从过去的投资成就大幅调低，包括对伯克希尔股票——这是成熟和明智。
+q: We don’t think the returns on equities are going to be terrible over the next 20 years. ||| you would have a whole shift in the national income stream over time.
+q: I think one of the smartest things that a person can do under present conditions ||| I think that’s maturity and good sense.
+zh: 我们并不认为未来 20 年股票回报会很糟糕。我们只是认为，那些在 1982 到 1999 年间形成预期的人会非常失望。但用你的钱赚 6% 或 7% 并没有什么错。在一个通胀相对较低的世界里，资本还有资格比这多拿多少？回报总得出自某人。如果在越来越大的资金规模上持续赚取比这高得多的回报，随着时间推移，整个国民收入流都会发生移位。（芒格：）我认为在当前条件下，一个人能做的最聪明的事之一，就是把预期从过去的投资成就大幅调低——当然也包括对伯克希尔股票的预期。我认为这是成熟和明智的表现。
+l: 用“资本回报不能长期远超经济增长”这一宏观约束来校准预期；高预期会诱使人承担不该承担的风险。
+r: 4/4/4
+rel: 2001-M33, 2002-M17
+
+@ 2002-A21
+t: 巨大的曝光量 + 极高的拒绝率 = 很多好决策
+s: BM
+th: 保险与浮存金; 投资方法
+k: insurance
+c: 保险和投资一样，身处伦敦还是奥马哈并不重要；重要的是有能力和纪律从成千上万的机会里挑出一组来做。只要打开闸门，一个月就能写几百亿保费——关键是对什么说是、对什么说不：只接受理解且定价恰当的风险，避免过度累积，偶尔防范不诚实的人。国民保险创始人林沃尔特不是保险天才，可能一辈子没看过精算书，但他坚持只做懂的业务、确保风险得到合理报酬，打败了哈特福德那些有百年历史、资本雄厚、精算师成群的公司——因为他们没有他的纪律。芒格：把巨大的曝光量和巨大的拒绝率结合起来，你就有机会做出相当多好的决策。
+q: What counts is the ability to, and the discipline, to look at thousands of different things and select from them a group to do ||| And the question is, is what you say yes to and what you say no to.
+q: But he just was an intelligent fellow who had enough sense to do ||| But they didn’t have the discipline that he had. And that’s what it’s all about.
+q: Yeah, the insurance business is a lot like the investment business at Berkshire. ||| If you combine a vast exposure with a vast decline rate, you have an opportunity to make quite a few good decisions.
+zh: 重要的是有能力、有纪律去审视成千上万件不同的事，从中挑出一组去做……外面有大量的业务，有大量的投资机会——或投资选择。问题在于你对什么说是、对什么说不。……他（林沃尔特）只是一个聪明人，有足够的判断力去做事——几乎在所有情况下都坚持他懂的东西，并确保他为所承担的风险得到恰当的报酬。他把哈特福德那些存在了一百年的公司打得落花流水……但他们没有他那样的纪律。这才是关键所在。（芒格：）是的，保险业务很像伯克希尔的投资业务。如果你把巨大的曝光量与极高的拒绝率结合起来，你就有机会做出相当多的好决策。
+l: 广泛看、极少做：扩大机会来源，同时保持极高的拒绝率；纪律比资源、模型和地理位置更重要。
+r: 5/5/5
+rel: 2002-M15, 2002-A18
+
+@ 2002-A22
+t: 精灵送你的车：你一生只有一个心智和一个身体
+s: B
+th: 人生智慧
+k: life
+c: 假设你 16 岁时精灵答应送你任何一辆梦想之车，唯一条件是这是你一生中唯一的一辆车。你会把说明书读十遍、放车库、机油换得比要求勤一倍、有点划痕当天就修，确保 50、60 岁时它还是梦想之车。你一生也只会得到一个心智和一个身体。与其说是为退休做准备，不如说是为那个年纪的生活做准备；到 60、70 岁再想就晚了——车可以保养却无法复原，而心智可以随时间大大增强。巴菲特愿意花 5 万美元买一个身心健全的大学毕业生未来收入的 10%——这意味着他身无分文时也值 50 万：最重要的资产是你自己。
+q: Now, what do you do, knowing that’s the only car you’re going to have for the rest of your life? ||| because you treat it as the only one you’ll ever get in your lifetime.
+q: And then I would suggest to your students in Phoenix that they are going to get exactly one mind and one body ||| it’s a question of preparing for life at those ages.
+q: And it will be too late to think about that when they’re 60 or 70. ||| But the most important asset your students have is themselves.
+q: I will be glad to pay them, you know, probably $50,000 for 10 percent of all their earnings for the rest of their lives. ||| And they ought to treat their main asset as they would any other asset that was divorced from themselves.
+zh: 那么，知道这是你余生唯一的一辆车，你会怎么做？你会在插钥匙之前把车主手册读上十遍，你会把它停在车库里。机油你会比他们要求的勤换一倍，轮胎气压保持合适，有一点小划痕当天就修好，免得生锈。换句话说，你要确保 16 岁时的梦想之车到 50 或 60 岁时仍是梦想之车，因为你把它当作一生唯一会拥有的那辆。然后我会建议你在凤凰城的学生们：他们恰好只会得到一个心智和一个身体，那就是他们 40、50、60 岁时会拥有的心智和身体。这与其说是为那些年纪的退休做准备，不如说是为那些年纪的生活做准备。……到 60 或 70 岁再想这件事就太晚了。你没法把车修回原来的样子，你只能保养它。而就心智而言，你可以随时间大幅提升它。但你的学生最重要的资产是他们自己。……我很乐意付给他们大约 5 万美元，换取他们余生全部收入的 10%。……他们应当像对待任何一项独立于自身的资产那样，对待他们最主要的资产。
+l: 最高回报的投资是投资自己：健康、知识与习惯都具有复利，且越早开始越好。
+r: 4/4/5
+rel: 2001-A03, 2002-M25
+
+@ 2002-A25
+t: 房地产很少被错误定价，而且我们没有优势
+s: BM
+th: 投资方法; 风险管理
+k: circle
+c: 房地产（尤其是成熟物业）不是商品，但大部分时间定价相当准确：REIT 们都知道芝加哥一栋甲级写字楼能产出多少。大的错误定价只出现在融资大幅中断的混乱时期，如 RTC 时期——伯克希尔那时“错过了船”。芒格：我们相对于有经验的房地产投资者没有任何竞争优势；而且作为 C 类公司，在房地产收入和最终所有者之间多了一层公司税，房地产对这种结构天生是糟糕的投资。两者结合，意味着我们几乎不花时间思考房地产。
+q: Real estate is not a commodity, but I think it tends to be more accurately priced ||| But under most conditions, it’s hard to find real estate that’s really mispriced.
+q: Yeah, we don’t have any competitive advantage over experienced real estate investors in the field ||| means that we spend almost no time thinking about anything in real estate.
+zh: 房地产不是商品，但我认为它往往定价更准确——尤其是已开发的房地产，大部分时候定价更准确。……但在大多数情况下，很难找到真正被错误定价的房地产。（芒格：）是的，我们相对于该领域有经验的房地产投资者没有任何竞争优势，即使我们以合伙制用自己的钱运作也不会有。而如果你像我们这样以公司形式运作、按《国内税收法》C 章纳税，那么在房地产收入与房地产所有者使用这笔收入之间，就多了一整层公司税。所以就其性质而言，对按 C 章纳税的公司来说，房地产往往是非常糟糕的投资。因此，这一结构上的不利，加上我们在该领域没有特殊能力，意味着我们几乎不花时间思考任何房地产方面的事情。
+l: 投资一个领域前先问两件事：这里是否经常错误定价？我相对其他参与者（包括税收与结构）有没有优势？两者都否，就不必花时间。
+r: 3/4/4
+rel: 2002-A18
+
+@ 2002-A26
+t: 所有期权都有价值：别盲信布莱克-斯科尔斯
+s: BM
+th: 企业估值; 会计与财务
+k: incentives
+c: 每个期权都有价值：别人出几块钱要以 2 倍价格买你房子 10 年的期权，你不会给，因为通胀等可能性太多。拿期权的人通常比给期权的人更懂这一点。伯克希尔曾卖出一份标普 500 组合期权，传统方法认为看涨与看跌价值相等、无需现金，巴菲特判断不同——他们不盲目接受诺贝尔奖得主公式算出的期权价值，而加入判断；两家 B-S 值相同的公司，他们可能愿意付截然不同的价格。两块农场每亩都卖 1000 美元，但其中一位卖家要求每年按 1000 美元把 2% 的地期权给他——10 年后 20% 的上涨归他、下跌全归你，你买哪块？给保险费、电费、房租的期权都要记为费用，只有 CEO 薪酬不用，因为国会屈服于他们的游说。芒格：对短期期权、你对公司一无所知时，B-S 是好的近似；对长期期权、你自认为知道些什么时，用它是疯狂的——公司选 B-S 是因为它算出的成本最低，这是一场“疯帽子茶会”。
+q: Every option has value. ||| And people that get options usually understand that better than people that give options.
+q: So, we don’t accept, blindly, option values as determined by the calculations of people who win Nobel Prizes. ||| maybe a significantly different amount.
+q: Imagine, you know, going up a few miles away from here and having two farms for sale. ||| It’s not very complicated.
+q: But if it’s a long-term option and you think you know something, it’s an insane way to value the option. ||| and they do that because it comes up with the lowest cost number.
+zh: 每个期权都有价值。……所有期权都有价值。而获得期权的人通常比给出期权的人更明白这一点。……所以，我们不会盲目接受诺贝尔奖得主们计算出的期权价值。相反，我们会在其中加入判断。有些企业，其 10 年期期权的布莱克-斯科尔斯价值完全相同，而我们愿意为其中一家支付的价格与另一家不同，可能差别很大。……想象一下，离这里几英里有两块农场在卖。你问价钱，两人都说每英亩 1000 美元，但其中一人说：“不过每年我要你给我一个期权，让我按 1000 美元买回这块地的 2%。这样 10 年后，20% 的上涨归我，而所有的下跌归你。”你会买哪块农场？没有期权的那块还是带期权的那块？这并不复杂。（芒格：）但如果是长期期权，而你认为自己知道些什么，用它来给期权估值就是疯狂的。……华尔街满是智商 150 的人，在用布莱克-斯科尔斯给那些不该被硬塞进模型的期权估值。全美国的企业都在财报附注里用布莱克-斯科尔斯给股票期权定价，他们这么做是因为它算出的成本数字最低。
+l: 把高管期权当作真实成本，按“农场测试”理解它对股东的稀释；对长期期权，模型价值只是起点，必须结合对标的企业的判断。
+r: 5/4/5
+rel: 2002-A09, 2001-A14
+
+@ 2002-A28
+t: 德克斯特鞋业：一个（多个）愚蠢的决定，以及真正付出代价的人
+s: BM
+th: 资本配置; 宏观与社会
+k: mistakes
+c: 德克斯特鞋业亏了大钱，“得益于我做的一个蠢决定，也许是好几个”：美国约 12 亿双鞋中只有约 5% 在本土生产，劳动力成本是别人 10 倍时，再好也难；更错的是用伯克希尔股票支付。芒格：无论你多努力地建立避免错误的系统、待在能力圈内，你仍会犯错，“我可以有信心地保证这不会是我们最后一个错误”。巴菲特：我们只是财务上受了点打击，靠国债交易就补回来了；真正付出代价的是那些一生只学了一门手艺、在小镇生活、毫无过错的工人——对一个 60 岁只会说葡萄牙语的纺织工人，再培训没什么意义。“我们是幸运的人。”
+q: We lost a very significant amount of money on Dexter, thanks to a dumb decision that I made, and maybe several dumb decisions. ||| We lost a very significant amount of money on Dexter, thanks to a dumb decision that I made, and maybe several dumb decisions.
+q: But in the end, you know, if you’re paying 10 times as much per hour for labor as somebody else, it’s awfully hard to be that good. ||| But in the end, you know, if you’re paying 10 times as much per hour for labor as somebody else, it’s awfully hard to be that good.
+q: And in that respect, I was very wrong in paying what I did ||| And I think I can confidently promise that it won’t be our last mistake.
+q: And when you think of the consequences to the people that have spent a lifetime learning one trade ||| So, we’re the lucky ones, you know, basically in these situations.
+zh: 我们在德克斯特上亏了一大笔钱，这得归功于我做的一个愚蠢决定，也许是好几个愚蠢决定。……但归根结底，如果你每小时付的工资是别人的 10 倍，你很难好到足以弥补。……在这方面，我为一家美国本土制鞋商付出了那样的价格，并以那种方式支付——在德克斯特的案例中是用股票——我错得很离谱。（芒格：）是的，这表明——而这很重要——无论你多么努力地建立避免错误的系统、努力待在能力圈之内等等，你仍然会犯错。我想我可以有信心地保证，这不会是我们最后一个错误。（巴菲特：）……想想那些花了一生学会一门手艺的人所承受的后果……再培训对一个在我们纺织厂工作过、60 岁、只会说葡萄牙语的人没什么用。或者对一个在缅因州德克斯特工作、58 岁的人……所以，在这些情况下，我们基本上是幸运的那一方。
+l: 评估制造业企业时首先看其相对全球成本的竞争地位；用自家被低估的股票去收购，会把一个错误放大。坦然承认错误，并看到其中的社会代价。
+r: 4/4/4
+rel: 2001-A33, 2002-M14
+
+@ 2002-A32
+t: 挑选优秀投资者没有公式：多因素成功的“反常”
+s: BM
+th: 管理与治理; 人生智慧
+k: management
+c: 如何从一群聪明、理念一致的年轻人中预测谁会成为优秀投资者？芒格：我回答不了。巴菲特：就像挑妻子，你没法说幽默占 18%、长相 12%——给不出公式，但你会做出正确决定；和十几个优秀 MBA 相处一段时间，他们有合理的把握挑出一个能进入前四分之一的人。所罗门危机那个周六，他只有约三小时从十几个自认能接班的高智商者中挑人，挑对了，却写不出一套问题清单。芒格：当多个因素共同导致成功时，一个人 A 极强 Z 极差，另一个反过来，两人可能同样成功——某方面的巨大长处能部分弥补另一方面的短处；投资界满是凭完全不同天赋成功的人。
+q: I mean, if you ask me what should — how should you pick a wife ||| I can’t give you the formula, but I think you’ll make the right decision
+q: Yeah, well, when multiple factors are causing success, you get these anomalies. ||| I think the investment world is full of people who are succeeding based on quite different sorts of talent.
+zh: 如果你问我该怎么挑选妻子——幽默占 18%，长相占 12%，父母占 17%……我给不出公式，但我想你会做出正确的决定。……（芒格：）当多个因素共同导致成功时，你就会看到这些反常现象。两个人将会同样成功，一个在 A 方面极其出色而在 Z 方面很糟，另一个在 Z 方面非常出色而在 A 方面很糟。他们是相等的。哪个因素最重要？答案是在这种情况下无所谓。当你有多个因素时，一方面的巨大长处会在一定程度上弥补另一方面的短处。而且这些因素可能截然不同。我认为投资界充满了凭借截然不同的天赋而成功的人。
+l: 评估人（管理者、基金经理）要整体判断，而不是对单项打分加权；接受成功路径的多样性。
+r: 3/3/4
+rel: 2002-M26
+
+@ 2002-A33
+t: 喜诗不进 Costco：价格是产品完整性的一部分
+s: BM
+th: 商业模式; 护城河
+k: moat
+c: 在美国，除喜诗外几乎没人能靠自营门店卖盒装巧克力赚钱：人均每年只有约一磅，通常作为礼物或节日购买，数百家公司（有的比喜诗大）都失败了。喜诗在西部成功，却在其他地区始终没找到办法——想了 30 年，因为成功时太好了。喜诗不会进入任何打折渠道，正如劳力士不希望有人给它打折；Costco 的整个模式建立在给人特价上，而喜诗的价格是产品完整性的一部分——“两者永远不会相遇”。
+q: Now, bear in mind, no one really makes any money with boxed chocolates through retail ||| And there really is no one making any money elsewhere.
+q: We don’t want people discounting our candy, it’s very simple, any more than Rolex wants somebody discounting their watches. ||| Costco is a wonderful operation, and See’s is a wonderful operation, and never the twain shall meet.
+zh: 请记住，在美国，除了喜诗，没有人真正通过自营零售门店卖盒装巧克力赚到钱。……数百家公司，包括一些比喜诗大得多的公司，都失败了。……我们不希望别人给我们的糖果打折，就这么简单，正如劳力士不希望别人给它的手表打折。……我们不会让喜诗通过任何会打折的分销渠道。……Costco 的基础是给人们特价……但对于一个价格本身就是产品完整性一部分的产品，我们不会通过一个以打折为整个经营方式之基础的分销体系来销售。Costco 是一家了不起的企业，喜诗也是一家了不起的企业，二者永不相交。
+l: 定价权型品牌要守住渠道：进入折扣渠道换来的销量，会侵蚀品牌赖以存在的价格信号。护城河也有地理边界。
+r: 3/4/4
+rel: 2001-A24
