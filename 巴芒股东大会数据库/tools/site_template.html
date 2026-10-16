@@ -1,0 +1,335 @@
+<title>巴芒股东大会精华库</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a fixed dark "ledger" band carries the brand badge; below it a filter rail and a reading column of minute-stamped excerpts. */
+:root {
+  --ink: #0d1726;          /* header band, always dark */
+  --ink-2: #16243a;
+  --gold: #e2b25c;         /* brand gold, used sparingly */
+  --gold-soft: #f4dfae;
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --fg: #18202c;
+  --muted: #5d6878;
+  --line: #dde2ea;
+  --accent: #1f5fae;       /* archive blue, from the logo ring */
+  --accent-soft: #e5eefa;
+  --quote-bg: #f1f4f8;
+  --mark: #fff2c8;
+  --f-display: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --f-body: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0b111b; --surface: #121b29; --fg: #e3e8f0; --muted: #94a0b2; --line: #263247;
+  --accent: #7fb0ec; --accent-soft: #17283f; --quote-bg: #0f1724; --mark: #4a3d16; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0b111b; --surface: #121b29; --fg: #e3e8f0; --muted: #94a0b2; --line: #263247;
+  --accent: #7fb0ec; --accent-soft: #17283f; --quote-bg: #0f1724; --mark: #4a3d16; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--fg); font: 15px/1.7 var(--f-body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ink); }
+a { color: var(--accent) }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* header band */
+.band { background: var(--ink); color: #dfe6f2; }
+.band .wrap { padding-block: 22px 0; position: relative; }
+.badge { position: absolute; top: 14px; right: max(16px, env(safe-area-inset-right, 0px)); height: 60px; width: auto; }
+.band h1 { font: 900 clamp(26px, 4vw, 38px)/1.2 var(--f-display); margin: 0; color: var(--gold-soft); letter-spacing: .02em; padding-right: 220px; text-wrap: balance }
+.band .sub { margin: 8px 0 0; color: #a9b6c9; max-width: 62ch }
+.stats { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 18px 0 0; font-family: var(--f-mono); font-size: 13px; color: #c6d1e1 }
+.stats b { color: var(--gold); font-weight: 500; font-size: 18px; margin-right: 4px }
+.tabs { display: flex; gap: 4px; margin-top: 20px; overflow-x: auto; scrollbar-width: none }
+.tabs button { background: none; border: 0; color: #9fb0c8; font: 600 15px var(--f-body); padding: 10px 14px; border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap }
+.tabs button[aria-selected="true"] { color: #fff; border-bottom-color: var(--gold) }
+@media (max-width: 640px) {
+  .badge { position: static; display: block; height: 40px; margin: -8px 0 10px auto }
+  .band h1, .band .sub { padding-right: 0 }
+}
+
+main .wrap { padding-block: 24px 64px }
+.pane[hidden] { display: none }
+
+/* filters */
+.layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 28px; align-items: start }
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr) } }
+.filters { display: grid; gap: 14px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px) }
+@media (max-width: 860px) { .filters { position: static; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) } }
+.filters label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); letter-spacing: .06em }
+.filters input, .filters select { font: 14px var(--f-body); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; width: 100%; min-width: 0 }
+.chips { display: flex; flex-wrap: wrap; gap: 6px }
+.chip { font: 13px var(--f-body); border: 1px solid var(--line); background: var(--surface); color: var(--fg); padding: 4px 10px; border-radius: 999px; cursor: pointer }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg) }
+.reset { font: 13px var(--f-body); background: none; border: 0; color: var(--accent); cursor: pointer; text-align: left; padding: 0 }
+.count { font-size: 13px; color: var(--muted); margin: 0 0 12px }
+
+/* entry list */
+.list { display: grid; gap: 0 }
+.entry { border-top: 1px solid var(--line); padding: 18px 0 }
+.entry:first-child { border-top: 0; padding-top: 4px }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 12.5px; color: var(--muted) }
+.yr { font: 500 13px var(--f-mono); color: var(--fg); background: var(--accent-soft); padding: 1px 7px; border-radius: 4px }
+.rank { font: 500 12px var(--f-mono); color: var(--ink); background: var(--gold); padding: 1px 7px; border-radius: 4px }
+.score { font-family: var(--f-mono); letter-spacing: .04em }
+.entry h3 { font: 600 18px/1.45 var(--f-display); margin: 6px 0 4px; text-wrap: balance }
+.entry h3 button { all: unset; cursor: pointer }
+.entry h3 button:focus-visible { outline: 2px solid var(--gold) }
+.core { margin: 0; max-width: 72ch }
+.detail { margin-top: 12px; display: grid; gap: 12px; max-width: 78ch }
+.detail h4 { margin: 0; font-size: 12px; letter-spacing: .1em; color: var(--muted); font-weight: 600 }
+.quote { background: var(--quote-bg); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 4px 0 0; font-family: Georgia, "Times New Roman", serif; font-size: 15.5px; line-height: 1.65; overflow-wrap: anywhere }
+.zh { margin: 4px 0 0 }
+.lesson { margin: 4px 0 0; font-weight: 600 }
+.src { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); align-items: center }
+.ts { font: 500 13px var(--f-mono); color: var(--fg) }
+.watch { font-weight: 600; text-decoration: none; border: 1px solid var(--accent); padding: 3px 10px; border-radius: 5px }
+.watch:hover { background: var(--accent-soft) }
+.rel { display: flex; flex-wrap: wrap; gap: 6px }
+.rel button { font: 12px var(--f-mono); background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; color: var(--accent); cursor: pointer }
+.more { margin: 20px 0 0; font: 600 14px var(--f-body); background: var(--surface); border: 1px solid var(--line); color: var(--fg); padding: 10px 18px; border-radius: 6px; cursor: pointer }
+mark { background: var(--mark); color: inherit }
+
+/* evolution */
+.evo { display: grid; gap: 28px }
+.evo section { border-top: 2px solid var(--fg); padding-top: 12px }
+.evo h3 { font: 900 20px/1.4 var(--f-display); margin: 0 }
+.evo .span { font: 13px var(--f-mono); color: var(--muted) }
+.evo p { max-width: 72ch; margin: 8px 0 12px }
+.tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px }
+.tl li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 10px; font-size: 14px }
+.tl .y { font: 500 13px/1.9 var(--f-mono); color: var(--accent) }
+.tl button { all: unset; cursor: pointer; line-height: 1.7 }
+.tl button:hover { color: var(--accent) }
+.evo-nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px }
+
+/* catalog */
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface) }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 820px }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top }
+th { font-size: 12px; letter-spacing: .06em; color: var(--muted); font-weight: 600; background: var(--quote-bg) }
+td.y { font: 500 14px var(--f-mono); white-space: nowrap }
+td .gap { color: #b4532a; display: block; font-size: 12.5px }
+.num { font-variant-numeric: tabular-nums; font-family: var(--f-mono) }
+
+/* about */
+.about { max-width: 72ch; display: grid; gap: 4px }
+.about h3 { font: 900 20px var(--f-display); margin: 18px 0 4px }
+.about p, .about li { margin: 0 0 6px }
+@media (prefers-reduced-motion: no-preference) { .entry { transition: background .2s } }
+</style>
+
+<header class="band">
+  <div class="wrap">
+    <img class="badge" src="__BADGE__" alt="巴芒价值 BUFFETT · MUNGER">
+    <h1>巴菲特与芒格股东大会精华库</h1>
+    <p class="sub">1994–2024 年伯克希尔股东大会问答中挑出的深度观点。每条附英文原话、中文翻译、投资启示和 CNBC 视频的估算时间点。</p>
+    <div class="stats" id="stats"></div>
+    <nav class="tabs" role="tablist" aria-label="视图">
+      <button role="tab" id="tab-all" aria-selected="true" data-pane="all">精华库</button>
+      <button role="tab" id="tab-top" aria-selected="false" data-pane="top">Top 100</button>
+      <button role="tab" id="tab-evo" aria-selected="false" data-pane="evo">思想演变</button>
+      <button role="tab" id="tab-cat" aria-selected="false" data-pane="cat">视频目录</button>
+      <button role="tab" id="tab-about" aria-selected="false" data-pane="about">方法与局限</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="pane" id="pane-all">
+      <div class="layout">
+        <aside class="filters" aria-label="筛选">
+          <label>关键词（中英文均可）<input id="q" type="search" placeholder="如：护城河、float、回购"></label>
+          <label>主题<select id="theme"><option value="">全部主题</option></select></label>
+          <label>概念簇<select id="cluster"><option value="">全部概念簇</option></select></label>
+          <label>起始年份<select id="y0"></select></label>
+          <label>截止年份<select id="y1"></select></label>
+          <label>最低总分（满分 15）<select id="minscore"><option value="0">不限</option><option>12</option><option>13</option><option>14</option><option>15</option></select></label>
+          <label>排序<select id="sort"><option value="year">按年份</option><option value="score">按评分</option></select></label>
+          <div><div style="font-size:12px;color:var(--muted);letter-spacing:.06em;margin-bottom:4px">发言人</div><div class="chips" id="spk"></div></div>
+          <button class="reset" id="reset" type="button">清除全部筛选</button>
+        </aside>
+        <section aria-live="polite">
+          <p class="count" id="count"></p>
+          <div class="list" id="list"></div>
+          <button class="more" id="more" type="button" hidden>显示更多</button>
+        </section>
+      </div>
+    </div>
+
+    <div class="pane" id="pane-top" hidden>
+      <p class="count">按“思想深度 / 投资实用性 / 启发性”总分评选；为了覆盖面，每年最多 4 条、每个概念簇最多 5 条。点标题展开原话与视频链接。</p>
+      <div class="list" id="toplist"></div>
+    </div>
+
+    <div class="pane" id="pane-evo" hidden>
+      <p class="count">同一个思想往往在不同年份反复出现。下面按概念簇把条目排成时间线，并附一段演变综述。点条目标题可在精华库中打开。</p>
+      <div class="evo-nav" id="evonav"></div>
+      <div class="evo" id="evo"></div>
+    </div>
+
+    <div class="pane" id="pane-cat" hidden>
+      <p class="count">CNBC Warren Buffett Archive 收录 1994 年以来全部股东大会的完整视频。下表列出各年会议页、场次视频和本库的逐字稿覆盖情况。</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>年份</th><th>日期</th><th>完整视频</th><th>精华剪辑与单段</th><th>逐字稿覆盖</th><th class="num">本库条数</th></tr></thead>
+        <tbody id="cat"></tbody>
+      </table></div>
+    </div>
+
+    <div class="pane about" id="pane-about" hidden>
+      <h3>资料来源</h3>
+      <p>视频来自 CNBC Warren Buffett Archive（buffett.cnbc.com），该档案收录 1994 年起每一届股东大会的完整录像。逐字稿使用 CNBC 档案的章节式逐字稿（GitHub 镜像 pzponge/Yestoday），章节编号与 CNBC 页面一致。</p>
+      <h3>原话怎样核对</h3>
+      <p>每条原话都由程序按“起始短语—结束短语”从逐字稿中原样截取，只删去“(Laughter)”等现场标注；换发言人的地方插入 [Munger:] 之类的标记。凡是对不上原文的锚点，构建时会直接报错。中文翻译、核心观点、投资启示和评分由本库编写，不是官方译文。</p>
+      <h3>时间点是估算值</h3>
+      <p>逐字稿没有时间码。本库按“这句话在本场逐字稿中的累计词数 ÷ 语速”推算秒数：默认 2.1 词/秒，已知时长的场次（2020 年、2024 年）按实际时长折算。误差通常在几分钟以内，越靠后越大。“在 CNBC 观看”链接在估算区间前后各多留 60 秒。</p>
+      <p>要拿到精确到秒的时间，需要能访问 buffett.cnbc.com 与视频平台，把视频字幕和逐字稿对齐。本次运行环境的网络策略屏蔽了这些站点。</p>
+      <h3>缺口</h3>
+      <ul>
+        <li>2019 年下午场、2020 年问答部分没有逐字稿，未收录精华。</li>
+        <li>2025、2026 年没有逐字稿，只在视频目录中列出已核实的链接；2025 年下午场和 2026 年场次视频的链接未核实。</li>
+        <li>评分是主观判断，用于排序和挑选 Top 100。</li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById('data').textContent);
+  const E = D.entries, byId = Object.fromEntries(E.map(e => [e.id, e]));
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const years = [...new Set(E.map(e => e.year))].sort((a, b) => a - b);
+  const SPK = ['巴菲特', '芒格', '阿贝尔', '贾因'];
+  const PAGE = 40;
+  const st = { q: '', theme: '', cluster: '', y0: years[0], y1: years.at(-1), min: 0, sort: 'year', spk: new Set(), shown: PAGE, only: null };
+  const open = new Set();
+
+  $('#stats').innerHTML = `<span><b>${E.length}</b>条精华</span><span><b>${years.length}</b>届股东大会</span><span><b>${D.themes.length}</b>个主题</span><span><b>${Object.keys(D.clusters).length}</b>个概念簇</span><span><b>100</b>条精选</span>`;
+  for (const t of D.themes) $('#theme').insertAdjacentHTML('beforeend', `<option>${esc(t)}</option>`);
+  for (const [k, v] of Object.entries(D.clusters)) $('#cluster').insertAdjacentHTML('beforeend', `<option value="${k}">${esc(v)}</option>`);
+  for (const y of years) { $('#y0').insertAdjacentHTML('beforeend', `<option>${y}</option>`); $('#y1').insertAdjacentHTML('beforeend', `<option>${y}</option>`); }
+  $('#y1').value = years.at(-1);
+  $('#spk').innerHTML = SPK.map(s => `<button type="button" class="chip" aria-pressed="false" data-s="${s}">${s}</button>`).join('');
+
+  function hl(text) {
+    const s = esc(text);
+    if (!st.q) return s;
+    const q = st.q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return s.replace(new RegExp(q, 'gi'), m => `<mark>${m}</mark>`);
+  }
+  function card(e, withRank) {
+    const isOpen = open.has(e.id);
+    const rank = withRank && e.top_rank ? `<span class="rank">#${e.top_rank}</span>` : (e.top_rank ? `<span class="rank" title="Top 100 名次">Top ${e.top_rank}</span>` : '');
+    const det = isOpen ? `<div class="detail">
+        <div><h4>原话</h4><blockquote class="quote">${hl(e.quote)}</blockquote></div>
+        <div><h4>中文翻译</h4><p class="zh">${hl(e.zh)}</p></div>
+        <div><h4>投资启示</h4><p class="lesson">${hl(e.lesson)}</p></div>
+        <div class="src">${e.link ? `<a class="watch" href="${esc(e.link)}" target="_blank" rel="noopener">在 CNBC 观看</a>` : ''}
+          <span>${esc(e.session)} <span class="ts">${e.start_hms}–${e.end_hms}</span>（估算）</span>
+          <span>CNBC 章节 <span class="ts">${esc(e.chapter)}</span>「${esc(e.chapter_title)}」</span></div>
+        ${e.related.length ? `<div><h4>相关条目</h4><div class="rel">${e.related.map(r => byId[r] ? `<button type="button" data-goto="${r}" title="${esc(byId[r].title)}">${r}</button>` : '').join('')}</div></div>` : ''}
+      </div>` : '';
+    return `<article class="entry" id="e-${e.id}">
+      <div class="meta"><span class="yr">${e.year}</span>${rank}<span>${esc(e.speakers)}</span><span>${esc(e.themes.join(' · '))}</span><span>${esc(e.cluster_name)}</span><span class="score" title="深度/实用/启发">${e.depth}/${e.practical}/${e.insight}</span></div>
+      <h3><button type="button" aria-expanded="${isOpen}" data-toggle="${e.id}">${hl(e.title)}</button></h3>
+      <p class="core">${hl(e.core)}</p>${det}</article>`;
+  }
+  function filtered() {
+    if (st.only) return E.filter(e => e.id === st.only);
+    const q = st.q.toLowerCase();
+    let r = E.filter(e => e.year >= st.y0 && e.year <= st.y1 && e.score >= st.min
+      && (!st.theme || e.themes.includes(st.theme)) && (!st.cluster || e.cluster === st.cluster)
+      && (!st.spk.size || [...st.spk].every(s => e.speakers.includes(s)))
+      && (!q || (e.title + e.core + e.quote + e.zh + e.lesson + e.chapter_title).toLowerCase().includes(q)));
+    if (st.sort === 'score') r = [...r].sort((a, b) => b.score - a.score || b.insight - a.insight || a.year - b.year);
+    return r;
+  }
+  function render() {
+    const r = filtered();
+    $('#count').textContent = st.only ? `正在显示单条：${st.only}（点“清除全部筛选”返回）` : `共 ${r.length} 条`;
+    $('#list').innerHTML = r.slice(0, st.shown).map(e => card(e)).join('') || '<p>没有符合条件的条目。可以放宽年份或删掉关键词。</p>';
+    $('#more').hidden = r.length <= st.shown;
+    $('#more').textContent = `显示更多（还有 ${r.length - st.shown} 条）`;
+  }
+  function renderTop() {
+    $('#toplist').innerHTML = D.top.map(id => card(byId[id], true)).join('');
+  }
+  function bindFilters() {
+    const on = (id, ev, fn) => $(id).addEventListener(ev, () => { st.only = null; fn(); st.shown = PAGE; render(); });
+    on('#q', 'input', () => st.q = $('#q').value.trim());
+    on('#theme', 'change', () => st.theme = $('#theme').value);
+    on('#cluster', 'change', () => st.cluster = $('#cluster').value);
+    on('#y0', 'change', () => st.y0 = +$('#y0').value);
+    on('#y1', 'change', () => st.y1 = +$('#y1').value);
+    on('#minscore', 'change', () => st.min = +$('#minscore').value);
+    on('#sort', 'change', () => st.sort = $('#sort').value);
+    $('#spk').addEventListener('click', ev => {
+      const b = ev.target.closest('.chip'); if (!b) return;
+      const s = b.dataset.s; st.spk.has(s) ? st.spk.delete(s) : st.spk.add(s);
+      b.setAttribute('aria-pressed', st.spk.has(s)); st.only = null; st.shown = PAGE; render();
+    });
+    $('#reset').addEventListener('click', () => {
+      Object.assign(st, { q: '', theme: '', cluster: '', y0: years[0], y1: years.at(-1), min: 0, sort: 'year', only: null, shown: PAGE }); st.spk.clear();
+      $('#q').value = ''; $('#theme').value = ''; $('#cluster').value = ''; $('#y0').value = years[0]; $('#y1').value = years.at(-1); $('#minscore').value = '0'; $('#sort').value = 'year';
+      document.querySelectorAll('#spk .chip').forEach(c => c.setAttribute('aria-pressed', 'false')); render();
+    });
+    $('#more').addEventListener('click', () => { st.shown += PAGE; render(); });
+  }
+  function goto(id) {
+    st.only = id; open.add(id); show('all'); render();
+    window.scrollTo({ top: 0 });
+  }
+  document.addEventListener('click', ev => {
+    const t = ev.target.closest('[data-toggle]');
+    if (t) { const id = t.dataset.toggle; open.has(id) ? open.delete(id) : open.add(id); const art = t.closest('.entry'); art.outerHTML = card(byId[id], !!t.closest('#toplist')); return; }
+    const g = ev.target.closest('[data-goto]');
+    if (g) goto(g.dataset.goto);
+  });
+
+  function renderEvo() {
+    const by = {};
+    for (const e of E) (by[e.cluster] ||= []).push(e);
+    const keys = Object.keys(D.clusters).filter(k => by[k]);
+    $('#evonav').innerHTML = keys.map(k => `<a class="chip" href="#evo-${k}" style="text-decoration:none">${esc(D.clusters[k])}</a>`).join('');
+    $('#evo').innerHTML = keys.map(k => {
+      const g = by[k].sort((a, b) => a.year - b.year || a.id.localeCompare(b.id));
+      return `<section id="evo-${k}"><h3>${esc(D.clusters[k])}</h3><div class="span">${g.length} 条 · ${g[0].year}–${g.at(-1).year}</div>
+        ${D.notes[k] ? `<p>${esc(D.notes[k])}</p>` : ''}
+        <ol class="tl">${g.map(e => `<li><span class="y">${e.year}</span><button type="button" data-goto="${e.id}">${esc(e.title)}<span style="color:var(--muted)">　${esc(e.speakers)}</span></button></li>`).join('')}</ol></section>`;
+    }).join('');
+  }
+  function renderCat() {
+    $('#cat').innerHTML = D.catalog.map(r => {
+      const full = r.videos.filter(v => !/精华/.test(v.label)).map(v => `<a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.label)}</a>${/Audio only/i.test(v.note) ? '（仅音频）' : ''}`).join('<br>') || '—';
+      const hi = r.videos.filter(v => /精华/.test(v.label)).map(v => `<a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.label)}</a>`)
+        .concat(r.clips.map(v => `<a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.title)}</a>`)).join('<br>') || '—';
+      const page = r.page ? `<br><a href="${esc(r.page)}" target="_blank" rel="noopener">会议页</a>` : '';
+      const n = E.filter(e => e.year === r.year).length;
+      return `<tr><td class="y">${r.year}</td><td class="num">${esc(r.date)}${page}</td><td>${full}</td><td>${hi}</td><td>${esc(r.transcript)}${r.gap ? `<span class="gap">${esc(r.gap)}</span>` : ''}</td><td class="num">${n}</td></tr>`;
+    }).join('');
+  }
+
+  const panes = ['all', 'top', 'evo', 'cat', 'about'];
+  function show(p) {
+    for (const x of panes) { $('#pane-' + x).hidden = x !== p; $(`[data-pane="${x}"]`).setAttribute('aria-selected', x === p); }
+    try { localStorage.setItem('bm-tab', p); } catch (_) {}
+  }
+  document.querySelector('.tabs').addEventListener('click', ev => { const b = ev.target.closest('[data-pane]'); if (b) show(b.dataset.pane); });
+
+  bindFilters(); render(); renderTop(); renderEvo(); renderCat();
+  let start = 'all';
+  const h = location.hash.slice(1);
+  if (panes.includes(h)) start = h; else { try { start = localStorage.getItem('bm-tab') || 'all'; } catch (_) {} }
+  if (!panes.includes(start)) start = 'all';
+  show(start);
+})();
+</script>
