@@ -1,0 +1,325 @@
+# 2008 年股东大会（5 月 3 日）
+
+@ 2008-M03
+t: 如何不做旅鼠：《聪明的投资者》的三大教训
+s: B
+th: 投资理念; 投资心理
+k: stock_as_business
+c: 他 11 岁开始投资、六七岁开始读相关的书，但约八年里游荡于技术分析等各种方法，直到 19 岁读到《聪明的投资者》。吸收其中的教训——尤其是第 8 章和第 20 章——你就不会像旅鼠那样行事，而且相对旅鼠可能表现很好；按格雷厄姆的教导去做，不会得到坏结果。三大教训：对股票的态度——把它们看作企业的一部分；对市场的态度——让它为你服务，而不是指导你；以及安全边际——总是留出额外的余地。伯克希尔的股东大多不把自己看作持有一个带股票代码、可能有正负“盈利惊喜”的东西，而是拥有一组企业——这样看股票，你就永远不会成为旅鼠。
+q: And I would say that if you absorb the lessons of “The Intelligent Investor” ||| and you may do very well compared to the lemmings.
+q: And there’s three big lessons in there which relate to your attitude towards stocks generally ||| of always leaving some extra room and things.
+q: And that’s the way to look at stocks. You’ll never be a lemming if you do that. ||| And that’s the way to look at stocks. You’ll never be a lemming if you do that.
+zh: 我会说，如果你吸收了《聪明的投资者》的教训——我写过一篇序言，特别推荐了第 8 章和第 20 章——你就不会像旅鼠那样行事，而且相比旅鼠你可能会做得非常好。……书中有三大教训，分别关于：你对股票的总体态度，即把它们看作企业的一部分；你对市场的态度，即利用它为你服务，而不是指导你；以及安全边际的理念，总是在事情上留出一些额外的余地。……这就是看待股票的方式。如果你这样做，你永远不会成为旅鼠。
+l: 把三条原则写在投资清单的最上方：股票=企业、市场是仆人、安全边际。
+r: 5/5/5
+rel: 2002-M26, 2003-M32
+
+@ 2008-M05
+t: “忘掉‘股票’这个词”：即使市场关闭两年，我们也满意
+s: B
+th: 投资理念; 市场周期
+k: stock_as_business
+c: 他和芒格对股市下周、下月、明年去哪里毫无概念，从来不谈——如果能高概率猜中股市方向，他们只会去玩标普期货，根本不必研究企业和股票。他们每天看到成千上万家公司的报价，忽略其中 99.9%，偶尔看到某个作为企业价格有吸引力的东西——“忘掉‘股票’这个词”。买入一只股票时，即使被告知市场将关闭几年，他们也会满意。就像买奥马哈郊外的农场：不会每天要报价，也不会问今年产量比预期高一点还是低一点，而是看它长期能产出什么、预期产量、价格、税、化肥成本，根据产出相对买价评判购买是否明智——报价与此无关。对企业未来的判断对了，股票自然会照顾好自己。
+q: Charlie and I haven’t the faintest idea where the stock market is going to go next week, next month, or next year. ||| So it’s just not our game.
+q: And then every now and then we see something that looks like it’s attractively priced to us, as a business. ||| We look to the business.
+q: Quotes would have nothing to do with it. ||| And if we’re right about — in those judgments, the stocks will take care of themselves.
+zh: 查理和我对股市下周、下个月或明年会走向哪里毫无概念。我们从来不谈论它。……显然，如果我们能在很高比例的时间里成功猜中股市的走向，我们就只做标普期货了，根本没有理由去研究企业和股票。所以这不是我们的游戏。……然后每隔一段时间，我们会看到某样东西，作为一家企业，它的价格在我们看来很有吸引力。忘掉“股票”这个词。所以当我们买入一只股票时，如果他们告诉我们市场将关闭几年，我们也会对那只股票感到满意。我们看的是企业。……报价与此毫无关系。我们正是这样看待股票的。我们把它们看作企业。我们对这些企业的未来做出判断。如果我们在这些判断上是对的，股票自然会照顾好自己。
+l: 每次买入问自己：如果五年不能交易，我还愿意持有吗？只评估企业产出与买价，不评估报价。
+r: 5/5/5
+rel: 2007-M20, 1994-M47
+
+@ 2008-M07
+t: 商学院只需两门课：如何给企业估值，如何看待股市波动
+s: BM
+th: 投资理念; 投资方法
+k: efficient_market
+c: 想买或卖一只股票，就直接买或卖——用期权“便宜一点”地进场，大约五次里对四次，第五次股价已经先动了，你错过了想做的交易；他们几乎从不用期权进出仓位。芒格：当年讨论是否设立股票期权交易所时，沃伦独自写信反对；把金融市场变成赌场好让庄家赚更多钱，从不吸引我们。巴菲特：一位芝大 MBA 问“我们被教了什么错的东西？”——商学院花大量时间教期权定价之类，“完全是胡扯”。从投资角度你只需要两门课：如何给企业估值，以及如何思考股市波动。问题是老师懂公式而你不懂，所以就有东西填满时间；就像研读宗教典籍的人，不愿告诉你一切归结为十诫——“任何傻瓜都能做到”。金融界的“祭司阶层”想教他们花很久学会、需要大量数学的东西，而这与投资成功毫无关系：投资成功取决于以正确价格买入正确的企业，需要会给企业估值，还要有一种不受市场影响的心态——让市场为你服务，见《聪明的投资者》第 8 章。
+q: Usually, if you want to buy or sell a stock, you should buy or sell the stock. ||| and the fifth time the stock will have moved earlier and you’ll have missed, you know, the transaction you wanted to have.
+q: The amount of time spent at business schools ||| and how to think about stock market fluctuations.
+q: And, you know, it is no fun if you — I mean, if you were teaching Biblical studies ||| I mean, any damn fool can do that.
+q: And it really has nothing to do with investment success. ||| you want it there to serve you.
+zh: 通常，如果你想买或卖一只股票，你就应该买或卖这只股票。用期权技巧去买一只股票的看涨期权而不是直接买股票，想着这样能便宜一点买到，意味着大约五次里有四次你是对的，而第五次股价会提前动了，你就错过了你想做的交易。……商学院花在教期权定价之类东西上的时间——也许现在少一点了——完全是胡扯。我是说，从投资的角度看，商学院你只需要两门课：一门是如何给企业估值，另一门是如何思考股市的波动。……如果你在教圣经研究，能用五种语言倒背如流三四部最重要的宗教典籍，你会讨厌告诉别人这一切归结为十诫。我是说，任何该死的傻瓜都能做到。……它真的与投资成功毫无关系。投资成功取决于以正确的价格买入正确的企业。你必须知道如何给企业估值，你还必须有一种使你不受市场影响的态度。你希望市场在那里不是为了影响你，而是为了为你服务。
+l: 学习投资时抓住两门“核心课”：企业估值与对市场波动的正确态度；对复杂工具的使用保持节制。
+r: 5/5/5
+rel: 2001-A08, 2003-M16, 2008-M03
+
+@ 2008-M11
+t: 伯克希尔的未来回报会远低于过去：小资金有比伯克希尔更聪明的选择
+s: BM
+th: 资本配置; 投资方法
+k: holding
+c: 他们买入的股票，若长期税前回报（股息加资本利得）能达到 10% 就很高兴，稍低也会接受。毫无疑问，伯克希尔未来回报会低于过去。他们的可投资范围已缩到市值 100 亿以上、真正有意义的要 500 亿以上：在 100 亿市值的公司里买 5%（不扰动市场的上限）就是 5 亿，翻倍赚 5 亿，扣 35% 税剩 3.25 亿，不到伯克希尔业绩的 0.2%。“任何指望我们接近复制过去的人都应该卖掉股票”——会有不错的结果，但不会有“不像话”的结果。芒格：我们很乐意在未来以远低于过去的速度赚钱，建议你也采取同样的态度。巴菲特：如果你资金少，愿意花大量时间审视成千上万只证券，会找到比买伯克希尔更聪明的东西。伯克希尔真正喜欢的是买入有一流管理的大型一流企业然后就坐着——不必在花丛间飞来飞去，看它们每年产出更多、把资本交给你去买更多企业。
+q: And there’s no question — absolutely no question — that returns from owning Berkshire will be less in the future than they have been in the past. ||| That’s less than two-tenths of 1 percent in terms of Berkshire performance.
+q: So anyone that expects us to come close to replicating the past should sell their stock. ||| And in this field we prefer indecent, but we’re not going to get them.
+q: I mean, if you’re working with small amounts of money, and you want to put in significant amounts of time ||| you will find things that are more intelligent to buy than Berkshire.
+q: What we really like at Berkshire is buying good-sized to very large first-class businesses with first-class management and just sitting there. ||| You can just sit there and watch them produce more and more every year and give you capital and you can buy more businesses.
+zh: 毫无疑问——绝对毫无疑问——持有伯克希尔的回报在未来会低于过去。……比如说，如果我们找到一家市值 100 亿的公司，能买 5%……就是 5 亿美元的投资。假设它在一段时间内翻倍，那是 5 亿。你付 35% 的税，剩 3.25 亿。就伯克希尔的业绩而言，那还不到 0.2%。……所以任何期望我们接近复制过去的人都应该卖掉他们的股票。……我认为我们会随着时间获得体面的结果，但不会获得“不像话”的结果。在这个领域我们更喜欢不像话的结果，但我们不会得到它们。（巴菲特：）……如果你用小额资金工作，并且愿意投入大量时间，审视成千上万只证券，你会找到比伯克希尔更明智的买入对象。……我们在伯克希尔真正喜欢的，是买入有一流管理层的、相当大到非常大的一流企业，然后就坐在那里。因为好处在于，你不必从一朵花飞到另一朵花。你可以就坐在那里，看着它们每年产出越来越多，并给你资本，让你买更多企业。
+l: 规模是回报的天敌——对大型投资机构的预期应随规模下调；小投资者应利用更大的选择范围。
+r: 4/4/4
+rel: 2007-M27, 2004-A28
+
+@ 2008-M13
+t: 每天做自己热爱的事；一份你愿意付钱去做的工作，就不该给自己开高薪
+s: BM
+th: 人生智慧; 管理与治理
+k: life
+c: 如何保持身心健康？他们每天做热爱的事，和开心且胜任的人一起工作，几乎被迫做任何不想做的事——一周三次、每次 45 分钟的健身除外；身处冷气办公室、有各种帮助，被如此多的方式祝福，怎么可能对生活感到不满？芒格 84 岁，他 77 岁，伟大的伙伴、伟大的经理、伟大的家庭，没有理由盯着人生的减项。芒格：我们都不在乎健康习惯或饮食规则，似乎也挺好，不能推荐给所有人，但我不打算改。芒格：这也关系到高管薪酬——如果你的工作是你愿意付钱才能得到的，而你又应当成为别人的榜样，那么不给自己开高薪大有道理。巴菲特：他不认识哪个美国 CEO 不愿意以一半甚至四分之一的薪水做这份工作；有些拿八位数薪水的人离职后一两年没人给他们任何报价——那个据说有很多人竞相争夺其服务的市场体系在哪里？
+q: Basically it — if Charlie and I can’t have a decent mental attitude, who can? ||| they like their jobs too.
+q: So we really do count our blessings because they’ve been many and they continue to come forth ||| There’s not much more to it than that.
+q: You’re in a job which you would pay to have, if that were the only way to get it ||| There’s a lot to be said for not paying yourself very well.
+q: I mean, it’s — I don’t know of a CEO in America ||| It’s really sort of ridiculous, I think.
+zh: 基本上——如果查理和我都没有一个良好的心态，那谁还能有呢？我们每天都能做我们热爱的事。我们和那些不仅对此很开心、也喜欢我们的人一起做，他们把工作做得非常出色——他们也喜欢自己的工作。……所以我们真的在细数自己的幸运，因为它们很多，而且还在不断到来，我们会尽可能长久地享受它。没有比这更多的了。（芒格：）顺便说一下，这与企业薪酬的话题有关。你做着一份工作，如果那是得到它的唯一方式，你会愿意付钱来做，而且你应该为他人树立榜样。不给自己开很高的薪水，是很有道理的。（巴菲特：）……我不认识美国有哪个 CEO——我确信有几个——但我不认识有谁不乐意以一半或四分之一的价格做这份工作。我见过一些人离开了年薪八位数的工作，一两年后没有人向他们提供任何东西。我想知道那个据说有一大堆竞价者争夺他们服务的美妙市场体系在哪里。我认为这真的有点荒谬。
+l: 把时间花在热爱的事和喜欢的人身上；看待 CEO 薪酬时，问一句“如果没有这份薪水，他还会做吗？”
+r: 3/2/4
+rel: 2007-M07, 2003-M27
+
+@ 2008-M14
+t: 找到你的热情，为你钦佩的人工作，娶对的人
+s: BM
+th: 人生智慧
+k: life
+c: 若重新开始，他仍会选现在的工作：有趣、擅长、能认识有趣的人、“不用干重活”，它适合他。但对你的建议是：找到你人生的热情——梦游般度过一生是可怕的错误，除非雪莉·麦克雷恩是对的，否则你只有这一生。他很幸运早早找到热情：父亲办公室里的书让他着迷。在能做选择时，去为你钦佩的组织或个人工作——你不会得到坏结果；他 24 岁为格雷厄姆工作不到两年，每天早上兴奋地跳下床，接受那份工作时从没问过薪水，到纽约拿到支票才知道。一定要娶对人，这是一个巨大的决定——一个人花 20 年寻找完美的女人，找到了，可惜她在找完美的男人。如果在这几件事上幸运，你会有幸福的人生，也会表现得更好。芒格：如果你对某样你有相当天赋的东西培养出热情，会做得更好——沃伦若去跳芭蕾，没人会听说过他。
+q: You know, it’s a terrible mistake to kind of sleepwalk through your life ||| it’s the only one you’re going to have.
+q: But when you’re in a position to make choices, you know, I always tell the kids that come visit me ||| I moved to New York City and found out what my salary was when I got the check.
+q: But it’s enormously important who you marry. ||| And, you know, if you’re lucky in a couple things like that, you’re going to have a happy life.
+q: Well, of course, you’ll do better if you develop a passion for something in which you have a considerable aptitude. ||| nobody would have ever heard of him.
+zh: 梦游般地度过一生是一个可怕的错误，因为除非雪莉·麦克雷恩是对的，否则这是你唯一的一生。……但当你处于可以做选择的位置时，我总是告诉来拜访我的孩子们：“去为一个你钦佩的组织或一个你钦佩的人工作。”……你不会得到坏结果。我 24 岁时去为本·格雷厄姆工作。我只为他工作了不到两年，但我每天早上都从床上跳起来。我对要做的事感到兴奋。我在学东西，和一个我钦佩的人在一起。我接受那份工作时从没问过薪水。我搬到纽约，拿到支票时才知道我的薪水是多少。……但你和谁结婚极其重要。那是一个巨大、巨大、巨大的决定。如果你在这样几件事上幸运，你就会有一个幸福的人生。（芒格：）当然，如果你对某样你有相当天赋的东西培养出热情，你会做得更好。我想如果沃伦去跳芭蕾，没有人会听说过他。
+l: 职业选择三要素：热情、天赋、你钦佩的人；人生最重要的“投资决策”之一是配偶。
+r: 4/3/5
+rel: 2007-A18, 2004-A30
+
+@ 2008-M18
+t: 市场错位：同一只证券、同一经纪商、同一时刻，11.3% 与 6%——机会转瞬即逝
+s: BM
+th: 市场周期; 投资方法
+k: crisis
+c: 3300 亿美元的免税拍卖利率证券（每七天重新拍卖、以一流市政债为支撑）出现了巨大错位：洛杉矶县艺术博物馆的一只，1 月 24 日 3.15%，2 月 14 日 8%，一周后 10%，现在回到 4.2%——短期免税债一周内从 3.5% 到 8% 再到 10%，“这是疯狂的”，而且涉及数十亿美元。花旗的报价单上，同一只证券在不同页面代表不同拍卖，伯克希尔以 11.3% 买入，同时另一个人以 6% 买入——同一经纪商、同一时刻、同一只证券，这是极端错位的标志；1998 年 LTCM 危机后、1974 年股市都出现过。这是赚取非同寻常的钱的好时候；伯克希尔投了约 40 亿，几个月能多赚一些钱，对规模不重要但很容易。抵押贷款的混乱已从次贷蔓延到 Alt-A 和选择性 ARM，也许有很好的机会，但他们已没有时间看那么多东西。芒格：利用错位的机会往往非常短暂——某个白痴对冲基金用 20 倍杠杆买市政债，追加保证金时被抛售，市政债突然错价，但错位很短；不能快速思考、果断行动就没用。你就像站在溪边拿着鱼叉的人，鱼一周、一月或十年才游过一次，你必须在那里迅速出手——做对的话这是很有挑战的生意；“大约一个世纪发生两次”。
+q: Now, how can a tax-exempt bond of short-term nature be selling at a 3 1/2 percent rate one week ||| That’s crazy.
+q: So you have the same issue with the same broker at the same time being sold at 11.3 percent and 6 percent. ||| And those are great times to make unusual amounts of money.
+q: Yeah. What is interesting is that — how brief these opportunities to take advantage of dislocations frequently are. ||| So if you can’t think fast and act resolutely, it does you no good.
+q: So you’re like a man standing by a stream trying to spear a fish ||| It’s a pretty demanding business if you do it right.
+zh: 一只短期的免税债券，怎么可能一周以 3.5% 的利率出售，一周后在情人节以 8% 出售，再一周后以 10% 出售？现在又回到了 4.2%。这些是市场中的巨大错位。这太疯狂了。……所以你看到同一只证券、同一个经纪商、在同一时间，分别以 11.3% 和 6% 出售。这些是极端错位的标志，你偶尔会发现这种情况。你在 1998 年长期资本管理公司危机之后发现过，在 1974 年的股市中也发现过类似的情况。那些都是赚取异常多的钱的绝佳时机。（芒格：）是的。有意思的是，利用错位的这些机会往往是多么短暂。……所以如果你不能快速思考、果断行动，它对你就毫无用处。所以你就像一个站在溪边、试图用鱼叉叉鱼的人，而鱼一周、一个月或十年才游过来一次。你必须在那里，在鱼游走之前迅速掷出鱼叉。如果你做得对，这是一门要求相当高的生意。
+l: 极端错位时价格信号会自相矛盾——这是最好的机会，但窗口很短；平时准备好资金、知识与决断力，才能在鱼游过时掷出鱼叉。
+r: 5/5/5
+rel: 2005-M10, 2007-M09, 2006-A12
+
+@ 2008-M19
+t: 一个自动“前进”的公式，而不是“飞奔”的公式：每五年都比以前高两英寸
+s: BM
+th: 资本配置; 商业模式
+k: culture
+c: 伯克希尔曾经也是小企业——这是复利的本质，不可能一天建成。他们从不试图用某个妙招让伯克希尔变成四倍大，而是认为持续做自己理解的事、乐在其中，终会变得相当大。几年后会拥有更多企业，现有企业大多会做得更好，有些不会，还会增添一些——“这是一个自动前进的公式，但不是一个自动飞奔的公式”；没有飞奔并不让他们不开心，原地不动才会。吉普赛·罗斯·李说：“我拥有五年前拥有的一切，只是都低了两英寸。”他们想要的是五年后拥有以前的那些企业、高了两英寸，再加上更多企业。芒格：大多数小企业永远不会成为大企业，大多数大企业最终会沦为平庸甚至更差，参与者都会死——这是游戏规则；我们从零创造的唯一一个变成大企业的小企业是再保险部门，靠的是阿吉特·贾因——“我们做过的最好投资，是付给猎头找到阿吉特的那笔费用”。
+q: Well, Berkshire was a small business at one time. ||| You know, you can’t build it in one day or one week.
+q: And that’s an automatic formula for getting ahead, but it’s not an automatic formula for galloping ahead. ||| We’re not happy if we’re not moving at all.
+q: Well, what we want to have five years from now is a whole bunch of businesses we had before that are 2-inches higher, plus some more businesses. ||| And that’s the formula.
+q: Yeah. You’ve got to remember that it’s the nature of things that most small businesses will never be big businesses. ||| and you have to get used to it.
+zh: 嗯，伯克希尔曾经也是一家小企业。我是说，这需要时间。这就是复利的本质。你无法在一天或一周内建成它。……这是一个前进的自动公式，但不是一个飞奔前进的自动公式。我们并不因为没有飞奔而不开心。如果我们完全不动，我们才不开心。……嗯，我们想在五年后拥有的，是一大堆以前就有的企业，它们高了两英寸，再加上更多的企业。这就是公式。（芒格：）是的。你必须记住，事物的本质就是大多数小企业永远不会成为大企业。事物的本质也是大多数大企业最终会沦为平庸或更糟。所以外面是一场艰难的游戏。此外，游戏的参与者都必须死去，这就是游戏规则，你必须习惯它。
+l: 复利来自持续做对的小事而不是一次性的大动作；接受“稳步前进”而非“飞奔”，同时警惕大企业走向平庸的自然趋势。
+r: 4/4/4
+rel: 2007-M17, 2003-A08
+
+@ 2008-M21
+t: 只看财务报表能投资吗？前提是你懂这门生意——偏爱“淹没在现金里”的企业
+s: BM
+th: 企业估值; 商业模式
+k: business_model
+c: 投资就是现在付出钱、以后拿回更多钱，像买农场一样看资产本身的产出。若只能看报表，第一个问题是：我是否足够了解这门生意，让过去的报表能告诉我未来报表的样子？多数情况下答案是否定的——不知道是什么生意，它可能是呼啦圈、宠物石头，也可能是早期的微软。但他确实多次只凭报表买过股票：不能说它值 X 还是 X 的 95% 或 105%，但若能以 X 的 40% 买入，就有格雷厄姆所说的安全边际。他们买的大多数证券从未见过管理层，主要依靠报表、对商业的一般理解和对行业的具体理解。芒格：我们偏爱“淹没在现金里”的企业——赚钱多到拥有它的主要好处之一就是不断有现金流入；而老朋友的二手工程机械生意，“你辛苦一年，年底利润就停在场院里”，从来没有现金——我们讨厌这种企业。巴菲特：每月给你寄支票的生意容易理解得多；有很多企业即使管理层是世界上最好的他也不会买，因为在错误的行业里，管理层好也没多大用。
+q: In the case you lay out, the first question you’d have to make is do I understand enough about this business ||| Probably in a great majority of the cases it would be no.
+q: Now, I couldn’t say the stock was worth X or 105 percent of X or 95 percent of X ||| and I could make a decision.
+q: Yeah. I think there’s one metric that catches a lot of people. We tend to prefer the business which drowns in cash. ||| We tend to hate businesses like that.
+zh: 在你设定的情形下，你要问的第一个问题是：我对这门生意是否了解得足够多，使得财务报表能告诉我对判断未来财务报表的样子有用的信息？在许多情况下，答案是否定的。很可能在绝大多数情况下都是否定的。……我说不出这只股票值 X、还是 X 的 105%、或者 X 的 95%，但如果我能以 X 的 40% 买到它，我就会觉得我拥有了格雷厄姆会谈到的那种安全边际，我就可以做出决定。（芒格：）是的。我认为有一个指标能抓住很多人。我们倾向于偏爱淹没在现金里的企业。它赚的钱太多了，以至于拥有它的主要好处之一，就是有源源不断的现金流入。还有其他一些企业，比如我老朋友约翰·安德森的工程机械生意。他常说他的生意是：“你辛苦工作一整年，到年底，你的利润就停在场院里。”从来没有现金，只有更多的二手工程机械。我们往往讨厌那样的企业。
+l: 报表只有在你理解生意时才有意义；优先看自由现金流而非账面利润——利润变成存货和设备的企业要打折。
+r: 4/5/4
+rel: 2003-A23, 2004-M09
+
+@ 2008-M24
+t: 我们从不劝人卖掉好企业；只要句子里出现“不惜代价”，我们就什么都不做
+s: BM
+th: 资本配置; 企业估值
+k: capital_alloc
+c: 高利润、增长平平的喜诗，还是走向全球、利润较低的瑞士莲？对他们没有区别：要持久竞争优势、能理解、喜欢且信任的管理层、合理价格。二十年里他们大概看过所有能拿到数据的上市糖果企业，大多时候不采取行动。对一家真正好的私人企业，他总告诉经营者最好就留着它——明年、后年会更值钱；拥有一家值 10 亿的企业，你并不需要那 10 亿，就像拥有值 100 万的农场你已经有那 100 万，只是放在农场里。“我们从不劝人卖掉好企业，我们劝他们留着。”当因家庭、税或无继承人等原因最终要卖时，卖给伯克希尔能保留更多他们热爱的特质。每个 CEO 都觉得自家股票是世上最有吸引力的投资，这是疯狂的——有成千上万个选择；股市会给你便宜价，个体所有者不会。“只要句子里出现‘不惜代价’这个词，我们就什么都不做。”芒格：一个人倾一生建立的好企业，最后为了略高一点的价格卖给一个明显会毁掉它的骗子——这是疯狂的活法，更好的做法是卖给一个好管家。
+q: So there’s no reason to sell a wonderful business except for kind of extraneous factors. ||| So we never urge people to sell good businesses. We urge them to keep them.
+q: And, you know, the idea that all these managers are saying “Our stock is the most wonderful in the world” is crazy. ||| The stock market gives you bargain prices; individual owners won’t.
+q: because we don’t do anything when the phrase “regardless of price” enters into the sentence. ||| because we don’t do anything when the phrase “regardless of price” enters into the sentence.
+q: Yeah. I watched a man build up a business in southern California ||| I think the better course is to sell to somebody you know is going to be a good steward of what you’ve created.
+zh: 所以，除了某些外在因素，没有理由卖掉一家出色的企业。……如果你有一家价值 10 亿美元的企业，你并不需要那 10 亿美元——你已经有一家价值 10 亿美元的企业了——就像你有一个价值 100 万美元的农场，你已经拥有那 100 万美元，只不过它恰好在农场里。如果你喜欢务农，你就留着它。所以我们从不劝人卖掉好企业，我们劝他们留着。……所有这些经理都在说“我们的股票是世界上最棒的”，这种想法是疯狂的。……股市会给你便宜的价格，个体所有者不会。……因为只要“不惜代价”这个短语进入句子，我们就什么都不做。（芒格：）是的。我看着一个人在南加州建立了一家很棒的企业。到了要卖的时候——他把一生都献给了创建它——他把它卖给了一个众所周知的骗子，那人显然会毁掉这个企业，仅仅因为他能得到一个稍高一点的价格。我认为如果你拥有一家兴旺的企业，那是一种疯狂的活法。我认为更好的做法是把它卖给一个你知道会成为你所创造之物的好管家的人。
+l: 好企业是“已经到手的钱”，没有必要为了变现而卖掉；任何“不惜代价”的买入都违背投资原则。
+r: 4/4/4
+rel: 2004-A05, 2006-A21
+
+@ 2008-M29
+t: “分散化是给一无所知的投资者的”：真正的秘诀是找到可以安全不分散的地方
+s: BM
+th: 投资方法; 风险管理
+k: concentration
+c: 若只管理自己的钱，五十年里有很多次他们会把至少 75% 的净资产投入一个想法；巴菲特早年几次有 75% 的净资产在一个机会上。若资金较小，你一生中会看到一些机会，不投入一半净资产是错误——证券中偶尔真有“铅管般稳当”的事，不会常见，电视上也不会谈。问题出在那些投入净资产 500% 的人：LTCM 的人聪明、正派、懂行，做的是必然收敛的交易，但用了约 25 倍净资产，没能打完那手牌——若只用 100% 或 200% 的净资产就会没事。1974 年汤姆·墨菲经营的大都会只卖物业价值的三分之一到四分之一，买可口可乐时也一样，把 100% 净资产放进去都不危险，远比经纪人推荐的一堆东西安全。芒格：精英商学院教的投资管理说分散化是投资的全部秘诀，“完全搞反了”——投资的全部秘诀是找到可以安全而明智地不分散的地方，“分散化是给一无所知的投资者的，不是给专业人士的”。巴菲特：一无所知的投资者分散化没有错，在时间和标的上分散会得到不错结果；但对真懂行的人这样做是疯狂的——有些机会若只投 20% 的净资产，你就浪费了一生的机会。
+q: I mean, you will see things that it would be a mistake — if you’re working with smaller sums ||| where you can put 75 percent of your net worth or something like that in a given situation.
+q: The problem has been the guys that have put 500 percent of their net worth in. ||| But they instead went to, you know, maybe 2500 percent or something like that.
+q: They’ve got it exactly back-ass-ward. The whole secret of investment is to find places where it’s safe and wise to non-diversify. ||| Diversification is for the know-nothing investor; it’s not for the professional.
+q: And there’s nothing wrong with the know-nothing investor practicing it. ||| in terms of not really loading up.
+zh: 你会看到一些东西——如果你用较小的资金工作——不把一半的净资产投入其中会是一个错误。我是说，在证券中你有时真的会看到一些铅管般稳当的事情。你不会经常看到它们，电视上也不会谈论它们之类的，但一生中会发生一些非同寻常的事，你可以把 75% 左右的净资产投入某个特定的机会。问题在于那些把净资产的 500% 投进去的人。……但如果他们只用了净资产的 100%，结果会很好；如果用了 200%，结果也会很好。但他们却用到了大概 2500% 之类。（芒格：）他们完全搞反了。投资的全部秘诀是找到那些可以安全而明智地不分散的地方。就这么简单。分散化是给一无所知的投资者的，不是给专业人士的。（巴菲特：）一无所知的投资者实行分散化并没有错，这正是他们应该做的。这正是一个优秀的专业投资者不应该做的。……你会发现一些机会，如果你只把 20% 的净资产投入其中，你就浪费了一生的机会，因为没有真正重仓。
+l: 集中与杠杆是两回事：可以把大比例净资产押在“铅管般稳当”的机会上，但绝不加会让你出局的杠杆。普通人则应充分分散。
+r: 5/5/5
+rel: 2004-M21, 2004-M32, 2006-A13
+
+@ 2008-M35
+t: 非全职投资者有了第一个 100 万：全部放进低成本指数基金，然后回去工作
+s: BM
+th: 投资方法
+k: index
+c: 一个 30 岁、不打算成为职业投资者、有全职工作的人有了第一个 100 万：他大概会全部放进一只非常低成本的指数基金（比如先锋这样可靠且低成本的），认识到自己是业余投资者，并相信长期会在一定程度上跑赢债券（除非在强牛市中买入），“然后忘了它，回去工作”。芒格：不会有很多尖叫般成功的职业投资者，却有一大群专业人士以假装是职业投资者的方式从系统中抽取庄家利润；若你没有成为高技能职业投资者的合理前景，当然应接受指数基金这种简单的折中。巴菲特：你不会从任何人那里得到这个建议，因为没人靠给这个建议拿报酬；如果一千个像你这样的人听了推销者的话，这一千人整体会做得更差。“你什么都没带来，为什么要期待更多？”
+q: Well, I’ll be very simple: I — under the conditions you name, I’d probably have it all in a very low-cost index fund ||| and then I’d forget it and go back to work.
+q: But if you don’t have any rational prospects of being a very skilled professional investor ||| of course you should compromise on some simple thing like an index fund.
+q: Yeah. And that — you will not get that advice from anybody because nobody gets paid to give you that advice. ||| The salesman will tell you that you’ll get it, but you won’t.
+zh: 我会说得很简单：在你说的条件下，我大概会把它全部放在一只非常低成本的指数基金里——可能是先锋——某个我知道可靠、成本低的基金。因为你假定自己不会成为职业投资者，我会认识到自己是个业余投资者，我会觉得——除非是在强劲的牛市中买入，而现在并不是——在当前条件下，长期来看它会在一定程度上跑赢债券，然后我就忘了它，回去工作。（芒格：）……但如果你没有任何成为高技能职业投资者的合理前景，你当然应该在像指数基金这样简单的东西上做出妥协。（巴菲特：）是的。你不会从任何人那里得到这个建议，因为没有人靠给你这个建议拿报酬。……为什么当你没有为这场派对带来任何东西时，你应该期待更多？推销员会告诉你你会得到，但你不会。
+l: 承认自己是业余投资者是一种优势；低成本指数基金 + 长期持有 + 专注本职，是大多数人的最优解。
+r: 4/5/5
+rel: 2002-M17, 2006-M29
+
+@ 2008-M36
+t: 不提倡极端节俭，但花掉收入的 105% 是疯狂的：拥有内在记分卡
+s: BM
+th: 人生智慧
+k: life
+c: 他们一直是“量入为出”的忠实拥护者——这样以后会有多得多的收入。孩子会在相当程度上学父母的样子：若父母觊觎邻居的每样东西，或想办法提高生活成本而不一定提高生活水平，孩子会学会；但管得太严，孩子以后也会发疯。他并不劝每个人储蓄：有 401(k) 和社保、收入尚可的人，是现在带家人去迪士尼享受，还是 75 岁时有 30 英尺而不是 20 英尺的船？在家人年轻时为他们花钱带来享受或教育有其好处——“我也许实践，但不提倡极端节俭”，也不说存 10% 一定比存 5% 好；但花掉收入的 105% 是疯狂的，会导致各种问题。最终你要有一张内在记分卡：你不会因为过着与邻居不同的生活而成为更好或更坏的人，过一种忠于自己的生活。芒格：训练孩子最好的方法是树立好榜样——即使如此，也有时不灵。
+q: Well, Charlie and I have always been big fans of living within your income ||| and if you do that, you’ll have a whole lot more income later on.
+q: So I don’t — I don’t advocate — I may practice — but I don’t advocate extreme frugality. ||| I think it’s crazy to be spending 105 percent of your income
+q: But, you know, in the end you want to have an internal score card. ||| Live a life that, you know, is true to yourself.
+zh: 嗯，查理和我一直是量入为出的忠实拥护者，如果你这样做，以后你会有多得多的收入。……所以我不——我可能会实践，但我不提倡极端节俭。我也不说储蓄 10% 的收入总是比储蓄 5% 好。我认为花掉收入的 105% 是疯狂的……但归根结底，你要有一张内在的记分卡。你不会因为过着与邻居不同的生活而成为一个更好或更坏的人。过一种忠于自己的生活。
+l: 底线是不透支；在此之上，用“内在记分卡”而不是与他人比较来决定消费与储蓄的平衡。
+r: 3/3/4
+rel: 2001-A09, 2004-A30
+
+@ 2008-A02
+t: 太大而无法管理的银行，又被认为大到不能倒；“够得着之前都还好”的资产
+s: BM
+th: 风险管理; 宏观与社会
+k: derivatives
+c: 收购通用再保险时有约 2.3 万份衍生品合约，他即使全职也无法弄清在极端情况下承担了多少风险——而经营者可能认为那些情况不可能，或因激励而不在乎（100 年里 99 年有效就行）。“我不想它概率很小，我想它是零。所以我把自己当作伯克希尔的首席风险官”——这不能交给风险委员会或数学家。许多大投行和大银行以其经营方式，从风险角度几乎大到无法有效管理；50 年一遇的破产风险，对一个 62 岁、65 岁退休的高管来说可能不值得担心。监管两房的 OFHEO 有 200 人每天专门盯着两家公司，结果它们成了史上最大的会计失实之一——“只检查两家，两家全错”。你需要一个 DNA 极度厌恶风险的人在顶层，抵抗下属“别人都在做”的游说。芒格：让机构大到不能倒，却允许其被如此多的无赖与愚蠢所经营，是疯狂的；贪婪、过度扩张、过度迷信交易算法的文化，某种程度上是邪恶的文化；很多“赚到”的钱属于“够得着之前都还好”的资产——伸手去拿就像雾一样消散（通用再保险就有 4 亿美元这样的资产）；药品要证明有效才能获批，华尔街却开始相信牙仙。巴菲特：若贝尔斯登周日晚破产，约 14.5 万亿美元衍生品合约的对手方要在几小时内同时平仓（伯克希尔平 4 亿花了四五年），可能几天内再倒一两家投行；当世界不想借钱给你时，多付 10、20、50 个基点也没用——每天依赖借款的人，早上醒来要祈祷世界对你有好印象。
+q: But I don’t want to have it slim. I want to have it none. So I regard myself as the Chief Risk Officer at Berkshire. ||| that will happen once in the history of the universe or something of the sort.
+q: And it’s going to work most of the time. ||| it may not be in the interest of a 62-year-old executive that’s going to retire at 65 to worry too much about that.
+q: So they were two for two with the only things they had to examine. ||| And I fear that if you tried to do the same thing with the biggest commercial banks or the biggest investment banks, I’m not sure you can keep track of it.
+q: It’s crazy to have people get so big and so important that you can’t allow them to fail ||| and allow them to be run with as much knavery and stupidity as permeated the major investment banks.
+q: A lot of the money that was reported as being earned wasn’t really being earned. ||| it just fades away like
+q: If they (don’t) want to lend you money, they don’t want to lend you money. ||| you have to wake up in the morning hoping the world thinks well of you.
+zh: 但我不想让它的概率很小，我想让它为零。所以我把自己视为伯克希尔的首席风险官。如果伯克希尔因为我们经营方式中的风险出了问题，我没办法把它推给一个风险委员会，或者请几个数学家来做一堆计算，告诉我我承担的风险在宇宙历史中只会发生一次之类的。……它在大多数时候都会奏效。……如果你有一个 50 年一遇的公司破产风险，一个 62 岁、打算 65 岁退休的高管可能不会太在乎它。……所以他们只需要检查两家，结果两家都错了。我担心如果你想对最大的商业银行或最大的投资银行做同样的事，我不确定你能跟踪得了。（芒格：）让一些人变得如此之大、如此重要，以至于你不能让他们倒闭，同时又允许他们被渗透在主要投资银行中的那么多无赖行径和愚蠢所经营，这是疯狂的。……很多被报告为赚到的钱其实并没有真正赚到。它属于我称之为“够得着之前都还好”的那一类美妙资产。它们待在资产负债表上，当你伸手去拿时，它就像……雾一样消散了。（巴菲特：）……如果他们不想借钱给你，他们就是不想借钱给你。如果你每天都依赖借来的钱，你就得每天早上醒来都希望世界对你有好印象。
+l: 风险必须由最高决策者亲自负责；警惕“大到无法管理”的复杂机构、依赖短期融资的商业模式，以及账面上“够得着之前都还好”的资产。
+r: 5/4/5
+rel: 2003-M38, 2004-M15, 2003-A06
+
+@ 2008-A03
+t: 不做“尽职调查”：中石油值 1000 亿、卖 350 亿，就没必要再精确
+s: BM
+th: 投资方法; 企业估值
+k: due_diligence
+c: 2002–03 年投资中石油，他只读了年报，没联系管理层、没看券商报告、没问任何人意见：原油生产、炼化、营销、化工并不难理解，他判断公司值 1000 亿美元，股价约 350 亿。和管理层谈有什么用？他们几乎都会说自己的股票是绝佳买入。若认为值 400 亿、卖 350 亿，才需要精细分析；它值 970 亿还是 1030 亿无关紧要——进一步精细化是浪费时间，应该做的是买入。“如果必须算到小数点后三位，那就不是好主意”——就像走进来一个 300 到 350 磅的人，不知道多重，但知道他胖。芒格：我们的尽职调查费用大概是全美最低，麻烦也因此更少；有家投资机构每年付给会计师 2 亿美元，很多用于尽职调查——我们像工程师那样思考，要可靠性余量，而他们试图在复杂领域做精细判断并依赖收费的人。巴菲特：若认为审计师比你更懂收购，你该去做审计让他们经营企业；他犯过很多大的投资错误，没有一个是常规尽职调查能避免的。为玛氏收购箭牌提供 65 亿融资时，没有律师、没有董事参与，“我们说是，就是是”——没有重大不利变化条款，没有融资条件，无论纽约发生核爆、流感大流行，还是伯南克和帕丽斯·希尔顿私奔到南美，支票都会兑现；这种确定性值钱。
+q: And I came to the conclusion it was worth a hundred billion, and then I checked the price and it was selling for 35 billion, roughly. ||| it just doesn’t make any difference.
+q: I mean, I didn’t need to know whether it was worth 97 billion or 103 billion if I was buying it at 35 billion. ||| If you have to carry it out to three decimal places, it’s not a good idea.
+q: Yeah. I would argue that we have lower due diligence expenses than anybody else in America ||| and that we have had less trouble because we had less expense.
+q: We have never made a — we’ve made plenty of big investment — I’ve made plenty of big investment mistakes. ||| I’ve never made one, in my view, that would have been avoided by conventional due diligence.
+q: We just — you know, we got a call, it made sense, and we said yes. ||| The check is going to clear.
+zh: 我得出结论它值 1000 亿美元，然后我查了一下价格，它的售价大约是 350 亿美元。和管理层谈有什么意义？……如果你和几乎任何公司的管理层谈，他们都会说他们认为自己的股票是绝佳的买入，他们会告诉你所有的好东西，跳过那些——这根本没有区别。……如果我以 350 亿买入，我不需要知道它值 970 亿还是 1030 亿。……如果你必须把它算到小数点后三位，那就不是个好主意。（芒格：）是的。我会说我们的尽职调查费用比美国任何其他人都低，而我们遇到的麻烦更少，正是因为我们花费更少。（巴菲特：）……我犯过很多大的投资错误。在我看来，没有一个是通过常规尽职调查能够避免的。……我们接到一个电话，它有道理，我们就说是。当我们说是的时候，我们不会附带重大不利变化条款，不会说如果能获得融资才行。我们就说是。……无论纽约市发生核爆，还是发生流感疫情，还是本·伯南克和帕丽斯·希尔顿私奔去南美……支票都会兑现。
+l: 当价值与价格的差距巨大时，额外的精确没有意义；把精力放在“决定性的大问题”上，而不是海量琐碎细节。执行确定性本身是一种竞争优势。
+r: 5/5/5
+rel: 2004-A13, 2007-M15, 2007-A07
+
+@ 2008-A06
+t: 遥遥领先的品牌很难挑战：品牌是一种承诺
+s: B
+th: 护城河; 商业模式
+k: moat
+c: 大型食品公司大多是好生意，有形资产回报高。拥有箭牌、玛氏、可口可乐、卡夫诸品牌或喜诗这样的重要品牌产品，你就拥有好资产：可口可乐今天在全球卖出 15 亿份 8 盎司饮料，自 1886 年以来与快乐和好价值联系在一起，几乎不可能挑战。RC 可乐存在了很久也去不了别处。品牌是一种承诺——拿起一根银河巧克力或一瓶可乐，就有一个关于它会带给你什么的承诺；理查德·布兰森推出的“维珍可乐”（Virgin Cola），他一直没弄明白那是什么承诺，反正没成功。历史上有过几百种可乐，最终谁会为了每罐便宜一两分钱去买替代品？当品牌在其领域遥遥领先时他们很放心；以不太贵的价格买入好品牌，大概会不错——但不会让你暴富，因为这些特质人所共知。
+q: It’s just about impossible, you know, to, in my mind, anyway, to take on a product like that. ||| It’s clearly satisfies people in a huge way, you know, everywhere on the globe.
+q: you know, they say that a brand is a promise. ||| as to what it’s going to deliver to you.
+q: But if you buy in with good branded products and you don’t pay too much, you’re probably going to do OK. ||| because the attributes that I’ve just laid out are pretty well recognized.
+zh: 至少在我看来，挑战那样一个产品几乎是不可能的。它显然在全球各地极大地满足了人们。……人们说品牌是一种承诺。拿起一根银河巧克力或拿起一瓶可口可乐，就包含着一个关于它将带给你什么的承诺。……但如果你买入优秀的品牌产品，而且不付太多钱，你大概会做得不错。另一方面，你不会变得超级富有，因为我刚才列出的那些特质已经被相当广泛地认识到了。
+l: 遥遥领先的品牌是可靠的护城河，但人所共知的好企业通常不便宜——回报来自“不付太多”。
+r: 4/4/4
+rel: 2002-M28, 2001-A24
+
+@ 2008-A07
+t: 能想象“从未经历过”的风险；首席风险官常常是让你在做蠢事时感觉良好的人
+s: BM
+th: 风险管理
+k: leverage
+c: 挑选投资接班人，过往记录远不够，更看重人品；2006 年年报写道：“我们需要一个天生能识别并避开严重风险的人——包括那些从未经历过的风险”，以及“投资策略中潜伏的某些危险，无法用今天金融机构普遍使用的模型发现”——这在过去一年被证明是预言：大银行、大投行都有模型、每周开风险委员会、数据整齐地印在栏目里，却完全不知道自己承担了什么风险。芒格：伯克希尔的风险厌恶是双层的——首先，让任何理性的人都不必担心我们的信用；在此之上，即使世界突然不喜欢我们的信用，几个月内我们都不会察觉，因为流动性充足、不会被任何人施压——这在伯克希尔像呼吸一样，是文化的一部分。另一种文化正相反：叫一个人“首席风险官”，他却常常是让你在做蠢事时感觉良好的人，就像让波斯国王去进攻的德尔斐神谕；拥有博士学位、会高等数学的人也会很蠢——只要你渴望系统和计算，把现实硬塞进不匹配的数学模型，尤其是在极端条件下。巴菲特：他们希望即使明天世界的运转方式没人预料，伯克希尔也没有问题；不依赖任何人，代价是 99% 甚至 99.9% 的时间里放弃更高回报——一个百分点有什么重要的？为不那么重要的东西承受破产、耻辱的风险，毫无道理；风险评估不能外包。
+q: I said, “We therefore need someone genetically programmed to recognize and avoid serious risks,” ||| And they didn’t have the faintest idea what risk they were involved.
+q: Yeah. You can see how risk averse Berkshire is. ||| It’s just part of the culture.
+q: And the alternative culture is just the opposite. ||| You’re just clobbered up your own head.
+q: Why do it? I mean, it doesn’t — it just doesn’t make any sense to us to be exposed to ruin and disgrace and embarrassment ||| It cannot be farmed out.
+zh: 我说过：“因此我们需要一个天生就能识别并避开严重风险的人”，然后我用斜体写道，“包括那些从未经历过的风险”。然后我说：“投资策略中潜伏的某些危险，无法通过当今金融机构普遍使用的模型发现。”……我认为这在去年发生的事情上被证明有些预言性。所有这些机构都有模型……他们完全不知道自己卷入了什么样的风险。（芒格：）是的。你可以看出伯克希尔有多厌恶风险。首先，我们努力以这样的方式行事：没有任何理性的人会担心我们的信用。在这样做了许多年之后，我们还以这样的方式行事：如果世界突然不喜欢我们的信用，我们甚至几个月都不会注意到……这种对风险的双层保护在伯克希尔就像呼吸一样，它就是文化的一部分。而另一种文化恰恰相反。你把一个人叫做首席风险官，但他常常扮演的是在你做蠢事时让你感觉良好的角色。……你只需要极度渴望系统和计算，以至于你把现实硬塞进某个数学模型里，而它其实并不匹配，尤其是在极端条件下。然后，由于你在一切事情上投入的这些工作，以及这些关于每日交易、风险等等的计算，你会自信地认为你已经打垮了风险，但你没有。你只是把自己的脑袋搞乱了。（巴菲特：）为什么要那样做？在我们看来，为了某个并不那么有意义的东西而让自己暴露于毁灭、耻辱和难堪之中，毫无道理。……风险评估不能外包。
+l: 用“即使全世界都不信任我，我也能撑几个月”作为流动性标准；对模型化的风险管理保持怀疑，最高决策者必须亲自负责风险。
+r: 5/5/5
+rel: 2007-M21, 2008-A02, 2007-M19
+
+@ 2008-A08
+t: 五分钟内做不了的决定，五个月也做不了：大量“屏蔽系统”让我们决策很快
+s: BM
+th: 投资方法; 投资心理
+k: circle
+c: 他们的第一个决定是：能不能弄明白别人提出的东西——这是一个“行/不行”的信号；别人常觉得他们无礼，其实他们是在礼貌地不浪费对方时间，对方第一句话说到一半就说“算了”。他们不担心错过的东西，只确保不在那些想完了也不够懂、无法做决定的事上浪费时间；通过几道过滤、落入知识范围的东西，他们可以立刻行动——“如果我们五分钟内做不了决定，五个月也做不了”，接下来五个月学不到足以弥补一开始就欠缺的东西。读报纸、杂志、年报、10-K，发现价格与价值有显著差距，他们当即行动，两人也不必商量。芒格：我们能对很多事情非常快、非常容易地做出决定，原因是有大量其他东西我们根本不允许自己去想；有人推销到第一句话一半，我会说“我们不做初创企业”——屏蔽掉初创企业，生活中就少了一整层复杂性；用几个这样的“屏蔽系统”，剩下的领域依然很大。巴菲特：我们浪费很多时间，但浪费在我们想浪费的事情上。
+q: And we don’t worry about the ones we miss. ||| So we just rule those out. And that rules a lot of things out.
+q: And the truth is, if we can’t make a decision in five minutes, we can’t make it in five months. ||| to make up for the fact that we went in deficient in the first place.
+q: And the — and we’re unusual in that respect. And the reason we’re able to do that is there’s such an enormous other lot of things that we won’t allow ourselves to think about at all. ||| what remains is still a pretty large territory that we can handle.
+zh: 我们不担心那些我们错过的。我们想确保的是，不浪费任何时间去思考那些、当我们全部想完后也不会知道足够多去做决定的事情。所以我们直接把它们排除。这排除掉了很多东西。……事实是，如果我们不能在五分钟内做出决定，我们也不能在五个月内做出决定。我们不会在接下来的五个月里学到足够的东西，来弥补我们一开始就知识欠缺这一事实。（芒格：）我们在这方面很不寻常。我们之所以能做到这一点，是因为有极其大量的其他事情我们根本不允许自己去思考。就这么简单。……当人们向我推销时，大约在第一句话说到一半，我就说：“我们不做初创企业。”……如果你屏蔽掉初创企业，你生活中就去掉了一整层的复杂性。我们还有其他一些小小的屏蔽系统。使用这些系统后，我们最终发现剩下的仍然是一片我们能够应对的相当大的领域。
+l: 建立明确的“不做清单”（如初创企业、看不懂的行业），既节约注意力，也让你能在机会出现时迅速决断。
+r: 5/5/5
+rel: 2004-A27, 2006-M12, 2005-A25
+
+@ 2008-A14
+t: 你最好的资产是你自己：会挑哪个同学的 10%？——以及读西奥迪尼的《影响力》
+s: BM
+th: 人生智慧
+k: life
+c: 最重要的投资是投资自己——极少有人把潜在的“马力”转化为实际输出，潜力远远超过实现。精灵送车的故事：你只有一个身体、一个心智，要用一辈子，现在就要像对待唯一的车那样对待它，不要等到 50、60 岁那一小点锈变成大问题。他让大学生想象：要买一位同学余生收入的 10%，选谁？不会选智商最高或成绩最好的，而会选最有成效的人——人们有成效，是因为别人愿意和他们一起工作；慷慨、幽默、守时、少邀功、帮助别人，这些让人喜欢的品质，和让人讨厌的品质一样，都是在学生这个年纪养成的习惯。芒格：教他们避免被商家和放贷者用行业标准伎俩操纵到不利境地，最好的教材是罗伯特·西奥迪尼的《影响力》。
+q: I mean, very, very, very few people get anything like their potential horsepower translated into the actual horsepower of their output in life. ||| And potential exceeds realization to just an enormous factor with so many people.
+q: When I get classes in universities, I just ask them to imagine they were going to buy one of their classmates ||| And other people they don’t want to be around.
+q: And those are habits, and they’re the habits that you pick up when they’re the age of your students. ||| so why not have good ones?
+q: I would add to that extensive repertoire of yours by teaching them to avoid being manipulated to their disadvantage by vendors and by lenders ||| And you couldn’t start with a better book than Cialdini’s “Influence,”
+zh: 极少极少的人能把他们潜在的马力转化为他们一生中实际输出的马力。对很多人来说，潜力超出实现的倍数是巨大的。……当我给大学生上课时，我只是让他们想象，他们要买下一位同学余生收入的 10%。他们会挑哪一个？他们不会挑智商最高的，也不一定挑成绩最好的。他们会挑那个会很有成效的人。人们之所以有成效，是因为其他人想和他们一起工作，想和他们在一起。而对有些人，别人不想和他们在一起。……这些都是习惯，是在你的学生这个年纪养成的习惯。他们今天拥有的习惯将伴随他们一生，那为什么不养成好习惯呢？（芒格：）我会在你那丰富的教学内容中再加一项：教他们避免被商家和放贷者利用行业的标准伎俩操纵到对自己不利的境地。没有比西奥迪尼的《影响力》更好的入门书了。
+l: 用“你会买哪个人 10% 的未来收入”来审视自己的品质；学习说服心理学，保护自己免受营销与借贷陷阱。
+r: 4/3/5
+rel: 2002-A22, 2004-A30
+
+@ 2008-A23
+t: 信用违约互换：没有“可保利益”的赌注是疯狂的
+s: BM
+th: 风险管理; 宏观与社会
+k: derivatives
+c: CDS 名义规模据报超过 60 万亿美元（有大量重复计算）。可以把它看作对公司破产的保险；伯克希尔自己也大规模承保了高收益指数的违约险，认为会赚钱也可能亏。他认为 CDS 规模本身大概不会导致金融混乱：它只是一方向另一方付款，A 赚 100 万，B 就亏 100 万，只要对手方付款；次贷损失才是真实的损失。真正的风险在于贝尔斯登式的隔夜破坏，或核弹之类的不连续事件——前一天的抵押品在巨变面前完全不够，大量 CDS 会加剧混乱。芒格：可能出现严重混乱吗？当然可能。为 1 亿美元债券投保，CDS 却有 30 亿美元——现在有 30 亿合约的人有强烈动机让某人倒闭，可能用欺诈或极端手段制造小损失以换取大赔付；过去，对不认识、没有可保利益的人买寿险是违法的，因为社会担心有人买保险后杀人——洛杉矶就有和蔼的老太太给贫民区的流浪汉买寿险，两年后用伪造的肇事逃逸谋杀他们。让这种比原始债券大 10–20 倍的赌注在几乎不受监管的市场里进行，是疯狂的——“如果我把这写成讽刺，你会说我夸大，我其实是轻描淡写”。
+q: Any time — a credit default swap is merely a payment by one party to another. ||| With the credit default swaps, there is a swap of dollars.
+q: Well, I think the answer to your question is — could we have a big-time mess out of credit default swaps — is yes, we certainly could. ||| Now you’ve got people with $3 billion worth of contracts that really have a big incentive in having somebody fail.
+q: It was insane for the regulators to allow this outcome to occur in America. ||| because society was afraid that people would do that and then kill the person.
+q: So human nature is up to this kind of venality where you have big payoffs. ||| I’m understating.
+zh: （巴菲特：）信用违约互换不过是一方向另一方的支付。……对于信用违约互换，存在美元的交换。（芒格：）我认为你问题的答案——我们会不会因为信用违约互换而陷入大混乱——是肯定的，我们当然会。……比方说你在为一笔 1 亿美元的债券发行可能出现的损失投保。而信用违约互换的规模不是 1 亿，而是 30 亿。现在你有了一批持有价值 30 亿美元合约的人，他们真的有很大的动机让某人倒闭。……监管者允许这种结果在美国发生是疯狂的。过去，没有可保利益的人给素不相识的人买人寿保险是违法的，因为社会担心人们会这样做然后杀死那个人。……所以当有巨额回报时，人性是能做出这种贪腐之事的。……为什么我们要让这些规模是原始债券发行 10 倍、20 倍的巨额赌注，在相对不受监管的市场中进行？这是疯狂的。如果我把这当讽刺来写，你会说我夸大了。我其实是轻描淡写。
+l: 当衍生品的名义规模远超标的、并且持有者能从标的失败中获利时，激励被扭曲；评估任何金融工具都要问“谁会因为坏结果而受益”。
+r: 4/3/5
+rel: 2008-A02, 2003-M38, 1994-M11
+
+@ 2008-A24
+t: 何时派息的检验：每留存一美元能否创造超过一美元的价值
+s: BM
+th: 资本配置
+k: buyback
+c: 他其实在很多情况下信奉分红，包括许多持股公司。检验是否派息的标准是：能否持续为每留存的一美元创造超过一美元的价值。喜诗几乎把所有盈利都交给伯克希尔，因为它在自身业务中无法明智地使用大笔资金，留存会是巨大错误；伯克希尔把钱挪到别处，希望一美元变成 1.1 或 2.1 美元的现值——若能做到，无论股东是否纳税、是否靠收入生活，留存都更好：如果一美元股息留存后立刻在市值上变成 1.1 或 1.2 美元，股东卖掉一小部分股票拿到所需的钱，会比收股息更有钱。若哪天他们认为无法用留存的钱为每美元创造超过一美元的市值，就应该派出——这一天终会到来。Costco 在高速增长时不派息，现在开始派了。芒格：沃伦一直计划从伯克希尔派发大笔股息，就像圣奥古斯丁说的：“上帝啊，赐我贞洁，但不是现在。”
+q: The test about whether to pay dividends is whether you can continue to create more than one dollar of value for every dollar you retain. ||| The test about whether to pay dividends is whether you can continue to create more than one dollar of value for every dollar you retain.
+q: Because if they were going to get a dollar in dividends and it became worth $1.10 or $1.20 in market value immediately ||| than if we paid it in dividends.
+q: But if the time comes — and it will come someday — when the ||| then it should be paid out.
+zh: 是否派发股息的检验标准，是你能否持续为你留存的每一美元创造超过一美元的价值。……因为如果他们本会得到一美元的股息，而它在现值基础上立即变成了 1.1 或 1.2 美元的市值，他们最好卖掉一小部分股票，以那种方式实现所需的金额，等他们做完这一切，会比我们派发股息时拥有更多的钱。但如果那个时候到来——总有一天会到来——如果我们认为无法有效地使用资金，为每一美元留存创造超过一美元的市值，那么就应该把它派发出去。
+l: 评估公司的分红/留存政策：留存的价值创造（每 1 美元留存带来多少市值）是唯一标准。
+r: 4/5/4
+rel: 2004-A15, 2001-A22
+
+@ 2008-A27
+t: 最好的老师：父母、配偶和书——你通过做什么而不是说什么来教孩子
+s: BM
+th: 人生智慧
+k: learning
+c: 他最大的教育者起初是父亲；和谁结婚非常重要，他在这方面很幸运；还有格雷厄姆、多德，以及多年来读到的所有书。作为父母，你是孩子的终极老师——提供温暖和食物的“大东西”，孩子在学习世界，到研究生院也不会改变太多；没有倒带键，你通过做什么而不是说什么来教。芒格：不同的人学习方式不同，我天生是通过阅读学习的——有人跟我讲话时，他告诉我的要么我不知道也不想知道，要么我早已知道，要么讲得太慢或太快；阅读时我可以按合适的速度学我想学的。父亲总做超出份内的工作、承担超出份内的风险，这种身边人的榜样很有帮助；概念性的东西则来自书——写书的人是另一种意义上的父亲。巴菲特：在一个你感兴趣的主题上读 20 本书，你会学到大量东西，只是不知道会在哪一本学到；有对的父母比上对的学校更幸运，再娶对配偶就是加倍下注。
+q: But your parents — I tell the students, you know, the most important job you have, you know, is being the teacher to your children. ||| and you teach by what you do, not by what you say, with these young things.
+q: With me, I was put together by nature to learn from reading. ||| In reading, I can learn what I want at the speed that works.
+q: It’s kind of an inefficient way, maybe, of doing it, but I — if you read 20 books on a subject you’ve got an interest in ||| You don’t know which one you’re going to learn it in, though.
+zh: 但你的父母——我告诉学生们，你最重要的工作是做你孩子的老师。……你没有倒带键，你不能做两次。所以你必须作为老师尽力做到最好，而对这些小家伙，你是通过你做什么来教，而不是通过你说什么。（芒格：）对我来说，我天生是通过阅读来学习的。如果有人在跟我说话，他告诉我的东西要么我不知道也不想知道，要么我已经知道了，要么他讲得太慢或太快。在阅读中，我可以按适合的速度学习我想学的东西。（巴菲特：）……这也许是一种低效的方式，但如果你在一个你感兴趣的主题上读 20 本书，你会学到大量的东西。不过你不知道你会在哪一本里学到。
+l: 言传不如身教；广泛阅读同一主题的多本书，让关键洞见自己“跳出来”。
+r: 3/2/4
+rel: 2007-A18, 2008-M14
