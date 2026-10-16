@@ -1,0 +1,274 @@
+# 2015 年股东大会（5 月 2 日，伯克希尔 50 周年）
+
+@ 2015-M12
+t: 没有“五条标准”：我们脑中大多数念头是让我们停下来的过滤器
+s: BM
+th: 投资方法; 管理与治理
+k: due_diligence
+c: 被问预测企业十年盈利的五个特征：芒格说没有一刀切的系统，每个行业都不同，我们也在不断学习。巴菲特：看 BNSF 或 Van Tuyl 时，脑中闪过的大多数念头是会阻止我们继续下去的东西——包括和谁打交道——过滤器就在那里，但不同企业差别很大；我们要找的是对五到十年后样子有合理把握的企业，这已排除大量企业。买需要卖方继续经营的企业时，一个大问题是：是否真的愿意与这个人合伙，并指望他不再拥有企业后的行为与过去拥有时一样——这否掉了相当多的交易。
+q: We don’t have a one-size-fits-all system for buying businesses. ||| But we can’t give you a formula that will help you.
+q: Now, if you’re looking at the BNSF railroad as we were in 2009 ||| But it’s very different in different businesses.
+q: Certainly, when we’re buying a business where we’re going to have somebody that’s selling it to us continue to run it for us ||| And that stops a fair number of deals.
+zh: （芒格：）我们没有一刀切的收购企业系统。它们各不相同，每个行业都不同，而且我们也在不断学习。所以我们十年前做的，希望现在做得更好。但我们无法给你一个能帮到你的公式。（巴菲特：）如果你像我们在 2009 年那样研究 BNSF 铁路，或者在 2014 年研究 Van Tuyl，我们脑子里会闪过很多东西。而闪过我们脑子的大多数东西，都是会阻止我们继续往下走的东西。我是说，过滤器就在那里。如果我们在一家企业身上看到很多东西，包括也许我们在和谁打交道，就会让我们止步于下一层之前。但不同企业差别很大。……当然，当我们买一家需要卖家继续为我们经营的企业时，一个非常大的问题是：我们是否真的想和这个人合伙，并指望他在不再拥有企业时，像过去拥有企业时那样行事。这否掉了相当多的交易。
+l: 投资分析的主要功能是“排除”——先用一层层否决性过滤器淘汰，再对剩下的少数做深入判断；对人的判断是最后也最重要的一道关。
+r: 4/4/4
+rel: 2013-A03
+
+@ 2015-M14
+t: 我们不“为持仓唱多”：持续买入者希望股价更低
+s: BM
+th: 投资心理; 资本配置
+k: mr_market
+c: 巴菲特说人们以为我们想为持有的股票唱多，但我们对鼓励别人买入毫无兴趣——无论是我们还是公司自己都会在未来继续买入，如果明年、后年都要买，为什么希望股价上涨？华尔街的心态却是，即便以后还要买，也希望明天就涨。“如果我们为自己的持仓说话，从我们的角度会对四大持仓都说悲观的话，因为它们都在回购，回购价格越低我们越受益。”芒格：“如果人们不是那么经常犯错，我们就不会这么富有。”
+q: We have no interest in encouraging other people to buy what — the investments we own. ||| But people don’t seem to get that point.
+q: Warren, if people weren’t so often wrong, we wouldn’t be so rich. ||| Warren, if people weren’t so often wrong, we wouldn’t be so rich.
+zh: （巴菲特：）我们没有兴趣鼓励别人买我们持有的投资。我是说，我们会更好，因为我们或者公司很可能将来会买入股票。如果我们明年、后年、大后年都要当买家，我们为什么希望股价上涨？但华尔街的整个心态是，如果你买了某样东西——即使你以后还要买更多，或者公司要回购自己的股票——人们似乎认为如果它第二天、下周或下个月就上涨，他们会更好……如果我们为自己的持仓唱多，从我们的立场出发，我们会对我们最大的四个持仓都说悲观的话，因为四家都在回购股票，显然它们回购的价格越便宜，我们就越好。但人们似乎不明白这一点。（芒格：）沃伦，如果人们不是那么经常犯错，我们就不会这么富有。
+l: 作为净买入者（定投者或持有回购公司的股东），应欢迎低价而非上涨；用“我是净买入还是净卖出”来校正对股价波动的情绪。
+r: 4/5/5
+rel: 2014-M11
+
+@ 2015-M15
+t: 保险业的“三次非凡运气”：对好的偶然保持开放
+s: BM
+th: 保险与浮存金; 人生智慧
+k: insurance
+c: 被问能否在今天重现伯克希尔的保险成功：巴菲特说有三次非凡的运气——20 岁时 GEICO 的洛里默·戴维森在周六花四个小时给一个陌生年轻人讲解保险业，那是美国任何商学院给不了的教育；1967 年杰克·林沃尔特每年只有约五分钟想卖公司，晚一小时就买不成国民赔偿；80 年代中期阿吉特·贾因某个周六走进办公室。重现这样的“三连中”概率很低。“商业的关键是对出现的想法保持开放”，而保险恰好在他的甜蜜区；“生活中有大量偶然，但如果你让自己对好的偶然保持开放，并熬过坏的偶然，总会有好事发生。”芒格：我们大多是买好企业并滋养它们，但再保险部门是在奥马哈白手起家建立的庞大业务，保险对我们很不同。
+q: One was, when I was 20 years old, having a fellow on a Saturday ||| I couldn’t have gotten at any business school in the United States.
+q: But the whole — the whole thing in business is being open to ideas as they come along ||| I mean, that was in my sweet spot.
+q: And that’s — there’s an awful lot of accident in life ||| some good things will happen.
+zh: （巴菲特：）其一是，我 20 岁时，一个周六，一位名叫洛里默·戴维森的人愿意花四个小时陪一个他从没听说过的 20 岁孩子，给他讲解保险业。所以我在 20 岁时获得了一种教育，那是我在美国任何一所商学院都得不到的。……但商业中的关键在于，对不断出现的想法保持开放，而保险恰好是我能理解的东西。我是说，那在我的甜蜜区里。……生活中有大量的偶然，但如果你让自己对好的偶然保持开放，并设法越过坏的偶然，总会有一些好事发生。
+l: 机会常以偶然形式出现，准备好的头脑和明确的能力圈决定你能否认出并抓住它。
+r: 3/2/4
+rel: 2013-M38
+
+@ 2015-M16
+t: 伯克希尔的文化根深蒂固：它已经制度化，而不靠个人魅力
+s: BM
+th: 管理与治理
+k: culture
+c: 被问外部投资者如何在两人离开后判断伯克希尔文化：巴菲特说伯克希尔的文化和任何大公司一样深。德国 Louis 夫人和丈夫用 35 年建立摩托车零售企业，丈夫去世后她想卖给伯克希尔——三四十年前不会如此。清晰定义、深深嵌入、贯穿母公司与子公司的文化至关重要，甚至体现在股东身上——97% 的股东投票不要分红。董事们视之为受托管理的机会，自己在市场上买股票。“加入我们的人相信它，回避我们的人不相信它，所以它是自我强化的”；两人不在后会更清楚它不是靠个人魅力而是制度化的。芒格：伯克希尔在我们走后会做得很好，以美元计会更好，但百分比增速不会再有早年那么高。巴菲特：“在伯克希尔，文化就是一切”；所罗门那样的糟糕文化很难变成伯克希尔——芒格：“我认为华尔街上从来没人做到过。”
+q: The culture — I think Berkshire’s culture runs as deep as any large company could be in the world. ||| The culture — I think Berkshire’s culture runs as deep as any large company could be in the world.
+q: So it does — it’s a vital part of Berkshire to have a clearly defined, deeply embedded culture ||| It’s even reflected in our shareholders.
+q: So we — it’s — we try to make clear and define that culture in every way possible ||| that it will really continue for decades and decades and decades to come.
+q: I should say culture is everything at Berkshire. ||| I don’t think anybody’s ever done it on Wall Street.
+zh: （巴菲特：）伯克希尔的文化，我认为和世界上任何一家大公司可能达到的一样深。……拥有一种清晰定义、深深嵌入、贯穿母公司和子公司的文化，是伯克希尔至关重要的一部分。它甚至体现在我们的股东身上。……所以我们尽一切可能把这种文化说清楚、定义清楚，多年来它被强化到了极致。加入我们的人相信它；回避我们的人不相信它，所以它是自我强化的。我认为它几乎肯定会延续下去，甚至变得更强，因为一旦查理和我不在了，人们会非常清楚，这不是靠个性的力量，而是已经制度化了，没有人会怀疑它将延续几十年又几十年。……我应该说，在伯克希尔，文化就是一切。如果你遇到一种糟糕的文化——屏幕上刚放过所罗门的事——很难把所罗门变成伯克希尔。我认为我们做不到，查理。（芒格：）我认为华尔街上从来没有人做到过。
+l: 评估一家公司能否“传承”，看文化是否已写进制度、股东结构和董事会，而不仅仅依赖创始人；坏文化几乎无法扭转，应回避。
+r: 4/3/4
+rel: 2014-M26, 2013-M27
+
+@ 2015-M19
+t: 如何建立企业文化：来自高层、一以贯之、言行一致、奖惩分明，并且需要很长时间
+s: BM
+th: 管理与治理; 人生智慧
+k: culture
+c: 被问 45 年前建立伯克希尔文化时考虑了什么：巴菲特说文化必须来自高层，必须一致，必须写进书面沟通，必须身体力行，遵守时奖励、违背时惩罚，而且需要非常非常长的时间才能稳固；继承一种你喜欢的文化要容易得多，小公司也更容易。“就像你的孩子看的是你做什么而不是说什么，企业也一样，人们看上面的人如何行事并向那个方向移动。”34 万员工中肯定有几十上百人在做不该做的事，发现了就必须处理——如 Clayton 不做非政府担保的 30 年房贷，Kirby 为 65 岁以上客户设一年无理由退款。始终努力换位思考，“好像我们的位置互换了一样”。芒格：我们做得最好的一件事是始终不满足于已知，总想知道更多；如果我们停滞不前，伯克希尔会是个糟糕的地方。
+q: Yeah, well I think culture has to come from the top ||| And then it takes a very, very long time to really become solid.
+q: So it — you know, it is a grain of sand type of thing. ||| and they move in that direction.
+q: But we work all the time at trying to behave with other people as if our positions were reversed. ||| but if you keep working at it, it does get results.
+q: Yeah. I think the one thing that we did that’s worked best of all ||| It’s what we kept learning that made it work, and I don’t think that will ever stop.
+zh: （巴菲特：）我认为文化必须来自高层，必须一致，必须是书面沟通的一部分，必须身体力行，遵循时要奖励，违背时要惩罚。而且它需要非常非常长的时间才能真正稳固。……所以这是一粒沙一粒沙积累起来的事情。就像你的孩子看的是你做什么而不是你说什么，企业里也一样，人们看他们上面的人如何行事，然后朝那个方向移动。……但我们一直努力像彼此位置互换那样去对待他人。这是查理在我们所有活动中一直建议的，我们也努力遵循。我们当然远非完美，但如果你坚持努力，确实会有成效。（芒格：）是的。我认为我们做得最好的一件事，就是我们总是不满足于已经知道的，总想知道更多。如果沃伦和我停滞在时间里……那会是个糟糕的地方。是我们不断学习的东西让它运转起来，我认为这永远不会停止。
+l: 文化是管理层长期行为的累积结果，不是口号；考察公司文化，看高层的行为和对违规者的处理，而非价值观宣言。
+r: 4/3/4
+rel: 2015-M16
+
+@ 2015-M20
+t: 股市总市值/GDP 与利率：任何雇用经济学家的公司都多了一个员工
+s: BM
+th: 市场周期; 企业估值
+k: discount
+c: 被问市值/GNP 已达 125%、企业利润/GDP 达 10.5% 是否值得担忧：巴菲特说后者说明美国企业近年极其繁荣；前者很大程度受利率影响——政府债券收益率 1% 时的利润比 5% 时值钱得多，许多人的机会成本是几乎不付息的债券。“如果回到正常利率，现在的股价会显得相当高；如果利率持续这样，股票会显得非常便宜。”芒格：我们没能预测到现在发生的事，为什么还有人问我们对未来的预测？巴菲特：从不因宏观因素做或拒绝一笔收购，BNSF 就是在经济很糟的时候买的；要弄清的是企业长期平均盈利能力与护城河强度；“任何有经济学家的公司都多了一个员工。”
+q: And, obviously, profits are worth a whole lot more if the government bond yield is 1 percent ||| but they weren’t selling at those historic prices with interest rates like this.
+q: If we get back to what are normal interest rates, stocks at these prices will look pretty high. ||| And now I’ve given you the answer and you can take your pick.
+q: Well, since we failed to predict what happened ||| why would anybody ask us what our prediction is in the future?
+q: But we don’t — it just doesn’t come up ||| We think any company that has an economist, you know, certainly, has one employee too many.
+zh: （巴菲特：）显然，如果政府债券收益率是 1%，利润的价值比收益率是 5% 时高得多。……查理在那部电影里谈到了替代选择和机会成本。对很多人来说，机会成本是持有大量几乎不付息的债券，或者持有按历史标准价格相当高的股票——但过去那些历史价格并不是在这样的利率下出现的。……如果我们回到正常利率，这个价位的股票会显得相当高。如果利率持续在这种水平，股票会显得非常便宜。现在我给了你答案，你可以任选其一。（芒格：）既然我们没能预测到已经发生的事和现在的状况，为什么还会有人问我们对未来的预测呢？（巴菲特：）……但这根本不会被提起，因为我们知道自己不知道未来 12 个月、24 个月、30 个月会怎样。但如果我们买一家企业打算持有一百年，这其实没有任何区别。我们要做的是弄清这家企业长期的平均盈利能力可能是多少，它的竞争护城河有多强，诸如此类。……我们认为任何有经济学家的公司，当然多了一个员工。
+l: 用估值指标判断市场高低时必须结合利率；利率是所有资产估值的“引力”，但长期持有者应聚焦于企业的平均盈利能力与护城河。
+r: 5/4/4
+rel: 2013-A04, 2012-M25
+
+@ 2015-M28
+t: 最难忘的失败：用股票买 Dexter 鞋业；宁可过度谨慎一百倍，也不冒险 1%
+s: BM
+th: 风险管理; 资本配置
+k: mistakes
+c: 被问最难忘的失败：巴菲特说 90 年代中期花约 4 亿美元买下注定几年内归零的 Dexter 鞋业，而且用股票支付，那些股票现在值六七十亿美元——“股价下跌时我感觉好些，因为愚蠢程度降低了”；没人误导他，只是得出了错误答案；“几乎每次我们发行股票都是错误。”另一类错误是太谨慎：早年本可以借更多钱做成大事。但全部身家、家人和合伙人朋友的大半身家都在公司里，“我不愿冒 1% 的风险去抹掉凯蒂姑妈的净资产……我宁愿过度谨慎一百倍，也不愿不谨慎 1%”。芒格：如果像很多成功经营者那样用杠杆，伯克希尔会大得多，但我们会在夜里冒汗——“为金融上的事在夜里冒汗是疯狂的。”
+q: Yeah. Well, we’ve discussed Dexter many times in the annual report ||| It makes me feel better when the stock goes down because the stupidity gets reduced.
+q: Nobody misled me on that, in any way. ||| But I would say almost any time we’ve issued shares, it’s been a mistake.
+q: But, I wouldn’t want to take a 1 percent chance, you know, of wiping out my Aunt Katie’s net worth or something. ||| and that will continue as long as I’m around.
+q: Well, it’s obviously true. If we had used the leverage that a lot of successful operators did ||| It’s crazy to sweat at night.
+zh: （巴菲特：）我们在年报里多次讨论过 Dexter：90 年代中期，我考察了缅因州德克斯特的一家制鞋企业，决定花大约 4 亿美元买下一样注定在几年内归零的东西，而我没有看出来。更糟的是，我用股票支付了收购价，我猜那些股票现在大概值六七十亿美元。股价下跌时我会感觉好一些，因为愚蠢程度降低了。……没有任何人在这件事上误导我。我只是看了看，得出了错误的答案。但我会说，几乎每次我们发行股票，都是一个错误。……但我不愿冒 1% 的风险去抹掉我凯蒂姑妈的净资产之类的。那是我在生活中无法承受的。所以我宁愿过度谨慎一百倍，也不愿不够谨慎百分之一，只要我还在，这一点就会继续。（芒格：）这显然是真的。如果我们像很多成功的经营者那样使用杠杆，伯克希尔会大得多。……但我们会在夜里冒汗。在夜里冒汗是疯狂的。
+l: 用自己的高价值股票换低质量资产是双重错误；对托付给你的钱，宁愿因谨慎错失机会，也不要承担哪怕很小的毁灭概率。
+r: 5/4/5
+rel: 2014-M31, 2004-M32
+
+@ 2015-M31
+t: 隐藏的激励：不要做盈利预测，CEO 的玩笑都可能让下属隐藏理赔
+s: BM
+th: 管理与治理; 会计与财务
+k: incentives
+c: 被问亨利·辛格尔顿的 Teledyne：芒格说辛格尔顿比两人都聪明，但沃伦投资做得更好，因为他专心于此；辛格尔顿给关键高管设计了强而有力的激励，最终三个国防部门卷入丑闻——激励和业绩文化强到走过了头。巴菲特：我们非常相信激励的力量，也努力避免隐藏的激励——见过非常正派的人为了不让 CEO 的盈利预测落空而在准备金、渠道压货上做手脚，自己却没有任何经济收益；“当自我卷入其中，人们会做不该做的事。”国民赔偿的林沃尔特开玩笑地对理赔主管说“这些理赔要了我的命”，那人就把理赔单藏进抽屉，导致误报并误导再保险人。“作为 CEO，你必须对发出的信息非常小心。如果你告诉经理们永远不想让华尔街失望、想报告每股 X，你可能会发现他们开始捏造数字来保护你的预测。”
+q: No. The interesting thing about Singleton is he had very clever incentives on all the key executives ||| it went too far — in dealing with the government, Teledyne did.
+q: No. And Charlie and I, we really believe in the power of incentives. ||| When they get their ego involved, people do things that they shouldn’t do.
+q: But the fellow he was joking with couldn’t take it, really, and he started hiding claims. ||| We’ve just seen too much trouble with it.
+zh: （芒格：）不。辛格尔顿有意思的地方在于，他给所有关键高管设计了非常巧妙的激励，它们很严格、很重要、很有意义。最后，他有三个国防部门卷入了丑闻。他没有做错什么，他并不是故意要伤害国防部。但激励变得如此强烈，业绩文化变得如此强烈，以至于人们真的——走得太远了——在与政府打交道时，Teledyne 走得太远了。（巴菲特：）是的。查理和我非常相信激励的力量。也有一些隐藏的激励是我们努力避免的。我们两个都不止一次见过真正正派的人行为失当，因为他们觉得对 CEO 负有一种忠诚，要交出某些数字——因为 CEO 出去对公司的盈利做了很多预测。……我见过很多不当行为，实际上没有让任何人在经济上获利，而之所以这样做，仅仅是因为他们不想让 CEO 的预测显得难看。……当他们的自我卷入其中时，人们会做不该做的事。……但被他开玩笑的那个人其实受不了，他开始隐藏理赔。他就是把它们塞进了抽屉。这导致我们不仅误报了一些相当小的数字，还误导了我们的再保险人……而藏理赔的那个人这么做根本没有任何经济利益，他只是不喜欢走进办公室被杰克取笑说他让杰克失望了。你作为 CEO 真的必须对你发出的信息非常小心。如果你告诉你的经理们你永远不想让华尔街失望，你想报告每股 X 的盈利，你可能会发现他们开始篡改数字来保护你的预测。我们在伯克希尔努力避免所有这类行为。我们见过太多由此引起的麻烦了。
+l: 警惕频繁给出盈利指引的管理层——它会制造隐性激励导致财务操纵；设计激励时要同时考虑金钱与“自我/面子”两种驱动力。
+r: 5/4/5
+rel: 2013-M34, 2013-A28
+
+@ 2015-M36
+t: 伟大的品牌会存活，伟大的零售商也会做得好：品牌必须在消费者心中代表一个承诺
+s: B
+th: 护城河; 商业模式
+k: moat
+c: 被问包装食品品牌在自有品牌和零售商压力下的前景：巴菲特说强大品牌是非常有力量的东西——可口可乐去年销量创历史新高，亨氏番茄酱在美国有 60% 份额，海外更高。零售商与品牌之间永远会争斗，零售商会用尽所有压力，因此品牌必须在消费者心中代表某种东西；山姆·沃尔顿 20 年前送来第一箱 Sam’s Cola，沃尔玛有很大力量，但可口可乐也有。品牌必须滋养、精心呵护，兑现人们心中对它的承诺；RC 可乐、威尔金森刀片都曾来势汹汹，但吉列 100 年后仍占全球剃须刀片 70% 的销售额。1972 年买喜诗时面对的就是这个问题：罗素·斯托弗若来抄袭能造成多大伤害。“如果你有一个了不起的品牌并保护它，它就是一项极好的资产。”
+q: And, I mean, Coca-Cola sold more cases of beverages last year than any year in their history ||| a strong brand is really potent stuff.
+q: So you’ll always have the fight between the retailer and the brand ||| therefore, the brand has to stand for something in the consumer’s mind.
+q: And the brand — you’ve got to nourish them. ||| They have to stand for the promise that’s in people’s mind about them.
+q: If you protect a brand — if you got a terrific brand and you protect it, it’s a fabulous asset. ||| But the great brands will survive and the great retailers will do well.
+zh: （巴菲特：）我是说，可口可乐去年卖出的饮料箱数比历史上任何一年都多，今年还会卖得更多。强大的品牌真的是很有威力的东西。……所以零售商和品牌之间永远会有争斗，零售商会利用它们拥有的一切压力，因此，品牌必须在消费者心中代表某种东西。……而品牌——你必须滋养它们。你必须非常、非常、非常好地照顾它们。它们必须代表人们心中对它们的那个承诺。……如果你保护一个品牌——如果你有一个了不起的品牌并且保护它，它就是一项极好的资产。但你总会在与 Costco、沃尔玛以及其他人——克罗格，随你说——打交道时遇到困难，他们也很强硬。但伟大的品牌会存活下来，伟大的零售商也会做得很好。
+l: 品牌护城河的本质是消费者心智中的稳定承诺；评估品牌要看它能否在渠道压力和自有品牌冲击下维持份额与定价权，以及公司是否持续投入呵护。
+r: 4/4/4
+rel: 2014-M27, 2002-A33
+
+@ 2015-M37
+t: 投资原则不分国界；控制住情绪，投资不是很难的智力游戏
+s: BM
+th: 投资理念; 投资心理
+k: psychology
+c: 中国投资者问价值投资是否适用于中国：巴菲特说投资原则不会止步于国界，在中国、印度、英国、德国都会用《聪明的投资者》里同样的原则——把股票看作企业的一小部分，让波动为我所用而非伤害我，专注于理解其竞争优势、知道五到十年后样子的企业。芒格：中国人有创业和重赌的传统，造成股市剧烈波动；中国若更具价值投资思维、少些投机浪潮会好得多。巴菲特：讽刺的是，市场参与者越愚蠢，我们几十年来就会做得越好——人们对短期事件反应越激烈，越能让人在证券上赚大钱，但这对社会不是最好；1973–74 年的股票比 2008–09 年还便宜。“如果你能退后一步，把股票当作企业来估值，在非常便宜时买入，不管电视上说什么……这真的不是很难的智力游戏。如果你能控制情绪，这是个简单的游戏。”芒格：“谁买东西时不想要价值？除了价值投资，还有什么是合理的？”人们在找更容易的路，看起来更容易，实际上更难。巴菲特：没人买农场是为了下周赚钱，也不会每天要报价。
+q: I certainly think investment principles do not stop at borders. ||| what they would — look like in five or ten years.
+q: I think China would be way better to be more value investor minded and less absorbed in waves of speculation. ||| I think China would be way better to be more value investor minded and less absorbed in waves of speculation.
+q: Yeah. There’s a certain irony, in that we will — we would — do the best, over decades ||| is what allows people to make lots of money in securities.
+q: I mean, if you’re a young investor, and you can sort of stand back and value stocks as businesses ||| It’s an easy game, if you can control your emotions.
+q: I think China is wise to dampen the speculative booms ||| And there’s a lot of misery to be obtained by misusing stocks.
+q: Yeah. Nobody buys a farm to make a lot of money next week or next month ||| and that’s probably a better way to look at stocks.
+zh: （巴菲特：）我当然认为投资原则不会止步于国界。所以如果我在中国或其他任何地方——印度、英国、德国——投资，我会应用我从《聪明的投资者》里学到的完全相同的原则。我会把股票看作企业的一小部分。我会认为投资价格的波动是为了让我受益，而不是伤害我。我会努力把注意力集中在那些我认为理解其竞争优势、知道它们五年或十年后会是什么样子的企业上。（芒格：）我认为中国如果更具价值投资思维、少沉迷于投机浪潮，会好得多。（巴菲特：）有一种讽刺：如果我们在一个人们行为非常愚蠢的市场中运作，我们几十年下来会做得最好。人们越是对短期事件和夸大的东西作出反应——任何让人们狂热或极度沮丧的东西——实际上正是让人们能在证券上赚大钱的原因。……我是说，如果你是一个年轻投资者，能够退后一步，把股票当作企业来估值，在东西非常便宜时投资，不管别人在电视上说什么、你在读什么，如果你愿意，也许在人们极度狂热时卖出，这真的不是一个很难的智力游戏。如果你能控制住情绪，这是一个简单的游戏。（芒格：）我认为中国抑制投机热潮是明智的……我不认为价值投资会过时。见鬼，谁买东西的时候不想要价值？除了价值投资，还有什么可能是合理的？……人们在寻找一条更容易的路。那是个错误。它看起来更容易，但实际上更难。而误用股票会带来大量痛苦。（巴菲特：）是的。没有人买农场是为了下周或下个月赚一大笔钱，买公寓楼也一样。他们根据自己认为的长期前景来买。如果他们做了合理的计算，买价看起来有吸引力，他们就买，然后不会每天、每周、每月甚至每年都去获取报价，而这大概是看待股票的更好方式。
+l: 价值投资的难点不在智力而在情绪控制；市场越投机、波动越大，对理性长期投资者越有利。
+r: 5/5/5
+rel: 2013-A24, 2013-A06
+
+@ 2015-A02
+t: 通胀中最好的企业：一次投入、无需持续再投资；品牌是一次性支付、通胀中增值的资产
+s: BM
+th: 商业模式; 宏观与社会
+k: inflation
+c: 被问哪些伯克希尔企业最适合高通胀：巴菲特说通胀中最好的企业是买一次之后无需持续资本投入的企业，不会面临因通胀而需要越来越多美元再投资的问题——这也是房地产通常在通胀中表现好的原因，一次性支出，重置价值随通胀上升。公用事业、铁路这类业务不断吞噬资金，折旧不足，“你在自欺欺人地看待真实经济利润”；资本密集型企业在通胀中往往是糟糕的生意，通常一般情况下也是。品牌是通胀中极好的资产：喜诗多年前建立的品牌价值随通胀上升；吉列 1939 年花 10 万美元买下世界大赛全部广播权，用 1939 年的美元在数百万年轻人心中留下印象，而回报以 1960–80 年代的美元计。芒格：如果通胀完全失控，你无法知道结局——魏玛通胀加大萧条带来了希特勒；我们不会因为通胀对喜诗好就想要通胀。
+q: Yeah. Well, the best businesses during inflation are usually the best ||| involving greater and greater dollars because of inflation.
+q: Now, if you’re in a business such as the utility business or the railroad business ||| and often it’s a poor business to be in generally.
+q: And the business where you buy something once — a brand is a wonderful thing to own during inflation. ||| just as the value of, really, any strongly branded goods.
+q: But it was a great investment, which could be made in 1939 dollars ||| So that’s the kind of business you want to own.
+zh: （巴菲特：）通胀期间最好的企业通常是那些你买一次、之后不必持续进行资本投资的企业。所以你不会面临因通胀而需要投入越来越多美元进行持续再投资的问题。……如果你身处公用事业或铁路这类业务，它就是不断吞噬越来越多的钱，你的折旧费用不足，你在关于真实经济利润的问题上自欺欺人。所以，任何资本投入繁重的企业在通胀中往往是糟糕的生意，而且通常在一般情况下也是糟糕的生意。而那种你只需购买一次的企业——在通胀期间，品牌是一种极好的拥有物。喜诗糖果多年前就建立了它的品牌。当然我们一路上必须滋养它，但那个品牌的价值在通胀期间会增加，就像任何强势品牌商品的价值一样。……但那是一笔伟大的投资：它可以用 1939 年的美元做出，然后以 1960、1970、1980 年的美元在卖剃须刀和刀片上获得回报。所以那就是你想拥有的企业。
+l: 抗通胀的核心是低资本需求和定价权；对重资产公司要用“重置成本”而非历史折旧来衡量真实利润。
+r: 5/5/5
+rel: 2014-A17, 2010-M23
+
+@ 2015-A04
+t: 声誉是缓慢积累的明智投资：“老了以后，你会得到你应得的名声”
+s: BM
+th: 人生智慧; 管理与治理
+k: reputation
+c: 被问给初入职场者哪些心智模型来建立持久企业：芒格说声誉是长期积累的，很少有人像林德伯格那样一夜成名，伯克希尔也是慢慢获得的；在你被分配的岁月里尽量获得最好的名声，这是明智的投资——“我一直看到，正是人们过去获得的信誉，让他们有了新的机会。”“我认为几乎没有什么比在一生中行为端正更重要”，随着越来越富有，我们努力表现得更好；超级品牌是五千万分之一的结果，你大概得不到。巴菲特：菲亚特的阿涅利说，“当你老了，你会拥有你应得的名声，一段时间里你可以愚弄别人，但到了我这个年纪，无论你有什么名声，大概都是你应得的”；公司也是如此，伯克希尔“与众不同”的名声帮了大忙。
+q: Most of us have to acquire one very slowly, and that was true in Berkshire’s case. ||| So, I think hardly anything is more important than behaving well as you go through life.
+q: Gianni Agnelli of Fiat, back in — I think it was 1988 ||| And I think the same is true of companies.
+zh: （芒格：）我们大多数人必须非常缓慢地获得声誉，伯克希尔的情况也是如此。任何个人都只能在分配给你的岁月和可用的时间里，获得你能获得的最好声誉。结果可能好，也可能不好。但这是一项明智的投资。我总是看到机会降临到一些人身上，正是他们过去获得的信誉让他们得到了新的机会。所以，我认为在人生中，几乎没有什么比行为端正更重要了。（巴菲特：）菲亚特的詹尼·阿涅利——我想是 1988 年——有一次我和他吃饭，他对我说了一句我一直记得的话。他说：“当你老了，你会拥有你应得的名声。在一段时间里你可以——（芒格：）愚弄别人。（巴菲特：）——愚弄别人。但当你到了我这个年纪，无论你有什么名声，大概都是你应得的。”我认为公司也一样。
+l: 信誉是复利最强的无形资产之一，它会不断带来新机会；评估管理层时，长期声誉是最难伪造的信号。
+r: 4/2/4
+rel: 2014-M12
+
+@ 2015-A13
+t: 如何交朋友：写下你喜欢和讨厌的人的品质，然后成为你自己会喜欢的人
+s: BM
+th: 人生智慧
+k: life
+c: 七年级学生问如何交朋友、让人愿意与你合作：芒格说自己小时候很讨人嫌，唯一的办法是变得很富有又很慷慨。巴菲特：随着年龄增长应该更懂人性；他观察欣赏的人，问自己为什么欣赏他们，然后学习他们的品质。方法很简单：写下你喜欢的三四个同学让你喜欢的品质，再写下让你反感的三四个人的品质，决定成为一个你自己会喜欢的人——慷慨、友好、幽默、不抢功；把你在别人身上不喜欢的东西从自己身上去掉。芒格：在婚姻里尤其管用，改变自己而不是改变配偶。
+q: So, it’s not a complicated proposition, you know. ||| get rid of them in yourself and you’ll find out it works pretty well.
+q: And it really works in marriage. ||| If you can change yourself instead of trying to change your spouse, that’s a good idea.
+zh: （巴菲特：）所以这不是一个复杂的命题。如果你看看你学校里你喜欢的人，写下他们让你喜欢的三四件事，然后看看那三四个让你反感的人，写下那些品质，然后决定你要成为一个你自己会喜欢的人，具备左边那个人的品质。你慷慨、友好，能以幽默接受事情，不把不是你做的事揽为功劳，所有这些。而且这些都是可以做到的。如果你喜欢别人身上的这些，别人也会喜欢你身上的这些。如果你发现一些令人讨厌的东西——总是迟到、总是揽功过多、对一切都有点消极——而你不喜欢别人身上的这些，那就把它们从自己身上去掉，你会发现效果很好。（芒格：）这在婚姻中真的很管用。如果你能改变自己而不是试图改变你的配偶，那是个好主意。
+l: 品格可以刻意练习：用“喜欢/反感”清单反观自己，持续改进，这也是建立长期合作关系的基础。
+r: 3/2/4
+rel: 2013-M39
+
+@ 2015-A16
+t: 为何捐出 99% 以上财富：保险箱里的股票对我毫无效用，对别人却能救命
+s: BM
+th: 人生智慧; 宏观与社会
+k: life
+c: 被问捐赠承诺与家族遗产的平衡：巴菲特承诺捐出 99% 以上，“墓地里没有福布斯 400”；问题是钱在哪里最有用——给孩子足够的数量以做些真正的好事，但保险箱里 50 年前放进去的股票证书对他毫无效用，不能让他每天吃 7000 卡路里而不是 3000，他想要的东西几十年前就都有了；而这些东西对世界其他地方的人有巨大效用——救命、疫苗、教育。为什么要让它们为了第四代曾孙躺在那里？“我们知道自己喜欢什么、不喜欢什么，不以别人喜欢什么来评判。”对不想现在思考的 70 岁富人说：“你 95 岁时腿上坐着个金发女郎，会做出更好的决定吗？”
+q: So the question is, where does it do the most good? ||| They can’t do anything for me in life.
+q: So, here these things are that have no utility to me ||| when they can do a lot of good now?
+q: Charlie and I both like fairly simple lives. ||| and we don’t judge it by what other people like.
+zh: （巴菲特：）所以问题是，它在哪里能做最多的好事？我认为有限的数量就能为我的孩子做一些真正的好事，所以我会确保他们拥有这些，或者他们在一定程度上已经拥有了。另一方面，当我看着保险箱里大约 50 年前放进去的一沓股票证书时，它们对我绝对没有任何效用，零。它们在生活中无法为我做任何事。……所以，这些东西对我毫无效用，而对世界其他地方的一些人却有巨大的效用。我是说，它们能拯救生命，能提供疫苗，能提供教育，有各种各样的效用。那么，究竟为什么要让它们为了我、或者为了第四代曾孙之类的人躺在那里，而它们现在就能做很多好事？……查理和我都喜欢相当简单的生活。但我们确实知道的一件事是，我们知道自己喜欢什么、不喜欢什么，我们不以别人喜欢什么来评判它。
+l: 财富的边际效用递减；用“这笔钱在哪里效用最大”来思考财富的最终去向，并按自己的内在标准而非他人的标准生活。
+r: 3/1/4
+rel: 2014-M16, 1997-M28
+
+@ 2015-A25
+t: 习惯的锁链轻到感觉不到，直到重到无法挣脱：尽早培养理财习惯
+s: B
+th: 人生智慧
+k: life
+c: 关于在发展中国家教孩子理财：巴菲特说重要的是早早养成好习惯——“习惯的锁链太轻，以至于感觉不到，直到它们重到无法打破。”习惯对人生影响巨大；他大学毕业时已有九千到一万美元，年轻结婚、很快有孩子，如果没有那个起点，人生会非常不同；“在培养良好的金钱习惯上，你怎么早开始都不为过。”
+q: You really — you know someone said the chains of habit are too light to be felt until they’re too heavy to be broken. ||| And habits really make an enormous difference in your life.
+q: And, you know, I was 9 or $10,000 ahead when I got out of college ||| you can’t start young enough on working on good money habits.
+zh: （巴菲特：）你知道，有人说过，习惯的锁链轻到感觉不到，直到它们重到无法打破。习惯真的会对你的人生产生巨大影响。……你知道，我大学毕业时已经领先了九千或一万美元，而我结婚很早，很快就有了孩子。如果没有那个起点，我的人生会非常不同。所以——在培养良好的金钱习惯上，你怎么早开始都不为过。
+l: 储蓄与理性消费的习惯是复利的起点；早期积累的本金给人生带来选择自由。
+r: 2/3/3
+rel: 2013-M39
+
+@ 2015-A32
+t: 早年如何进入陌生行业：不断阅读、不断思考、比较机会 A 与机会 B，宁要确定的好结果
+s: BM
+th: 投资方法; 投资理念
+k: learning
+c: 被问 50 年前如何搞清陌生行业的经营指标：巴菲特说当时并没想得那么周全，只是寻找能理解其 5、10、15 年后样子的公司，不需要精确到小数点后四位，但要有感觉、知道自己的局限，所以远离了很多东西；没有规划会，“我们只是不断阅读、不断思考，不断看出现的东西”，比较机会 A 与机会 B；当时资金受限，买一样就得卖另一样，这让你总是把手中所持与新机会比较。“我们大概非常倾向于那些确定能得到不错结果的事，而不是希望得到辉煌结果的事。”芒格：部分是我们的好品质，部分是运气；但不是每个 20 岁的人都会跑去华盛顿敲空楼的门——好奇心和寻求智慧制造了运气；没有什么比犯错时鼻子被狠狠打一下更能产生智慧。巴菲特：经历过很多糟糕的生意，让你懂得欣赏好生意，也磨砺区分好坏的能力。
+q: But we basically looked for companies where we thought we could understand what the future would look like ||| So we stayed away from a lot of things.
+q: But it wasn’t — they weren’t elaborate ||| than where we were hopeful of getting a brilliant result.
+q: So we made some of our luck by being curious and seeking wisdom ||| and we had a firm amount of that, didn’t we?
+q: We’ve had a lot of experience with bad businesses, and that makes you appreciate a good one. ||| it sharpens your ability to make distinctions between good and bad ones.
+zh: （巴菲特：）但我们基本上是在寻找那些我们认为能理解其 5 年、10 年或 15 年后未来样子的公司。这并不意味着我们必须精确到小数点后四位之类，但我们必须对它有感觉，而且必须知道自己的局限。所以我们远离了很多东西。……没有规划会议之类的东西。我们只是不断阅读，不断思考，不断审视出现的东西，就像查理在电影里描述的那样，比较机会 A 与机会 B。那时我们资金受限，所以如果要买别的东西，通常必须卖掉某样东西。而这总是带来一个有趣的挑战：用你持有的东西去衡量新出现的东西，看哪个更有吸引力。我们大概非常倾向于那些我们确信能得到不错结果的事，而不是那些我们希望能得到辉煌结果的事。（芒格：）所以我们通过好奇和寻求智慧，创造了一部分自己的运气，我们当然向任何人推荐这一点。没有什么比犯错时鼻子被狠狠打一下更能彻底地产生智慧了，我们有过不少这样的经历，不是吗？（巴菲特：）我们在糟糕的生意上有过很多经验，这让你懂得欣赏好生意。而且在某种程度上，它磨砺了你区分好坏生意的能力。
+l: 把每个新机会和手中最好的持仓比较；偏好“高确定性的不错结果”胜过“低概率的辉煌结果”；从糟糕的生意中学会识别好生意。
+r: 5/5/5
+rel: 2014-M14, 2014-A10
+
+@ 2015-A34
+t: 芒格：理性是一种道德义务；伯克希尔是理性的神殿——“看清事物的本来面目”
+s: BM
+th: 人生智慧; 投资心理
+k: psychology
+c: 被问最看重什么：芒格说自己擅长弄清事物，其他都不行；从家族（尤其是祖父芒格法官）那里得到的理念是：人的主要责任是尽可能变得理性，“我确实认为理性是一种道德义务”——这也是他喜欢孔子的原因。伯克希尔有点像理性的神殿，最受推崇的是“如实看待事物”的人。“如果你有一些容易消除的无知却保留着，那是不光彩的……让自己比必要的更愚蠢是不光彩的。”还要慷慨，因为人是社会动物。巴菲特：最在乎的是伯克希尔做得好——不是股价或经济某年的表现，而是每年都在建设比前一年更好的东西。芒格：我们亏自己的钱不在乎，但讨厌亏别人的钱；巴菲特：唯一会让我夜不能寐的是做了损害伯克希尔长期价值的事。
+q: And since I was good at that and no good at anything else ||| What’s really admired around Berkshire is somebody who sees it the way it is.
+q: I think if you have some easily removable ignorance and keep it, it’s dishonorable. ||| We’re a social animal, and we’re tied to other people.
+q: But if I felt that we weren’t building something every year that was better than what we had the year before, I would not be happy. ||| But if I felt that we weren’t building something every year that was better than what we had the year before, I would not be happy.
+q: But that’s very important. Truth of the matter is it’s easy for somebody like Warren or me to lose a little of our own money ||| and that’s a very desirable attitude to have in a civilization.
+zh: （芒格：）既然我擅长这个而别的都不行，我就被引向了一条对我很有效的路——但我确实认为理性是一种道德义务。这就是我喜欢孔子的原因。他在那么多年前就有同样的想法。我认为伯克希尔有点像一座理性的神殿。在伯克希尔真正受推崇的，是如实看待事物的人。……我认为如果你有一些容易消除的无知却一直保留着，那是不光彩的。我不认为那只是一个错误或不够勤勉。我认为让自己比必要的更愚蠢是不光彩的，这就是我的精神信条。而且我认为你必须慷慨，因为不慷慨是疯狂的。我们是社会动物，与他人紧密相连。（巴菲特：）但如果我觉得我们没有每年都在建设比前一年更好的东西，我不会开心。（芒格：）但这非常重要。事实是，对沃伦或我这样的人来说，亏一点自己的钱很容易，因为没那么重要，但我们讨厌亏别人的钱。这在一个文明中是非常可取的态度。
+l: 把“如实看待现实”当作纪律甚至道德要求；对受托资金保持比对自己的钱更高的谨慎。
+r: 5/3/5
+rel: 2014-M27, 2015-M28
+
+@ 2015-A36
+t: 投资是“简单的游戏”，需要的是情绪稳定；只靠精明挑股票不足以构成一生
+s: BM
+th: 投资心理; 人生智慧
+k: psychology
+c: 被问早年小资金成功的最重要原因：巴菲特说有一位伟大的老师、超常的专注，以及适合做投资者的情绪品质，并且享受这场游戏——它难到足以有趣，又没有难到超出人的理解能力；“这实际上是个相当简单的游戏，但确实需要一定的情绪稳定性。”7 到 19 岁有热情但没有指导原则，遇到《聪明的投资者》后有了完全合理的哲学，游戏更好玩了。芒格：只要有合适的性情并且因为喜欢而坚持，这是个简单的游戏；但我不喜欢成为那些想靠精明买入并被动持有证券致富的人的榜样——“如果你靠比别人更精明、买些小纸片从生活中夺取财富，我认为那不足以回报你所取的”；为捐赠基金、养老金或亲属理财则不同。巴菲特：经营伯克希尔远比管理合伙基金有趣、满足得多。
+q: Yeah. Well, I had a great teacher, I had exceptional focus ||| that would help me in being an investor.
+q: I mean, it’s not like Henry Singleton, kind of questions he took on. ||| and it does require a certain emotional stability.
+q: I do think that it’s an easy game if somebody has the temperament for it ||| I don’t think that’s an adequate contribution in exchange for what you’re taking.
+zh: （巴菲特：）嗯，我有一位伟大的老师，我有超常的专注力，而且我有能帮助我做投资者的那种正确的情绪品质。……我是说，这不像亨利·辛格尔顿所处理的那类问题。这实际上是一个相当简单的游戏，而且它确实需要一定的情绪稳定性。（芒格：）我确实认为，如果一个人有适合它的性情，并且因为喜欢它、对它感兴趣而坚持下去，这是个简单的游戏。我有一个沃伦较少有的问题。我不喜欢过多地成为那些想靠精明、买入并被动持有证券来致富的人的榜样。我不认为那足以构成一种人生。如果你靠比别人更精明、买些小纸片从生活中夺取一笔财富，我不认为那是对你所拿走的东西的足够回报。
+l: 投资成功的核心是性情（情绪稳定、专注、热爱）而非高智商；同时思考你的财富以何种方式回馈社会。
+r: 4/3/4
+rel: 2015-M37, 2013-A06
+
+@ 2015-A37
+t: 道琼斯错失的巨大机会：坐拥最好的位置却没人有想象力
+s: BM
+th: 管理与治理; 护城河
+k: tech_change
+c: 被问《华尔街日报》未实现的竞争优势：巴菲特说六七十年代道琼斯拥有新闻电报和《华尔街日报》，基本上垄断了金融信息领域，而金融在之后三四十年是惊人的成长行业；但他们完全没看到将要发生什么，彭博随后拿走了金融信息，本可以成为价值数千亿美元的公司。家族拥有、律师控制，大家拿着分红安坐，“没有人对金融领域能做什么有任何想象力”；“他们不可能处在更好的位置，不可能有更强的起点，资产负债表也很好，却眼看世界从身边经过。”芒格：他们最后也有六七十亿美元，错失了机会但没毁掉财富；完全发明新模式很难。
+q: And they — starting with that, in what would be an incredible growth industry ||| which could have turned that company into something worth many hundreds of billions of dollars, in all probability.
+q: And, you know, they had a situation where a family owned it ||| but there was nobody there with any imagination as to what could be done in the financial field.
+q: And it was — they couldn’t have been in a better place. ||| And they just let the world pass them by.
+zh: （巴菲特：）他们从那个起点出发，身处一个将会惊人增长的行业——金融——在接下来的三四十年里……他们完全错过了将要发生的事。你知道，迈克尔·彭博来了，拿走了金融信息。他们曾拥有如此大的优势。而他们并没有真正看到本可以去追求的各个领域，那些领域很可能把这家公司变成价值数千亿美元的东西。……当时的情况是，一个家族拥有它，一位律师基本控制着家族的行为，他们安坐其位。他们都在拿分红，但那里没有任何人对金融领域能做些什么有任何想象力。……他们不可能处在更好的位置。他们不可能有更强的起点。他们有非常好的资产负债表。而他们就这样让世界从身边经过。
+l: 强大的起点不等于护城河会自动延续；所有权与治理结构若缺乏进取心，最好的特许经营也会被新进入者夺走。
+r: 4/3/4
+rel: 2014-A02, 2014-A32
