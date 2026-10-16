@@ -1,0 +1,356 @@
+@ 1999-M06
+t: 没有人靠预测市场发大财，很多人靠买好企业致富
+s: BM
+th: 市场周期; 投资理念
+k: no_forecast
+c: 他们不考虑市场，格雷厄姆偶尔试图给市场估值是个错误。股票不是纸上带着图表扭动的小东西，而是企业的一部分。眼下很难在大公司中找到既喜欢企业、又喜欢管理层、价格还有吸引力的标的——这不是市场预测。找不到时钱就堆起来，找到时就全力投入。他不知道有谁靠预测市场本身赚了大钱，却知道很多人靠以合理价格选择并买入企业做得很好。
+q: we don’t think of stocks as little items that wiggle around on the paper and that have charts attached to them. ||| We think of them as parts of businesses.
+q: when we can’t find things, the money piles up. ||| And when we find — when we do find things, we pile in.
+q: I know of no one that has been successful at ||| I know a lot of people who have done well picking businesses and buying them at sensible prices.
+zh: 我们不把股票看作在纸上扭来扭去、还附带图表的小玩意儿。我们把它们看作企业的一部分。……当我们找不到东西时，钱就会堆积起来。当我们找到东西时，我们就全力投入。……据我所知，没有人通过预测市场本身的走势取得成功、真正赚到大钱。我认识很多人，他们靠挑选企业并以合理的价格买入而做得很好。
+l: 把“市场择时”从工具箱中拿掉，把“现金水平”作为找不到好机会的自然结果，而不是对市场的押注。
+r: 3/4/3
+rel: 1994-M47, 2012-M25
+
+@ 1999-M10
+t: 长期资本管理公司：聪明人为不重要的东西冒险失去重要的东西
+s: BM
+th: 风险管理
+k: leverage
+c: LTCM 顶层 16 个人的平均智商可能比任何机构都高，个人有几十年、合起来有几百年的相关经验，并把大部分身家放在里面——然而在九月的那一天，他们破产了。“你只需要致富一次。”聪明人为什么要冒失去对自己非常重要的东西的风险，去获得完全不重要的东西？这就像玩俄罗斯轮盘：给我一把六发装一颗子弹的左轮，扣一次给一百万，我说不；你问多少钱才行，答案是多少钱都不行。聪明且有钱的人破产，几乎总是因为杠杆；没有借来的钱几乎不可能破产。99% 的时候行得通，但当没有收益可以抵消亏损风险时，83.3% 或 99% 都不够好。衍生品让人绕过 50% 的保证金要求，百分之百融资持有数十亿美元股票。芒格：美国涉及衍生品的金融体系不负责任——没有清算系统、会计软弱、前置利润再按利润发奖金，这不是好组合。
+q: So here you had superbright, extremely experienced people operating with their own money. ||| they were broke.
+q: why do people, very bright people, risk losing something that’s very important to them, to gain something that’s totally unimportant? ||| The added money has no utility whatsoever.
+q: if you hand me a revolver with six bullets ||| The answer is there is no price.
+q: Whenever a bright person, a really bright person, goes broke that has a lot of money, it’s because of leverage. ||| it would be almost impossible to go broke without borrowed money being in the equation.
+q: You know, 99 percent of the time it works. ||| But neither 83 1/3 percent or 99 percent is good enough when there is no gain to offset the risk of loss.
+q: So, you get an irresponsible clearing system, irresponsible accounting — this is not a good combination. ||| So, you get an irresponsible clearing system, irresponsible accounting — this is not a good combination.
+zh: 所以这里有一群超级聪明、经验极其丰富的人，用他们自己的钱在运作。而实际上，在九月的那一天，他们破产了。……为什么人们——非常聪明的人——要冒着失去对他们非常重要的东西的风险，去获得完全不重要的东西？额外的钱毫无用处。……如果你递给我一把有六个弹膛、装着一颗子弹的左轮手枪，说“扣一次扳机给你一百万”，我说“不”。然后你问：“那你的价码是多少？”答案是没有价码。……每当一个聪明人——一个真正聪明、又很有钱的人——破产时，原因都是杠杆。没有借来的钱，几乎不可能破产。……你知道，99% 的时候它是行得通的。但是，在没有收益来抵消亏损风险的情况下，无论 83⅓% 还是 99% 都不够好。（芒格：）于是你有了不负责任的清算系统、不负责任的会计——这不是一个好组合。
+l: 当你已经富有时，再加杠杆追求的收益边际效用极低，失败的代价却是毁灭性的。投资决策中要避免任何可能导致“出局”的路径，无论其概率多小。
+r: 5/5/5
+rel: 1997-A26, 2008-A07, 2010-A33
+
+@ 1999-M11
+t: 估值方法对了，剩下的只是代入正确的数字
+s: BM
+th: 企业估值
+k: iv
+c: 一位股东用透视盈利、头十年 15%、第二个十年 10% 的增长、之后不增长、按 10% 折现来估算伯克希尔。巴菲特：方法完全正确，他说得不能更好；他们会用更低的长期国债利率来统一比较，但不会按算出的数字付钱，而是寻找足够的折扣——用高折现率比较还是用国债利率找最大折扣并无本质区别。伯克希尔价值增长很大程度取决于留存收益和浮存金增长能否找到好的用途，而这在很大程度上取决于外部市场环境。芒格：手里有一堆可爱的钱不算麻烦，家里不应该有眼泪。
+q: Investment is the process of putting out money today to get more money back at some point in the future. ||| and what is the appropriate discount rate to take it back to the present day and determine how much you pay?
+q: You’ve got the right approach. And then all you have to do is stick in the right numbers. ||| You’ve got the right approach. And then all you have to do is stick in the right numbers.
+q: But it’s not trouble, really, to have a pile of lovely money. ||| I don’t think there should be tears in the house.
+zh: 投资就是现在投出钱，以便在将来某个时候收回更多钱的过程。问题在于：多久以后、多少钱、用什么样的折现率把它折回今天，以决定你付多少钱？……你的方法是对的。接下来你要做的就是代入正确的数字。（芒格：）但有一堆可爱的钱，其实并不算麻烦……我认为家里不应该有眼泪。
+l: 分段增长 + 终值 + 折现的框架是正确的，难点在于输入；要对“留存资本的再投资回报率”做谨慎假设，并要求买入价有足够折扣。
+r: 3/4/3
+rel: 1997-A02, 1994-A22
+
+@ 1999-M12
+t: 互联网会颠覆零售，但很难预测赢家
+s: BM
+th: 商业模式; 护城河
+k: tech_change
+c: 互联网会对零售产生巨大影响，有些形式会被彻底改变；他们买入任何企业都会想 5/10/15 年后的样子，很多零售形式受到的威胁大到他们根本不想进入，但认为家具零售不会受伤。在成千上万的选择面前，品牌将非常重要——人们必须信任某个人，所以蒂芙尼和波仙在网上珠宝零售有巨大优势。若拥有大量零售物业，要认真考虑互联网的影响：网上开店几乎没有租金。芒格：预测技术变化很棘手——百货公司曾拥有电车交汇的市中心位置、循环信贷的垄断、全天候一站式购物，三个优势全失去，却仍有很多活得不错；而我们的蓝筹印花业务被经济变化摧毁，《世界百科全书》被个人电脑和光盘严重伤害。巴菲特：奥马哈 16 街和法纳姆街交汇处曾是最好的地段，人们签了百年租约，后来电车被拆成了废铁。
+q: anytime we buy into a business, and anytime that we’ve bought in for some time, we have tried to think of what that business is going to look like in five, or 10, or 15 years. ||| anytime we buy into a business, and anytime that we’ve bought in for some time, we have tried to think of what that business is going to look like in five, or 10, or 15 years.
+q: brand names are going to mean very, very much when you have literally, you know, thousands and thousands of choices. ||| People can’t — they have to trust somebody.
+q: When I was young, the department stores had a bunch of, sort of, monopolistic advantages. ||| At other times, you get a change and you just get destroyed.
+q: The only thing was that they moved the streetcars. ||| And it seemed very permanent.
+zh: 每当我们买入一家企业，以及在我们持有一段时间之后，我们都会努力想一想这家企业 5 年、10 年或 15 年后会是什么样子。……当你面前确实有成千上万种选择时，品牌名称将意味着非常非常多。人们必须信任某个人。（芒格：）在我年轻的时候，百货公司拥有一堆近乎垄断的优势……它们把这三个优势全都丢掉了。然而在此后的几十年里，它们中的很多仍然做得很好。另一些时候，变化来了，你就被摧毁了。（巴菲特：）……唯一的问题是，他们把电车挪走了。……那曾经看起来非常永久。
+l: 对每个持仓定期做“技术颠覆压力测试”：五到十五年后它的护城河是否仍在？“看起来永久”的地段优势、分销优势可能一夜消失；在信息过载时，可信赖的品牌价值反而上升。
+r: 4/4/4
+rel: 2000-M05, 2000-A14, 2017-A10
+
+@ 1999-M16
+t: 小资金可以年赚 50%，但优势随规模迅速消失
+s: BM
+th: 投资方法
+k: concentration
+c: 他能说出大约六个人，如果全心投入，有望在一百万美元上每年赚 50%，但他们无法以接近的速度复利一亿或十亿。从 A 开始逐一看过所有公司，在能力圈内找到能理解的小证券，偶尔找到小套利机会和市场褶皱——小资金有机会获得很高回报，但从 100 万到 1000 万，预期回报就会大幅下降。芒格：我们 40 年前做的事在某些方面比你们现在要做的简单，筛手册找两倍市盈率的股票对你们行不通了。巴菲特：方法行得通，只是你找不到这样的股票了。
+q: I think I can name a half a dozen people that I think could compound a million dollars ||| at anything remotely like that rate.
+q: If you start with A and you go through and you look at everything ||| But that advantage disappears very rapidly as the money compounds.
+q: what we did 40 or so years ago was, in some respects, more simple than what you’re going to have to do. ||| It can still be done. But it’s harder now.
+zh: 我想我能说出大约六个人，我认为他们能把一百万美元复利增长——或者至少，如果他们需要的话，可以期望每年在一百万美元上赚到 50%。……这些人无法以任何接近这种速度的回报复利一亿或十亿美元。……如果你从 A 开始，把所有东西都看一遍，在你的能力圈内找到你能理解其业务的小型证券……我认为，用很小的资金，有机会赚取非常高的回报。但随着资金复利增长，这种优势会非常迅速地消失。（芒格：）我们 40 年前做的事情，在某些方面比你们将要做的更简单……这仍然可以做到，但现在更难了。
+l: 小资金是个人投资者的结构性优势：可以投资大机构无法涉足的小市值、特殊情况和套利机会。但要预期回报率会随资金规模增长而下降。
+r: 4/4/4
+rel: 2001-M29, 2007-M27, 1997-M09
+
+@ 1999-M18
+t: 期权成本＝这些期权当作认股权证卖给公众能拿到的钱
+s: BM
+th: 会计与财务; 管理与治理
+k: accounting
+c: 他们计算期权成本的方法很简单：取五年平均的期权发放量，问如果公司把这些期权当作可转让认股权证卖给公众，能收到多少钱——那就是成本，而且员工期权还常常下调行权价。试试告诉一家大量发期权的公司停发期权、改发同样多的现金，员工会说你拿走了我的一部分收入——那就把它作为成本放进利润表。芒格：不允许小的腐败开始非常重要，因为它们会变成大的腐败，然后形成为之斗争的既得利益。巴菲特：一旦足够多重要参与者从某种腐败中获益，就极难改变，就像竞选资金改革，所以应该趁早改。
+q: How much could the company have received for those options if they’d sold them as warrants to the public? ||| How much could the company have received for those options if they’d sold them as warrants to the public?
+q: And just try going to a company that’s had a lot of options grants every year ||| Because it is a cost.
+q: it’s very important not to let little corruptions start, because they become big corruptions. ||| And then you have vested interest that fight to perpetuate them.
+q: once you get a significant number of important players benefiting from any kind of corruption in any kind of system ||| That’s why, you know, it should be changed early.
+zh: 如果公司把这些期权作为认股权证卖给公众，它能收到多少钱？……试试去找一家每年都大量发放期权的公司，告诉他们你要停止发期权，改为付给员工同样多的钱。他们会说：“你拿走了我的一部分收入。”我们会说，如果你拿走了一部分收入，那就把它作为成本显示在利润表里，因为它就是成本。（芒格：）非常重要的是，不要让小的腐败开始，因为它们会变成大的腐败。然后就会有既得利益者为延续它们而战斗。（巴菲特：）一旦在任何体系中有相当数量的重要参与者从某种腐败中获益，你就很难改变它了。所以它应该趁早改变。
+l: 估值时以期权公允价值（类比可交易权证）扣除股权激励成本，并关注重新定价行为。在组织管理中，对“小的不规范”零容忍，因为它们会形成既得利益。
+r: 4/4/4
+rel: 1995-M17, 2002-A09, 2003-M18
+
+@ 1999-M19
+t: 1969 年解散合伙基金：无法管理过高的期望
+s: BM
+th: 投资心理; 市场周期
+k: crisis
+c: 如果只做有价证券、合伙人不到百人，面对现在的市场他会仔细说明自己赚钱能力有限，让合伙人自己决定。1969 年解散合伙基金，一是同样找不到东西，二是此前 13 年的经历把人们的期望抬得太高，他无法降低这种期望，也不想面对“别人都在赚钱而你没有”的内部压力；运营伯克希尔没有这种压力。芒格：现在与 1969-70 年有相似之处，但不意味着 1973-74 年就在眼前；巴菲特 69 年退出、73-74 年弹药充足入场，我们不太可能再那么幸运。巴菲特：回头看容易，但从 69 年到 73 年很漫长，“漂亮 50”在 72 年才见顶；乐观和悲观的浪潮会以某种形式反复出现。
+q: I really felt that the expectations of people had been so raised by the experience we’d had over the previous 13 years ||| And I felt unable to dampen those expectations.
+q: I didn’t think I wanted to face the internal pressure that would come from that. ||| I don’t feel any such internal pressure in running Berkshire.
+q: And you will find waves of optimism and pessimism. ||| But they will come in some form or other.
+zh: 我真的觉得，过去 13 年的经历把人们的期望抬得太高了，这让我非常不舒服。而我感到无力去降低这些期望。……我不想面对由此产生的内部压力。在经营伯克希尔时，我没有感到任何这样的内部压力。……你会发现乐观与悲观的浪潮。它们永远不会和以前一模一样，但会以某种形式到来。
+l: 管理资金（包括家庭资金）时，要主动管理委托人的期望；当外部压力可能迫使你做出违背原则的决定时，改变结构（甚至退出）比勉强坚持更明智。
+r: 4/3/4
+rel: 1995-M22, 2019-M26
+
+@ 1999-M21
+t: 看准伟大的行业不等于能赚钱：汽车与飞机
+s: BM
+th: 商业模式; 投资理念
+k: business_model
+c: AT&T 曾是通信业的领导者，但过去 15 年的股本回报率很差，行业巨变对它的伤害远大于帮助。本世纪上半叶最重要的两个产业是汽车和飞机，若在 1905 年就预见它们将如何改变世界，你可能以为这是致富之道，但极少有人靠汽车业致富，靠航空业致富的更少——每天数百万人坐飞机，靠运送他们赚钱的人却寥寥无几，资本亏损、破产不断。航空是一门糟糕的生意，却是一个了不起的产业。不要把一个产业的增长前景等同于你参与其中的净资产增长前景。
+q: There’s a lot of difference between making money and spotting a wonderful industry. ||| There’s a lot of difference between making money and spotting a wonderful industry.
+q: But very, very few people got rich by being — by riding the back of that auto industry. ||| And probably even fewer got rich by participating in the airline industry over that time.
+q: It’s been a terrible business. It’s been a marvelous industry. ||| It’s been a terrible business. It’s been a marvelous industry.
+q: So you do not want to necessarily equate the prospects of growth for an industry ||| with the prospects for growth in your own net worth by participating in it.
+zh: 赚钱和发现一个了不起的产业之间有很大的区别。……但非常非常少的人通过搭上汽车产业的顺风车而致富。在那段时间里，通过参与航空业致富的人可能更少。……它一直是一门糟糕的生意，却一直是一个了不起的产业。……所以你不应该把一个产业的增长前景，等同于你通过参与其中而实现自身净资产增长的前景。
+l: 投资回报取决于企业能否在竞争中留住利润，而不是产业是否重要或增长多快。面对热门新产业，先问：谁能建立持久的定价权？
+r: 5/5/5
+rel: 2000-A14, 1999-A02, 2001-M15
+
+@ 1999-M28
+t: 富有与“富足”：钱超过一定程度就没什么差别
+s: BM
+th: 人生智慧
+k: life
+c: 在一定程度之后，钱几乎不造成差别：他和他交谈的大学生过着几乎一样的生活——吃一样的食物，穿着、开的车、看超级碗的电视没有重要差别，夏有空调冬有暖气，唯一更好的是出行（NetJets）。然后就是健康和谁爱你。工作中最重要的不是赚多少钱，而是那八小时里你和谁打交道、做的事是否有趣；他想不出更愿意做的事、更愿意共事的人。如果用很大一部分净资产换更多寿命或更多年做想做的事，他会立刻答应。芒格：生活中有很多比财富重要得多的东西；有个球友说“健康有什么用？又买不到钱”。
+q: the money makes very little difference after a moderate level. ||| the money makes very little difference after a moderate level.
+q: Almost everything of any importance in daily life, we equate on. ||| Almost everything of any importance in daily life, we equate on.
+q: The important thing, even in your work, I mean, is — to an extreme extent, it seems to me, is who you do it with. ||| and how interesting what you’re doing is, and all of that.
+q: if you asked me to trade away a very significant percentage of my net worth ||| I’d do it in a second.
+zh: 在达到一个适度的水平之后，钱几乎不会带来什么差别。……日常生活中几乎所有重要的东西，我们都是一样的。……即使在工作中，重要的东西——在我看来，极大程度上——是你和谁一起做。……如果你要每天工作八个小时，最重要的不是你赚多少钱，而是你在这八个小时里的感受：你与之互动的人怎么样，你做的事情有多有趣，诸如此类。……如果你让我用相当大比例的净资产去换取一些额外的寿命，或者换取在那些年里能做我想做的事，我会毫不犹豫地答应。
+l: 财务目标之上还有“生活设计”：选择喜欢的工作与合作者、保护健康和关系。对投资者而言，追求财富不应以牺牲这些为代价（包括承担会危及它们的风险）。
+r: 4/2/5
+rel: 1997-A26, 2008-M13
+
+@ 1999-M33
+t: 恨罪不恨人：“大家都这么做”是会计造假蔓延的方式
+s: BM
+th: 会计与财务; 管理与治理
+k: accounting
+c: 他奉行“批评做法、表扬具体人名”的原则，不点名。可恶的做法包括：把本应属于以后期间的费用一次性计入某个期间（“大洗澡”），以平滑或抬高未来利润；玩费用和收入确认时间的游戏已经完全成为时尚；期权成本在附注中以尽量淡化的假设披露；滥用权益结合法、购买会计调整。芒格：“大洗澡”后再把过度计提的准备回拨到利润，造成很多滥用。巴菲特：管理层说他们在做大家都在做的事——事实是，正因为大家都这么做，他们现在也这么做了；一旦成为普遍现象，坚持公平做事的人在资本市场上反而吃亏，于是问“为什么我要用诚实惩罚股东”，需要外部力量来清理。
+q: we do more good by, in a sense, hating the sin and loving the sinner. ||| But we will not name the sinners.
+q: it has become totally fashionable to play games with the timing of expenses and revenues. ||| it has become totally fashionable to play games with the timing of expenses and revenues.
+q: it’s the big bath accounting, and the subsequent release back into earnings of taking an overly large bath ||| that create a lot of the abuse.
+q: Because once it becomes prevalent, the fellow who is — who says, “I’m going to do it fair and square,” all of a sudden becomes at a disadvantage in capital markets. ||| Because once it becomes prevalent, the fellow who is — who says, “I’m going to do it fair and square,” all of a sudden becomes at a disadvantage in capital markets.
+zh: 我们认为，在某种意义上“恨罪而爱罪人”能做更多好事。所以我们会继续指出罪过，但不会点罪人的名。……玩弄费用和收入确认时间的游戏已经变得完全时髦了。（芒格：）是“大洗澡”式的会计处理，以及随后把计提过度的部分释放回利润，造成了很多滥用。（巴菲特：）因为一旦它变得普遍，那个说“我要光明正大地做”的人，突然间就在资本市场上处于劣势了。
+l: 警惕一次性重组费用、巨额减值后利润“V 型反转”、准备金回拨等迹象；“行业惯例”不是会计正当性的理由。
+r: 4/4/4
+rel: 2002-A17, 2003-A17, 2010-A17
+
+@ 1999-M43
+t: 日本的教训：别让会计和监管里混进“烂泥”
+s: BM
+th: 宏观与社会; 会计与财务
+k: accounting
+c: 芒格：日本这样的现代工业国，滑入衰退后利率降到几乎为零、大规模财政赤字，经济仍然低迷多年，没有经济学家能预料。原因与土地和证券价格的极端繁荣，以及会计实践和金融监管（包括银行）中的腐败有关；这告诉世界，不让大量“烂泥”混进会计和监管体系有多重要，市场中的大量愚蠢也无济于事。巴菲特：短期利率零、长期 2%，这本应刺激我，但对日本经济没起作用，这在某种程度上违背了经典凯恩斯理论。芒格：美国的极度繁荣可能也与股市上涨带来的财富效应有关，其影响也许比人们以为的更大。
+q: I think it’s an interesting lesson for the world, of how important it is not to let a lot of slop get into the accounting and regulatory systems. ||| And how a lot of folly in markets doesn’t help, either.
+q: I think the cause is related to the extremeness of its booms in both land prices and security prices ||| and the corruption in its accounting practices and in its regulation of financial system, including banks.
+zh: （芒格：）我认为原因与它在土地价格和证券价格上的极端繁荣有关，也与它的会计实践以及包括银行在内的金融体系监管中的腐败有关。我认为这对世界是一个有趣的教训：不让大量的烂泥混进会计和监管体系是多么重要。市场中大量的愚蠢也无济于事。
+l: 资产泡沫 + 银行会计不透明，是长期停滞的配方。评估一国或一个金融体系的投资价值时，会计与监管的质量与估值同样重要。
+r: 3/2/4
+rel: 1998-M10, 2023-A04
+
+@ 1999-A02
+t: 我们把变化视为威胁，而不是机会
+s: BM
+th: 投资理念; 护城河
+k: tech_change
+c: 他们寻找能大致预测 10/15/20 年后位置的企业，即不太容易受变化影响的企业；把变化看作投资过程中的威胁而非机会——这与当时多数人看股票的方式完全相反。他们寻找“没有变化”来保护已经很赚钱的方式，并让它将来赚更多。看到一个企业将有大量变化，十次有九次会放弃；可口可乐卖的东西和 110 多年前非常相似，50 年前对它的分析今天仍然适用。这让他们错过很多大赢家（反正也选不出来），但也意味着极少大输家，长期很有帮助。芒格：伯克希尔的企业平均而言比一般企业更不容易被新技术淘汰——新的钢头工作靴？预计不会有重大技术变化。
+q: We view change as more of a threat into the investment process than an opportunity. ||| That’s quite contrary to the way most people are looking at equities now.
+q: We try to look at — we’re looking for the absence of change to protect ways that are already making a lot of money ||| and allow them to make even more in the future.
+q: Your analysis of Coca-Cola 50 years ago can pretty well serve as an analysis now. ||| Your analysis of Coca-Cola 50 years ago can pretty well serve as an analysis now.
+q: It means we miss some — a lot — of very big winners, but we would not have picked those out anyway. ||| It does mean also that we have very few big losers and that’s quite helpful over time.
+zh: 在投资过程中，我们更多地把变化看作威胁而不是机会。这与现在大多数人看待股票的方式截然相反。……我们寻找的是“没有变化”，以保护那些已经在大量赚钱的方式，并让它们将来赚更多的钱。……你在 50 年前对可口可乐的分析，现在基本上仍然适用。……这意味着我们会错过一些——很多——非常大的赢家，但无论如何我们也挑不出它们。这也意味着我们的大输家非常少，长期来看这非常有帮助。
+l: 避免大输家对复利的贡献，常常大于抓住大赢家。优先选择“不变”的行业，分析的有效期更长、出错概率更低。
+r: 5/5/5
+rel: 1996-A14, 1997-A40, 1999-A08
+
+@ 1999-A03
+t: 盈利不可能永远快过 GDP：降低预期
+s: BM
+th: 市场周期; 企业估值
+k: projections
+c: 对不积极参与的普通投资者，在二三十年里定期投资低成本资金池（很可能是指数基金）最有道理，关键是压低成本。芒格：储蓄与投资的实际长期回报一定会从近期美国股市的经验回落，美国股市不可能永远大幅跑赢世界财富的增长。巴菲特：如果美国 GDP 每年增长 4-5%，企业利润不可能长期增长更快，利润占 GDP 比例已偏高，不然利润最终会大于 GDP；股票作为利润的资本化，怎么可能每年增长 15%？财富 500 强去年赚 3340 亿，市值约 10.5 万亿——投资者长期能拿到的只有企业赚的钱，没人往锅里加钱，只有人从锅里拿走（摩擦成本）。就像农场，产出多少你就得到多少。芒格：“如果一件事不能永远持续，它终将停止”；“在有限的地球上期待实际财富永久增长的人，要么是疯子，要么是经济学家。”
+q: for the average investor who wants to own equities over a 20 or 30-year period ||| But it’s important to keep the cost down.
+q: if you really have a situation where the best you can hope for in corporate profit growth over the years is four or five percent ||| can grow at 15 percent a year?
+q: the only money investors are going to make, in the long run, are what the businesses make. ||| People are taking out from the pot, in terms of frictional cost, investment management fees, brokerage commissions and all of that.
+q: if you want to farm, the — what the farm produces is all you’re going to get from the farm. ||| if you want to farm, the — what the farm produces is all you’re going to get from the farm.
+q: “If a thing can’t go on forever, it will eventually stop.” ||| “People who expect perpetual growth in real wealth in a finite earth are either mad men or economists.”
+zh: 对于想在 20 或 30 年里持有股票的普通投资者来说，我们认为定期投资于某种成本非常低的资金池——很可能是指数基金——和任何其他做法一样合理。但保持低成本很重要。……如果企业利润多年来所能期望的最好增长是 4% 或 5%，那么作为企业利润资本化的股票，怎么可能合理地每年增长 15%？……长期来看，投资者唯一能赚到的钱就是企业赚到的钱。没有任何额外的东西加进来，政府不会往里扔钱，没有人往锅里添东西。人们在以摩擦成本、投资管理费、经纪佣金等形式从锅里往外拿。……如果你去种地，农场的产出就是你能从农场得到的全部。（芒格：）有两句了不起的名言。一句是：“如果一件事不能永远持续下去，它终将停止。”另一句……“在一个有限的地球上期待实际财富永久增长的人，不是疯子就是经济学家。”
+l: 用“投资者整体回报 = 企业整体盈利 − 摩擦成本”校验市场预期；当市值增长远快于盈利和 GDP 时，要调低未来回报预期，并尽量降低自己的摩擦成本。
+r: 5/5/5
+rel: 1997-A16, 2001-M33, 2008-M35
+
+@ 1999-A04
+t: 企业对社会最好的贡献：以更低成本提供人们想要的东西
+s: BM
+th: 宏观与社会; 管理与治理
+k: life
+c: 伯克希尔去年缴纳约 26 亿美元联邦所得税，可能多于 GE 和微软。GEICO 若比对手便宜约 15%，在 40 亿保费上每年为消费者节省 6 亿多美元——以经济的方式提供人们想要的商品和服务，是公司对社会的重要贡献。他们不赞成公司拿股东的钱捐给 CEO 喜欢的慈善机构，而是让股东自己指定。芒格：“老查理留下了多少？”“我相信他全都留下了。”你带不走它，这是游戏的铁律；重要的是想想你为别人做了什么、用自己的人生树立了什么榜样。
+q: delivering the goods and services that people want in an economical way is a very important part ||| as well as the taxes they pay and their actual corporate philanthropy.
+q: We do not think that corporations, generally, should be passing out money to the pet charities of the CEO. ||| And we don’t do it at Berkshire.
+q: “How much did old Charlie leave?” And the answer is, “I believe he left it all.” ||| You can’t take it with you, that’s the iron rule of the game.
+zh: 以经济的方式提供人们想要的商品和服务，我认为是任何一家公司对社会所做贡献中非常重要的一部分，此外还有它们缴纳的税款和实际的企业慈善。……我们不认为公司一般来说应该把钱分给 CEO 宠爱的慈善机构。我们在伯克希尔不这么做。（芒格：）有一句老话：“老查理留下了多少？”回答是：“我相信他全都留下了。”……你带不走它，这是这场游戏的铁律。
+l: 衡量企业的社会价值，先看它是否为客户创造了真实的节约或效用；警惕管理层用股东的钱为个人声望做慈善。
+r: 3/2/4
+rel: 2004-A16, 2023-A23
+
+@ 1999-A08
+t: 我们愿意用大回报换确定的回报
+s: BM
+th: 投资理念; 投资方法
+k: circle
+c: 预测可口可乐在软饮料世界的相对实力，比预测微软在软件世界的实力容易得多；如果必须下注他会重押微软，但他不必下注。软件业即使更难预测、对了的回报可能大得多，“我们也完全愿意用大回报换取确定的回报，这就是我们的构造”。1991 年他问盖茨，如果去荒岛十年、只能把钱放在两家科技公司，选哪两家？盖茨选的两只若买了，会比可口可乐赚得多；但盖茨同时会说他宁愿买可口可乐。美国每年税后赚 2 亿美元以上的公司大约只有 400 家，五年后也许 450-475 家，从无到有的大概 20 家；而科技领域有几十家公司的股价已隐含 2 亿以上利润，大部分不会实现——在资本主义社会里赚大钱没那么容易。芒格：很多科技企业依赖技术持续狂奔，若制药业不再发明新药会是糟糕的生意。
+q: But we are perfectly willing to trade away a big payoff for a certain payoff. ||| And that’s the way we’re put together.
+q: the important thing is to know which ones you do understand and when you’re operating within what I call your “circle of competence.” ||| the important thing is to know which ones you do understand and when you’re operating within what I call your “circle of competence.”
+q: Now if you look at the number of companies that are selling today at a price which implies 200 million or more of earnings right today ||| And, you know, a very large percentage of those companies are not going to fulfill people’s expectations.
+q: It’s not that easy to make lots of money in a business in a capitalistic society. ||| It’s not that easy to make lots of money in a business in a capitalistic society.
+zh: 但我们完全愿意用一个大回报去换取一个确定的回报。这就是我们的构造。……重要的是知道哪些生意你确实理解，以及你何时在我所说的“能力圈”之内运作。……现在如果你看看那些售价隐含着当下就有 2 亿美元或更多盈利的公司数量，你会在高科技领域找到几十家又几十家。而其中很大比例的公司不会实现人们的期望。……在资本主义社会里，靠一门生意赚大钱并不那么容易。
+l: 用“基础比率”检验热门板块估值：历史上能达到某一盈利规模的公司有多少？如果市场定价隐含大量公司都能达到，多数注定失望。
+r: 5/5/5
+rel: 1997-M17, 1998-M45, 2000-M12
+
+@ 1999-A09
+t: 别在你真正喜爱的公司里进进出出
+s: BM
+th: 投资方法
+k: holding
+c: 可口可乐和吉列从高点下跌 30-50%，也没跌到让他们愿意投入新资金的价格，但他们很乐意继续持有。芒格：在你真正长期喜爱的公司里进进出出，对大多数投资者都不是好主意。巴菲特：有朋友想卖出伯克希尔、再以更低价买回，这很难——你要做对两个决定，先卖对再买对，中间通常还要交税。好企业不会直线上升，但吉列的刀片剃须业务和可口可乐在软饮料的地位，长期趋势没有任何改变。
+q: Generally speaking, trying to dance in and out of the companies you really love, on a long-term basis, has not been a good idea for most investors. ||| Generally speaking, trying to dance in and out of the companies you really love, on a long-term basis, has not been a good idea for most investors.
+q: You have to make two decisions right. ||| And usually you have to pay some tax in-between.
+q: But it’s not the nature that everything — that things that — everything goes in a nice, straight, smooth line upward. ||| But it’s not the nature that everything — that things that — everything goes in a nice, straight, smooth line upward.
+zh: （芒格：）总的来说，试图在你真正喜爱的公司里进进出出，对大多数投资者来说都不是一个好主意。（巴菲特：）你必须做对两个决定。你必须先卖对，然后还要买对。而且通常中间还得交一些税。……事物的本质并不是一切都沿着一条漂亮、笔直、平滑的线向上走。
+l: 对高质量持仓，基本面短期不及预期不等于长期逻辑破坏；波段操作需要连续做对两次判断并承担税费，胜率通常不高。
+r: 4/5/4
+rel: 1996-A35, 1998-M13
+
+@ 1999-A11
+t: 市场“相当有效”，但有效市场理论很荒谬
+s: BM
+th: 投资理念
+k: efficient_market
+c: 在市场里待久了，几乎不言自明：市场大体上相当有效——在资产类别之间定价相当有效，对具体企业的估值也相当有效。但“相当有效”不足以支撑有效市场理论的投资方法以及学术界由此衍生的一切；二三十年前学了它并奉为圭臬，是可怕的错误，就像学到地球是平的。投资的全部就是给企业估值，看它是否低于价值，可几乎找不到教如何估值企业的课程——讲师会算贝塔，却不会估值企业。“如果市场有效，第二天课上讲什么？”芒格：普朗克说新思想胜出是因为老一辈带着过去的愚蠢慢慢逝去；硬核有效市场理论家是种尴尬，很快会消失，但认为市场大致有效的人是绝对正确的。
+q: the market is generally fairly efficient. ||| it’s fairly efficient in terms of evaluating specific businesses.
+q: But being fairly efficient does not make — does not suffice to support an efficient market theory approach to investing ||| or to all of the offshoots that have come off of that in the academic world.
+q: what investment is about is valuing businesses. ||| And if it’s selling below that figure you buy it.
+q: I never known what you talk about on the second day in that course. ||| “Everything’s valued perfectly, and class dismissed.”
+q: People who think the market is reasonably efficient, or roughly efficient, of course, are absolutely correct ||| and that will stay with us for the long pull.
+zh: 市场总体上是相当有效的。它在各类资产之间的定价相当有效，在评估具体企业方面也相当有效。但相当有效并不足以支撑有效市场理论式的投资方法，也不足以支撑学术界由此衍生出来的所有东西。……投资的本质就是给企业估值。就这些。你坐在那里，努力弄清楚一家企业值多少钱，如果它的售价低于那个数字，你就买。……我一直不知道那门课第二天该讲什么。……第一天你走进教室说：“一切都被完美定价了，下课。”（芒格：）认为市场相当有效或大致有效的人，当然是完全正确的，这一点会长期存在。
+l: 承认市场大部分时间定价合理，因此只在明显错价时行动；但不要接受“不可能打败市场”的推论，估值能力才是投资者的核心技能。
+r: 4/4/4
+rel: 1998-M09, 2003-M21
+
+@ 1999-A15
+t: 早点开始、从 A 开始翻、独立思考
+s: BM
+th: 人生智慧; 投资方法
+k: psychology
+c: 怎么赚 300 亿？早点开始。芒格常说他们很早就在一条很长的山坡顶上滚雪球；复利像沾雪的雪球，诀窍是有一条很长的坡——要么很早开始，要么活得很老。如果今天毕业、有 1 万美元，他会做完全一样的事：从字母 A 开始逐一研究公司，也许专注小公司，因为资金小、更可能被忽视；这个建议一百年后也一样——以有吸引力的价格买入好企业。没人会告诉你绝妙的小投资；1951 年他去问保险股权威，对方说他不懂自己在说什么。你必须弄清自己知道什么、不知道什么，在知道的领域积极追求、发现后果断行动；不能指望别人同意你，甚至不能指望别人懂你在说什么，你必须独立思考。芒格：对大多数人，最难的是第一个 10 万美元；能较快做到的人，往往热衷理性、渴望且善于抓住机会，并且长期大幅少花多存。
+q: we started building this little snowball on top of a very long hill. ||| which means either starting very young or living very — to be very old.
+q: if I were getting out of school today and I had $10,000 to invest, I’d start with the As. ||| And I probably would focus on smaller companies
+q: And you can’t look around for people to agree with you. ||| You know, you have to think for yourself. And if you do, you’ll find things.
+q: The hard part of the process for most people is the first $100,000. ||| and steadily underspend their income grossly. I think those three factors are very helpful.
+zh: 我们是在一座很长的山坡顶上开始滚这个小雪球的。……复利的本质就像一个沾满黏雪的雪球。诀窍是拥有一条很长的山坡，这意味着要么很年轻就开始，要么活到很老。……如果我今天毕业，有 1 万美元可投资，我会从字母 A 开始……我可能会专注于较小的公司……你不能到处找人来赞同你。你甚至不能指望别人知道你在说什么。你必须独立思考。如果你这样做，你就会找到东西。（芒格：）对大多数人来说，这个过程中最难的部分是第一个 10 万美元……那些相对较快做到的人，是因为他们热衷于理性、非常积极且善于把握机会，并且持续地大幅少花钱。这三个因素我认为非常有帮助。
+l: 复利的两个杠杆：起点早、坡道长。行动上：系统地研究（从 A 开始）、偏向被忽视的小公司、敢于持有非共识观点、早期高储蓄率。
+r: 5/5/5
+rel: 1998-A13, 2004-A30, 2003-A02
+
+@ 1999-A20
+t: 护城河与管理层的价值体现在现金流的确定性与规模里
+s: BM
+th: 护城河; 企业估值
+k: moat
+c: 用国债利率折现只是为了跨时间、跨公司可比；马蹄铁公司赚的一美元和互联网公司赚的一美元一样。护城河和管理层通过影响他们对未来现金流的确定性和规模判断进入估值：比如口香糖业务——未来 10-20 年单位增长、定价弹性、箭牌份额被大幅削减的危险、管理层会聪明还是愚蠢地使用现金。护城河够大，就不需要那么好的管理——彼得·林奇说喜欢买好到白痴都能经营的企业，因为迟早会有一个白痴来经营。蒙眼摸瓶子就能认出的产品很少，可口可乐有心智份额，问题是 10 年后这个数字更大、印象更好吗？没有公式能告诉你护城河宽 28 英尺深 16 英尺，你必须懂企业，这让学者发疯。巴菲特：真正需要写的书是“聪明人为什么做蠢事”；伯克希尔的记录不是因为做了聪明事，而是蠢事做得少。芒格：对一个人的幸福和贡献危害最大的心态，是某种偏执的自怜。
+q: a dollar earned from a horseshoe company is the same as a dollar earned from an internet company, in terms of the dollar. ||| a dollar earned from a horseshoe company is the same as a dollar earned from an internet company, in terms of the dollar.
+q: The moat and the management are part of the valuation process ||| that we expect in the future and the amount of it.
+q: If you have a big enough moat, you don’t need as much management. ||| because sooner or later one will.
+q: there’s no formula that gives you that precisely, you know, that says that the moat is 28 feet wide and 16 feet deep ||| You have to understand the businesses.
+q: the record of Berkshire, to the extent it’s been good, has been because we ||| but we’ve probably done fewer dumb things than most people.
+q: And the answer would be some sort of paranoid self-pity. ||| Couldn’t imagine a more destructive frame of mind.
+zh: 从美元的角度看，马蹄铁公司赚的一美元和互联网公司赚的一美元是一样的。……护城河和管理层是估值过程的一部分，因为它们会进入我们的思考：我们对预期中未来现金流的确定性有多大，以及它的数量有多少。……如果你的护城河足够大，你就不需要那么多管理。这又回到了彼得·林奇的话：他喜欢买那种好到白痴都能经营的企业，因为迟早会有一个白痴来经营。……没有任何公式能精确地告诉你护城河宽 28 英尺、深 16 英尺之类的东西。你必须懂这些企业。……伯克希尔的记录之所以好，不是因为我们做了什么聪明绝顶的事，而是因为我们做的蠢事可能比大多数人少。（芒格：）……答案会是某种偏执的自怜。我想象不出比这更具破坏性的心态了。
+l: 把护城河和管理层“翻译”成现金流参数：增长、定价权、份额稳定性、再投资效率。日常决策中，以“减少蠢事”为目标比追求“聪明举动”更有效。
+r: 5/5/5
+rel: 1995-M25, 1997-A17, 2007-M17
+
+@ 1999-A22
+t: 两个糟糕的生意合在一起，就是一个更大的糟糕生意
+s: B
+th: 商业模式; 资本配置
+k: capital_alloc
+c: 合并通常解决不了多少问题：两门糟糕的生意合在一起，通常得到的是一门更大的糟糕生意；指望把两门平庸生意合并后从一家挤出成本，按他的经验行不通。保险业的赢家是那些拥有基于特殊才能、卓越分销系统、管理诀窍乃至善用浮存金能力的特许经营者——GEICO 是面向所有人、所有地区、所有职业的低成本分销者。平均水平的保险公司会继续保持平庸，行业资本多于明智使用的机会，资本也不会离开。
+q: if you have two lousy businesses and you put them together, you’ve got a big, lousy business, usually. ||| if you have two lousy businesses and you put them together, you’ve got a big, lousy business, usually.
+q: The winners are going to be the people that have some franchise based on specialized talents ||| even the ability to use the float effectively.
+q: I think the average insurance company is going to remain very average ||| There’s more capital in the industry than there is opportunity to use it intelligently.
+zh: 如果你有两门糟糕的生意，把它们合在一起，通常你会得到一门更大的糟糕生意。……赢家将是那些拥有某种特许经营权的人，这种特许经营权建立在专门的才能、出色的分销系统、管理诀窍，甚至有效运用浮存金的能力之上。……我认为平均水平的保险公司将继续保持非常平均的水平……这个行业里的资本多于能够被明智使用的机会。
+l: 对“行业整合降本增效”的并购故事保持怀疑；产能过剩、资本不退出的行业，平均回报会长期偏低，只有拥有结构性成本优势的公司能胜出。
+r: 4/4/4
+rel: 2014-A18, 2010-A16
+
+@ 1999-A27
+t: 互联网影响巨大，但这不意味着投资决策容易
+s: BM
+th: 投资方法; 市场周期
+k: speculation
+c: 互联网可能是 500 年来商业世界最重要的发展之一，他和芒格非常理解早期投资/推销的过程，但不会投资 Kleiner Perkins 式的互联网基金。在推销的早期阶段，尤其整个领域都疯了的时候，你可以靠卖给下一轮、再下一轮赚很多钱；但要挑出作为企业（而不是一时作为股票）表现出色的公司，在互联网世界并不容易——让顶级专家列出接下来上市的 5 家或 10 家公司，预测其中一家六七年后年利润达到 2 亿美元，他们恐怕一家也说不中。最终它们必须作为企业成功。芒格：至少对我们来说这不是容易的投资决定，而那正是我们要找的。
+q: you will make a lot of money selling to the next stage, and the next stage, and the next stage. ||| you will make a lot of money selling to the next stage, and the next stage, and the next stage.
+q: But, in terms of picking out businesses that are going to do wonderfully as businesses ||| I don’t think it’s necessarily so easy in the internet world.
+q: But in the end, they have to succeed as businesses. ||| But I’m not so sure that makes it an easy investment decision.
+zh: 你可以靠卖给下一个阶段、再下一个阶段、再下一个阶段的人赚到很多钱。但要挑出那些将作为企业——而不是一时作为股票——表现出色的企业，我认为在互联网世界里并不那么容易。……但最终，它们必须作为企业取得成功。……互联网将对世界产生巨大影响，但我不太确定这就让投资决策变得容易。
+l: 区分“推销链条中的利润”（卖给下一个买家）与“企业经营的利润”。对新兴产业，只有能找出可持续盈利的具体企业时才投资，而不是因为产业前景好。
+r: 4/4/4
+rel: 1999-M21, 2000-M04
+
+@ 1999-A29
+t: 做事后复盘：好医生会去病理科走走
+s: BM
+th: 投资心理
+k: mistakes
+c: 卖出麦当劳是个错误，让股东损失大约 10 亿美元以上。芒格：在伯克希尔我们确实会把自己的鼻子按在错误里，不需要别人帮忙。巴菲特：伯克希尔相信事后复盘；管理合伙基金时，他会对比所有卖出决定与买入决定——买入决定不只要成功，还要比卖掉的东西表现更好。管理层往往不愿把一两年前详细提给董事会的资本项目和收购的实际结果与预测对比，这是人性。但偶尔去病理科看看的医生是更好的医生；看看你做的每一个重要决定的结果和击球率，如果击球率太差，你最好把决策权交给别人。
+q: one of the things I used to do when I ran the partnership is I contrasted all sale decisions versus all purchase decisions. ||| It wasn’t enough that the purchase decisions worked out well, they had to work out better than the sale decisions.
+q: I think you’re a better doctor if you drop by the pathology department, occasionally. ||| and see which ones worked out and which ones didn’t and, you know, what is your batting average.
+q: And if your batting average gets too bad, you better hand the decision making over to someone else. ||| And if your batting average gets too bad, you better hand the decision making over to someone else.
+zh: 我管理合伙基金时常做的一件事，是把所有卖出决定与所有买入决定进行对比。买入决定结果好还不够，它们必须比卖出决定的结果更好。……我认为，如果偶尔去病理科看看，你会是一个更好的医生。我认为，如果你回顾自己做过的每一个重要决定，看看哪些成功了、哪些没有，看看你的击球率是多少，你就会是一个更好的经理人或投资者。如果你的击球率变得太差，你最好把决策权交给别人。
+l: 建立“换仓复盘”：每次卖 A 买 B，都在一两年后对比 A 和 B 的表现。用实际击球率决定自己是否适合主动管理。
+r: 5/5/5
+rel: 1998-A17, 1997-A11
+
+@ 1999-A31
+t: 像记者一样调研，然后写出这家公司的故事
+s: BM
+th: 投资方法
+k: due_diligence
+c: 巴菲特早年去奥马哈公共图书馆借遍了所有相关书籍。芒格：我们从优秀商业杂志中学到的比任何地方都多，一期期翻阅涵盖各种企业的报道，是获取大量商业经验的捷径；养成把所读内容与底层思想结构联系起来的习惯，就会逐渐积累投资智慧，不做大量阅读不可能成为广泛领域的好投资者。巴菲特：挑五到十家你熟悉其产品的公司，收集年报和五到十年的杂志文章，像要去那里工作、被聘为 CEO 或要买下整个企业那样沉浸其中，然后问自己“我还不知道什么需要知道的？”与竞争对手、员工、供应商、经销商、客户交谈；问“如果只有一颗银弹、只能射穿一个对手的头，你选谁、为什么？”“如果要离开十年、只能把钱全部投进一家竞争对手，你选谁？”这是一个调查、新闻采访式的过程，最后你要写出故事：“XYZ 公司值这么多，因为……”有的公司容易写，有的很难，他们找容易的。芒格：最重要的问题是“为什么”，而且要把答案与深层理论结构联系起来。
+q: if you get the mental habit of relating what you’re reading to the basic structure of the underlying ideas being demonstrated ||| I don’t think you can get to be a really good investor over a broad range without doing a massive amount of reading.
+q: Just sort of immerse yourself as if you were either going to work for the company ||| “What do I not know that I need to know?”
+q: “If you had a silver bullet and you could only put it through the head of one of your competitors, which one would it be and why?” ||| “If you had a silver bullet and you could only put it through the head of one of your competitors, which one would it be and why?”
+q: It’s a journalistic process. And in the end, you want to write the story. ||| We try to look for the ones that are easy.
+q: If you want to get smart, the question you’ve got to keep asking is: Why? Why? Why? Why? ||| And you have to relate the answers to a structure of deep theory.
+zh: （芒格：）如果你养成一种思维习惯，把你所读的内容与其所展示的底层思想的基本结构联系起来，你就会逐渐积累一些投资智慧。我认为不进行大量阅读，你不可能在广泛的领域里成为真正优秀的投资者。（巴菲特：）就让自己沉浸其中，就好像你要去这家公司工作，或者他们聘你当 CEO，或者你要买下整个企业……当你全部做完时，问问自己：“还有什么我不知道而又需要知道的？”……“如果你有一颗银弹，只能用它射穿一个竞争对手的脑袋，你会选哪一个，为什么？”……这是一个新闻采访式的过程。最后你要写出这个故事……有些公司的故事很容易写，有些则难得多。我们努力寻找那些容易写的。（芒格：）如果你想变聪明，你必须不断问的问题就是：为什么？为什么？为什么？为什么？而且你必须把答案与一个深层理论的结构联系起来。
+l: 研究产出应是一篇可以说服自己的“企业故事”，而不是一堆数字；写不出简洁故事的公司就放弃。常用问题：银弹问题、十年押注问题、“我还不知道什么”。
+r: 5/5/5
+rel: 1998-A42, 1995-A35, 1997-A40
+
+@ 1999-A32
+t: 伯克希尔为子公司创造价值的方式：让经理人专注于最重要的事
+s: BM
+th: 管理与治理
+k: culture
+c: 在一些具体案例中（如通用再保险、Executive Jet）伯克希尔会带来浮存金运用、税务、品牌等好处。但普遍来说，伯克希尔带来的最大价值，是让优秀经理人把更大比例的时间和精力花在最擅长、最喜欢、对所有者最有利的事情上——一个理性、懂行、心怀感激的所有者，消除了经营上市公司常见的干扰。他估计大多数上市公司 CEO 至少浪费三分之一时间取悦各种利益相关方。GEICO 作为子公司比独立时增长更快，并不是伯克希尔教了它任何保险分类或广告技巧。芒格：我们做的很大一部分就是不以适得其反的方式干预，这种不干预对我们这类经理人和企业有巨大价值。巴菲特：在很多公司，一大群人的重要性取决于他们干预别人工作的程度。
+q: We enable terrific managers to spend, in many cases, to spend a greater percentage of their time and energies on what they do best ||| than would be the case without our ownership.
+q: I would guess that the CEOs of most public companies waste a third of their time, at least ||| that take the company backwards.
+q: most of what we do, or at least a great part of what we do, is just not interfere in a counterproductive way. ||| And that non-interference has enormous value
+q: in a great many corporate operations, the importance of a large group of people is tied to how much they meddle in the affairs of other people ||| in a great many corporate operations, the importance of a large group of people is tied to how much they meddle in the affairs of other people
+zh: 我们让出色的经理人在很多情况下能把更大比例的时间和精力，花在他们最擅长、最喜欢做、对所有者最有成效的事情上，而这在没有我们所有权的情况下是做不到的。……我估计，大多数上市公司的 CEO 至少浪费了三分之一的时间……（芒格：）我们所做的大部分——或者至少很大一部分——就是不以适得其反的方式去干预。而这种不干预具有巨大的价值。（巴菲特：）在很多公司的运营中，一大群人的重要性，与他们干预那些在外面实际干活的人的事务的程度挂钩。
+l: 评估集团型公司时，看总部是“增值的资本配置者”还是“干扰者”；总部人员越多、流程越重，越可能在摧毁子公司的价值。
+r: 4/3/4
+rel: 1998-A07, 2017-M24
+
