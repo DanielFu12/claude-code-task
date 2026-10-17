@@ -1,19 +1,22 @@
-"""离线 TTS：按 script.LINES 逐句合成，拼成旁白音轨，并写出时间轴 timeline.json。
+"""投资启示解说（离线 TTS）+ 整片时间轴。
 
 用法：python3 src/tts.py WORK MODEL_DIR
-MODEL_DIR = sherpa-onnx 的 kokoro-multi-lang-v1_0 目录。
-旁白从 START 秒开始；英文原话从 ANSWER_AT（音乐第一个重拍）开始。
+MODEL_DIR = sherpa-onnx 的 kokoro-multi-lang-v1_1 目录（Kokoro v1.1-zh，中文更自然）。
+输出：WORK/vo/*.wav（逐句解说）、WORK/timeline.json
+
+时间轴：0–TITLE 片头标题 → 原始录音（股东提问 + 巴菲特回答）→ 音乐重拍进入“投资启示” → 金句。
 """
 import json, os, sys
 import numpy as np, soundfile as sf
 import sherpa_onnx
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import LINES, VOICE, SPEED
+from script import NARRATION, SAY, VOICE_ID, VOICE_SPEED
 
 SR = 24000
-START = 1.6          # 第一句旁白
-ANSWER_AT = 17.10    # 原曲第一个重拍（见 audio.py），巴菲特原话从这里开始
-LEAD = 0.25          # 段落切换时在下一段前多留的空隙
+TITLE = 5.0          # 片头标题时长；提问在其后 0.5 秒开始
+ORIG_PAD = (0.5, 0.6)  # 原声片段在第一句前 / 最后一句后多留的时长
+LESSON_GAP = 0.9     # 原声结束 → 音乐重拍（投资启示开始）
+VO_DELAY = 0.9       # 音乐重拍 → 第一句解说
 
 
 def engine(d):
@@ -32,45 +35,33 @@ def trim(x, thr=0.006, pad=0.03):
     env = np.convolve(np.abs(x), np.ones(240) / 240, 'same')
     idx = np.where(env > thr)[0]
     if not len(idx): return x
-    a, b = max(idx[0] - int(pad * SR), 0), min(idx[-1] + int(pad * SR), len(x))
-    return x[a:b]
+    return x[max(idx[0] - int(pad * SR), 0):min(idx[-1] + int(pad * SR), len(x))]
 
 
 def main():
     work, model = sys.argv[1], sys.argv[2]
     os.makedirs(os.path.join(work, 'vo'), exist_ok=True)
+    cues = json.load(open(os.path.join(work, 'orig_cues.json')))
+    clip_in, clip_out = cues[0]['s'] - ORIG_PAD[0], cues[-1]['e'] + ORIG_PAD[1]
+    off = TITLE + 0.5 - cues[0]['s']                   # 片段时间 + off = 成片时间
+    items = [dict(id=c['id'], part=c['part'], lang='orig', en=c['en'], zh=c['zh'],
+                  start=round(c['s'] + off, 3), end=round(c['e'] + off, 3)) for c in cues]
+    orig_end = clip_out + off
+    lesson_at = orig_end + LESSON_GAP
     tts = engine(model)
-    clips = []
-    for i, (part, lang, en, zh, pause, say) in enumerate(LINES):
-        text = say or (zh if lang == 'zh' else en)
-        text = text.replace('’', "'").replace('“', '"').replace('”', '"')
-        a = tts.generate(text, sid=VOICE[lang], speed=SPEED[lang])
-        x = trim(np.asarray(a.samples, np.float32))
-        sf.write(os.path.join(work, 'vo', '%02d.wav' % i), x, SR)
-        clips.append(x)
-        print('%02d %-6s %5.2fs  %s' % (i, part, len(x) / SR, text[:60]), flush=True)
-    # 排时间轴
-    t = START
-    items = []
-    for i, ((part, lang, en, zh, pause, say), x) in enumerate(zip(LINES, clips)):
-        if i and part != LINES[i - 1][0]:
-            t += LEAD
-        if lang == 'en' and LINES[i - 1][1] == 'zh':
-            assert t <= ANSWER_AT - 0.3, '开场旁白太长：%.2f' % t
-            t = ANSWER_AT + 0.35
+    t = lesson_at + VO_DELAY
+    for cid, part, zh, en, pause in NARRATION:
+        text = SAY.get(cid, zh).replace('“', '').replace('”', '')
+        x = trim(np.asarray(tts.generate(text, sid=VOICE_ID, speed=VOICE_SPEED).samples, np.float32))
+        sf.write(os.path.join(work, 'vo', cid + '.wav'), x, SR)
         d = len(x) / SR
-        items.append(dict(i=i, part=part, lang=lang, en=en, zh=zh, start=round(t, 3), end=round(t + d, 3)))
+        items.append(dict(id=cid, part=part, lang='zh', en=en, zh=zh, start=round(t, 3), end=round(t + d, 3)))
+        print('%-3s %5.2fs  %s' % (cid, d, zh), flush=True)
         t += d + pause
-    total = int((t + 30) * SR)
-    vo = np.zeros(total, np.float32)
-    for it, x in zip(items, clips):
-        s = int(it['start'] * SR); vo[s:s + len(x)] += x
-    peak = np.abs(vo).max()
-    vo *= 0.89 / peak
-    sf.write(os.path.join(work, 'vo.wav'), vo, SR)
-    json.dump(dict(items=items, vo_end=round(t, 3)), open(os.path.join(work, 'timeline.json'), 'w'),
-              ensure_ascii=False, indent=1)
-    print('narration ends at %.2fs' % t)
+    json.dump(dict(items=items, title_end=TITLE, clip_in=round(clip_in, 3), clip_out=round(clip_out, 3),
+                   off=round(off, 3), orig_end=round(orig_end, 3), lesson_at=round(lesson_at, 3)),
+              open(os.path.join(work, 'timeline.json'), 'w'), ensure_ascii=False, indent=1)
+    print('original %.2f–%.2fs, lesson at %.2fs, narration ends %.2fs' % (TITLE + 0.5 - ORIG_PAD[0], orig_end, lesson_at, t))
 
 
 if __name__ == '__main__':

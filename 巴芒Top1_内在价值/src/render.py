@@ -1,6 +1,8 @@
-"""《内在价值：没有把握，就不知道它值多少》—— 巴芒精华库 Top 1 · 竖屏 1080×1920 动态图形短片。
+"""《内在价值：没有把握，就不知道它值多少》—— 巴芒精华库 Top 1 · 竖屏 1080×1920 短片。
 
-画面时间全部取自 WORK/timeline.json（旁白逐句起止）和 WORK/music.json（重拍、片长、节拍）。
+声音：巴菲特 1994 年股东大会原始录音（该场次只有音频），之后是“投资启示”解说。
+画面：按原声逐句卡点的动态图形 + 原声波形。时间全部取自 WORK/timeline.json（每条字幕的起止）
+和 WORK/music.json（重拍、片长、节拍），分镜按字幕 id（Q1…、A1…、L1…、M）取时间。
 品牌：右上角全程 brand.Hud；片尾 logo 只用 brand/logo_baman.png（load_logo），
 文字「巴芒价值 / BUFFETT · MUNGER」直接取自 brand/hud_lockup@4x.png 的文字区（官方预渲染，含品牌金色渐变），
 颜色、光晕参数取自 brand.py 的 SPEC / GOLD_STOPS / SUB_GOLD。
@@ -13,7 +15,7 @@ import json, math, os, sys
 import numpy as np, cv2
 from PIL import Image
 from engine import *
-from script import SOURCE_ZH, SOURCE_EN, DISCLOSE
+from script import SOURCE_ZH, SOURCE_EN, ORIG_LABEL, VO_LABEL
 
 REPO = os.path.abspath(os.path.join(HERE, '..', '..'))
 sys.path.insert(0, os.path.join(REPO, 'brand'))
@@ -21,15 +23,22 @@ import brand
 from brand import Hud, load_logo, SPEC, GOLD_STOPS, SUB_GOLD
 
 WORK = sys.argv[-1] if len(sys.argv) > 2 else os.path.join(HERE, '..', 'work')
-TL = json.load(open(os.path.join(WORK, 'timeline.json')))['items']
+TLJ = json.load(open(os.path.join(WORK, 'timeline.json')))
+TL = TLJ['items']
 MU = json.load(open(os.path.join(WORK, 'music.json')))
 BEATS = np.array(MU['beats'])
-HIT0 = MU['first_hit']          # 第一个重拍（巴菲特原话开始）
+T_TITLE = TLJ['title_end']      # 片头标题结束
+T_ORIG0 = TL[0]['start'] - 0.5  # 原始录音开始
+T_ORIG1 = TLJ['orig_end']       # 原始录音结束
+HIT0 = MU['lesson_hit']         # 音乐重拍：投资启示开始
 HIT = MU['hit']                 # 片尾重拍（「巴芒价值」出现）
 DUR = MU['end']
 NFR = int(round(DUR * FPS))
-S = [it['start'] for it in TL]
-E = [it['end'] for it in TL]
+_ST = {it['id']: it['start'] for it in TL}
+_ET = {it['id']: it['end'] for it in TL}
+ST = _ST.__getitem__            # 某条字幕/解说的开始时间
+ET = _ET.__getitem__
+ENV = np.load(os.path.join(WORK, 'orig_env.npy'))
 
 # ---------------------------------------------------------------- 品牌色（来自 brand.py）
 GOLDS = [C(*c) for _, c in GOLD_STOPS]            # #FFF3C8 #FFD478 #E2A03C #FFD682
@@ -49,10 +58,12 @@ for it in TL:
     if not PARTS or PARTS[-1][0] != it['part']:
         PARTS.append([it['part'], it['start'], it['end']])
     PARTS[-1][2] = it['end']
+PARTS.insert(0, ['title', 0.0, T_TITLE])
 WIN = {}
 for k, (p, a, b) in enumerate(PARTS):
     a0 = 0.0 if k == 0 else a - 0.45
-    if p == 'dcf': a0 = HIT0 - 0.05
+    if p == 'ask': a0 = T_TITLE
+    if p == 'lesson': a0 = HIT0 - 0.05
     WIN[p] = [a0, None]
 for k, (p, a, b) in enumerate(PARTS[:-1]):
     WIN[p][1] = WIN[PARTS[k + 1][0]][0] + 0.25
@@ -83,13 +94,19 @@ BASE += np.exp(-(_r ** 2) / 0.35)[..., None] * np.array(C(14, 22, 48), np.float3
 SUBBAND = (1 - 0.45 * np.exp(-((_yy - 1440) / 170) ** 2))[..., None].astype(np.float32)
 del _yy, _xx, _r
 
-TINT = [  # 时间, 颜色 A, 颜色 B
-    (0, C(40, 60, 150), C(90, 50, 150)), (8, C(30, 70, 160), C(40, 40, 120)),
-    (18, C(30, 110, 170), C(60, 50, 160)), (29, C(70, 70, 110), C(60, 40, 90)),
-    (37.5, C(30, 90, 170), C(40, 60, 140)), (49, C(150, 100, 40), C(70, 50, 110)),
-    (61, C(30, 80, 160), C(80, 60, 130)), (82, C(30, 130, 140), C(50, 60, 140)),
-    (97, C(160, 110, 40), C(70, 50, 120)), (111, C(170, 120, 40), C(90, 60, 30)),
-    (HIT - 2, C(40, 80, 170), C(60, 40, 120)), (DUR, C(30, 60, 140), C(40, 30, 90))]
+PART_TINT = {  # 段落 → 背景星云两种颜色
+    'title': (C(40, 60, 150), C(90, 50, 150)), 'ask': (C(30, 70, 160), C(40, 40, 120)),
+    'answer': (C(30, 90, 170), C(50, 50, 150)), 'dcf': (C(30, 110, 170), C(60, 50, 160)),
+    'fog': (C(70, 70, 110), C(60, 40, 90)), 'dissonance': (C(120, 50, 70), C(60, 40, 100)),
+    'range': (C(30, 90, 170), C(40, 60, 140)), 'cert': (C(150, 100, 40), C(70, 50, 110)),
+    'report': (C(30, 80, 160), C(80, 60, 130)), 'check': (C(30, 130, 140), C(50, 60, 140)),
+    'massage': (C(120, 60, 60), C(60, 50, 110)), 'lesson': (C(160, 110, 40), C(70, 50, 120)),
+    'motto': (C(170, 120, 40), C(90, 60, 30))}
+TINT = []
+for p, a, b in PARTS:
+    t0 = max(WIN[p][0], 0.0)
+    TINT += [(t0, *PART_TINT[p]), (t0 + 1.2, *PART_TINT[p])]
+TINT = sorted(TINT) + [(HIT - 2, C(40, 80, 170), C(60, 40, 120)), (DUR, C(30, 60, 140), C(40, 30, 90))]
 
 def keyc(t, kf, idx):
     if t <= kf[0][0]: return kf[0][idx]
@@ -204,17 +221,40 @@ def draw_chrome(f, t):
     f.text('巴芒精华 · TOP 1', 52, 50, 30, 'sans_bold', G_MAIN, a, anchor='l', mode='O')
     f.text('1994 · 内在价值', 52, 88, 24, 'sans_light', GREY, a, anchor='l', track=0.05)
     # 出处（底部）
-    a2 = env(t, S[2] - 0.3, CONV0, 0.5, 0.5)
+    a2 = env(t, T_ORIG0, CONV0, 0.5, 0.5)
     f.text(SOURCE_ZH, CX, 1700, 24, 'sans_light', GREY, a2 * 0.75)
     f.text(SOURCE_EN, CX, 1736, 24, 'sans_light', GREY, a2 * 0.75)
-    # 原话段：人物与配音说明
-    a3 = env(t, HIT0 + 0.1, WIN['check'][1], 0.5, 0.5)
-    f.text('巴菲特原话 · WARREN BUFFETT', CX, 205, 32, 'sans_bold', G_MAIN, a3, track=0.06, mode='O')
-    f.text(DISCLOSE, CX, 250, 23, 'sans_light', GREY, a3)
+    # 原始录音段：说话人、录音说明、原声波形
+    aq = env(t, T_ORIG0, ST('A1') - 0.3, 0.5, 0.3)
+    aa = env(t, ST('A1') - 0.3, T_ORIG1, 0.3, 0.5)
+    f.text('股东提问 · SHAREHOLDER', CX, 200, 32, 'sans_bold', G_MAIN, aq, track=0.06, mode='O')
+    f.text('巴菲特原声 · WARREN BUFFETT', CX, 200, 32, 'sans_bold', G_MAIN, aa, track=0.06, mode='O')
+    ao = max(aq, aa)
+    f.text(ORIG_LABEL, CX, 242, 23, 'sans_light', GREY, ao)
+    if ao > 0.003:
+        draw_wave(f, t, ao)
+    # 解说段
+    av = env(t, HIT0, CONV0, 0.5, 0.5)
+    f.text(VO_LABEL, CX, 242, 23, 'sans_light', GREY, av)
     # 进度条
     p = cl(t / HIT)
     f.rect(52, 1800, 52 + (W - 104) * p, 1803, SUBG, 0.55 * a, 'L')
     f.rect(52, 1800, W - 52, 1803, DIM, 0.15 * a, 'L')
+
+
+NWAVE = 72
+
+def draw_wave(f, t, a):
+    """原声波形：最近 2.4 秒的音量，从右往左滚动"""
+    j = int(t * FPS)
+    lo = 10 ** (-48 / 20)
+    for k in range(NWAVE):
+        jj = j - (NWAVE - 1 - k)
+        v = ENV[jj] if 0 <= jj < len(ENV) else 0.0
+        h = cl((20 * math.log10(max(v, lo)) + 48) / 36) * 26 + 1.5
+        x = CX - NWAVE * 4.5 + k * 9
+        age = (NWAVE - 1 - k) / NWAVE
+        f.rect(x, 300 - h, x + 4, 300 + h, lerpc(G_MAIN, BLUE, age * 0.7), a * (0.85 - 0.55 * age), 'E')
 
 
 # ---------------------------------------------------------------- 分镜
@@ -233,18 +273,25 @@ def sc_title(f, t):
 def sc_ask(f, t):
     a = vis('ask', 0.5, 0.15)
     if a <= 0: return
-    t0 = S[2]
+    t0 = ST('Q1') - 0.3
     f.text('1994', CX, 600, 230, 'corm', lerpc(WHITE, BLUE, 0.35), a, mode='E', glow=0.5, t0=t0 - 0.2, stag=0.08, dur=0.6)
     f.text('BERKSHIRE HATHAWAY ANNUAL MEETING', CX, 760, 25, 'en_med', GREY, a, track=0.22, t0=t0 + 0.3, stag=0.01)
     f.text('伯克希尔·哈撒韦股东大会 · 下午场', CX, 812, 34, 'sans_light', WHITE, a, track=0.08, t0=t0 + 0.5, stag=0.02)
     f.text('股东提问', CX, 900, 30, 'sans_bold', SUBG, a, track=0.5, t0=t0 + 0.8)
-    q0 = S[3]
-    pulse = beat_pulse(t, 0.25)
+    q0 = ST('Q4') + 1.6
     f.text('内在价值 ＝ ？', CX, 1060, 100, 'serif_black', G_MAIN, a, grad=G_GRAD, mode='O',
-           glow=0.4 + 0.4 * pulse, t0=q0 + 0.6, stag=0.08, dur=0.5)
-    f.text('HOW DO YOU FIGURE OUT INTRINSIC VALUE?', CX, 1150, 25, 'en_med', GREY, a, track=0.12, t0=q0 + 1.2, stag=0.01)
-    # 上扬：粒子向中心坍缩，重拍时冲击波
-    implode(f, t, HIT0 - 2.2, HIT0, CX, 900, [G_MAIN, BLUE, WHITE], 1200, 1000, 2, 1.0)
+           glow=0.4 + 0.3 * math.sin(t * 3) ** 2, t0=q0, stag=0.08, dur=0.5)
+    f.text('HOW DO YOU FIGURE OUT INTRINSIC VALUE?', CX, 1150, 25, 'en_med', GREY, a, track=0.12, t0=q0 + 0.6, stag=0.01)
+
+
+def sc_answer(f, t):
+    a = vis('answer')
+    if a <= 0: return
+    t0 = ST('A1')
+    f.text('“', CX, 560, 260, 'serif_black', G_MAIN, a * 0.5, mode='E', glow=0.4, t0=t0 - 0.2)
+    f.text('1992', CX, 820, 200, 'corm', lerpc(WHITE, BLUE, 0.35), a, mode='E', glow=0.5, t0=t0 + 1.0, stag=0.08, dur=0.6)
+    f.text('ANNUAL REPORT', CX, 960, 30, 'en_med', GREY, a, track=0.3, t0=t0 + 1.6, stag=0.02)
+    f.text('我们在年报里讨论过不少', CX, 1030, 36, 'sans_med', WHITE, a, t0=t0 + 2.0, stag=0.03)
 
 
 # 柱状图：8 年现金流
@@ -260,10 +307,10 @@ COLX = 930
 
 def draw_bars(f, t, a, disc, fly, fog):
     """disc: 0→1 折现收缩；fly: 0→1 现值飞入右侧总柱；fog: 0→1 不确定（抖动+问号）"""
-    f.line((130, BASEY), (COLX + 60, BASEY), GREY, a * 0.6 * eo((t - S[4] + 0.2) / 0.4), 2)
+    f.line((130, BASEY), (COLX + 60, BASEY), GREY, a * 0.6 * eo((t - ST('A2') + 0.2) / 0.4), 2)
     total = 0.0
     for i in range(NBAR):
-        ap = a * eo((t - (S[4] + 0.15 + i * 0.22)) / 0.4)
+        ap = a * eo((t - (ST('A2') + 0.6 + i * 0.3)) / 0.4)
         if ap <= 0: continue
         x0 = BX[i]
         nz = 0.6 * math.sin(t * 2.3 + i * 1.7) + 0.4 * math.sin(t * 3.7 + i * 2.9)
@@ -283,7 +330,7 @@ def draw_bars(f, t, a, disc, fly, fog):
             f.text('?', x0 + BW / 2, BASEY - CF[i] * UNIT - 50 + 10 * math.sin(t * 3 + i), 54, 'serif_black', G_LIGHT,
                    ap * fog * (0.6 + 0.4 * math.sin(t * 5 + i * 1.7)), mode='E', glow=0.3)
     f.text('未来第 N 年的现金流', 130 + (BX[-1] + BW - 130) / 2, BASEY + 70, 24, 'sans_light', GREY,
-           a * 0.8 * eo((t - S[4] - 0.15) / 0.4))
+           a * 0.8 * eo((t - ST('A2') - 0.6) / 0.4))
     # 右侧：现值总和
     if total > 0.01:
         h = total * STACK * UNIT
@@ -297,17 +344,15 @@ def draw_bars(f, t, a, disc, fly, fog):
 def sc_dcf(f, t):
     a1 = env(t, WIN['dcf'][0], WIN['fog'][1], 0.4, 0.5)
     if a1 <= 0: return
-    shock(f, t, HIT0, CX, 900, G_MAIN, 1.0)
-    shock(f, t, HIT0 + 0.08, CX, 900, BLUE, 0.6, 1100)
     ah = vis('dcf')
-    header(f, '内在价值 ＝ 未来现金流的现值', 'Value = present value of all future cash flows', 410, ah, t0=HIT0 + 0.2)
-    pa = env(t, S[5] + 0.3, WIN['dcf'][1], 0.4, 0.4)
+    header(f, '内在价值 ＝ 未来现金流的现值', 'Value = present value of all future cash flows', 410, ah, t0=ST('A2'))
+    pa = env(t, ST('A3') + 0.3, WIN['dcf'][1], 0.4, 0.4)
     f.text('÷ (1 + r)', CX - 22, 580, 54, 'en_med', G_LIGHT, pa, mode='E', glow=0.3)
     f.text('t', CX + 98, 560, 32, 'en_med', G_LIGHT, pa, mode='E', glow=0.3)
     f.text('按适当的利率逐年折现', CX, 645, 28, 'sans_light', GREY, pa)
-    disc = eio((t - S[5] - 0.6) / 1.6)
-    fly = cl((t - S[6] - 0.3) / 2.6)
-    fog = eio((t - S[7] + 0.1) / 1.0)
+    disc = eio((t - ST('A3') - 0.6) / 1.6)
+    fly = cl((t - ST('A4') - 0.3) / 2.6)
+    fog = eio((t - ST('A5') - 0.3) / 1.0)
     # fog 段：未折现柱子留着、现值柱抖动
     draw_bars(f, t, a1, disc, fly, fog)
 
@@ -315,27 +360,49 @@ def sc_dcf(f, t):
 def sc_fog(f, t):
     a = vis('fog')
     if a <= 0: return
-    f.text('看不清未来的现金流', CX, 410, 62, 'serif_black', GREY, a, mode='O', t0=S[7], stag=0.05)
-    f.text('＝ 不知道它现在值多少', CX, 500, 52, 'serif_black', G_MAIN, a, grad=G_GRAD, mode='O', glow=0.3, t0=S[8], stag=0.05)
-    f.text('No idea of the cash, no idea of the value', CX, 560, 27, 'en_reg', GREY, a, t0=S[8] + 0.6)
+    f.text('看不清未来的现金流', CX, 410, 62, 'serif_black', GREY, a, mode='O', t0=ST('A6'), stag=0.05)
+    f.text('＝ 不知道它现在值多少', CX, 500, 52, 'serif_black', G_MAIN, a, grad=G_GRAD, mode='O', glow=0.3, t0=ST('A8'), stag=0.05)
+
+
+def sc_dissonance(f, t):
+    a = vis('dissonance')
+    if a <= 0: return
+    header(f, '知道价格，却不知道现金流', 'Price “known”, cash flows unknown', 410, a, t0=ST('A9'))
+    for k, (zh, en, big, col, t0) in enumerate((('今天的股价', 'PRICE TODAY', '自以为知道', WHITE, ST('A9') + 0.6),
+                                                ('未来 20 年的现金流', 'NEXT 20 YEARS OF CASH', '？', G_MAIN, ST('A10') + 0.3))):
+        p = eo((t - t0) / 0.5)
+        if p <= 0: continue
+        x0 = 110 if k == 0 else 570
+        ap = a * p
+        f.rrect_fill(x0, 560, x0 + 400, 820, 18, C(25, 35, 60), ap * 0.55, 'L')
+        f.rrect(x0, 560, x0 + 400, 820, 18, GREY if k == 0 else G_MAIN, ap * 0.9, 2)
+        f.text(zh, x0 + 200, 610, 34, 'sans_bold', WHITE, ap)
+        f.text(en, x0 + 200, 652, 20, 'en_med', GREY, ap, track=0.12)
+        f.text(big, x0 + 200, 740, 46 if k == 0 else 90, 'serif_black', col, ap, mode='O', glow=0.3 if k else 0)
+    ab = (t - ST('A11') - 0.8)
+    if ab > 0:
+        s = 1 + 0.25 * (1 - eo(ab / 0.35))
+        jit = 5 * math.sin(t * 31) * math.exp(-ab / 0.6)
+        f.text('认知失调', CX + jit, 980, int(118 * s), 'serif_black', RED, a * eo(ab / 0.3), mode='O', glow=0.4)
+        f.text('COGNITIVE DISSONANCE', CX, 1090, 28, 'en_med', GREY, a * eo((ab - 0.3) / 0.4), track=0.2)
 
 
 def sc_range(f, t):
     a = vis('range')
     if a <= 0: return
-    header(f, '有把握地预测一个区间', 'Within a range, with a fairly high probability', 410, a, t0=S[9])
+    header(f, '有把握地预测一个区间', 'Within a range, with a fairly high probability', 410, a, t0=ST('A12'))
     ox, oy = 170, 1010
     x1 = 920
     xs = np.linspace(ox, x1, 60)
     yc = oy - (xs - ox) * 0.28
     # 宽：看不清的
-    aw = a * env(t, S[9] + 0.4, 1e9, 0.8, 0)
+    aw = a * env(t, ST('A12') + 0.4, 1e9, 0.8, 0)
     hw = 8 + (xs - ox) / (x1 - ox) * 250
     f.fillpoly(list(zip(xs, yc - hw)) + list(zip(xs[::-1], (yc + hw)[::-1])), GREY, aw * 0.07)
     f.poly(list(zip(xs, yc - hw)), GREY, aw * 0.35, 1); f.poly(list(zip(xs, yc + hw)), GREY, aw * 0.35, 1)
     f.text('看不清：放弃', x1 - 100, yc[-1] - hw[-1] + 55, 28, 'sans_light', GREY, aw)
     # 窄：可把握的区间（从左往右画出）
-    rv = eio((t - S[10]) / 2.2)
+    rv = eio((t - ST('A13')) / 2.2)
     if rv > 0:
         n = max(2, int(60 * rv))
         hn = 6 + (xs - ox) / (x1 - ox) * 58
@@ -348,7 +415,7 @@ def sc_range(f, t):
     f.text('今天', ox, oy + 45, 28, 'sans_med', WHITE, a)
     f.text('时间 →', x1 - 20, oy + 140, 24, 'sans_light', GREY, a * 0.8)
     # 折现回来：弧线从未来各点回到今天
-    bk = (t - S[11] + 0.1)
+    bk = (t - ST('A14') + 0.1)
     if bk > 0:
         for j, xx in enumerate((520, 700, 880)):
             k = int((xx - ox) / (x1 - ox) * 59)
@@ -365,9 +432,9 @@ def sc_range(f, t):
 def sc_cert(f, t):
     a = vis('cert')
     if a <= 0: return
-    header(f, '确定性 ＞ 便宜', 'Certainty over cheapness', 410, a, t0=S[12])
+    header(f, '确定性 ＞ 便宜', 'Certainty over cheapness', 410, a, t0=ST('A15'))
     px, py = CX, 640
-    th = -0.12 * eio((t - S[12] - 0.3) / 1.2) - 0.08 * eio((t - S[14] - 0.3) / 1.2)
+    th = -0.12 * eio((t - ST('A15') - 0.3) / 1.2) - 0.08 * eio((t - ST('A17') - 0.3) / 1.2)
     th += 0.01 * math.sin(t * 2.0)
     L = 330
     lx, ly = px - L * math.cos(th), py - L * math.sin(th)
@@ -382,20 +449,21 @@ def sc_cert(f, t):
         f.line((bx, by), (bx, hy - 124), GREY, a * 0.6, 2)
         f.line((bx - 135, hy), (bx + 135, hy), lerpc(GREY, WHITE, 0.4), a, 3)
         if side == 0:
-            ap = a * eo((t - S[12]) / 0.5)
+            ap = a * eo((t - ST('A15')) / 0.5)
             f.rrect_fill(bx - 120, hy - 124, bx + 120, hy - 6, 10, G_MAIN, ap * 0.35, 'E')
             f.rrect(bx - 120, hy - 124, bx + 120, hy - 6, 10, G_MAIN, ap, 2)
             f.text('确定性', bx, hy - 78, 46, 'serif_black', G_LIGHT, ap, mode='O')
             f.text('CERTAINTY', bx, hy - 32, 22, 'en_med', G_MAIN, ap, track=0.15)
         else:
-            ap = a * eo((t - S[13]) / 0.5)
-            fade = 1 - 0.5 * eio((t - S[14] - 0.4) / 1.0)
-            jit = 4 * math.sin(t * 23) * eio((t - S[14]) / 0.5)
+            ap = a * eo((t - ST('A16')) / 0.5)
+            fade = 1 - 0.5 * eio((t - ST('A17') - 0.4) / 1.0)
+            jit = 4 * math.sin(t * 23) * eio((t - ST('A17')) / 0.5)
             f.rrect(bx - 120 + jit, hy - 124, bx + 120 + jit, hy - 6, 10, GREY, ap * fade, 2)
             f.text('看起来最便宜', bx + jit, hy - 78, 34, 'sans_bold', WHITE, ap * fade)
             f.text('CHEAPEST-LOOKING', bx + jit, hy - 32, 20, 'en_med', GREY, ap * fade, track=0.1)
-            aq = a * eo((t - S[14] - 0.2) / 0.5)
+            aq = a * eo((t - ST('A17') - 0.2) / 0.5)
             f.text('建立在没把握的数字上', bx, hy + 45, 26, 'sans_light', RED, aq)
+    f.text('这就是经济价值的全部含义', CX, 1180, 36, 'sans_med', SUBG, a * eo((t - ST('A18') - 0.3) / 0.5), t0=ST('A18') + 0.3, stag=0.03)
 
 
 def sc_report(f, t):
@@ -403,7 +471,7 @@ def sc_report(f, t):
     if a <= 0: return
     # 财务报表卡片
     x0, y0, x1, y1 = 290, 360, 790, 760
-    ad = a * eo((t - S[15] + 0.3) / 0.5)
+    ad = a * eo((t - ST('A19')) / 0.5)
     f.rrect_fill(x0, y0, x1, y1, 16, C(30, 40, 70), ad * 0.6, 'L')
     f.rrect(x0, y0, x1, y1, 16, GREY, ad * 0.8, 2)
     f.text('财务报表', CX, y0 + 50, 38, 'sans_bold', WHITE, ad)
@@ -413,21 +481,21 @@ def sc_report(f, t):
         f.rect(x0 + 40, yy, x0 + 40 + 150 + (k * 37) % 70, yy + 10, GREY, ad * 0.35)
         f.rect(x1 - 40 - 90 - (k * 53) % 50, yy, x1 - 40, yy + 10, BLUE, ad * 0.35)
     # 印章：没有答案
-    sp = (t - S[15] - 0.5) / 0.3
+    sp = (t - ST('A22') - 0.3) / 0.3
     if sp > 0:
         s = 1 + 0.6 * (1 - eo(sp))
         aa = ad * eo(sp)
         f.rrect(CX - 190 * s, 560 - 62 * s, CX + 190 * s, 560 + 62 * s, 12, RED, aa, 4)
         f.text('没有答案', CX, 560, int(76 * s), 'serif_black', RED, aa, mode='O')
     # 只有指引
-    ag = a * eo((t - S[16] - 0.2) / 0.5)
+    ag = a * eo((t - ST('A20') - 0.2) / 0.5)
     f.text('只有指引', CX, 840, 52, 'serif_black', G_LIGHT, ag, mode='O', glow=0.3)
     f.text('Guidelines, not answers', CX, 900, 26, 'en_reg', GREY, ag)
     # 懂生意 vs 数学
-    ab = a * eo((t - S[17] - 0.5) / 0.5)
-    pulse = beat_pulse(t, 0.25) * cl((t - S[19]) / 0.2)
-    f.text('懂生意', CX, 1040, 120, 'serif_black', G_MAIN, ab, grad=G_GRAD, mode='O', glow=0.5 + 0.5 * pulse, t0=S[17] + 0.5, stag=0.1)
-    am = a * eo((t - S[18] - 0.2) / 0.5)
+    ab = a * eo((t - ST('A24') - 0.5) / 0.5)
+    pulse = math.exp(-max(t - ST('A26') - 0.6, -1e9) / 0.4) if t >= ST('A26') + 0.6 else 0.0
+    f.text('懂生意', CX, 1040, 120, 'serif_black', G_MAIN, ab, grad=G_GRAD, mode='O', glow=0.5 + 0.6 * pulse, t0=ST('A24') + 0.5, stag=0.1)
+    am = a * eo((t - ST('A25') - 0.2) / 0.5)
     f.text('不必精通数学 · 数学并不复杂', CX, 1170, 32, 'sans_light', GREY, am)
 
 
@@ -437,47 +505,79 @@ CARDS = [('现在付出多少', 'What you lay out now'), ('将来能收回多少
 def sc_check(f, t):
     a = vis('check')
     if a <= 0: return
-    header(f, '估值四问', 'FOUR QUESTIONS', 400, a, t0=S[20] - 0.3)
-    allg = eo((t - S[24]) / 0.5)
+    header(f, '估值四问', 'FOUR QUESTIONS', 400, a, t0=ST('A27'))
+    for k, (s, t0) in enumerate((('公寓楼', ST('A27') + 1.6), ('农场', ST('A28')), ('小生意', ST('A28') + 1.6))):
+        f.text(s, CX + (k - 1) * 230, 530, 34, 'sans_med', SUBG, a * eo((t - t0) / 0.4))
+        if k: f.text('·', CX + (k - 1.5) * 230, 530, 34, 'sans_med', GREY, a * eo((t - t0) / 0.4))
+    allg = eo((t - ST('A33')) / 0.5)
     for k, (zh, en) in enumerate(CARDS):
-        p = eo((t - S[20 + k]) / 0.45)
+        tk = ST('A%d' % (29 + k))
+        p = eo((t - tk) / 0.45)
         if p <= 0: continue
-        y = 540 + k * 150
+        y = 590 + k * 140
         dx = (1 - p) * 120
         ap = a * p
-        col = lerpc(GREY, G_MAIN, max(allg, 1 - cl((t - S[20 + k] - 1.0) / 0.6)))
+        col = lerpc(GREY, G_MAIN, max(allg, 1 - cl((t - tk - 1.0) / 0.6)))
         f.rrect_fill(110 + dx, y, 970 + dx, y + 122, 18, C(25, 35, 60), ap * 0.55, 'L')
         f.rrect(110 + dx, y, 970 + dx, y + 122, 18, col, ap * 0.9, 2)
         f.circle((180 + dx, y + 61), 36, col, ap, 3)
         f.text(str(k + 1), 180 + dx, y + 61, 40, 'en_med', col, ap)
         f.text(zh, 250 + dx, y + 44, 44, 'sans_bold', WHITE, ap, anchor='l')
         f.text(en, 252 + dx, y + 92, 25, 'en_reg', GREY, ap, anchor='l')
-    f.text('我们做的就是这些，只不过对象是大企业', CX, 1170, 34, 'sans_med', SUBG, a * allg, t0=S[24] + 0.3, stag=0.02)
+    f.text('我们做的就是这些，只不过对象是大企业', CX, 1200, 34, 'sans_med', SUBG, a * allg, t0=ST('A33') + 0.3, stag=0.02)
+
+
+def sc_massage(f, t):
+    a = vis('massage')
+    if a <= 0: return
+    header(f, '会计数字：思考的向导', 'Accounting figures guide our thinking', 410, a, t0=ST('A34'))
+    # 一组“报表数字”柱子；出现“最乐观的解释”时被往上拉高、变红
+    stretch = eio((t - ST('A37')) / 1.6)
+    base = [0.55, 0.62, 0.58, 0.7, 0.66]
+    for i, v in enumerate(base):
+        ap = a * eo((t - ST('A34') - 0.4 - i * 0.12) / 0.4)
+        if ap <= 0: continue
+        x0 = 250 + i * 125
+        h = v * 240
+        h2 = h * (1 + stretch * (0.35 + 0.12 * i))
+        f.rrect_fill(x0, 960 - h, x0 + 80, 960, 6, lerpc(BLUE, RED, stretch * 0.8), ap * 0.35, 'L')
+        f.rrect(x0, 960 - h2, x0 + 80, 960, 6, lerpc(BLUE, RED, stretch), ap * 0.9, 2)
+    f.line((210, 960), (870, 960), GREY, a * 0.6, 2)
+    ao = a * eo((t - ST('A37') - 0.2) / 0.5)
+    f.text('最乐观的解释', 870, 560, 30, 'sans_bold', RED, ao, anchor='r')
+    f.text('THE MOST OPTIMISTIC INTERPRETATION', 870, 600, 18, 'en_med', GREY, ao, anchor='r', track=0.1)
+    sp = (t - ST('A38') - 1.2) / 0.3
+    if sp > 0:
+        s = 1 + 0.5 * (1 - eo(sp))
+        aa = a * eo(sp)
+        f.rrect(CX - 250 * s, 1070 - 62 * s, CX + 250 * s, 1070 + 62 * s, 12, RED, aa, 4)
+        f.text('警惕粉饰数字', CX, 1070, int(74 * s), 'serif_black', RED, aa, mode='O')
+    f.text('这样做的人多得是', CX, 1200, 36, 'sans_med', SUBG, a * eo((t - ST('A39')) / 0.5), t0=ST('A39'), stag=0.03)
 
 
 def sc_lesson(f, t):
     a = vis('lesson')
     if a <= 0: return
-    header(f, '投资启示', 'TAKEAWAY', 400, a, t0=S[25] - 0.3)
+    header(f, '投资启示', 'TAKEAWAY', 400, a, t0=HIT0 + 0.1)
     # 第一步 ≠ 选折现率
-    a1 = a * eo((t - S[25]) / 0.4)
+    a1 = a * eo((t - ST('L1')) / 0.4)
     w1 = text_width('第一步不是', 'sans_med', 40); w2 = text_width('选折现率', 'serif_black', 48)
     x = CX - (w1 + 20 + w2) / 2
     f.text('第一步不是', x, 560, 40, 'sans_med', GREY, a1, anchor='l')
     f.text('选折现率', x + w1 + 20, 560, 48, 'serif_black', WHITE, a1, anchor='l', mode='O')
-    sk = eio((t - S[25] - 1.2) / 0.5)
+    sk = eio((t - ST('L1') - 2.4) / 0.5)
     if sk > 0:
         f.line((x + w1 + 14, 562), (x + w1 + 14 + (w2 + 12) * sk, 562), RED, a1, 4)
     # 判断框
-    a2 = a * eo((t - S[26] - 0.3) / 0.5)
+    a2 = a * eo((t - ST('L2b')) / 0.5)
     f.rrect_fill(170, 650, 910, 830, 20, G_MAIN, a2 * 0.12, 'E')
     f.rrect(170, 650, 910, 830, 20, G_MAIN, a2, 3)
     f.text('能否有合理把握', CX, 708, 50, 'serif_black', G_LIGHT, a2, mode='O')
     f.text('预测现金流的区间？', CX, 776, 50, 'serif_black', G_LIGHT, a2, mode='O')
     # 不能 / 能
-    for side, (k, lab, zh, en, col) in enumerate(((27, '不能', '放进「太难」', 'TOO HARD', GREY),
-                                                  (28, '能', '再和价格比较', 'VS. PRICE', G_MAIN))):
-        p = eo((t - S[k]) / 0.5)
+    for side, (k, lab, zh, en, col) in enumerate((('L3', '不能', '放进「太难」', 'TOO HARD', GREY),
+                                                  ('L4', '能', '再和价格比较', 'VS. PRICE', G_MAIN))):
+        p = eo((t - ST(k)) / 0.5)
         if p <= 0: continue
         ap = a * p
         bx = 300 if side == 0 else 780
@@ -489,8 +589,8 @@ def sc_lesson(f, t):
         f.text(en, bx, 1076, 24, 'en_med', col, ap, track=0.15)
 
 
-MOTTO = [('确定性', 830, 150, 'serif_black'), ('优先于便宜', 1000, 110, 'serif_black')]
-MOTTO_EN = ('CERTAINTY BEFORE CHEAPNESS', 1110, 36)
+MOTTO = [('确定性', 830, 150, 'serif_black'), ('比便宜更重要', 1000, 104, 'serif_black')]
+MOTTO_EN = ('CERTAINTY OVER CHEAPNESS', 1110, 36)
 
 def draw_motto(f, t, a, t0=None):
     for s, y, size, fnt in MOTTO:
@@ -499,9 +599,9 @@ def draw_motto(f, t, a, t0=None):
            t0=None if t0 is None else t0 + 0.6, stag=0.02)
 
 def sc_motto(f, t):
-    a = env(t, S[29] - 0.2, CONV0 + 0.5, 0.4, 0.5)
+    a = env(t, ST('M') - 0.2, CONV0 + 0.5, 0.4, 0.5)
     if a <= 0: return
-    draw_motto(f, t, a, S[29])
+    draw_motto(f, t, a, ST('M') + 1.0)
 
 
 # ---------------------------------------------------------------- 片尾：汇聚成官方 logo
@@ -625,7 +725,8 @@ def endcard_post(img, t):
 
 # ---------------------------------------------------------------- 合成
 HUD = Hud(scale=1.0, frame_w=W)
-SCENES = [sc_title, sc_ask, sc_dcf, sc_fog, sc_range, sc_cert, sc_report, sc_check, sc_lesson, sc_motto, sc_converge]
+SCENES = [sc_title, sc_ask, sc_answer, sc_dcf, sc_fog, sc_dissonance, sc_range, sc_cert, sc_report, sc_check,
+          sc_massage, sc_lesson, sc_motto, sc_converge]
 
 def render(i):
     t = i / FPS
@@ -635,8 +736,9 @@ def render(i):
     draw_dust(f, t, 1.0 - 0.7 * eio((t - CONV0) / 1.5))
     for s in SCENES:
         s(f, t)
+    shock(f, t, HIT0, CX, 900, G_MAIN, 0.8)
     if HIT0 <= t < HIT0 + 0.25:
-        f.flash = 0.22 * math.exp(-(t - HIT0) / 0.07)
+        f.flash = 0.12 * math.exp(-(t - HIT0) / 0.07)
     if HIT <= t < HIT + 0.3:
         f.flash = 0.16 * math.exp(-(t - HIT) / 0.08)
     shock(f, t, HIT, CX, LOGO_CY, BLUE, 0.8, 800)

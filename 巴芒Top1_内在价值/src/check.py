@@ -54,10 +54,11 @@ items = json.load(open(work + '/timeline.json'))['items']
 bad = 0
 for it in items:
     seg = y[int((it['start'] - 0.05) * sr):int((it['end'] + 0.05) * sr)]
-    rec = en if it['lang'] == 'en' else zh
+    lang = 'en' if it['lang'] == 'orig' else 'zh'     # 原声英文 / 中文解说
+    rec = en if lang == 'en' else zh
     s = rec.create_stream(); s.accept_waveform(sr, seg); rec.decode_stream(s)
-    ref = it['en'] if it['lang'] == 'en' else it['zh']
-    sc = score(ref, s.result.text, it['lang'])
+    ref = it['en'] if lang == 'en' else it['zh']
+    sc = score(ref, s.result.text, lang)
     flag = 'OK ' if sc >= 0.7 else 'LOW'
     bad += sc < 0.7
     print('%s %5.1f-%5.1f %3.0f%%  %s  ||  %s' % (flag, it['start'], it['end'], sc * 100, ref[:40], s.result.text[:50]))
