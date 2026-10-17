@@ -40,6 +40,7 @@ for v in tl['intro']['vo']:
     L.append(f"- `{tc(v['t0'])}–{tc(v['t1'])}` {v['text']}")
 L += ['', '## 三、原始问答【原声】', '',
       f"来源：{CNBC_CHAPTER}（1994 年伯克希尔股东大会下午场）。英文逐字取自 CNBC 逐字稿，只省略口头重起的半句；中文为本片翻译。", '',
+      '本片为节选：' + '；'.join(tl['qa']['omitted']) + '。以下为保留部分。', '',
       '| 片内时间 | archive.org 录像时间 | 下午场时间（约） | 英文原话 | 中文字幕 |', '|---|---|---|---|---|']
 for s in tl['qa']['subs']:
     src = s['t0'] - tl['qa']['t0'] + tl['qa']['src_in'] + CLIP_IN
@@ -58,14 +59,10 @@ Q = {s['scene']: s for s in tl['qa']['scenes']}
 E = tl['end']
 shots = [
     (0, tl['t_title'], '冷开场', '黑场中浮现 1994 年股东大会同日静帧（巴菲特托腮倾听，宽银幕窗口，模糊背景扩展）；原声波形；中英字幕', '巴菲特原声 A7–A8：“如果完全不知道未来现金流……就完全不知道它值多少”', '无音乐；结尾低频膨胀'),
-    (tl['t_title'], V['S1']['t1'] + 0.3, '片名', '金色宋体片名“伯克希尔股东大会 / 投资智慧录”逐字显现 + 流光；“第一集 · 内在价值”', 'S1', '低沉冲击 + Impact Lento 第一个和弦'),
-    (V['S2']['t0'], V['S2']['t1'], '1994 至今', '1994 年上午场真实影像（宽银幕窗口）；1994→2026 时间轴逐年点亮', 'S2', 'Impact Lento（压低）'),
-    (V['S3']['t0'], V['S3']['t1'], '八大主题', '影像压暗；八个主题词随口播逐一点亮', 'S3', '同上'),
-    (V['S4']['t0'], V['S4']['t1'], '每期结构', '01 原始问答 → 02 真实案例 → 03 深度解读，竖线连接', 'S4', '同上'),
-    (V['S5']['t0'], V['S5']['t1'], '为什么', '“说了什么”被划去，金色“为什么这样思考”显现', 'S5', '同上'),
-    (V['S6']['t0'], V['S7']['t1'], '投资与人生', '上午场巴菲特讲话影像；“投资 / 人生”两组要点随口播出现', 'S6–S7', '同上'),
-    (V['S8']['t0'], V['S8']['t1'], '理性 · 清醒 · 豁达', '三个金色大字依次浮现', 'S8', '同上'),
-    (V['S9']['t0'], V['S11']['t1'], '回到 1994', '年份从 2026 倒数回 1994；巴菲特与芒格同框影像；金色问题“一家企业的内在价值，究竟该怎么算？”', 'S9–S11', '音乐收束'),
+    (tl['t_title'], V['S1']['t1'] + 0.3, '片名', '大鼓重拍上金色宋体片名“伯克希尔股东大会 / 投资智慧录”砸入 + 流光', 'S1', 'Undaunted 大鼓进入 + 低沉冲击'),
+    (V['S2']['t0'], V['S2']['t1'], '1994 → 至今', '1994 年上午场真实影像；“1994—至今”与“估值 / 护城河 / 风险 / 人生智慧”逐词砸入、粒子爆开', 'S2', 'Undaunted（压低），段落开口踩拍'),
+    (V['S3']['t0'], V['S3']['t1'], '每期结构', '巴菲特讲话影像；“01 原声 → 02 案例”卡片砸入；“说了什么”被划去，“为什么这样想”砸入', 'S3', '同上'),
+    (V['S4']['t0'], V['S5']['t1'], '回到 1994', '年份从 2026 倒带到 1994（残影 + 粒子）；巴菲特与芒格同框影像；金色问题逐句砸入', 'S4–S5', '同上'),
     (tl['ctx']['t0'], tl['qa']['t0'] + 1.5, '背景卡', '1994 年 4 月 · 奥马哈 · 下午场；CNBC 第 22 章；说明“此段仅存原始录音、画面为同日上午场静帧”', '—', '低频下潜；音乐停止'),
 ]
 for sc, desc in [('ask', '股东提问：画面为倾听静帧；面板写出问题要点'), ('open', '“1992 ANNUAL REPORT”卡片'),
@@ -73,17 +70,17 @@ for sc, desc in [('ask', '股东提问：画面为倾听静帧；面板写出问
                  ('dissonance', '“今天的股价：自以为知道” vs “未来 20 年现金流：毫无概念” → 认知失调'),
                  ('range', '宽锥（看不清，放进太难）与窄带（高概率区间），再折现回今天'),
                  ('cert', '天平：确定性 ＞ 看起来便宜'), ('report', '财务报表 → 没有答案 / 只有指引 → 懂生意 ＞ 懂数学'),
-                 ('check', '公寓楼 · 农场 · 小生意 → 四问清单'), ('massage', '柱子被“最乐观的解释”拉高变红 → 警惕粉饰数字')]:
+                 ('check', '公寓楼 · 农场 · 小生意 → 四问清单')]:
     s = Q[sc]
     shots.append((s['t0'], s['t1'], f'原声·{sc}', desc + '；上方为同日静帧（回答段换成巴菲特讲话时的静帧），下方中英字幕', '原始录音（不剪）', '无音乐'))
 shots += [
-    (tl['insight']['t_card'], V['I1']['t0'], '投资启示标题卡', '“投资启示 / INSIGHT”；注明“以下为本片解读，非巴菲特或芒格原话”', '—', '低沉冲击 + Lost Time 进入'),
-    (V['I1']['t0'], V['I3']['t1'], '价值公式', 'V = Σ CFₜ/(1+r)ᵗ；“分子”被点亮；John Burr Williams 1938 书目卡', 'I1–I3', 'Lost Time（压低）'),
-    (V['I4']['t0'], V['I6']['t1'], '债券 vs 股票', '债券票息整齐 vs 股票“票息”问号；1992 年信原文引语', 'I4–I6', '同上'),
-    (V['I7']['t0'], V['I9']['t1'], '看得清：喜诗糖果', '1972 年 2500 万美元；销量 1600 万→3100 万磅；税前 <500 万→8200 万；13.5 亿 vs 3200 万柱图', 'I7–I9', '同上'),
-    (V['I11']['t0'], V['I13']['t1'], '看不清：美国航空', '3.58 亿 → 8950 万（每美元 25 美分）；1994.9 停付股息；“a case of sloppy analysis”', 'I11–I13', '同上'),
-    (V['I14']['t0'], V['I15']['t1'], '代价：错过', '2017 年芒格原话（Google）；错过＝少赚 vs 看错＝永久亏损', 'I14–I15', '同上'),
-    (V['I16']['t0'], V['I17']['t1'], '今天', '120 个点里只有 7 个亮起；“答案，在你对生意的理解里”', 'I16–I17', 'Lost Time 渐弱'),
+    (tl['insight']['t_card'], V['I1']['t0'], '投资启示标题卡', 'HUD 圆环展开 + 粒子爆开，“投资启示”砸入；注明“以下为本片解读，非巴菲特或芒格原话”', '—', 'The Escalation 渐强段进入 + 低沉冲击'),
+    (V['I1']['t0'], V['I3']['t1'], '价值公式', '透视网格 + 3D 粒子场背景；V = Σ CFₜ/(1+r)ᵗ 各符号从景深飞入，HUD 圆环旋转；“分子”被瞄准框锁定并爆开；1938 书目打字机显现', 'I1–I3', 'The Escalation（压低）'),
+    (V['I4']['t0'], V['I6']['t1'], '债券 vs 股票', '债券票息光柱整齐升起；股票“票息”问号柱抖动后故障化；1992 年信原文打字机显现', 'I4–I6', '同上'),
+    (V['I7']['t0'], V['I9']['t1'], '看得清：喜诗糖果', '配乐大段落进入的重拍上推镜 + 闪光 + 粒子爆开；销量与利润滚动计数；13.5 亿光柱升起（竖向光束 + 火花），3200 万仅约 2.4%', 'I7–I9', '重拍对准“看得清” + 低沉冲击'),
+    (V['I11']['t0'], V['I13']['t1'], '看不清：美国航空', '3.58 亿金柱；“1994.9 停付股息”红色警报闪烁 + 故障；减记时金柱碎裂下坠，只剩 25% 红柱；“$1 → 25¢”砸入；“a case of sloppy analysis”打字机', 'I11–I13', 'The Escalation 高段'),
+    (V['I14']['t0'], V['I15']['t1'], '代价：错过', '2017 年芒格原话打字机显现；“错过＝少赚 / 看错＝永久亏损”两块卡片砸入，后者故障闪红', 'I14–I15', '配乐回落'),
+    (V['I16']['t0'], V['I17']['t1'], '今天', '旋转的 3D 点阵球，只有 7 颗点亮并连线；“越来越少”砸入；“答案，在你对生意的理解里”', 'I16–I17', '配乐再起'),
     (tl['summary']['t0'], E['t_particles'], '一句话总结', '金色大字“先问看不看得清，再问便不便宜。”+ 流光', 'M', '低频下潜 + Impact Lento 段落重拍'),
     (E['t_particles'], E['t_logo'], '片尾·汇聚', '总结文字化为金色微粒，沿官方 logo 透明通道汇聚', '—', 'Impact Lento'),
     (E['t_logo'], E['t_brand'], '片尾·logo', '官方 logo_baman.png 清晰居中出现，背后淡蓝光晕', '—', '同上'),
@@ -100,14 +97,15 @@ for a, b, n, d, v, m in shots:
     L.append(f'| {tc(a)} | {tc(b)} | {n} | {d} | {v} | {m} |')
 L += ['', '## 原始素材剪辑点', '',
       f"- 冷开场原声：录像 {hms(CLIP_IN + tl['cold']['src_in'])}–{hms(CLIP_IN + tl['cold']['src_out'])} → 片内 {tc(tl['cold']['t0'])}–{tc(tl['cold']['t1'])}",
-      f"- 完整问答原声：录像 {hms(CLIP_IN + tl['qa']['src_in'])}–{hms(CLIP_IN + tl['qa']['src_out'])}（下午场约 {hms(CLIP_IN + tl['qa']['src_in'] - AFTERNOON_START)}–{hms(CLIP_IN + tl['qa']['src_out'] - AFTERNOON_START)}）→ 片内 {tc(tl['qa']['t0'])}–{tc(tl['qa']['t1'])}，中间不剪。",
+      f"- 问答原声（节选）：录像 {hms(CLIP_IN + tl['qa']['src_in'])}–{hms(CLIP_IN + tl['qa']['src_out'])}（下午场约 {hms(CLIP_IN + tl['qa']['src_in'] - AFTERNOON_START)}–{hms(CLIP_IN + tl['qa']['src_out'] - AFTERNOON_START)}）→ 片内 {tc(tl['qa']['t0'])}–{tc(tl['qa']['t1'])}，中间不剪。",
+      '- 节选时省略：' + '；'.join(tl['qa']['omitted']) + '。核心问题与完整论证（从“经济价值就是未来现金流的现值”到“我们做的就是这些，只不过对象是大企业”）一字未剪。',
       f"- 历史影像（上午场，有画面）：录像 " + '、'.join(f'{hms(b)} 起 16 秒' for b in BROLL) + f"；静帧取自 {hms(STILL_T)} 与 {hms(6000)}。",
       f"- 画面只取源画面中 x {PIC_BOX[0]}–{PIC_BOX[2]}、y {PIC_BOX[1]}–{PIC_BOX[3]} 的干净区域（避开第三方水印和烧录字幕），等比缩放进 1080×438 宽银幕窗口，不拉伸；窗口外是同一画面的模糊放大背景。", '',
       '## 音乐', '', '| 片内起 | 片内止 | 曲目 | 曲内起点 | 用途 |', '|---|---|---|---|---|']
-use = ['片名与系列片头（第一个和弦对准片名）', '投资启示铺底（第一个和弦对准“投资启示”标题）', '总结与片尾（段落重拍对准总结句，下一个重拍对准「巴芒价值」）']
+use = ['冷开场至系列介绍（大鼓进入对准片名；段落开口吸附到节拍）', '投资启示至片尾（大段落进入对准“看得清”，高潮重拍对准总结句，5 小节后的强拍对准「巴芒价值」）']
 for m, u in zip(tl['music'], use):
     L.append(f"| {tc(m['t0'])} | {tc(m['t1'])} | Kevin MacLeod – {m['track']} | {m['src_in']:.2f}s | {u} |")
-L += ['', '原始问答期间不放音乐。口播期间音乐按人声包络侧链压低 13dB（提前 0.15 秒，attack 80ms / release 650ms）。', '',
+L += ['', '原始问答期间不放音乐。口播期间音乐按人声包络侧链压低 11dB（提前 0.15 秒，attack 80ms / release 650ms）。画面在强重拍上推镜 4%、闪光并做色散，在小节强拍上轻微脉动。', '',
       '## 转场音效（全部为正弦合成，4 阶 180Hz 低通，无噪声源）', '', '| 片内时间 | 类型 | 电平 |', '|---|---|---|']
 names = {'swell': '低频膨胀（Bass Swell）', 'impact': '低沉冲击（Deep Impact）+ 低频空间混响', 'subdrop': '低频下潜（Sub Drop）+ 低频空间混响'}
 for e in tl['sfx']:
@@ -131,8 +129,8 @@ for k, f, s in FACTS:
     L.append(f'| {k} | {f} | {s} |')
 L += ['', '致股东信原文：https://www.berkshirehathaway.com/letters/1992.html 、 https://www.berkshirehathaway.com/letters/1994.html 、 https://www.berkshirehathaway.com/letters/2007ltr.pdf', '',
       '## 音乐（CC BY 4.0）', '',
-      '- "Impact Lento" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/',
-      '- "Lost Time" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/',
+      '- "Undaunted" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/',
+      '- "The Escalation" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/',
       '- 发布时请在简介中保留以上署名。', '',
       '## 配音', '', (f'- Google Gemini TTS `{GEMINI_MODEL}`，声音 `{GEMINI_VOICE}`；字幕时间由 faster-whisper 对合成结果强制对齐得到。' if ENGINE == 'gemini' else f'- 微软 Edge 神经网络语音 `{VOICE}`，经 `edge-tts` 调用。'), '',
       '## 字体（SIL Open Font License）', '', '- 思源宋体 / 思源黑体（Noto Serif SC、Noto Sans SC）、Cormorant Garamond、EB Garamond、Inter，均来自 Google Fonts。', '',

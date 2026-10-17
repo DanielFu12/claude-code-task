@@ -13,7 +13,7 @@ import base64, difflib, hashlib, json, os, re, ssl, subprocess, sys, time, urlli
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from script import (INTRO, INSIGHT, SUMMARY, SAY, VOICE, RATE, PITCH, GEMINI_MODEL, GEMINI_VOICE, GEMINI_STYLE, GEMINI_URL,
-                    TTS_GROUPS, TAGS)
+                    TTS_GROUPS, TAGS, TEMPO)
 
 work = sys.argv[1]
 VD = os.path.join(work, 'vo'); os.makedirs(VD, exist_ok=True)
@@ -195,12 +195,16 @@ def gemini_group(ids):
     ext = [voiced_extent(x, cuts[i], cuts[i + 1]) for i in range(len(ids))]
     for i, sid in enumerate(ids):
         a, b = cuts[i], cuts[i + 1]
-        sf.write(os.path.join(VD, sid + '.wav'), x[a:b], SR)
+        p = os.path.join(VD, sid + '.wav')
+        sf.write(p + '.raw.wav', x[a:b], SR)
+        # 整体提速（rubberband：保留音高与共振峰），时间信息同比缩放
+        ff('-i', p + '.raw.wav', '-af', f'rubberband=tempo={TEMPO}:pitchq=quality:formant=preserved:transients=smooth', p)
+        os.remove(p + '.raw.wav')
         s0, s1 = spans[i]
-        words = [[round(tt[j][0] - a / SR, 3), round(tt[j][1] - a / SR, 3), sc[j]] for j in range(s0, s1 + 1)]
-        d = dict(words=words, dur=(b - a) / SR, say=say[sid])
+        words = [[round((tt[j][0] - a / SR) / TEMPO, 3), round((tt[j][1] - a / SR) / TEMPO, 3), sc[j]] for j in range(s0, s1 + 1)]
+        d = dict(words=words, dur=len(sf.read(p)[0]) / SR, say=say[sid])
         if i < len(ids) - 1:
-            d['gap'] = round((ext[i + 1][0] - ext[i][1]) / SR, 3)
+            d['gap'] = round((ext[i + 1][0] - ext[i][1]) / SR / TEMPO, 3)
         out[sid] = d
     print(f'{gname}: {len(x) / SR:5.1f}s  对齐覆盖率 {ratio:.2f}  ' + ' '.join(f'{sid}={out[sid]["dur"]:.1f}s' for sid in ids))
     return out

@@ -210,13 +210,12 @@ vstem = np.stack([vstem, vstem], 1)
 # ------------------------------------------------------------------ 背景音乐
 mstem = np.zeros((N, 2))
 cache = {}
-BED = {0: -22.0, 1: -23.0, 2: -19.5}   # 各段音乐（无人声时）的响度 LUFS：片头 / 投资启示 / 总结与片尾
 for k, m in enumerate(tl['music']):
     if m['track'] not in cache:
         cache[m['track']] = load(os.path.join(music_dir, m['track'] + '.mp3'))
     tr = cache[m['track']]
     x = tr[int(m['src_in'] * SR):int((m['src_in'] + m['t1'] - m['t0']) * SR)]
-    x = x * db(BED[k] - lufs(x))
+    x = x * db(m['level'] - lufs(x))              # 每段配乐按整体响度（LUFS）定电平，保留曲内渐强的动态
     put(mstem, fade(x, m['fade_in'], m['fade_out']), m['t0'])
 
 # 侧链：人声（口播 + 冷开场原声）包络 → 音乐增益
@@ -230,7 +229,7 @@ g = np.zeros_like(act); s = 0.0
 for i, v in enumerate(act):                          # attack 80ms / release 650ms
     s += (v - s) * (1 - np.exp(-1 / (8 if v > s else 65)))
     g[i] = s
-duck_db = -13.0 * g
+duck_db = -11.0 * g                                  # 人声期间压低 11dB：人声清楚，配乐仍有推动力
 gain = np.repeat(db(duck_db), f)
 gain = np.concatenate([gain, np.full(N - len(gain), gain[-1])])
 mstem *= gain[:, None]

@@ -15,6 +15,8 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, '..', '..', '..', 'brand'))
 from gfx import *                      # noqa: F401,F403
 import gfx
+import fx
+from fx import CYAN as CYAN_
 import brand as B                      # 仓库根目录 brand/：官方角标、logo 与品牌字体
 from script import PIC_BOX
 
@@ -69,6 +71,8 @@ for part in (INTRO, INS, SUM):
 QSC = {s['scene']: s for s in QA['scenes']}
 QSUB = {s['id']: s for s in QA['subs']}
 T_CTX = TL['ctx']['t0']; T_Q = QA['t0']; T_QE = QA['t1']; T_INS = INS['t_card']; T_SUM = SUM['t0']
+HITS = [tuple(h) for h in TL['hits']]
+BARS = np.array(TL['beats'][::4])
 
 
 def wt(sid, sub, dflt=None):
@@ -121,8 +125,8 @@ def waveform(img, t, cx, cy, w, hmax, a=1.0, n=24):
 def narr_sub(img, t, subs, y=1610, hide=()):
     for s in subs:
         if s['id'] in hide: continue
-        if s['t0'] - 0.15 <= t <= s['t1'] + 0.15:
-            a = env(t, s['t0'] - 0.12, s['t1'] + 0.12, 0.12, 0.14)
+        if s['t0'] <= t <= s['t1']:
+            a = env(t, s['t0'], s['t1'], 0.06, 0.08)      # 相邻两句几乎硬切，避免交叠
             text(img, s['text'], W / 2, y, 46, 'sans_med', INK, a, 'm', track=0.04, shadow=0.85, rise=(1 - a) * 6)
 
 
@@ -186,114 +190,65 @@ def s_title(img, t):
         text(img, '第一集 · 内在价值', W / 2, 1232, 38, 'sans_med', INK, ea, track=0.14)
 
 
-# ---------------------------------------------------------------- 系列片头口播
+# ---------------------------------------------------------------- 系列片头（v3：40 秒内，逐词卡点的动态排版）
 def s_intro(img, t):
-    # S2：1994 至今 + 1994 年真实影像
-    a0, b0 = span('S2', pre=0.5, post=0.0)
-    b0 = VOD['S4']['t1'] + 0.6
-    a = env(t, a0, b0, 0.6, 0.6)
+    S2, S3, S4, S5 = VOD['S2'], VOD['S3'], VOD['S4'], VOD['S5']
+    # S2：1994 → 至今 + 四个主题词逐词砸入
+    a = env(t, S2['t0'] - 0.3, S2['t1'] + 0.4, 0.3, 0.35)
     if a > 0:
-        clip = 200 if t < VOD['S3']['t0'] else (1500 if t < VOD['S4']['t0'] else 6000)
-        ct = t - a0 if clip == 200 else (t - VOD['S3']['t0'] if clip == 1500 else t - VOD['S4']['t0'])
-        ct = ct % 15.5
-        dim = 1.0 - 0.35 * env(t, VOD['S3']['t0'], b0, 0.6, 0.3)
-        window(img, grade(CLIPS[clip].get(ct), gain=dim), W / 2, 640, WIN_W, WIN_H, zoom=1.03 + 0.0025 * ct, a=a, blur_bg=0.5)
-        text(img, '1994 · 奥马哈 · 伯克希尔股东大会上午场实况', 72, 448, 24, 'sans', INK2, a * 0.9, 'l', track=0.06, shadow=0.5)
-    # S2 时间轴
-    a = env(t, VOD['S2']['t0'] - 0.3, VOD['S3']['t0'] - 0.1, 0.5, 0.4)
+        ct = (t - S2['t0']) % 15.5
+        window(img, grade(CLIPS[200].get(ct), gain=0.85), W / 2, 560, WIN_W, WIN_H, zoom=1.05 + 0.006 * ct, a=a, blur_bg=0.5)
+        text(img, '1994 · 奥马哈 · 伯克希尔股东大会上午场实况', 72, 372, 24, 'sans', INK2, a * 0.9, 'l', track=0.06, shadow=0.5)
+        ty = wt('S2', '1994')
+        fx.slam(img, '1994', 300, 900, 120, 'corm_med', t, ty - 0.05, a, glow_=0.4)
+        k = eo((t - wt('S2', '逐年')) / 0.6)
+        line(img, (430, 900), (430 + 220 * k, 900), GOLD, a * k, 2)
+        fx.slam(img, '至今', 800, 900, 96, 'serif_black', t, wt('S2', '逐年') + 0.25, a)
+        for i, (s, kk) in enumerate([('估值', '估值'), ('护城河', '护城河'), ('风险', '风险'), ('人生智慧', '人生')]):
+            t0 = wt('S2', kk)
+            x, y = (300 if i % 2 == 0 else 780), 1090 + (i // 2) * 135
+            fx.slam(img, s, x, y, 78, 'serif_black', t, t0 - 0.05, a, glow_=0.35)
+            fx.burst(img, t, t0 - 0.05, (x, y), a * 0.6, n=26, speed=260, life=0.9, seed=i + 1)
+    # S3：每期结构
+    a = env(t, S3['t0'] - 0.25, S3['t1'] + 0.4, 0.3, 0.35)
     if a > 0:
-        p = eio((t - VOD['S2']['t0']) / (VOD['S2']['t1'] - VOD['S2']['t0']))
-        xA, xB, yL = 130, 950, 1080
-        line(img, (xA, yL), (xB, yL), INK3, a * 0.8, 1)
-        for i, yr in enumerate(range(1994, 2027)):
-            x = xA + (xB - xA) * i / 32
-            big = yr in (1994, 2000, 2008, 2016, 2026)
-            on = (i / 32) <= p
-            line(img, (x, yL - (14 if big else 7)), (x, yL), GOLD if on else INK3, a * (0.95 if on else 0.6), 2 if big else 1)
-            if big:
-                text(img, str(yr), x, yL + 34, 24, 'inter', GOLD if on else INK3, a, shadow=0.3)
-        glow(img, (xA + (xB - xA) * p, yL), 9, GOLD_HI, a * 0.9)
-        text(img, '1994', 300, 1240, 120, 'corm_med', a=a, gold=True, track=0.02)
-        text(img, '—', 540, 1240, 80, 'corm', SUB_GOLD, a * eo((t - wt('S2', '以来')) / 0.5))
-        text(img, '至今', 770, 1240, 92, 'serif_bold', a=a * eo((t - wt('S2', '以来')) / 0.5), gold=True)
-        text(img, '历届伯克希尔股东大会 · 问答精选', W / 2, 1360, 30, 'sans', INK2, a * eo((t - wt('S2', '历届')) / 0.6), track=0.1)
-    # S3 八大主题，逐词点亮
-    a = env(t, VOD['S3']['t0'] - 0.2, VOD['S3']['t1'] + 0.7, 0.4, 0.5)
+        ct = (t - S3['t0']) % 15.5
+        window(img, grade(CLIPS[6000].get(ct), gain=0.85), W / 2, 560, WIN_W, WIN_H, zoom=1.05 + 0.006 * ct, a=a, blur_bg=0.5)
+        for i, (n, s, kk) in enumerate([('01', '原声', '原声'), ('02', '案例', '案例')]):
+            t0 = wt('S3', kk); x = 290 + i * 500
+            k = eo((t - t0 + 0.05) / 0.35)
+            if k > 0:
+                rrect(img, x - 190, 860, x + 190, 1000, 10, GOLD, a * k * 0.8, 2)
+                text(img, n, x - 140, 930, 26, 'inter_semi', GOLD, a * k, 'l')
+                fx.slam(img, s, x + 20, 930, 64, 'serif_black', t, t0 - 0.05, a, gold=False, col=INK, glow_=0.15)
+        k = eo((t - wt('S3', '案例') - 0.3) / 0.4)
+        line(img, (488, 930), (488 + 104 * k, 930), GOLD_HI, a * k, 2)
+        tw_ = wt('S3', '说了什么')
+        text(img, '说了什么', W / 2, 1120, 48, 'serif_med', INK2, a * eo((t - tw_) / 0.4) * (1 - 0.6 * eo((t - wt('S3', '为什么')) / 0.4)))
+        k2 = eo((t - wt('S3', '为什么')) / 0.4)
+        if k2 > 0:
+            ww = text_w('说了什么', 'serif_med', 48)
+            line(img, (W / 2 - ww / 2 - 8, 1122), (W / 2 - ww / 2 - 8 + (ww + 16) * k2, 1122), INK2, a, 2)
+        fx.slam(img, '为什么这样想', W / 2, 1270, 96, 'serif_black', t, wt('S3', '为什么') - 0.05, a, glow_=0.4)
+    # S4：年份倒带回 1994 + 巴菲特与芒格同框
+    a = env(t, S4['t0'] - 0.25, S5['t1'] + 0.9, 0.3, 0.8)
     if a > 0:
-        themes = ['价值投资', '企业估值', '商业模式', '竞争护城河', '风险管理', '市场周期', '投资心理', '人生智慧']
-        keys = ['价值', '企业估值', '商业', '竞争', '风险', '市场', '投资心理', '人生']
-        for i, (th, kk) in enumerate(zip(themes, keys)):
-            tt = wt('S3', kk)
-            k = eo((t - tt + 0.1) / 0.5)
-            cx = 290 if i % 2 == 0 else 790; cy = 1000 + (i // 2) * 112
-            text(img, f'{i + 1:02d}', cx - 170, cy, 24, 'inter_semi', GOLD, a * k, 'l', shadow=0.3)
-            text(img, th, cx - 120, cy, 50, 'serif_bold', INK, a * k, 'l', track=0.06, rise=(1 - k) * 10)
-        text(img, '经 典 问 答', W / 2, 1450, 26, 'sans', SUB_GOLD, a * eo((t - wt('S3', '经典')) / 0.5), track=0.3)
-    # S4 每一期的结构
-    a = env(t, VOD['S4']['t0'] - 0.2, VOD['S4']['t1'] + 0.6, 0.4, 0.5)
-    if a > 0:
-        steps = [('01', '原始问答', 'ORIGINAL Q&A', '原始视频'), ('02', '真实案例', 'BUSINESS CASES', '商业案例'),
-                 ('03', '深度解读', 'INSIGHT', '深入解读')]
-        for i, (n, zh, en, kk) in enumerate(steps):
-            k = eo((t - wt('S4', kk) + 0.15) / 0.55)
-            y = 1000 + i * 140
-            circle(img, (170, y), 30, GOLD, a * k, 1)
-            text(img, n, 170, y, 26, 'inter_semi', GOLD, a * k)
-            text(img, zh, 230, y - 12, 50, 'serif_bold', INK, a * k, 'l', track=0.08)
-            text(img, en, 232, y + 34, 22, 'corm_med', INK2, a * k, 'l', track=0.18, shadow=0.3)
-            if i < 2:
-                line(img, (170, y + 34), (170, y + 34 + 72 * eo((t - wt('S4', steps[i + 1][3]) + 0.4) / 0.5)), SUB_GOLD, a * 0.6, 1)
-    # S5 说了什么 → 为什么这样思考
-    a = env(t, VOD['S5']['t0'] - 0.2, VOD['S5']['t1'] + 0.55, 0.4, 0.5)
-    if a > 0:
-        tw_ = wt('S5', '更要')
-        d = eo((t - tw_) / 0.5)
-        text(img, '说了什么', W / 2, 780, 64, 'serif_med', INK2, a * (1 - 0.55 * d), track=0.1)
-        if d > 0:
-            ww = text_w('说了什么', 'serif_med', 64, 0.1)
-            line(img, (W / 2 - ww / 2 - 10, 782), (W / 2 - ww / 2 - 10 + (ww + 20) * d, 782), INK2, a * 0.8, 2)
-        text(img, '为什么这样思考', W / 2, 940, 92, 'serif_black', a=a, gold=True, wipe=eo((t - wt('S5', '他们')) / 0.9), glow=0.15)
-    # S6–S7 投资与人生
-    a = env(t, VOD['S6']['t0'] - 0.3, VOD['S7']['t1'] + 0.6, 0.5, 0.5)
-    if a > 0:
-        ct = (t - VOD['S6']['t0'] + 2) % 15.5
-        window(img, grade(CLIPS[8700].get(ct), gain=0.9), W / 2, 600, WIN_W, WIN_H, zoom=1.04 + 0.002 * ct, a=a, blur_bg=0.5)
-        text(img, '投资', 120, 920, 28, 'sans_med', GOLD, a, 'l', track=0.3)
-        for i, (s, kk) in enumerate([('洞察企业价值', '洞察'), ('理性应对市场波动', '理性'), ('规避投资风险', '规避')]):
-            k = eo((t - wt('S6', kk) + 0.1) / 0.5)
-            text(img, s, 120, 990 + i * 70, 46, 'serif_bold', INK, a * k, 'l', track=0.05, rise=(1 - k) * 8)
-        text(img, '人生', 120, 1230, 28, 'sans_med', GOLD, a * eo((t - VOD['S7']['t0']) / 0.5), 'l', track=0.3)
-        for i, (s, kk) in enumerate([('做出更好的人生选择', '做出'), ('收获真正的幸福', '收获')]):
-            k = eo((t - wt('S7', kk) + 0.1) / 0.5)
-            text(img, s, 120, 1300 + i * 70, 46, 'serif_bold', INK, a * k, 'l', track=0.05, rise=(1 - k) * 8)
-    # S8 理性 · 清醒 · 豁达
-    a = env(t, VOD['S8']['t0'] - 0.2, VOD['S8']['t1'] + 0.7, 0.4, 0.6)
-    if a > 0:
-        text(img, '更系统的投资框架', W / 2, 700, 40, 'serif_med', INK2, a * eo((t - wt('S8', '建立')) / 0.6), track=0.12)
-        for i, (s, kk) in enumerate([('理性', '理性'), ('清醒', '清醒'), ('豁达', '豁达')]):
-            k = eo((t - wt('S8', kk) + 0.05) / 0.6)
-            text(img, s, 230 + i * 310, 920, 112, 'serif_black', a=a * k, gold=True, glow=0.2 * k, rise=(1 - k) * 14)
-        text(img, '处世哲学', W / 2, 1110, 40, 'serif_med', INK2, a * eo((t - wt('S8', '处世')) / 0.6), track=0.3)
-    # S9–S11 回到 1994
-    a = env(t, VOD['S9']['t0'] - 0.3, VOD['S11']['t1'] + 0.9, 0.5, 0.9)
-    if a > 0:
-        t9 = VOD['S9']['t0']
-        p = eio((t - t9 - 0.6) / 2.6)
+        t9 = S4['t0']
+        p = eio((t - t9 + 0.1) / 1.4)
         yr = int(round(2026 - (2026 - 1994) * p))
-        ys = 760 - 300 * eio((t - VOD['S10']['t0'] + 0.3) / 1.2)
-        sz = 240 - 120 * eio((t - VOD['S10']['t0'] + 0.3) / 1.2)
-        text(img, str(yr), W / 2, ys, sz, 'corm_med', a=a, gold=True, glow=0.25 * (1 if yr == 1994 else 0.4), track=0.02)
-        text(img, 'OMAHA · NEBRASKA', W / 2, ys + sz * 0.62, 26, 'corm_med', SUB_GOLD, a * eo((t - t9 - 3.0) / 0.8) * (1 - eio((t - VOD['S10']['t0']) / 0.6)), track=0.3)
-        wa = a * eo((t - VOD['S10']['t0'] + 0.2) / 0.9)
+        for g in range(3 if p < 1 else 1):            # 倒带时的运动残影
+            text(img, str(yr + g * (1 if p < 1 else 0)), W / 2, 470 - g * 26, 200, 'corm_med', a=a * (1 - 0.35 * g) * (0.6 if g else 1),
+                 gold=True, glow=0.3 if yr == 1994 else 0.15)
+        if p >= 1: fx.burst(img, t, t9 + 1.3, (W / 2, 470), a * 0.7, n=40, speed=420, life=1.1, seed=11)
+        wa = a * eo((t - wt('S4', '一位') + 0.2) / 0.6)
         if wa > 0:
-            ct = (t - VOD['S10']['t0']) % 15.5
-            window(img, grade(CLIPS[7790].get(ct), gain=0.92), W / 2, 820, WIN_W, WIN_H, zoom=1.02 + 0.003 * ct, a=wa, blur_bg=0.5)
-            text(img, '1994 · 上午场实况（下午场问答仅存录音）', 72, 1066, 22, 'sans', INK2, wa * 0.85, 'l', track=0.05, shadow=0.5)
-        qa_ = a * eo((t - VOD['S11']['t0'] + 0.1) / 0.6)
-        if qa_ > 0:
-            text(img, '一家企业的内在价值，', W / 2, 1230, 64, 'serif_black', a=qa_, gold=True, wipe=eo((t - VOD['S11']['t0'] + 0.1) / 0.9))
-            text(img, '究竟该怎么算？', W / 2, 1330, 64, 'serif_black', a=qa_, gold=True, wipe=eo((t - wt('S11', '究竟')) / 0.8))
-    narr_sub(img, t, INTRO['subs'], hide=('S11',))
+            ct = (t - S4['t0']) % 15.5
+            dim = 1 - 0.35 * eo((t - S5['t0'] + 0.2) / 0.5)
+            window(img, grade(CLIPS[7790].get(ct), gain=0.92 * dim), W / 2, 860, WIN_W, WIN_H, zoom=1.03 + 0.004 * ct, a=wa, blur_bg=0.5)
+            text(img, '1994 · 上午场实况（下午场问答仅存录音）', 72, 1106, 22, 'sans', INK2, wa * 0.85, 'l', track=0.05, shadow=0.5)
+        fx.slam(img, '一家企业的内在价值，', W / 2, 1250, 68, 'serif_black', t, S5['t0'] - 0.05, a, glow_=0.35)
+        fx.slam(img, '究竟该怎么算？', W / 2, 1350, 68, 'serif_black', t, wt('S5', '究竟') - 0.05, a, glow_=0.35)
+    narr_sub(img, t, INTRO['subs'], hide=('S5',))
 
 
 # ---------------------------------------------------------------- 回到 1994：背景卡
@@ -311,7 +266,7 @@ def s_ctx(img, t):
     na = a * eo((k - 1.3) / 0.8)
     rrect(img, 120, 1110, 960, 1280, 10, INK3, na * 0.8, 1)
     text(img, '这一段在档案中只保存了原始录音，没有现场画面。', W / 2, 1160, 30, 'sans', INK2, na, track=0.02)
-    text(img, '以下声音为原始录音，未剪辑；画面为同日上午场静帧。', W / 2, 1225, 30, 'sans', INK2, na, track=0.02)
+    text(img, '以下为原始录音节选；画面为同日上午场静帧。', W / 2, 1225, 30, 'sans', INK2, na, track=0.02)
 
 
 # ---------------------------------------------------------------- 原始问答
@@ -362,7 +317,7 @@ def dcf_bars(img, t, a, mode, k_rise, k_disc, k_fog=0.0):
 def s_qa(img, t):
     a = env(t, T_Q + 0.6, T_QE + 0.6, 0.9, 0.9)
     if a <= 0: return
-    chapter_tag(img, t, '原始问答 · 1994 下午场原声', a)
+    chapter_tag(img, t, '原始问答 · 1994 下午场原声（节选）', a)
     # 提问时：巴菲特托腮倾听的静帧；回答时：同日上午场他讲话时的静帧（都是静帧，不冒充下午场的口型）
     ta = QA['answer_t']
     xf = eio((t - ta + 0.6) / 1.2)
@@ -374,7 +329,7 @@ def s_qa(img, t):
         window(img, grade(STILL2, sat=0.5, gain=0.92), W / 2, 470, WIN_W, WIN_H, zoom=z2, pan=(-0.05 * eio((t - ta) / 180), -0.06), a=a * xf, blur_bg=0.45 * xf)
     text(img, '画面：同日上午场静帧　｜　声音：下午场原始录音', 72, 712, 22, 'sans', INK3 * 1.25, a * 0.95, 'l', track=0.04, shadow=0.5)
     ans = t >= QA['answer_t'] - 0.2
-    spk = '回答 · 沃伦·巴菲特' if ans else '提问 · 肖恩·巴里（加拿大里贾纳）'
+    spk = '回答 · 沃伦·巴菲特' if ans else '提问 · 股东肖恩·巴里（加拿大）'
     circle(img, (84, 790), 6, GOLD, a, fill=True)
     text(img, spk, 104, 790, 30, 'sans_med', INK, a, 'l', track=0.04)
     waveform(img, t, 860, 790, 260, 22, a)
@@ -385,7 +340,7 @@ def s_qa(img, t):
         text(img, '股东的问题', W / 2, 960, 28, 'sans_med', GOLD, a * ka, track=0.3)
         text(img, '你们如何得出', W / 2, 1070, 60, 'serif_bold', INK, a * ka * eo((t - QSUB['Q4']['t0']) / 0.7))
         text(img, '一家企业的内在价值？', W / 2, 1160, 60, 'serif_bold', a=a * ka * eo((t - QSUB['Q5']['t0']) / 0.7), gold=True)
-        text(img, '年报信息人人可得　·　会计准则并不完美', W / 2, 1270, 30, 'sans', INK2, a * ka * eo((t - QSUB['Q2']['t0']) / 0.7), track=0.04)
+        text(img, '经济价值，也就是内在价值', W / 2, 1270, 30, 'sans', INK2, a * ka * eo((t - QSUB['Q5']['t0'] - 1.0) / 0.7), track=0.04)
     ka = qa_env(t, 'open')
     if ka > 0:
         rrect(img, 250, 940, 830, 1300, 8, SUB_GOLD, a * ka * 0.6, 1)
@@ -497,13 +452,13 @@ def s_qa(img, t):
         text(img, '警惕粉饰数字', W / 2, 1410, 52, 'serif_black', BRICK * 1.15, a * ka * eo((t - QSUB['A38']['t0'] - 0.5) / 0.7), track=0.08)
     # ---- 字幕
     for s in QA['subs']:
-        sa = env(t, s['t0'] - 0.05, s['t1'] + 0.05, 0.12, 0.15)
+        sa = env(t, s['t0'], s['t1'], 0.08, 0.08)
         if sa > 0: orig_sub(img, t, s, sa * a)
     la = env(t, TL['laugh']['t0'], TL['laugh']['t1'], 0.15, 0.2)
     if la > 0: text(img, '（现场笑声）', W / 2, 1490, 32, 'sans', INK2, la * a * 0.85, track=0.1)
 
 
-# ---------------------------------------------------------------- 投资启示
+# ---------------------------------------------------------------- 投资启示（v3：科技感、电影感的动态图形）
 def ins_span(*ids, pre=0.35, post=0.6):
     return VOD[ids[0]]['t0'] - pre, VOD[ids[-1]]['t1'] + post
 
@@ -513,166 +468,229 @@ def quote(img, lines, x, y, size, a, col=INK, name='ebg_i', lh=1.32):
         text(img, ln, x, y + i * size * lh, size, name, col, a, 'm', shadow=0.5)
 
 
+def brackets(img, box, a, k=1.0, col=None, L=26):
+    """瞄准框四角（科技感的强调框），k 控制展开"""
+    if a <= 0.003: return
+    col = GOLD_HI if col is None else col
+    x0, y0, x1, y1 = box
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    x0, x1 = lerp(cx, x0, k), lerp(cx, x1, k); y0, y1 = lerp(cy, y0, k), lerp(cy, y1, k)
+    for (px, py, sx, sy) in ((x0, y0, 1, 1), (x1, y0, -1, 1), (x0, y1, 1, -1), (x1, y1, -1, -1)):
+        line(img, (px, py), (px + sx * L, py), col, a, 2); line(img, (px, py), (px, py + sy * L), col, a, 2)
+
+
+def fmt_wan(v):
+    return f'{v:,.0f}万'
+
+
 def s_insight(img, t):
+    t_end = VOD['I17']['t1'] + 0.8
+    # 背景：透视网格 + 3D 金色粒子 + 漏光（整段持续，制造纵深）
+    bga = env(t, T_INS - 0.3, t_end, 0.8, 0.8)
+    if bga > 0:
+        fx.grid_floor(img, t, bga)
+        fx.starfield(img, t, bga * 0.9)
+        fx.light_leak(img, t, bga)
     # 标题卡
-    a = env(t, T_INS - 0.05, VOD['I1']['t0'] - 0.25, 0.05, 0.6)
+    a = env(t, T_INS - 0.05, VOD['I1']['t0'] - 0.25, 0.05, 0.5)
     if a > 0:
         k = t - T_INS
-        glow(img, (W / 2, 880), 240, GOLD * 0.2, math.exp(-max(k, 0) / 1.2) * a)
+        fx.hud_ring(img, t, (W / 2, 880), 300 + 30 * eo(k / 0.8), a * eo(k / 0.6))
+        fx.burst(img, t, T_INS, (W / 2, 880), a, n=70, speed=640, life=1.4, seed=2)
         text(img, 'INSIGHT', W / 2, 760, 32, 'corm_med', SUB_GOLD, a * eo(k / 0.6), track=0.5)
-        text(img, '投资启示', W / 2, 880, 120, 'serif_black', a=a, gold=True, wipe=eo(k / 1.0), glow=0.2)
+        fx.slam(img, '投资启示', W / 2, 880, 124, 'serif_black', t, T_INS, a, glow_=0.5)
         text(img, '以下为本片解读，非巴菲特或芒格原话', W / 2, 1010, 28, 'sans', INK2, a * eo((k - 0.6) / 0.8), track=0.04)
-    ta = env(t, VOD['I1']['t0'] - 0.4, VOD['I17']['t1'] + 0.8, 0.6, 0.6)
+    ta = env(t, VOD['I1']['t0'] - 0.4, t_end, 0.6, 0.6)
     chapter_tag(img, t, '投资启示 · 本片解读', ta)
-    # 公式
+    # ---- 价值公式：符号从景深里飞入，HUD 圆环，分子被锁定
     a0, b0 = ins_span('I1', 'I3')
-    a = env(t, a0, b0, 0.5, 0.5)
+    a = env(t, a0, b0, 0.4, 0.5)
     if a > 0:
-        k = eo((t - wt('I1', '一家')) / 0.9)
-        hi = eio((t - wt('I3', '真正')) / 0.8)
-        cy = 900
-        dimc = lambda c: c * (1 - 0.55 * hi)
-        text(img, 'V', 250, cy, 110, 'ebg_i', dimc(INK), a * k)
-        text(img, '=', 345, cy, 90, 'ebg', dimc(INK2), a * k)
-        text(img, 'Σ', 450, cy, 120, 'ebg', dimc(INK2), a * k)
-        text(img, 'CF', 660, cy - 72, 92, 'ebg_i', GOLD_HI if hi > 0.5 else INK, a * k, glow=0.6 * hi, glow_col=GOLD)
-        text(img, 't', 738, cy - 40, 52, 'ebg_i', GOLD_HI if hi > 0.5 else INK, a * k)
-        line(img, (540, cy), (540 + 300 * k, cy), dimc(INK), a * k, 2)
-        text(img, '(1 + r)', 670, cy + 78, 84, 'ebg_i', dimc(INK), a * k)
-        text(img, 't', 800, cy + 38, 52, 'ebg_i', dimc(INK), a * k)
-        text(img, '未来现金流', 690, cy - 170, 30, 'sans_med', GOLD, a * k * (0.6 + 0.4 * hi))
-        text(img, '折现率', 690, cy + 170, 30, 'sans', INK3 * 1.3, a * k * (1 - 0.5 * hi))
+        cy = 880
+        fx.hud_ring(img, t, (W / 2, cy), 330, a * 0.55, spin=0.3)
+        t1 = wt('I1', '一家')
+        hi = eio((t - wt('I3', '分子')) / 0.6)
+        dim = lambda c: c * (1 - 0.6 * hi)
+        for i, (s, x, y, sz, nm) in enumerate([('V', 250, cy, 110, 'ebg_i'), ('=', 345, cy, 90, 'ebg'), ('Σ', 450, cy, 120, 'ebg'),
+                                               ('(1 + r)', 670, cy + 78, 84, 'ebg_i')]):
+            k = eo((t - t1 - i * 0.12) / 0.45)
+            if k > 0: text(img, s, x, y, int(sz * (1 + 0.6 * (1 - k))), nm, dim(INK if i != 1 else INK2), a * k)
+        k = eo((t - t1 - 0.5) / 0.45)
+        if k > 0:
+            line(img, (540, cy), (540 + 300 * k, cy), dim(INK), a * k, 2)
+            text(img, 't', 800, cy + 38, 52, 'ebg_i', dim(INK), a * k)
+            text(img, 'CF', 660, cy - 72, int(92 * (1 + 0.6 * (1 - k))), 'ebg_i', GOLD_HI if hi > 0.5 else INK, a * k, glow=0.8 * hi, glow_col=GOLD)
+            text(img, 't', 738, cy - 40, 52, 'ebg_i', GOLD_HI if hi > 0.5 else INK, a * k)
+            text(img, '未来现金流', 690, cy - 175, 30, 'sans_med', GOLD, a * k * (0.6 + 0.4 * hi))
+            text(img, '折现率', 690, cy + 175, 30, 'sans', INK3 * 1.3, a * k * (1 - 0.5 * hi))
         if hi > 0:
-            for j in range(9):
-                ang = j / 9 * 6.28 + t * 0.4
-                glow(img, (690 + 120 * math.cos(ang), cy - 72 + 50 * math.sin(ang)), 3, GOLD_HI, a * hi * 0.6)
-        ka = env(t, wt('I2', '出自') - 0.2, VOD['I2']['t1'] + 0.5, 0.5, 0.5)
+            brackets(img, (600, cy - 140, 790, cy - 10), a * hi, eo((t - wt('I3', '分子')) / 0.4))
+            fx.burst(img, t, wt('I3', '分子'), (690, cy - 72), a, n=40, speed=300, life=1.1, seed=7)
+            text(img, '真正的难点', 690, cy - 230, 32, 'serif_bold', GOLD_HI, a * hi, glow=0.3)
+        ka = env(t, wt('I2', '出自') - 0.2, VOD['I2']['t1'] + 0.5, 0.4, 0.4)
         if ka > 0:
-            line(img, (W / 2 - 200, 1170), (W / 2 + 200, 1170), SUB_GOLD, a * ka * 0.5, 1)
-            text(img, 'John Burr Williams', W / 2, 1230, 44, 'ebg_i', INK, a * ka)
-            text(img, 'The Theory of Investment Value · 1938', W / 2, 1290, 30, 'corm_med', INK2, a * ka, track=0.06)
-            text(img, '《投资价值理论》', W / 2, 1350, 30, 'sans', INK2, a * ka)
-    # 债券 vs 股票
+            line(img, (W / 2 - 220 * eo((t - wt('I2', '出自')) / 0.5), 1170), (W / 2 + 220 * eo((t - wt('I2', '出自')) / 0.5), 1170), SUB_GOLD, a * ka * 0.6, 1)
+            fx.typewriter(img, 'John Burr Williams', W / 2, 1230, 44, 'ebg_i', INK, a * ka, t, wt('I2', '出自'), cps=22)
+            text(img, 'The Theory of Investment Value · 1938', W / 2, 1290, 30, 'corm_med', INK2, a * ka * eo((t - wt('I2', '1938')) / 0.5), track=0.06)
+            text(img, '《投资价值理论》', W / 2, 1350, 30, 'sans', INK2, a * ka * eo((t - wt('I2', '投资')) / 0.5))
+    # ---- 债券 vs 股票：光柱与故障
     a0, b0 = ins_span('I4', 'I6')
-    a = env(t, a0, b0, 0.5, 0.5)
+    a = env(t, a0, b0, 0.4, 0.5)
     if a > 0:
         kb = eo((t - wt('I4', '债券')) / 0.8); ks = eo((t - wt('I4', '股票')) / 0.8)
-        kf = eio((t - VOD['I6']['t0']) / 1.0)
+        kf = eio((t - VOD['I6']['t0']) / 0.6)
         for row, (lab, y, kk) in enumerate([('债券', 760, kb), ('股票', 1060, ks)]):
             text(img, lab, 110, y - 60, 40, 'serif_bold', INK, a * kk, 'l')
             line(img, (110, y + 70), (980, y + 70), INK3, a * kk, 1)
             for i in range(10):
                 x = 250 + i * 72
+                g = eo(kk * 1.6 - i * 0.06)
                 if row == 0:
-                    h = 60 if i < 9 else 190
-                    rect(img, x - 18, y + 70 - h * eo(kk * 1.5 - i * 0.05), x + 18, y + 70, GOLD, a * kk * 0.85)
+                    h = (60 if i < 9 else 190) * g
+                    rect(img, x - 18, y + 70 - h, x + 18, y + 70, GOLD, a * kk * 0.85)
+                    if h > 2: glow(img, (x, y + 70 - h), 9, GOLD_HI, a * kk * 0.5)
                 else:
-                    hh = 40 + 50 * (0.5 + 0.5 * math.sin(i * 1.9 + 0.7)) + kf * 30 * math.sin(t * 2.3 + i * 1.3)
-                    rrect(img, x - 18, y + 70 - hh * eo(kk * 1.5 - i * 0.05), x + 18, y + 70, 3, INK2, a * kk * 0.8, 1)
-                    text(img, '?', x, y + 70 - hh - 26, 28, 'ebg', INK3 * 1.4, a * kk * eo(kk * 1.5 - i * 0.05))
-        text(img, '票息、到期日 · 写在合同上', 250, 870, 28, 'sans', GOLD, a * kb, 'l')
+                    hh = (40 + 50 * (0.5 + 0.5 * math.sin(i * 1.9 + 0.7)) + kf * 34 * math.sin(t * 7 + i * 1.3)) * g
+                    rrect(img, x - 18, y + 70 - hh, x + 18, y + 70, 3, CYAN_ if kf < 0.5 else BRICK, a * kk * 0.85, 1)
+                    text(img, '?', x, y + 70 - hh - 26, 28, 'ebg', INK2, a * kk * g)
+        text(img, '票息写在合同上', 250, 870, 28, 'sans', GOLD, a * kb, 'l')
         text(img, '“票息” · 要投资者自己估计', 250, 1170, 28, 'sans', INK2, a * ks, 'l')
-        qa_ = a * eo((t - wt('I4', '股票') - 0.4) / 0.8) * (1 - kf)
+        if kf > 0: fx.glitch(img, (230, 940, 990, 1150), t, kf * 0.8, seed=4)
+        qa_ = a * eo((t - wt('I4', '股票') - 0.4) / 0.6) * (1 - kf)
         if qa_ > 0:
-            quote(img, ['“…in the case of equities, the investment analyst', 'must himself estimate the future “coupons.”'], W / 2, 1290, 34, qa_)
+            fx.typewriter(img, '“…the investment analyst must himself', W / 2, 1290, 34, 'ebg_i', INK, qa_, t, wt('I4', '股票'), cps=34, cursor=False)
+            fx.typewriter(img, 'estimate the future “coupons.”', W / 2, 1335, 34, 'ebg_i', INK, qa_, t, wt('I4', '股票') + 1.1, cps=34)
             text(img, '—— 伯克希尔 1992 年致股东信', W / 2, 1400, 26, 'sans', INK3 * 1.3, qa_)
         if kf > 0:
             text(img, '未来估错了', W / 2, 1290, 44, 'serif_bold', INK2, a * kf)
-            text(img, '折现率再精确，也只是精确地犯错', W / 2, 1370, 46, 'serif_bold', a=a * eo((t - wt('I6', '也只是')) / 0.7), gold=True)
-    # 喜诗糖果
+            fx.slam(img, '折现率再精确，也只是精确地犯错', W / 2, 1370, 46, 'serif_bold', t, wt('I6', '也只是') - 0.05, a, glow_=0.3)
+    # ---- 喜诗糖果：重拍砸入、滚动计数、光柱与火花
     a0, b0 = ins_span('I7', 'I9')
-    a = env(t, a0, b0, 0.5, 0.5)
+    a = env(t, a0 + 0.3, b0, 0.15, 0.5)
     if a > 0:
-        k0 = eo((t - VOD['I7']['t0']) / 0.7)
-        text(img, '看得清', W / 2, 620, 40, 'serif_bold', GOLD, a * k0, track=0.3)
-        k1 = eo((t - wt('I7', '1972')) / 0.8)
-        text(img, '喜诗糖果', W / 2, 730, 80, 'serif_black', INK, a * k1, track=0.06)
-        text(img, "See's Candies · 1972 年以 2500 万美元收购", W / 2, 815, 30, 'sans', SUB_GOLD, a * k1, track=0.02)
-        k2 = eo((t - VOD['I9']['t0']) / 0.8)
-        for i, (lab, v0, v1, note) in enumerate([('销量（磅/年）', '1600万', '3100万', '年增约 2%'), ('税前利润', '<500万', '8200万', '1972 → 2007')]):
+        t7 = VOD['I7']['t0']
+        fx.burst(img, t, t7, (W / 2, 640), a, n=80, speed=700, life=1.5, seed=9)
+        fx.slam(img, '看得清', W / 2, 620, 44, 'serif_bold', t, t7, a, gold=False, col=GOLD, glow_=0.3, track=0.3)
+        t1 = wt('I7', '1972')
+        fx.slam(img, '喜诗糖果', W / 2, 730, 84, 'serif_black', t, t1 - 0.1, a, gold=False, col=INK, glow_=0.2)
+        text(img, "See's Candies · 1972 年以 2500 万美元收购", W / 2, 815, 30, 'sans', SUB_GOLD, a * eo((t - wt('I7', '两千五百万')) / 0.5), track=0.02)
+        k2 = (t - VOD['I9']['t0']) / 2.2
+        for i, (lab, v0, v1, note, kk) in enumerate([('销量（磅/年）', 1600, 3100, '年增约 2%', '销量'), ('税前利润', 500, 8200, '1972 → 2007', '现金流')]):
             y = 930 + i * 110
-            text(img, lab, 110, y, 30, 'sans', INK2, a * k2, 'l')
-            text(img, v0, 470, y, 40, 'inter', INK2, a * k2, 'm')
-            text(img, '→', 590, y, 36, 'inter', INK3 * 1.4, a * k2, 'm')
-            text(img, v1, 720, y, 46, 'inter_semi', GOLD_HI, a * k2, 'm')
-            text(img, note, 975, y, 24, 'sans', INK3 * 1.3, a * k2, 'r')
-        k3 = eo((t - wt('I9', '累计')) / 1.4)
-        yb = 1430
-        hA = 250 * k3; hB = max(2, 250 * 32 / 1350) * eo((t - wt('I9', '追加')) / 0.8)
-        rect(img, 260, yb - hA, 420, yb, GOLD, a * 0.9)
-        rect(img, 660, yb - hB, 820, yb, INK2, a * 0.9)
-        line(img, (200, yb), (880, yb), INK3, a * k3, 1)
-        text(img, '13.5 亿美元', 340, yb - hA - 34, 40, 'inter_semi', GOLD_HI, a * k3)
-        text(img, '累计税前利润', 340, yb + 34, 26, 'sans', INK2, a * k3)
-        kB = eo((t - wt('I9', '追加')) / 0.8)
-        text(img, '3200 万美元', 740, yb - hB - 34, 36, 'inter_semi', INK, a * kB)
-        text(img, '追加投入的资本', 740, yb + 34, 26, 'sans', INK2, a * kB)
-        text(img, '数据：伯克希尔 2007 年致股东信（收购经由蓝筹印花公司完成）', W / 2, 1520, 20, 'sans', INK3 * 1.2, a * k2)
-    # 美国航空
+            k = eo((t - wt('I9', kk)) / 0.5)
+            text(img, lab, 110, y, 30, 'sans', INK2, a * k, 'l')
+            text(img, ('<' if i else '') + fmt_wan(v0), 470, y, 40, 'inter', INK2, a * k, 'm')
+            text(img, '→', 590, y, 36, 'inter', INK3 * 1.4, a * k, 'm')
+            kc = cl((t - wt('I9', kk) - 0.3) / 1.6)
+            text(img, fmt_wan(v0 + (v1 - v0) * eio(kc)), 720, y, 46, 'inter_semi', GOLD_HI, a * k, 'm', glow=0.25)
+            text(img, note, 975, y, 24, 'sans', INK3 * 1.3, a * k, 'r')
+        tA = wt('I9', '累计')
+        k3 = eio((t - tA) / 1.8)
+        yb = 1440
+        hA = 260 * k3
+        if k3 > 0:
+            glow(img, (340, yb - hA), 70, GOLD * 0.5, a * k3)
+            rect(img, 270, yb - hA, 410, yb, GOLD, a * 0.92)
+            rect(img, 330, 0, 350, yb - hA, GOLD_HI, a * 0.06 * k3)          # 竖向光束
+            fx.sparks_up(img, t, 270, 410, yb - hA, a * k3 * (1 - eio((t - tA - 3) / 2)))
+            v = 13.5 * k3
+            text(img, f'{v:.1f} 亿美元', 340, yb - hA - 38, 42, 'inter_semi', GOLD_HI, a, glow=0.35)
+            text(img, '累计税前利润', 340, yb + 34, 26, 'sans', INK2, a)
+        kB = eo((t - wt('I9', '追加')) / 0.6)
+        if kB > 0:
+            hB = max(3, 260 * 32 / 1350)
+            rect(img, 670, yb - hB, 810, yb, CYAN_, a * kB)
+            text(img, '3200 万美元', 740, yb - hB - 34, 36, 'inter_semi', INK, a * kB)
+            text(img, '追加投入的资本', 740, yb + 34, 26, 'sans', INK2, a * kB)
+            fx.slam(img, '仅 ≈ 2.4%', 740, yb - 150, 54, 'inter_semi', t, wt('I9', '只有'), a * kB, gold=False, col=CYAN_, glow_=0.4)
+            line(img, (200, yb), (880, yb), INK3, a, 1)
+        text(img, '数据：伯克希尔 2007 年致股东信（收购经由蓝筹印花公司完成）', W / 2, 1525, 20, 'sans', INK3 * 1.2, a * eo((t - VOD['I9']['t0']) / 0.6))
+    # ---- 美国航空：警报、碎裂、$1 → 25¢
     a0, b0 = ins_span('I11', 'I13')
-    a = env(t, a0, b0, 0.5, 0.5)
+    a = env(t, a0, b0, 0.3, 0.5)
     if a > 0:
-        k0 = eo((t - VOD['I11']['t0']) / 0.7)
-        text(img, '看不清', W / 2, 620, 40, 'serif_bold', INK2, a * k0, track=0.3)
-        k1 = eo((t - wt('I11', '1989')) / 0.8)
-        text(img, '美国航空优先股', W / 2, 730, 72, 'serif_black', INK, a * k1, track=0.04)
+        t11 = VOD['I11']['t0']
+        fx.slam(img, '看不清', W / 2, 620, 44, 'serif_bold', t, t11, a, gold=False, col=INK2, glow_=0.0, track=0.3)
+        k1 = eo((t - wt('I11', '1989')) / 0.6)
+        fx.slam(img, '美国航空优先股', W / 2, 730, 74, 'serif_black', t, wt('I11', '1989') - 0.1, a, gold=False, col=INK, glow_=0.1)
         text(img, 'USAir preferred stock · 1989 年买入', W / 2, 810, 30, 'sans', SUB_GOLD, a * k1)
-        k2 = eo((t - wt('I12', '停付')) / 0.6)
-        k3 = eio((t - wt('I12', '减记')) / 1.4)
-        yb = 1240; hmax = 300
-        h = hmax * (1 - 0.75 * k3) * eo((t - wt('I11', '3.58')) / 0.9)
-        rrect(img, 390, yb - hmax * eo((t - wt('I11', '3.58')) / 0.9), 690, yb, 4, INK3, a * 0.8, 1)
-        rect(img, 390, yb - h, 690, yb, lerp(GOLD, BRICK, k3), a * 0.9)
-        text(img, '3.58 亿美元', 540, yb - hmax - 40, 40, 'inter_semi', INK, a * k1 * (1 - 0.6 * k3))
-        if k3 > 0.05:
-            text(img, '8950 万美元', 820, yb - h, 36, 'inter_semi', BRICK * 1.2, a * k3, 'l')
-            text(img, '1994 年底减记', 820, yb - h + 46, 24, 'sans', INK2, a * k3, 'l')
-        text(img, '1994.9  停付股息', 110, 950, 28, 'sans_med', BRICK * 1.15, a * k2, 'l')
-        k4 = eo((t - wt('I12', '每一')) / 0.7)
-        text(img, '$1  →  25¢', W / 2, 1330, 60, 'inter_semi', INK, a * k4)
-        k5 = eo((t - wt('I13', '草率')) / 0.8)
-        if k5 > 0:
-            text(img, '“a case of sloppy analysis”', W / 2, 1420, 44, 'ebg_i', GOLD_HI, a * k5)
-            text(img, '“草率的分析”—— 伯克希尔 1994 年致股东信', W / 2, 1480, 26, 'sans', INK2, a * k5)
+        tS, tW = wt('I12', '停付'), wt('I12', '减记')
+        k2 = eo((t - tS) / 0.4)
+        k3 = eio((t - tW) / 0.5)
+        yb, hmax = 1240, 300
+        kf = eo((t - wt('I11', '三点五八')) / 0.9)
+        rrect(img, 390, yb - hmax * kf, 690, yb, 4, INK3, a * 0.8, 1)
+        hcur = hmax * kf * (1 - 0.75 * (t >= tW))
+        if t < tW:
+            rect(img, 390, yb - hcur, 690, yb, GOLD, a * 0.9)
+        else:
+            rect(img, 390, yb - hmax * 0.25, 690, yb, BRICK, a * 0.95)
+            fx.shards(img, t, tW, (390, yb - hmax, 690, yb - hmax * 0.25), GOLD, a, n=28, seed=6)
+            fx.burst(img, t, tW, (540, yb - hmax * 0.6), a, n=50, speed=420, life=1.0, seed=12, col=BRICK * 1.3)
+        text(img, '3.58 亿美元', 540, yb - hmax - 40, 40, 'inter_semi', INK, a * kf * (1 - 0.6 * k3))
+        if k3 > 0:
+            text(img, '8950 万美元', 720, yb - hmax * 0.25, 36, 'inter_semi', BRICK * 1.25, a * k3, 'l', glow=0.3, glow_col=BRICK)
+            text(img, '1994 年底减记', 720, yb - hmax * 0.25 + 46, 24, 'sans', INK2, a * k3, 'l')
+        if k2 > 0:
+            blink = 0.55 + 0.45 * (math.sin((t - tS) * 14) > 0) if t - tS < 1.2 else 1.0
+            rrect(img, 96, 920, 384, 980, 6, BRICK, a * k2 * blink * 0.9, 2)
+            text(img, '1994.9  停付股息', 240, 950, 28, 'sans_med', BRICK * 1.25, a * k2 * blink)
+            if t - tS < 0.6: fx.glitch(img, (90, 900, 400, 1000), t, 1 - (t - tS) / 0.6, seed=3)
+        fx.slam(img, '$1  →  25¢', W / 2, 1335, 64, 'inter_semi', t, wt('I12', '每一'), a, gold=False, col=INK, glow_=0.25)
+        t5 = wt('I13', '草率')
+        if t >= t5 - 0.1:
+            fx.typewriter(img, '“a case of sloppy analysis”', W / 2, 1420, 44, 'ebg_i', GOLD_HI, a, t, t5 - 0.1, cps=30)
+            text(img, '“草率的分析”—— 伯克希尔 1994 年致股东信', W / 2, 1480, 26, 'sans', INK2, a * eo((t - t5 - 0.6) / 0.5))
         text(img, '注：1998 年航空股短暂回暖，伯克希尔获利卖出；巴菲特在 2007 年信中称之为运气', W / 2, 1530, 20, 'sans', INK3 * 1.2, a * k1)
-    # 代价：错过
+    # ---- 代价：错过
     a0, b0 = ins_span('I14', 'I15')
-    a = env(t, a0, b0, 0.5, 0.5)
+    a = env(t, a0, b0, 0.4, 0.5)
     if a > 0:
-        k1 = eo((t - wt('I14', '芒格')) / 0.8)
-        kf = eio((t - VOD['I15']['t0']) / 0.8)
-        text(img, '2017 · 伯克希尔股东大会', W / 2, 700, 28, 'sans_med', SUB_GOLD, a * k1 * (1 - kf), track=0.12)
-        quote(img, ['“…in retrospect, what was our worst', 'mistake in the tech field, I think we were', 'smart enough to figure out Google.”'], W / 2, 800, 38, a * k1 * (1 - kf))
-        text(img, '—— 查理·芒格', W / 2, 960, 28, 'sans', INK2, a * k1 * (1 - kf))
-        text(img, '代价：错过', W / 2, 1100, 56, 'serif_black', a=a * eo((t - VOD['I14']['t0']) / 0.7) * (1 - kf), gold=True)
+        kq = eo((t - wt('I14', '芒格')) / 0.5)
+        kf = eio((t - VOD['I15']['t0']) / 0.5)
+        if kf < 1:
+            text(img, '2017 · 伯克希尔股东大会', W / 2, 700, 28, 'sans_med', SUB_GOLD, a * kq * (1 - kf), track=0.12)
+            t0 = wt('I14', '芒格')
+            for i, ln in enumerate(['“…in retrospect, what was our worst', 'mistake in the tech field, I think we were', 'smart enough to figure out Google.”']):
+                fx.typewriter(img, ln, W / 2, 800 + i * 50, 38, 'ebg_i', INK, a * (1 - kf), t, t0 + i * 1.05, cps=34, cursor=(i == 2))
+            text(img, '—— 查理·芒格', W / 2, 960, 28, 'sans', INK2, a * kq * (1 - kf))
+            fx.slam(img, '代价：错过', W / 2, 1100, 58, 'serif_black', t, VOD['I14']['t0'], a * (1 - kf), glow_=0.3)
         if kf > 0:
-            for i, (l1, l2, col) in enumerate([('错过', '少赚', INK2), ('看错', '永久亏损', BRICK * 1.15)]):
-                k = eo((t - wt('I15', l1) + 0.1) / 0.6)
+            for i, (l1, l2, col) in enumerate([('错过', '少赚', INK2), ('看错', '永久亏损', BRICK * 1.2)]):
+                t0 = wt('I15', l1)
+                k = eo((t - t0 + 0.05) / 0.3)
                 cx = 290 + i * 500
-                rrect(img, cx - 200, 820, cx + 200, 1180, 10, col, a * k * kf * 0.7, 1)
-                text(img, l1, cx, 930, 64, 'serif_black', INK, a * k * kf)
-                text(img, '＝', cx, 1010, 40, 'inter', INK3 * 1.4, a * k * kf)
-                text(img, l2, cx, 1090, 52, 'serif_bold', col, a * k * kf)
-    # 今天
+                if k > 0:
+                    rrect(img, cx - 200, 820, cx + 200, 1180, 10, col, a * k * kf * 0.8, 2)
+                    fx.slam(img, l1, cx, 930, 66, 'serif_black', t, t0 - 0.05, a * kf, gold=False, col=INK, glow_=0.1)
+                    text(img, '＝', cx, 1010, 40, 'inter', INK3 * 1.4, a * k * kf)
+                    text(img, l2, cx, 1090, 54, 'serif_bold', col, a * k * kf, glow=0.3 if i else 0, glow_col=BRICK)
+                    if i == 1 and t - t0 < 0.5: fx.glitch(img, (cx - 210, 810, cx + 210, 1190), t, 1 - (t - t0) / 0.5, seed=8)
+    # ---- 今天：3D 点阵球里只有少数几颗亮起
     a0, b0 = ins_span('I16', 'I17', post=0.9)
-    a = env(t, a0, b0, 0.5, 0.6)
+    a = env(t, a0, b0, 0.4, 0.6)
     if a > 0:
-        k1 = eo((t - VOD['I16']['t0']) / 0.8)
-        kf = eio((t - VOD['I17']['t0'] + 0.2) / 0.8)
-        r = np.random.default_rng(4)
-        lit = set(r.choice(120, 7, replace=False).tolist())
-        k2 = eio((t - wt('I16', '越来越少')) / 1.2)
-        for i in range(120):
-            x = 150 + (i % 12) * 71; y = 700 + (i // 12) * 56
+        kf = eio((t - VOD['I17']['t0'] + 0.2) / 0.6)
+        k2 = eio((t - wt('I16', '越来越少')) / 1.0)
+        P, z, ps = fx.sphere_points(t, (W / 2, 880), 300)
+        lit = [17, 63, 101, 142, 188, 211, 247]
+        order = np.argsort(z)
+        for i in order:
             on = i in lit
-            c = lerp(INK3, GOLD_HI, k2) if on else INK3
-            circle(img, (x, y), 6 if on else 5, c, a * k1 * (1 - kf) * (1.0 if on else 0.75 - 0.4 * k2), fill=True)
-            if on and k2 > 0: glow(img, (x, y), 10, GOLD, a * k2 * (1 - kf) * 0.6)
-        text(img, '能看清十年现金流的企业', W / 2, 1330, 40, 'serif_bold', INK, a * k1 * (1 - kf))
-        text(img, '越来越少', W / 2, 1400, 40, 'serif_bold', GOLD_HI, a * k2 * (1 - kf))
+            depth = 0.35 + 0.65 * (z[i] + 1) / 2
+            c = lerp(INK3, GOLD_HI, k2) if on else INK3 * (1.2 - 0.5 * k2)
+            rr = (2.0 + 2.5 * on * k2) * ps[i]
+            circle(img, P[i], rr, c, a * (1 - kf) * depth * (1 if on else 0.8), fill=True)
+            if on and k2 > 0: glow(img, P[i], 12 * ps[i], GOLD, a * k2 * (1 - kf) * depth * 0.7)
+        if k2 > 0:
+            for i in range(len(lit) - 1):
+                line(img, P[lit[i]], P[lit[i + 1]], GOLD, a * k2 * (1 - kf) * 0.35, 1)
+        fx.hud_ring(img, t, (W / 2, 880), 380, a * (1 - kf) * 0.45, spin=0.2)
+        text(img, '能看清十年现金流的企业', W / 2, 1320, 40, 'serif_bold', INK, a * eo((t - VOD['I16']['t0']) / 0.5) * (1 - kf))
+        fx.slam(img, '越来越少', W / 2, 1400, 46, 'serif_black', t, wt('I16', '越来越少'), a * (1 - kf), glow_=0.35)
         if kf > 0:
             text(img, '财务报表只给你指引；', W / 2, 900, 60, 'serif_bold', INK2, a * kf)
-            text(img, '答案，在你对生意的理解里。', W / 2, 1010, 60, 'serif_black', a=a * eo((t - wt('I17', '答案')) / 0.8), gold=True, glow=0.15)
+            fx.slam(img, '答案，在你对生意的理解里。', W / 2, 1010, 60, 'serif_black', t, wt('I17', '答案') - 0.05, a * kf, glow_=0.4)
     narr_sub(img, t, INS['subs'], hide=('I17',))
 
 
@@ -777,7 +795,16 @@ def s_end(img, t):
         rgb, al = END_SUB
         g = np.clip((w2 * (al.shape[1] + soft) - np.arange(al.shape[1])) / soft, 0, 1).astype(np.float32)
         over(img, rgb, al * g[None, :] * fade, int(W / 2 - al.shape[1] / 2), int(ty + 70 + 26 - al.shape[0] / 2))
-        text(img, '伯克希尔股东大会投资智慧录', W / 2, 1220, 28, 'sans', INK2, fade * eo((t - tb - 1.2) / 0.9), track=0.2, shadow=0.4)
+        # 关注语（v3）
+        kf = eo((t - END['t_follow']) / 0.9)
+        if kf > 0:
+            s1, s2 = '关注「巴芒价值」', '，传承大师智慧，领悟投资真谛'
+            w1, w2 = text_w(s1, 'sans_med', 36, 0.04), text_w(s2, 'sans_med', 36, 0.04)
+            x0 = W / 2 - (w1 + w2) / 2
+            text(img, s1, x0, 1225 + 10 * (1 - kf), 36, 'sans_med', GOLD_HI, fade * kf, 'l', track=0.04, glow=0.25)
+            text(img, s2, x0 + w1, 1225 + 10 * (1 - kf), 36, 'sans_med', INK, fade * kf, 'l', track=0.04)
+            ln = 300 * eo((t - END['t_follow'] - 0.3) / 0.9)
+            line(img, (W / 2 - ln, 1285), (W / 2 + ln, 1285), SUB_GOLD * 0.7, fade * kf * 0.6, 1)
 
 
 # ---------------------------------------------------------------- 合成一帧
@@ -792,8 +819,10 @@ def frame(t):
     s_summary(img, t)
     s_end(img, t)
     # 片头口播期间的章节标签
-    ia = env(t, VOD['S2']['t0'] - 0.5, VOD['S11']['t1'] + 0.8, 0.6, 0.6)
+    ia = env(t, VOD['S2']['t0'] - 0.5, VOD['S5']['t1'] + 0.8, 0.6, 0.6)
     chapter_tag(img, t, '系列开篇', ia)
+    # 后期：泛光、横向光晕；有配乐的段落在重拍上推镜 / 闪光 / 色散，小节强拍轻微脉动（原声问答段不做）
+    img = fx.post(img, t, HITS, BARS, strength=0.6 if T_Q + 1 < t < T_QE else 1.0)
     img *= VIG
     img += GRAIN[int(t * FPS) % len(GRAIN)]
     # 右上角品牌角标：全程保留，片尾与画面一起淡出；冷开场黑场时同样可见

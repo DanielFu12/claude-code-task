@@ -19,16 +19,18 @@ T_COLD = 1.0                    # 冷开场原声开始
 # 剪点按原声能量曲线手工确认：109.31 是 "like" 与 "And" 之间的能量低谷；114.45 之后是句间停顿
 COLD_IN, COLD_OUT = 109.31, 114.45
 T_TITLE = 7.4                   # 片名 + 第一个音乐重拍
-T_S1 = 8.9                      # 片头口播开始
-# 原始问答：39.05（芒格上一题说完后的静音）→ 254.95（"plenty of people that do." 之后、下一位提问者 "Zone 3?" 之前的静音）
-Q_IN, Q_OUT = 39.05, 254.95
+# 原始问答（节选）：61.55（"Could you perhaps…" 之前的静音，-47dB）→ 222.40（"…with large businesses, basically." 之后的停顿，-65dB）
+# 省略：提问者自我介绍与铺垫（约 22 秒）；回答结尾关于“粉饰会计数字”的补充（约 33 秒）。核心问题与完整论证不剪。
+Q_IN, Q_OUT = 61.55, 222.40
 FPS = 30
+DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data')
 
-# 音乐重拍（由 audio.py 里的同一组常量驱动；数值来自对曲目能量突变的分析）
-LENTO_HIT_A = 2.6               # Impact Lento 第一个和弦进入
-LENTO_HIT_SUM = 117.8           # Impact Lento 尾段的大段落起点 → 总结句
-LENTO_HIT_BRAND = 130.1         # 下一个重拍 → 「巴芒价值」浮现
-LOST_HIT = 2.0                  # Lost Time 第一个和弦进入 → 投资启示
+# ------------------------------------------------------------------ 配乐与重拍（曲内秒数；能量突变 + 节拍分析见 README）
+U_TRACK, U_HIT_TITLE = 'Undaunted', 10.1           # 大鼓进入 → 片名
+E_TRACK = 'The Escalation'
+E_HIT_CARD, E_HIT_SEES, E_HIT_SUM = 155.6, 201.2, 277.1   # 渐强起点 → 投资启示；大段落进入 → “看得清”；高潮 → 总结句
+E_BRAND_AFTER = 9.8                                  # 总结重拍之后 5 小节（同一高潮段内的强拍）→「巴芒价值」
+BEATS = {k: np.load(os.path.join(DATA, f'beats_{k.replace(" ", "_")}.npy')) for k in (U_TRACK, E_TRACK)}
 
 
 def voiced(sid):
@@ -87,6 +89,7 @@ def chunks(text, maxw=16.5, short=3.6):
     很短的片段（如「大家好」「年底」）按语义并入后一句（逗号后）或前一句（句末）。
     返回 [(显示文本, 首字内容序号, 末字内容序号)]"""
     parts, cur, book = [], '', False
+    text = text.replace('——', '，')                    # 破折号处也断句（字幕里不显示破折号）
     for ch in text:
         book = (book or ch == '《') and ch != '》'
         if ch in CUT and not book:
@@ -131,55 +134,100 @@ def chunks(text, maxw=16.5, short=3.6):
     return res
 
 
-def lay_vo(items, t, gap_scale=1.0):
+def lay_vo(items, t, anchors=None, beats=None, max_extra=3.0):
+    """排口播。段内句间停顿保留 Gemini 的原始节奏；段落之间的停顿可伸缩：
+    1) anchors {句子 id: 片内时刻}：该句在这个音乐重拍上开口，差额分摊到前一锚点之后的段落停顿里；
+    2) beats（片内节拍时刻）：其余段落的开口吸附到最近的节拍（-0.15～+0.3 秒），
+       用同一锚点区间内下一个可伸缩停顿抵消，锚点位置不变。"""
+    anchors = anchors or {}
+    ids = [it[0] for it in items]
+    dur = {sid: (lambda ab: ab[1] - ab[0])(voiced(sid)) for sid in ids}
+    gap = [VO[sid].get('gap', items[k][3]) for k, sid in enumerate(ids[:-1])]
+    flex = [VO[sid].get('gap') is None for sid in ids[:-1]]
+    LEAD = 0.04                                         # 人声在拍点后 40ms 开口
+
+    def pos(k):
+        return t + sum(dur[ids[j]] + gap[j] for j in range(k))
+
+    seg0 = 0
+    for k, sid in enumerate(ids):
+        if sid not in anchors or k == 0: continue
+        delta = anchors[sid] + LEAD - pos(k)
+        fj = [j for j in range(seg0, k) if flex[j]]
+        if fj:
+            if delta >= 0:
+                for j in fj: gap[j] += delta / len(fj)
+            else:
+                room = sum(max(gap[j] - 0.25, 0) for j in fj)
+                take = min(-delta, room)
+                for j in fj: gap[j] -= max(gap[j] - 0.25, 0) / max(room, 1e-9) * take
+        print(f'  锚点 {sid}: 调整 {delta:+.2f}s（分摊到 {len(fj)} 个段落停顿）' + ('' if fj and max(gap[j] for j in fj) < max_extra + 1 else ' ⚠'))
+        seg0 = k
+    if beats is not None:
+        akeys = [k for k, sid in enumerate(ids) if sid in anchors] + [len(ids)]
+        for k in range(1, len(ids)):
+            if not flex[k - 1] or ids[k] in anchors: continue
+            p0 = pos(k)
+            near = beats[(beats > p0 - LEAD - 0.15) & (beats < p0 - LEAD + 0.3)]
+            if not len(near): continue
+            d = float(near[0]) + LEAD - p0
+            na = min(a for a in akeys if a > k)
+            if gap[k - 1] + d < 0.15: continue
+            if na == len(ids):                         # 之后没有锚点：直接顺延
+                gap[k - 1] += d; continue
+            nxt = next((j for j in range(k, min(na, len(ids) - 1)) if flex[j]), None)
+            if nxt is None or gap[nxt] - d < 0.2: continue
+            gap[k - 1] += d; gap[nxt] -= d
     vo, subs, words = [], [], []
-    for sid, scene, text, pause in items:
+    for k, (sid, scene, text, pause) in enumerate(items):
+        t0 = pos(k)
         a, b = voiced(sid)
         ct = char_times(sid, a)
-        dur = b - a
-        vo.append(dict(id=sid, scene=scene, t0=round(t, 3), t1=round(t + dur, 3), src_in=round(a, 3), text=text))
+        vo.append(dict(id=sid, scene=scene, t0=round(t0, 3), t1=round(t0 + dur[sid], 3), src_in=round(a, 3), text=text))
         for txt, i0, i1 in chunks(text):
-            subs.append(dict(id=sid, text=txt, t0=round(t + ct[i0][0] - 0.12, 3), t1=round(t + ct[i1][1] + 0.1, 3)))
-        # 逐词（屏幕动画卡点用）
+            subs.append(dict(id=sid, text=txt, t0=round(t0 + ct[i0][0] - 0.12, 3), t1=round(t0 + ct[i1][1] + 0.1, 3)))
         for w0, w1, wt in VO[sid]['words']:
-            words.append(dict(id=sid, w=wt, t=round(t + w0 - a, 3)))
-        # 同一段落内（Gemini 整段合成）保留模型自己的句间停顿；段落之间用稿子里设定的停顿
-        t += dur + VO[sid].get('gap', pause * gap_scale)
-    # 字幕首尾衔接：相邻两条不重叠，短空隙直接接上
+            words.append(dict(id=sid, w=wt, t=round(t0 + w0 - a, 3)))
     for s0, s1 in zip(subs, subs[1:]):
         if s1['t0'] - s0['t1'] < 0.35: s0['t1'] = s1['t0'] - 0.02
-    return vo, subs, words, t
+    return vo, subs, words, pos(len(ids) - 1) + dur[ids[-1]]
 
 
 tl = dict(fps=FPS)
-# 冷开场
+# ------------------------------------------------------------------ 冷开场
 tl['cold'] = dict(t0=T_COLD, t1=T_COLD + COLD_OUT - COLD_IN, src_in=COLD_IN, src_out=COLD_OUT)
 tl['cold_subs'] = [dict(id=s['id'], en=s['en'], zh=s['zh'], t0=round(T_COLD + s['t0'] - COLD_IN, 3),
                         t1=round(T_COLD + s['t1'] - COLD_IN + 0.2, 3)) for s in ORIG if s['id'] in COLD_IDS]
 for s0, s1 in zip(tl['cold_subs'], tl['cold_subs'][1:]):
     s0['t1'] = min(s0['t1'], s1['t0'] - 0.02)
 tl['t_title'] = T_TITLE
-# 系列片头口播
-vo, subs, words, t = lay_vo(INTRO, T_S1)
-tl['intro'] = dict(vo=vo, subs=subs, words=words, t0=T_S1, t1=round(vo[-1]['t1'], 3))
-# 进入 1994
-T_CTX = round(vo[-1]['t1'] + 1.7, 3)
-T_Q = T_CTX + 4.2
+# ------------------------------------------------------------------ 系列片头（Undaunted：片名对准大鼓进入）
+U_OFF = T_TITLE - U_HIT_TITLE                          # 片内时刻 = 曲内时刻 + U_OFF
+u_beats = BEATS[U_TRACK] + U_OFF
+vo, subs, words, t_end = lay_vo(INTRO, T_TITLE + 1.3, beats=u_beats)
+tl['intro'] = dict(vo=vo, subs=subs, words=words, t0=vo[0]['t0'], t1=round(t_end, 3))
+# 进入 1994：背景卡落在问题读完后的第 3 拍之后的小节强拍上
+bars = u_beats[np.argmin(np.abs(u_beats - T_TITLE))::4]
+T_CTX = round(float(bars[bars > t_end + 1.0][0]), 3)
+T_Q = T_CTX + 3.6
 T_QEND = T_Q + (Q_OUT - Q_IN)
-tl['ctx'] = dict(t0=T_CTX, t1=T_Q + 1.5)
+tl['ctx'] = dict(t0=T_CTX, t1=T_Q + 1.4)
 osubs = []
 for s in ORIG:
+    if s['t0'] < Q_IN - 0.05 or s['t1'] > Q_OUT + 0.3: continue      # 只保留节选范围内的字幕
     osubs.append(dict(id=s['id'], scene=s['scene'], en=s['en'], zh=s['zh'],
                       t0=round(T_Q + s['t0'] - Q_IN - 0.08, 3), t1=round(T_Q + s['t1'] - Q_IN + 0.25, 3)))
 for s0, s1 in zip(osubs, osubs[1:]):
     if s0['t1'] > s1['t0'] - 0.02: s0['t1'] = s1['t0'] - 0.02
-    if s1['t0'] - s0['t1'] < 0.6: s0['t1'] = s1['t0'] - 0.02       # 短停顿时字幕不闪断
+    if s1['t0'] - s0['t1'] < 0.6: s0['t1'] = s1['t0'] - 0.02
+osubs[-1]['t1'] = min(osubs[-1]['t1'], T_QEND - 0.1)
 laugh = next(s for s in osubs if s['id'] == LAUGH_AFTER)
 nxt = osubs[osubs.index(laugh) + 1]
 tl['laugh'] = dict(t0=round(laugh['t1'], 3), t1=round(nxt['t0'] - 0.05, 3))
 tl['qa'] = dict(t0=round(T_Q, 3), t1=round(T_QEND, 3), src_in=round(Q_IN, 3), src_out=round(Q_OUT, 3),
-                subs=osubs, answer_t=next(s['t0'] for s in osubs if s['id'] == 'A1'))
-# 场景切换时间（按字幕所属段落）
+                subs=osubs, answer_t=next(s['t0'] for s in osubs if s['id'] == 'A1'),
+                omitted=['提问者自我介绍与铺垫（Zone 2 / Sean Barry / 年报与会计准则的铺垫，约 22 秒）',
+                         '回答结尾关于“会计数字与粉饰数字”的补充（约 33 秒）'])
 sc = []
 for s in osubs:
     if not sc or sc[-1]['scene'] != s['scene']:
@@ -187,44 +235,64 @@ for s in osubs:
 for a, b in zip(sc, sc[1:]): a['t1'] = b['t0']
 sc[-1]['t1'] = T_QEND
 tl['qa']['scenes'] = sc
-# 投资启示
-T_INS = round(T_QEND + 1.4, 3)
-vo, subs, words, t = lay_vo(INSIGHT, T_INS + 3.6)
-tl['insight'] = dict(t_card=T_INS, vo=vo, subs=subs, words=words, t0=round(T_INS + 3.6, 3), t1=round(vo[-1]['t1'], 3))
-# 一句话总结 + 片尾
-T_SUM = round(vo[-1]['t1'] + 1.6, 3)
-vo, subs, words, t = lay_vo([SUMMARY], T_SUM + 0.9)
+# ------------------------------------------------------------------ 投资启示（The Escalation：结构与论证同步）
+T_INS = round(T_QEND + 1.2, 3)
+# 先按自然节奏排一遍，找到“看得清”开口的时刻，再让配乐的大段落进入（201.2s）正好落在这里——不为卡点额外加停顿
+vo0, *_ = lay_vo(INSIGHT, T_INS + 3.4)
+n7 = next(v['t0'] for v in vo0 if v['id'] == 'I7')
+E_OFF = n7 - E_HIT_SEES
+e_beats = BEATS[E_TRACK] + E_OFF
+anchors = {'I7': n7}
+vo, subs, words, t_end = lay_vo(INSIGHT, T_INS + 3.4, anchors=anchors, beats=e_beats)
+tl['insight'] = dict(t_card=T_INS, vo=vo, subs=subs, words=words, t0=vo[0]['t0'], t1=round(t_end, 3))
+# 一句话总结：落在高潮重拍上（若口播比预期长，就落在其后最近的小节强拍）
+T_SUM = E_HIT_SUM + E_OFF
+if T_SUM < t_end + 1.0:
+    eb = e_beats[np.argmin(np.abs(e_beats - T_SUM))::4]
+    T_SUM = float(eb[eb > t_end + 1.0][0])
+T_SUM = round(T_SUM, 3)
+vo, subs, words, t = lay_vo([SUMMARY], T_SUM + 0.7)
 tl['summary'] = dict(t0=T_SUM, vo=vo, subs=subs, words=words)
-T_BRAND = round(T_SUM + (LENTO_HIT_BRAND - LENTO_HIT_SUM), 3)
+eb = e_beats[np.argmin(np.abs(e_beats - T_SUM))::4]
+T_BRAND = round(float(eb[eb > T_SUM + E_BRAND_AFTER - 0.6][0]), 3)
 tl['end'] = dict(t_particles=round(T_BRAND - 3.9, 3), t_logo=round(T_BRAND - 1.1, 3), t_brand=T_BRAND,
-                 t_shine=round(T_BRAND + 1.6, 3), t_fade0=round(T_BRAND + 6.2, 3), t_fade1=round(T_BRAND + 8.2, 3))
-DUR = round(T_BRAND + 8.4, 3)
+                 t_shine=round(T_BRAND + 1.6, 3), t_follow=round(T_BRAND + 1.3, 3),
+                 t_fade0=round(T_BRAND + 7.0, 3), t_fade1=round(T_BRAND + 9.0, 3))
+DUR = round(T_BRAND + 9.2, 3)
 tl['dur'] = DUR
 tl['nframes'] = int(round(DUR * FPS))
-# 音乐（曲目内时间 → 片内时间）
+# ------------------------------------------------------------------ 音乐（曲目内时间 → 片内时间）
 tl['music'] = [
-    dict(track='Impact Lento', src_in=LENTO_HIT_A - 0.25, t0=T_TITLE - 0.25, t1=T_CTX + 0.6, fade_in=0.05, fade_out=2.6),
-    dict(track='Lost Time', src_in=LOST_HIT - 0.15, t0=T_INS - 0.15, t1=T_SUM - 0.6, fade_in=0.05, fade_out=3.0),
-    dict(track='Impact Lento', src_in=LENTO_HIT_SUM - 6.0, t0=T_SUM - 6.0, t1=DUR, fade_in=4.0, fade_out=2.2),
+    dict(track=U_TRACK, src_in=-U_OFF, t0=0.0, t1=T_CTX + 0.5, fade_in=1.5, fade_out=1.8, level=-19.0),
+    dict(track=E_TRACK, src_in=T_INS - 1.0 - E_OFF, t0=T_INS - 1.0, t1=DUR, fade_in=0.8, fade_out=2.6, level=-18.0),
 ]
-tl['music_hits'] = dict(title=T_TITLE, insight=T_INS, summary=T_SUM, brand=T_BRAND)
-# 转场音效（全部 200Hz 以下）
+# 画面卡点：强重拍（推镜 + 闪光 + 色散）与节拍（轻微脉动）
+hits = [(T_TITLE, 1.0), (T_CTX, 0.8), (T_INS, 1.0), (tl['insight']['vo'][[v['id'] for v in tl['insight']['vo']].index('I7')]['t0'] - 0.04, 1.0),
+        (T_SUM, 1.0), (T_BRAND, 1.0)]
+for part in ('intro', 'insight'):
+    prev = None
+    for v in tl[part]['vo']:
+        if prev and v['scene'] != prev: hits.append((v['t0'] - 0.04, 0.5))
+        prev = v['scene']
+tl['hits'] = sorted(set((round(a, 3), b) for a, b in hits))
+tl['beats'] = [round(float(b), 3) for b in np.r_[u_beats[(u_beats > T_TITLE) & (u_beats < T_CTX)],
+                                                  e_beats[(e_beats > T_INS) & (e_beats < DUR - 2)]]]
+# 转场音效（全部 200Hz 以下）：只在结构转折处
 tl['sfx'] = [
-    dict(kind='swell', t=T_TITLE - 1.7, dur=1.7, gain=-12),
-    dict(kind='impact', t=T_TITLE, gain=-8),
-    dict(kind='swell', t=T_CTX - 1.8, dur=1.8, gain=-13),
-    dict(kind='subdrop', t=T_CTX, gain=-10),
-    dict(kind='swell', t=T_INS - 1.6, dur=1.6, gain=-13),
-    dict(kind='impact', t=T_INS, gain=-9),
-    dict(kind='subdrop', t=T_SUM, gain=-12),
+    dict(kind='swell', t=T_TITLE - 1.7, dur=1.7, gain=-13),
+    dict(kind='impact', t=T_TITLE, gain=-9),
+    dict(kind='swell', t=T_CTX - 1.6, dur=1.6, gain=-13),
+    dict(kind='subdrop', t=T_CTX, gain=-9),
+    dict(kind='impact', t=T_INS, gain=-10),
+    dict(kind='impact', t=n7, gain=-11),
+    dict(kind='subdrop', t=T_SUM, gain=-10),
     dict(kind='impact', t=T_BRAND, gain=-9),
 ]
 tl['sections'] = [
     dict(name='冷开场（原声）', t0=0, t1=T_TITLE),
-    dict(name='片名', t0=T_TITLE, t1=T_S1),
-    dict(name='系列片头口播', t0=T_S1, t1=tl['intro']['t1']),
+    dict(name='片名 + 系列介绍', t0=T_TITLE, t1=tl['intro']['t1']),
     dict(name='回到 1994', t0=T_CTX, t1=T_Q),
-    dict(name='原始问答（1994 下午场原声）', t0=T_Q, t1=T_QEND),
+    dict(name='原始问答（1994 下午场原声·节选）', t0=T_Q, t1=T_QEND),
     dict(name='投资启示（解读）', t0=T_INS, t1=tl['insight']['t1']),
     dict(name='一句话总结', t0=T_SUM, t1=tl['end']['t_particles']),
     dict(name='品牌片尾', t0=tl['end']['t_particles'], t1=DUR),
@@ -232,4 +300,5 @@ tl['sections'] = [
 json.dump(tl, open(os.path.join(work, 'timeline.json'), 'w'), ensure_ascii=False, indent=1)
 for s in tl['sections']:
     print(f"{s['t0']:7.2f}–{s['t1']:7.2f}  {s['name']}")
-print('总时长', DUR, '秒 =', f'{int(DUR // 60)}:{DUR % 60:04.1f}', ' 投资启示口播', round(tl['insight']['t1'] - tl['insight']['t0'], 1), '秒')
+print('总时长', DUR, '秒 =', f'{int(DUR // 60)}:{DUR % 60:04.1f}', ' 系列介绍口播', round(tl['intro']['t1'] - tl['intro']['t0'], 1),
+      '秒  投资启示口播', round(tl['insight']['t1'] - tl['insight']['t0'], 1), '秒')
