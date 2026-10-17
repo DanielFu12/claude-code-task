@@ -2,7 +2,7 @@
 
 INTRO      系列片头口播（用户提供的系列介绍稿，只调整了断句；最后两句按本期原始问答重写）
 ORIGINAL   1994 年股东大会下午场原始录音的字幕（英文逐字取自 CNBC 逐字稿 1994-A22，中文为本片翻译）
-INSIGHT    投资启示解读（本片撰写，AI 配音；不是巴菲特或芒格的原话）
+INSIGHT    投资启示解读（本片撰写的旁白；不是巴菲特或芒格的原话）
 SUMMARY    一句话总结
 
 每条口播：(id, 场景, 朗读文本, 句后停顿秒)。字幕按全角标点自动断成短句显示。
@@ -10,8 +10,21 @@ SAY 里是只为发音调整的朗读文本（屏幕字幕仍用原文）。
 """
 
 # ------------------------------------------------------------------ 配音参数
-VOICE = 'zh-CN-YunjianNeural'      # 微软 Edge 神经网络语音「云健」：低沉、偏纪录片质感的男声
-RATE, PITCH = '-7%', '-3Hz'        # 稍慢、略低，留出呼吸感
+# 主引擎：Google Gemini TTS（需要环境变量 GEMINI_API_KEY）。风格指令放在 speech_metadata.style，原样使用，不改写。
+GEMINI_MODEL = 'gemini-3.8-flash-tts'
+GEMINI_VOICE = 'charon'            # 男低音，沉稳
+GEMINI_STYLE = ('A steady authoritative male narrator for a financial documentary. '
+                'Measured and deliberate pace, calm confidence, clear enunciation, quiet gravitas.')
+GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/interactions'
+# 按段落成组合成（同一段内的句子一次念完，语气连贯；段落之间的停顿由时间线控制）
+TTS_GROUPS = [('S1',), ('S2', 'S3'), ('S4',), ('S5',), ('S6', 'S7'), ('S8',), ('S9', 'S10', 'S11'),
+              ('I1', 'I2', 'I3'), ('I4', 'I6'), ('I7', 'I9'), ('I11', 'I12', 'I13'), ('I14', 'I15'), ('I16', 'I17'), ('M',)]
+# 关键句前的停顿 / 换气标签（只进朗读稿，不进字幕）
+TAGS = {'S5': '<breath>', 'S9': '<breath>', 'S11': '<short pause>', 'I3': '<short pause>', 'I7': '<breath>',
+        'I11': '<breath>', 'I15': '<short pause>', 'I17': '<breath>', 'M': '<breath>'}
+# 备用引擎：微软 Edge 神经网络语音「云健」（TTS_ENGINE=edge 或没有 GEMINI_API_KEY 时使用）
+VOICE = 'zh-CN-YunjianNeural'
+RATE, PITCH = '-7%', '-3Hz'
 
 # ------------------------------------------------------------------ 冷开场（原声）
 # 冷开场直接用本期原始录音里的一句（与后面完整问答中的 A7–A8 是同一段录音）
@@ -104,7 +117,7 @@ ORIGINAL = [
 ]
 LAUGH_AFTER = 'A11'            # 原声在 A11 之后有现场笑声（逐字稿标注 "(Laughter)"）
 
-# ------------------------------------------------------------------ 投资启示（本片解读，AI 配音）
+# ------------------------------------------------------------------ 投资启示（本片解读，旁白）
 INSIGHT = [
     ('I1', 'formula', '巴菲特的回答，可以浓缩成一句话：一家企业的价值，等于它未来全部现金流的折现值。', 0.55),
     ('I2', 'formula', '这个公式，出自1938年威廉姆斯的《投资价值理论》。', 0.45),

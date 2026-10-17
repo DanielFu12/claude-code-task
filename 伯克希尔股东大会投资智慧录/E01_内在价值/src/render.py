@@ -521,9 +521,9 @@ def s_insight(img, t):
         glow(img, (W / 2, 880), 240, GOLD * 0.2, math.exp(-max(k, 0) / 1.2) * a)
         text(img, 'INSIGHT', W / 2, 760, 32, 'corm_med', SUB_GOLD, a * eo(k / 0.6), track=0.5)
         text(img, '投资启示', W / 2, 880, 120, 'serif_black', a=a, gold=True, wipe=eo(k / 1.0), glow=0.2)
-        text(img, '以下为本片解读 · AI 配音 · 非巴菲特或芒格原话', W / 2, 1010, 28, 'sans', INK2, a * eo((k - 0.6) / 0.8), track=0.04)
+        text(img, '以下为本片解读，非巴菲特或芒格原话', W / 2, 1010, 28, 'sans', INK2, a * eo((k - 0.6) / 0.8), track=0.04)
     ta = env(t, VOD['I1']['t0'] - 0.4, VOD['I17']['t1'] + 0.8, 0.6, 0.6)
-    chapter_tag(img, t, '投资启示 · 本片解读（AI 配音）', ta)
+    chapter_tag(img, t, '投资启示 · 本片解读', ta)
     # 公式
     a0, b0 = ins_span('I1', 'I3')
     a = env(t, a0, b0, 0.5, 0.5)

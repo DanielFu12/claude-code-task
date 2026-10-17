@@ -4,7 +4,8 @@
 """
 import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import (ARCHIVE_ITEM, ARCHIVE_URL, CLIP_IN, CNBC_CHAPTER, CNBC_URL, FACTS, VOICE, RATE, PITCH, BROLL, STILL_T, PIC_BOX)
+from script import (ARCHIVE_ITEM, ARCHIVE_URL, CLIP_IN, CNBC_CHAPTER, CNBC_URL, FACTS, VOICE, RATE, PITCH, BROLL, STILL_T, PIC_BOX,
+                    GEMINI_MODEL, GEMINI_VOICE, GEMINI_STYLE)
 
 work, out = sys.argv[1], sys.argv[2]
 os.makedirs(out, exist_ok=True)
@@ -22,13 +23,19 @@ def hms(t):
 
 
 # ------------------------------------------------------------------ 口播脚本
+ENGINE = next(iter(json.load(open(os.path.join(work, 'vo_index.json'))).values())).get('engine', 'edge')
+if ENGINE == 'gemini':
+    VOICE_NOTE = (f'配音：Google Gemini TTS（`{GEMINI_MODEL}`，声音 `{GEMINI_VOICE}`），风格指令原样放在 speech_metadata.style：'
+                  f'“{GEMINI_STYLE}”。按段落成组合成，段内句间停顿保留模型自己的节奏，段落之间按语义设置停顿。')
+else:
+    VOICE_NOTE = f'配音：微软 Edge 神经网络语音 `{VOICE}`（男声），语速 {RATE}、音高 {PITCH}；逐句合成，句间停顿按语义设置。'
 L = ['# 口播脚本 · 第一集《内在价值》', '',
-     f'配音：微软 Edge 神经网络语音 `{VOICE}`（男声），语速 {RATE}、音高 {PITCH}；逐句合成，句间停顿按语义设置。', '',
-     '> 标注说明：**【AI 口播】** 为本片撰写、AI 配音的内容；**【原声】** 为 1994 年股东大会原始录音。两者在画面上也有明确区分（解读段全程标注“本片解读（AI 配音）”）。', '']
+     VOICE_NOTE, '',
+     '> 标注说明：**【旁白】** 为本片撰写的解说；**【原声】** 为 1994 年股东大会原始录音。画面上同样区分：原声段标注“声音：下午场原始录音”，解读段标注“本片解读”。', '']
 L += ['## 一、冷开场【原声】', '']
 for s in tl['cold_subs']:
     L.append(f"- `{tc(s['t0'])}–{tc(s['t1'])}` {s['en']}  \n  {s['zh']}")
-L += ['', '## 二、系列片头【AI 口播】', '']
+L += ['', '## 二、系列片头【旁白】', '']
 for v in tl['intro']['vo']:
     L.append(f"- `{tc(v['t0'])}–{tc(v['t1'])}` {v['text']}")
 L += ['', '## 三、原始问答【原声】', '',
@@ -37,10 +44,10 @@ L += ['', '## 三、原始问答【原声】', '',
 for s in tl['qa']['subs']:
     src = s['t0'] - tl['qa']['t0'] + tl['qa']['src_in'] + CLIP_IN
     L.append(f"| {tc(s['t0'])} | {hms(src)} | {hms(src - AFTERNOON_START)} | {s['en']} | {s['zh']} |")
-L += ['', '## 四、投资启示【AI 口播 · 本片解读，非巴菲特或芒格原话】', '']
+L += ['', '## 四、投资启示【旁白 · 本片解读，非巴菲特或芒格原话】', '']
 for v in tl['insight']['vo']:
     L.append(f"- `{tc(v['t0'])}–{tc(v['t1'])}` {v['text']}")
-L += ['', f"解读口播时长：{tl['insight']['t1'] - tl['insight']['t0']:.1f} 秒。", '', '## 五、一句话总结【AI 口播】', '']
+L += ['', f"解读口播时长：{tl['insight']['t1'] - tl['insight']['t0']:.1f} 秒。", '', '## 五、一句话总结【旁白】', '']
 for v in tl['summary']['vo']:
     L.append(f"- `{tc(v['t0'])}–{tc(v['t1'])}` {v['text']}")
 open(os.path.join(out, '口播脚本.md'), 'w').write('\n'.join(L) + '\n')
@@ -70,7 +77,7 @@ for sc, desc in [('ask', '股东提问：画面为倾听静帧；面板写出问
     s = Q[sc]
     shots.append((s['t0'], s['t1'], f'原声·{sc}', desc + '；上方为同日静帧（回答段换成巴菲特讲话时的静帧），下方中英字幕', '原始录音（不剪）', '无音乐'))
 shots += [
-    (tl['insight']['t_card'], V['I1']['t0'], '投资启示标题卡', '“投资启示 / INSIGHT”；注明“本片解读 · AI 配音 · 非巴菲特或芒格原话”', '—', '低沉冲击 + Lost Time 进入'),
+    (tl['insight']['t_card'], V['I1']['t0'], '投资启示标题卡', '“投资启示 / INSIGHT”；注明“以下为本片解读，非巴菲特或芒格原话”', '—', '低沉冲击 + Lost Time 进入'),
     (V['I1']['t0'], V['I3']['t1'], '价值公式', 'V = Σ CFₜ/(1+r)ᵗ；“分子”被点亮；John Burr Williams 1938 书目卡', 'I1–I3', 'Lost Time（压低）'),
     (V['I4']['t0'], V['I6']['t1'], '债券 vs 股票', '债券票息整齐 vs 股票“票息”问号；1992 年信原文引语', 'I4–I6', '同上'),
     (V['I7']['t0'], V['I9']['t1'], '看得清：喜诗糖果', '1972 年 2500 万美元；销量 1600 万→3100 万磅；税前 <500 万→8200 万；13.5 亿 vs 3200 万柱图', 'I7–I9', '同上'),
@@ -127,7 +134,7 @@ L += ['', '致股东信原文：https://www.berkshirehathaway.com/letters/1992.h
       '- "Impact Lento" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/',
       '- "Lost Time" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/',
       '- 发布时请在简介中保留以上署名。', '',
-      '## 配音', '', f'- 微软 Edge 神经网络语音 `{VOICE}`，经 `edge-tts` 调用。公开商用前请确认所在平台对该语音服务的使用条款；`src/tts.py` 可换成其他 TTS 引擎而不影响其余流程。', '',
+      '## 配音', '', (f'- Google Gemini TTS `{GEMINI_MODEL}`，声音 `{GEMINI_VOICE}`；字幕时间由 faster-whisper 对合成结果强制对齐得到。' if ENGINE == 'gemini' else f'- 微软 Edge 神经网络语音 `{VOICE}`，经 `edge-tts` 调用。'), '',
       '## 字体（SIL Open Font License）', '', '- 思源宋体 / 思源黑体（Noto Serif SC、Noto Sans SC）、Cormorant Garamond、EB Garamond、Inter，均来自 Google Fonts。', '',
       '## 品牌', '', '- 右上角角标：仓库 `brand/brand.py` 的 `Hud`（逐帧合成，含光晕与流光）。',
       '- 片尾 logo：`brand/logo_baman.png`（经 `brand.load_logo` 预乘 alpha 缩放）；片尾文字取自 `brand/hud_lockup@4x.png` 的官方预渲染文字区。']

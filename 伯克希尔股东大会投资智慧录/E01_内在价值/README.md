@@ -23,11 +23,11 @@
 | 0:07–1:38 | 系列片头 | 片名 + 用户提供的系列介绍口播；最后两句按本期原始问答重写：“下面，让我们回到 1994 年的伯克希尔股东大会。在下午的问答环节，一位来自加拿大的股东，向巴菲特和芒格提出了一个所有投资者都绕不开的问题：一家企业的内在价值，究竟该怎么算？” |
 | 1:39–1:44 | 背景卡 | 1994 年 4 月 · 奥马哈 · 下午场 · CNBC 第 22 章；说明本段只存原始录音 |
 | 1:44–5:19 | 原始问答 | 股东 Sean Barry 提问 + 巴菲特约 3 分钟完整回答，**中间不剪**；中英字幕 |
-| 5:21–7:13 | 投资启示 | AI 解读（口播 108 秒）：价值公式与真正的难点 → 1992 年信“股票的票息要自己估” → 看得清：喜诗糖果 → 看不清：美国航空优先股 → 代价是错过（2017 年芒格谈谷歌）→ 今天的意义 |
+| 5:21–7:13 | 投资启示 | 本片解读（旁白 108 秒）：价值公式与真正的难点 → 1992 年信“股票的票息要自己估” → 看得清：喜诗糖果 → 看不清：美国航空优先股 → 代价是错过（2017 年芒格谈谷歌）→ 今天的意义 |
 | 7:14–7:23 | 一句话总结 | **先问看不看得清，再问便不便宜。** |
 | 7:23–7:35 | 品牌片尾 | 文字化为微粒沿官方 logo 透明通道汇聚 → 原始 logo 居中 → 重拍上浮现金色「巴芒价值」「BUFFETT · MUNGER」→ 流光 → 淡出 |
 
-原话与解读严格分开：原声段全程标注“声音：下午场原始录音”，解读段全程标注“本片解读（AI 配音）”，标题卡写明“非巴菲特或芒格原话”。解读里引用的巴菲特/芒格英文原句都注明了出处（1992、1994 年致股东信，2017 年股东大会）。
+原话与解读严格分开：原声段全程标注“声音：下午场原始录音”，解读段全程标注“本片解读”，标题卡写明“以下为本片解读，非巴菲特或芒格原话”。画面上不再标注配音方式。解读里引用的巴菲特/芒格英文原句都注明了出处（1992、1994 年致股东信，2017 年股东大会）。
 
 ## 原始问答的来源与时间戳
 
@@ -39,7 +39,11 @@
 
 ## 声音
 
-- **配音**：微软 Edge 神经网络语音「云健」（`zh-CN-YunjianNeural`，低沉男声），语速 -7%、音高 -3Hz，**逐句合成**以保留每句完整语调，句间停顿按语义 0.25–0.9 秒；总结句放慢到 -14%。去掉 TTS 自带的首尾空白后重新排时间。
+- **配音**：Google Gemini TTS（`gemini-3.8-flash-tts`，男低音 `charon`），风格指令原样放在 `speech_metadata.style`：“A steady authoritative male narrator for a financial documentary. Measured and deliberate pace, calm confidence, clear enunciation, quiet gravitas.”
+  - 按段落成组合成（同一段的几句一次念完，语气连贯），正文只放逐字稿；关键句前加 `<breath>` / `<short pause>`。
+  - Gemini 不返回逐字时间，用 faster-whisper 对合成结果做强制对齐（识别只用于定时，字幕文字以稿子为准），在句间能量最低处切句；段内句间停顿保留模型自己的节奏，段落之间按语义留白。
+  - 每段合成后自动核对“稿子覆盖率”（漏读、误读或把标签念出来就重合成，最多 3 次）；原始返回另存 MP3。
+  - 需要环境变量 `GEMINI_API_KEY`；没有时 `build.sh` 退回微软 Edge 语音「云健」。**当前提交的成片仍是 Edge「云健」版本**，配置 key 后运行 `./build.sh` 即生成 Gemini 版本。
 - **原声**：只做 70Hz 高通和电平统一（提问与回答分别统一到与口播相同的人声电平），不降噪、不变速、不剪辑。
 - **音乐**（Kevin MacLeod，CC BY 4.0）：
   - 片头：*Impact Lento* 的第一个和弦落在片名出现的那一帧；
@@ -67,7 +71,7 @@
 ./build.sh
 ```
 
-依赖 ffmpeg 与 `numpy scipy opencv-python-headless pillow soundfile librosa edge-tts faster-whisper`。网络需要能访问 archive.org、Google Fonts、incompetech.com、speech.platform.bing.com。`data/asr_words.json` 是已存的逐词时间戳，存在时不需要重新跑语音识别。在 4 核机器上逐帧渲染约 40 分钟。
+依赖 ffmpeg 与 `numpy scipy opencv-python-headless pillow soundfile librosa edge-tts faster-whisper`，以及环境变量 `GEMINI_API_KEY`。网络需要能访问 archive.org、Google Fonts、incompetech.com、generativelanguage.googleapis.com、Hugging Face。`data/asr_words.json` 是已存的逐词时间戳，存在时不需要重新跑语音识别。在 4 核机器上逐帧渲染约 40 分钟。
 
 单帧检查：`cd src && python3 render.py stills OUT_DIR 30 150 400 ../work`。
 
@@ -76,7 +80,7 @@
 | `src/script.py` | 全部文本的唯一来源：口播、原声字幕、素材区间、事实出处 |
 | `src/fetch.py` | 按区间读取 archive.org 上的原始录音、影像和静帧 |
 | `src/asr.py`、`src/align.py` | 逐词识别（只用来定时）× CNBC 逐字稿 → 原声字幕时间 |
-| `src/tts.py` | Edge TTS 逐句配音与逐词时间 |
+| `src/tts.py` | Gemini TTS 分段配音 + 强制对齐切句（备用 Edge TTS） |
 | `src/timeline.py` | 整片时间线（口播、原声、字幕、场景、音乐重拍、音效） |
 | `src/audio.py` | 低频音效合成、音乐剪辑、侧链压缩、混音、原声频带包络 |
 | `src/gfx.py`、`src/render.py` | 竖屏图形库与全部分镜渲染（含品牌角标与片尾） |
@@ -96,5 +100,5 @@
 - 1994 年下午场没有现场画面，这是档案本身的限制；本片用同日上午场静帧并明确标注，不制造“看起来像录像”的画面。
 - 原始录音取自 archive.org 上第三方上传的录像（音质与 CNBC 档案一致，但不是 CNBC 官方文件）；`buffett.cnbc.com` 对本环境返回 403，无法直接取官方音频。
 - “下午场时间”按第三方录像标注的下午场起点换算，和 CNBC 页面的播放时间可能有几秒偏差；片内时间与录像时间是精确的。
-- 配音使用 Edge TTS，公开商用前请确认平台条款；换引擎只需改 `src/tts.py`。
+- 配音默认用 Gemini TTS（2026 年底前免费）；备用的 Edge TTS 公开商用前请确认平台条款。
 - 音乐为 CC BY 4.0，发布时需在简介中署名（见 `docs/素材来源与事实核查.md`）。

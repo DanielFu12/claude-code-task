@@ -143,7 +143,8 @@ def lay_vo(items, t, gap_scale=1.0):
         # 逐词（屏幕动画卡点用）
         for w0, w1, wt in VO[sid]['words']:
             words.append(dict(id=sid, w=wt, t=round(t + w0 - a, 3)))
-        t += dur + pause * gap_scale
+        # 同一段落内（Gemini 整段合成）保留模型自己的句间停顿；段落之间用稿子里设定的停顿
+        t += dur + VO[sid].get('gap', pause * gap_scale)
     # 字幕首尾衔接：相邻两条不重叠，短空隙直接接上
     for s0, s1 in zip(subs, subs[1:]):
         if s1['t0'] - s0['t1'] < 0.35: s0['t1'] = s1['t0'] - 0.02
@@ -224,7 +225,7 @@ tl['sections'] = [
     dict(name='系列片头口播', t0=T_S1, t1=tl['intro']['t1']),
     dict(name='回到 1994', t0=T_CTX, t1=T_Q),
     dict(name='原始问答（1994 下午场原声）', t0=T_Q, t1=T_QEND),
-    dict(name='投资启示（AI 解读）', t0=T_INS, t1=tl['insight']['t1']),
+    dict(name='投资启示（解读）', t0=T_INS, t1=tl['insight']['t1']),
     dict(name='一句话总结', t0=T_SUM, t1=tl['end']['t_particles']),
     dict(name='品牌片尾', t0=tl['end']['t_particles'], t1=DUR),
 ]

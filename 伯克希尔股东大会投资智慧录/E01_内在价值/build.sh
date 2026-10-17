@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # 一键重建《伯克希尔股东大会投资智慧录》第一集 · 内在价值（1080×1920 竖屏）
 # 依赖：ffmpeg、python3（numpy scipy opencv-python-headless pillow soundfile librosa edge-tts faster-whisper）
-# 网络：archive.org（原始录音与影像）、Google Fonts、incompetech.com（CC BY 音乐）、speech.platform.bing.com（Edge TTS）
+# 网络：archive.org（原始录音与影像）、Google Fonts、incompetech.com（CC BY 音乐）、generativelanguage.googleapis.com（Gemini TTS）、Hugging Face（faster-whisper 模型）
+# 配音：需要环境变量 GEMINI_API_KEY（Gemini TTS，声音 charon）；没有时退回 Edge TTS（TTS_ENGINE=edge 可强制）
 # 品牌：右上角角标与片尾 logo / 文字全部取自仓库根目录 brand/（见 brand/BRAND.md）
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -23,7 +24,8 @@ python3 src/fetch.py "$WORK"
 [ -f data/asr_words.json ] || python3 src/asr.py "$WORK/orig16.wav" data/asr_words.json
 cp data/asr_words.json "$WORK/asr_words.json"
 python3 src/align.py "$WORK"
-# 4) AI 口播（Edge TTS，云健）
+# 4) 旁白配音：Gemini TTS 按段落合成 + faster-whisper 强制对齐切句（无 key 时用 Edge TTS）
+[ -n "${GEMINI_API_KEY:-}" ] || [ "${TTS_ENGINE:-}" = edge ] || echo '警告：未设置 GEMINI_API_KEY，将使用备用的 Edge TTS' >&2
 python3 src/tts.py "$WORK"
 # 5) 时间线
 python3 src/timeline.py "$WORK"
