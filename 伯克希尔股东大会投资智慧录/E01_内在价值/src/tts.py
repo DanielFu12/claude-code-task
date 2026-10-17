@@ -3,7 +3,7 @@
 主引擎：Google Gemini TTS（gemini-3.8-flash-tts，声音 charon），按段落成组合成，风格指令原样放在 speech_metadata.style。
         Gemini 不返回逐字时间，所以用 faster-whisper 对合成结果做强制对齐（识别结果只用来定时，字幕文字以稿子为准），
         再在句间能量最低处切成逐句片段，段内句间停顿保留模型自己的节奏。
-备用引擎：微软 Edge 神经网络语音（云健），逐句合成并取逐词边界（TTS_ENGINE=edge，或没有 GEMINI_API_KEY 时）。
+备用引擎：微软 Edge 神经网络语音（云健），逐句合成并取逐词边界（TTS_ENGINE=edge）。
 
 用法：python3 src/tts.py WORK
 输出：WORK/vo/<id>.wav（48kHz 单声道，逐句）、WORK/vo/<group>.mp3（整段原始合成，Gemini）、WORK/vo_index.json
@@ -20,7 +20,7 @@ VD = os.path.join(work, 'vo'); os.makedirs(VD, exist_ok=True)
 CA = '/root/.ccr/ca-bundle.crt'
 SR = 48000
 ITEMS = {sid: (scene, text, pause) for sid, scene, text, pause in INTRO + INSIGHT + [SUMMARY]}
-ENGINE = os.environ.get('TTS_ENGINE') or ('gemini' if os.environ.get('GEMINI_API_KEY') else 'edge')
+ENGINE = os.environ.get('TTS_ENGINE', 'gemini')   # Gemini 为默认；TTS_ENGINE=edge 用备用引擎
 PUNCT = '，。；：？！、—…“”《》·（）,.;:?! '
 
 
@@ -42,8 +42,10 @@ def gemini_request(text):
         'response_format': {'type': 'audio'},
         'generation_config': {'speech_config': [{'voice': GEMINI_VOICE}]},
     }
-    req = urllib.request.Request(GEMINI_URL, data=json.dumps(body).encode(), method='POST', headers={
-        'x-goog-api-key': os.environ['GEMINI_API_KEY'], 'Content-Type': 'application/json'})
+    headers = {'Content-Type': 'application/json'}
+    if os.environ.get('GEMINI_API_KEY'):          # 云环境里 key 以 Network secret 形式由出口代理注入，本地运行时用环境变量
+        headers['x-goog-api-key'] = os.environ['GEMINI_API_KEY']
+    req = urllib.request.Request(GEMINI_URL, data=json.dumps(body).encode(), method='POST', headers=headers)
     ctx = ssl.create_default_context(cafile=CA if os.path.exists(CA) else None)
     with urllib.request.urlopen(req, timeout=180, context=ctx) as r:
         resp = json.load(r)
@@ -150,11 +152,13 @@ def gemini_group(ids):
     else:
         best = None
         for attempt in range(3):            # 识别比对不过关（漏读、误读、把标签念出来）就重新合成，最多 3 次
-            for k in range(4):
+            for k in range(8):                 # 免费额度有速率限制（429）：按 Retry-After 或指数退避重试
                 try:
                     raw, mime = gemini_request(text); break
                 except Exception as e:
-                    print('  retry', gname, str(e)[:200]); time.sleep(2 ** (k + 1))
+                    ra = getattr(e, 'headers', None) and e.headers.get('Retry-After')
+                    wait = min(float(ra), 120) if ra and str(ra).replace('.', '').isdigit() else min(15 * 2 ** k, 120)   # Retry-After 偶尔给出离谱的大值，封顶 2 分钟
+                    print('  retry', gname, str(e)[:120], f'等待 {wait:.0f}s', flush=True); time.sleep(wait)
             else:
                 raise SystemExit(f'Gemini TTS failed for {gname}')
             x = to_wav48(raw, mime, base)
