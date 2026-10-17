@@ -539,6 +539,10 @@ def s_insight(img, t):
     if a > 0:
         kb = eo((t - wt('I4', '债券')) / 0.8); ks = eo((t - wt('I4', '股票')) / 0.8)
         kf = eio((t - VOD['I6']['t0']) / 0.6)
+        t4 = VOD['I4']['t0']
+        text(img, 'BERKSHIRE HATHAWAY · 1992 LETTER', W / 2, 520, 26, 'corm_med', SUB_GOLD, a * eo((t - t4) / 0.5), track=0.2)
+        fx.slam(img, '巴菲特 · 1992 年致股东信', W / 2, 590, 50, 'serif_black', t, wt('I4', '1992') - 0.05, a * (1 - kf), glow_=0.3)
+        brackets(img, (210, 545, 870, 635), a * (1 - kf) * eo((t - wt('I4', '1992')) / 0.4), eo((t - wt('I4', '1992')) / 0.4))
         for row, (lab, y, kk) in enumerate([('债券', 760, kb), ('股票', 1060, ks)]):
             text(img, lab, 110, y - 60, 40, 'serif_bold', INK, a * kk, 'l')
             line(img, (110, y + 70), (980, y + 70), INK3, a * kk, 1)
