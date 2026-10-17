@@ -23,9 +23,6 @@ TTS_GROUPS = [('S1', 'S2', 'S3'), ('S4', 'S5'),
 # 关键句前的停顿 / 换气标签（只进朗读稿，不进字幕）
 TAGS = {'S3': '<breath>', 'S4': '<breath>', 'S5': '<short pause>', 'I3': '<short pause>', 'I7': '<breath>',
         'I11': '<breath>', 'I15': '<short pause>', 'I17': '<breath>', 'M': '<breath>'}
-# 备用引擎：微软 Edge 神经网络语音「云健」（TTS_ENGINE=edge 或没有 GEMINI_API_KEY 时使用）
-VOICE = 'zh-CN-YunjianNeural'
-RATE, PITCH = '-7%', '-3Hz'
 
 # ------------------------------------------------------------------ 冷开场（原声）
 # 冷开场直接用本期原始录音里的一句（与后面完整问答中的 A7–A8 是同一段录音）

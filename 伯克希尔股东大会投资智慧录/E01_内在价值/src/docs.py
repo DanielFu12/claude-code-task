@@ -4,7 +4,7 @@
 """
 import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import (ARCHIVE_ITEM, ARCHIVE_URL, CLIP_IN, CNBC_CHAPTER, CNBC_URL, FACTS, VOICE, RATE, PITCH, BROLL, STILL_T, PIC_BOX,
+from script import (ARCHIVE_ITEM, ARCHIVE_URL, CLIP_IN, CNBC_CHAPTER, CNBC_URL, FACTS, BROLL, STILL_T, PIC_BOX,
                     GEMINI_MODEL, GEMINI_VOICE, GEMINI_STYLE)
 
 work, out = sys.argv[1], sys.argv[2]
@@ -23,12 +23,8 @@ def hms(t):
 
 
 # ------------------------------------------------------------------ 口播脚本
-ENGINE = next(iter(json.load(open(os.path.join(work, 'vo_index.json'))).values())).get('engine', 'edge')
-if ENGINE == 'gemini':
-    VOICE_NOTE = (f'配音：Google Gemini TTS（`{GEMINI_MODEL}`，声音 `{GEMINI_VOICE}`），风格指令原样放在 speech_metadata.style：'
-                  f'“{GEMINI_STYLE}”。按段落成组合成，段内句间停顿保留模型自己的节奏，段落之间按语义设置停顿。')
-else:
-    VOICE_NOTE = f'配音：微软 Edge 神经网络语音 `{VOICE}`（男声），语速 {RATE}、音高 {PITCH}；逐句合成，句间停顿按语义设置。'
+VOICE_NOTE = (f'配音：Google Gemini TTS（`{GEMINI_MODEL}`，声音 `{GEMINI_VOICE}`），风格指令原样放在 speech_metadata.style：'
+              f'“{GEMINI_STYLE}”。按段落成组合成，段内句间停顿保留模型自己的节奏，段落之间按语义设置停顿；整体提速 7%（保留音高）。')
 L = ['# 口播脚本 · 第一集《内在价值》', '',
      VOICE_NOTE, '',
      '> 标注说明：**【旁白】** 为本片撰写的解说；**【原声】** 为 1994 年股东大会原始录音。画面上同样区分：原声段标注“声音：下午场原始录音”，解读段标注“本片解读”。', '']
@@ -132,7 +128,7 @@ L += ['', '致股东信原文：https://www.berkshirehathaway.com/letters/1992.h
       '- "Undaunted" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/',
       '- "The Escalation" Kevin MacLeod (incompetech.com) — Licensed under Creative Commons: By Attribution 4.0 License — http://creativecommons.org/licenses/by/4.0/',
       '- 发布时请在简介中保留以上署名。', '',
-      '## 配音', '', (f'- Google Gemini TTS `{GEMINI_MODEL}`，声音 `{GEMINI_VOICE}`；字幕时间由 faster-whisper 对合成结果强制对齐得到。' if ENGINE == 'gemini' else f'- 微软 Edge 神经网络语音 `{VOICE}`，经 `edge-tts` 调用。'), '',
+      '## 配音', '', f'- Google Gemini TTS `{GEMINI_MODEL}`，声音 `{GEMINI_VOICE}`；字幕时间由 faster-whisper 对合成结果强制对齐得到。', '',
       '## 字体（SIL Open Font License）', '', '- 思源宋体 / 思源黑体（Noto Serif SC、Noto Sans SC）、Cormorant Garamond、EB Garamond、Inter，均来自 Google Fonts。', '',
       '## 品牌', '', '- 右上角角标：仓库 `brand/brand.py` 的 `Hud`（逐帧合成，含光晕与流光）。',
       '- 片尾 logo：`brand/logo_baman.png`（经 `brand.load_logo` 预乘 alpha 缩放）；片尾文字取自 `brand/hud_lockup@4x.png` 的官方预渲染文字区。']

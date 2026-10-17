@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # 一键重建《伯克希尔股东大会投资智慧录》第一集 · 内在价值（1080×1920 竖屏）
-# 依赖：ffmpeg、python3（numpy scipy opencv-python-headless pillow soundfile librosa edge-tts faster-whisper）
+# 依赖：ffmpeg、python3（numpy scipy opencv-python-headless pillow soundfile librosa faster-whisper）
 # 网络：archive.org（原始录音与影像）、Google Fonts、incompetech.com（CC BY 音乐）、generativelanguage.googleapis.com（Gemini TTS）、Hugging Face（faster-whisper 模型）
-# 配音：Gemini TTS（声音 charon）。key 由云环境的 Network secret 注入，或本地设环境变量 GEMINI_API_KEY；TTS_ENGINE=edge 改用备用的 Edge TTS
+# 配音：只用 Gemini TTS（声音 charon），key 由云环境的 Network secret 注入，或本地设环境变量 GEMINI_API_KEY。
+#       Gemini 出错时 tts.py 以退出码 2 停止并报告出错段落，需人工处理后重新运行（不使用备用引擎）。
 # 品牌：右上角角标与片尾 logo / 文字全部取自仓库根目录 brand/（见 brand/BRAND.md）
 set -euo pipefail
 cd "$(dirname "$0")"

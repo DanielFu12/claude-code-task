@@ -3,16 +3,20 @@
 主引擎：Google Gemini TTS（gemini-3.8-flash-tts，声音 charon），按段落成组合成，风格指令原样放在 speech_metadata.style。
         Gemini 不返回逐字时间，所以用 faster-whisper 对合成结果做强制对齐（识别结果只用来定时，字幕文字以稿子为准），
         再在句间能量最低处切成逐句片段，段内句间停顿保留模型自己的节奏。
-备用引擎：微软 Edge 神经网络语音（云健），逐句合成并取逐词边界（TTS_ENGINE=edge）。
+只用 Gemini，不设备用引擎。出错时停止并报告（退出码 2），由人工介入：
+  - 429 限流按 Retry-After / 指数退避重试（每次封顶 2 分钟），网络错误与 5xx 同样重试，8 次后仍失败即停止；
+  - 认证、额度、参数等其他接口错误（4xx）立即停止；
+  - 同一段重合成 3 次后稿子覆盖率仍 < 0.88，或仍把停顿标签念了出来，停止。
+  不换引擎、不跳过该段、不用旧音频顶替。
 
 用法：python3 src/tts.py WORK
 输出：WORK/vo/<id>.wav（48kHz 单声道，逐句）、WORK/vo/<group>.mp3（整段原始合成，Gemini）、WORK/vo_index.json
 vo_index.json 每句：scene / text / say / pause / dur / words[[t0, t1, 字]]，段内句子另有 gap（到下一句开口的秒数）。
 """
-import base64, difflib, hashlib, json, os, re, ssl, subprocess, sys, time, urllib.request
+import base64, difflib, hashlib, json, os, re, ssl, subprocess, sys, time, urllib.error, urllib.request
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import (INTRO, INSIGHT, SUMMARY, SAY, VOICE, RATE, PITCH, GEMINI_MODEL, GEMINI_VOICE, GEMINI_STYLE, GEMINI_URL,
+from script import (INTRO, INSIGHT, SUMMARY, SAY, GEMINI_MODEL, GEMINI_VOICE, GEMINI_STYLE, GEMINI_URL,
                     TTS_GROUPS, TAGS, TEMPO)
 
 work = sys.argv[1]
@@ -20,7 +24,6 @@ VD = os.path.join(work, 'vo'); os.makedirs(VD, exist_ok=True)
 CA = '/root/.ccr/ca-bundle.crt'
 SR = 48000
 ITEMS = {sid: (scene, text, pause) for sid, scene, text, pause in INTRO + INSIGHT + [SUMMARY]}
-ENGINE = os.environ.get('TTS_ENGINE', 'gemini')   # Gemini 为默认；TTS_ENGINE=edge 用备用引擎
 PUNCT = '，。；：？！、—…“”《》·（）,.;:?! '
 
 
@@ -139,6 +142,13 @@ def voiced_extent(x, a, b):
     return a + max(0, i - int(0.04 * SR)), a + min(len(seg), j + int(0.10 * SR))
 
 
+def stop(gname, text, why):
+    """Gemini 出错：不换引擎、不跳过、不用旧音频顶替——停下来，把出错段落和原因报告给人工处理"""
+    print(f'\n[需要人工介入] Gemini TTS 在段落 {gname} 出错：{why}\n  朗读稿：{text}\n'
+          f'  已完成的段落已缓存在 {VD}，处理后重新运行本脚本会从出错段落继续。', file=sys.stderr, flush=True)
+    raise SystemExit(2)
+
+
 def gemini_group(ids):
     say = {sid: SAY.get(sid, ITEMS[sid][1]) for sid in ids}
     text = ''.join((TAGS[sid] + ' ' if sid in TAGS else '') + say[sid] for sid in ids)
@@ -152,15 +162,22 @@ def gemini_group(ids):
     else:
         best = None
         for attempt in range(3):            # 识别比对不过关（漏读、误读、把标签念出来）就重新合成，最多 3 次
-            for k in range(8):                 # 免费额度有速率限制（429）：按 Retry-After 或指数退避重试
+            last = None
+            for k in range(8):                 # 429 / 网络错误 / 5xx：按 Retry-After 或指数退避重试
                 try:
                     raw, mime = gemini_request(text); break
-                except Exception as e:
-                    ra = getattr(e, 'headers', None) and e.headers.get('Retry-After')
-                    wait = min(float(ra), 120) if ra and str(ra).replace('.', '').isdigit() else min(15 * 2 ** k, 120)   # Retry-After 偶尔给出离谱的大值，封顶 2 分钟
-                    print('  retry', gname, str(e)[:120], f'等待 {wait:.0f}s', flush=True); time.sleep(wait)
+                except urllib.error.HTTPError as e:
+                    body = e.read().decode('utf-8', 'replace')[:300] if hasattr(e, 'read') else ''
+                    last = f'HTTP {e.code} {e.reason} {body}'
+                    if e.code != 429 and e.code < 500:  # 认证 / 额度 / 参数错误：重试无用，立即停止
+                        stop(gname, text, last)
+                    ra = e.headers.get('Retry-After') if e.headers else None
+                except (urllib.error.URLError, TimeoutError, ConnectionError, OSError) as e:
+                    last, ra = f'{type(e).__name__}: {e}', None
+                wait = min(float(ra), 120) if ra and str(ra).replace('.', '').isdigit() else min(15 * 2 ** k, 120)   # Retry-After 偶尔给出离谱的大值，封顶 2 分钟
+                print('  retry', gname, last[:120], f'等待 {wait:.0f}s', flush=True); time.sleep(wait)
             else:
-                raise SystemExit(f'Gemini TTS failed for {gname}')
+                stop(gname, text, f'退避重试 8 次后仍失败：{last}')
             x = to_wav48(raw, mime, base)
             rec = asr_chars(x, plain)
             rtxt = ''.join(c for c, _, _ in rec)
@@ -172,6 +189,8 @@ def gemini_group(ids):
             if best is None or score > best[0]:
                 best = (score, raw, mime, rec)
             if sim >= 0.88 and not tag_read: break
+        else:
+            stop(gname, text, f'重合成 3 次后仍不达标（最好一次的稿子覆盖率得分 {best[0]:.2f}，要求 ≥ 0.88 且不念出停顿标签）')
         _, raw, mime, rec = best
         x = to_wav48(raw, mime, base)
         meta = dict(key=key, text=text, rec=rec, dur=len(x) / SR)
@@ -210,42 +229,14 @@ def gemini_group(ids):
     return out
 
 
-# ------------------------------------------------------------------ Edge（备用）
-def edge_all():
-    import asyncio
-    if os.path.exists(CA):
-        import certifi
-        certifi.where = lambda: CA
-    import edge_tts
-
-    async def synth(sid, text, rate):
-        base = os.path.join(VD, sid)
-        c = edge_tts.Communicate(text, VOICE, rate=rate, pitch=PITCH, boundary='WordBoundary')
-        audio, words = bytearray(), []
-        async for ch in c.stream():
-            if ch['type'] == 'audio': audio += ch['data']
-            elif ch['type'] == 'WordBoundary':
-                words.append([ch['offset'] / 1e7, (ch['offset'] + ch['duration']) / 1e7, ch['text']])
-        open(base + '.mp3', 'wb').write(audio)
-        ff('-i', base + '.mp3', '-ac', '1', '-ar', str(SR), base + '.wav')
-        return dict(words=words, dur=len(sf.read(base + '.wav')[0]) / SR, say=text)
-
-    async def main():
-        return {sid: await synth(sid, SAY.get(sid, ITEMS[sid][1]), '-14%' if sid == 'M' else RATE) for sid in ITEMS}
-    return asyncio.run(main())
-
-
-if ENGINE == 'gemini':
-    res = {}
-    for g in TTS_GROUPS:
-        res.update(gemini_group(g))
-    assert set(res) == set(ITEMS), set(ITEMS) ^ set(res)
-else:
-    res = edge_all()
+res = {}
+for g in TTS_GROUPS:
+    res.update(gemini_group(g))
+assert set(res) == set(ITEMS), set(ITEMS) ^ set(res)
 idx = {}
 for sid, (scene, text, pause) in ITEMS.items():
     r = res[sid]
-    idx[sid] = dict(scene=scene, text=text, say=r['say'], pause=pause, dur=r['dur'], words=r['words'], engine=ENGINE)
+    idx[sid] = dict(scene=scene, text=text, say=r['say'], pause=pause, dur=r['dur'], words=r['words'], engine='gemini')
     if 'gap' in r: idx[sid]['gap'] = r['gap']
 json.dump(idx, open(os.path.join(work, 'vo_index.json'), 'w'), ensure_ascii=False, indent=1)
-print('engine', ENGINE, '·', len(idx), '句')
+print('Gemini TTS ·', len(idx), '句')

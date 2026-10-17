@@ -48,7 +48,7 @@
   - 按段落成组合成（同一段的几句一次念完，语气连贯），正文只放逐字稿；关键句前加 `<breath>` / `<short pause>`。
   - Gemini 不返回逐字时间，用 faster-whisper 对合成结果做强制对齐（识别只用于定时，字幕文字以稿子为准），在句间能量最低处切句；段内句间停顿保留模型自己的节奏，段落之间按语义留白。
   - 每段合成后自动核对“稿子覆盖率”（漏读、误读或把标签念出来就重合成，最多 3 次）；原始返回另存 MP3。
-  - key 在云环境中以 Network secret 形式由出口代理注入（本地运行设环境变量 `GEMINI_API_KEY`）；`TTS_ENGINE=edge` 可改用备用的微软 Edge 语音「云健」。
+  - key 在云环境中以 Network secret 形式由出口代理注入（本地运行设环境变量 `GEMINI_API_KEY`）。只用 Gemini，不设备用引擎：429 自动退避重试（Retry-After 上限 2 分钟），鉴权/配额/其他 API 错误、或重合成 3 次后覆盖率仍不达标时，`tts.py` 以退出码 2 停止并报告出错段落，需人工处理后重新运行。
 - **旁白提速**：整体 1.07 倍（ffmpeg rubberband，保留音高与共振峰），逐字时间同比缩放。
 - **原声**：只做 70Hz 高通、电平统一和档案拼接处的底噪补齐，不降噪、不变速；节选范围内不剪。
 - **配乐**（Kevin MacLeod，CC BY 4.0），从“低沉”改为“深邃、卡点、有推动力”：
@@ -93,7 +93,7 @@ v3 的动态设计（`src/fx.py`）：
 ./build.sh
 ```
 
-依赖 ffmpeg 与 `numpy scipy opencv-python-headless pillow soundfile librosa edge-tts faster-whisper`，以及环境变量 `GEMINI_API_KEY`。网络需要能访问 archive.org、Google Fonts、incompetech.com、generativelanguage.googleapis.com、Hugging Face。`data/asr_words.json` 是已存的逐词时间戳，存在时不需要重新跑语音识别。在 4 核机器上逐帧渲染约 30 分钟。
+依赖 ffmpeg 与 `numpy scipy opencv-python-headless pillow soundfile librosa faster-whisper`，以及环境变量 `GEMINI_API_KEY`。网络需要能访问 archive.org、Google Fonts、incompetech.com、generativelanguage.googleapis.com、Hugging Face。`data/asr_words.json` 是已存的逐词时间戳，存在时不需要重新跑语音识别。在 4 核机器上逐帧渲染约 30 分钟。
 
 单帧检查：`cd src && python3 render.py stills OUT_DIR 30 150 400 ../work`。
 
@@ -102,7 +102,7 @@ v3 的动态设计（`src/fx.py`）：
 | `src/script.py` | 全部文本的唯一来源：口播、原声字幕、素材区间、事实出处 |
 | `src/fetch.py` | 按区间读取 archive.org 上的原始录音、影像和静帧 |
 | `src/asr.py`、`src/align.py` | 逐词识别（只用来定时）× CNBC 逐字稿 → 原声字幕时间 |
-| `src/tts.py` | Gemini TTS 分段配音 + 强制对齐切句（备用 Edge TTS） |
+| `src/tts.py` | Gemini TTS 分段配音 + 强制对齐切句（只用 Gemini，出错停止待人工处理） |
 | `src/timeline.py` | 整片时间线（口播、原声、字幕、场景、音乐重拍、音效） |
 | `src/audio.py` | 低频音效合成、音乐剪辑、侧链压缩、混音、原声频带包络 |
 | `src/gfx.py`、`src/fx.py`、`src/render.py` | 竖屏图形库、电影感 / 科技感特效与全部分镜渲染（含品牌角标与片尾） |
@@ -122,5 +122,5 @@ v3 的动态设计（`src/fx.py`）：
 - 1994 年下午场没有现场画面，这是档案本身的限制；本片用同日上午场静帧并明确标注，不制造“看起来像录像”的画面。
 - 原始录音取自 archive.org 上第三方上传的录像（音质与 CNBC 档案一致，但不是 CNBC 官方文件）；`buffett.cnbc.com` 对本环境返回 403，无法直接取官方音频。
 - “下午场时间”按第三方录像标注的下午场起点换算，和 CNBC 页面的播放时间可能有几秒偏差；片内时间与录像时间是精确的。
-- 配音默认用 Gemini TTS（2026 年底前免费）；备用的 Edge TTS 公开商用前请确认平台条款。
+- 配音只用 Gemini TTS（2026 年底前免费）。
 - 音乐为 CC BY 4.0，发布时需在简介中署名（见 `docs/素材来源与事实核查.md`）。
