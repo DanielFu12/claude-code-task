@@ -29,7 +29,7 @@ python3 src/tts.py "$WORK"
 # 5) 时间线
 python3 src/timeline.py "$WORK"
 # 6) 音乐（Kevin MacLeod，CC BY 4.0）与混音
-for t in "Impact Lento" "Lost Time"; do
+for t in "Undaunted" "The Escalation"; do
   [ -f "$WORK/music/$t.mp3" ] || curl -sSfL -o "$WORK/music/$t.mp3" "https://incompetech.com/music/royalty-free/mp3-royaltyfree/${t// /%20}.mp3"
 done
 python3 src/audio.py "$WORK" "$WORK/music"
