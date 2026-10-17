@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 一键重建《伯克希尔股东大会投资智慧录》第二集 · 风险不是波动（1080×1920 竖屏）
-# 依赖：ffmpeg、xvfb-run（Xvfb）与 Mesa（llvmpipe 软件 OpenGL）、python3（numpy scipy opencv-python-headless pillow matplotlib soundfile librosa faster-whisper moderngl）
-#       画面为“流光诗意纪录片”风格：海面 / 流线 / 网格曲面三个 GLSL 着色器在 CPU 上渲染（src/s4gl.py），不需要 GPU。
+# 依赖：ffmpeg、python3（numpy scipy opencv-python-headless pillow soundfile librosa faster-whisper）
+#       画面为“暗夜星图编年”风格：黑场上的发光节点、点云与细线，全部 2D 合成（src/render.py），不需要 GPU。
 # 网络：archive.org（原始录音与影像）、Google Fonts、incompetech.com（CC BY 音乐）、generativelanguage.googleapis.com（Gemini TTS）、Hugging Face（faster-whisper 模型）
 # 配音：只用 Gemini TTS（声音 charon），key 由云环境的 Network secret 注入，或本地设环境变量 GEMINI_API_KEY。
 #       Gemini 出错时 tts.py 以退出码 2 停止并报告出错段落，需人工处理后重新运行（不使用备用引擎）。
@@ -19,10 +19,7 @@ get Noto+Sans+SC wght@300 sans_light; get Noto+Sans+SC wght@400 sans_reg; get No
 get Noto+Serif+SC wght@500 serif_med; get Noto+Serif+SC wght@700 serif_bold; get Noto+Serif+SC wght@900 serif_black
 get Cormorant+Garamond wght@500 corm_med; get Cormorant+Garamond wght@600 corm
 get EB+Garamond wght@400 ebg_reg; get EB+Garamond ital,wght@1,400 ebg_ital; get Inter wght@400 inter_reg; get Inter wght@600 inter_semi
-get Noto+Serif+SC wght@300 serif_light; get Noto+Serif+SC wght@400 serif_reg; get Ma+Shan+Zheng wght@400 callig
-GF=https://raw.githubusercontent.com/google/fonts/main/ofl/playfairdisplay
-[ -f fonts/playfair_var.ttf ] || curl -sSfL -o fonts/playfair_var.ttf "$GF/PlayfairDisplay%5Bwght%5D.ttf"            # 旧式数字是默认字形
-[ -f fonts/playfair_var_i.ttf ] || curl -sSfL -o fonts/playfair_var_i.ttf "$GF/PlayfairDisplay-Italic%5Bwght%5D.ttf"
+get Noto+Serif+SC wght@300 serif_light; get JetBrains+Mono wght@400 mono
 
 # 2) 原始素材：按区间读取 archive.org 上的 1994 年全场录像（上午场第 50 章：音频 + 画面）
 python3 src/fetch.py "$WORK"
@@ -39,12 +36,12 @@ for t in "Hiding Your Reality" "Nerves"; do
   [ -f "$WORK/music/$t.mp3" ] || curl -sSfL -o "$WORK/music/$t.mp3" "https://incompetech.com/music/royalty-free/mp3-royaltyfree/${t// /%20}.mp3"
 done
 python3 src/audio.py "$WORK" "$WORK/music"
-# 7) 逐帧渲染（4 进程并行；每个进程在自己的虚拟显示上跑 Mesa llvmpipe）
+# 7) 逐帧渲染（4 进程并行）
 N=$(cd src && python3 render.py nframes "$WORK")
 Q=$(( (N + 3) / 4 ))
 for k in 0 1 2 3; do
   E=$(( (k + 1) * Q < N ? (k + 1) * Q : N ))
-  (cd src && LP_NUM_THREADS=1 xvfb-run -a -s "-screen 0 640x480x24" python3 render.py chunk $((k * Q)) $E "$WORK/seg$k.mp4" "$WORK") &
+  (cd src && python3 render.py chunk $((k * Q)) $E "$WORK/seg$k.mp4" "$WORK") &
 done
 wait
 printf "file '%s'\n" "$WORK"/seg{0,1,2,3}.mp4 > "$WORK/list.txt"
