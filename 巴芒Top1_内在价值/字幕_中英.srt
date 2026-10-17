@@ -1,0 +1,149 @@
+1
+00:00:01,600 --> 00:00:04,431
+巴菲特和芒格三十年的股东大会里，
+Out of 600+ highlights from 30 years of Berkshire meetings,
+
+2
+00:00:04,491 --> 00:00:08,561
+六百多条精华，排名第一的是这一段。
+this one ranks No. 1.
+
+3
+00:00:08,621 --> 00:00:12,072
+1994 年，一位来自加拿大的股东问：
+In 1994, a shareholder from Canada asked:
+
+4
+00:00:12,132 --> 00:00:16,521
+您和芒格，是怎样算出一家企业的内在价值的？
+How do you and Charlie figure out the intrinsic value of a business?
+
+5
+00:00:17,450 --> 00:00:20,196
+任何资产的经济价值，本质上，
+The economic value of any asset, essentially,
+
+6
+00:00:20,256 --> 00:00:23,146
+就是以适当的利率折现，
+is the present value, the appropriate interest rate,
+
+7
+00:00:23,206 --> 00:00:27,869
+企业未来所有现金流入和流出的现值。
+of all the future streams of cash going in or out of the business.
+
+8
+00:00:27,929 --> 00:00:32,404
+如果我们对未来的现金流会是什么样子毫无头绪，
+And if we don’t have the faintest idea what the future stream is going to look like,
+
+9
+00:00:32,464 --> 00:00:36,467
+那么我们对它现在值多少钱也毫无头绪。
+we don’t have the faintest idea what it’s worth, now.
+
+10
+00:00:36,527 --> 00:00:40,746
+所以我们寻找的是这样的东西：我们有相当高的把握，
+So we are looking for things where we feel — fairly high degree of probability —
+
+11
+00:00:40,806 --> 00:00:45,487
+能把未来一段时间里的这些数字，预测在一个区间之内，
+that we can come within a range of looking at those numbers out over a period of time,
+
+12
+00:00:45,547 --> 00:00:47,918
+然后再把它们折现回来。
+and then we discount them back.
+
+13
+00:00:47,978 --> 00:00:51,180
+我们更关心这些数字的确定性，
+And we are more concerned with the certainty of those numbers
+
+14
+00:00:51,240 --> 00:00:54,605
+而不是去找那个看起来绝对最便宜、
+than we are with getting the one that looks absolutely the cheapest,
+
+15
+00:00:54,665 --> 00:00:59,873
+却建立在我们并没有多大把握的数字之上的东西。
+but based upon numbers that we don’t have any — we don’t have great confidence in.
+
+16
+00:00:59,933 --> 00:01:02,958
+财务报表里没有答案，
+There are no answers in the financial statements.
+
+17
+00:01:03,018 --> 00:01:06,585
+只有帮助你找到答案的指引。
+There are guidelines to enable you to figure out the answer.
+
+18
+00:01:06,645 --> 00:01:11,193
+要找到答案，你必须懂一些生意。
+And to figure out that answer, you have to understand something about business.
+
+19
+00:01:11,253 --> 00:01:16,734
+你不需要懂很多数学。我是说，数学并不复杂。
+You don’t have to understand a lot about mathematics. I mean, the math is not complicated.
+
+20
+00:01:16,794 --> 00:01:20,724
+但你确实必须懂这门生意。
+But you do have to understand something about the business.
+
+21
+00:01:20,784 --> 00:01:23,895
+你会设法弄清楚：你现在要付出多少，
+You would try to figure out what you are laying out currently,
+
+22
+00:01:23,955 --> 00:01:26,345
+随着时间推移可能收回多少，
+and what you are likely to get back over time,
+
+23
+00:01:26,405 --> 00:01:28,508
+你对收回它有多大把握，
+and how certain you felt about getting it,
+
+24
+00:01:28,568 --> 00:01:31,169
+以及它和其他选择相比如何。
+and how it compared to other alternatives.
+
+25
+00:01:31,229 --> 00:01:35,988
+我们做的就是这些，只不过对象是大企业而已。
+That’s all we do, we just do it with large businesses, basically.
+
+26
+00:01:36,048 --> 00:01:38,689
+估值的第一步，不是选折现率，
+The first step in valuation isn’t picking a discount rate.
+
+27
+00:01:38,749 --> 00:01:43,673
+而是判断：能不能有合理的把握，预测现金流的区间。
+It’s judging whether you can forecast a range of cash flows with reasonable confidence.
+
+28
+00:01:43,733 --> 00:01:46,782
+不能，就放进“太难”的那一堆；
+If you can’t, put it in the “too hard” pile.
+
+29
+00:01:46,842 --> 00:01:49,684
+能，再去和价格比较。
+If you can, then compare it with the price.
+
+30
+00:01:49,744 --> 00:01:52,300
+确定性，优先于便宜。
+Certainty comes before cheapness.
