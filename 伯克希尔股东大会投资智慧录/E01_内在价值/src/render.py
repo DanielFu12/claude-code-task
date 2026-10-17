@@ -802,11 +802,9 @@ def s_end(img, t):
         # 关注语（v3）
         kf = eo((t - END['t_follow']) / 0.9)
         if kf > 0:
-            s1, s2 = '关注「巴芒价值」', '，传承大师智慧，领悟投资真谛'
-            w1, w2 = text_w(s1, 'sans_med', 36, 0.04), text_w(s2, 'sans_med', 36, 0.04)
-            x0 = W / 2 - (w1 + w2) / 2
-            text(img, s1, x0, 1225 + 10 * (1 - kf), 36, 'sans_med', GOLD_HI, fade * kf, 'l', track=0.04, glow=0.25)
-            text(img, s2, x0 + w1, 1225 + 10 * (1 - kf), 36, 'sans_med', INK, fade * kf, 'l', track=0.04)
+            # 整句统一用品牌金色竖向渐变（与「巴芒价值」同一组 GOLD_STOPS）
+            text(img, '关注「巴芒价值」，传承大师智慧，领悟投资真谛', W / 2, 1225 + 10 * (1 - kf), 36, 'sans_med', a=fade * kf,
+                 gold=True, track=0.04, glow=0.2)
             ln = 300 * eo((t - END['t_follow'] - 0.3) / 0.9)
             line(img, (W / 2 - ln, 1285), (W / 2 + ln, 1285), SUB_GOLD * 0.7, fade * kf * 0.6, 1)
 
