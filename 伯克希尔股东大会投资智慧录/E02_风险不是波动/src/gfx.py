@@ -128,8 +128,9 @@ def text(img, s, x, y, size, name='sans_med', col=INK, a=1.0, anchor='m', track=
         sh = cv2.GaussianBlur(mm, (0, 0), max(1.5, size * 0.07))
         over(img, np.zeros(3, np.float32), sh * shadow * a, x0 + int(size * 0.02), y0 + int(size * 0.05))
     if glow > 0:
-        gm = cv2.GaussianBlur(mm, (0, 0), size * 0.35)
-        add(img, glow_col if glow_col is not None else GOLD, gm * glow * a, x0, y0)
+        gp = int(size * 0.9)                       # 先把蒙版四周补边，光晕才不会被裁成方块
+        gm = cv2.GaussianBlur(np.pad(mm, gp), (0, 0), size * 0.35)
+        add(img, glow_col if glow_col is not None else GOLD, gm * glow * a, x0 - gp, y0 - gp)
     if gold:
         hh = mm.shape[0]
         top = max(0, int(base - size * 0.92)); bot = min(hh, int(base + size * 0.12))
