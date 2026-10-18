@@ -11,7 +11,7 @@ from script import QUOTES, CHAPTERS, LINES, TEASE
 WORK = sys.argv[1] if len(sys.argv) > 1 else 'work'
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 TL = json.load(open(os.path.join(WORK, 'timeline.json')))
-MP = json.load(open(os.path.join(WORK, 'music_plan.json')))
+MP = dict(hits=dict(logo=TL['logo']), dissolve=TL.get('dissolve', 1.5))   # 片尾 logo 重拍（由时间线给出，配乐对位到它）
 FEATS = json.load(open(os.path.join(WORK, 'audio_feats.json')))
 CALC = json.load(open(os.path.join(ROOT, 'data', 'calc.json')))
 SEG = {s['id']: s for s in TL['segs']}
@@ -31,10 +31,14 @@ _TXT = {l[0]: l[2] for l in LINES}; _TXT['tease'] = TEASE[0]
 
 
 def WT(i, sub):
-    """句内某个词大约被读出的时刻（按朗读文本的字数比例估算）"""
-    for src in (_SAY[i], _TXT[i]):
+    """句内某个词开始发声的时刻：有强制对齐数据（ct）时精确到字，否则按字数比例估算"""
+    for src, exact in ((_SAY[i], True), (_TXT[i], False)):
         k = src.find(sub)
-        if k >= 0: return S(i) + SEG[i]['dur'] * k / max(len(src), 1)
+        if k < 0: continue
+        if exact and SEG[i].get('ct'):
+            for idx, tt in SEG[i]['ct']:
+                if idx >= k: return S(i) + tt
+        return S(i) + SEG[i]['dur'] * k / max(len(src), 1)
     raise KeyError(f'{sub} not in {i}')
 
 

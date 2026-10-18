@@ -140,131 +140,105 @@ def place(buf, clip, t, gain=1.0):
     buf[i:i + n] += c[:n] * gain
 
 
-def main(work):
-    tl = json.load(open(os.path.join(work, 'timeline.json')))
-    mp = json.load(open(os.path.join(work, 'music_plan.json')))
-    N = int((tl['total'] + 0.5) * SR)
+def room(v, wet_db=-19.0, rt60=0.55, seed=11):
+    """很轻的房间混响：合成的短指数衰减脉冲响应（先 HP/LP 再卷积），让旁白在句尾不是“数字静音”，并与配乐粘合"""
+    rng = np.random.default_rng(seed)
+    n = int(rt60 * 1.2 * SR); t = np.arange(n) / SR
+    ir = rng.standard_normal(n) * np.exp(-6.9 * t / rt60)
+    ir = signal.sosfilt(sos_lp(4500, 2), signal.sosfilt(sos_hp(250, 2), ir))
+    ir[:int(0.018 * SR)] = 0                                        # 18ms 预延迟
+    ir /= np.sqrt((ir ** 2).sum())
+    wet = signal.fftconvolve(v, ir)[:len(v)]
+    return v + wet * 10 ** (wet_db / 20)
 
-    # ------------------------------------------------ 配乐剪辑
-    mus = np.zeros((N, 2), np.float32)
-    end_t = tl['chapters']['end'][1]
-    for p in mp['pieces']:
-        x = load(os.path.join(work, 'music', p['file']))
-        # 整小节重复（拍点对齐，40ms 等功率交叉淡化），让段落重拍落在旁白的章节点上
-        edits = [(s0, e0, 'loop') for s0, e0 in p.get('loops', [])] + [(s0, e0, 'cut') for s0, e0 in p.get('cuts', [])]
-        for s0, e0, kind in sorted(edits, reverse=True):
-            s, e = int(s0 * SR), int(e0 * SR); xf = int(0.04 * SR)
-            head, tail = (x[:e], x[s:]) if kind == 'loop' else (x[:s], x[e:])
-            w = np.sin(np.linspace(0, np.pi / 2, xf))[:, None]
-            mid = head[-xf:] * np.cos(np.linspace(0, np.pi / 2, xf))[:, None] + tail[:xf] * w
-            x = np.concatenate([head[:-xf], mid, tail[xf:]])
-        a = int(p['src_in'] * SR)
-        until = p['until'] if p['until'] is not None else end_t
-        seg = x[a:a + int((until - p['at']) * SR)].copy()
-        n = len(seg)
-        g = np.ones(n, np.float32)
-        fi, fo = int(p['fade_in'] * SR), int(p['fade_out'] * SR)
-        if fi: g[:fi] = np.sin(np.linspace(0, np.pi / 2, fi)) ** 2
-        if fo and p['until'] is not None: g[-fo:] = np.cos(np.linspace(0, np.pi / 2, fo)) ** 2
-        place(mus, seg * g[:, None], p['at'])
-    # 片尾：最后 2.5 秒整体淡出
-    tail = int(2.5 * SR); e = int(end_t * SR)
-    mus[e - tail:e] *= (np.cos(np.linspace(0, np.pi / 2, tail)) ** 2)[:, None]; mus[e:] = 0
-    mus = shelf_soften(mus)
-    mus = lp_windows(mus, mp.get('lp_windows', []))
-    mus, frac = tame_risers(mus)
+
+def main(work):
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import score
+    tl = json.load(open(os.path.join(work, 'timeline.json')))
+    if 'logo' not in tl: tl['logo'] = json.load(open(os.path.join(work, 'music_plan.json')))['hits']['logo']
+    N = int((tl['total'] + 0.5) * SR)
+    meter = pyln.Meter(SR)
+    seg = {s['id']: s for s in tl['segs']}
+    node = score.Nodes(tl)
+
+    # ------------------------------------------------ 配乐：按叙事节点逐帧对位（src/score.py）
+    mus, hits, rep = score.build(work, tl, N)
+    for r in rep: print(r)
+    # 只做轻微的高频控制：9kHz 以上 -2.5dB；原曲里偶发的高频突刺（镲片/上升音）再自动低通
+    hi = signal.sosfiltfilt(sos_hp(9000, 2), mus, axis=0)
+    mus = mus - 0.25 * hi
+    mus, frac = tame_risers(mus, thr=2.2)
     print('riser-tamed fraction %.3f' % frac)
 
-    # ------------------------------------------------ 旁白
+    # ------------------------------------------------ 旁白：整段录音切出的句子，按发声时刻放置（保留原有换气与停顿）
     vo = np.zeros((N, 2), np.float32)
+    vmeta = json.load(open(os.path.join(work, 'vo', 'vo.json'))) if os.path.exists(os.path.join(work, 'vo', 'vo.json')) else {}
     for s in tl['segs']:
         y, _ = sf.read(os.path.join(work, 'vo', s['id'] + '.wav'), dtype='float32')
         if y.ndim == 2: y = y.mean(1)
-        y = signal.sosfilt(sos_hp(85, 2), y)
+        y = signal.sosfilt(sos_hp(80, 2), y)
         y = signal.sosfilt(peaking(210, -1.5, 1.0), y)
         y = signal.sosfilt(peaking(3200, 1.5, 0.9), y)
         y = deess(y)
-        place(vo, np.stack([y, y], 1), s['start'])
-    meter = pyln.Meter(SR)
+        lead = vmeta.get(s['id'], {}).get('lead', 0.0)
+        place(vo, np.stack([y, y], 1), s['start'] - lead)
     vl = meter.integrated_loudness(vo[vo.any(1)] if vo.any() else vo)
     vo *= 10 ** ((-17.0 - vl) / 20)
-    # 轻压缩，让句尾不掉
-    env = env_follow(vo.mean(1), 0.01, 0.25)
+    env = env_follow(vo.mean(1), 0.01, 0.25)                         # 轻压缩，让句尾不掉
     thr = np.percentile(env[env > 1e-4], 70)
-    gain = np.where(env > thr, (thr / np.maximum(env, 1e-9)) ** 0.35, 1.0)
-    vo *= gain[:, None]
+    vo *= np.where(env > thr, (thr / np.maximum(env, 1e-9)) ** 0.3, 1.0)[:, None]
+    vo = np.stack([room(vo[:, 0]), room(vo[:, 1], seed=12)], 1).astype(np.float32)
 
-    # ------------------------------------------------ 闪避：有旁白时音乐 -11dB，无旁白时音乐抬起
-    # 用“说话区间”（句子起止 + 0.25s 保持）生成闪避曲线，而不是逐字包络 → 句间不会忽大忽小
+    # ------------------------------------------------ 闪避：说话时配乐 -8dB；句间短停顿不回弹（避免“抽吸”），
+    # 长于 1s 的停顿让音乐涌上来；重拍处让音乐的冲击穿过去
     act = np.zeros(N, np.float32)
     for s in tl['segs']:
-        a = int((s['start'] - 0.25) * SR); b = int((s['start'] + s['dur'] + 0.35) * SR)
+        a = int((s['start'] - 0.2) * SR); b = int((s['start'] + s['dur'] + 0.5) * SR)
         act[max(a, 0):b] = 1
-    k = int(0.5 * SR)                                            # 0.5s 升余弦平滑（≈ 起 250ms / 落 500ms）
-    win = np.hanning(2 * k + 1); win /= win.sum()
+    k = int(0.35 * SR); win = np.hanning(2 * k + 1); win /= win.sum()
     on = np.convolve(act, win, 'same').clip(0, 1)
-    duck_db = -10.0 * on
-    mg = 10 ** (duck_db / 20)
-    ml = meter.integrated_loudness(mus)
-    mus *= 10 ** ((-20.0 - ml) / 20)
-    # 人声频段（1–4kHz）再多让 3dB，给旁白留出清晰度
-    band = signal.sosfiltfilt(signal.butter(2, [1000, 4000], 'band', fs=SR, output='sos'), mus, axis=0)
-    mus = mus - band * (1 - 10 ** (-3 / 20)) * on[:, None]
-    mus *= mg[:, None]
-    # 1998 泡沫破裂：音乐瞬间压低 7dB 并低通，1.6 秒后恢复（配合画面中的“爆裂”与低频冲击）
-    seg0 = {s['id']: s for s in tl['segs']}
-    pop = seg0['s35']['start'] + 2.1
+    duck_db = -8.0 * on
     tt = np.arange(N) / SR
+    for h, w, _ in hits:                                             # 重拍：-0.03..+0.9s 闪避减半（让冲击穿过）
+        m = np.clip(np.minimum((tt - h + 0.03) / 0.02, (h + 0.9 - tt) / 0.5), 0, 1) * min(w, 1.0)
+        duck_db = duck_db * (1 - 0.55 * m)
+    ml = meter.integrated_loudness(mus[mus.any(1)])
+    mus *= 10 ** ((-19.0 - ml) / 20)
+    band = signal.sosfiltfilt(signal.butter(2, [700, 3200], 'band', fs=SR, output='sos'), mus, axis=0)
+    mus = mus - band * (1 - 10 ** (-4.5 / 20)) * on[:, None]         # 人声频段（700Hz–3.2kHz）再让 4.5dB，避免铜管/弦乐中频压字
+    mus *= (10 ** (duck_db / 20))[:, None]
+    mg = 10 ** (duck_db / 20)
+    # 1998 泡沫破裂：音乐瞬间压低并低通，随后恢复
+    pop = seg['s35']['start'] + 2.1
     dip = np.clip(np.minimum((tt - pop) / 0.05, (pop + 1.6 - tt) / 0.8), 0, 1)
     lowm = signal.sosfiltfilt(sos_lp(700, 2), mus, axis=0)
     mus = (mus * (1 - dip[:, None]) + lowm * dip[:, None]) * (10 ** (-7 * dip / 20))[:, None]
+    # 片尾整体淡出
+    end_t = tl['total']; tail = int(2.5 * SR); e = min(int(end_t * SR), N)
+    mus[e - tail:e] *= (np.cos(np.linspace(0, np.pi / 2, tail)) ** 2)[:, None]; mus[e:] = 0
 
-    # ------------------------------------------------ 低频声音设计
+    # ------------------------------------------------ 低频冲击：叠在每个配乐重拍上（重拍越重，冲击越大）
     sfx = np.zeros((N, 2), np.float32)
-    ch = tl['chapters']
-    # 开场：心跳 + 深沉嗡鸣
-    for k, t in enumerate(np.arange(0.25, ch['title'][0] - 1.0, 1.55)):
-        place(sfx, heartbeat(0.5 + 0.25 * k / 16), t)
-    place(sfx, drone(ch['title'][0] + 1.0, amp=0.12), 0.0)
-    # 标题：大冲击 + sub drop
-    place(sfx, impact(4.0, 1.0, 3), ch['title'][0]); place(sfx, sub_drop(2.6, 80, 24, 0.9), ch['title'][0])
-    # 章节：sub drop（第一章轻一点）
-    for c, a in (('ch1', 0.45), ('ch2', 0.75), ('ch3', 0.85), ('ch4', 1.0), ('ch5', 0.6)):
-        place(sfx, sub_drop(2.2, 70, 26, a), ch[c][0])
-    place(sfx, impact(3.0, 0.7, 5), ch['ch4'][0])
-    place(sfx, drone(6.0, 32.7, 0.16), ch['ch4'][0] - 0.5)          # “并不平坦”的低频空拍
-    # 数字揭晓的低频脉冲（与画面里的数字跳出同步）
-    seg = {s['id']: s for s in tl['segs']}
-    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    from script import LINES, TEASE
-    say = {l[0]: (l[3] or l[2]) for l in LINES}; txt = {l[0]: l[2] for l in LINES}
-
-    def wt(i, sub):
-        for src in (say[i], txt[i]):
-            k = src.find(sub)
-            if k >= 0: return seg[i]['start'] + seg[i]['dur'] * k / len(src)
-        raise KeyError(sub)
-    for tt, a in ((wt('s01', '创历史新高'), 0.5), (wt('s03', '376') - 0.6, 0.45), (wt('s04', '八点四八'), 0.45),
-                  (seg['s25']['start'] + 0.4, 0.3), (seg['s25']['start'] + seg['s25']['dur'] + 0.1, 0.3),
-                  (wt('s26', '1994') + 0.2, 0.3), (wt('s26', '总成本'), 0.4), (seg['s28']['start'] + 0.1, 0.6),
+    for h, w, sid in hits:
+        place(sfx, impact(3.6, 0.95 * w, int(h * 10) % 97), h)
+        place(sfx, sub_drop(2.6, 74, 24, 0.85 * w), h)
+    place(sfx, impact(2.8, 0.75, 7), pop)                            # 泡沫破裂
+    wt = lambda i, sub: score.word_time(seg[i], sub)
+    for t0, a in ((wt('s01', '创历史新高'), 0.5), (wt('s03', '376') - 0.6, 0.45), (wt('s04', '八点四八'), 0.45),
+                  (wt('s26', '1994') + 0.2, 0.3), (wt('s26', '总成本'), 0.4),
                   (wt('s29', '8.48') + 0.3, 0.4), (wt('s29', '38年累计'), 0.45), (seg['s38']['start'] + 3.0, 0.35),
-                  (seg['s17a']['start'], 0.3), (seg['s17b']['start'], 0.3), (seg['s17c']['start'], 0.3),
-                  (wt('s17d', '芒格'), 0.5)):
-        place(sfx, low_pulse(a), tt)
-    place(sfx, impact(2.8, 0.75, 7), seg['s35']['start'] + 2.1)       # 泡沫破裂
+                  (seg['s17a']['start'], 0.3), (wt('s12', '三成'), 0.5), (seg['s17b']['start'], 0.3), (seg['s17c']['start'], 0.3)):
+        place(sfx, low_pulse(a), t0)
+    span = wt('s27', '4亿股') - seg['s27']['start'] - 0.5
     for k in range(4):                                                # 拆股 1→2→4→8→16
-        span = wt('s27', '4亿股') - seg['s27']['start'] - 0.5
         place(sfx, low_pulse(0.3 + 0.08 * k), seg['s27']['start'] + 0.5 + k * span / 4 + 0.05)
-    # 片尾：粒子汇聚 → logo 重拍
-    place(sfx, impact(4.5, 0.9, 9), mp['hits']['logo'])
-    place(sfx, sub_drop(3.0, 66, 22, 0.8), mp['hits']['logo'])
     sfx = signal.sosfilt(sos_lp(220, 4), sfx, axis=0)
-    sfx = signal.sosfilt(sos_hp(28, 4), sfx, axis=0)               # 切掉听不见、只占能量的超低频
+    sfx = signal.sosfilt(sos_hp(28, 4), sfx, axis=0)
     sl = meter.integrated_loudness(sfx[sfx.any(1)])
-    sfx *= 10 ** ((-23.0 - sl) / 20)
+    sfx *= 10 ** ((-22.0 - sl) / 20)
 
     mix = mus + vo + sfx
-    # 主总线：响度 -14 LUFS，软限幅 -1 dBTP 左右
     L = meter.integrated_loudness(mix)
     mix *= 10 ** ((-14.0 - L) / 20)
     peak = 0.89
@@ -272,6 +246,7 @@ def main(work):
     sf.write(os.path.join(work, 'mix.wav'), mix.astype(np.float32), SR, subtype='PCM_24')
     for nm, b in (('music', mus), ('vo', vo), ('sfx', sfx)):
         sf.write(os.path.join(work, f'stem_{nm}.wav'), b.astype(np.float32), SR, subtype='PCM_16')
+    json.dump(dict(hits=hits), open(os.path.join(work, 'score_hits.json'), 'w'))
     print('mix LUFS', round(meter.integrated_loudness(mix), 2), 'peak', float(np.abs(mix).max()))
 
     # ------------------------------------------------ 画面卡点用的音频特征

@@ -72,19 +72,23 @@ def shot_ch3(cv, t):
         cv.text('$93.90', x1, y0 - 30, 52, 'sans_bold', col=GOLD_L, a=a * eo((p - 1.8) / 0.4), anchor='r')
         cv.text('4 亿股', 140, 300, 72, 'sans_bold', gold=True, a=a * eo(p / 0.4), anchor='l')
         cv.text('平均成本 $3.25 / 股', 140, 370, 36, 'sans_med', col=CREAM, a=a * eo((p - 0.3) / 0.4), anchor='l')
-    # ---- s28：市值揭晓
+    # ---- s28：市值揭晓（“$376亿”与旁白读出“376”、配乐最大重拍同一帧炸开）
     t0, t1 = S('s28') - 0.05, S('s29') + 0.1
     a = env(t, t0, t1, 0.15, 0.4)
     if a > 0:
-        p = t - t0
-        burst = math.exp(-p * 3)
-        cv.glow_dot((W / 2, 700), 300, GOLD, a * burst * 0.8)
-        rng = np.random.default_rng(9)
-        n = 900; ang = rng.uniform(0, 2 * np.pi, n); sp = rng.uniform(200, 900, n)
-        r = sp * (1 - math.exp(-p * 2.2))
-        cv.splat(W / 2 + np.cos(ang) * r, 700 + np.sin(ang) * r * 1.2, GOLD_L, a * math.exp(-p * 1.2) * 0.8, glow=1.5)
+        t_rev = WT('s28', '376') - 0.03
+        p = t - t_rev
         cv.text('今日市值', W / 2, 470, 40, 'sans_light', col=CREAM, a=a)
-        cv.text('$376亿', W / 2, 640, 230, 'sans_bold', gold=True, a=a, glow=0.4, scale=1.06 - 0.06 * eo(p / 0.6))
+        if p < 0:                                         # 揭晓前：数字在暗处蓄势
+            cv.text('4 亿股 × $93.90', W / 2, 640, 64, 'sans_light', col=GREY, a=a * 0.8)
+        else:
+            burst = math.exp(-p * 3)
+            cv.glow_dot((W / 2, 700), 300, GOLD, a * burst * 0.8)
+            rng = np.random.default_rng(9)
+            n = 900; ang = rng.uniform(0, 2 * np.pi, n); sp = rng.uniform(200, 900, n)
+            r = sp * (1 - math.exp(-p * 2.2))
+            cv.splat(W / 2 + np.cos(ang) * r, 700 + np.sin(ang) * r * 1.2, GOLD_L, a * math.exp(-p * 1.2) * 0.8, glow=1.5)
+            cv.text('$376亿', W / 2, 640, 230, 'sans_bold', gold=True, a=a * eo(p / 0.08), glow=0.4, scale=1.06 - 0.06 * eo(p / 0.6))
         k = eo((p - 1.6) / 0.5)
         cv.text('账面浮盈', W / 2 - 220, 900, 34, 'sans_light', col=CREAM, a=a * k)
         cv.text('$363亿', W / 2 - 220, 990, 84, 'sans_light', col=WHITE, a=a * k)

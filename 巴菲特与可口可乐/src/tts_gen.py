@@ -24,14 +24,15 @@ Pace: 从容的纪录片语速，句中在逗号、破折号处自然换气停�
 
 
 def post(model, body, timeout=300):
-    for k in range(6):
+    for k in range(10):
         try:
             req = urllib.request.Request(API.format(model), data=json.dumps(body).encode(),
                                          headers={'Content-Type': 'application/json'})
             return json.load(urllib.request.urlopen(req, timeout=timeout))
         except Exception as e:
             msg = getattr(e, 'read', lambda: b'')()[:200]
-            print('  retry', k, e, msg, flush=True); time.sleep(4 * (k + 1))
+            wait = 20 * (k + 1) if getattr(e, 'code', 0) == 429 else 4 * (k + 1)   # 配额限流时退避更久
+            print('  retry', k, e, msg[:80], flush=True); time.sleep(wait)
     raise RuntimeError('API failed')
 
 

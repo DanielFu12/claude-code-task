@@ -93,7 +93,7 @@ def shot_ch1(cv, t):
         cv.rrect(x0, y - 50, x0 + (x1 - x0) * 0.301 * k2, y + 50, 10, RED, a, glow=0.3)
         cv.text(f'可口可乐 ${10.2 * k2:.1f}亿', x0 + 10, y + 110, 40, 'sans_med', col=RED, a=a * k2, anchor='l')
         cv.text(f'{30 * k2:.0f}%', x0 + (x1 - x0) * 0.301 * k2 + 20, y, 56, 'sans_bold', col=WHITE, a=a * k2, anchor='l')
-        k3 = eo((p - 2.6) / 0.5)
+        k3 = eo((t - WT('s12', '三成') + 0.05) / 0.35)                  # 与配乐重拍、旁白“三成”同一帧
         cv.text('重仓', W / 2, 1080, 150, 'serif_black', gold=True, a=a * k3, glow=0.3, scale=1.1 - 0.1 * k3)
         cv.text('1988 年 1,417 万股 · 1989 年末 2,335 万股（当时股数）', W / 2, 1220, 28, 'sans_light', col=GREY, a=a * k3)
         source(cv, '数据：伯克希尔 1988、1989 年报持仓表；1991 年致股东信', a)
