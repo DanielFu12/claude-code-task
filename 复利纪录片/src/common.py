@@ -135,7 +135,7 @@ def subtitle(frame, text, a):
 
 
 # ------------------------------------------------------------------ 引语卡
-def quote_card(frame, q, t, t0, t1, y=520, width=940, en_size=40, zh_size=44, tape=None, who_color=GOLD, big=False):
+def quote_card(frame, q, t, t0, t1, y=520, width=960, en_size=44, zh_size=48, tape=None, who_color=GOLD, big=False):
     """档案式引语卡：人物 · 出处 · 时间戳；英文原话（打字机显现）+ 中文译文。
     q: script.QUOTES 中的一项；tape: (秒, 总秒) 显示录像时间轴位置"""
     a = win(t, t0, t1, 0.5, 0.5)
@@ -212,6 +212,8 @@ def load_photo(path, w, h, gray=True):
     ih, iw = im.shape[:2]
     s = max(w / iw, h / ih) * 1.12
     im = cv2.resize(im, (int(iw * s), int(ih * s)), interpolation=cv2.INTER_AREA)
+    if im.mean() < 0.25:   # 偏暗的现场照片：提亮暗部
+        im = np.clip(im / max(np.percentile(im, 99.5), 1e-3), 0, 1) ** 0.62
     if gray:
         g = im.mean(axis=2, keepdims=True)
         im = g * np.array([1.0, 0.94, 0.82], np.float32) * 0.85 + im * 0.15   # 暖调单色档案感

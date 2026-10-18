@@ -150,13 +150,13 @@ def sc_title(t):
         ring(lay, W / 2, 960, 40 + 1400 * ease_out(u / 1.6), np.array([1.0, 0.85, 0.55]), 3 + 10 * (1 - u / 1.6), (1 - u / 1.6) ** 1.5, 1.2)
         F += lay
     # 闪白
-    F += np.float32(2.2 * math.exp(-u * 7)) * np.array([1.0, 0.9, 0.75], np.float32)
+    F += np.float32(1.3 * math.exp(-u * 10)) * np.array([1.0, 0.9, 0.75], np.float32)
     # 标题
-    ta = win(t, A['drop'] + 0.15, A['calm'] - 0.6, 0.3, 0.8)
-    rv = clamp01((u - 0.15) / 1.1)
+    ta = win(t, A['drop'], A['calm'] - 0.6, 0.12, 0.8)
+    rv = clamp01((u - 0.0) / 0.45)
     sweep = (u - 2.4) / 1.4
-    gold_text(F, 'AI 越快，', W / 2, 800, 150, 'serif', ta, rv, glow=0.35, sweep=sweep, stagger=0.5)
-    gold_text(F, '越要慢', W / 2, 990, 190, 'serif', ta, clamp01(rv * 1.4 - 0.4), glow=0.5, sweep=sweep - 0.15, stagger=0.5)
+    gold_text(F, 'AI 越快，', W / 2, 800, 150, 'serif', ta, rv, glow=0.35 + 0.6 * math.exp(-u * 3), sweep=sweep, stagger=0.3)
+    gold_text(F, '越要慢', W / 2, 990, 190, 'serif', ta, clamp01(rv * 1.6 - 0.6), glow=0.5 + 0.8 * math.exp(-u * 3), sweep=sweep - 0.15, stagger=0.3)
     sa = win(t, A['drop'] + 2.2, A['calm'] - 0.6, 0.8, 0.8)
     put_text(F, SUBTITLE, W / 2, 1170, 44, 'serif_m', np.array([0.95, 0.9, 0.8]), sa, 980, reveal=clamp01((u - 2.2) / 1.5), glow=0.1)
     ma = win(t, A['drop'] + 3.4, A['calm'] - 0.6, 0.8, 0.8)
@@ -229,6 +229,21 @@ def sc_lilu(t):
             if op > 0.01:
                 boxes.append(make_box((math.cos(a_) * 3.4, y_, math.sin(a_) * 3.4), (0.55, 0.36, 0.02), (0.2 * k + fall, a_, 0.3 * fall),
                                       tint=CYAN, density=0.6, edge=0.9, opacity=op))
+    # 自上而下的体积光 + 地面光环（让沉静段也有呼吸感）
+    xs_, ys_, _ = cam.project(np.array([[0, 6.0, 0], [0, -1.2, 0]], np.float32))
+    q = np.zeros((H // 4, W // 4), np.float32)
+    yy, xx = np.mgrid[0:H // 4, 0:W // 4].astype(np.float32)
+    k_ = np.clip((yy - ys_[0] / 4) / max((ys_[1] - ys_[0]) / 4, 1), 0, 1)
+    wid = 18 + 70 * k_
+    q += np.exp(-((xx - xs_[0] / 4) / wid) ** 2) * k_ * (yy < ys_[1] / 4 + 4) * (0.10 + 0.05 * math.sin(t * 0.7))
+    F += cv2.resize(cv2.GaussianBlur(q, (0, 0), 3), (W, H))[..., None] * np.array([0.75, 0.85, 1.0], np.float32) * (1 + min(n_gold / 10, 1) * np.array([0.6, 0.2, -0.3], np.float32))
+    th_ = np.linspace(0, 2 * np.pi, 120)
+    for rr, sp in ((2.4, 0.15), (3.3, -0.1)):
+        ring3 = np.stack([np.cos(th_ + t * sp) * rr, np.full_like(th_, -1.22), np.sin(th_ + t * sp) * rr], 1).astype(np.float32)
+        x_, y_, _ = cam.project(ring3)
+        lay = np.zeros((H, W, 3), np.float32)
+        glow_line(lay, list(zip(x_, y_))[:90], GOLD * 0.5, 1.2, 0.6, 0.6)
+        F += lay
     F = render_boxes(F, cam, boxes, scale=0.6, t=t) if boxes else F
     # 底座的金色光（资本）
     if n_gold > 0:
@@ -246,6 +261,9 @@ def sc_lilu(t):
         x0_, y0_ = x[i] + 10 * side, y[i]
         lay = np.zeros((H, W, 3), np.float32)
         x2 = x0_ + 80 * side
+        tw_ = font('serif_m', 34).getlength(text)
+        if side > 0: x2 = min(x2, W - 80 - tw_ - 14)
+        else: x2 = max(x2, 80 + tw_ + 14)
         glow_line(lay, [(x0_, y0_), (x2, y0_)], color, 1.0, 0.3, a * 0.8)
         ring(lay, x0_, y0_, 4, color, 2, a * 0.8, 0.5)
         F[:] += lay
@@ -423,47 +441,81 @@ def sc_munger(t):
     else:
         u = t - t14
         a = win(t, t14 - 0.1, START['N16'] - 0.2, 0.5, 0.5)
+        ang = -0.42 + 0.18 * ease_io(clamp01(u / 9))
+        cam = Camera((math.sin(ang) * 17.5, 0.2, -math.cos(ang) * 17.5), (0.0, -0.75, 0), fov=42)
+        prog = ease_io(clamp01(u / 4.5))
+        ks = np.linspace(0, prog, max(int(prog * 160), 2))
+        X = -3.3 + 6.6 * ks
         lay = np.zeros((H, W, 3), np.float32)
-        x0, x1 = 120, 960
-        prog = ease_io(clamp01(u / 5.0))
-        n = max(int(prog * 240), 2)
-        xs = np.linspace(x0, x0 + (x1 - x0) * prog, n)
-        k = (xs - x0) / (x1 - x0)
-        # A：暂时回撤 —— 价值线不受影响，价格跌去一半后回到价值线
-        yA = 700
-        val = yA - 200 * k
-        dip = np.where((k > 0.35) & (k < 0.75), np.sin((k - 0.35) / 0.4 * np.pi), 0)
-        price = val + (yA + 60 - val) * 0.5 * dip * 1.6
-        glow_line(lay, list(zip(xs, val)), GOLD, 2.4, 0.8, a)
-        glow_line(lay, list(zip(xs, price)), CYAN, 1.4, 0.5, a * 0.9)
-        # B：永久损失 —— 价值线本身断裂、下移
-        yB = 1220
-        valB = yB - 200 * k
-        brk = k > 0.45
-        valB = np.where(brk, valB + (yB - (yB - 200 * 0.45)) * 0.0 + 150, valB)
-        seg1 = [(x_, y_) for x_, y_, b_ in zip(xs, valB, brk) if not b_]
-        seg2 = [(x_, y_) for x_, y_, b_ in zip(xs, valB, brk) if b_]
-        glow_line(lay, seg1, GOLD, 2.4, 0.8, a)
-        if seg2: glow_line(lay, seg2, RED, 2.4, 0.9, a)
-        ghost = [(x_, yB - 200 * kk) for x_, kk, b_ in zip(xs, k, brk) if b_]
-        if len(ghost) > 2:
-            for i in range(0, len(ghost) - 1, 6): glow_line(lay, ghost[i:i + 3], GOLD * 0.5, 1.0, 0, a * 0.6)
+
+        def P3(x, y, z=0.0):
+            x_, y_, _ = cam.project(np.stack([np.asarray(x, np.float32), np.asarray(y, np.float32), np.full(np.shape(x), z, np.float32)], 1))
+            return list(zip(x_, y_))
+
+        def grid(y0):
+            for gx in np.linspace(-3.3, 3.3, 9):
+                glow_line(lay, P3(np.array([gx, gx]), np.array([y0, y0]), 0) + [], GREY * 0.5, 1.0, 0, a * 0.6)
+            for gz in (0.0, 1.0, 2.0):
+                pts = cam.project(np.array([[-3.3, y0, gz], [3.3, y0, gz]], np.float32))
+                glow_line(lay, list(zip(pts[0], pts[1])), GREY * 0.45, 1.0, 0, a * 0.5)
+            for gx in np.linspace(-3.3, 3.3, 9):
+                pts = cam.project(np.array([[gx, y0, 0], [gx, y0, 2.0]], np.float32))
+                glow_line(lay, list(zip(pts[0], pts[1])), GREY * 0.4, 1.0, 0, a * 0.5)
+
+        def v2y(y0, v): return y0 + 0.9 * v          # v: 价值（起点 1.0，期末 2.0）
+        # ---- A：暂时回撤
+        yA = 1.4
+        grid(yA)
+        vA = 2 ** ks
+        dip = np.where((ks > 0.3) & (ks < 0.75), np.sin(np.clip((ks - 0.3) / 0.45, 0, 1) * np.pi), 0)
+        pA = vA * (1 - 0.5 * dip)
+        glow_line(lay, P3(X, v2y(yA, vA)), GOLD, 2.6, 1.0, a)
+        glow_line(lay, P3(X, v2y(yA, vA), 0.35), GOLD * 0.35, 1.2, 0.3, a)
+        glow_line(lay, P3(X, v2y(yA, pA)), CYAN, 1.8, 0.7, a)
+        # ---- B：永久损失
+        yB = -2.6
+        grid(yB)
+        kb = 0.45
+        vB = np.where(ks < kb, 2 ** ks, 0.5 * 2 ** ks)
+        pre, post_ = ks < kb, ks >= kb
+        glow_line(lay, P3(X[pre], v2y(yB, vB[pre])), GOLD, 2.6, 1.0, a)
+        glow_line(lay, P3(X[pre], v2y(yB, vB[pre]), 0.35), GOLD * 0.35, 1.2, 0.3, a)
+        if post_.sum() > 1:
+            glow_line(lay, P3(X[post_], v2y(yB, vB[post_])), RED, 2.6, 1.0, a)
+            gx_ = X[post_]; gy_ = v2y(yB, 2 ** ks[post_])
+            for i in range(0, len(gx_) - 3, 8):
+                glow_line(lay, P3(gx_[i:i + 4], gy_[i:i + 4]), GOLD * 0.45, 1.2, 0.2, a * 0.7)
         F += lay
-        put_text(F, '暂时回撤', 120, 420, 46, 'serif', CYAN, a, 500, 'left')
-        put_text(F, '价格下跌，内在价值仍在；不被迫卖出，就可以等待', 120, 478, 26, 'sans_l', WHITE, a, 900, 'left')
-        if prog > 0.9:
-            put_text(F, '价值', x1, val[-1] - 30, 24, 'sans', GOLD, a, 200, 'right')
-            put_text(F, '价格', x0 + (x1 - x0) * 0.55, yA + 70, 24, 'sans', CYAN, a, 200, 'center')
-        put_text(F, '永久损失', 120, 940, 46, 'serif', RED * 1.1, a, 500, 'left')
-        put_text(F, '看错企业、价值毁损；或借钱持股、在低谷被迫卖出', 120, 998, 26, 'sans_l', WHITE, a, 900, 'left')
-        if prog > 0.5:
-            put_text(F, '回不去的部分', x1, yB - 200 + 120, 24, 'sans', RED, a * smooth(prog * 4 - 2), 300, 'right')
+        # 价值线上流动的光点 / 断裂处的碎片
+        fl = (np.arange(60) / 60 + u * 0.12) % 1.0
+        fl = fl[fl <= prog]
+        if len(fl):
+            PA = np.stack([-3.3 + 6.6 * fl, v2y(yA, 2 ** fl), np.zeros_like(fl)], 1).astype(np.float32)
+            particles3d(F, cam, PA, GOLD * 1.3, size=0.07, alpha=a)
+        if prog > kb:
+            bu = (t - (t14 + 4.5 * 0.45)) * 0.8
+            if bu > 0:
+                Pb = CRASH_P[:400] * 0.25 * (0.3 + bu * 2.5) + np.array([-3.3 + 6.6 * kb, v2y(yB, 2 ** kb), 0], np.float32)
+                Pb[:, 1] -= 1.5 * bu ** 2
+                particles3d(F, cam, Pb, RED * 1.1, size=0.035, alpha=a * math.exp(-bu * 1.5))
+        # 文字
+        lx, ly = P3(np.array([-4.3]), np.array([v2y(yA, 2.2)]))[0]
+        ta_ = P3(np.array([0.0, 0.0]), np.array([v2y(yA, 2.25), v2y(yB, 2.25)]))
+        put_text(F, '暂时回撤', W / 2, ta_[0][1] - 70, 48, 'serif', CYAN, a, 900)
+        put_text(F, '价格下跌，内在价值仍在；不被迫卖出，就可以等待', W / 2, ta_[0][1] - 14, 26, 'sans_l', WHITE, a, 960)
+        put_text(F, '永久损失', W / 2, ta_[1][1] - 70, 48, 'serif', RED * 1.15, a, 900)
+        put_text(F, '看错企业、价值毁损；或借钱持股、在低谷被迫卖出', W / 2, ta_[1][1] - 14, 26, 'sans_l', WHITE, a, 960)
+        if prog > 0.95:
+            e = P3(np.array([3.3, 3.3, -3.3 + 6.6 * 0.52]), np.array([v2y(yA, 2.0), v2y(yB, 1.0), v2y(yA, 2 ** 0.52 * 0.5)]))
+            put_text(F, '价值', e[0][0] - 10, e[0][1] - 32, 26, 'sans', GOLD, a, 200, 'right')
+            put_text(F, '价格', e[2][0], e[2][1] + 40, 26, 'sans', CYAN, a, 200)
+            put_text(F, '回不去的部分', e[1][0] - 10, e[1][1] + 36, 26, 'sans', RED * 1.1, a, 300, 'right')
         q = QUOTES['Q_DEBT']
         qa = win(t, word_time('N14', '借钱') - 0.3, START['N16'] - 0.2, 0.5, 0.5)
-        put_text(F, '巴菲特谈那张下跌表（2017 年致股东信）', W / 2, 1300, 21, 'sans_l', GREY * 1.3, qa, 960)
-        put_text(F, q['zh'], W / 2, 1352, 30, 'serif_m', np.array([1.0, 0.86, 0.55]), qa, 960)
-        put_text(F, q['en'], W / 2, 1418, 22, 'corm_sb', np.array([0.8, 0.82, 0.88]), qa, 980, lh=1.2)
-        tag(F, '示意', 120, 340, a, GREY * 1.3, 20)
+        put_text(F, '巴菲特谈那张下跌表（2017 年致股东信）', W / 2, 1310, 21, 'sans_l', GREY * 1.3, qa, 960)
+        put_text(F, q['zh'], W / 2, 1360, 30, 'serif_m', np.array([1.0, 0.86, 0.55]), qa, 960)
+        put_text(F, q['en'], W / 2, 1422, 22, 'corm_sb', np.array([0.8, 0.82, 0.88]), qa, 980, lh=1.2)
+        tag(F, '示意', 80, 330, a, GREY * 1.3, 20)
     F *= 1 - 0.8 * smooth((t - (START['N16'] - 0.4)) / 0.4)
     return F
 
@@ -570,8 +622,9 @@ def sc_climax(t):
         hd = max(dv * H0, 0.01)
         cyan_op = 1.0
         boxes.append(make_box((CX_, hd / 2, 0), (0.62, hd / 2, 0.62), tint=CYAN, density=0.8, edge=1.0, opacity=cyan_op))
-        ang = -0.38 + 0.25 * clamp01(c / 20)
+        ang = -0.55 + 0.75 * ease_io(clamp01(c / 20.5))
         cam = cam_for(max(top, 1.0), ang)
+        cam = Camera(cam.pos + np.array([0, 0.25 * math.sin(c * 0.9), 0], np.float32), cam.target, 40)
         dust(F, cam, t, color=(0.6, 0.75, 1.0), amt=0.3, focus=12, dof=0.1, n=4000)
         F = render_boxes(F, cam, boxes, scale=0.55, t=t)
         # 青塔顶部被侵蚀的粒子
@@ -584,7 +637,7 @@ def sc_climax(t):
         ny = int(yrs)
         xg, yg, _ = cam.project(np.array([[GX - SLAB_W / 2 - 0.15, top, -SLAB_W / 2], [CX_ + 0.75, hd, -0.62], [GX, 0, 0], [CX_, 0, 0]], np.float32))
         hit = math.exp(-((t - A['year0']) % BEAT) * 6) if 0 < yrs < 30 else 0
-        put_text(F, f'第 {ny:2d} 年', W / 2, 330, 64, 'mono', WHITE * (0.9 + 0.5 * hit), 1.0, 600, glow=0.3 * hit, shadow=0.6)
+        put_text(F, '起  点' if ny == 0 else f'第 {ny:2d} 年', W / 2, 330, 64, 'mono' if ny else 'serif_m', WHITE * (0.9 + 0.5 * hit), 1.0, 600, glow=0.3 * hit, shadow=0.6)
         put_text(F, f'{1.1 ** ny:.2f} 倍', xg[0], yg[0], 46, 'serif', GOLD_HI, 1.0, 400, 'right', glow=0.25, shadow=0.6)
         put_text(F, f'{0.9 ** ny:.3f} 倍', xg[1], yg[1] - 10, 38, 'serif', CYAN, 1.0, 400, 'left', glow=0.2, shadow=0.6)
         put_text(F, '每年 +10%', xg[2], yg[2] + 46, 30, 'sans', GOLD, 1.0, 400, shadow=0.6)
@@ -643,8 +696,8 @@ def sc_climax(t):
         gh = ghost_v * H0
         ga = smooth((t - START['N20'] + 0.5) / 1.0) if t > START['N20'] - 0.5 else smooth((ry - 1) / 1.5) * 0.6
         boxes.append(make_box((CX_ + 0.2, gh / 2, 0), (SLAB_W / 2, gh / 2, SLAB_W / 2), tint=np.array([0.5, 0.55, 0.65]), density=0.2, edge=0.7, opacity=0.35 * ga))
-        tall = max(top, gh * ga + top * (1 - ga))
-        cam = cam_for(tall, -0.05 + 0.1 * clamp01(u / 20), x_aim=0.4)
+        tall = max(MATH['up'] * H0 * 1.12, gh * ga + top * (1 - ga), top)
+        cam = cam_for(tall, -0.13 + 0.25 * ease_io(clamp01(u / 20)), extra=1.0 * (1 - smooth(u / 3)), x_aim=0.15 + 0.25 * smooth(u / 3))
         dust(F, cam, t, color=(0.7, 0.75, 0.9), amt=0.25, n=3000)
         F = render_boxes(F, cam, boxes, scale=0.55, t=t)
         y_top = MATH['up'] * H0
@@ -654,13 +707,14 @@ def sc_climax(t):
             glow_line(lay, [(xg[0] + (xg[1] - xg[0]) * i / 14, yg[0]), (xg[0] + (xg[1] - xg[0]) * (i + 1) / 14, yg[0])], GOLD_HI * 0.8, 1.2, 0.3, 0.9)
         F += lay
         put_text(F, '原来的高度', xg[1] + 14, yg[0], 24, 'sans', GOLD_HI, 0.9, 300, 'left', shadow=0.6)
-        done = smooth((ry - MATH['recover_years'] + 0.05) / 0.3)
-        put_text(F, f'恢复第 {min(ry, MATH["recover_years"]):.1f} 年', W / 2, 330, 56, 'mono', WHITE, 1 - done, 600, shadow=0.6)
+        t_done = A['rebuild'] + 0.6 + MATH['recover_years'] * 2 * BEAT
+        done = smooth((t - t_done) / 0.4)
+        put_text(F, f'恢复第 {min(ry, MATH["recover_years"]):.1f} 年', W / 2, 330, 56, 'mono', WHITE, 1 - smooth((t - t_done + 0.35) / 0.3), 600, shadow=0.6)
         if done > 0:
             gold_text(F, '7.3 年，才回到原点', W / 2, 330, 64, 'serif', done * win(t, 0, START['N20'] + 1.2, 0, 0.6), glow=0.4)
         if ga > 0.05 and t > START['N20'] - 0.5:
-            put_text(F, f'没有中断：{ghost_v:.1f} 倍', xg[3], yg[3] - 36, 32, 'serif_m', np.array([0.75, 0.8, 0.9]), ga, 400, shadow=0.6)
-            put_text(F, f'中断一次：{vals[-1]:.1f} 倍', xg[2], yg[2] - 36, 32, 'serif_m', GOLD_HI, ga, 400, shadow=0.6)
+            put_text(F, f'没有中断：{ghost_v:.1f} 倍', min(xg[3], W - 230), max(yg[3] - 36, 430), 32, 'serif_m', np.array([0.75, 0.8, 0.9]), ga, 400, shadow=0.6)
+            put_text(F, f'中断一次：{vals[-1]:.1f} 倍', xg[2] - 60, yg[2] + 30, 32, 'serif_m', GOLD_HI, ga, 400, 'right', shadow=0.6)
             # 暂时 vs 永久
             b1 = smooth((t - word_time('N20', '只要')) / 0.6)
             b2 = smooth((t - word_time('N20', '真正')) / 0.6)
@@ -685,13 +739,15 @@ LIFE_X = [-3.4, -1.75, 1.75, 3.4]
 _ang = _rs.uniform(0, 2 * np.pi, 5000); _rad = np.sqrt(_rs.uniform(0, 1, 5000)) * 9
 RISE_P = np.stack([np.cos(_ang) * _rad, _rs.uniform(0, 14, 5000), np.sin(_ang) * _rad * 0.6 + 1.0], 1).astype(np.float32)
 CONV_PT = (W / 2, 430)
+HELIX = np.stack([_rs.uniform(0, 2 * np.pi, 700), _rs.uniform(0, 1, 700)], 1).astype(np.float32)
 
 
 def sc_life(t, F):
     u = t - A['epic']
-    conv = smooth((t - (START['N23'] - 1.2)) / 3.2)            # 汇聚
-    ang = 0.25 * math.sin(u * 0.08) - 0.1
-    cam = Camera((math.sin(ang) * 21, 4.6 + 1.5 * u / 22, -math.cos(ang) * 21), (0, 2.3 + 3.4 * conv, 0), fov=40)
+    conv = smooth((t - (START['N23'] - 2.6)) / 2.6)            # 汇聚
+    ang = -0.75 + 1.3 * ease_io(clamp01(u / 20))               # 环绕五座塔的大幅运镜
+    R_ = 22 - 3 * ease_io(clamp01(u / 20))
+    cam = Camera((math.sin(ang) * R_, 4.2 + 2.2 * u / 22, -math.cos(ang) * R_), (0, 2.6 + 7.5 * conv, 0), fov=40)
     boxes = []
     # 中央金塔（金钱）
     vals = growth_values(30)
@@ -702,7 +758,7 @@ def sc_life(t, F):
         g = clamp01((t - ti) / 7.0)
         if g <= 0: continue
         n = 2 + g * 18
-        vals_i = [(1.12 ** k) * 0.42 for k in range(int(n) + 1)]
+        vals_i = [(1.12 ** k) * 0.6 for k in range(int(n) + 1)]
         bi, topi = tower(LIFE_X[i], vals_i, col, t, w=0.75, edge=1.0, twist=0.09, dens=0.7)
         for bb in bi: bb[2] = 0.8
         boxes += bi
@@ -721,15 +777,43 @@ def sc_life(t, F):
         k = (1 - ease_in(conv))
         xx = CONV_PT[0] + (dx * c_ - dy * s_) * k; yy = CONV_PT[1] + (dx * s_ + dy * c_) * k
         splat(F, xx, yy, np.full(len(xx), 1.3, np.float32), GOLD * 0.9, (0.6 + 0.4 * kick(t)) * (1 + conv))
+    # 每座塔周围螺旋上升的光尘（复利的"吸收"）
+    for i in range(-1, 4):
+        xi = 0.0 if i < 0 else LIFE_X[i]
+        col = GOLD if i < 0 else LIFE[i][1]
+        ti = A['epic'] + (0.0 if i < 0 else 0.3 + i * 4 * BEAT)
+        g = clamp01((t - ti) / 2.0) * (1 - conv)
+        if g <= 0: continue
+        th0 = HELIX[:, 0] + (t - ti) * (1.4 + 0.2 * i)
+        hy = (HELIX[:, 1] + (t - ti) * 0.9) % 1.0
+        hh = 6.5 if i < 0 else 4.0
+        rr = (0.95 if i < 0 else 0.75) * (1.0 + 0.6 * (1 - hy))
+        P = np.stack([xi + np.cos(th0 + hy * 6) * rr, hy * hh, (0 if i < 0 else 0.8) + np.sin(th0 + hy * 6) * rr], 1).astype(np.float32)
+        particles3d(F, cam, P, col * 1.1, size=0.03, alpha=g * (1 - hy) * (0.7 + 0.5 * kick(t)))
     F = render_boxes(F, cam, boxes, scale=0.5, t=t)
+    # 塔顶光柱（随重拍脉动）
+    lay = np.zeros((H // 4, W // 4, 3), np.float32)
+    for i in range(-1, 4):
+        xi = 0.0 if i < 0 else LIFE_X[i]
+        col = GOLD if i < 0 else LIFE[i][1]
+        ti = A['epic'] + (0.0 if i < 0 else 0.3 + i * 4 * BEAT)
+        g = clamp01((t - ti) / 2.0)
+        if g <= 0: continue
+        topy = (6.0 if i < 0 else (1.12 ** (2 + clamp01((t - ti) / 7.0) * 18)) * 0.6 * H0)
+        x, y, _ = cam.project(np.array([[xi, topy, 0 if i < 0 else 0.8]], np.float32))
+        yy, xx = np.mgrid[0:H // 4, 0:W // 4].astype(np.float32)
+        beam = np.exp(-((xx - x[0] / 4) / (6 + 4 * conv)) ** 2) * np.clip(1 - (y[0] / 4 - yy) / (H / 4), 0, 1) * (yy < y[0] / 4)
+        lay += beam[..., None] * col * g * (0.25 + 0.35 * kick(t) + 0.8 * conv)
+    F += cv2.resize(cv2.GaussianBlur(lay, (0, 0), 2), (W, H))
     # 标签
     for i, (name, col, cap) in enumerate(LIFE):
         ti = A['epic'] + 0.3 + i * 4 * BEAT
         a = smooth((t - ti - 0.3) / 0.6) * (1 - conv)
         if a <= 0: continue
         x, y, _ = cam.project(np.array([[LIFE_X[i], -0.1, 0.8]], np.float32))
-        put_text(F, name, x[0], y[0] + 44, 42, 'serif', col * 1.1, a, 300, glow=0.3)
-        put_text(F, cap, x[0], y[0] + 100, 21, 'sans_l', WHITE * 0.85, a, 200, lh=1.35)
+        xl = min(max(x[0], 125), W - 125)
+        put_text(F, name, xl, y[0] + 44, 42, 'serif', col * 1.1, a, 300, glow=0.3)
+        put_text(F, cap, xl, y[0] + 100, 21, 'sans_l', WHITE * 0.85, a, 200, lh=1.35)
     xm, ym, _ = cam.project(np.array([[0, -0.1, 0]], np.float32))
     put_text(F, '金钱', xm[0], ym[0] + 44, 42, 'serif', GOLD_HI, smooth(u / 0.8) * (1 - conv), 300, glow=0.3)
     # 光束汇聚到一点
@@ -869,7 +953,7 @@ def sc_brand(t):
     ca = smooth((u - 5.0) / 1.0)
     footnote(F, '引语出处：Columbia Business School 录像（2026.10.05）· 伯克希尔致股东信（1989/1996/2017/2022）· BBC（2009）· C-SPAN（1991）\n'
                 '图片：美国国际贸易署（公有领域）· TEDizen（CC BY 2.0）　旁白：AI 配音（Gemini TTS）　配乐：AI 生成（Lyria）',
-             ca * 0.9, y=1660, size=18)
+             ca * 0.9, y=1660, size=21)
     return F
 
 
