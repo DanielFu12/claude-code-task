@@ -204,7 +204,7 @@ def quote_card(cv, key, t, t0, t1, cy=860, en_size=36, cn_size=42, hl=None, a=1.
     if al <= 0.004: return
     en, cn, who = QUOTES[key]
     en_lines = wrap('“' + en + '”', 'typewriter', en_size, w - 90)
-    cn_lines = wrap_cn(cn, 'serif_semi', cn_size, w - 110)
+    cn_lines = wrap_nice(cn, 'serif_semi', cn_size, w - 110)
     lh_en, lh_cn = en_size * 1.42, cn_size * 1.5
     hgt = len(en_lines) * lh_en + len(cn_lines) * lh_cn + 190
     x0, x1 = W / 2 - w / 2, W / 2 + w / 2
@@ -245,18 +245,64 @@ def counter(v0, v1, t, t0, dur, fmt):
 
 
 # ------------------------------------------------------------------ 字幕与章节
+def glued(x, y):
+    """数字、小数点、百分号、英文单词及“数字+单位”不能从中间断开"""
+    num = '0123456789.$%,'
+    if (x in num or x.isascii() and x.isalnum()) and (y in num or y.isascii() and y.isalnum()): return True
+    return x.isdigit() and y in '亿万年倍份股元美个次' or x in '亿万' and y == '美'
+
+
+def wrap_nice(txt, fnt, size, maxw):
+    """引言卡中文断行：两行放得下时在标点处断成相对均衡的两行；否则逐行尽量放满。都不拆数字/英文单词"""
+    if text_size(txt, fnt, size)[0] <= maxw: return [txt]
+    best, bs = None, 1e9
+    for i in range(2, len(txt) - 1):
+        a, b = txt[:i], txt[i:]
+        if b[0] in '，。、：；！？”）—…' or glued(a[-1], b[0]): continue
+        wa, wb = text_size(a, fnt, size)[0], text_size(b, fnt, size)[0]
+        if max(wa, wb) > maxw: continue
+        sc = abs(wa - wb) - (0.45 * maxw if a[-1] in '，。、：；！？—' else 0)
+        if sc < bs: best, bs = [a, b], sc
+    if best: return best
+    lines = []
+    while txt:
+        if text_size(txt, fnt, size)[0] <= maxw: lines.append(txt); break
+        n = 1
+        while n < len(txt) and text_size(txt[:n + 1], fnt, size)[0] <= maxw: n += 1
+        ok = [i for i in range(2, n + 1) if i < len(txt) and txt[i] not in '，。、：；！？”）—…' and not glued(txt[i - 1], txt[i])]
+        punct = [i for i in ok if txt[i - 1] in '，。、：；！？—' and text_size(txt[:i], fnt, size)[0] >= 0.6 * maxw]
+        i = (punct or ok or [n])[-1]
+        lines.append(txt[:i]); txt = txt[i:].lstrip(' ')
+    return lines
+
+
 def split_balanced(txt, fnt, size, maxw):
     """中文字幕断行：一行放得下就一行；否则在靠近中点、优先标点之后的位置断成两行"""
     if text_size(txt, fnt, size)[0] <= maxw: return [txt]
     best, bs = None, 1e9
     for i in range(4, len(txt) - 3):
         a, b = txt[:i], txt[i:]
-        if b[0] in '，。、：；！？”）—…': continue
+        if b[0] in '，。、：；！？”）—…' or glued(a[-1], b[0]): continue
         wa, wb = text_size(a, fnt, size)[0], text_size(b, fnt, size)[0]
         if max(wa, wb) > maxw: continue
         score = abs(wa - wb) - (160 if a[-1] in '，。、：；！？—' else 0)
         if score < bs: best, bs = [a, b], score
     return best or wrap_cn(txt, fnt, size, maxw)
+
+
+def sub_backing(cv, x0, y0, x1, y1, a, target=0.30, feather=30):
+    """字幕底下的画面过亮（如糖浆滴、光斑）时，柔和地把这块压暗到 target 亮度以下；平时不动画面"""
+    X0, Y0, X1, Y1 = int(max(x0, 0)), int(max(y0, 0)), int(min(x1, W)), int(min(y1, H))
+    reg = cv.img[Y0:Y1, X0:X1]
+    lum = np.percentile(reg.mean(-1) + cv.glow[Y0:Y1, X0:X1].mean(-1), 95)
+    if lum <= target: return
+    k = 1 - (1 - target / lum) * a
+    yy = np.minimum(np.arange(Y1 - Y0), np.arange(Y1 - Y0)[::-1])[:, None]
+    xx = np.minimum(np.arange(X1 - X0), np.arange(X1 - X0)[::-1])[None, :]
+    m = (np.clip(yy / feather, 0, 1) * np.clip(xx / feather, 0, 1))[..., None]
+    f = 1 - m * (1 - k)
+    reg *= f
+    cv.glow[Y0:Y1, X0:X1] *= f
 
 
 def subtitles(cv, t):
@@ -269,6 +315,8 @@ def subtitles(cv, t):
         lines = split_balanced(txt, 'sans_med', size, 920)
         if len(lines) > 2: size = 40; lines = split_balanced(txt, 'sans_med', size, 960)
         n = len(lines)
+        tw = max(text_size(l, 'sans_med', size)[0] for l in lines)
+        sub_backing(cv, W / 2 - tw / 2 - 50, 1530 - n * size * 0.71 - 34, W / 2 + tw / 2 + 50, 1530 + n * size * 0.71 + 34, a)
         for i, l in enumerate(lines):
             y = 1530 + (i - (n - 1) / 2) * size * 1.42
             cv.text(l, W / 2, y, size, 'sans_med', col=(0.97, 0.96, 0.93), a=a, shadow=0.85)
@@ -408,7 +456,7 @@ def shot_hook(cv, t):
         if ath > 0:
             chip(cv, '历史新高', 230, 400, 40, ath, col=GOLD)
             if r:
-                cv.glow_dot(r[0], 70 + 120 * flash, GOLD, ath * (0.5 + 0.8 * flash))
+                cv.glow_dot(r[0], 50 + 70 * flash, GOLD, ath * (0.35 + 0.45 * flash))
                 cv.circle(r[0], 20 + 260 * (1 - math.exp(-max(t - t_ath, 0) * 3)), GOLD_L, ath * flash, 2)
         kp = eo((t - WT('s01', '九十三点九') + 0.1) / 0.35)
         if kp > 0:

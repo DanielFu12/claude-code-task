@@ -53,7 +53,7 @@ def shot_ch3(cv, t):
                 x = W / 2 + (c - (cols - 1) / 2) * gap - sz * 0.15
                 y = 690 + (r - (rows - 1) / 2) * gap
                 cube(cv, x, y, sz * (1 + 0.08 * pop), a)
-        cv.text(f'1 股 → {n} 股', W / 2, 290, 64, 'sans_bold', col=WHITE, a=a)
+        cv.text(f'1 股 → {n} 股' if n > 1 else '1 股', W / 2, 290, 64, 'sans_bold', col=WHITE, a=a)
         for k, yr in enumerate(years):
             kk = eo((p - step_t[k]) / 0.3)
             chip(cv, yr + ' 拆股', 180 + k * 240, 1020, 26, a * (0.35 + 0.65 * kk), col=GOLD if kk > 0.5 else GREY)

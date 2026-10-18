@@ -3,10 +3,14 @@ from common import *  # noqa
 
 
 def shot_ch2(cv, t):
+    scenes(cv, t)
+    rail(cv, t)                     # 七要素进度条画在最上层（不被糖浆滴等前景遮住）
+
+
+def scenes(cv, t):
     # ---- s14：一瓶糖水
     t0, t1 = S('s14') - 0.5, S('s15') + 0.2
     a = env(t, t0, t1, 0.6, 0.4)
-    rail(cv, t)
     if a > 0:
         p = t - t0
         bottle_layer(cv, t, a, rot=1.8 + p * 0.35, fill=0.8, camd=lerp(9.0, 7.8, eio(p / 4)), camy=1.4,

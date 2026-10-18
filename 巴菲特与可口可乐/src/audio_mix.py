@@ -62,12 +62,15 @@ def lp_windows(x, wins, fc=2500):
     return x * (1 - m[:, None]) + low * m[:, None]
 
 
-def deess(v, thr_db=-30, ratio=3.0):
-    """简单去齿音：5.5kHz 以上频段超过阈值时压缩"""
-    hi = signal.sosfiltfilt(sos_hp(5500, 4), v)
+def deess(v, thr_db=-32, ratio=4.0, rel_db=-12):
+    """去齿音（分频）：5kHz 以上频段超过绝对阈值时压缩；并且齿音段不得高于同一时刻全频能量的 rel_db"""
+    hi = signal.sosfiltfilt(sos_hp(5000, 4), v)
     e = env_follow(hi, 0.002, 0.06)
+    full = env_follow(v, 0.002, 0.06)
     thr = 10 ** (thr_db / 20) * np.abs(v).max()
     g = np.where(e > thr, (thr / np.maximum(e, 1e-9)) ** (1 - 1 / ratio), 1.0)
+    lim = 10 ** (rel_db / 20) * full
+    g = np.minimum(g, np.where(e > lim, lim / np.maximum(e, 1e-9), 1.0))
     return v - hi + hi * g
 
 
