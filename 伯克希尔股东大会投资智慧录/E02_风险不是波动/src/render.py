@@ -137,6 +137,14 @@ def node(L, p, col, k=1.0, r=1.0):
     add(L, c, g * 0.24 * k, int(p[0]) - R_, int(p[1]) - R_)
 
 
+def glow_pt(L, c, r, col, k):
+    """柔和的光斑（加色）"""
+    if k <= 0.003: return
+    g = soft_dot(float(round(r, 1)))
+    R_ = g.shape[0] // 2
+    add(L, np.asarray(col, np.float32), g * k, int(c[0]) - R_, int(c[1]) - R_)
+
+
 def hair(L, pts, col, k=0.35, th=1):
     """1px 细线（加色）"""
     if k <= 0.003 or len(pts) < 2: return
@@ -673,7 +681,8 @@ def dia_s2(L, t):
     a = env(t, V('S2')['t0'] - 0.1, V('S3')['t0'] - 0.2, 0.35, 0.35)
     if a <= 0: return
     u = t - V('S2')['t0']
-    cam = Cam((5.5 * math.sin(-0.5 + 0.12 * u), 4.2, 5.5 * math.cos(-0.5 + 0.12 * u)), yaw=-(-0.5 + 0.12 * u), pitch=-0.62, cy=1110, f=820)
+    ang = -0.5 + 0.12 * u
+    cam = Cam((7.0 * math.sin(ang), 5.0, 7.0 * math.cos(ang)), yaw=ang, pitch=-0.62, cy=1150, f=820)
     beta3d(L, t, a, cam, s0=V('S2')['t0'] + 0.2)
 
 
@@ -814,7 +823,8 @@ def dia_qa(L, t):
     s = qa_env(t, 'beta') * a
     if s > 0:
         u = t - QSC['beta']['t0']
-        cam = Cam((5.5 * math.sin(-0.4 + 0.02 * u), 4.2, 5.5 * math.cos(-0.4 + 0.02 * u)), yaw=-(-0.4 + 0.02 * u), pitch=-0.62, cy=1000, f=560)
+        ang = -0.4 + 0.02 * u
+        cam = Cam((7.0 * math.sin(ang), 5.0, 7.0 * math.cos(ang)), yaw=ang, pitch=-0.62, cy=1020, f=560)
         beta3d(L, t, s, cam, s0=qs('A14'))
     # 荒谬：A 每年 +20%～+80%，B 每年稳定 +5%；零线
     s = qa_env(t, 'absurd') * a
