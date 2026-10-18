@@ -668,14 +668,40 @@ def shot_end(cv, t):
     ta = eo((t - hit - 0.25) / 0.6)
     if ta > 0:
         brand_title(cv, t, ta, hit + 1.0)
-    # 4) 下方一道细金线 → 小字关注语
-    la2 = eo((t - hit - 1.5) / 0.9)
+    # 4) 下方一道细金线 → 整句品牌金渐变关注语 → 流光扫过（之后整体连同角标淡出，见 film.py）
+    la2 = eo((t - hit - 1.4) / 0.8)
     if la2 > 0:
         Lw = 300 * la2
         cv.line((W / 2 - Lw, 1238), (W / 2 + Lw, 1238), GOLD_D, la2, 2)
         cv.glow_dot((W / 2 - Lw, 1238), 6, GOLD_L, la2 * 0.8); cv.glow_dot((W / 2 + Lw, 1238), 6, GOLD_L, la2 * 0.8)
-        fa = eo((t - hit - 2.1) / 0.9)
-        cv.text('关注「巴芒价值」，传承大师智慧，领悟投资真谛', W / 2, 1300, 34, 'serif_semi', col=GOLD_L, a=fa * 0.95, track=0.04)
+        fa = eo((t - hit - 1.9) / 0.7)
+        if fa > 0:
+            gold_line_text(cv, t, '关注「巴芒价值」，传承大师智慧，领悟投资真谛', W / 2, 1300, 36, fa, hit + 2.7)
+
+
+_gt = {}
+def gold_line_text(cv, t, txt, x, y, size, a, shimmer_t0, fnt='serif_semi'):
+    """整句品牌金：竖向渐变（brand SPEC 的 GOLD_STOPS）+ 一次 1.4s 斜向流光，与品牌字同一套质感"""
+    k = (txt, size, fnt)
+    if k not in _gt:
+        m, base, w, h = text_mask(txt, fnt, size, 0.04)
+        asc, _ = font(fnt, size).getmetrics()
+        ys, = np.nonzero(m.max(1) > 0.01)
+        g = grad_rgb(m.shape[0], GOLD_STOPS)
+        gg = grad_rgb(ys[-1] - ys[0] + 1, GOLD_STOPS)
+        g[ys[0]:ys[-1] + 1] = gg; g[:ys[0]] = gg[0]; g[ys[-1] + 1:] = gg[-1]
+        _gt[k] = (m, np.repeat(g[:, None, :], m.shape[1], 1), w, base - asc * 0.40)
+    m, col, w, yc = _gt[k]
+    x0, y0 = x - w / 2, y - yc
+    u = (t - shimmer_t0) / BRAND_SPEC['shimmer_dur']
+    if 0 <= u <= 1:
+        xs = np.arange(m.shape[1])[None, :] + np.arange(m.shape[0])[:, None] * 0.6
+        pos = -60 + (0.5 - 0.5 * math.cos(u * math.pi)) * (m.shape[1] + 120)
+        col = np.clip(col + np.exp(-((xs - pos) / 30) ** 2)[..., None] * 0.6, 0, 1.3)
+    sh_ = cv2.GaussianBlur(m, (0, 0), 3) * 0.6 * a
+    cv.img_mul(1 - sh_, x0 + 2, y0 + 3)
+    cv.over(col, m * a, x0, y0)
+    cv._glow(col, m * a * 0.12, x0, y0)
 
 
 _bt = {}
