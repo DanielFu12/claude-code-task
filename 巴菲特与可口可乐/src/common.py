@@ -240,7 +240,9 @@ def quote_card(cv, key, t, t0, t1, cy=860, en_size=36, cn_size=42, hl=None, a=1.
 
 
 def counter(v0, v1, t, t0, dur, fmt):
-    p = eexp((t - t0) / dur)
+    """数字滚动：指数缓出，最后 15% 的时间直接落在终值上（不会停在 375 这类差一位的数）"""
+    x = (t - t0) / dur
+    p = 1.0 if x >= 0.85 else eexp(x)
     return fmt(lerp(v0, v1, p))
 
 
@@ -585,39 +587,68 @@ def shot_title(cv, t):
 
 # ------------------------------------------------------------------ 片尾：粒子汇聚成官方 logo
 _end = {}
+TEASE_L1, TEASE_L2 = '360亿美元买入苹果', '他为什么又卖掉了大半？'
+TEASE_Y1, TEASE_Y2 = 735, 845
+
+
+def text_points(s, fnt, size, x, y):
+    """cv.text(s, x, y, anchor='m') 画出的文字像素位置（用于“文字化作粒子”）"""
+    m, base, w, h = text_mask(s, fnt, size)
+    asc, _ = font(fnt, size).getmetrics()
+    ys, xs = np.nonzero(m > 0.5)
+    return xs + x - w / 2, ys + y - (base - asc * 0.40)
+
+
 def end_particles():
     if 'pts' not in _end:
         rgb, al = logo(300)
         ys, xs = np.nonzero(al > 0.35)
         rng = np.random.default_rng(5)
-        idx = rng.choice(len(xs), 2600, replace=len(xs) < 2600)
-        tx = xs[idx] - 150 + W / 2 + rng.normal(0, 0.6, len(idx)); ty = ys[idx] - 150 + 760 + rng.normal(0, 0.6, len(idx))
+        n = 2600
+        idx = rng.choice(len(xs), n, replace=len(xs) < n)
+        tx = xs[idx] - 150 + W / 2 + rng.normal(0, 0.6, n); ty = ys[idx] - 150 + 760 + rng.normal(0, 0.6, n)
         col = rgb[ys[idx], xs[idx]]
-        ang = rng.uniform(0, 2 * np.pi, len(idx)); rad = rng.uniform(500, 1300, len(idx))
-        sx = W / 2 + np.cos(ang) * rad; sy = 900 + np.sin(ang) * rad * 1.2
-        delay = rng.uniform(0, 0.9, len(idx)); swirl = rng.uniform(-1.2, 1.2, len(idx))
+        # 粒子的起点：下期预告的两行文字（文字淡去的同时化作金色粒子）
+        p1 = text_points(TEASE_L1, 'serif_black', 76, W / 2, TEASE_Y1)
+        p2 = text_points(TEASE_L2, 'serif_semi', 54, W / 2, TEASE_Y2)
+        px = np.concatenate([p1[0], p2[0]]); py = np.concatenate([p1[1], p2[1]])
+        k = rng.choice(len(px), n, replace=len(px) < n)
+        sx = px[k] + rng.normal(0, 0.8, n); sy = py[k] + rng.normal(0, 0.8, n)
+        delay = rng.uniform(0, 0.35, n); swirl = rng.uniform(-1.0, 1.0, n)
         _end['pts'] = (tx, ty, sx, sy, col, delay, swirl)
     return _end['pts']
 
 
 def shot_end(cv, t):
-    t0 = CH['end'][0]; t_end = CH['end'][1]
+    """片尾：下期预告 → 预告文字化作金色粒子，以官方 logo 透明通道为目标汇聚 → 原始 logo（重拍）
+    → 金色「巴芒价值」+「BUFFETT · MUNGER」扫光 → 细金线 → 小字关注语 → 整体淡出（角标保留到最后）"""
+    t0 = CH['end'][0]
     hit = MP['hits']['logo']
     if t < t0 - 0.6: return
-    p = t - t0
-    tx, ty, sx, sy, col, delay, swirl = end_particles()
-    # 1) 粒子汇聚（官方 logo 透明通道作为目标遮罩）
-    conv_end = hit - t0
-    k = np.clip((p + 0.6 - delay) / max(conv_end - 0.3, 0.5), 0, 1)
-    ke = 1 - (1 - k) ** 3
-    ang = swirl * (1 - ke) * 2.2
     cx, cy = W / 2, 760
-    px = lerp(sx, tx, ke); py = lerp(sy, ty, ke)
-    dx, dy = px - cx, py - cy
-    rx = cx + dx * np.cos(ang) - dy * np.sin(ang); ry = cy + dx * np.sin(ang) + dy * np.cos(ang)
-    pa = np.clip((p + 0.6) / 0.6, 0, 1) * (1 - eo((t - hit) / 0.5)) * 1.1
-    if pa > 0.004:
-        cv.splat(rx, ry, col * 1.4 + 0.15, pa, glow=1.6)
+    ts = SEG['tease']['start']
+    t_dis = hit - MP.get('dissolve', 1.5)                  # 文字开始化作粒子
+    # 0) 下期预告（与旁白同步）
+    ka = env(t, ts - 0.05, t_dis + 0.15, 0.6, 0.45)          # 上一镜头（s48）在 ts 前已淡出，不叠化
+    if ka > 0.004:
+        chip(cv, '下期预告', W / 2, 615, 26, ka, col=GOLD)
+        cv.text(TEASE_L1, W / 2, TEASE_Y1, 76, 'serif_black', gold=True, a=ka, shadow=0.6, glow=0.12)
+        k2 = eo((t - WT('tease', '他为什么') + 0.1) / 0.5)
+        cv.text(TEASE_L2, W / 2, TEASE_Y2, 54, 'serif_semi', col=CREAM, a=ka * k2, shadow=0.6)
+    # 1) 预告文字化作粒子，汇聚成官方 logo
+    tx, ty, sx, sy, col, delay, swirl = end_particles()
+    if t >= t_dis - 0.1:
+        dur = hit - t_dis
+        k = np.clip((t - t_dis - delay) / max(dur - 0.35, 0.4), 0, 1)
+        ke = 1 - (1 - k) ** 3
+        ang = swirl * np.sin(ke * np.pi) * 0.9
+        px = lerp(sx, tx, ke); py = lerp(sy, ty, ke)
+        dx, dy = px - cx, py - cy
+        rx = cx + dx * np.cos(ang) - dy * np.sin(ang); ry = cy + dx * np.sin(ang) + dy * np.cos(ang)
+        pcol = lerp(np.asarray(GOLD_L, np.float32)[None, :], col, ke[:, None])
+        pa = eo((t - t_dis + 0.1) / 0.35) * (1 - eo((t - hit) / 0.5)) * 1.1
+        if pa > 0.004:
+            cv.splat(rx, ry, pcol * 1.4 + 0.15, pa, glow=1.6)
     # 2) 清晰的原始 logo 居中浮现（重拍）
     la = eo((t - hit + 0.15) / 0.5)
     if la > 0:
@@ -628,31 +659,23 @@ def shot_end(cv, t):
         al2 = cv2.resize(al, (s, s), interpolation=cv2.INTER_AREA)
         rgbn = np.where(al2[..., None] > 1e-4, rgb2 / np.maximum(al2[..., None], 1e-4), 0)
         # 很淡的蓝色光晕（品牌规范）
-        halo = cv2.GaussianBlur(al2, (0, 0), 30) * 0.35 * la
-        cv.add(np.array([110, 175, 255], np.float32) / 255, halo, cx - s / 2, cy - s / 2)
+        pad = 100                                   # 光晕在加边后的画布上模糊，避免被 logo 方框裁出一圈方形边界
+        halo = cv2.GaussianBlur(np.pad(al2, pad), (0, 0), 30) * 0.35 * la
+        cv.add(np.array([110, 175, 255], np.float32) / 255, halo, cx - s / 2 - pad, cy - s / 2 - pad)
         cv.over(rgbn, al2 * la, cx - s / 2, cy - s / 2)
         cv.glow_dot((cx, cy), 200, BLUE, la * math.exp(-max(t - hit, 0) * 2.5) * 0.8)
     # 3) 金色「巴芒价值」+「BUFFETT · MUNGER」随重拍出现，扫过流光
     ta = eo((t - hit - 0.25) / 0.6)
     if ta > 0:
         brand_title(cv, t, ta, hit + 1.0)
-    # 4) 系列预告（与旁白同步出现）
-    ts = SEG['tease']['start']
-    ka = eo((t - ts + 0.2) / 0.6)
-    if ka > 0:
-        chip(cv, '下期预告', W / 2, 1218, 24, ka, col=GOLD)
-        cv.text('360亿美元买入苹果', W / 2, 1282, 40, 'serif_semi', col=CREAM, a=ka, shadow=0.6)
-        cv.text('他为什么又卖掉了大半？', W / 2, 1336, 40, 'serif_semi', col=CREAM, a=ka * eo((t - WT('tease', '他为什么')) / 0.5),
-                shadow=0.6)
-    # 5) 细金线引出关注语
-    la2 = eo((t - hit - 1.6) / 0.9)
+    # 4) 下方一道细金线 → 小字关注语
+    la2 = eo((t - hit - 1.5) / 0.9)
     if la2 > 0:
-        Lw = 330 * la2
-        cv.line((W / 2 - Lw, 1392), (W / 2 + Lw, 1392), GOLD_D, la2, 2)
-        cv.glow_dot((W / 2 - Lw, 1392), 6, GOLD_L, la2 * 0.8); cv.glow_dot((W / 2 + Lw, 1392), 6, GOLD_L, la2 * 0.8)
-        fa = eo((t - hit - 2.2) / 0.9)
-        cv.text('关注「巴芒价值」', W / 2, 1448, 44, 'serif_semi', col=GOLD_L, a=fa)
-        cv.text('传承大师智慧，领悟投资真谛', W / 2, 1510, 36, 'serif_reg', col=CREAM, a=fa * 0.92, track=0.12)
+        Lw = 300 * la2
+        cv.line((W / 2 - Lw, 1238), (W / 2 + Lw, 1238), GOLD_D, la2, 2)
+        cv.glow_dot((W / 2 - Lw, 1238), 6, GOLD_L, la2 * 0.8); cv.glow_dot((W / 2 + Lw, 1238), 6, GOLD_L, la2 * 0.8)
+        fa = eo((t - hit - 2.1) / 0.9)
+        cv.text('关注「巴芒价值」，传承大师智慧，领悟投资真谛', W / 2, 1300, 34, 'serif_semi', col=GOLD_L, a=fa * 0.95, track=0.04)
 
 
 _bt = {}

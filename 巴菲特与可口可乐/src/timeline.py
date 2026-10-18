@@ -21,7 +21,8 @@ GAP_AFTER = {'s05': 1.4, 's11': 0.75, 's17c': 0.4, 's17d': 0.5, 's20': 0.5, 's22
 HOOK_START = 1.3           # 开场心跳后第一句
 TITLE_HOLD = 4.4           # 标题段落（含重拍）
 CHAPTER_CARD = 2.0         # 章节卡
-END_CARD = 12.0            # 品牌片尾
+END_CARD = 12.0            # 品牌片尾（无配乐卡点时的默认长度）
+POST_LOGO = 6.0            # logo 重拍之后：品牌字 → 细金线 → 关注语 → 整体淡出
 SR = 48000
 
 
@@ -111,15 +112,16 @@ def build(work, durs, anchors=None, quiet=False):
     end_start = t
     if not quiet:
         for r in report: print(r)
-    chapters['end'] = [end_start, end_start + END_CARD]
-    # 片尾系列预告：logo 重拍之后读出
-    tease_at = anchors.get('tease', end_start + 5.0)
+    end_len = anchors['logo'] + POST_LOGO - end_start if 'logo' in anchors else END_CARD
+    chapters['end'] = [end_start, end_start + end_len]
+    # 片尾系列预告：片尾卡一开始读出，之后文字化作粒子汇聚成 logo
+    tease_at = anchors.get('tease', end_start + 0.45)
     segs.append(dict(id='tease', ch='end', text=TEASE[0], start=round(tease_at, 3), dur=round(durs['tease'], 3)))
     order = ['hook', 'ch1', 'ch2', 'ch3', 'ch4', 'ch5']
     for a, b in zip(order, order[1:]):
         chapters[a][1] = chapters['title'][0] if a == 'hook' else chapters[b][0]
     chapters['ch5'][1] = end_start
-    total = end_start + END_CARD
+    total = end_start + end_len
     tl = dict(total=round(total, 3), segs=segs, chapters=chapters, tempo=TEMPO)
     json.dump(tl, open(os.path.join(work, 'timeline.json'), 'w'), ensure_ascii=False, indent=1)
     return tl

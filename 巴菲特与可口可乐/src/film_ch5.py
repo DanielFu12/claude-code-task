@@ -76,8 +76,8 @@ def shot_ch5(cv, t):
         cv.text('识别', W / 2 - 330, 715, 30, 'sans_light', col=CREAM, a=a * eo((t - S('s47') - 2.2) / 0.5))
         cv.text('基本面未变时', W / 2, 1100, 30, 'sans_light', col=CREAM, a=a * eo((t - S('s47') - 5.0) / 0.5))
     # ---- s48：时间是优秀企业的朋友
-    t0, t1 = S('s48') - 0.3, CH['end'][0] + 0.8
-    a = env(t, t0, t1, 0.4, 1.0)
+    t0, t1 = S('s48') - 0.3, CH['end'][0] + 0.15
+    a = env(t, t0, t1, 0.4, 0.9)
     if a > 0:
         p = t - t0
         rng = np.random.default_rng(12)

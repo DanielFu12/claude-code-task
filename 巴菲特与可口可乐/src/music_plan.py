@@ -20,6 +20,8 @@ from script import LINES
 A_TITLE, A_CH2, A_CH3 = 26.11, 71.70, 128.81
 C_IN, C_S27, C_S28 = 126.6, 142.91, 154.2
 B_S39, B_CH5, B_S46, B_END, B_LOGO = 27.23, 51.3, 72.37, 91.9, 95.79
+# 片尾：先读下期预告（预告文字随后化作金色粒子汇聚成 logo），logo 落在 B 的最后一个重拍上
+TEASE_LEAD, DISSOLVE = 0.45, 1.5
 # 可重复的平稳区段（原曲内秒数）：为某个卡点补时间时，从这里取整小节重复
 LOOP_ZONES = {
     ('A', 'ch2'): 40.0,      # 第一章怀旧钢琴的中段
@@ -105,9 +107,12 @@ def plan(work):
     fit(B, B_AT, 's39', B_S39)
     fit(B, B_AT, 'ch5', B_CH5)
     fit(B, B_AT, 's46', B_S46 - 2.0)                          # 升腾前 2s 开始核心句
-    end = fit(B, B_AT, 'end', B_END)
+    delay = TEASE_LEAD + durs['tease'] + DISSOLVE             # 片尾卡开始 → logo 重拍
+    end = fit(B, B_AT, 'end', B_LOGO - delay)
     logo = B_AT + B_LOGO + B.shift(B_LOGO)
-    anchors['tease'] = logo + 1.3
+    E = anchors.get('end', end)
+    anchors['tease'] = max(E + 0.25, logo - DISSOLVE - durs['tease'])
+    anchors['logo'] = logo
     cend = C_at + 184.0 + C.shift(184.0)
     pieces = [
         dict(name='A', file=A.file, src_in=0.0, at=A_at, until=C_AT + 1.2, fade_in=0.0, fade_out=2.6, loops=A.loops, cuts=A.cuts),
@@ -123,7 +128,7 @@ def plan(work):
                   (fC(128.0), fC(129.2)), (fB(84.5), fB(93.0))]
     hits = {'title': title, 'ch2': anchors['ch2'], 'ch3': C_AT, 'logo': logo}
     return dict(pieces=pieces, anchors=anchors, hits=hits, lp_windows=lp_windows, log=log,
-                A_OFF=A_at, C_OFF=C_at, B_AT=B_AT, C_END=cend)
+                A_OFF=A_at, C_OFF=C_at, B_AT=B_AT, C_END=cend, dissolve=DISSOLVE)
 
 
 if __name__ == '__main__':
