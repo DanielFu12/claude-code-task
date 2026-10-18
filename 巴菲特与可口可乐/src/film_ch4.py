@@ -87,8 +87,9 @@ def shot_ch4(cv, t):
             pts = np.stack([xs[:n:st], ys[:n:st]], 1)
             cv.poly(pts, colr, a, 3)
             if rev > 0.97:
-                cv.text(f'×{fin:.1f}', xs[-1] - 6, ys[-1] + (-42 if colr is GREY else 60), 52, 'sans_bold', col=colr if colr is not GREY else WHITE, a=a, anchor='r')
-                cv.text(lab, xs[-1] - 6, ys[-1] + (-100 if colr is GREY else 118), 26, 'sans_med', col=colr, a=a, anchor='r')
+                # 标普标签在线上方；可口可乐标签放到红线下方的空白处（不压线）
+                cv.text(f'×{fin:.1f}', xs[-1] - 6, ys[-1] + (-42 if colr is GREY else 190), 52, 'sans_bold', col=colr if colr is not GREY else WHITE, a=a, anchor='r', shadow=0.7)
+                cv.text(lab, xs[-1] - 6, ys[-1] + (-100 if colr is GREY else 248), 26, 'sans_med', col=colr, a=a, anchor='r', shadow=0.7)
         cv.line((x0, y1 - (0 - lo) / (hi - lo) * (y1 - y0)), (x1, y1 - (0 - lo) / (hi - lo) * (y1 - y0)), DIM, a * 0.6, 1)
         cv.text('1998.7 高点买入，持有至今', W / 2, 330, 36, 'sans_med', col=CREAM, a=a)
         cv.text('机会成本', W / 2, 410, 64, 'serif_black', gold=True, a=a * eo((p - 3.4) / 0.5))
