@@ -21,7 +21,7 @@ SCORE = [
     dict(id='title', cue='H_1', anchors=[(48.13, 'title', 1.0)], out=('fade', 'ch1', 1.8, 0.2), gain=0.0),
     dict(id='ch1', cue='C1_1', anchors=[(1.1, 'ch1'), (31.83, 's09', 0.6)], out=('fade', 'ch2', 1.0, 0.0), gain=-1.0),
     dict(id='ch2', cue='C2_0', anchors=[(20.45, 'ch2', 0.75), (62.1, 'w:s17d:芒格', 0.9)], loop=(64.0, 80.0),
-         out=('suck', 'ch3'), gain=-1.0),
+         out=('suck', 'ch3'), gain=-2.5),
     dict(id='ch3', cue='C3_0', anchors=[(21.13, 'ch3', 0.7), (43.11, 'w:s28:376', 1.0)], out=('suck', 'ch4'), gain=0.0, ring_db=-8),
     dict(id='ch4', cue='C4_1', anchors=[(0.09, 'ch4', 0.9), (33.43, 's40', 1.0)], out=('fade', 'ch5', 1.4, 0.0), gain=-1.0),
     dict(id='ch5', cue='C5_1', anchors=[(7.7, 'ch5'), (35.12, 's47', 1.0), (44.11, 's48', 0.6)], out=('suck', 'logo'), gain=0.0),

@@ -165,9 +165,9 @@ def main(work):
     # ------------------------------------------------ 配乐：按叙事节点逐帧对位（src/score.py）
     mus, hits, rep = score.build(work, tl, N)
     for r in rep: print(r)
-    # 只做轻微的高频控制：9kHz 以上 -2.5dB；原曲里偶发的高频突刺（镲片/上升音）再自动低通
-    hi = signal.sosfiltfilt(sos_hp(9000, 2), mus, axis=0)
-    mus = mus - 0.25 * hi
+    # 只做轻微的高频控制：7.5kHz 以上约 -3.5dB；原曲里偶发的高频突刺（镲片/上升音）再自动低通
+    hi = signal.sosfiltfilt(sos_hp(7500, 2), mus, axis=0)
+    mus = mus - 0.33 * hi
     mus, frac = tame_risers(mus, thr=2.2)
     print('riser-tamed fraction %.3f' % frac)
 
