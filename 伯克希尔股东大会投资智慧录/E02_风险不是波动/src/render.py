@@ -1179,9 +1179,9 @@ def txt_wapo(img, t, subs):
     # 纵轴刻度随 1993 年的柱子出现而重新缩放：前两根柱子被压成细条
     rs = eio((t - tg + 0.1) / 1.4)
     vmax = lerp(12.0, 470.0, rs)
-    def hv(v): return v / vmax * hmax
+    def hv(v): return min(v / vmax * hmax, hmax)               # 纵轴还没缩放完时，柱子不超出面板
     xs = (300, 540, 780)
-    k1 = ke(t, tb - 0.1, 0.6); k2 = ke(t, td - 0.1, 0.6); k3 = ke(t, tg - 0.1, 0.8)
+    k1 = ke(t, tb - 0.1, 0.6); k2 = ke(t, td - 0.1, 0.6); k3 = rs
     line(img, (140, yb), (940, yb), INK2, a * 0.6, 1)
     bar(img, xs[0], yb, 150, hv(10.6) * k1, GOLD_C, a * (k1 > 0))
     bar(img, xs[1], yb, 150, hv(8.0) * k2, AMBER, a * (k2 > 0))
