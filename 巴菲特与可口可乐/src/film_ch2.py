@@ -6,12 +6,15 @@ def shot_ch2(cv, t):
     # ---- s14：一瓶糖水
     t0, t1 = S('s14') - 0.5, S('s15') + 0.2
     a = env(t, t0, t1, 0.6, 0.4)
+    rail(cv, t)
     if a > 0:
         p = t - t0
         bottle_layer(cv, t, a, rot=1.8 + p * 0.35, fill=0.8, camd=lerp(9.0, 7.8, eio(p / 4)), camy=1.4,
                      shift=(0.0, -0.05), ex=1.1, bub=1.4)
         cv.text('一瓶糖水', W / 2, 1180, 110, 'serif_black', gold=True, a=a * eo((p - 0.3) / 0.6), glow=0.2)
         cv.text('凭什么成为持续创造现金的机器？', W / 2, 1310, 40, 'sans_light', col=CREAM, a=a * eo((p - 1.2) / 0.6))
+        km = eo((t - WT('s14', '芒格')) / 0.5)
+        cv.text('CHARLIE MUNGER · 1996 · 思想实验', W / 2, 1385, 24, 'corm', col=GOLD, a=a * km, track=0.25)
     # ---- s15：芒格的思想实验
     t0, t1 = S('s15') - 0.3, S('s16') + 0.1
     a = env(t, t0, t1, 0.4, 0.4)
@@ -31,7 +34,7 @@ def shot_ch2(cv, t):
                 scale=1.12 - 0.12 * k, blur=(1 - k) * 6)
         cv.text('（200 万美元 → 2 万亿美元）', W / 2, 1140, 30, 'sans_light', col=GREY, a=a * eo((p - 3.8) / 0.5))
     # ---- s16：商标
-    t0, t1 = S('s16') - 0.3, S('s17') + 0.1
+    t0, t1 = S('s16') - 0.3, S('s17a') + 0.1
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         p = t - t0
@@ -57,37 +60,24 @@ def shot_ch2(cv, t):
         cv.text('®', 450, 770, 34, 'sans_med', col=RED, a=a * k2)
         cv.text('受法律保护的强大商标', 270, 920, 36, 'sans_med', col=GOLD, a=a * k2)
         cv.text('（品牌心智）', 270, 970, 28, 'sans_light', col=GREY, a=a * k2)
-    # ---- s17：条件反射
-    t0, t1 = S('s17') - 0.3, S('s18') + 0.1
+    # ---- s17a–s17d：三种心理力量 → 多因素合奏效应（芒格 1996）
+    t0, t1 = S('s17a') - 0.3, S('s18') + 0.1
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        p = t - t0
-        c1, c2 = (260, 520), (820, 520)
-        k = eo(p / 0.5)
-        pulse = beat_pulse(t, 4)
-        photo(cv, 'coke_ad_1890s', t, t0, t1, c1[0], c1[1] - 20, 270, 360, z0=1.0, z1=1.06, mode=None, fi=0.4, fo=0.4)
-        cv.glow_dot(c1, 120, RED, a * k * 0.35 * (0.5 + 0.5 * pulse))
-        cv.text('刺激', c1[0], c1[1] + 200, 40, 'serif_black', col=WHITE, a=a * k)
-        cv.text('1890 年代广告（公有领域）', c1[0], c1[1] + 245, 18, 'sans_light', col=DIM, a=a * k)
-        cv.circle(c2, 110, GOLD, a * eo((p - 1.0) / 0.5), 6)
-        cv.text('反应', c2[0], c2[1] - 10, 44, 'serif_black', col=WHITE, a=a * eo((p - 1.0) / 0.5))
-        cv.text('想喝一口冰凉', c2[0], c2[1] + 46, 24, 'sans_light', col=CREAM, a=a * eo((p - 1.0) / 0.5))
-        for j in range(3):
-            q = ((p * 0.9 + j / 3) % 1.0)
-            x = lerp(c1[0] + 150, c2[0] - 120, q)
-            cv.glow_dot((x, c1[1] + math.sin(q * math.pi * 2) * 18), 10, GOLD_L, a * k)
-        cv.line((c1[0] + 150, c1[1]), (c2[0] - 120, c2[1]), GOLD_D, a * k * 0.6, 2)
-        quote_card(cv, 'qmunger', t, t0 + 1.2, t1, cy=1080, en_size=32, cn_size=38)
+        three_forces(cv, t, a)
     # ---- s18：无处不在
     t0, t1 = S('s18') - 0.3, S('s19') + 0.1
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
         p = t - t0
-        globe(cv, t, W / 2, 700, 380, rot=1.6 + p * 0.25, a=a, arcs=1.0, city_glow=1.0)
-        v = counter(0, 22, t, t0 + 0.5, 2.5, lambda v: f'{v:.0f}亿')
-        cv.text(v, W / 2 - 40, 1200, 130, 'sans_bold', gold=True, a=a, glow=0.3)
-        cv.text('份 / 每天', W / 2 + 230, 1225, 38, 'sans_med', col=CREAM, a=a, anchor='l')
-        cv.text('200 多个国家和地区', W / 2, 1310, 34, 'sans_light', col=CREAM, a=a * eo((p - 1.0) / 0.5))
+        globe(cv, t, W / 2, 740, 360, rot=1.6 + p * 0.25, a=a, arcs=1.0, city_glow=1.0)
+        tc0 = WT('s18', '每天') - 0.6
+        kc = eo((t - tc0) / 0.3)
+        v = counter(0, 22, t, tc0, 1.4, lambda v: f'{v:.0f}亿')
+        cv.text(v, W / 2 - 40, 1200, 130, 'sans_bold', gold=True, a=a * kc, glow=0.3)
+        cv.text('份 / 每天', W / 2 + 230, 1225, 38, 'sans_med', col=CREAM, a=a * kc, anchor='l')
+        cv.text('200 多个国家和地区', W / 2, 1310, 34, 'sans_light', col=CREAM, a=a * eo((t - WT('s18', '200')) / 0.5))
+        cv.text('无处不在', W / 2, 300, 64, 'serif_black', gold=True, a=a * eo(p / 0.5), glow=0.2)
         source(cv, '数据：可口可乐 2025 年 10-K', a)
     # ---- s19：浓缩液 + 装瓶伙伴
     t0, t1 = S('s19') - 0.3, S('s20') + 0.1
@@ -143,24 +133,34 @@ def shot_ch2(cv, t):
             cv.rrect(110, y + 160, 110 + 860 * val / mx * k, y + 172, 6, colr, a, glow=0.4)
         cv.text('轻资产：重的工厂与车队交给伙伴，自己守住品牌与配方', W / 2, 1290, 28, 'sans_light', col=CREAM, a=a * eo((p - 3.2) / 0.5))
         source(cv, '数据：可口可乐 2025 年 10-K（毛利 295.4 亿 ÷ 收入 479.4 亿；资本开支 21.1 亿）', a)
-    # ---- s22：一分一分
+    # ---- s22：规模经济——销量摊薄单位广告与分销成本（示意）
     t0, t1 = S('s22') - 0.3, S('s23') + 0.1
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         p = t - t0
-        rng = np.random.default_rng(5)
-        N = 5000
-        n = int(N * eio(p / 3.5))
-        xs = rng.normal(W / 2, 200, N)[:n]
-        hh = 420 * np.exp(-((xs - W / 2) / 260) ** 2) * min(1, n / N * 1.4)
-        ys = 1200 - rng.random(n) * hh
-        cv.splat(xs, ys, GOLD, a * 1.4, glow=1.4)
-        cv.splat(xs + 1, ys, GOLD_L, a * 0.6, glow=0.8)
-        cv.text('1994 年', W / 2, 330, 40, 'sans_med', col=CREAM, a=a)
-        cv.text('约 2,800 亿份', W / 2, 450, 90, 'sans_light', col=WHITE, a=a * eo(p / 0.5))
-        cv.text('每份赚 < 1 美分', W / 2, 570, 56, 'sans_med', col=GOLD, a=a * eo((p - 0.8) / 0.5))
-        cv.text('伯克希尔占 7.8% → 每年约 2 亿美元“汽水利润”', W / 2, 670, 32, 'sans_light', col=CREAM, a=a * eo((p - 1.8) / 0.5))
-        source(cv, '出处：巴菲特 1994 年致股东信', a)
+        x0, x1, y0, y1 = 150, 960, 520, 1150
+        cv.line((x0, y1), (x1, y1), GREY, a, 2); cv.line((x0, y0 - 20), (x0, y1), GREY, a, 2)
+        cv.text('销量 →', x1, y1 + 40, 26, 'sans_med', col=GREY, a=a, anchor='r')
+        cv.text('每份分摊的广告 + 分销成本', x0 + 10, y0 - 50, 26, 'sans_med', col=GREY, a=a, anchor='l')
+        xs = np.linspace(0.06, 1.0, 240)
+        ys = y1 - (y1 - y0) * (0.08 + 0.92 * (0.06 / xs) ** 0.85)
+        px = x0 + xs * (x1 - x0)
+        n = max(2, int(240 * eio(p / 1.6)))
+        cv.poly(np.stack([px[:n], ys[:n]], 1), GOLD, a, 4)
+        k1 = eo((p - 1.4) / 0.5)
+        kx = x0 + 0.92 * (x1 - x0); ky = y1 - (y1 - y0) * (0.08 + 0.92 * (0.06 / 0.92) ** 0.85)
+        cv.glow_dot((kx, ky), 16, GOLD_L, a * k1)
+        cv.text('可口可乐', kx, ky - 60, 40, 'serif_black', col=GOLD_L, a=a * k1)
+        cv.text('巨大销量 · 单位成本极低', kx - 10, ky + 50, 24, 'sans_light', col=CREAM, a=a * k1, anchor='r')
+        tr = WT('s22', '对手') - t0
+        k2 = eo((p - tr) / 0.5)
+        rx = x0 + 0.13 * (x1 - x0); ry = y1 - (y1 - y0) * (0.08 + 0.92 * (0.06 / 0.13) ** 0.85)
+        cv.glow_dot((rx, ry), 14, RED, a * k2)
+        cv.text('追赶者', rx + 30, ry - 10, 36, 'serif_black', col=RED, a=a * k2, anchor='l')
+        cv.text('销量小 · 每一份都更贵', rx + 30, ry + 40, 24, 'sans_light', col=CREAM, a=a * k2, anchor='l')
+        cv.text('每份赚不到 1 美分（1994），靠的是规模', W / 2, 360, 32, 'sans_med', col=CREAM, a=a * eo(p / 0.5))
+        cv.text('示意图', x1, y0 - 50, 20, 'sans_light', col=DIM, a=a, anchor='r')
+        source(cv, '出处：巴菲特 1994 年致股东信；芒格 1996（广告的规模劣势、分销的成本优势）', a)
     # ---- s23：护城河
     t0, t1 = S('s23') - 0.3, CH['ch3'][0] + 0.05
     a = env(t, t0, t1, 0.6, 0.4)
@@ -175,4 +175,127 @@ def shot_ch2(cv, t):
             chip(cv, s, x, y, 32, a * eo((p - 0.4 - i * 0.3) / 0.5), col=GOLD_L)
         cv.text('护城河', W / 2, 1180, 120, 'serif_black', gold=True, a=a * eo((p - 1.5) / 0.6), glow=0.3)
         cv.text('“……在经济城堡周围，筑起一道护城河。” —— 巴菲特 1993', W / 2, 1300, 28, 'serif_reg', col=CREAM,
-                a=a * eo((p - 2.2) / 0.6))
+                a=a * eo((p - 2.2) / 0.6), shadow=0.8)
+        source(cv, '七要素为本片对芒格 1996 年演讲的归纳，并非芒格原文给出的编号清单', a * eo((p - 1.0) / 0.6))
+
+
+# ------------------------------------------------------------------ 芒格配方：七要素进度条
+RAIL = [('商标', 's16'), ('操作性条件反射', 's17a'), ('巴甫洛夫条件反射', 's17b'), ('社会认同', 's17c'),
+        ('多因素合奏', 's17d'), ('无处不在', 's18'), ('规模经济', 's22')]
+
+
+def rail(cv, t):
+    a = env(t, S('s16') - 0.4, CH['ch3'][0] + 0.05, 0.5, 0.4)
+    if a <= 0.004: return
+    cv.text('芒格的配方 · 七个要素', 52, 132, 22, 'sans_med', col=GOLD, a=a, anchor='l', track=0.1)
+    rows = [RAIL[:4], RAIL[4:]]
+    for r, row in enumerate(rows):
+        x = 52
+        for name, sid in row:
+            i = RAIL.index((name, sid))
+            on = eo((t - S(sid) + 0.15) / 0.4)
+            nxt = S(RAIL[i + 1][1]) if i + 1 < len(RAIL) else CH['ch3'][0]
+            cur = 1.0 if S(sid) - 0.15 <= t < nxt - 0.15 else 0.0
+            if t >= S('s23') - 0.3: cur = 0.0
+            tw = text_size(name, 'sans_med', 22)[0]
+            w = tw + 34
+            colr = GOLD_L if cur else (GOLD * 0.75 if on > 0.5 else (0.38, 0.36, 0.36))
+            fill = (0.22, 0.15, 0.06) if cur else (0.06, 0.05, 0.05)
+            cv.rrect(x, 172 + r * 48 - 17, x + w, 172 + r * 48 + 17, 17, fill, a * 0.92)
+            cv.rrect(x, 172 + r * 48 - 17, x + w, 172 + r * 48 + 17, 17, colr, a * (0.5 + 0.5 * on), fill=False, th=2)
+            cv.text(f'{name}', x + w / 2, 172 + r * 48, 22, 'sans_med', col=colr, a=a)
+            x += w + 12
+
+
+def circle_photo(cv, name, cx, cy, r, a, focus=(0.5, 0.5), zoom=1.0):
+    im = asset(name)
+    ih, iw = im.shape[:2]
+    s = 2 * r / min(ih, iw) * zoom
+    cw = 2 * r / s
+    ox, oy = cl(focus[0] * iw - cw / 2, 0, iw - cw), cl(focus[1] * ih - cw / 2, 0, ih - cw)
+    M = np.array([[s, 0, -ox * s], [0, s, -oy * s]], np.float32)
+    crop = cv2.warpAffine(im, M, (2 * r, 2 * r), flags=cv2.INTER_AREA)
+    yy, xx = np.mgrid[0:2 * r, 0:2 * r].astype(np.float32)
+    m = np.clip(r - np.sqrt((xx - r) ** 2 + (yy - r) ** 2), 0, 1.5) / 1.5
+    cv.over(crop, m * a, cx - r, cy - r)
+
+
+def three_forces(cv, t, a):
+    """操作性条件反射 / 巴甫洛夫条件反射 / 社会认同 → 互相放大 → 多因素合奏效应"""
+    N = {'op': (W / 2, 535), 'pv': (260, 895), 'sp': (820, 895)}
+    R = 118
+    ta, tb, tc, td = S('s17a'), S('s17b'), S('s17c'), S('s17d')
+    cv.text('三种心理力量', W / 2, 300, 40, 'serif_black', gold=True, a=a, shadow=0.6)
+    # 连线（合奏阶段点亮）
+    kd = eo((t - td) / 0.8)
+    for u, v in (('op', 'pv'), ('pv', 'sp'), ('sp', 'op')):
+        p0, p1 = np.array(N[u]), np.array(N[v])
+        d = (p1 - p0) / np.linalg.norm(p1 - p0)
+        q0, q1 = p0 + d * (R + 8), p1 - d * (R + 8)
+        cv.line(q0, q1, (0.3, 0.27, 0.25), a * (1 - kd) * 0.6, 2)
+        if kd > 0:
+            cv.line(q0, q0 + (q1 - q0) * kd, GOLD, a, 3)
+            for j in range(4):
+                f = ((t - td) * 0.7 + j / 4) % 1.0
+                cv.glow_dot(q0 + (q1 - q0) * f, 9, GOLD_L, a * kd)
+    # 1) 操作性条件反射：奖励回路
+    k = eo((t - ta + 0.15) / 0.5)
+    c = N['op']
+    cv.circle(c, R, GOLD if k > 0.5 else GREY, a * (0.35 + 0.65 * k), 4)
+    cv.text('操作性', c[0], c[1] - 22, 34, 'serif_black', col=WHITE if k > 0.5 else GREY, a=a)
+    cv.text('条件反射', c[0], c[1] + 24, 30, 'serif_semi', col=CREAM if k > 0.5 else GREY, a=a)
+    if k > 0:
+        for j, wd in enumerate(['甜', '冰', '提神']):
+            ang = -math.pi / 2 + j * 2 * math.pi / 3 + (t - ta) * 0.6
+            kk = eo((t - WT('s17a', wd) + 0.1) / 0.3)
+            chip(cv, wd, c[0] + math.cos(ang) * (R + 72), c[1] + math.sin(ang) * (R + 40), 26, a * kk, col=GOLD_L)
+        cv.arc(c, R + 14, (t - ta) * 2.0, (t - ta) * 2.0 + 4.6, GOLD_L, a * k * 0.6, 2)
+        kk = eo((t - WT('s17a', '喝了') + 0.1) / 0.4)
+        cv.text('喝 → 满足 → 再喝', c[0], c[1] + R + 115, 28, 'sans_med', col=GOLD_L, a=a * kk * (1 - kd))
+    # 2) 巴甫洛夫条件反射：1890 年代广告 + 联想
+    k = eo((t - tb + 0.15) / 0.5)
+    c = N['pv']
+    if k > 0:
+        circle_photo(cv, 'coke_ad_1890s', int(c[0]), int(c[1]), R - 4, a * k * (1 - 0.65 * kd), focus=(0.5, 0.33), zoom=1.15)
+    cv.circle(c, R, RED if k > 0.5 else GREY, a * (0.35 + 0.65 * k), 4)
+    if k <= 0.5 or kd > 0.5:
+        cv.text('巴甫洛夫', c[0], c[1] - 22, 34, 'serif_black', col=WHITE if k > 0.5 else GREY, a=a)
+        cv.text('条件反射', c[0], c[1] + 24, 30, 'serif_semi', col=CREAM if k > 0.5 else GREY, a=a)
+    else:
+        cv.text('巴甫洛夫条件反射', c[0], c[1] + R + 40, 30, 'serif_black', col=WHITE, a=a * k * (1 - kd))
+        cv.text('1890 年代广告（公有领域）', c[0], c[1] + R + 78, 18, 'sans_light', col=DIM, a=a * k * (1 - kd))
+    for j, wd in enumerate(['快乐', '青春', '庆祝']):
+        kk = eo((t - WT('s17b', wd) + 0.1) / 0.3) * (1 - kd)
+        if kk <= 0: continue
+        px, py = c[0] - 60 + j * 150, c[1] - R - 120 + (j % 2) * 30
+        if j == 2: px, py = c[0] + R + 70, c[1] - 40
+        cv.line((px, py + 20), (c[0] + (px - c[0]) * 0.35, c[1] + (py - c[1]) * 0.35 + 30), GOLD_D, a * kk * 0.7, 2)
+        chip(cv, wd, px, py, 26, a * kk, col=GOLD_L)
+    # 3) 社会认同：人群被一个个点亮
+    k = eo((t - tc + 0.15) / 0.5)
+    c = N['sp']
+    cv.circle(c, R, TEAL if k > 0.5 else GREY, a * (0.35 + 0.65 * k), 4)
+    cv.text('社会认同', c[0], c[1] - 22, 34, 'serif_black', col=WHITE if k > 0.5 else GREY, a=a)
+    cv.text('别人在喝，我也想', c[0], c[1] + 24, 22, 'sans_light', col=CREAM if k > 0.5 else GREY, a=a)
+    if k > 0:
+        rng = np.random.default_rng(21)
+        ppl = 70
+        ang = rng.uniform(0, 2 * np.pi, ppl); rad = rng.uniform(R + 35, R + 150, ppl)
+        order = np.argsort(rad)
+        lit = (t - tc) / 2.2 * ppl
+        for n_, idx in enumerate(order):
+            x = c[0] + math.cos(ang[idx]) * rad[idx]; y = c[1] + math.sin(ang[idx]) * rad[idx] * 0.75
+            if x > W - 30 or y > 1120: continue
+            on = cl(lit - n_)
+            col = TEAL * (0.4 + 0.6 * on) if on > 0 else (0.25, 0.25, 0.27)
+            cv.glow_dot((x, y - 7), 4.5, col, a * (0.5 + 0.5 * on) * (1 - 0.6 * kd))
+            cv.line((x, y - 1), (x, y + 9), col, a * (0.5 + 0.5 * on) * (1 - 0.6 * kd), 3)
+    # 4) 多因素合奏效应
+    if kd > 0:
+        ctr = (W / 2, 770)
+        cv.glow_dot(ctr, 110 + 20 * math.sin((t - td) * 4), GOLD, a * kd * 0.55)
+        km = eo((t - WT('s17d', '芒格') + 0.1) / 0.5)
+        cv.text('×', ctr[0], ctr[1] - 4, 90, 'sans_light', col=GOLD_L, a=a * kd * (1 - km))
+        cv.text('多因素合奏效应', ctr[0], ctr[1] - 14, 42, 'serif_black', gold=True, a=a * km, shadow=0.8)
+        cv.text('LOLLAPALOOZA', ctr[0], ctr[1] + 38, 24, 'corm', col=GOLD_L, a=a * km, track=0.3, shadow=0.8)
+        quote_card(cv, 'qauto', t, td + 0.6, S('s18') + 0.1, cy=1225, en_size=25, cn_size=30, w=1000, typing=1.6)

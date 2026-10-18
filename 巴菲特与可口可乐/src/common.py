@@ -6,7 +6,7 @@ import numpy as np, cv2
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from engine import *          # noqa
 import shaders
-from script import QUOTES, CHAPTERS
+from script import QUOTES, CHAPTERS, LINES, TEASE
 
 WORK = sys.argv[1] if len(sys.argv) > 1 else 'work'
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
@@ -24,6 +24,18 @@ ENERGY = np.array(FEATS['energy'])
 
 def S(i): return SEG[i]['start']
 def E(i): return SEG[i]['start'] + SEG[i]['dur']
+
+
+_SAY = {l[0]: (l[3] or l[2]) for l in LINES}; _SAY['tease'] = TEASE[1]
+_TXT = {l[0]: l[2] for l in LINES}; _TXT['tease'] = TEASE[0]
+
+
+def WT(i, sub):
+    """句内某个词大约被读出的时刻（按朗读文本的字数比例估算）"""
+    for src in (_SAY[i], _TXT[i]):
+        k = src.find(sub)
+        if k >= 0: return S(i) + SEG[i]['dur'] * k / max(len(src), 1)
+    raise KeyError(f'{sub} not in {i}')
 
 
 def energy(t):
@@ -176,6 +188,16 @@ def wrap_cn(s, fnt, size, maxw):
     return lines
 
 
+def clear_glow(cv, x0, y0, x1, y1, a=1.0):
+    """在文字区域压掉高光与辉光，保证文字不被光斑吞掉"""
+    X0, Y0, X1, Y1 = int(max(x0, 0)), int(max(y0, 0)), int(min(x1, W)), int(min(y1, H))
+    if X1 <= X0 or Y1 <= Y0 or a <= 0.004: return
+    reg = cv.img[Y0:Y1, X0:X1]
+    np.minimum(reg, 1.0 - 0.35 * a, out=reg)
+    cv.glow[Y0:Y1, X0:X1] *= (1 - a)
+    cv.U[Y0:Y1, X0:X1] = (cv.U[Y0:Y1, X0:X1] * (1 - a)).astype(np.uint8)
+
+
 def quote_card(cv, key, t, t0, t1, cy=860, en_size=36, cn_size=42, hl=None, a=1.0, typing=1.6, w=900):
     """大师原文卡：英文原句（打字机字体，逐字显现）+ 中文翻译 + 出处"""
     al = env(t, t0, t1, 0.5, 0.5) * a
@@ -189,7 +211,13 @@ def quote_card(cv, key, t, t0, t1, cy=860, en_size=36, cn_size=42, hl=None, a=1.
     y0 = cy - hgt / 2
     lift = (1 - eo((t - t0) / 0.7)) * 30
     y0 += lift
-    cv.rrect(x0, y0, x1, y0 + hgt, 18, (0.035, 0.03, 0.028), al * 0.88)
+    # 文字层压在一切光斑之上：先把卡片区域的高光压回 ≤1 并去掉辉光，再铺不透明度 0.94 的暗底
+    X0, Y0, X1, Y1 = int(max(x0 - 12, 0)), int(max(y0 - 12, 0)), int(min(x1 + 12, W)), int(min(y0 + hgt + 12, H))
+    reg = cv.img[Y0:Y1, X0:X1]
+    np.minimum(reg, 1.0, out=reg)
+    cv.glow[Y0:Y1, X0:X1] *= (1 - al)
+    cv.U[Y0:Y1, X0:X1] = (cv.U[Y0:Y1, X0:X1] * (1 - al)).astype(np.uint8)
+    cv.rrect(x0, y0, x1, y0 + hgt, 18, (0.03, 0.026, 0.024), al * 0.94)
     cv.rrect(x0, y0, x1, y0 + hgt, 18, GOLD_D, al * 0.45, fill=False, th=2)
     cv.line((x0 + 50, y0 + 64), (x0 + 50 + 70 * eo((t - t0) / 0.8), y0 + 64), GOLD, al, 3)
     cv.text(who.upper() if False else who, x0 + 140, y0 + 64, 24, 'corm', col=GOLD, a=al, anchor='l')
@@ -200,14 +228,14 @@ def quote_card(cv, key, t, t0, t1, cy=860, en_size=36, cn_size=42, hl=None, a=1.
     for l in en_lines:
         r = cl((shown - cnt) / max(len(l), 1)); cnt += len(l)
         if r > 0:
-            cv.text(l, x0 + 50, y, en_size, 'typewriter', col=CREAM, a=al * 0.95, anchor='l', reveal=r)
+            cv.text(l, x0 + 50, y, en_size, 'typewriter', col=CREAM, a=al * 0.97, anchor='l', reveal=r, shadow=0.6)
             if hl and hl in l and r >= 1:
                 pass
         y += lh_en
     y += 24
     ca = al * eo((t - t0 - 0.3 - typing * 0.6) / 0.8)
     for l in cn_lines:
-        cv.text(l, x0 + 50, y, cn_size, 'serif_semi', col=GOLD_L, a=ca, anchor='l')
+        cv.text(l, x0 + 50, y, cn_size, 'serif_semi', col=GOLD_L, a=ca, anchor='l', shadow=0.6)
         y += lh_cn
 
 
@@ -233,6 +261,7 @@ def split_balanced(txt, fnt, size, maxw):
 
 def subtitles(cv, t):
     for s in TL['segs']:
+        if s['id'] == 'tease': continue                 # 预告在片尾卡上单独排版
         a = env(t, s['start'] - 0.05, s['start'] + s['dur'] + 0.2, 0.12, 0.18)
         if a <= 0.004: continue
         txt = s['text'].replace('——', '—')
@@ -359,35 +388,41 @@ def ko_chart(cv, t, t0, x0, x1, y0, y1, y_from=1988.0, y_to=2027.0, reveal=1.0, 
 
 def shot_hook(cv, t):
     # ---- 0 → s01：黑场中的金线心跳
-    a0 = env(t, 0, S('s01') + 0.6, 0.0, 0.6)
+    a0 = env(t, 0, S('s01') + 0.4, 0.0, 0.4)
     if a0 > 0:
-        L = 420 * eo(t / 1.4)
-        hb = sum(math.exp(-max(t - k, 0) * 6) * (t >= k) for k in np.arange(0.25, 2.0, 1.55))
+        L = 420 * eo(t / 1.1)
+        hb = sum(math.exp(-max(t - k, 0) * 6) * (t >= k) for k in (0.25,))
         cv.line((W / 2 - L, 960), (W / 2 + L, 960), GOLD, a0 * (0.5 + 0.5 * hb), 2)
         cv.glow_dot((W / 2, 960), 30 + 40 * hb, GOLD, a0 * 0.6)
-    # ---- s01：股价长线一路升到历史新高
-    t0, t1 = S('s01') - 0.2, S('s02') + 0.3
-    a = env(t, t0, t1, 0.5, 0.6)
+    # ---- s01：“可口可乐，创历史新高了——93.9 美元。” 股价长线一口气冲上历史新高
+    t0, t1 = S('s01') - 0.25, S('s03') + 0.25
+    a = env(t, t0, t1, 0.35, 0.5)
     if a > 0:
-        p = eio5((t - t0) / (S('s01') + 3.6 - t0))
-        r = ko_chart(cv, t, t0, 110, 990, 520, 1180, reveal=0.02 + 0.98 * p, a=a, col=RED)
-        cv.text('KO', 120, 330, 40, 'oswald', col=CREAM, a=a, anchor='l', track=0.1)
-        cv.text('THE COCA-COLA COMPANY · NYSE', 205, 332, 22, 'corm', col=GREY, a=a, anchor='l', track=0.12)
-        price = KO_P[max(1, int(len(KO_P) * (0.02 + 0.98 * p))) - 1]
-        cv.text(f'${price:,.2f}', 118, 420, 96, 'sans_light', col=WHITE, a=a, anchor='l')
-        ath = env(t, S('s01') + 3.4, t1, 0.3, 0.4)
+        t_ath = WT('s01', '创历史新高')
+        p = eio5((t - t0) / (t_ath + 0.25 - t0))
+        r = ko_chart(cv, t, t0, 110, 990, 560, 1210, reveal=0.02 + 0.98 * p, a=a, col=RED)
+        cv.text('KO', 120, 300, 40, 'oswald', col=CREAM, a=a, anchor='l', track=0.1)
+        cv.text('THE COCA-COLA COMPANY · NYSE', 205, 302, 22, 'corm', col=GREY, a=a, anchor='l', track=0.12)
+        ath = env(t, t_ath, t1, 0.18, 0.4)
+        flash = math.exp(-max(t - t_ath, 0) * 3.5) * (t >= t_ath)
         if ath > 0:
-            chip(cv, '历史新高', 560, 420, 34, ath, col=GOLD)
-            cv.text('2026.10.16 收盘 · 盘中高点 $94.10（10.15）', 120, 485, 24, 'sans_light', col=GREY, a=ath, anchor='l')
-            if r: cv.glow_dot(r[0], 60, GOLD, ath * 0.5)
+            chip(cv, '历史新高', 230, 400, 40, ath, col=GOLD)
+            if r:
+                cv.glow_dot(r[0], 70 + 120 * flash, GOLD, ath * (0.5 + 0.8 * flash))
+                cv.circle(r[0], 20 + 260 * (1 - math.exp(-max(t - t_ath, 0) * 3)), GOLD_L, ath * flash, 2)
+        kp = eo((t - WT('s01', '九十三点九') + 0.1) / 0.35)
+        if kp > 0:
+            cv.text('$93.90', W / 2 + 120, 470, 150, 'sans_bold', gold=True, a=a * kp, glow=0.35, scale=1.1 - 0.1 * kp)
+            cv.text('2026.10.16 收盘 · 盘中高点 $94.10（10.15）', W / 2 + 120, 570, 24, 'sans_light', col=GREY, a=a * kp)
         source(cv, '数据：Nasdaq / Yahoo Finance 日线（拆股调整）', a * 0.9)
-    # ---- s02：股东名册中被点亮的一行
-    t0, t1 = S('s02') - 0.1, S('s03') + 0.2
-    a = env(t, t0, t1, 0.4, 0.4)
+    # ---- s03 前半：“有一位股东，已经持有它 38 年”——股东名册中被点亮的一行
+    t_split = WT('s03', '当年')
+    t0, t1 = S('s03') - 0.15, t_split + 0.25
+    a = env(t, t0, t1, 0.3, 0.3)
     if a > 0:
         rng = np.random.default_rng(3)
         p = (t - t0)
-        scroll = 1 - eo(p / 2.2)
+        scroll = 1 - eo(p / 1.6)
         for i in range(-9, 10):
             y = 900 + i * 62 + scroll * 260
             w_ = 300 + rng.random() * 420
@@ -397,23 +432,24 @@ def shot_hook(cv, t):
                 cv.rrect(130, y - 9, 130 + w_, y + 9, 9, (0.32, 0.30, 0.30), aa)
                 cv.rrect(860, y - 9, 950, y + 9, 9, (0.32, 0.30, 0.30), aa)
             else:
-                k = eo((p - 1.0) / 0.6)
+                k = eo((p - 0.6) / 0.5)
                 cv.rrect(110, y - 40, 970, y + 40, 12, (0.16, 0.10, 0.06), a * k * 0.9, glow=0.0)
                 cv.rrect(110, y - 40, 970, y + 40, 12, GOLD, a * k, fill=False, th=2)
                 cv.text('BERKSHIRE HATHAWAY', 150, y, 40, 'oswald', col=GOLD_L, a=a * (0.25 + 0.75 * k), anchor='l', track=0.06)
                 cv.text('since 1988', 940, y, 30, 'corm', col=GOLD, a=a * k, anchor='r')
-        cv.text('38', W / 2, 420, 230, 'sans_light', col=WHITE, a=a * eo((p - 1.3) / 0.7), glow=0.15)
-        cv.text('年', W / 2 + 165, 470, 60, 'sans_med', col=GOLD, a=a * eo((p - 1.5) / 0.6))
+        k38 = eo((t - WT('s03', '38') + 0.1) / 0.4)
+        cv.text('38', W / 2, 420, 230, 'sans_light', col=WHITE, a=a * k38, glow=0.15)
+        cv.text('年', W / 2 + 165, 470, 60, 'sans_med', col=GOLD, a=a * k38)
         cv.text('股东名册（示意）', W / 2, 1310, 22, 'sans_light', col=DIM, a=a * 0.8)
-    # ---- s03：13亿 → 376亿
-    t0, t1 = S('s03') - 0.1, S('s04') + 0.15
-    a = env(t, t0, t1, 0.35, 0.4)
+    # ---- s03 后半：13亿 → 376亿
+    t0, t1 = t_split - 0.1, S('s04') + 0.15
+    a = env(t, t0, t1, 0.3, 0.4)
     if a > 0:
         p = t - t0
-        # 体量对比：成本 = 1 个小金块，市值 = 28.9 倍高的金柱
+        t376 = WT('s03', '376') - t0
         base = 1330
         cube(cv, 200, base - 40, 70, a * eo(p / 0.5))
-        kk = eexp((p - 2.0) / 1.8)
+        kk = eexp((p - t376 + 0.6) / 1.6)
         hcol = 760 * kk
         if hcol > 2:
             cv.rect(955, base - 75 - hcol, 1015, base - 75, GOLD * 0.7, a, glow=0.25)
@@ -421,50 +457,52 @@ def shot_hook(cv, t):
         cv.text('成本', 200, base + 30, 24, 'sans_light', col=GREY, a=a * eo(p / 0.5))
         cv.text('市值', 985, base + 30, 24, 'sans_light', col=GREY, a=a * kk)
         cv.text('1988–1994 买入成本', W / 2, 520, 32, 'sans_light', col=GREY, a=a)
-        cv.text('$13亿', W / 2, 640, 120, 'sans_light', col=CREAM, a=a * (1 - 0.6 * eo((p - 2.0) / 0.6)))
-        k = eo((p - 2.0) / 0.5)
+        cv.text('$13亿', W / 2, 640, 120, 'sans_light', col=CREAM, a=a * (1 - 0.6 * eo((p - t376 + 0.6) / 0.6)))
+        k = eo((p - t376 + 0.6) / 0.5)
         if k > 0:
-            v = counter(13, 376, t, t0 + 2.0, 1.8, lambda v: f'${v:,.0f}亿')
+            v = counter(13, 376, t, t0 + t376 - 0.6, 1.4, lambda v: f'${v:,.0f}亿')
             cv.text('今日市值', W / 2, 800, 32, 'sans_light', col=GOLD, a=a * k)
             cv.text(v, W / 2, 960, 210, 'sans_bold', gold=True, a=a * k, glow=0.35, scale=0.94 + 0.06 * k)
-            cv.text('×28.9', W / 2, 1130, 54, 'oswald', col=GOLD_L, a=a * eo((p - 3.6) / 0.5), track=0.06)
+            cv.text('×28.9', W / 2, 1130, 54, 'oswald', col=GOLD_L, a=a * eo((p - t376 - 0.6) / 0.5), track=0.06)
         source(cv, '成本：伯克希尔1994年报 $12.99亿 · 市值：4亿股 × $93.90', a)
-    # ---- s04：股息 8.48亿 / 每天 232 万
+    # ---- s04：股息 8.48 亿
     t0, t1 = S('s04') - 0.1, S('s05') + 0.1
     a = env(t, t0, t1, 0.35, 0.35)
     if a > 0:
         p = t - t0
-        # 金色雨滴
         rng = np.random.default_rng(11)
-        n = 260
+        n = 300
         xs = rng.uniform(80, 1000, n); sp = rng.uniform(420, 900, n); ph = rng.uniform(0, 3, n)
         ys = ((p + ph) * sp) % 1500 + 150
         cv.splat(xs, ys, GOLD, a * 0.55 * np.minimum(1, p / 0.8), glow=1.5)
         cv.splat(xs, ys - 6, GOLD, a * 0.25 * np.minimum(1, p / 0.8), glow=1.0)
-        cv.text('2026 年股息', W / 2, 560, 34, 'sans_light', col=GREY, a=a)
-        cv.text('$8.48亿', W / 2, 700, 170, 'sans_bold', gold=True, a=a * eo(p / 0.5), glow=0.3)
-        k = eo((p - 2.6) / 0.5)
-        cv.text('≈ 每天', W / 2, 880, 36, 'sans_light', col=CREAM, a=a * k)
-        cv.text('$232万', W / 2, 1000, 120, 'sans_light', col=WHITE, a=a * k)
+        cv.text('2026 年股息（全年预计）', W / 2, 600, 34, 'sans_light', col=GREY, a=a)
+        k = eo((t - WT('s04', '八点四八') + 0.1) / 0.4)
+        cv.text('$8.48亿', W / 2, 780, 190, 'sans_bold', gold=True, a=a * k, glow=0.3, scale=1.06 - 0.06 * k)
+        cv.text('约为当初成本的 65%', W / 2, 960, 40, 'sans_med', col=CREAM, a=a * eo((t - WT('s04', '八点四八') - 0.9) / 0.5))
         source(cv, '每股 $0.53 × 4 季 × 4亿股（可口可乐 2025 年报：连续第64年提高股息）', a)
-    # ---- s05：三次危机闪回 → “一股未卖”
+    # ---- s05：三次危机闪回 → “一股未卖” → 为什么？（之后是整段留白，直到标题重拍）
     t0, t1 = S('s05') - 0.1, CH['title'][0] + 0.05
     a = env(t, t0, t1, 0.2, 0.05)
     if a > 0:
         p = t - t0
-        items = [('2000', '互联网泡沫'), ('2008', '金融危机'), ('2020', '全球疫情')]
-        for i, (yr, nm) in enumerate(items):
-            ti = 0.15 + i * 0.75
-            k = env(p, ti, ti + 0.9, 0.1, 0.35)
+        items = [('2000', '互联网泡沫', '泡沫'), ('2008', '金融危机', '危机'), ('2020', '全球疫情', '疫情')]
+        for i, (yr, nm, w) in enumerate(items):
+            ti = WT('s05', w) - t0 - 0.1
+            k = env(p, ti, ti + 0.8, 0.08, 0.3)
             if k > 0:
                 cv.text(yr, W / 2, 760, 200, 'oswald', col=RED, a=a * k * 0.9, glow=0.4)
                 cv.text(nm, W / 2, 920, 56, 'serif_black', col=CREAM, a=a * k)
-        k = env(p, 2.45, 99, 0.25, 0)
+        tq = WT('s05', '他一股') - t0
+        k = env(p, tq, 99, 0.25, 0)
         if k > 0:
-            cv.text('一股未卖', W / 2, 840, 150, 'serif_black', gold=True, a=a * k, glow=0.35, scale=1.06 - 0.06 * eo((p - 2.45) / 0.8))
-        k2 = env(p, S('s05') + 3.6 - t0, 99, 0.3, 0)
+            cv.text('一股未卖', W / 2, 840, 150, 'serif_black', gold=True, a=a * k, glow=0.35, scale=1.06 - 0.06 * eo((p - tq) / 0.8))
+        k2 = env(p, WT('s05', '为什么') - t0, 99, 0.3, 0)
         if k2 > 0:
             cv.text('为什么？', W / 2, 1040, 64, 'serif_semi', col=CREAM, a=a * k2)
+        # “为什么？”之后的空气：画面慢慢沉下去，只剩金字与心跳般的微光
+        sink = eio((t - E('s05') - 0.2) / 1.2)
+        if sink > 0: cv.dim(1 - 0.35 * sink)
 
 
 # ------------------------------------------------------------------ 标题
@@ -550,15 +588,23 @@ def shot_end(cv, t):
     ta = eo((t - hit - 0.25) / 0.6)
     if ta > 0:
         brand_title(cv, t, ta, hit + 1.0)
-    # 4) 细金线引出关注语
+    # 4) 系列预告（与旁白同步出现）
+    ts = SEG['tease']['start']
+    ka = eo((t - ts + 0.2) / 0.6)
+    if ka > 0:
+        chip(cv, '下期预告', W / 2, 1218, 24, ka, col=GOLD)
+        cv.text('360亿美元买入苹果', W / 2, 1282, 40, 'serif_semi', col=CREAM, a=ka, shadow=0.6)
+        cv.text('他为什么又卖掉了大半？', W / 2, 1336, 40, 'serif_semi', col=CREAM, a=ka * eo((t - WT('tease', '他为什么')) / 0.5),
+                shadow=0.6)
+    # 5) 细金线引出关注语
     la2 = eo((t - hit - 1.6) / 0.9)
     if la2 > 0:
         Lw = 330 * la2
-        cv.line((W / 2 - Lw, 1250), (W / 2 + Lw, 1250), GOLD_D, la2, 2)
-        cv.glow_dot((W / 2 - Lw, 1250), 6, GOLD_L, la2 * 0.8); cv.glow_dot((W / 2 + Lw, 1250), 6, GOLD_L, la2 * 0.8)
+        cv.line((W / 2 - Lw, 1392), (W / 2 + Lw, 1392), GOLD_D, la2, 2)
+        cv.glow_dot((W / 2 - Lw, 1392), 6, GOLD_L, la2 * 0.8); cv.glow_dot((W / 2 + Lw, 1392), 6, GOLD_L, la2 * 0.8)
         fa = eo((t - hit - 2.2) / 0.9)
-        cv.text('关注「巴芒价值」', W / 2, 1330, 46, 'serif_semi', col=GOLD_L, a=fa)
-        cv.text('传承大师智慧，领悟投资真谛', W / 2, 1410, 40, 'serif_reg', col=CREAM, a=fa * 0.92, track=0.12)
+        cv.text('关注「巴芒价值」', W / 2, 1448, 44, 'serif_semi', col=GOLD_L, a=fa)
+        cv.text('传承大师智慧，领悟投资真谛', W / 2, 1510, 36, 'serif_reg', col=CREAM, a=fa * 0.92, track=0.12)
 
 
 _bt = {}

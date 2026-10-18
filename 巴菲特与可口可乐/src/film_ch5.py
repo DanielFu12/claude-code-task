@@ -16,6 +16,7 @@ def shot_ch5(cv, t):
     if a > 0:
         p = t - t0
         ang = 180 * (1 - eio((p - 0.6) / 1.2))
+        clear_glow(cv, 60, 560, W - 60, 680, a)
         rot_text(cv, 'Invert, always invert.', W / 2, 620, 64, 'typewriter', ang, GOLD_L, a)
         cv.text('反过来想，总是反过来想。', W / 2, 760, 56, 'serif_black', col=CREAM, a=a * eo((p - 1.8) / 0.5))
         cv.text('数学家雅可比的名言 · 芒格常引用（1996）', W / 2, 840, 26, 'sans_light', col=GREY, a=a * eo((p - 2.0) / 0.5))
@@ -85,5 +86,6 @@ def shot_ch5(cv, t):
         cv.splat(xs, ys, GOLD_L, a * 0.5, glow=1.5)
         cv.text('时间，', W / 2, 700, 120, 'serif_black', gold=True, a=a * eo(p / 0.6), glow=0.3)
         cv.text('是优秀企业的朋友', W / 2, 860, 92, 'serif_black', gold=True, a=a * eo((p - 0.6) / 0.6), glow=0.3)
-        cv.text('“Time is the friend of the wonderful business.”', W / 2, 1010, 34, 'typewriter', col=CREAM, a=a * eo((p - 1.2) / 0.6))
+        clear_glow(cv, 40, 975, W - 40, 1100, a * 0.8)
+        cv.text('“Time is the friend of the wonderful business.”', W / 2, 1010, 34, 'typewriter', col=CREAM, a=a * eo((p - 1.2) / 0.6), shadow=0.8)
         cv.text('Warren Buffett · 2010 Chairman’s Letter', W / 2, 1070, 24, 'corm', col=GOLD, a=a * eo((p - 1.4) / 0.6))

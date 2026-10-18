@@ -21,8 +21,9 @@ cp -n assets/generated/music/*.mp3 "$WORK/music/" 2>/dev/null || true
 python3 data/calc.py > /dev/null                       # 收益与股息计算 → data/calc.json
 python3 src/tts_gen.py "$WORK"                          # 旁白（缺失才生成）
 [ -f "$WORK/music/A_2.mp3" ] || { python3 src/music_gen.py "$WORK" A 3; python3 src/music_gen.py "$WORK" B 3; }
-python3 src/music_plan.py "$WORK" > /dev/null
-python3 src/timeline.py "$WORK"
+python3 src/timeline.py "$WORK" > /dev/null          # 旁白变速/去静音，得到每句时长
+python3 src/music_plan.py "$WORK"                     # 配乐按旁白整小节重复/剪裁，给出卡点
+python3 src/timeline.py "$WORK" --keep                # 按卡点排出最终时间线
 python3 src/audio_mix.py "$WORK"
 
 N=$(python3 -c "import json;print(int(round(json.load(open('$WORK/timeline.json'))['total']*30)))")

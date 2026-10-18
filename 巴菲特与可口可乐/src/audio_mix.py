@@ -147,6 +147,14 @@ def main(work):
     end_t = tl['chapters']['end'][1]
     for p in mp['pieces']:
         x = load(os.path.join(work, 'music', p['file']))
+        # 整小节重复（拍点对齐，40ms 等功率交叉淡化），让段落重拍落在旁白的章节点上
+        edits = [(s0, e0, 'loop') for s0, e0 in p.get('loops', [])] + [(s0, e0, 'cut') for s0, e0 in p.get('cuts', [])]
+        for s0, e0, kind in sorted(edits, reverse=True):
+            s, e = int(s0 * SR), int(e0 * SR); xf = int(0.04 * SR)
+            head, tail = (x[:e], x[s:]) if kind == 'loop' else (x[:s], x[e:])
+            w = np.sin(np.linspace(0, np.pi / 2, xf))[:, None]
+            mid = head[-xf:] * np.cos(np.linspace(0, np.pi / 2, xf))[:, None] + tail[:xf] * w
+            x = np.concatenate([head[:-xf], mid, tail[xf:]])
         a = int(p['src_in'] * SR)
         until = p['until'] if p['until'] is not None else end_t
         seg = x[a:a + int((until - p['at']) * SR)].copy()
@@ -224,12 +232,26 @@ def main(work):
     place(sfx, drone(6.0, 32.7, 0.16), ch['ch4'][0] - 0.5)          # “并不平坦”的低频空拍
     # 数字揭晓的低频脉冲（与画面里的数字跳出同步）
     seg = {s['id']: s for s in tl['segs']}
-    for sid, dt, a in (('s03', 2.2, 0.45), ('s04', 2.6, 0.45), ('s25', 0.2, 0.3), ('s26', 3.6, 0.35),
-                       ('s28', 0.15, 0.6), ('s29', 3.5, 0.4), ('s30', 0.4, 0.4), ('s38', 3.0, 0.35)):
-        place(sfx, low_pulse(a), seg[sid]['start'] + dt)
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from script import LINES, TEASE
+    say = {l[0]: (l[3] or l[2]) for l in LINES}; txt = {l[0]: l[2] for l in LINES}
+
+    def wt(i, sub):
+        for src in (say[i], txt[i]):
+            k = src.find(sub)
+            if k >= 0: return seg[i]['start'] + seg[i]['dur'] * k / len(src)
+        raise KeyError(sub)
+    for tt, a in ((wt('s01', '创历史新高'), 0.5), (wt('s03', '376') - 0.6, 0.45), (wt('s04', '八点四八'), 0.45),
+                  (seg['s25']['start'] + 0.4, 0.3), (seg['s25']['start'] + seg['s25']['dur'] + 0.1, 0.3),
+                  (wt('s26', '1994') + 0.2, 0.3), (wt('s26', '总成本'), 0.4), (seg['s28']['start'] + 0.1, 0.6),
+                  (wt('s29', '8.48') + 0.3, 0.4), (wt('s29', '38年累计'), 0.45), (seg['s38']['start'] + 3.0, 0.35),
+                  (seg['s17a']['start'], 0.3), (seg['s17b']['start'], 0.3), (seg['s17c']['start'], 0.3),
+                  (wt('s17d', '芒格'), 0.5)):
+        place(sfx, low_pulse(a), tt)
     place(sfx, impact(2.8, 0.75, 7), seg['s35']['start'] + 2.1)       # 泡沫破裂
     for k in range(4):                                                # 拆股 1→2→4→8→16
-        place(sfx, low_pulse(0.3 + 0.08 * k), seg['s27']['start'] + 0.6 + k * 0.62)
+        span = wt('s27', '4亿股') - seg['s27']['start'] - 0.5
+        place(sfx, low_pulse(0.3 + 0.08 * k), seg['s27']['start'] + 0.5 + k * span / 4 + 0.05)
     # 片尾：粒子汇聚 → logo 重拍
     place(sfx, impact(4.5, 0.9, 9), mp['hits']['logo'])
     place(sfx, sub_drop(3.0, 66, 22, 0.8), mp['hits']['logo'])

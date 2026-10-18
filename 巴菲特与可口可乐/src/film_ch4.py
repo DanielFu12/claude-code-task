@@ -65,7 +65,8 @@ def shot_ch4(cv, t):
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
         p = t - t0
-        cv.text('“I talked when I should have walked.”', W / 2, 1000, 44, 'typewriter', col=GOLD_L, a=a, reveal=eio(p / 1.4))
+        clear_glow(cv, 40, 950, W - 40, 1200, a)
+        cv.text('“I talked when I should have walked.”', W / 2, 1000, 44, 'typewriter', col=GOLD_L, a=a, reveal=eio(p / 1.4), shadow=0.7)
         cv.text('我只是说了，却没有做。', W / 2, 1090, 56, 'serif_black', col=CREAM, a=a * eo((p - 1.2) / 0.5))
         cv.text('Warren Buffett · 2004 Chairman’s Letter', W / 2, 1170, 24, 'corm', col=GOLD, a=a * eo((p - 1.4) / 0.5))
     # ---- s38：机会成本

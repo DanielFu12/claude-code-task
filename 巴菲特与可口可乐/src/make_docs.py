@@ -1,7 +1,7 @@
 """生成 docs/SOURCES.md（资料来源、引语出处与片中时间戳、素材授权）。时间戳取自 work/timeline.json。"""
 import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import LINES, QUOTES
+from script import LINES, QUOTES, TEASE
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 work = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'work')
@@ -19,8 +19,8 @@ LET = 'https://www.berkshirehathaway.com/letters/'
 QSRC = {
     'q1989': ('1989 年致股东信', LET + '1989.html', 's09'),
     'q1994': ('1994 年致股东信', LET + '1994.html', 's20'),
-    'qmunger': ('Charlie Munger，“Practical Thought about Practical Thought?”，1996-07-20 非正式演讲，收录于《穷查理宝典》第四讲',
-                'https://www.stripe.press/poor-charlies-almanack/talk-four', 's17'),
+    'qauto': ('Charlie Munger，“Practical Thought about Practical Thought?”，1996-07-20 非正式演讲，收录于《穷查理宝典》第四讲',
+              'https://www.stripe.press/poor-charlies-almanack/talk-four', 's17d'),
     'q1993': ('1993 年致股东信', LET + '1993.html', 's23'),
     'q2003': ('2003 年致股东信', LET + '2003ltr.pdf', 's37'),
     'q2004': ('2004 年致股东信', LET + '2004ltr.pdf', 's37'),
@@ -57,7 +57,7 @@ w('## 3. 计算口径（`data/calc.py` → `data/calc.json`）\n')
 w(f'- 市值 = 400,000,000 × ${C["close"]:.2f} = **${C["market_value"] / 1e9:.2f}B（约 376 亿美元）**；总成本 $1.2989B；'
   f'未实现收益 **${C["unrealized_gain"] / 1e9:.2f}B（约 363 亿，未扣税）**；{C["multiple"]:.1f} 倍；平均成本 ${C["avg_cost_per_share"]:.3f}/股。')
 w(f'- 2026 年股息：每股 $0.53 × 4 = $2.12（KO 2025 10-K：第 64 次连续年度提高）× 4 亿股 = **$848M（全年预计；截至 10 月已收 3 次 $636M）**，'
-  f'约为成本的 {C["dividend_yield_on_cost"] * 100:.1f}%；平均每天约 $2.32M。')
+  f'约为成本的 {C["dividend_yield_on_cost"] * 100:.1f}%。')
 w(f'- 累计股息（保守估算）≈ **${C["cum_dividends"] / 1e9:.2f}B**：按每个除息日伯克希尔已知的最低持股数 × 每股股息（Yahoo，拆股调整）；'
   '1988 年股息不计；1989-03-15 前按 1988 年末持股；1994、1995、2022、2025 用伯克希尔公布值；剔除 Yahoo 2001-09-12 的重复记录。'
   '股息未再投资，因此与股价回报分开列示。')
@@ -87,20 +87,29 @@ for k, (en, cn, who) in sorted(QUOTES.items(), key=lambda kv: SEG[QSRC[kv[0]][2]
     name, url, sid = QSRC[k]
     w(f'| {ts(SEG[sid]["start"])} | “{en}” | {cn} | [{name}]({url}) |')
 w('\n旁白中的转述：1936 年 25 美分买 6 瓶、5 美分一瓶卖出，52 年未买、所列行业（1989 信）；郭思达 1981 年任 CEO、与基奥重新聚焦、海外销量爆发（1989 信）；'
-  '芒格“200 万美元变 2 万亿”、商标、条件反射（Munger 1996）；“真正的钱在糖浆里”（1994 信）。\n')
+  '芒格“200 万美元变 2 万亿”、商标、操作性条件反射、巴甫洛夫条件反射、社会认同、多因素合奏（lollapalooza）效应、'
+  '无处不在的渠道、规模经济（Munger 1996）；“真正的钱在糖浆里”（1994 信）。\n')
+w('**芒格思想实验的“七要素”**：片中把芒格 1996 年演讲（“Practical Thought about Practical Thought?”）里让可口可乐成为伟大公司的要素归纳为七项——'
+  '商标保护、操作性条件反射、巴甫洛夫条件反射、社会认同、多因素合奏效应、无处不在的分销、规模经济，并重点展开其中三种心理学力量如何彼此放大。'
+  '**这是本片对原文的七维归纳，并非芒格逐字给出的编号清单**；画面中有同样的脚注。片中英文引语“autocatalytic reaction… lollapalooza effect”为演讲原文。\n')
 w('## 6. 旁白逐句出处\n')
 w('| 时间 | 旁白 | 出处 |')
 w('|---|---|---|')
 for l in LINES:
     s = SEG[l[0]]
     w(f'| {ts(s["start"])} | {l[2]} | {l[5] or "本片叙述"} |')
+w(f'| {ts(SEG["tease"]["start"])} | {TEASE[0]}（片尾系列预告） | {TEASE[2]} |')
+w('\n- 下期预告的数字：伯克希尔 [2020 年致股东信]({0}2020ltr.pdf) 写苹果持仓“Our cost for that stake was $36 billion”（5.4% 持股）；'
+  '[2018 年报持仓表]({0}2018ltr.pdf) 苹果成本 $36,044M、255,300,329 股（2020 年 1 拆 4 前，约合 10.21 亿股）；'
+  '[2025 年报持仓表]({0}2025ltr.pdf) 苹果成本 $6,255M、市值 $61,962M；13F 2026Q2 持股 227,917,808 股。'
+  '“卖掉了大半”按股数计：较高峰减持约 78%。'.format(LET))
 w('\n## 7. 素材与授权\n')
 w('**历史图片（Wikimedia Commons / 美国国会图书馆）**\n')
 for k, c in CR.items():
     w(f'- `{k}`：{c["title"].replace("File:", "")} — {c["author"]}，{c["date"]}，**{c["license"]}**。[{c["page"]}]({c["page"]})')
 w('- 世界陆地轮廓：Natural Earth 1:110m land（公有领域）。')
 w('**生成与原创部分**\n')
-w('- 旁白：Gemini TTS `gemini-3.8-flash-tts`（音色 Alnilam），为本片中文旁白；**未模仿巴菲特或芒格的声音**。')
+w('- 旁白：Gemini TTS `gemini-3.8-flash-tts`（音色 Charon——与“巴芒价值”系列旁白统一），为本片中文旁白；**未模仿巴菲特或芒格的声音**。')
 w('- 配乐：Google Lyria `lyria-3-pro-preview` 按本片结构生成的原创器乐（三段剪辑）；转场低频冲击、sub drop、心跳均为程序合成。')
 w('- 三维瓶身、点阵地球、糖浆滴落、粒子与全部数据图表：本项目代码原创渲染（GLSL + numpy）。')
 w('- 品牌：右上角全程使用 `brand.Hud`；片尾 logo 为 `brand/logo_baman.png` 原图（粒子汇聚以其透明通道为目标，最终显示原始 logo）。\n')
