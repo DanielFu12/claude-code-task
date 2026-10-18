@@ -97,7 +97,8 @@ def sfx_track():
     put(boom(4.0, 110, 0.75, 4), A['epic'])
     put(sub_drop(3.0, 60, 26, 0.85), A['final'])
     put(boom(3.5, 100, 0.55, 5), A['final'])
-    put(sub_drop(2.4, 64, 30, 0.75), A['brand_hit'])       # 「巴芒价值」出现
+    put(sub_drop(2.6, 64, 28, 1.0), A['brand_hit'])        # 「巴芒价值」出现
+    put(boom(3.0, 90, 0.5, 6), A['brand_hit'])
     y = lp(y, 200, 4)                                      # 音效能量限制在 200Hz 以下
     return y
 

@@ -45,7 +45,7 @@ def sub_at(t):
 
 
 def post_params(t):
-    p = dict(bloom=0.9, grain=0.02, ca=0.0, exposure=1.0)
+    p = dict(bloom=0.9, grain=0.012, ca=0.0, exposure=1.0)
     for hit in (A['drop'], A['crash'], A['epic'], A['final']):
         d = t - hit
         if 0 <= d < 0.5: p['ca'] = 6 * (1 - d / 0.5)
