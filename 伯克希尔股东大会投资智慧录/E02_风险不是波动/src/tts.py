@@ -16,14 +16,14 @@ vo_index.json 每句：scene / text / say / pause / dur / words[[t0, t1, 字]]�
 import base64, difflib, hashlib, json, os, re, ssl, subprocess, sys, time, urllib.error, urllib.request
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import (INTRO, INSIGHT, SUMMARY, SAY, GEMINI_MODEL, GEMINI_VOICE, GEMINI_STYLE, GEMINI_URL,
+from script import (INTRO, INSIGHT, SUMMARY, ENDQ, SAY, GEMINI_MODEL, GEMINI_VOICE, GEMINI_STYLE, GEMINI_URL,
                     TTS_GROUPS, TAGS, TEMPO)
 
 work = sys.argv[1]
 VD = os.path.join(work, 'vo'); os.makedirs(VD, exist_ok=True)
 CA = '/root/.ccr/ca-bundle.crt'
 SR = 48000
-ITEMS = {sid: (scene, text, pause) for sid, scene, text, pause in INTRO + INSIGHT + [SUMMARY]}
+ITEMS = {sid: (scene, text, pause) for sid, scene, text, pause in INTRO + INSIGHT + [SUMMARY, ENDQ]}
 PUNCT = '，。；：？！、—…“”《》·（）,.;:?! '
 
 

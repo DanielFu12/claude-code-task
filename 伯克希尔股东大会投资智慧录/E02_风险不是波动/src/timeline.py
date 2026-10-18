@@ -7,7 +7,7 @@
 import difflib, json, os, sys
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import INTRO, INSIGHT, SUMMARY, COLD_IDS, LAUGH_AFTER, QA_SEGMENTS, QA_OMITTED
+from script import INTRO, INSIGHT, SUMMARY, ENDQ, COLD_IDS, LAUGH_AFTER, QA_SEGMENTS, QA_OMITTED
 
 work = sys.argv[1]
 VO = json.load(open(os.path.join(work, 'vo_index.json')))
@@ -185,19 +185,22 @@ def lay_vo(items, t, anchors=None, beats=None):
 
 
 tl = dict(fps=FPS)
-# ------------------------------------------------------------------ 冷开场：巴芒原声里最有冲击力的一句
-T_COLD = 0.9
+# ------------------------------------------------------------------ 开场钩子：第 0 秒就是中文大字 + 中文口播（S1：跌 25%，更危险还是更便宜？）
+vo_h, subs_h, words_h, t_hook = lay_vo(INTRO[:1], 0.35)
+tl['hook'] = dict(t0=0.0, t1=round(t_hook, 3))
+# ------------------------------------------------------------------ 片名：Hiding Your Reality 的整体进入（9.01s），紧跟在钩子之后
+T_TITLE = round(t_hook + 1.1, 3)
+tl['t_title'] = T_TITLE
+H_OFF = T_TITLE - H_HIT
+h_beats = BEATS[H_TRACK] + H_OFF
+# ------------------------------------------------------------------ 巴芒原声里最有冲击力的一句：放在片名之后（英文原声不再放在开头）
+T_COLD = round(T_TITLE + 2.6, 3)
 c0 = quiet(OD[COLD_IDS[0]]['t0'], -0.6, -0.05); c1 = quiet(OD[COLD_IDS[-1]]['t1'], 0.0, 0.5)
 tl['cold'] = dict(t0=T_COLD, t1=round(T_COLD + c1 - c0, 3), src_in=c0, src_out=c1)
 tl['cold_subs'] = [dict(id=s['id'], en=s['en'], zh=s['zh'], t0=round(T_COLD + s['t0'] - c0 - 0.05, 3),
                         t1=round(T_COLD + s['t1'] - c0 + 0.25, 3)) for s in ORIG if s['id'] in COLD_IDS]
-# ------------------------------------------------------------------ 片名：Hiding Your Reality 的整体进入（9.01s）
-T_TITLE = round(tl['cold']['t1'] + 1.35, 3)
-tl['t_title'] = T_TITLE
-H_OFF = T_TITLE - H_HIT
-h_beats = BEATS[H_TRACK] + H_OFF
-vo, subs, words, t_end = lay_vo(INTRO, T_TITLE + 2.9, beats=h_beats)
-tl['intro'] = dict(vo=vo, subs=subs, words=words, t0=vo[0]['t0'], t1=round(t_end, 3))
+vo, subs, words, t_end = lay_vo(INTRO[1:], tl['cold']['t1'] + 0.9, beats=h_beats)
+tl['intro'] = dict(vo=vo_h + vo, subs=subs_h + subs, words=words_h + words, t0=vo_h[0]['t0'], t1=round(t_end, 3))
 bars = h_beats[np.argmin(np.abs(h_beats - T_TITLE))::4]
 T_CTX = round(float(bars[bars > t_end + 0.9][0]), 3)
 T_Q = round(T_CTX + 3.8, 3)
@@ -249,37 +252,54 @@ N_OFF = n4 - N_ENTRY                                     # 正例（华盛顿邮
 if N_OFF < T_INS - 0.5:                                  # 曲子不能早于启示卡开始：往后推整段口播
     shift = T_INS - 0.5 - N_OFF
     vo0, *_ = lay_vo(INSIGHT, T_INS + 2.6 + shift); n4 = next(v['t0'] for v in vo0 if v['id'] == 'I4'); N_OFF = n4 - N_ENTRY
-n_beats = BEATS[N_TRACK] + N_OFF
-T_SUM = round(N_CLIMAX + N_OFF, 3)
+# 解读口播比“大段落进入 → 高潮”这段音乐长：在激增之前把一个 4 小节的乐句重复一遍（剪点在小节线上），
+# 这样华盛顿邮报仍对准大段落进入、总结仍对准高潮重拍
+NB = BEATS[N_TRACK]
+_iL = int(np.argmin(np.abs(NB - N_SURGE)))
+L_END = float(NB[_iL]); LOOP = float(NB[_iL] - NB[_iL - 16])
+
+
+def nfilm(m):
+    """曲内时间 → 片内时间（激增及其之后整体顺延一个乐句）"""
+    return m + N_OFF + (LOOP if m >= L_END - 0.05 else 0.0)
+
+
+n_beats = np.r_[NB[NB < L_END] + N_OFF, NB[(NB >= L_END - LOOP) & (NB < L_END)] + N_OFF + LOOP, NB[NB >= L_END] + N_OFF + LOOP]
+T_SUM = round(nfilm(N_CLIMAX), 3)
 vo, subs, words, t_end = lay_vo(INSIGHT, vo0[0]['t0'], anchors={'I4': n4}, beats=n_beats)
 if t_end > T_SUM - 0.6:
     print(f'  ⚠ 启示口播结束 {t_end:.2f} 晚于总结重拍 {T_SUM:.2f}：压缩段落停顿')
     vo, subs, words, t_end = lay_vo(INSIGHT, vo0[0]['t0'], anchors={'I4': n4, 'I13': T_SUM - 0.8 - (vo0[-1]['t1'] - vo0[-1]['t0'])})
 tl['insight'] = dict(t_card=T_INS, vo=vo, subs=subs, words=words, t0=vo[0]['t0'], t1=round(t_end, 3))
 vo, subs, words, t = lay_vo([SUMMARY], T_SUM + 0.75)
-tl['summary'] = dict(t0=T_SUM, vo=vo, subs=subs, words=words)
+# 片尾互动问题：总结说完后停一拍，再把问题抛给观众；品牌片尾顺延到问题之后的小节强拍
+vq, sq, wq, tq = lay_vo([ENDQ], t + 1.3)
+tl['summary'] = dict(t0=T_SUM, vo=vo + vq, subs=subs + sq, words=words + wq)
+tl['endq'] = dict(t0=vq[0]['t0'], t1=round(tq, 3))
 eb = n_beats[np.argmin(np.abs(n_beats - T_SUM))::4]
-T_BRAND = round(float(eb[eb > T_SUM + N_BRAND_AFTER - 0.6][0]), 3)
+T_BRAND = round(float(eb[eb > max(T_SUM + N_BRAND_AFTER - 0.6, tq + 1.2 + 3.9)][0]), 3)
 tl['end'] = dict(t_particles=round(T_BRAND - 3.9, 3), t_logo=round(T_BRAND - 1.1, 3), t_brand=T_BRAND,
                  t_shine=round(T_BRAND + 1.6, 3), t_follow=round(T_BRAND + 1.3, 3),
                  t_fade0=round(T_BRAND + 7.0, 3), t_fade1=round(T_BRAND + 9.0, 3))
 DUR = round(T_BRAND + 9.2, 3)
 tl['dur'] = DUR
 tl['nframes'] = int(round(DUR * FPS))
-tl['nerves'] = dict(off=round(N_OFF, 3), entry=round(N_ENTRY + N_OFF, 3), drop=round(N_DROP + N_OFF, 3),
-                    surge=round(N_SURGE + N_OFF, 3), brk=round(N_BREAK + N_OFF, 3), climax=T_SUM)
+tl['nerves'] = dict(off=round(N_OFF, 3), entry=round(nfilm(N_ENTRY), 3), drop=round(nfilm(N_DROP), 3),
+                    surge=round(nfilm(N_SURGE), 3), brk=round(nfilm(N_BREAK), 3), climax=T_SUM,
+                    loop=dict(src0=round(L_END - LOOP, 3), src1=round(L_END, 3), t=round(L_END + N_OFF, 3)))
 
 # ------------------------------------------------------------------ 音乐（曲目内时间 → 片内时间）
 tl['music'] = [
-    # 暗色铺底从冷开场中段淡入（人声期间被侧链压低），在片名处整体进入
-    dict(track=H_TRACK, src_in=round(2.0 - H_OFF, 3), t0=2.0, t1=round(T_CTX + 0.6, 3), fade_in=2.4, fade_out=1.8, level=-19.0),
-    dict(track=N_TRACK, src_in=round(max(0.0, T_INS - 0.6 - N_OFF), 3), t0=round(max(T_INS - 0.6, N_OFF), 3), t1=DUR,
-         fade_in=1.0, fade_out=2.6, level=-18.0),
+    # 暗色铺底从第 0 秒的钩子开始（人声期间被侧链压低），在片名处整体进入
+    dict(track=H_TRACK, src_in=round(max(0.0, -H_OFF), 3), t0=round(max(0.0, H_OFF), 3), t1=round(T_CTX + 0.6, 3), fade_in=0.8, fade_out=1.8, level=-19.0),
+    dict(track=N_TRACK, src_in=round(max(0.0, T_INS - 0.6 - N_OFF), 3), t0=round(max(T_INS - 0.6, N_OFF), 3), t1=round(L_END + N_OFF + 0.02, 3),
+         fade_in=1.0, fade_out=0.02, level=-18.0, group='nerves'),
+    dict(track=N_TRACK, src_in=round(L_END - LOOP, 3), t0=round(L_END + N_OFF, 3), t1=DUR, fade_in=0.02, fade_out=2.6, level=-18.0, group='nerves'),
 ]
 # Nerves 的留白段（收尾句之后、高潮之前）整体抬高 6dB，避免出现“断档”
 tl['music_boost'] = [dict(t0=round(tl['insight']['t1'] + 0.2, 3), t1=round(T_SUM - 0.05, 3), db=6.0)]
 # 画面卡点：强重拍（推镜 + 闪光 + 色散）与小节强拍（轻微脉动）
-hits = [(T_TITLE, 1.0), (T_CTX, 0.7), (T_INS, 0.8), (round(N_ENTRY + N_OFF, 3), 1.0), (round(N_SURGE + N_OFF, 3), 0.8),
+hits = [(0.02, 0.6), (T_TITLE, 1.0), (T_CTX, 0.7), (T_INS, 0.8), (round(nfilm(N_ENTRY), 3), 1.0), (round(nfilm(N_SURGE), 3), 0.8),
         (T_SUM, 1.0), (T_BRAND, 1.0)]
 for part in ('intro', 'insight'):
     prev = None
@@ -291,24 +311,25 @@ tl['beats'] = [round(float(b), 3) for b in np.r_[h_beats[(h_beats > T_TITLE) & (
                                                   n_beats[(n_beats > T_INS) & (n_beats < DUR - 2)]]]
 # 转场音效（全部 200Hz 以下）：只在结构转折处
 tl['sfx'] = [
+    dict(kind='impact', t=0.02, gain=-12),                                     # 第 0 秒的钩子
     dict(kind='swell', t=round(T_TITLE - 1.8, 3), dur=1.8, gain=-13),
     dict(kind='impact', t=T_TITLE, gain=-9),
     dict(kind='swell', t=round(T_CTX - 1.5, 3), dur=1.5, gain=-14),
     dict(kind='subdrop', t=T_CTX, gain=-10),
     dict(kind='impact', t=T_INS, gain=-11),
-    dict(kind='impact', t=round(N_ENTRY + N_OFF, 3), gain=-12),
+    dict(kind='impact', t=round(nfilm(N_ENTRY), 3), gain=-12),
     dict(kind='subdrop', t=round(next(v['t0'] for v in tl['insight']['vo'] if v['id'] == 'I9') + 0.05, 3), gain=-11),
     dict(kind='swell', t=round(T_SUM - 4.2, 3), dur=4.2, gain=-11),            # 留白里的低频蓄力，推向高潮重拍
     dict(kind='subdrop', t=T_SUM, gain=-10),
     dict(kind='impact', t=T_BRAND, gain=-9),
 ]
 tl['sections'] = [
-    dict(name='冷开场（原声）', t0=0, t1=T_TITLE),
-    dict(name='片名 + 开场口播', t0=T_TITLE, t1=tl['intro']['t1']),
+    dict(name='开场钩子（中文）', t0=0, t1=T_TITLE),
+    dict(name='片名 + 巴菲特原声 + 开场口播', t0=T_TITLE, t1=tl['intro']['t1']),
     dict(name='回到 1994', t0=T_CTX, t1=T_Q),
     dict(name='原始问答（1994 上午场原始录像·节选）', t0=T_Q, t1=T_QEND),
     dict(name='投资启示（解读）', t0=T_INS, t1=tl['insight']['t1']),
-    dict(name='一句话总结', t0=T_SUM, t1=tl['end']['t_particles']),
+    dict(name='一句话总结 + 互动问题', t0=T_SUM, t1=tl['end']['t_particles']),
     dict(name='品牌片尾', t0=tl['end']['t_particles'], t1=DUR),
 ]
 json.dump(tl, open(os.path.join(work, 'timeline.json'), 'w'), ensure_ascii=False, indent=1)

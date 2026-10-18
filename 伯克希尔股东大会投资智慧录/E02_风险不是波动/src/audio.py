@@ -224,12 +224,20 @@ vstem = np.stack([vstem, vstem], 1)
 # ------------------------------------------------------------------ 背景音乐
 mstem = np.zeros((N, 2))
 cache = {}
-for k, m in enumerate(tl['music']):
+def mseg(m):
     if m['track'] not in cache:
         cache[m['track']] = load(os.path.join(music_dir, m['track'] + '.mp3'))
     tr = cache[m['track']]
-    x = tr[int(m['src_in'] * SR):int((m['src_in'] + m['t1'] - m['t0']) * SR)]
-    x = x * db(m['level'] - lufs(x))              # 每段配乐按整体响度（LUFS）定电平，保留曲内渐强的动态
+    return tr[int(m['src_in'] * SR):int((m['src_in'] + m['t1'] - m['t0']) * SR)]
+
+
+ggain = {}                                         # 同一 group 的几段（同一首曲子的剪辑）共用一个电平，剪点处不跳变
+for m in tl['music']:
+    if m.get('group') and m['group'] not in ggain:
+        ggain[m['group']] = m['level'] - lufs(np.concatenate([mseg(q) for q in tl['music'] if q.get('group') == m['group']]))
+for k, m in enumerate(tl['music']):
+    x = mseg(m)
+    x = x * db(ggain[m['group']] if m.get('group') else m['level'] - lufs(x))   # 每段配乐按整体响度（LUFS）定电平，保留曲内渐强的动态
     put(mstem, fade(x, m['fade_in'], m['fade_out']), m['t0'])
 
 # 侧链：人声（口播 + 冷开场原声）包络 → 音乐增益
