@@ -93,12 +93,122 @@ def g1(F, t):
                 V.line(F, pts, col, 1.6, al, 0.6, closed=True)
         put_text(F, '学到的东西不断作废', W / 2, 1300, 34, 'sans', V.DIM, a3 * smooth((t - wt('S03', '学到的东西')) / 0.4), 900, shadow=0)
     # S04：问题
-    a4 = win(t, st('S04') - 0.2, t3.seg('title')['t0'] + 0.05, 0.4, 0.25)
+    a4 = win(t, st('S04') - 0.2, t3.seg('GH')['t0'] + 0.35, 0.4, 0.35)
     if a4 > 0:
         V.rise(F, '在一个越来越快的时代', W / 2, 760, 54, t, st('S04'), 'serif_m', V.INK_T, a4)
         k = wt('S04', '什么才值得')
         V.rise(F, '什么才值得我们', W / 2, 880, 62, t, k, 'serif', V.INK_T, a4)
         V.slam(F, '花几十年去积累？', W / 2, 1000, 84, t, wt('S04', '几十年'), a4)
+
+
+# ------------------------------------------------------------------ GH：AI 时代的两种诱惑 → 守住复利（第四版新增，引出片名）
+def ai_chip(F, x, y, r, a, glow=0.6, label='AI'):
+    pts = [(x - r, y - r), (x + r, y - r), (x + r, y + r), (x - r, y + r)]
+    V.fill_poly(F, pts, CYAN * 0.18, a)
+    V.line(F, pts, CYAN, 2.0, a, glow, closed=True)
+    for k in range(4):                                   # 芯片引脚
+        d = -r * 0.6 + k * r * 0.4
+        for (x0, y0, x1, y1) in ((x + d, y - r, x + d, y - r - 16), (x + d, y + r, x + d, y + r + 16),
+                                 (x - r, y + d, x - r - 16, y + d), (x + r, y + d, x + r + 16, y + d)):
+            V.line(F, [(x0, y0), (x1, y1)], CYAN, 1.4, a * 0.8, 0.3)
+    put_text(F, label, x, y, int(r * 0.9), 'mono', WHITE, a, 400, shadow=0, glow=0.3)
+
+
+def gh(F, t):
+    # H01：AI 越强大（芯片 + 扩散的波纹），诱惑也越大
+    a1 = win(t, st('H01') - 0.3, st('H02') + 0.1, 0.4, 0.45)
+    if a1 > 0:
+        u = t - st('H01')
+        grow = ease_out(clamp01((t - wt('H01', '越强大')) / 0.8))
+        ai_chip(F, W / 2, 760, 90 + 40 * grow, a1, 0.6 + 0.6 * grow)
+        for i in range(4):
+            ph = (u * 0.9 + i / 4) % 1.0
+            V.line(F, AN_circle(W / 2, 760, 150 + 420 * ph), CYAN, 1.6, a1 * (1 - ph) * 0.6 * smooth(u / 0.4), 0.6, closed=True)
+        V.slam(F, '诱惑也越大', W / 2, 1100, 96, t, wt('H01', '诱惑'), a1)
+    # H02：外包思考——思考流向 AI，自己的积累停在 0
+    a2b = win(t, st('H02') - 0.2, st('H04') + 0.1, 0.4, 0.45)
+    a2 = a2b * (1 - 0.45 * smooth((t - st('H03')) / 0.5))       # 第二种诱惑出现时，第一张卡片退后
+    if a2 > 0:
+        V.bracket(F, 90, 420, W - 90, 880, CYAN, a2, plate=0.45)
+        V.rise(F, '①  把思考外包给 AI', W / 2, 488, 46, t, st('H02'), 'serif', WHITE, a2)
+        k = wt('H02', '外包')
+        pa = a2 * smooth((t - k + 0.2) / 0.4)
+        if pa > 0:
+            V.dot(F, 290, 640, 52, GOLD * 0.5, pa * 0.5, 0.6)
+            V.line(F, AN_circle(290, 640, 52), GOLD, 2, pa, 0.5, closed=True)
+            put_text(F, '你', 290, 640, 44, 'serif', WHITE, pa, 200, shadow=0)
+            ai_chip(F, 790, 640, 52, pa, 0.5)
+            for i in range(6):                           # 一串「思考」流向 AI
+                ph = ((t - k) * 0.8 + i / 6) % 1.0
+                x = 360 + 350 * ph
+                V.dot(F, x, 640 + math.sin(ph * math.pi * 2 + i) * 10, 6, GOLD_HI, pa * math.sin(ph * math.pi), 1.2)
+            V.dashed(F, (360, 640), (710, 640), V.DIM, 1.2, pa * 0.6, phase=(t - k) * 40)
+        k2 = wt('H02', '不再积累')
+        ka = a2 * smooth((t - k2 + 0.2) / 0.4)
+        if ka > 0:
+            V.line(F, [(200, 790), (880, 790)], V.DIM, 1.4, ka * 0.8, 0.2)
+            put_text(F, '自己的积累', 200, 752, 26, 'sans', V.DIM, ka, 400, 'left', shadow=0)
+            put_text(F, '0', 900, 790, 30, 'mono', RED_S, ka, 100, 'left', shadow=0)
+        if t > wt('H02', '没有积累') - 0.1:
+            V.slam(F, '没有积累，谈何复利？', W / 2, 945, 56, t, wt('H02', '没有积累') - 0.1, a2b * (1 - smooth((t - st('H03') + 0.1) / 0.4)),
+                   gold=False, color=WHITE)
+    # H03：被速度裹挟——追风口、频繁切换，曲线一次次归零
+    a3 = win(t, st('H03') - 0.2, st('H04') + 0.1, 0.4, 0.45)
+    if a3 > 0:
+        V.bracket(F, 90, 990, W - 90, 1450, RED_S * 0.9, a3, plate=0.45)
+        V.rise(F, '②  被速度裹挟', W / 2, 1056, 46, t, st('H03'), 'serif', WHITE, a3)
+        u = max(t - st('H03'), 0.0)
+        r = np.random.default_rng(11)
+        ys = r.uniform(1000, 1440, 40); sp = r.uniform(0.7, 1.4, 40); x0s = r.uniform(0, 1, 40)
+        for i in range(40):                              # 掠过的速度线
+            x = ((x0s[i] + u * 0.45 * sp[i]) % 1.0) * (W - 180) + 90
+            V.line(F, [(x - 90 * sp[i], ys[i]), (x, ys[i])], CYAN, 1.0, a3 * 0.22, 0.2)
+        x0, x1, yb = 170, 910, 1380
+        V.line(F, [(x0, yb), (x1, yb)], V.DIM, 1.2, a3 * 0.7, 0)
+        cyc = 1.35; nseg = 4
+        tags = ['追风口', '切换', '再追', '再切换']
+        prog = u / cyc
+        for j in range(nseg):
+            if prog < j: break
+            f = clamp01(prog - j)
+            xa = x0 + (x1 - x0) * j / nseg; xw = (x1 - x0) / nseg
+            xs = np.linspace(0, f * 0.82, 30)
+            pts = np.c_[xa + xs * xw, yb - 150 * (np.exp(2.2 * xs) - 1) / (np.exp(2.2 * 0.82) - 1)]
+            V.line(F, pts, GOLD_HI, 2.4, a3, 0.6)
+            if f > 0.82:                                 # 断掉：归零
+                xe = xa + 0.82 * xw
+                cut = clamp01((f - 0.82) / 0.1)
+                V.line(F, [(xe, yb - 150), (xe, yb - 150 + 150 * cut)], RED_S, 2.4, a3 * 0.9, 0.8)
+                V.line(F, [(xe - 12, yb - 87), (xe + 12, yb - 63)], RED_S, 3, a3 * cut, 0.8)
+                V.line(F, [(xe + 12, yb - 87), (xe - 12, yb - 63)], RED_S, 3, a3 * cut, 0.8)
+            put_text(F, tags[j], xa + xw * 0.4, yb + 30, 24, 'sans', V.DIM, a3 * smooth(f / 0.3), 300, shadow=0)
+        k3 = wt('H03', '每一次失去')
+        if t > k3 - 0.1:
+            V.rise(F, '每一次失去，都是复利的中断', W / 2, 1150, 44, t, k3 - 0.1, 'serif', RED_S, a3)
+    # H04：所以在 AI 时代，复利反而成了最稀缺的能力：守住已有的，让人生复利
+    a4 = win(t, st('H04') - 0.1, t3.seg('title')['t0'] + 0.05, 0.5, 0.25)
+    if a4 > 0:
+        V.rise(F, '所以在 AI 时代，复利反而成了', W / 2, 560, 46, t, st('H04') + 0.1, 'serif_m', V.INK_T, a4)
+        V.slam(F, '最稀缺的能力', W / 2, 680, 100, t, wt('H04', '最稀缺'), a4)
+        k = wt('H04', '守住已有的')
+        if t > k - 0.3:
+            u = clamp01((t - k + 0.3) / max(t3.seg('title')['t0'] - k, 1.5))
+            x0, x1, yb = 190, 890, 1180
+            xs = np.linspace(0, ease_out(u), 80)
+            ys = yb - 330 * (np.exp(3.0 * xs) - 1) / (np.exp(3.0) - 1)
+            pts = np.c_[x0 + xs * (x1 - x0), ys]
+            V.fill_poly(F, list(map(tuple, pts)) + [(pts[-1, 0], yb), (x0, yb)], GOLD * 0.25, a4, top=float(ys.min()), bottom=yb, grad=(0.9, 0.0))
+            V.line(F, pts, GOLD_HI, 3, a4, 0.9)
+            V.dot(F, pts[-1, 0], pts[-1, 1], 9, GOLD_HI, a4, 1.6)
+            V.line(F, [(x0, yb), (x1, yb)], V.DIM, 1.2, a4 * 0.6, 0)
+            V.slam(F, '守住已有的', W / 2, 1290, 76, t, k, a4, gold=False, color=WHITE)
+        if t > wt('H04', '让人生复利') - 0.1:
+            V.slam(F, '让人生复利', W / 2, 1400, 64, t, wt('H04', '让人生复利') - 0.1, a4)
+
+
+def AN_circle(cx, cy, r, n=96):
+    th = np.linspace(0, 2 * math.pi, n, endpoint=False)
+    return np.c_[cx + r * np.cos(th), cy + r * np.sin(th)].astype(np.float32)
 
 
 # ------------------------------------------------------------------ G2 / G3
@@ -298,5 +408,5 @@ def g9(F, t):
                  a * smooth((t - wt('S20', '那句话')) / 0.5), 980, shadow=0.4)
 
 
-SCENES = {'G1': (g1, 'cool'), 'G2': (g2, 'warm'), 'G3': (g3, 'warm'), 'G4': (g4, 'warm'), 'G5': (g5, 'neutral'),
+SCENES = {'G1': (g1, 'cool'), 'GH': (gh, 'cool'), 'G2': (g2, 'warm'), 'G3': (g3, 'warm'), 'G4': (g4, 'warm'), 'G5': (g5, 'neutral'),
           'G6': (g6, 'neutral'), 'G7': (g7, 'neutral'), 'G8': (g8, 'neutral'), 'G9': (g9, 'warm')}

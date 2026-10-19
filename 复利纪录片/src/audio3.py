@@ -1,4 +1,4 @@
-"""第三版混音：三段原创配乐（Lyria）+ 原始影像原声 + Gemini TTS 解说 + 低频音效。
+"""第四版混音：三段原创配乐（Lyria）+ 原始影像原声 + Gemini TTS 解说 + 低频音效。
 
 配乐按段落卡点（节点由 music3.py 分析得到，存于 assets/music3/music3.json）：
   hook   的大鼓重拍  → 片名出现的那一帧
@@ -64,6 +64,14 @@ def main(out=None):
     hook_end = seg['title']['t1'] + 3.0
     hk = hook[:, :int((hook_end - t_hook) * SR)] if hook_end > t_hook else hook
     place(mus, hk, t_hook, fade_in=0.5, fade_out=3.0)
+    # 第四版片名之前多了一段解说，hook 的起点晚于片头：把它开头 16 秒（8 小节，120 BPM）的安静引子向前循环，
+    # 让冷开场的李录原声下面仍有配乐（拼接处 0.5 秒交叉淡化，节拍相位不变）
+    intro = M['hook'].get('intro_loop', 16.0)
+    k = 1
+    while t_hook - (k - 1) * intro > 0:
+        t0 = t_hook - k * intro
+        place(mus, hook[:, :int((intro + 0.5) * SR)], t0, fade_in=2.0 if t0 - intro <= 0 else 0.5, fade_out=0.5)
+        k += 1
     # 2) bed：片名之后到动画段（循环拼接，交叉淡化 4 秒）
     bed = load(os.path.join(MDIR, M['bed']['file'])) * M['bed'].get('gain', 1.0)
     b0, b1 = seg['title']['t1'] - 2.0, seg['G10']['t0'] + 3.0

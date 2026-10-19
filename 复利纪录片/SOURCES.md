@@ -1,13 +1,13 @@
-# 资料来源、原始影像与授权说明（第三版）
+# 资料来源、原始影像与授权说明（第四版）
 
-《AI 越快，越要慢：李录、巴菲特、芒格谈复利》第三版，6 分 35 秒。
+《AI时代，更要守住复利：李录、巴菲特、芒格谈复利》第四版，约 6 分 46 秒。
 - **原始影像**：李录、巴菲特、芒格的讲话全部是原始影像原声，英文字幕是原话，中文字幕是本片翻译。
 - **解说**：用 Gemini TTS `gemini-3.8-flash-tts` 合成，是本片的串联与解读，不代表任何大师的原话。
 - **动画**：所有数字都有出处，或者是标明假设的数学示意。
 
 ---
 
-## 一、原始影像（9 段，约 2 分 33 秒）
+## 一、原始影像（9 段，约 2 分 15 秒）
 
 | # | 人物 · 场合 | 原始录像中的位置 | 时长 | 原话（转写） |
 |---|---|---|---|---|
@@ -15,7 +15,7 @@
 | LC | 同上 | 1:23:03.7–1:23:13.0 | 9.3 s | "And I always say, look, if you can compound your knowledge in a sustainable fashion, eventually you can compound your capital as well." |
 | LD | 同上 | 1:26:49.7–1:27:10.4 | 20.7 s | "And the basic idea of compounding is you don't lose what you already have, and that's a profound idea. You don't lose what you already have. That's including your knowledge, that's including your trusting relationship, that's including the wisdom and even your health." |
 | LT | 同上（两段拼接） | 1:25:04.5–1:25:09.3 + 1:25:15.5–1:25:22.3 | 11.7 s | "And what my mentor, partner, teacher Charlie Munger always said… the highest order of relationship he could discover is a seamless web of deserved trust." |
-| BB | 巴菲特 · 伯克希尔 1999 年股东大会 | 整场录像 3:47:01.9–3:47:30.7 | 28.8 s | "Start young. Charlie's always said that the big thing about it is we started building this little snowball on top of a very long hill. We started at a very early age in rolling the snowball down. Of course, the nature of compound interest is it behaves like a snowball of sticky snow. The trick is to have a very long hill, which means either starting very young or living to be very old." |
+| BB | 巴菲特 · 伯克希尔 1999 年股东大会 | 整场录像 3:47:19.6–3:47:30.7 | 11.1 s | "The nature of compound interest is it behaves like a snowball of sticky snow, and the trick is to have a very long hill, which means either starting very young or living very, to be very old." |
 | BA | 同上 | 整场录像 0:24:00.1–0:24:17.8 | 17.7 s | "You only have to get rich once. And why do people, very bright people, risk losing something that's very important to them to gain something that's totally unimportant? The added money has no utility whatsoever. And the money that was lost had enormous utility." |
 | MB | 芒格 · BBC 专访（2009.10） | 访谈约 0:39 起 | 17.6 s | "In fact, you can argue that if you're not willing to react with equanimity to a market price decline of 50% two or three times a century, you're not fit to be a common shareholder, and you deserve the mediocre result you're going to get" |
 | MU | 芒格 · 南加州大学法学院毕业典礼演讲（2007.05.13） | 演讲录像 6:30.9–6:55.4 | 24.5 s | "I constantly see people rise in life who were not the smartest, sometimes not even the most diligent, but they are learning machines. They go to bed every night a little wiser than they were when they got up. And boy, does that habit help, particularly when you have a long run ahead of you." |
@@ -33,7 +33,10 @@ https://business.columbia.edu/sites/default/files-efs/imce-uploads/36th%20Annual
 - **LT 两段拼接**：中间省略约 6 秒，包括一段约 4 秒的停顿和半句 "always advocate is the relationship"。画面用 6 帧叠化过渡，字幕用省略号标出，原意不变。官方逐字稿原文："What my mentor, partner, and teacher Charlie Munger always said and advocated is that the highest order of relationship he could discover is a seamless web of deserved trust."
 - **BA**：巴菲特谈的是 1998 年长期资本管理公司（LTCM）的崩溃。同一段回答紧接着说 "Whenever a … really bright person goes broke that has a lot of money, it's because of leverage."
 - **MB**：芒格在这句前面说的是 "This is the third time that Warren and I have seen our holdings in Berkshire go down top tick to bottom tick by 50%"。
-- **BB**：股东问巴菲特："如果你今天三十出头重新开始，会怎么做？怎样才能赚到 300 亿美元？"巴菲特的回答以 "Start young." 开头。
+- **BB**：股东问巴菲特："如果你今天三十出头重新开始，会怎么做？怎样才能赚到 300 亿美元？"巴菲特的回答以 "Start young." 开头。本片截取的是同一段回答的后半部分（雪球与长坡）。
+  - 第三版曾把出入点提前到 "Start young."，但片段文件没有重新生成。成片里播放的仍是这 11.1 秒，字幕却按 28.8 秒的版本排，导致字幕与原声错位，片段后面还冻结了约 18 秒。
+  - 第四版把出入点、字幕与实际播放的原声对齐（原声不变），删掉了冻结部分。
+  - `build.sh` 改为按片段定义的指纹判断是否需要重新生成片段。
 
 ---
 
@@ -63,7 +66,7 @@ https://business.columbia.edu/sites/default/files-efs/imce-uploads/36th%20Annual
 | 两者差距 | (1.1/0.9)³⁰ | **411.6**（"相差约 412 倍""四百多倍"） |
 | −50% 后回到原点 | 0.5 × (1+x) = 1 | 需要 **+100%** |
 | 按每年 +10% 恢复要多久 | ln 2 / ln 1.1 | **7.27 年**（"七年多""7.3 年"） |
-| ×1.1 连乘 30 次，再乘以 0 | 1.1³⁰ × 0 | 0 |
+| ×1.1 连乘 30 次，再乘以 0 | 1.1³⁰ = 17.449…（画面显示 **17.45**，停留约 1 秒），再 × 0 | 0 |
 
 **假设与边界（画面上也有标注）：**
 - 这是数学示意：假设固定年化收益率，不计税费、通胀，不代表任何资产的预期收益。
@@ -94,7 +97,7 @@ https://business.columbia.edu/sites/default/files-efs/imce-uploads/36th%20Annual
 ## 五、授权与使用依据（发布前请确认）
 
 **这些影像都没有取得版权方的书面授权。** 本片使用它们的依据是评论、介绍性质的合理使用或适当引用：
-- 每段都很短：最长 28.8 秒，李录合计 57.4 秒；
+- 每段都很短：最长 24.5 秒，李录合计 57.4 秒；
 - 每段都标注了人物、场合、日期和出处；
 - 每段都配有本片的翻译和解说，不替代原片。
 
@@ -108,7 +111,7 @@ https://business.columbia.edu/sites/default/files-efs/imce-uploads/36th%20Annual
 
 | 其他素材 | 来源 | 授权 |
 |---|---|---|
-| 解说 | Google Gemini TTS `gemini-3.8-flash-tts`，声音 charon。风格指令放在 `speech_metadata.style`，见 `src/story.py` | AI 解说，不模仿任何人的声音 |
+| 解说 | Google Gemini TTS `gemini-3.8-flash-tts`，声音 orus。风格指令放在 `speech_metadata.style`，见 `src/story.py` | AI 解说，不模仿任何人的声音 |
 | 配乐 | Google Lyria 3 Pro（`lyria-3-pro-preview`）按本片分镜生成的三段原创配乐，提示词见 `assets/music3/prompt_*.txt` | 按 Gemini API 服务条款使用 |
 | 低频音效 | `src/dsp.py` 本地合成 | 原创，全部经 200Hz 低通 |
 | 动画、片头、片尾 | `src/` 程序生成 | 原创 |

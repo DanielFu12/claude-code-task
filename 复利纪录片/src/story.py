@@ -1,9 +1,9 @@
-"""第三版（6–7 分钟）的完整叙事：原始影像 + Gemini TTS 解说 + 复利动画 + 品牌片尾。
+"""第四版（6–7 分钟）的完整叙事：原始影像 + Gemini TTS 解说 + 复利动画 + 品牌片尾。
 
 STORY 按播放顺序排列，每一项是：
   ('vo', 段落id, [(句子id, 字幕文本), ...])      解说（同一段落一次合成，保证语气连贯）
   ('clip', 片段id)                                  原始影像（clips.py）
-  ('title', None) / ('anim', 段落id) / ('summary', None) / ('brand', None)
+  ('title', None) / ('anim', 段落id) / ('summary', 段落id) / ('ask', 段落id) / ('brand', None)
 SAY 是只为发音调整的朗读文本（字幕仍用原文）；TAGS 是加在句首的停顿/呼吸标签。
 所有事实的出处见 SOURCES.md。
 """
@@ -20,10 +20,12 @@ STYLE_BY_GROUP = {
     'G10': STYLE + ' Build energy: more emphatic and engaged, as if revealing something important.',
     'G11': STYLE + ' Rising intensity and conviction; land the key numbers firmly, with weight on 一个零 and 全部蒸发.',
     'G12': STYLE + ' Firm, passionate conviction, like stating a hard-won rule.',
-    'G13': STYLE + ' Warm and stirring, building toward a climax; emphasize 不是慢，而是中断.',
-    'G14': ('A seasoned Mandarin documentary narrator delivering the final line at the emotional climax: slow, powerful, '
-            'deeply felt and resonant, with a clear pause after each phrase; natural human voice, not broadcaster tone.'),
 }
+# 第四版：G3、G6、G13、G14 及新增的 GH、G15 与参照段完全同一 voice 与 style；
+# 每段合成多条，取声纹与基频分布最接近参照段的一条（见 tts3.py）。TAKES 里的段落不复用旧缓存。
+# 参照段 = 片名后的第一段解说 G2，加上开场解说 G1（G2 只有 5.8 秒，单独估计基频不稳）。
+REF_GROUPS = ('G1', 'G2')
+TAKES = {'GH': 3, 'G3': 3, 'G6': 3, 'G13': 3, 'G14': 3, 'G15': 3}
 
 STORY = [
     ('clip', 'LB'),                                   # 冷开场：李录原声（AI 与“学到的明天就没用了”）
@@ -33,7 +35,13 @@ STORY = [
         ('S03', '他担心的，是一种零和、短期的活法——学到的东西不断作废，什么也积累不下来。'),
         ('S04', '那么，在一个越来越快的时代，什么才值得我们花几十年去积累？'),
     ]),
-    ('title', None),                                  # 片名「AI 越快，越要慢」：落在配乐第一个大鼓上
+    ('vo', 'GH', [                                    # 第四版新增：AI 时代的两种诱惑 → 守住复利（引出片名）
+        ('H01', 'AI 越强大，诱惑也越大。'),
+        ('H02', '一种，是把思考外包给 AI，自己不再积累——没有积累，谈何复利？'),
+        ('H03', '另一种，是被速度裹挟，追风口、频繁切换——每一次失去，都是复利的中断。'),
+        ('H04', '所以在 AI 时代，复利反而成了最稀缺的能力：守住已有的，让人生复利。'),
+    ]),
+    ('title', None),                                  # 片名「AI时代，更要守住复利」：落在配乐第一个大鼓上
     ('vo', 'G2', [
         ('S05', '李录给出的答案，是复利。但他说的复利，和很多人想的不太一样。'),
     ]),
@@ -94,7 +102,10 @@ STORY = [
         ('A10', '知识、信任、技能、健康，都在复利。它们共同的敌人，不是慢，而是中断。'),
     ]),
     ('summary', 'G14', [
-        ('A11', 'AI 越快，越要慢。复利的秘密，不是更快，而是不失去。'),
+        ('A11', 'AI时代，更要守住复利。复利的秘密，不是更快，而是不失去。'),
+    ]),
+    ('ask', 'G15', [                                  # 互动钩子：logo 之前
+        ('A12', 'AI 时代，你最想慢下来积累的是什么？'),
     ]),
     ('brand', None),
 ]
@@ -108,16 +119,18 @@ SAY = {
     'A06': '巴菲特在二零一零年的致股东信里写道：一长串正数，不管多么亮眼，只要乘以一个零，就会全部蒸发。',
 }
 TAGS = {'S03': '<breath>', 'S04': '<short pause>', 'S08': '<breath>', 'S09': '<short pause>', 'S11': '<breath>',
-        'S13': '<breath>', 'S16': '<breath>', 'S18': '<short pause>', 'S19': '<breath>', 'A03': '<short pause>',
+        'S13': '<breath>', 'H01': '<breath>', 'H03': '<breath>', 'H04': '<short pause>', 'A12': '<breath>', 'S16': '<breath>', 'S18': '<short pause>', 'S19': '<breath>', 'A03': '<short pause>',
         'A05': '<breath>', 'A06': '<short pause>', 'A08': '<breath>', 'A10': '<breath>'}
 
-TITLE = 'AI 越快，越要慢'
+TITLE = 'AI时代，更要守住复利'
+TITLE_SMALL, TITLE_BIG = 'AI时代，', '更要守住复利'
+ASK = 'AI 时代，你最想慢下来积累的是什么？'
 SUBTITLE = '复利的秘密，不是更快，而是不失去'
 SLOGAN = '关注「巴芒价值」，传承大师智慧，领悟投资真谛'
 
 
 def vo_groups():
-    return [it for it in STORY if it[0] in ('vo', 'anim', 'summary')]
+    return [it for it in STORY if it[0] in ('vo', 'anim', 'summary', 'ask')]
 
 
 def sentences():

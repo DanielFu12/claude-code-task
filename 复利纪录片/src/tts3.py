@@ -17,7 +17,7 @@ vo_index.json 每句：text / say / dur / words[[t0, t1, 字]]，段内句子另
 import base64, difflib, hashlib, json, os, re, ssl, subprocess, sys, time, urllib.error, urllib.request
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from story import vo_groups, SAY, TAGS, TEMPO, STYLE_BY_GROUP, TTS_MODEL as GEMINI_MODEL, VOICE as GEMINI_VOICE, STYLE as GEMINI_STYLE
+from story import vo_groups, SAY, TAGS, TEMPO, STYLE_BY_GROUP, TAKES, REF_GROUPS, TTS_MODEL as GEMINI_MODEL, VOICE as GEMINI_VOICE, STYLE as GEMINI_STYLE
 
 GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/interactions'
 TTS_GROUPS = [tuple(sid for sid, _ in it[2]) for it in vo_groups()]
@@ -161,44 +161,105 @@ def gemini_group(ids):
     style = STYLE_BY_GROUP.get(ITEMS[ids[0]][0], GEMINI_STYLE)
     key = hashlib.md5(f'{GEMINI_MODEL}|{GEMINI_VOICE}|{style}|{text}'.encode()).hexdigest()[:12]
     meta_p = base + '.json'
+    gid = ITEMS[ids[0]][0]
+    ntake = TAKES.get(gid, 0)
+    if ntake:
+        key = hashlib.md5(f'{key}|takes{ntake}|ref{"+".join(REF_GROUPS)}'.encode()).hexdigest()[:12]
     if os.path.exists(meta_p) and json.load(open(meta_p)).get('key') == key:
         meta = json.load(open(meta_p)); x, _ = sf.read(base + '.wav')
+    elif ntake:
+        meta, x = takes_group(gname, base, text, plain, style, key, ntake)
     else:
-        best = None
-        for attempt in range(3):            # 识别比对不过关（漏读、误读、把标签念出来）就重新合成，最多 3 次
-            last = None
-            for k in range(8):                 # 429 / 网络错误 / 5xx：按 Retry-After 或指数退避重试
-                try:
-                    raw, mime = gemini_request(text, style); break
-                except urllib.error.HTTPError as e:
-                    body = e.read().decode('utf-8', 'replace')[:300] if hasattr(e, 'read') else ''
-                    last = f'HTTP {e.code} {e.reason} {body}'
-                    if e.code != 429 and e.code < 500:  # 认证 / 额度 / 参数错误：重试无用，立即停止
-                        stop(gname, text, last)
-                    ra = e.headers.get('Retry-After') if e.headers else None
-                except (urllib.error.URLError, TimeoutError, ConnectionError, OSError) as e:
-                    last, ra = f'{type(e).__name__}: {e}', None
-                wait = min(float(ra), 120) if ra and str(ra).replace('.', '').isdigit() else min(15 * 2 ** k, 120)   # Retry-After 偶尔给出离谱的大值，封顶 2 分钟
-                print('  retry', gname, last[:120], f'等待 {wait:.0f}s', flush=True); time.sleep(wait)
-            else:
-                stop(gname, text, f'退避重试 8 次后仍失败：{last}')
-            x = to_wav48(raw, mime, base)
-            rec = asr_chars(x, plain)
-            rtxt = ''.join(c for c, _, _ in rec)
-            num = set('0123456789零一二三四五六七八九十百千万亿两点分之倍%.')   # 数字写法（10% / 百分之十、17.4 / 十七点四）不算错
-            sim = coverage([c for c in content(plain) if c not in num], [c for c in rtxt if c not in num])
-            tag_read = bool(re.search(r'pause|breath|停顿|呼吸', rtxt, re.I))
-            print(f'  {gname} try {attempt + 1}: {len(x) / SR:.1f}s  稿子覆盖率 {sim:.2f}{"  [念出了标签]" if tag_read else ""}')
-            score = sim - (0.5 if tag_read else 0)
-            if best is None or score > best[0]:
-                best = (score, raw, mime, rec)
-            if sim >= 0.88 and not tag_read: break
-        else:
-            stop(gname, text, f'重合成 3 次后仍不达标（最好一次的稿子覆盖率得分 {best[0]:.2f}，要求 ≥ 0.88 且不念出停顿标签）')
-        _, raw, mime, rec = best
+        raw, mime, rec = synth(gname, text, plain, style, base)
         x = to_wav48(raw, mime, base)
         meta = dict(key=key, text=text, rec=rec, dur=len(x) / SR)
         json.dump(meta, open(meta_p, 'w'), ensure_ascii=False)
+    return split_group(ids, say, plain, meta, x)
+
+
+def synth(gname, text, plain, style, base):
+    """合成一条并做识别比对；不达标就重合成（最多 3 次）。返回 (raw, mime, rec)"""
+    best = None
+    for attempt in range(3):            # 识别比对不过关（漏读、误读、把标签念出来）就重新合成，最多 3 次
+        last = None
+        for k in range(8):                 # 429 / 网络错误 / 5xx：按 Retry-After 或指数退避重试
+            try:
+                raw, mime = gemini_request(text, style); break
+            except urllib.error.HTTPError as e:
+                body = e.read().decode('utf-8', 'replace')[:300] if hasattr(e, 'read') else ''
+                last = f'HTTP {e.code} {e.reason} {body}'
+                if e.code != 429 and e.code < 500:  # 认证 / 额度 / 参数错误：重试无用，立即停止
+                    stop(gname, text, last)
+                ra = e.headers.get('Retry-After') if e.headers else None
+            except (urllib.error.URLError, TimeoutError, ConnectionError, OSError) as e:
+                last, ra = f'{type(e).__name__}: {e}', None
+            wait = min(float(ra), 120) if ra and str(ra).replace('.', '').isdigit() else min(15 * 2 ** k, 120)   # Retry-After 偶尔给出离谱的大值，封顶 2 分钟
+            print('  retry', gname, last[:120], f'等待 {wait:.0f}s', flush=True); time.sleep(wait)
+        else:
+            stop(gname, text, f'退避重试 8 次后仍失败：{last}')
+        x = to_wav48(raw, mime, base)
+        rec = asr_chars(x, plain)
+        rtxt = ''.join(c for c, _, _ in rec)
+        num = set('0123456789零一二三四五六七八九十百千万亿两点分之倍%.')   # 数字写法（10% / 百分之十、17.4 / 十七点四）不算错
+        sim = coverage([c for c in content(plain) if c not in num], [c for c in rtxt if c not in num])
+        tag_read = bool(re.search(r'pause|breath|停顿|呼吸', rtxt, re.I))
+        print(f'  {gname} try {attempt + 1}: {len(x) / SR:.1f}s  稿子覆盖率 {sim:.2f}{"  [念出了标签]" if tag_read else ""}')
+        score = sim - (0.5 if tag_read else 0)
+        if best is None or score > best[0]:
+            best = (score, raw, mime, rec)
+        if sim >= 0.88 and not tag_read: break
+    else:
+        stop(gname, text, f'重合成 3 次后仍不达标（最好一次的稿子覆盖率得分 {best[0]:.2f}，要求 ≥ 0.88 且不念出停顿标签）')
+    _, raw, mime, rec = best
+    return raw, mime, rec
+
+
+def ref_voice():
+    """参照段（G1 + G2：观众最先听到、用户认可的解说）的声纹与基频分布"""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
+    import voice_sim as VS
+    ps = [os.path.join(VD, 'G_' + '_'.join(sid for sid, _ in it[2]) + '.wav') for it in vo_groups() if it[1] in REF_GROUPS]
+    return VS, VS.embed(ps), VS.stats(ps)
+
+
+def takes_group(gname, base, text, plain, style, key, ntake):
+    """同一 voice、同一 style 合成 ntake 条（基频分布偏离参照 > 6% 时最多再补 3 条），
+    按「声纹余弦相似度 − 1.5 × 基频偏离」取与参照段最接近的一条。每条都缓存，重跑不重复调用接口"""
+    VS, ref_e, ref_s = ref_voice()
+    cands = []
+    for k in range(ntake + 3):
+        if k >= ntake and min(c['df0'] for c in cands) <= 0.06: break
+        xb = f'{base}.take{k + 1}'
+        tj = xb + '.json'
+        if os.path.exists(tj) and json.load(open(tj)).get('key') == key:
+            rec = [tuple(r) for r in json.load(open(tj))['rec']]
+        elif os.path.exists(xb + '.wav') and not os.path.exists(tj):   # 已合成、只缺对齐信息的一条：本地重新对齐，不再调用接口
+            rec = asr_chars(sf.read(xb + '.wav')[0], plain)
+            json.dump(dict(key=key, rec=rec), open(tj, 'w'), ensure_ascii=False)
+        else:
+            raw, mime, rec = synth(gname, text, plain, style, base)
+            to_wav48(raw, mime, xb)
+            json.dump(dict(key=key, rec=rec), open(tj, 'w'), ensure_ascii=False)
+        st = VS.stats(xb + '.wav')
+        c = dict(take=k + 1, sim=VS.sim(ref_e, VS.embed(xb + '.wav')), f0=st['f0'], centroid=st['centroid'],
+                 df0=VS.f0_dev(st, ref_s), rec=rec)
+        c['score'] = c['sim'] - 1.5 * c['df0']
+        cands.append(c)
+        print(f"  {gname} take {k + 1}: 声纹相似度 {c['sim']:.3f}  F0 {c['f0']:.0f}Hz（参照 {ref_s['f0']:.0f}Hz，分布偏离 {c['df0']:.0%}）  得分 {c['score']:.3f}", flush=True)
+    best = max(cands, key=lambda c: c['score'])
+    for ext in ('.src.wav', '.wav', '.mp3'):
+        subprocess.run(['cp', f'{base}.take{best["take"]}{ext}', base + ext], check=True)
+    x, _ = sf.read(base + '.wav')
+    meta = dict(key=key, text=text, rec=best['rec'], dur=len(x) / SR, take=best['take'],
+                takes=[{k: round(v, 4) if isinstance(v, float) else v for k, v in c.items() if k != 'rec'} for c in cands],
+                ref=dict(groups=list(REF_GROUPS), f0_q=[round(v, 1) for v in ref_s['f0_q']]))
+    json.dump(meta, open(base + '.json', 'w'), ensure_ascii=False)
+    print(f'  {gname}: 选用 take {best["take"]}', flush=True)
+    return meta, x
+
+
+def split_group(ids, say, plain, meta, x):
+    gname = 'G_' + '_'.join(ids)
     # 对齐并切句
     sc = content(plain)
     tt, ratio = align(sc, [tuple(r) for r in meta['rec']])

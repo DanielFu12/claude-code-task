@@ -7,6 +7,7 @@ from engine import W, H, GOLD, GOLD_HI, GOLD_SUB, CYAN, RED, WHITE, GREY, smooth
 from common import put_text, gold_text, footnote, mask_points
 import vis as V
 import t3
+import story as ST
 import brand_bridge as BB
 from script import MATH
 
@@ -161,7 +162,7 @@ def g11(F, t):
     a = win(t, st('A05') - 0.2, seg['t1'] + 0.3, 0.45, 0.5)
     if a > 0:
         k5 = st('A05'); k0 = wt('A06', '乘以一个零'); kz = wt('A06', '全部蒸发')
-        n_lit = int(clamp01((t - k5) / max(k0 - k5 - 0.3, 1.0)) * 30)
+        n_lit = int(clamp01((t - k5) / max(k0 - k5 - 1.2, 1.0)) * 30)      # 提前约 1.2 秒连乘满 30 次，让终值 17.45 停留可读
         prod = 1.1 ** n_lit
         zero = t > k0
         die = clamp01((t - kz) / 1.6)
@@ -327,8 +328,9 @@ def summary(F, t):
     d = (1 - math.exp(-u * 1.8)) / 1.8
     splat(F, (W / 2 + np.cos(ang) * sp * d).astype(np.float32), (860 + np.sin(ang) * sp * d * 1.3 - 40 * u).astype(np.float32),
           np.full(n, 1.5, np.float32), GOLD_HI, a * 0.7 * math.exp(-u * 0.6))
-    gold_text(F, 'AI 越快，', W / 2, 700, 130, 'serif', a, clamp01(u / 0.35), glow=0.4 + 0.8 * math.exp(-u * 3), sweep=(u - 1.6) / 1.3)
-    gold_text(F, '越要慢', W / 2, 870, 170, 'serif', a, clamp01(u / 0.35 * 1.4 - 0.4), glow=0.5 + 0.9 * math.exp(-u * 3), sweep=(u - 1.75) / 1.3)
+    # 收束：「AI时代，更要守住复利。」
+    gold_text(F, ST.TITLE_SMALL, W / 2, 690, 84, 'serif', a, clamp01(u / 0.35), glow=0.4 + 0.8 * math.exp(-u * 3), sweep=(u - 1.6) / 1.3)
+    gold_text(F, ST.TITLE_BIG + '。', W / 2, 860, 140, 'serif', a, clamp01(u / 0.35 * 1.4 - 0.4), glow=0.5 + 0.9 * math.exp(-u * 3), sweep=(u - 1.75) / 1.3)
     # 第二句随解说逐段出现：复利的秘密 → 不是更快 → 而是不失去（金色、最重）
     k1, k2, k3 = wt('A11', '复利的秘密'), wt('A11', '不是更快'), wt('A11', '而是不失去')
     put_text(F, '复利的秘密', W / 2, 1060, 54, 'serif_m', np.array([1.0, 0.93, 0.8]), a * smooth((t - k1 + 0.1) / 0.5), 900, glow=0.1)
@@ -337,6 +339,29 @@ def summary(F, t):
         V.slam(F, '而是不失去', W / 2 + 170, 1170, 76, t, k3 - 0.1, a)
         if t - k3 < 1.0:
             V.line(F, _circle(W / 2 + 170, 1170, 40 + 600 * ease_out((t - k3) / 1.0)), GOLD_HI, 3, a * (1 - (t - k3)), 1.0, closed=True)
+
+
+# ------------------------------------------------------------------ 互动提问（logo 之前）
+ASK_Y = (880, 1010)
+
+
+def ask(F, t):
+    seg = t3.seg('G15')
+    u = t - seg['t0']
+    a = win(t, seg['t0'], seg['t1'] + 0.6, 0.5, 0.6)
+    if a <= 0: return
+    k = t3.SENTS['A12']['t0']
+    put_text(F, '—  留 言 区 见  —', W / 2, 700, 28, 'sans', GOLD_SUB * 1.15, a * smooth((u - 0.2) / 0.6), 900, track=4, shadow=0)
+    V.rise(F, ST.ASK.split('，')[0] + '，', W / 2, ASK_Y[0], 60, t, k - 0.1, 'serif_m', V.INK_T, a)
+    gold_text(F, ST.ASK.split('，')[1], W / 2, ASK_Y[1], 72, 'serif', a * smooth((t - wt('A12', '你最想') + 0.1) / 0.5),
+              clamp01((t - wt('A12', '你最想') + 0.1) / 1.0), glow=0.25, sweep=(t - wt('A12', '是什么', end=True)) / 1.3)
+    lt = ease_out(clamp01((u - 0.5) / 1.0))
+    if lt > 0:
+        V.line(F, [(W / 2 - 260 * lt, 1110), (W / 2 + 260 * lt, 1110)], GOLD, 1.2, a * 0.8, 0.6)
+    # 呼吸的光点：等待回答
+    for i in range(3):
+        ph = (u * 1.4 - i * 0.25) % 1.4
+        V.dot(F, W / 2 - 40 + i * 40, 1180, 7, GOLD_HI, a * smooth((u - 1.5) / 0.5) * (0.35 + 0.65 * math.exp(-ph * 4)), 1.0)
 
 
 # ------------------------------------------------------------------ 品牌片尾（系列准则第 8 节）
@@ -380,13 +405,13 @@ def _logo_pts(n=5200):
         idx = r.choice(len(xs), n, replace=len(xs) < n)
         pts = np.c_[xs[idx] + W / 2 - LOGO_PX / 2, ys[idx] + LOGO_CY - LOGO_PX / 2].astype(np.float32)
         cols = rgb[ys[idx], xs[idx]].astype(np.float32)
-        src = mask_points('复利的秘密，不是更快，而是不失去', 48, 'serif_m', n, W / 2, 1110)
+        src = mask_points(ST.ASK.split('，')[1], 72, 'serif', n, W / 2, ASK_Y[1])      # 互动提问的文字化为微粒
         _PTS['logo'] = (pts, cols, np.asarray(src, np.float32))
     return _PTS['logo']
 
 
 def brand(F, t, beat=None):
-    """深色 → 总结文字化为微粒沿 logo 透明通道汇聚 → logo 原图（240px，淡蓝光晕）→ 重拍上浮现官方字标 →
+    """深色 → 互动提问的文字化为微粒沿 logo 透明通道汇聚 → logo 原图（240px，淡蓝光晕）→ 重拍上浮现官方字标 →
     整句品牌金渐变关注语 → 流光扫过 → 整体（含右上角角标，由 render3 处理）淡出"""
     seg = t3.seg('brand')
     u = t - seg['t0']
@@ -395,9 +420,9 @@ def brand(F, t, beat=None):
     conv = ease_io(clamp01((u - 0.1) / 1.9))
     fade_p = 1 - smooth((u - 1.9) / 0.6)
     if fade_p > 0:
-        swirl = (1 - conv) * 0.9
+        swirl = math.sin(conv * math.pi) * 0.5                  # 从水平文字出发、最后落回 logo，中途轻轻旋转
         c, s_ = math.cos(swirl), math.sin(swirl)
-        cen = np.array([W / 2, (1110 + LOGO_CY) / 2], np.float32)
+        cen = np.array([W / 2, (ASK_Y[1] + LOGO_CY) / 2], np.float32)
         mid = (src - cen) @ np.array([[c, -s_], [s_, c]], np.float32) * (1 + 0.3 * math.sin(conv * math.pi)) + cen
         xy = mid * (1 - conv) + pts * conv
         colp = cols * conv + GOLD_HI * (1 - conv)

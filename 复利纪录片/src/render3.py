@@ -1,4 +1,4 @@
-"""第三版逐帧渲染。
+"""第四版逐帧渲染。
 
 python3 src/render3.py still 12.5 33 80 ...        → work/stills3/t_XXX.png
 python3 src/render3.py chunk F0 F1 out.mp4 [crf]   → 渲染 [F0, F1) 帧
@@ -9,6 +9,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from engine import W, H, FPS, post, to_u8, smooth, clamp01, ease_out, GOLD, GOLD_SUB, WHITE
 from common import put_text, gold_text, footnote
 import t3
+import story as ST
 import ftscene as FT
 import vis as V
 import bridges as BR
@@ -37,8 +38,8 @@ CLIP_MOOD = {'L': 'warm', 'B': 'neutral', 'M': 'neutral'}
 
 def chapters():
     s = {x['id']: x for x in t3.SEGS}
-    return [(s['LB']['t0'] + 0.6, s['title']['t0'] - 0.3, '01', '热点 · 李录谈 AI 与复利'),
-            (s['title']['t1'] + 0.2, s['G5']['t0'] - 0.2, '01', '热点 · 李录谈 AI 与复利'),
+    return [(s['LB']['t0'] + 0.6, s['title']['t0'] - 0.3, '01', '李录谈 AI 与复利'),
+            (s['title']['t1'] + 0.2, s['G5']['t0'] - 0.2, '01', '李录谈 AI 与复利'),
             (s['G5']['t0'], s['MT']['t1'] - 0.3, '02', '巴菲特与芒格 · 不要失去'),
             (s['G10']['t0'] + 0.3, s['G13']['t0'] - 0.2, '03', '复利的第一性原理'),
             (s['G13']['t0'], s['G13']['t1'] - 1.5, '04', '人生的复利')]
@@ -81,8 +82,9 @@ def title(F, t):
     from engine import splat, GOLD_HI
     splat(F, (W / 2 + np.cos(ang) * sp * d).astype(np.float32), (900 + np.sin(ang) * sp * d * 1.4).astype(np.float32),
           np.full(n, 1.5, np.float32), GOLD_HI, a * 0.75 * math.exp(-u * 0.5))
-    gold_text(F, 'AI 越快，', W / 2, 800, 150, 'serif', a, clamp01(u / 0.4), glow=0.35 + 0.6 * math.exp(-u * 3), sweep=(u - 2.0) / 1.4)
-    gold_text(F, '越要慢', W / 2, 990, 190, 'serif', a, clamp01(u / 0.4 * 1.6 - 0.6), glow=0.5 + 0.8 * math.exp(-u * 3), sweep=(u - 2.15) / 1.4)
+    # 片名：小字「AI时代，」+ 大字「更要守住复利」
+    gold_text(F, ST.TITLE_SMALL, W / 2, 790, 92, 'serif', a, clamp01(u / 0.4), glow=0.3 + 0.5 * math.exp(-u * 3), sweep=(u - 2.0) / 1.4)
+    gold_text(F, ST.TITLE_BIG, W / 2, 975, 156, 'serif', a, clamp01(u / 0.4 * 1.6 - 0.6), glow=0.5 + 0.8 * math.exp(-u * 3), sweep=(u - 2.15) / 1.4)
     put_text(F, '复利的秘密，不是更快，而是不失去', W / 2, 1170, 44, 'serif_m', np.array([0.95, 0.9, 0.8]), a * smooth((u - 1.6) / 0.7), 980,
              reveal=clamp01((u - 1.6) / 1.2), glow=0.1)
     put_text(F, '李录  ·  巴菲特  ·  芒格', W / 2, 1265, 32, 'sans_l', GOLD_SUB * 1.2, a * smooth((u - 2.4) / 0.7), 900, track=6)
@@ -136,6 +138,9 @@ def frame(t):
     elif kind == 'summary':
         F = V.bg(t, 'warm', stars=1.0)
         AN.summary(F, t)
+    elif kind == 'ask':
+        F = V.bg(t, 'warm', stars=0.8, drift=0.4)
+        AN.ask(F, t)
     else:
         F = V.bg(t, 'neutral', stars=0.4, drift=0.3)
         AN.brand(F, t)
@@ -144,7 +149,7 @@ def frame(t):
         z = 1.0 + 0.035 * smooth((t - sg['t0']) / max(sg['t1'] - sg['t0'], 1.0))
         M = cv2.getRotationMatrix2D((W / 2, 880), 0, z)
         F = cv2.warpAffine(F, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
-    if kind not in ('title', 'summary', 'brand'):
+    if kind not in ('title', 'summary', 'ask', 'brand'):
         chapter(F, t)
     if kind in ('vo', 'anim'):
         V.vo_sub(F, t, t3.SENTS)

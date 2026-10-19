@@ -1,4 +1,4 @@
-"""第三版时间线：由 story.STORY 顺序拼接。
+"""第四版时间线：由 story.STORY 顺序拼接。
 
 解说时长取自 work/vo_index.json（tts3.py 生成的逐句时长、逐字时间、句间停顿）；
 还没有配音时按字数估算（约 4.6 字/秒），方便先做画面。
@@ -21,6 +21,8 @@ GROUP_PRE = 0.25
 TITLE_LEN = 6.4
 ANIM_MIN = {'G10': 21.0, 'G11': 25.5, 'G12': 14.5, 'G13': 15.3}   # 动画段最短时长（给画面留出呼吸）
 SUMMARY_LEN = 7.0
+SUMMARY_HOLD = 1.3                     # 总结句读完后停留，再进入互动提问
+ASK_LEN = 8.0                         # 没有配乐节点时互动提问段的长度
 BRAND_LEN = 13.5
 BRAND_BEAT = 2.4                      # 片尾开始后多少秒出现「巴芒价值」字标（落在配乐强拍上）
 
@@ -82,11 +84,11 @@ def build(anim_len=None):
             if kind == 'anim':
                 t = max(t, g0 + (anim_len or ANIM_MIN).get(gid, 0))
             if kind == 'summary':
-                # 配乐是按段落对齐的（总结句 = 高潮重拍），总结段的长度让品牌字标正好落在其后的强拍上
-                L = SUMMARY_LEN
-                if 'climax' in M:
-                    L = M['climax']['brand_beat'] - M['climax']['hit'] - BRAND_BEAT
-                t = g0 + L
+                t = max(t + SUMMARY_HOLD, g0 + SUMMARY_LEN)
+            if kind == 'ask':
+                # 配乐是按段落对齐的（总结句 = 高潮重拍），总结 + 互动提问的总长让品牌字标正好落在其后的强拍上
+                s0 = next(x for x in segs if x['kind'] == 'summary')['t0']
+                t = max(t + 2.0, g0 + ASK_LEN if 'climax' not in M else s0 + M['climax']['brand_beat'] - M['climax']['hit'] - BRAND_BEAT)
             segs.append(dict(kind=kind, id=gid, t0=g0, t1=t))
     return segs, sents
 

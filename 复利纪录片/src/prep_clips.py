@@ -104,7 +104,23 @@ def prep(cid):
     print(cid, f'{i} frames', f'{ow}x{oh}', f'{length(c):.2f}s', flush=True)
 
 
+def stamp(cid):
+    """片段定义（源文件、出入点、裁切）的指纹：定义变了就必须重新生成，不能只看文件在不在"""
+    c = CLIPS[cid]
+    return json.dumps(dict(src=c['src'], off=c.get('off', 0.0), parts=parts(c), crop=c.get('crop')), sort_keys=True)
+
+
+def stamp_path(cid):
+    return os.path.join(OUT, f'{cid}.stamp.json')
+
+
 if __name__ == '__main__':
-    ids = sys.argv[1:] or list(CLIPS)
+    args = sys.argv[1:]
+    if args[:1] == ['--stale']:                  # 只重做缺失或定义已改动的片段
+        ids = [cid for cid in CLIPS if not os.path.exists(os.path.join(OUT, f'{cid}.mp4'))
+               or not os.path.exists(stamp_path(cid)) or open(stamp_path(cid)).read() != stamp(cid)]
+    else:
+        ids = args or list(CLIPS)
     for cid in ids:
         prep(cid)
+        open(stamp_path(cid), 'w').write(stamp(cid))
