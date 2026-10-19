@@ -231,6 +231,8 @@ def build(work, tl, N):
             if w >= 0.9:                                     # 最重的重拍：前 3s 音乐慢慢退后 6dB，形成“蓄力→爆发”的反差
                 ramp = np.clip((t - (fa - 3.0)) / 2.7, 0, 1) * (t < fa)
                 g *= 10 ** (-6 * ramp / 20)
+                lift = np.clip(np.minimum((t - fa) / 0.05, (fa + 4.0 - t) / 1.5), 0, 1) * (t >= fa)
+                g *= 10 ** (2.5 * lift / 20)                   # 重拍后 4s 再托起 2.5dB
         if anc[0][2] <= 0 and sec['id'] != 'hook':           # 不是重拍进入：0.8s 柔和淡入，避免半句切入的电平跳变
             g *= np.clip((t - start_film) / 0.8, 0, 1) ** 1.5
         audio = audio * g[:, None] * 10 ** (sec.get('gain', 0) / 20)
@@ -270,7 +272,6 @@ if __name__ == '__main__':
     work = sys.argv[1]
     if '--beats' in sys.argv: analyze(work); sys.exit()
     tl = json.load(open(os.path.join(work, 'timeline.json')))
-    if 'logo' not in tl: tl['logo'] = json.load(open(os.path.join(work, 'music_plan.json')))['hits']['logo']
     N = int((tl['total'] + 0.5) * SR)
     mus, hits, rep = build(work, tl, N)
     for r in rep: print(r)

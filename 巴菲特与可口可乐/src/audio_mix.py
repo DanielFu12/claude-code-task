@@ -156,7 +156,6 @@ def main(work):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import score
     tl = json.load(open(os.path.join(work, 'timeline.json')))
-    if 'logo' not in tl: tl['logo'] = json.load(open(os.path.join(work, 'music_plan.json')))['hits']['logo']
     N = int((tl['total'] + 0.5) * SR)
     meter = pyln.Meter(SR)
     seg = {s['id']: s for s in tl['segs']}

@@ -2,5 +2,10 @@
  "hook": "hook_0.wav",
  "ch1": "ch1_1.wav",
  "ch2a": "ch2a_1.wav",
- "ch2b": "ch2b_0.wav"
+ "ch2b": "ch2b_0.wav",
+ "ch3": "ch3_0.wav",
+ "ch4a": "ch4a_1.wav",
+ "ch4b": "ch4b_0.wav",
+ "ch5": "ch5_0.wav",
+ "tease": "tease_0.wav"
 }
