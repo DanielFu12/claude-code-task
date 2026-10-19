@@ -167,7 +167,7 @@ def main(work):
     # 只做轻微的高频控制：7.5kHz 以上约 -3.5dB；原曲里偶发的高频突刺（镲片/上升音）再自动低通
     hi = signal.sosfiltfilt(sos_hp(7500, 2), mus, axis=0)
     mus = mus - 0.33 * hi
-    mus, frac = tame_risers(mus, thr=2.2)
+    mus, frac = tame_risers(mus, thr=4.0)                         # 只处理极端的高频突刺（v6 素材本身没有上升音/镲片）
     print('riser-tamed fraction %.3f' % frac)
 
     # ------------------------------------------------ 旁白：整段录音切出的句子，按发声时刻放置（保留原有换气与停顿）
@@ -189,19 +189,20 @@ def main(work):
     vo *= np.where(env > thr, (thr / np.maximum(env, 1e-9)) ** 0.3, 1.0)[:, None]
     vo = np.stack([room(vo[:, 0]), room(vo[:, 1], seed=12)], 1).astype(np.float32)
 
-    # ------------------------------------------------ 闪避：说话时配乐 -8dB；句间短停顿不回弹（避免“抽吸”），
-    # 长于 1s 的停顿让音乐涌上来；重拍处让音乐的冲击穿过去
+    # ------------------------------------------------ 闪避：说话时配乐 -7dB，平滑进出（0.6s），句间短停顿不回弹；
+    # 只有最重的高潮处让音乐稍微抬头，避免忽大忽小
     act = np.zeros(N, np.float32)
     for s in tl['segs']:
-        a = int((s['start'] - 0.2) * SR); b = int((s['start'] + s['dur'] + 0.5) * SR)
+        a = int((s['start'] - 0.25) * SR); b = int((s['start'] + s['dur'] + 0.6) * SR)
         act[max(a, 0):b] = 1
-    k = int(0.35 * SR); win = np.hanning(2 * k + 1); win /= win.sum()
+    k = int(0.6 * SR); win = np.hanning(2 * k + 1); win /= win.sum()
     on = np.convolve(act, win, 'same').clip(0, 1)
-    duck_db = -8.0 * on
+    duck_db = -7.0 * on
     tt = np.arange(N) / SR
-    for h, w, _ in hits:                                             # 重拍：-0.03..+0.9s 闪避减半（让冲击穿过）
-        m = np.clip(np.minimum((tt - h + 0.03) / 0.02, (h + 0.9 - tt) / 0.5), 0, 1) * min(w, 1.0)
-        duck_db = duck_db * (1 - 0.55 * m)
+    for h, w, _ in hits:
+        if w >= 1.0:
+            m = np.clip(np.minimum((tt - h + 0.3) / 0.3, (h + 2.5 - tt) / 1.5), 0, 1)
+            duck_db = duck_db * (1 - 0.3 * m)
     ml = meter.integrated_loudness(mus[mus.any(1)])
     mus *= 10 ** ((-19.0 - ml) / 20)
     band = signal.sosfiltfilt(signal.butter(2, [700, 3200], 'band', fs=SR, output='sos'), mus, axis=0)
@@ -211,31 +212,28 @@ def main(work):
     # 1998 泡沫破裂：音乐瞬间压低并低通，随后恢复
     pop = seg['s35']['start'] + 2.1
     dip = np.clip(np.minimum((tt - pop) / 0.05, (pop + 1.6 - tt) / 0.8), 0, 1)
-    lowm = signal.sosfiltfilt(sos_lp(700, 2), mus, axis=0)
-    mus = (mus * (1 - dip[:, None]) + lowm * dip[:, None]) * (10 ** (-7 * dip / 20))[:, None]
+    lowm = signal.sosfiltfilt(sos_lp(1200, 2), mus, axis=0)
+    mus = (mus * (1 - dip[:, None]) + lowm * dip[:, None]) * (10 ** (-4 * dip / 20))[:, None]
     # 片尾整体淡出
     end_t = tl['total']; tail = int(2.5 * SR); e = min(int(end_t * SR), N)
     mus[e - tail:e] *= (np.cos(np.linspace(0, np.pi / 2, tail)) ** 2)[:, None]; mus[e:] = 0
 
-    # ------------------------------------------------ 低频冲击：叠在每个配乐重拍上（重拍越重，冲击越大）
+    # ------------------------------------------------ 低频冲击：只在配乐自身的高潮处轻轻托底（不另起炉灶）
     sfx = np.zeros((N, 2), np.float32)
     for h, w, sid in hits:
-        place(sfx, impact(3.6, 0.95 * w, int(h * 10) % 97), h)
-        place(sfx, sub_drop(2.6, 74, 24, 0.85 * w), h)
-    place(sfx, impact(2.8, 0.75, 7), pop)                            # 泡沫破裂
+        place(sfx, impact(3.2, 0.55 * w, int(h * 10) % 97), h)
+        place(sfx, sub_drop(2.4, 70, 26, 0.5 * w), h)
+    place(sfx, impact(2.6, 0.5, 7), pop)                             # 泡沫破裂
     wt = lambda i, sub: score.word_time(seg[i], sub)
-    for t0, a in ((wt('s01', '创历史新高'), 0.5), (wt('s03', '376') - 0.6, 0.45), (wt('s04', '八点四八'), 0.45),
-                  (wt('s26', '1994') + 0.2, 0.3), (wt('s26', '总成本'), 0.4),
-                  (wt('s29', '8.48') + 0.3, 0.4), (wt('s29', '38年累计'), 0.45), (seg['s38']['start'] + 3.0, 0.35),
-                  (seg['s17a']['start'], 0.3), (wt('s12', '三成'), 0.5), (seg['s17b']['start'], 0.3), (seg['s17c']['start'], 0.3)):
+    for t0, a in ((wt('s01', '创历史新高'), 0.4), (wt('s04', '八点四八'), 0.35)):
         place(sfx, low_pulse(a), t0)
     span = wt('s27', '4亿股') - seg['s27']['start'] - 0.5
     for k in range(4):                                                # 拆股 1→2→4→8→16
-        place(sfx, low_pulse(0.3 + 0.08 * k), seg['s27']['start'] + 0.5 + k * span / 4 + 0.05)
+        place(sfx, low_pulse(0.22 + 0.05 * k), seg['s27']['start'] + 0.5 + k * span / 4 + 0.05)
     sfx = signal.sosfilt(sos_lp(220, 4), sfx, axis=0)
     sfx = signal.sosfilt(sos_hp(28, 4), sfx, axis=0)
     sl = meter.integrated_loudness(sfx[sfx.any(1)])
-    sfx *= 10 ** ((-22.0 - sl) / 20)
+    sfx *= 10 ** ((-25.0 - sl) / 20)
 
     mix = mus + vo + sfx
     L = meter.integrated_loudness(mix)

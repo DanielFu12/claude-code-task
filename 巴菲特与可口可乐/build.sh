@@ -14,18 +14,18 @@ get Cormorant+Garamond 600 corm; get Cormorant+Garamond 500 corm_med; get JetBra
 get Special+Elite 400 typewriter; get Oswald 600 oswald; get Playfair+Display 700 playfair
 
 # 已入库的生成素材（整段旁白录音及选择结果、选定的 Lyria 配乐）先放进 work/，避免重新生成带来的随机差异
-mkdir -p "$WORK/tts_p" "$WORK/tts" "$WORK/music2"
+mkdir -p "$WORK/tts_p" "$WORK/tts" "$WORK/music3"
 cp -n assets/generated/tts_p/* "$WORK/tts_p/" 2>/dev/null || true
 cp -n assets/generated/tts/*.wav "$WORK/tts/" 2>/dev/null || true
-cp -n assets/generated/music2/*.mp3 "$WORK/music2/" 2>/dev/null || true
+cp -n assets/generated/music3/*.mp3 "$WORK/music3/" 2>/dev/null || true
 
 python3 data/calc.py > /dev/null                       # 收益与股息计算 → data/calc.json
 python3 src/tts_passage.py "$WORK" gen --takes 3        # 整段旁白（缺失的段落才生成，每段 3 个候选）
 python3 src/select_takes.py "$WORK" $(python3 -c "import json,os,sys;sys.path.insert(0,'src');from tts_passage import PASSAGES,TEASE_P;p='$WORK/tts_p/select.json';s=json.load(open(p)) if os.path.exists(p) else {};print(' '.join(x[0] for x in PASSAGES+[TEASE_P] if x[0] not in s) or '-')")
-[ -f "$WORK/music2/C5_0.mp3" ] || python3 src/music_gen2.py "$WORK"
+[ -f "$WORK/music3/P3_2.mp3" ] || python3 src/music_gen3.py "$WORK" --n 3   # 生成后按听审结果选用 P1_2/P2_2/P3_2
 python3 src/voice_build.py "$WORK"                      # 强制对齐 → 逐句切分 + 字时间
 python3 src/timeline.py "$WORK"                         # 时间线（自然停顿 + 章节留白）
-[ -f "$WORK/music2/beats.json" ] || python3 src/score.py "$WORK" --beats
+[ -f "$WORK/music3/beats.json" ] || python3 src/score.py "$WORK" --beats
 python3 src/audio_mix.py "$WORK"                        # 配乐逐帧对位 + 冲击 + 旁白 + 闪避
 
 N=$(python3 -c "import json;print(int(round(json.load(open('$WORK/timeline.json'))['total']*30)))")
