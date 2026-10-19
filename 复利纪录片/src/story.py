@@ -10,7 +10,7 @@ SAY 是只为发音调整的朗读文本（字幕仍用原文）；TAGS 是加�
 
 # ------------------------------------------------------------------ 配音（只用 Gemini TTS gemini-3.8-flash-tts）
 TTS_MODEL = 'gemini-3.8-flash-tts'
-VOICE = 'charon'
+VOICE = 'orus'
 STYLE = ('A seasoned Mandarin documentary narrator telling a true story to a friend: natural, warm and conversational, '
          'with real breathing and subtle emotion; moderately brisk, steady pace; no broadcaster tone, no sing-song endings, '
          'no exaggerated pauses.')
