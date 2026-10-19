@@ -1,6 +1,6 @@
 # 资料来源、引语出处与素材授权
 
-成片时长 4:55.5。下文时间戳为成片中的出现时间（由 `work/timeline.json` 自动生成）。
+成片时长 5:26.9。下文时间戳为成片中的出现时间（由 `work/timeline.json` 自动生成）。
 
 ## 1. 行情核实（切入点）
 
@@ -50,16 +50,16 @@
 
 | 片中时间 | 原文 | 中文 | 出处 |
 |---|---|---|---|
-| 0:44.6 | “Only in the summer of 1988 did my brain finally establish contact with my eyes.” | 直到1988年夏天，我的大脑才终于和眼睛接上了线。 | [1989 年致股东信](https://www.berkshirehathaway.com/letters/1989.html) |
-| 1:47.0 | “We are going to start something like an autocatalytic reaction—precisely the sort of multifactor-triggered lollapalooza effect we need.” | 我们将启动一种类似化学自催化的反应——正是我们需要的、由多因素触发的 lollapalooza 效应。 | [Charlie Munger，“Practical Thought about Practical Thought?”，1996-07-20 非正式演讲，收录于《穷查理宝典》第四讲](https://www.stripe.press/poor-charlies-almanack/talk-four) |
-| 2:04.0 | “It took only fifty years before I finally got it: The real money was in the syrup.” | 只花了五十年，我终于明白：真正的钱在糖浆里。 | [1994 年致股东信](https://www.berkshirehathaway.com/letters/1994.html) |
-| 2:18.9 | “…setting up a protective moat around their economic castles.” | ……在它们的经济城堡周围，筑起一道护城河。 | [1993 年致股东信](https://www.berkshirehathaway.com/letters/1993.html) |
-| 3:32.1 | “I made a big mistake in not selling several of our larger holdings during The Great Bubble.” | 在大泡沫期间没有卖出几只大型持股，是我的一个大错误。 | [2003 年致股东信](https://www.berkshirehathaway.com/letters/2003ltr.pdf) |
-| 3:32.1 | “I talked when I should have walked.” | 我只是说了，却没有做。 | [2004 年致股东信](https://www.berkshirehathaway.com/letters/2004ltr.pdf) |
-| 3:57.3 | “…we may significantly adjust a holding if we see fundamental changes in its long-term economic prospects.” | ……如果看到其长期经济前景发生根本变化，我们可能大幅调整持仓。 | [伯克希尔 2025 年报致股东信（Greg Abel 署名，2026 年 2 月发布）](https://www.berkshirehathaway.com/letters/2025ltr.pdf) |
-| 4:07.2 | “Invert, always invert.” | 反过来想，总是反过来想。 | [同上 Munger 1996 演讲（引数学家 Carl Jacobi）](https://www.stripe.press/poor-charlies-almanack/talk-four) |
-| 4:18.4 | “You can, of course, pay too much for even the best of businesses.” | 当然，即使是最好的企业，你也可能付出过高的价格。 | [1996 年致股东信](https://www.berkshirehathaway.com/letters/1996.html) |
-| 4:39.3 | “Time is the friend of the wonderful business.” | 时间是优秀企业的朋友。 | [2010 年致股东信](https://www.berkshirehathaway.com/letters/2010ltr.pdf) |
+| 0:45.5 | “Only in the summer of 1988 did my brain finally establish contact with my eyes.” | 直到1988年夏天，我的大脑才终于和眼睛接上了线。 | [1989 年致股东信](https://www.berkshirehathaway.com/letters/1989.html) |
+| 1:49.7 | “We are going to start something like an autocatalytic reaction—precisely the sort of multifactor-triggered lollapalooza effect we need.” | 我们将启动一种类似化学自催化的反应——正是我们需要的、由多因素触发的 lollapalooza 效应。 | [Charlie Munger，“Practical Thought about Practical Thought?”，1996-07-20 非正式演讲，收录于《穷查理宝典》第四讲](https://www.stripe.press/poor-charlies-almanack/talk-four) |
+| 2:07.4 | “It took only fifty years before I finally got it: The real money was in the syrup.” | 只花了五十年，我终于明白：真正的钱在糖浆里。 | [1994 年致股东信](https://www.berkshirehathaway.com/letters/1994.html) |
+| 2:22.9 | “…setting up a protective moat around their economic castles.” | ……在它们的经济城堡周围，筑起一道护城河。 | [1993 年致股东信](https://www.berkshirehathaway.com/letters/1993.html) |
+| 3:56.0 | “I made a big mistake in not selling several of our larger holdings during The Great Bubble.” | 在大泡沫期间没有卖出几只大型持股，是我的一个大错误。 | [2003 年致股东信](https://www.berkshirehathaway.com/letters/2003ltr.pdf) |
+| 3:56.0 | “I talked when I should have walked.” | 我只是说了，却没有做。 | [2004 年致股东信](https://www.berkshirehathaway.com/letters/2004ltr.pdf) |
+| 4:24.5 | “…we may significantly adjust a holding if we see fundamental changes in its long-term economic prospects.” | ……如果看到其长期经济前景发生根本变化，我们可能大幅调整持仓。 | [伯克希尔 2025 年报致股东信（Greg Abel 署名，2026 年 2 月发布）](https://www.berkshirehathaway.com/letters/2025ltr.pdf) |
+| 4:36.0 | “Invert, always invert.” | 反过来想，总是反过来想。 | [同上 Munger 1996 演讲（引数学家 Carl Jacobi）](https://www.stripe.press/poor-charlies-almanack/talk-four) |
+| 4:48.7 | “You can, of course, pay too much for even the best of businesses.” | 当然，即使是最好的企业，你也可能付出过高的价格。 | [1996 年致股东信](https://www.berkshirehathaway.com/letters/1996.html) |
+| 5:10.5 | “Time is the friend of the wonderful business.” | 时间是优秀企业的朋友。 | [2010 年致股东信](https://www.berkshirehathaway.com/letters/2010ltr.pdf) |
 
 旁白中的转述：1936 年 25 美分买 6 瓶、5 美分一瓶卖出，52 年未买、所列行业（1989 信）；郭思达 1981 年任 CEO、与基奥重新聚焦、海外销量爆发（1989 信）；芒格“200 万美元变 2 万亿”、商标、操作性条件反射、巴甫洛夫条件反射、社会认同、多因素合奏（lollapalooza）效应、无处不在的渠道、规模经济（Munger 1996）；“真正的钱在糖浆里”（1994 信）。
 
@@ -71,50 +71,50 @@
 |---|---|---|
 | 0:01.2 | 可口可乐，创历史新高了——93.9美元。 | Nasdaq/Yahoo 日线：2026-10-16 收盘 $93.90，历史最高收盘 |
 | 0:05.9 | 有一位股东，已经持有它38年：当年13亿美元买入，如今市值约376亿。 | 1994 年报：成本 $1,298.9M；400,000,000 股 × $93.90 |
-| 0:13.7 | 仅股息一项，今年就有8.48亿美元。 | 2026 年每股 $2.12（KO 2025 10-K：第 64 次连续提高）× 4 亿股 |
-| 0:17.5 | 泡沫、危机、疫情……他一股未卖。为什么？ | 2003 信：KO 持仓最后一次变动在 1994 年；2023 信：未买卖一股；13F 2026Q2：4 亿股 |
-| 0:29.9 | 1936年，童年的巴菲特在祖父的杂货店，25美分买6瓶可乐，5美分一瓶卖给邻居。 | 1989 年致股东信 |
-| 0:38.8 | 此后52年，他看着可乐席卷世界，却一股也没买。 | 1989 年致股东信 |
-| 0:44.6 | 直到1988年夏天——用他的话说——“大脑终于和眼睛接上了线”。 | 1989 年致股东信 |
-| 0:51.4 | 1981年郭思达接任CEO，可口可乐重新聚焦主业，海外销量随之爆发。 | 1989 年致股东信 |
-| 0:58.9 | 1988年，它的净资产收益率34.7%，市盈率却只有约15倍。 | KO 1993 10-K 十一年财务摘要；KO 1998 10-K |
-| 1:06.0 | 两年间，伯克希尔投入10.2亿美元，约占它当时净资产的三成。 | 1989 年报持仓表；1991 信（1988 年末净资产 $34 亿） |
-| 1:14.2 | 一瓶糖水，凭什么成为持续创造现金的机器？芒格做过一个思想实验—— | 本片叙述 |
-| 1:20.9 | 回到1884年的亚特兰大，怎样把200万美元，变成2万亿？ | Munger, “Practical Thought about Practical Thought?”（1996-07-20） |
-| 1:27.5 | 第一步：打造一个受法律保护的强大商标。 | Munger 1996 |
-| 1:31.8 | 操作性条件反射：甜、冰、提神，让人喝了还想喝。 | Munger 1996（operant conditioning） |
-| 1:37.3 | 巴甫洛夫条件反射：把品牌和快乐、青春、庆祝绑在一起。 | Munger 1996（Pavlovian conditioning） |
-| 1:42.7 | 社会认同：看到别人都在喝，你也想尝一口。 | Munger 1996（social proof） |
-| 1:47.0 | 三者互相放大，芒格称之为“多因素合奏效应”。 | Munger 1996（autocatalytic reaction / lollapalooza effect） |
-| 1:52.1 | 再加上无处不在的渠道：200多个国家和地区，每天22亿份。 | Munger 1996（available everywhere）；KO 2025 10-K |
-| 1:58.1 | 工厂和卡车大多属于装瓶伙伴，它卖的是浓缩液和品牌。 | KO 2025 10-K：浓缩液业务占销量 85% |
-| 2:04.0 | 巴菲特说：真正的钱，在糖浆里。 | 1994 年致股东信 |
-| 2:07.8 | 毛利率61.6%，资本开支只占收入的4.4%。 | KO 2025 10-K |
-| 2:13.1 | 巨大的销量摊薄了广告和分销成本——对手越追，代价越高。 | 1994 年致股东信（每份不到 1 美分）；Munger 1996（规模劣势 / 分销成本优势） |
-| 2:18.9 | 这就是巴菲特说的：环绕经济城堡的护城河。 | 1993 年致股东信 |
-| 2:25.1 | 1988年，首批1417万股，成本5.93亿美元。 | 1988 年报持仓表 |
-| 2:31.4 | 1994年8月最后一次买入，总成本12.99亿美元。 | 1989、1994 年报；2022 信 |
-| 2:36.2 | 四次拆股后，1股变16股：4亿股，均价每股3.25美元。 | KO 拆股：1990/1992/1996/2012 各 1 拆 2 |
-| 2:42.4 | 按最新收盘价，市值约376亿美元，账面浮盈约363亿。 | data/calc.json |
-| 2:48.2 | 股息从1994年的7500万，涨到今年预计的8.48亿；38年累计，保守估算约130亿美元。 | 2022 信（1994 年 $75M）；2026 年 $2.12 × 4 亿股；累计：data/calc.py（保守口径） |
-| 2:56.9 | 算上股息，1988年投下的每一美元：拿现金，今天约48美元；再投入，是91美元。 | data/calc.py per_dollar_1988：1988 年批次每股成本 $2.613（拆股调整）；现金股息 = 1989–2026 每股股息累计、不再投资；再投资 = KO 复权价 |
-| 3:05.0 | 同期标普500含股息是62美元，它跑赢了指数。48到91的差距，就是复利。 | data/calc.py：^SP500TR，1988 年下半年均价起至 2026-10-16 |
-| 3:12.5 | 其中股价年化不到10%：每股利润涨了约16倍，估值从15倍升到31倍。 | data/calc.json：9.9%/年；KO 1998 10-K（1988 EPS）与 2025 10-K（EPS $3.04） |
-| 3:21.3 | 但这条路，并不平坦。 | 本片叙述 |
-| 3:23.8 | 1998年，可口可乐市盈率高达47倍。泡沫破裂后，股价用了整整16年，才重回高点。 | KO 1998 10-K（年末价 $67.00 / EPS $1.42）；Yahoo 日线：1998-07-14 → 2014-10-08 |
-| 3:32.1 | 巴菲特后来承认，没在泡沫中卖出是个大错误：“我说了，却没有做。” | 2003、2004 年致股东信 |
-| 3:38.3 | 从那个高点算起，可口可乐含股息总回报约4.6倍，标普500约10.8倍。 | data/calc.json（1998-07-14 → 2026-10-16） |
-| 3:45.5 | 那他为什么还不卖？ | 本片叙述 |
-| 3:47.4 | 因为生意没有变坏：股息连续64年增长。 | KO 2025 10-K |
-| 3:51.6 | 而卖出要先缴巨额税款，同样优秀的替代品又极少。 | 本片分析（非巴菲特原话） |
-| 3:57.3 | 但持有并非无条件。接班人阿贝尔写道：若长期前景发生根本变化，可能大幅调整持仓。 | 伯克希尔 2025 年报致股东信（Greg Abel，2026 年 2 月） |
-| 4:07.2 | 芒格常说：反过来想。什么会让这笔投资失败？ | Munger 1996（引雅可比：Invert, always invert） |
-| 4:11.9 | 买得太贵、借钱被迫卖出、恐慌中离场，或者护城河被攻破。 | 本片分析 |
-| 4:18.4 | 再好的企业，也可能被买贵。 | 1996 年致股东信 |
-| 4:21.5 | 长期持有本身并不创造价值；真正创造财富的，是企业持续增长的内在价值。 | 本片叙述 |
-| 4:29.3 | 投资者最重要的能力，是在合理的价格识别伟大企业，并在基本面没有改变时，有耐心陪伴价值成长。 | 本片叙述 |
-| 4:39.3 | 时间，是优秀企业的朋友。 | 2010 年致股东信 |
-| 4:42.9 | 下期：360亿美元买入苹果，他为什么又卖掉了大半？（片尾系列预告） | 2020 年致股东信（苹果持仓成本 $36B）；2025 年报持仓表与 13F（2026-06-30 持股 2.28 亿股） |
+| 0:14.2 | 仅股息一项，今年就有8.48亿美元。 | 2026 年每股 $2.12（KO 2025 10-K：第 64 次连续提高）× 4 亿股 |
+| 0:18.5 | 泡沫、危机、疫情……他一股未卖。为什么？ | 2003 信：KO 持仓最后一次变动在 1994 年；2023 信：未买卖一股；13F 2026Q2：4 亿股 |
+| 0:30.8 | 1936年，童年的巴菲特在祖父的杂货店，25美分买6瓶可乐，5美分一瓶卖给邻居。 | 1989 年致股东信 |
+| 0:39.6 | 此后52年，他看着可乐席卷世界，却一股也没买。 | 1989 年致股东信 |
+| 0:45.5 | 直到1988年夏天——用他的话说——“大脑终于和眼睛接上了线”。 | 1989 年致股东信 |
+| 0:52.3 | 1981年郭思达接任CEO，可口可乐重新聚焦主业，海外销量随之爆发。 | 1989 年致股东信 |
+| 0:59.5 | 1988年，它的净资产收益率34.7%，市盈率却只有约15倍。 | KO 1993 10-K 十一年财务摘要；KO 1998 10-K |
+| 1:06.5 | 两年间，伯克希尔投入10.2亿美元，约占它当时净资产的三成。 | 1989 年报持仓表；1991 信（1988 年末净资产 $34 亿） |
+| 1:14.6 | 一瓶糖水，凭什么成为持续创造现金的机器？芒格做过一个思想实验—— | 本片叙述 |
+| 1:22.3 | 回到1884年的亚特兰大，怎样把200万美元，变成2万亿？ | Munger, “Practical Thought about Practical Thought?”（1996-07-20） |
+| 1:29.2 | 第一步：打造一个受法律保护的强大商标。 | Munger 1996 |
+| 1:33.8 | 操作性条件反射：甜、冰、提神，让人喝了还想喝。 | Munger 1996（operant conditioning） |
+| 1:39.8 | 巴甫洛夫条件反射：把品牌和快乐、青春、庆祝绑在一起。 | Munger 1996（Pavlovian conditioning） |
+| 1:45.6 | 社会认同：看到别人都在喝，你也想尝一口。 | Munger 1996（social proof） |
+| 1:49.7 | 三者互相放大，芒格称之为“多因素合奏效应”。 | Munger 1996（autocatalytic reaction / lollapalooza effect） |
+| 1:54.8 | 再加上无处不在的渠道：200多个国家和地区，每天22亿份。 | Munger 1996（available everywhere）；KO 2025 10-K |
+| 2:01.1 | 工厂和卡车大多属于装瓶伙伴，它卖的是浓缩液和品牌。 | KO 2025 10-K：浓缩液业务占销量 85% |
+| 2:07.4 | 巴菲特说：真正的钱，在糖浆里。 | 1994 年致股东信 |
+| 2:11.3 | 毛利率61.6%，资本开支只占收入的4.4%。 | KO 2025 10-K |
+| 2:16.7 | 巨大的销量摊薄了广告和分销成本——对手越追，代价越高。 | 1994 年致股东信（每份不到 1 美分）；Munger 1996（规模劣势 / 分销成本优势） |
+| 2:22.9 | 这就是巴菲特说的：环绕经济城堡的护城河。 | 1993 年致股东信 |
+| 2:30.0 | 1988年，首批1417万股，成本5.93亿美元。 | 1988 年报持仓表 |
+| 2:37.8 | 1994年8月最后一次买入，总成本12.99亿美元。 | 1989、1994 年报；2022 信 |
+| 2:44.1 | 四次拆股后，1股变16股：4亿股，均价每股3.25美元。 | KO 拆股：1990/1992/1996/2012 各 1 拆 2 |
+| 2:51.9 | 按最新收盘价，市值约376亿美元，账面浮盈约363亿。 | data/calc.json |
+| 2:59.4 | 股息从1994年的7500万，涨到今年预计的8.48亿；38年累计，保守估算约130亿美元。 | 2022 信（1994 年 $75M）；2026 年 $2.12 × 4 亿股；累计：data/calc.py（保守口径） |
+| 3:11.6 | 算上股息，1988年投下的每一美元：拿现金，今天约48美元；再投入，是91美元。 | data/calc.py per_dollar_1988：1988 年批次每股成本 $2.613（拆股调整）；现金股息 = 1989–2026 每股股息累计、不再投资；再投资 = KO 复权价 |
+| 3:21.8 | 同期标普500含股息是62美元，它跑赢了指数。48到91的差距，就是复利。 | data/calc.py：^SP500TR，1988 年下半年均价起至 2026-10-16 |
+| 3:31.0 | 其中股价年化不到10%：每股利润涨了约16倍，估值从15倍升到31倍。 | data/calc.json：9.9%/年；KO 1998 10-K（1988 EPS）与 2025 10-K（EPS $3.04） |
+| 3:42.6 | 但这条路，并不平坦。 | 本片叙述 |
+| 3:45.9 | 1998年，可口可乐市盈率高达47倍。泡沫破裂后，股价用了整整16年，才重回高点。 | KO 1998 10-K（年末价 $67.00 / EPS $1.42）；Yahoo 日线：1998-07-14 → 2014-10-08 |
+| 3:56.0 | 巴菲特后来承认，没在泡沫中卖出是个大错误：“我说了，却没有做。” | 2003、2004 年致股东信 |
+| 4:03.8 | 从那个高点算起，可口可乐含股息总回报约4.6倍，标普500约10.8倍。 | data/calc.json（1998-07-14 → 2026-10-16） |
+| 4:11.1 | 那他为什么还不卖？ | 本片叙述 |
+| 4:13.1 | 因为生意没有变坏：股息连续64年增长。 | KO 2025 10-K |
+| 4:18.3 | 而卖出要先缴巨额税款，同样优秀的替代品又极少。 | 本片分析（非巴菲特原话） |
+| 4:24.5 | 但持有并非无条件。接班人阿贝尔写道：若长期前景发生根本变化，可能大幅调整持仓。 | 伯克希尔 2025 年报致股东信（Greg Abel，2026 年 2 月） |
+| 4:36.0 | 芒格常说：反过来想。什么会让这笔投资失败？ | Munger 1996（引雅可比：Invert, always invert） |
+| 4:41.4 | 买得太贵、借钱被迫卖出、恐慌中离场，或者护城河被攻破。 | 本片分析 |
+| 4:48.7 | 再好的企业，也可能被买贵。 | 1996 年致股东信 |
+| 4:52.0 | 长期持有本身并不创造价值；真正创造财富的，是企业持续增长的内在价值。 | 本片叙述 |
+| 5:00.2 | 投资者最重要的能力，是在合理的价格识别伟大企业，并在基本面没有改变时，有耐心陪伴价值成长。 | 本片叙述 |
+| 5:10.5 | 时间，是优秀企业的朋友。 | 2010 年致股东信 |
+| 5:14.5 | 下期：360亿美元买入苹果，他为什么又卖掉了大半？（片尾系列预告） | 2020 年致股东信（苹果持仓成本 $36B）；2025 年报持仓表与 13F（2026-06-30 持股 2.28 亿股） |
 
 - 下期预告的数字：伯克希尔 [2020 年致股东信](https://www.berkshirehathaway.com/letters/2020ltr.pdf) 写苹果持仓“Our cost for that stake was $36 billion”（5.4% 持股）；[2018 年报持仓表](https://www.berkshirehathaway.com/letters/2018ltr.pdf) 苹果成本 $36,044M、255,300,329 股（2020 年 1 拆 4 前，约合 10.21 亿股）；[2025 年报持仓表](https://www.berkshirehathaway.com/letters/2025ltr.pdf) 苹果成本 $6,255M、市值 $61,962M；13F 2026Q2 持股 227,917,808 股。“卖掉了大半”按股数计：较高峰减持约 78%。
 
@@ -131,9 +131,9 @@
 - 世界陆地轮廓：Natural Earth 1:110m land（公有领域）。
 **生成与原创部分**
 
-- 旁白：Gemini TTS `gemini-3.8-flash-tts`（音色 Charon——与“巴芒价值”系列旁白统一），按叙事段落整段录制、转写逐字校对后选用；为本片中文旁白，**未模仿巴菲特或芒格的声音**。
+- 旁白：Gemini TTS `gemini-3.8-flash-tts`（音色 Charon——与“巴芒价值”系列旁白统一），按 5 个大段各一次读完（用户给定的统一 AUDIO PROFILE），转写逐字校对、按音高与语速一致性选用并统一校准语速；为本片中文旁白，**未模仿巴菲特或芒格的声音**。
 - 配乐：Google Lyria `lyria-3-pro-preview` 生成的同调、同速、同主题的三大段原创管弦乐（`assets/generated/music3/`），按叙事节点剪辑对位（`src/score.py`）；低频冲击、sub drop 为程序合成。
-- 配乐重拍与叙事节点（成片时间）：0:24.1 标题；1:48.5；2:44.3；3:47.4；4:29.3；4:49.9 片尾 logo。
+- 配乐重拍与叙事节点（成片时间）：0:24.6 标题；1:51.1；2:54.2；4:13.1；5:00.2；5:21.1 片尾 logo。
 - 三维瓶身、点阵地球、糖浆滴落、粒子与全部数据图表：本项目代码原创渲染（GLSL + numpy）。
 - 品牌：右上角全程使用 `brand.Hud`；片尾 logo 为 `brand/logo_baman.png` 原图（粒子汇聚以其透明通道为目标，最终显示原始 logo）。
 
