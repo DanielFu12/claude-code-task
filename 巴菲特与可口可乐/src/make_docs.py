@@ -110,11 +110,11 @@ for k, c in CR.items():
 w('- 世界陆地轮廓：Natural Earth 1:110m land（公有领域）。')
 w('**生成与原创部分**\n')
 w('- 旁白：Gemini TTS `gemini-3.8-flash-tts`（音色 Charon——与“巴芒价值”系列旁白统一），按叙事段落整段录制、转写逐字校对后选用；为本片中文旁白，**未模仿巴菲特或芒格的声音**。')
-w('- 配乐：Google Lyria `lyria-3-pro-preview` 为各章分别生成的原创管弦乐（8 段素材，`assets/generated/music2/`），按叙事节点剪辑对位（`src/score.py`）；低频冲击、sub drop 为程序合成。')
+w('- 配乐：Google Lyria `lyria-3-pro-preview` 生成的同调、同速、同主题的三大段原创管弦乐（`assets/generated/music3/`），按叙事节点剪辑对位（`src/score.py`）；低频冲击、sub drop 为程序合成。')
 import json as _j
 _h = _j.load(open(os.path.join(work, 'score_hits.json')))['hits'] if os.path.exists(os.path.join(work, 'score_hits.json')) else []
 if _h:
-    w('- 配乐重拍与叙事节点（成片时间）：' + '；'.join(f'{ts(t)}' + {'title': ' 标题', 'ch1': ' 第一章', 'ch2': ' 第二章', 'ch3': ' 第三章', 'ch4': ' 第四章', 'ch5': ' 第五章', 'logo': ' 片尾 logo'}.get(sid, '') for t, wgt, sid in _h) + '。')
+    w('- 配乐重拍与叙事节点（成片时间）：' + '；'.join(f'{ts(t)}' + {'title': ' 标题', 'P1': ' 标题', 'logo': ' 片尾 logo'}.get(sid, '') for t, wgt, sid in _h) + '。')
 w('- 三维瓶身、点阵地球、糖浆滴落、粒子与全部数据图表：本项目代码原创渲染（GLSL + numpy）。')
 w('- 品牌：右上角全程使用 `brand.Hud`；片尾 logo 为 `brand/logo_baman.png` 原图（粒子汇聚以其透明通道为目标，最终显示原始 logo）。\n')
 w('**未使用的真实影像（如实说明）**\n')
