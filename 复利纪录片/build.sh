@@ -24,7 +24,7 @@ python3 src/audio3.py "$WORK/mix3.wav"
 # 5) 逐帧渲染（并行，按帧数均分）
 TOTAL=$(python3 -c "import sys; sys.path.insert(0,'src'); from t3 import DUR; print(int(round(DUR*30)))")
 STEP=$(( (TOTAL + JOBS - 1) / JOBS ))
-rm -f "$WORK"/v3seg*.mp4
+rm -f "$WORK"/v3seg*.mp4 "$WORK"/v3seg*.log
 for k in $(seq 0 $((JOBS-1))); do
   a=$((k*STEP)); b=$(( (k+1)*STEP < TOTAL ? (k+1)*STEP : TOTAL ))
   python3 src/render3.py chunk $a $b "$WORK/v3seg$k.mp4" ${CRF:-16} > "$WORK/v3seg$k.log" 2>&1 &

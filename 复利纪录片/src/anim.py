@@ -420,7 +420,7 @@ def brand(F, t, beat=None):
     conv = ease_io(clamp01((u - 0.1) / 1.9))
     fade_p = 1 - smooth((u - 1.9) / 0.6)
     if fade_p > 0:
-        swirl = math.sin(conv * math.pi) * 0.5                  # 从水平文字出发、最后落回 logo，中途轻轻旋转
+        swirl = math.sin(conv * math.pi) * 0.3                  # 从水平文字出发、最后落回 logo，中途轻轻旋转
         c, s_ = math.cos(swirl), math.sin(swirl)
         cen = np.array([W / 2, (ASK_Y[1] + LOGO_CY) / 2], np.float32)
         mid = (src - cen) @ np.array([[c, -s_], [s_, c]], np.float32) * (1 + 0.3 * math.sin(conv * math.pi)) + cen
