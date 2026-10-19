@@ -155,6 +155,15 @@ def main():
     out['cagr_sp_tr_1988'] = (sp_now / avg_between(sp, a, dt.date(1988, 12, 30))) ** (1 / yrs) - 1
     out['cagr_price_from_avg_cost'] = (close / out['avg_cost_per_share']) ** (1 / ((last_day - dt.date(1990, 1, 1)).days / 365.25)) - 1
 
+    # 1988 年批次每投入 1 美元，今天值多少（同一口径：38 年按 1988 年首笔买入起算）
+    c88 = tr[0]['cost_per_share_now']
+    cum_dps = sum(v for y, v in out['dps_by_year'].items() if 1989 <= int(y) <= last_day.year)   # 1988 年股息不计（保守）
+    out['per_dollar_1988'] = dict(
+        years=round(yrs, 2), price=close / c88, cash_dividends=(close + cum_dps) / c88,
+        reinvested=(1 + out['cagr_ko_tr_1988']) ** yrs, sp500_tr=(1 + out['cagr_sp_tr_1988']) ** yrs,
+        cagr_price=out['cagr_price_from_1988_tranche'], cagr_cash=((close + cum_dps) / c88) ** (1 / yrs) - 1,
+        cagr_reinvested=out['cagr_ko_tr_1988'], cagr_sp500_tr=out['cagr_sp_tr_1988'])
+
     json.dump(out, open(os.path.join(HERE, 'calc.json'), 'w'), indent=1, ensure_ascii=False, default=str)
     return out
 

@@ -123,7 +123,7 @@ def shot_ch3(cv, t):
         cv.text('相当于当初成本的 65%/年', W / 2, 450, 52, 'sans_bold', gold=True, a=a * k)
         source(cv, '1994、2022：伯克希尔致股东信；其余按每股股息 × 持股估算；2026 为全年预计（$0.53 × 4）', a)
     # ---- s29 后半：股价回报 vs 股息回报
-    t0, t1 = t_cum - 0.15, S('s31') + 0.15
+    t0, t1 = t_cum - 0.15, S('s30') + 0.1
     a = env(t, t0, t1, 0.3, 0.4)
     if a > 0:
         p = t - t0
@@ -137,6 +137,43 @@ def shot_ch3(cv, t):
             cv.text(sub, x, yb + 100, 26, 'sans_light', col=GREY, a=a)
         cv.text('两条回报，分开看', W / 2, 340, 44, 'serif_black', gold=True, a=a)
         source(cv, '股息为保守估算：1988 年股息未计入；股息未再投资（伯克希尔拿现金另作他用）', a)
+    # ---- s30 / s30b：算上股息，1988 年投下的每 1 美元今天值多少（同一口径），对比标普 500
+    t0, t1 = S('s30') - 0.25, S('s31') + 0.1
+    a = env(t, t0, t1, 0.35, 0.4)
+    if a > 0:
+        PD = CALC['per_dollar_1988']
+        cv.text('1988 年投下的 1 美元', W / 2, 300, 64, 'serif_black', gold=True, a=a)
+        cv.text('到 2026 年 10 月，值多少？', W / 2, 385, 36, 'sans_light', col=CREAM, a=a)
+        BRIGHT = np.array([1.0, 0.80, 0.38], np.float32)
+        rows = [('只算股价', PD['price'], PD['cagr_price'], np.array([0.62, 0.58, 0.52], np.float32), S('s30') + 0.3),
+                ('股息拿现金', PD['cash_dividends'], PD['cagr_cash'], GOLD * 0.72, WT('s30', '拿现金')),
+                ('股息再投入', PD['reinvested'], PD['cagr_reinvested'], BRIGHT, WT('s30', '再投入')),
+                ('标普 500（股息也再投入）', PD['sp500_tr'], PD['cagr_sp500_tr'], np.array([0.42, 0.56, 0.80], np.float32), WT('s30b', '标普'))]
+        x0, wmax, vmax = 100, 690, PD['reinvested']
+        Y0, DY = 560, 185
+        ends = []
+        for i, (lab, val, cg, colr, ta) in enumerate(rows):
+            y = Y0 + i * DY
+            k = eo((t - ta + 0.1) / 0.4)
+            if k <= 0: ends.append(None); continue
+            kb = eexp((t - ta) / 0.9)
+            wv = wmax * val / vmax * kb
+            cv.text(lab, x0, y - 70, 36, 'sans_med', col=CREAM if i != 3 else (0.72, 0.82, 0.96), a=a * k, anchor='l')
+            cv.text(f'年化 {cg * 100:.1f}%', W - 60, y - 70, 30, 'sans_light', col=GREY, a=a * k, anchor='r')
+            cv.rrect(x0, y - 36, x0 + max(wv, 10), y + 36, 12, colr, a * k, glow=0.35 if i == 2 else 0.08)
+            cv.text(f'${val * kb:.0f}', x0 + max(wv, 10) + 22, y, 68, 'sans_bold', col=BRIGHT if i == 2 else WHITE, a=a * k,
+                    anchor='l', glow=0.25 if i == 2 else 0)
+            ends.append(x0 + wmax * val / vmax)
+        # 48 → 91：复利（右侧竖括线连接两行，下方大字）
+        kc = eo((t - WT('s30b', '差距') + 0.1) / 0.5)
+        if kc > 0 and ends[1] and ends[2]:
+            xe, ya, yb = W - 26, Y0 + DY + 24, Y0 + 2 * DY - 24
+            cv.line((xe - 26, ya), (xe, ya), GOLD_L, a * kc, 3)
+            cv.line((xe - 26, yb), (xe, yb), GOLD_L, a * kc, 3)
+            cv.line((xe, ya), (xe, ya + (yb - ya) * eo((t - WT('s30b', '差距')) / 0.4)), GOLD_L, a * kc, 3)
+            cv.text(f'复利 ×{PD["reinvested"] / PD["cash_dividends"]:.1f}', W / 2, 1255, 76, 'serif_black', gold=True, a=a * kc, glow=0.3)
+        source(cv, '口径：1988 年批次（每股成本 $2.61，拆股调整）至 2026-10-16；现金股息按每股股息累计、不再投资（1988 年不计）；'
+                   '再投入按 KO 复权价，标普 500 为 ^SP500TR（1988 年下半年均价起）；均未扣税', a)
     # ---- s31：年化不到 10%
     t_dec = WT('s31', '每股利润')
     t0, t1 = S('s31') - 0.2, t_dec + 0.2
@@ -145,14 +182,8 @@ def shot_ch3(cv, t):
         p = t - t0
         cv.text('股价年化', W / 2, 470, 44, 'sans_light', col=CREAM, a=a)
         cv.text(f'{counter(0, 9.9, t, t0 + 0.2, 1.4, lambda v: f"{v:.1f}")}%', W / 2, 640, 220, 'sans_light', col=WHITE, a=a)
-        k = eo((p - 1.2) / 0.5)
-        rows = [('可口可乐 含股息再投资', '12.6%'), ('同期 标普500 含股息', '11.4%')]
-        for i, (l, v) in enumerate(rows):
-            y = 900 + i * 90
-            cv.text(l, 160, y, 34, 'sans_med', col=CREAM, a=a * k, anchor='l')
-            cv.text(v, 920, y, 44, 'sans_bold', col=GOLD if i == 0 else GREY, a=a * k, anchor='r')
-            cv.line((160, y + 40), (920, y + 40), (0.25, 0.22, 0.2), a * k, 1)
-        source(cv, '口径：1988 年下半年均价起至 2026-10-16；数据 Yahoo Finance（KO 复权价、^SP500TR）', a)
+        cv.text('1988 年批次每股成本 $2.61 → 2026-10-16 收盘 $93.90', W / 2, 860, 30, 'sans_light', col=GREY, a=a * eo((p - 0.6) / 0.5))
+        source(cv, '口径：1988 年批次每股成本（拆股调整）至 2026-10-16 收盘，不含股息', a)
     # ---- s31 后半：回报拆解
     t0, t1 = t_dec - 0.1, CH['ch4'][0] + 0.05
     a = env(t, t0, t1, 0.3, 0.4)

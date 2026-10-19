@@ -63,6 +63,15 @@ w(f'- 累计股息（保守估算）≈ **${C["cum_dividends"] / 1e9:.2f}B**：�
   '股息未再投资，因此与股价回报分开列示。')
 w(f'- 股价年化：1988 年批次成本 $2.613/股 → $93.90，约 **{C["cagr_price_from_1988_tranche"] * 100:.1f}%/年**。'
   f'含股息再投资（KO 复权价，1988 年下半年均价起）{C["cagr_ko_tr_1988"] * 100:.1f}%/年；同期标普 500 全收益指数 {C["cagr_sp_tr_1988"] * 100:.1f}%/年。')
+pdl = C['per_dollar_1988']
+w(f'- **1988 年投下的每 1 美元**（同一口径：1988 年批次每股成本 $2.613 → 2026-10-16，{pdl["years"]} 年）：只算股价 ${pdl["price"]:.1f}（年化 {pdl["cagr_price"] * 100:.1f}%）；'
+  f'加上现金股息、不再投资 ${pdl["cash_dividends"]:.1f}（年化 {pdl["cagr_cash"] * 100:.1f}%，每股股息 1989–2026 累计，1988 年不计）；'
+  f'股息全部再投入 ${pdl["reinvested"]:.1f}（年化 {pdl["cagr_reinvested"] * 100:.1f}%，KO 复权价）；同期标普 500 全收益 ${pdl["sp500_tr"]:.1f}（年化 {pdl["cagr_sp500_tr"] * 100:.1f}%）。'
+  f'片中“跑赢指数”只比较两者都把股息再投入的口径（91 vs 62）；“复利 ×{pdl["reinvested"] / pdl["cash_dividends"]:.1f}”= 再投入 ÷ 现金股息。均未扣税。')
+cmp_ = C['compare']
+w(f'- 另一口径（伯克希尔整笔持仓 12.99 亿成本，1988–1994 分批买入）：市值 + 已收现金股息 ≈ ${cmp_["berkshire_actual_total"] / 1e9:.1f}B（{cmp_["berkshire_actual_total"] / C["cost"]:.0f} 倍）；'
+  f'同样买入时点股息再投入 ≈ ${cmp_["ko_dividends_reinvested"] / 1e9:.1f}B（{cmp_["ko_dividends_reinvested"] / C["cost"]:.0f} 倍）；同样的钱同样时点买标普 500 全收益 ≈ ${cmp_["sp500_total_return"] / 1e9:.1f}B（{cmp_["sp500_total_return"] / C["cost"]:.0f} 倍）。'
+  '两种口径结论一致（再投入的可口可乐跑赢标普 500），但倍数不能跨口径相减。')
 d = C['decomp']
 w(f'- 回报拆解：1988 年末股价 $2.79、持续经营 EPS $0.185（KO 1998 10-K，复权口径）→ 2025 摊薄 EPS $3.04（KO 2025 10-K）：'
   f'EPS ×{d["eps_growth"]:.1f}，市盈率 {d["pe_1988"]:.1f} → {d["pe_now"]:.1f}（×{d["pe_now"] / d["pe_1988"]:.2f}），股价 ×{d["price_growth"]:.1f}。')

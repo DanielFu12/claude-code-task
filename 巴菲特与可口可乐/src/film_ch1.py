@@ -50,10 +50,9 @@ def shot_ch1(cv, t):
     # ---- s09：原文卡
     quote_card(cv, 'q1989', t, S('s09') - 0.4, S('s10') + 0.1, cy=800)
     # ---- s10：郭思达时代：海外销量爆发
-    t0, t1 = S('s10') - 0.3, S('s11') + 0.1
-    a = env(t, t0, t1, 0.5, 0.4)
+    a = env(t, S('s10') - 0.3, S('s11') + 0.1, 0.5, 0.4) if 's10' in SEG else 0   # 该句已删（控制片长），场景随之跳过
     if a > 0:
-        p = t - t0
+        t0 = S('s10') - 0.3; p = t - t0
         globe(cv, t, W / 2, 760, 400, rot=1.05 + p * 0.12, a=a, arcs=eio((p - 0.8) / 4.5))
         cv.text('1981', 110, 260, 90, 'oswald', col=GOLD, a=a, anchor='l')
         cv.text('郭思达（Roberto Goizueta）出任 CEO', 112, 340, 32, 'sans_med', col=CREAM, a=a * eo((p - 0.3) / 0.6), anchor='l')

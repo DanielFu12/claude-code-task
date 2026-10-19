@@ -5,7 +5,7 @@ python3 src/tts_passage.py WORK gen [pid ...] [--takes N]   # 生成（每段 N 
 """
 import sys, os, json, base64, time, concurrent.futures as cf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import LINES, TEASE
+from script import LINES, TEASE, DROPPED
 from tts_gen import post, MODEL, VOICE
 
 # 段落：一次 TTS 调用读完的若干句（按叙事段落划分，段落之间才是“换场”）
@@ -18,8 +18,8 @@ PASSAGES = [
      '带着好奇抛出问题，然后像在拆解一道谜题，一步一步讲清芒格的思想实验；三种心理力量逐条递进，最后一句豁然开朗'),
     ('ch2b', ['s18', 's19', 's20', 's21', 's22', 's23'],
      '冷静、有洞察的商业分析，节奏紧凑；“真正的钱，在糖浆里”略带会心；最后一句“护城河”沉稳收束'),
-    ('ch3', ['s25', 's26', 's27', 's28', 's29', 's31'],
-     '翻开账本，从平静逐渐推向震撼：数字一个比一个大，语气层层上扬；最后一句转折，冷静地揭开真相'),
+    ('ch3', ['s25', 's26', 's27', 's28', 's29', 's30', 's30b', 's31'],
+     '翻开账本，从平静逐渐推向震撼：数字一个比一个大，语气层层上扬；讲到“就是复利”时放慢、意味深长；最后一句冷静地拆解'),
     ('ch4a', ['s34', 's35', 's37', 's38'],
      '语气沉下来，讲一段不平坦的往事；泡沫与回本带着凝重，巴菲特的自省坦诚，机会成本冷静客观'),
     ('ch4b', ['s39', 's40', 's41', 's42'],
@@ -71,12 +71,14 @@ Pace: 自然的讲述语速，有快有慢：铺垫处轻快，关键数字和�
 
 def spoken(lid):
     if lid == 'tease': return TEASE[1]
+    if lid in DROPPED: return DROPPED[lid]
     l = next(l for l in LINES if l[0] == lid)
     return l[3] or l[2]
 
 
 def cue(lid):
     if lid == 'tease': return '温和而有悬念'
+    if lid in DROPPED: return '叙述'
     return next(l for l in LINES if l[0] == lid)[4]
 
 

@@ -10,16 +10,16 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from script import LINES, TEASE
 
 HOOK_START = 1.2           # 开场心跳后第一句
-AFTER_HOOK = 1.4           # “为什么？”之后的空气（随后标题重拍）
-TITLE_HOLD = 4.4           # 标题段落（含重拍）
-PRE_CARD = 0.8             # 章节最后一句之后、下一章节卡之前
-CHAPTER_CARD = 2.0         # 章节卡
-CARD_EXTRA = {'ch4': 0.9}  # 章节卡之后再多留的空气（“并不平坦”之前）
-PASSAGE_GAP = 1.0          # 同一章节内两个段落之间
-GAP_MIN, GAP_MAX = 0.35, 1.0   # 段内自然停顿的上下限（极端值才修正）
-GAP_EXTRA = {'s45': 0.35, 's46': 0.25}   # 核心句前后再多留一点
-END_GAP = 0.9              # 最后一句之后 → 片尾卡
-TEASE_LEAD, DISSOLVE, POST_LOGO = 0.45, 1.5, 6.0   # 片尾：预告 → 文字化作粒子汇聚成 logo → 品牌字/关注语 → 淡出
+AFTER_HOOK = 1.0           # “为什么？”之后的空气（随后标题重拍）
+TITLE_HOLD = 4.0           # 标题段落（含重拍）
+PRE_CARD = 0.55             # 章节最后一句之后、下一章节卡之前
+CHAPTER_CARD = 1.8         # 章节卡
+CARD_EXTRA = {'ch4': 0.4}  # 章节卡之后再多留的空气（“并不平坦”之前）
+PASSAGE_GAP = 0.7          # 同一章节内两个段落之间
+GAP_MIN, GAP_MAX = 0.3, 0.75   # 段内自然停顿的上下限（极端值才修正）
+GAP_EXTRA = {'s45': 0.15}   # 核心句前后再多留一点
+END_GAP = 0.7              # 最后一句之后 → 片尾卡
+TEASE_LEAD, DISSOLVE, POST_LOGO = 0.35, 1.4, 5.6   # 片尾：预告 → 文字化作粒子汇聚成 logo → 品牌字/关注语 → 淡出
 
 
 def build(work, quiet=False):
