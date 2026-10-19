@@ -11,8 +11,8 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 TRACK = os.path.join(ROOT, 'assets', 'track')
 
 LILU = dict(who='李录', role='喜马拉雅资本创始人',
-            event='哥伦比亚商学院 · 第 36 届格雷厄姆与多德年度活动 · 2026.10',
-            credit='录像：Columbia Business School（经 B 站转载版本截取，原字幕已去除）')
+            event='哥伦比亚商学院 · 第 36 届格雷厄姆与多德年度活动 · 2026.10.05',
+            credit='录像：Columbia Business School 官方录像（经 B 站转载版本截取，转载水印在画面外）')
 MUNGER_BBC = dict(who='查理·芒格', role='伯克希尔·哈撒韦副董事长（1924–2023）',
                   event='BBC 专访 · 2009.10', credit='录像：BBC（经转载版本截取）')
 MUNGER_USC = dict(who='查理·芒格', role='伯克希尔·哈撒韦副董事长（1924–2023）',
@@ -22,8 +22,25 @@ BRK1999 = dict(who='沃伦·巴菲特', role='伯克希尔·哈撒韦董事长',
 BUFFETT_UF = dict(who='沃伦·巴菲特', role='伯克希尔·哈撒韦董事长',
                   event='佛罗里达大学商学院演讲 · 1998.10.15', credit='录像：University of Florida（经 B 站转载版本截取，原字幕已去除）')
 
-# 硬字幕所在的横带（相对高度），用于 desub
-LILU_BANDS = [(0.62, 0.77), (0.80, 1.0)]
+# 官方录像为 1440×1080，16:9 画面上下有黑边，转载水印在上方黑边里：只取中间的 16:9 画面
+LILU_BOX = (0, 135, 1440, 810)
+
+
+def parts(c):
+    return c.get('parts') or [(c['a'], c['b'])]
+
+
+def length(c):
+    return sum(b - a for a, b in parts(c))
+
+
+def src_time(c, u):
+    """片段内时间 u → 源文件时间（拼接片段逐段映射）"""
+    for a, b in parts(c):
+        if u <= b - a: return a + u
+        u -= b - a
+    a, b = parts(c)[-1]
+    return b
 
 
 def track(name):
@@ -32,30 +49,32 @@ def track(name):
 
 
 CLIPS = {
-    # ---------------------------------------------------------------- 李录（合计 < 60 秒）
-    'LA': dict(src='lilu_gd2026.mp4', a=2553.70, b=2561.45, info=LILU, bands=LILU_BANDS, track='lilu_LA.json', zoom=1.55,
-               cues=[(2553.80, 2555.10, 'Of course, every wave is different,', '当然，每一波浪潮都不一样，'),
-                     (2555.18, 2561.30, 'but this wave is unusually different than anything we have experienced so far.',
-                      '但这一波，和我们迄今经历过的任何一波，都非常不同。')]),
-    'LB': dict(src='lilu_gd2026.mp4', a=6088.55, b=6104.30, info=LILU, bands=LILU_BANDS, track='lilu_LB.json', zoom=1.55,
+    # ---------------------------------------------------------------- 李录（官方多机位录像，时间即 YouTube 原片时间；合计 < 60 秒）
+    'LB': dict(src='lilu_official_4970.mp4', off=4970.0, a=5064.85, b=5080.55, info=LILU, crop=LILU_BOX,
                context='语境：李录在谈「零和、短期」的人性倾向',
-               cues=[(6088.76, 6090.95, 'Whatever you learn today is useless tomorrow.', '今天学到的，明天就没用了。'),
-                     (6092.00, 6093.40, "You don't accumulate.", '你积累不下来。'),
-                     (6094.40, 6097.20, 'And so you rely more and more into impersonal.', '于是，你越来越依赖外物。'),
-                     (6097.66, 6100.10, 'You get a bigger computer, now you use AI,', '你买更大的电脑，现在又用上了 AI，'),
-                     (6100.96, 6104.20, "and of course, you'll be replaced at some point.", '当然，到某个时候，你就会被取代。')]),
-    'LC': dict(src='lilu_gd2026.mp4', a=6007.50, b=6016.80, info=LILU, bands=LILU_BANDS, track='lilu_LC.json', zoom=1.55,
-               cues=[(6007.62, 6013.20, 'And I always say, look, if you can compound your knowledge in a sustainable fashion,',
+               cues=[(5065.02, 5067.30, 'Whatever you learn today is useless tomorrow.', '今天学到的，明天就没用了。'),
+                     (5068.38, 5069.90, "You don't accumulate.", '你积累不下来。'),
+                     (5070.66, 5073.85, 'And so you rely more and more on the impersonal.', '于是，你越来越依赖外物。'),
+                     (5073.90, 5076.60, 'You get a bigger computer, and now you use AI.', '你买更大的电脑，现在又用上了 AI。'),
+                     (5077.52, 5080.45, "And of course, you'll be replaced at some point.", '当然，到某个时候，你就会被取代。')]),
+    'LC': dict(src='lilu_official_4970.mp4', off=4970.0, a=4983.65, b=4992.95, info=LILU, crop=LILU_BOX,
+               cues=[(4983.80, 4989.50, 'And I always say, look, if you can compound your knowledge in a sustainable fashion,',
                       '我常说：如果你能以可持续的方式，让知识复利增长，'),
-                     (6013.40, 6016.70, 'eventually you can compound your capital as well.', '最终，你的资本也能复利增长。')]),
-    'LD': dict(src='lilu_gd2026.mp4', a=6233.50, b=6254.20, info=LILU, bands=LILU_BANDS, track='lilu_LD.json', zoom=1.55,
-               cues=[(6233.60, 6238.94, "And the basic idea of compounding is you don't lose what you already have.",
+                     (4989.62, 4992.85, 'eventually you can compound your capital as well.', '最终，你的资本也能复利增长。')]),
+    'LD': dict(src='lilu_official_4970.mp4', off=4970.0, a=5209.65, b=5230.35, info=LILU, crop=LILU_BOX,
+               cues=[(5209.78, 5214.95, "And the basic idea of compounding is you don't lose what you already have,",
                       '复利的基本理念，是不要失去你已经拥有的。'),
-                     (6239.62, 6241.56, "And that's a profound idea.", '这是一个深刻的道理。'),
-                     (6242.56, 6244.46, "You don't lose what you already have.", '不要失去你已经拥有的——'),
-                     (6244.78, 6246.30, "That's including your knowledge,", '包括你的知识，'),
-                     (6247.34, 6249.56, "that's including your trusting relationship,", '包括你基于信任的关系，'),
-                     (6250.60, 6254.05, "that's including your wisdom and even your health.", '包括你的智慧，甚至你的健康。')]),
+                     (5215.30, 5217.35, "and that's a profound idea.", '这是一个深刻的道理。'),
+                     (5218.68, 5220.55, "You don't lose what you already have.", '不要失去你已经拥有的——'),
+                     (5220.92, 5222.70, "That's including your knowledge,", '包括你的知识，'),
+                     (5223.46, 5226.00, "that's including your trusting relationship,", '包括你基于信任的关系，'),
+                     (5226.78, 5230.25, "that's including the wisdom and even your health.", '包括你的智慧，甚至你的健康。')]),
+    # 两段拼接：中间省略约 6 秒（一段停顿和半句 "always advocate is the relationship"），画面用短叠化过渡，字幕用省略号标出
+    'LT': dict(src='lilu_official_4970.mp4', off=4970.0, parts=[(5104.45, 5109.25), (5115.45, 5122.30)], info=LILU, crop=LILU_BOX,
+               cues=[(5104.58, 5109.20, 'And what my mentor, partner, teacher Charlie Munger always said…',
+                      '我的导师、合伙人、老师查理·芒格常说……'),
+                     (5115.62, 5122.25, 'the highest order of relationship he could discover is a seamless web of deserved trust.',
+                      '他所能发现的最高级的关系，是一张无缝的、彼此值得信任的网。')]),
     # ---------------------------------------------------------------- 芒格 · BBC 2009
     'MB': dict(src='munger_bbc2009.mp4', a=29.45, b=47.00, info=MUNGER_BBC, crop=(0, 238, 505, 394),
                cues=[(29.60, 34.86, "In fact, you can argue that if you're not willing to react with equanimity",
@@ -84,8 +103,12 @@ CLIPS = {
                       '会拿对自己非常重要的东西去冒险，只为得到完全不重要的东西？'),
                      (1450.94, 1453.36, 'The added money has no utility whatsoever.', '多赚的钱，毫无用处；'),
                      (1454.50, 1457.54, 'And the money that was lost had enormous utility.', '而亏掉的钱，却极其重要。')]),
-    'BB': dict(src='brk1999_b.mp4', off=13614.85, a=13639.55, b=13650.65, info=BRK1999, crop=(195, 115, 780, 400),
-               cues=[(13639.70, 13642.84, 'The nature of compound interest is it behaves like a snowball of sticky snow.',
+    'BB': dict(src='brk1999_b.mp4', off=13614.85, a=13621.85, b=13650.65, info=BRK1999, crop=(195, 115, 780, 400),
+               cues=[(13622.04, 13622.80, 'Start young.', '趁早开始。'),
+                     (13625.46, 13635.46, "Charlie's always said that the big thing about it is we started building this little snowball on top of a very long hill.",
+                      '查理常说，关键在于：我们在一道很长的山坡顶上，开始滚一个小雪球。'),
+                     (13636.10, 13638.52, 'We started at a very early age in rolling the snowball down.', '我们很早就开始，把雪球往下滚。'),
+                     (13638.94, 13642.84, 'Of course, the nature of compound interest is it behaves like a snowball of sticky snow.',
                       '复利的本质，就像一个沾着湿雪的雪球。'),
                      (13644.96, 13650.40, 'The trick is to have a very long hill, which means either starting very young or living to be very old.',
                       '诀窍是要有一道很长的坡——要么很早开始，要么活得足够久。')]),

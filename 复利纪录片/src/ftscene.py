@@ -8,7 +8,7 @@ import os, math
 import numpy as np, cv2
 from engine import font, W, H, FPS, GOLD, GOLD_HI, GREY, WHITE, RED, smooth, clamp01, ease_out, blur
 from common import put_text, TextBlock, draw_block
-from clips import CLIPS, ROOT
+from clips import CLIPS, ROOT, length, src_time
 
 CLIP_DIR = os.path.join(ROOT, 'footage', 'clips')
 WIN_CY = 740                       # 窗口中心
@@ -17,8 +17,7 @@ FADE_IN, FADE_OUT = 0.35, 0.40     # 窗口在原声前后多停留的时间
 
 
 def clip_len(cid):
-    c = CLIPS[cid]
-    return c['b'] - c['a']
+    return length(CLIPS[cid])
 
 
 class Reader:
@@ -107,7 +106,7 @@ def rect_of(cid):
 
 def cue_at(cid, u):
     c = CLIPS[cid]
-    ts = c['a'] + u
+    ts = src_time(c, u)
     for a, b, en, zh in c['cues']:
         if a - 0.08 <= ts <= b + 0.3:
             al = min(smooth((ts - a + 0.08) / 0.15), smooth((b + 0.3 - ts) / 0.2))

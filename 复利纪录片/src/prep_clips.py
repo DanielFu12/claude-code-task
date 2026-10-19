@@ -6,7 +6,8 @@
 import os, sys, subprocess, json
 import numpy as np, cv2
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from clips import CLIPS, ROOT, track
+from clips import CLIPS, ROOT, track, parts, length
+import soundfile as sf
 from desub import desub
 
 SRC = os.path.join(ROOT, 'footage', 'src')
@@ -28,7 +29,7 @@ def crop_path(c, sw, sh, n):
     tr = track(c['track'])
     ts = np.array([d['t'] for d in tr if d['box']]); bx = np.array([d['box'] for d in tr if d['box']], np.float64) / 1000
     hx = (bx[:, 1] + bx[:, 3]) / 2 * sw; hy = (bx[:, 0] + bx[:, 2]) / 2 * sh
-    tt = c['a'] + np.arange(n) / FPS
+    tt = parts(c)[0][0] + np.arange(n) / FPS
     x = np.interp(tt, ts, hx); y = np.interp(tt, ts, hy)
     k = np.exp(-0.5 * (np.arange(-30, 31) / 12) ** 2); k /= k.sum()       # 平滑，去抖
     x = np.convolve(np.pad(x, 30, mode='edge'), k, 'valid'); y = np.convolve(np.pad(y, 30, mode='edge'), k, 'valid')
@@ -48,35 +49,59 @@ def prep(cid):
     c = CLIPS[cid]
     src = os.path.join(SRC, c['src'])
     sw, sh = probe(src)
-    dur = c['b'] - c['a']; n = int(round(dur * FPS))
-    ss = c['a'] - c.get('off', 0.0)                       # 源文件中的起点
-    boxes = crop_path(c, sw, sh, n)
+    segs = parts(c)
+    n_all = int(round(length(c) * FPS))
+    boxes = crop_path(c, sw, sh, n_all)
     w0, h0 = boxes[0][2], boxes[0][3]
     oh = min(WIN_HMAX, WIN_W * h0 / w0); ow = int(round(oh * w0 / h0 / 2) * 2); oh = int(round(oh / 2) * 2)
+    up = ow / w0 > 1.02                                     # 放大时才需要锐化补偿
     os.makedirs(OUT, exist_ok=True)
-    dec = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-ss', f"{ss:.3f}", '-i', src, '-t', f'{dur:.3f}', '-r', str(FPS),
-                            '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-'], stdout=subprocess.PIPE)
     enc = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-s', f'{ow}x{oh}', '-r', str(FPS),
                             '-i', '-', '-c:v', 'libx264', '-crf', '12', '-preset', 'medium', '-pix_fmt', 'yuv420p',
                             os.path.join(OUT, f'{cid}.mp4')], stdin=subprocess.PIPE)
     fsz = sw * sh * 3; i = 0
-    while True:
-        buf = dec.stdout.read(fsz)
-        if len(buf) < fsz: break
-        f = np.frombuffer(buf, np.uint8).reshape(sh, sw, 3).copy()
-        if c.get('bands'):
-            f, _ = desub(f, c['bands'])
-        x0, y0, w, h = boxes[min(i, len(boxes) - 1)]
-        # 亚像素裁切 + 缩放：仿射一步完成
-        M = np.array([[ow / w, 0, -x0 * ow / w], [0, oh / h, -y0 * oh / h]], np.float32)
-        g = cv2.warpAffine(f, M, (ow, oh), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REFLECT)
-        bl = cv2.GaussianBlur(g, (0, 0), 1.6)
-        g = cv2.addWeighted(g, 1.45, bl, -0.45, 0)            # 轻度锐化（放大后的软化补偿）
-        enc.stdin.write(g.tobytes()); i += 1
-    enc.stdin.close(); enc.wait(); dec.wait()
-    subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-ss', f"{ss:.3f}", '-i', src, '-t', f'{dur:.3f}', '-vn', '-ac', '1', '-ar', '48000',
-                    os.path.join(OUT, f'{cid}.wav')], check=True)
-    print(cid, f'{i} frames', f'{ow}x{oh}', f'{dur:.2f}s', flush=True)
+    XF = 6                                                  # 拼接处叠化帧数
+    tail = []
+    audio = []
+    for k, (a, b) in enumerate(segs):
+        ss = a - c.get('off', 0.0)                          # 源文件中的起点
+        dur = b - a
+        dec = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-ss', f"{ss:.3f}", '-i', src, '-t', f'{dur:.3f}', '-r', str(FPS),
+                                '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-'], stdout=subprocess.PIPE)
+        j = 0
+        while True:
+            buf = dec.stdout.read(fsz)
+            if len(buf) < fsz: break
+            f = np.frombuffer(buf, np.uint8).reshape(sh, sw, 3).copy()
+            if c.get('bands'):
+                f, _ = desub(f, c['bands'])
+            x0, y0, w, h = boxes[min(i, len(boxes) - 1)]
+            M = np.array([[ow / w, 0, -x0 * ow / w], [0, oh / h, -y0 * oh / h]], np.float32)
+            g = cv2.warpAffine(f, M, (ow, oh), flags=cv2.INTER_CUBIC if up else cv2.INTER_AREA, borderMode=cv2.BORDER_REFLECT)
+            if up:
+                bl = cv2.GaussianBlur(g, (0, 0), 1.6)
+                g = cv2.addWeighted(g, 1.45, bl, -0.45, 0)        # 轻度锐化（放大后的软化补偿）
+            if k > 0 and j < XF and tail:                       # 从上一段最后一帧叠化进来（不删帧，音画保持同步）
+                al = (j + 1) / (XF + 1)
+                g = cv2.addWeighted(tail[-1], 1 - al, g, al, 0)
+            enc.stdin.write(g.tobytes()); i += 1
+            last = g; j += 1
+        dec.wait()
+        tail = [last]
+        wav = os.path.join(OUT, f'{cid}.part{k}.wav')
+        subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-ss', f"{ss:.3f}", '-i', src, '-t', f'{dur:.3f}', '-vn', '-ac', '1', '-ar', '48000',
+                        wav], check=True)
+        x, _ = sf.read(wav); os.remove(wav)
+        audio.append(x.astype(np.float32))
+    enc.stdin.close(); enc.wait()
+    # 音频：拼接处各做 30ms 淡出 / 淡入（不重叠，长度与画面一致）
+    m = int(0.03 * 48000)
+    for k in range(len(audio)):
+        if k > 0: audio[k][:m] *= np.linspace(0, 1, m)
+        if k < len(audio) - 1: audio[k][-m:] *= np.linspace(1, 0, m)
+    out = np.concatenate(audio)
+    sf.write(os.path.join(OUT, f'{cid}.wav'), out, 48000)
+    print(cid, f'{i} frames', f'{ow}x{oh}', f'{length(c):.2f}s', flush=True)
 
 
 if __name__ == '__main__':
