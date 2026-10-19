@@ -104,9 +104,9 @@ def g10(F, t):
             xb = CX1 + 30
             yt_, yb_ = to_xy(30, MATH['up'], ymax)[1], to_xy(30, MATH['down'], ymax)[1]
             V.line(F, [(xb, yt_), (xb + 16, yt_), (xb + 16, yt_ + (yb_ - yt_) * g), (xb, yt_ + (yb_ - yt_) * g)], WHITE, 2, a, 0.6)
-            V.slam(F, f'≈ {MATH["ratio"]:.0f} 倍', W / 2 + 40, 470, 120, t, k3, a)
+            V.slam(F, f'≈ {MATH["ratio"]:.0f} 倍', 440, 800, 116, t, k3, a)        # 图表中部的空白处，不与曲线端点的标注重叠
             if t - k3 < 1.2:
-                V.line(F, _circle(W / 2 + 40, 470, 60 + 900 * ease_out((t - k3) / 1.2)), GOLD_HI, 3, a * (1 - (t - k3) / 1.2), 1.0, closed=True)
+                V.line(F, _circle(440, 800, 60 + 900 * ease_out((t - k3) / 1.2)), GOLD_HI, 3, a * (1 - (t - k3) / 1.2), 1.0, closed=True)
         footnote(F, '数学示意：固定年化收益率，不计税费与通胀。1.1³⁰ ≈ 17.45，0.9³⁰ ≈ 0.042', a * 0.9, y=1400, size=20)
 
 
