@@ -19,7 +19,7 @@ CLIP_PRE, CLIP_POST = 0.55, 0.50      # 原声前后留白（窗口淡入淡出�
 SENT_GAP = 0.32                       # 估算时的句间停顿
 GROUP_PRE = 0.25
 TITLE_LEN = 6.4
-ANIM_MIN = {'G10': 26.0, 'G11': 31.0, 'G12': 16.0, 'G13': 17.0}   # 动画段最短时长（给画面留出呼吸）
+ANIM_MIN = {'G10': 21.0, 'G11': 25.5, 'G12': 14.5, 'G13': 15.3}   # 动画段最短时长（给画面留出呼吸）
 SUMMARY_LEN = 7.0
 BRAND_LEN = 13.5
 BRAND_BEAT = 2.4                      # 片尾开始后多少秒出现「巴芒价值」字标（落在配乐强拍上）
@@ -54,7 +54,7 @@ def music_anchors():
     return json.load(open(MUSIC)) if os.path.exists(MUSIC) else {}
 
 
-def build():
+def build(anim_len=None):
     """返回 (segments, sentences)
     segments: [dict(kind, id, t0, t1)]；sentences: {sid: dict(t0, t1, text, words(绝对时间), group)}"""
     M = music_anchors()
@@ -80,7 +80,7 @@ def build():
                 t += d + (gap if k < len(items) - 1 else 0.0)
             t += 0.45
             if kind == 'anim':
-                t = max(t, g0 + ANIM_MIN.get(gid, 0))
+                t = max(t, g0 + (anim_len or ANIM_MIN).get(gid, 0))
             if kind == 'summary':
                 # 配乐是按段落对齐的（总结句 = 高潮重拍），总结段的长度让品牌字标正好落在其后的强拍上
                 L = SUMMARY_LEN
@@ -91,8 +91,24 @@ def build():
     return segs, sents
 
 
-SEGS, SENTS = build()
-DUR = SEGS[-1]['t1']
+def _solve():
+    """让「四百多倍」正好落在高潮配乐中段的重拍上（配乐按总结句对齐，所以调整 G10 的长度）"""
+    segs, sents = build()
+    M = music_anchors()
+    if 'climax' not in M or 'mid_hit' not in M['climax'] or 'A03' not in sents:
+        return segs, sents
+    sg = {x['id']: x for x in segs}
+    globals()['SENTS'] = sents
+    d = wt('A03', '四百多倍') - sg['G10']['t0']
+    S = sum(sg[g]['t1'] - sg[g]['t0'] for g in ('G11', 'G12', 'G13'))
+    L10 = M['climax']['hit'] - M['climax']['mid_hit'] + d - S
+    need = sg['G10']['t1'] - sg['G10']['t0']
+    if L10 < (sents['A03']['t1'] - sg['G10']['t0']) + 0.8:      # 不够放下解说：放弃对齐
+        return segs, sents
+    lens = dict(ANIM_MIN); lens['G10'] = L10
+    return build(lens)
+
+
 
 
 def seg_at(t):
@@ -120,6 +136,11 @@ def wt(sid, kw, end=False):
         k = k + len(_content(kw)) - 1
         return s['words'][k][1]
     return s['words'][k][0]
+
+
+SENTS = {}
+SEGS, SENTS = _solve()
+DUR = SEGS[-1]['t1']
 
 
 if __name__ == '__main__':

@@ -93,7 +93,7 @@ def main(out=None):
         x = level(x)
         if CLIPS[s['id']]['info']['who'] == '查理·芒格':
             x = x + 0.41 * sosfiltfilt(butter(2, [2500, 6000], 'band', fs=SR, output='sos'), x).astype(np.float32)
-        x = x * 10 ** ((-18.0 - meter.integrated_loudness(x)) / 20)
+        x = x * 10 ** ((-16.5 - meter.integrated_loudness(x)) / 20)
         fi, fo = int(0.08 * SR), int(0.12 * SR)
         x[:fi] *= np.linspace(0, 1, fi); x[-fo:] *= np.linspace(1, 0, fo)
         i = int(s['a0'] * SR); m = min(len(x), N - i)
@@ -115,9 +115,9 @@ def main(out=None):
     e_vo = env(vo_spans, 0.3, 0.7)
     duck = 1 - np.maximum(0.82 * e_clip, 0.70 * e_vo)            # 原声 −15dB，解说 −10.5dB
     pres = sosfiltfilt(butter(2, [1200, 4500], 'band', fs=SR, output='sos'), mus, axis=-1)
-    mus = mus - 0.45 * pres * np.maximum(e_clip, e_vo)[None, :]   # 人声期间再挖开语音频段
+    mus = mus - 0.6 * pres * np.maximum(e_clip, e_vo)[None, :]   # 人声期间再挖开语音频段
     push = env([(seg['title']['t0'], seg['title']['t1']), (seg['G14']['t0'], seg['brand']['t1'])], 0.05, 1.5)
-    mus = mus * duck * (1 + 0.35 * push)
+    mus = mus * duck * (1 + 0.25 * push)
 
     # ---------------------------------------------------------------- 低频音效（200Hz 以下）
     sfx = np.zeros(N, np.float32)

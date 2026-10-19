@@ -327,10 +327,16 @@ def summary(F, t):
     d = (1 - math.exp(-u * 1.8)) / 1.8
     splat(F, (W / 2 + np.cos(ang) * sp * d).astype(np.float32), (860 + np.sin(ang) * sp * d * 1.3 - 40 * u).astype(np.float32),
           np.full(n, 1.5, np.float32), GOLD_HI, a * 0.7 * math.exp(-u * 0.6))
-    gold_text(F, 'AI 越快，', W / 2, 760, 130, 'serif', a, clamp01(u / 0.35), glow=0.4 + 0.8 * math.exp(-u * 3), sweep=(u - 1.6) / 1.3)
-    gold_text(F, '越要慢', W / 2, 930, 170, 'serif', a, clamp01(u / 0.35 * 1.4 - 0.4), glow=0.5 + 0.9 * math.exp(-u * 3), sweep=(u - 1.75) / 1.3)
-    put_text(F, '复利的秘密，不是更快，而是不失去', W / 2, 1110, 48, 'serif_m', np.array([1.0, 0.93, 0.8]),
-             a * smooth((u - 1.2) / 0.6), 1000, reveal=clamp01((u - 1.2) / 1.2), glow=0.1)
+    gold_text(F, 'AI 越快，', W / 2, 700, 130, 'serif', a, clamp01(u / 0.35), glow=0.4 + 0.8 * math.exp(-u * 3), sweep=(u - 1.6) / 1.3)
+    gold_text(F, '越要慢', W / 2, 870, 170, 'serif', a, clamp01(u / 0.35 * 1.4 - 0.4), glow=0.5 + 0.9 * math.exp(-u * 3), sweep=(u - 1.75) / 1.3)
+    # 第二句随解说逐段出现：复利的秘密 → 不是更快 → 而是不失去（金色、最重）
+    k1, k2, k3 = wt('A11', '复利的秘密'), wt('A11', '不是更快'), wt('A11', '而是不失去')
+    put_text(F, '复利的秘密', W / 2, 1060, 54, 'serif_m', np.array([1.0, 0.93, 0.8]), a * smooth((t - k1 + 0.1) / 0.5), 900, glow=0.1)
+    put_text(F, '不是更快', W / 2 - 200, 1170, 60, 'serif_m', V.DIM * 1.2, a * smooth((t - k2 + 0.1) / 0.5), 500, shadow=0.5)
+    if t > k3 - 0.1:
+        V.slam(F, '而是不失去', W / 2 + 170, 1170, 76, t, k3 - 0.1, a)
+        if t - k3 < 1.0:
+            V.line(F, _circle(W / 2 + 170, 1170, 40 + 600 * ease_out((t - k3) / 1.0)), GOLD_HI, 3, a * (1 - (t - k3)), 1.0, closed=True)
 
 
 # ------------------------------------------------------------------ 品牌片尾（系列准则第 8 节）

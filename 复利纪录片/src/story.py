@@ -15,6 +15,15 @@ STYLE = ('A seasoned Mandarin documentary narrator telling a true story to a fri
          'with real breathing and subtle emotion; moderately brisk, steady pace; no broadcaster tone, no sing-song endings, '
          'no exaggerated pauses.')
 TEMPO = 1.04          # rubberband 轻微提速（保留音高与共振峰）
+# 动画段配乐逐渐推向高潮，解说也要随之更有力量（仍保持自然，不播音腔）
+STYLE_BY_GROUP = {
+    'G10': STYLE + ' Build energy: more emphatic and engaged, as if revealing something important.',
+    'G11': STYLE + ' Rising intensity and conviction; land the key numbers firmly, with weight on 一个零 and 全部蒸发.',
+    'G12': STYLE + ' Firm, passionate conviction, like stating a hard-won rule.',
+    'G13': STYLE + ' Warm and stirring, building toward a climax; emphasize 不是慢，而是中断.',
+    'G14': ('A seasoned Mandarin documentary narrator delivering the final line at the emotional climax: slow, powerful, '
+            'deeply felt and resonant, with a clear pause after each phrase; natural human voice, not broadcaster tone.'),
+}
 
 STORY = [
     ('clip', 'LB'),                                   # 冷开场：李录原声（AI 与“学到的明天就没用了”）
@@ -91,7 +100,7 @@ STORY = [
 ]
 
 SAY = {
-    'S02': '二零二六年十月，在哥伦比亚商学院第三十六届格雷厄姆与多德年度活动上，他谈到这一轮 AI 浪潮：变化的速度、涉及的规模，都前所未有。',
+    'S02': '二零二六年十月，在哥伦比亚商学院第三十六届格雷厄母与多德年度活动上，他谈到这一轮 AI 浪潮：变化的速度、涉及的规模，都前所未有。',
     'S11': '一九九九年，一位股东问巴菲特：如果你三十出头、从头再来，会怎么做？',
     'S16': '伯克希尔自己的股价，就曾经四次大跌，最深的一次跌去百分之五十九。芒格的看法是：',
     'A02': '每年多百分之十，三十年后是十七点四倍；每年少百分之十，只剩不到百分之五。',

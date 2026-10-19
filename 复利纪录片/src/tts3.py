@@ -1,6 +1,6 @@
 """旁白配音。
 
-主引擎：Google Gemini TTS（gemini-3.8-flash-tts，声音 charon），按段落成组合成，风格指令原样放在 speech_metadata.style。
+主引擎：Google Gemini TTS（gemini-3.8-flash-tts，声音见 story.VOICE），按段落成组合成，风格指令原样放在 speech_metadata.style。
         Gemini 不返回逐字时间，所以用 faster-whisper 对合成结果做强制对齐（识别结果只用来定时，字幕文字以稿子为准），
         再在句间能量最低处切成逐句片段，段内句间停顿保留模型自己的节奏。
 只用 Gemini，不设备用引擎。出错时停止并报告（退出码 2），由人工介入：
@@ -17,7 +17,7 @@ vo_index.json 每句：text / say / dur / words[[t0, t1, 字]]，段内句子另
 import base64, difflib, hashlib, json, os, re, ssl, subprocess, sys, time, urllib.error, urllib.request
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from story import vo_groups, SAY, TAGS, TEMPO, TTS_MODEL as GEMINI_MODEL, VOICE as GEMINI_VOICE, STYLE as GEMINI_STYLE
+from story import vo_groups, SAY, TAGS, TEMPO, STYLE_BY_GROUP, TTS_MODEL as GEMINI_MODEL, VOICE as GEMINI_VOICE, STYLE as GEMINI_STYLE
 
 GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/interactions'
 TTS_GROUPS = [tuple(sid for sid, _ in it[2]) for it in vo_groups()]
@@ -39,12 +39,12 @@ def ff(*args):
 
 
 # ------------------------------------------------------------------ Gemini
-def gemini_request(text):
+def gemini_request(text, style=None):
     body = {
         'model': GEMINI_MODEL,
         'input': [{'type': 'user_input', 'content': [{
             'type': 'text', 'text': text,
-            'annotations': [{'type': 'speech_metadata', 'style': GEMINI_STYLE}]}]}],
+            'annotations': [{'type': 'speech_metadata', 'style': style or GEMINI_STYLE}]}]}],
         'response_format': {'type': 'audio'},
         'generation_config': {'speech_config': [{'voice': GEMINI_VOICE}]},
     }
@@ -158,7 +158,8 @@ def gemini_group(ids):
     plain = ''.join(say[sid] for sid in ids)
     gname = 'G_' + '_'.join(ids)
     base = os.path.join(VD, gname)
-    key = hashlib.md5(f'{GEMINI_MODEL}|{GEMINI_VOICE}|{GEMINI_STYLE}|{text}'.encode()).hexdigest()[:12]
+    style = STYLE_BY_GROUP.get(ITEMS[ids[0]][0], GEMINI_STYLE)
+    key = hashlib.md5(f'{GEMINI_MODEL}|{GEMINI_VOICE}|{style}|{text}'.encode()).hexdigest()[:12]
     meta_p = base + '.json'
     if os.path.exists(meta_p) and json.load(open(meta_p)).get('key') == key:
         meta = json.load(open(meta_p)); x, _ = sf.read(base + '.wav')
@@ -168,7 +169,7 @@ def gemini_group(ids):
             last = None
             for k in range(8):                 # 429 / 网络错误 / 5xx：按 Retry-After 或指数退避重试
                 try:
-                    raw, mime = gemini_request(text); break
+                    raw, mime = gemini_request(text, style); break
                 except urllib.error.HTTPError as e:
                     body = e.read().decode('utf-8', 'replace')[:300] if hasattr(e, 'read') else ''
                     last = f'HTTP {e.code} {e.reason} {body}'
@@ -184,7 +185,7 @@ def gemini_group(ids):
             x = to_wav48(raw, mime, base)
             rec = asr_chars(x, plain)
             rtxt = ''.join(c for c, _, _ in rec)
-            num = set('0123456789零一二三四五六七八九十百千万亿两点')     # 数字写法（2500万 / 两千五百万）不算错
+            num = set('0123456789零一二三四五六七八九十百千万亿两点分之倍%.')   # 数字写法（10% / 百分之十、17.4 / 十七点四）不算错
             sim = coverage([c for c in content(plain) if c not in num], [c for c in rtxt if c not in num])
             tag_read = bool(re.search(r'pause|breath|停顿|呼吸', rtxt, re.I))
             print(f'  {gname} try {attempt + 1}: {len(x) / SR:.1f}s  稿子覆盖率 {sim:.2f}{"  [念出了标签]" if tag_read else ""}')

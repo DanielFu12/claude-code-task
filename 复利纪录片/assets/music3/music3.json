@@ -1,5 +1,20 @@
 {
- "hook": {"file": "score3_hook.mp3", "hit": 47.95, "note": "低频 RMS 在 47.95s 从 -32dB 跃升到 -8.6dB：片名大鼓"},
- "bed": {"file": "score3_bed.mp3", "start": 0.0, "loop": 60.0, "gain": 1.0},
- "climax": {"file": "score3_climax.mp3", "hit": 85.43, "brand_beat": 96.10, "note": "85.43 高潮重拍 → 总结句；其后每 2 小节一个强拍（90.77 / 96.10 / 101.44 / 106.77），96.10 → 品牌字标"}
+ "hook": {
+  "file": "score3_hook.mp3",
+  "hit": 47.95,
+  "note": "低频 RMS 在 47.95s 从 -32dB 跃升到 -8.6dB：片名大鼓"
+ },
+ "bed": {
+  "file": "score3_bed.mp3",
+  "start": 0.0,
+  "loop": 60.0,
+  "gain": 1.0
+ },
+ "climax": {
+  "file": "score3_climax.mp3",
+  "hit": 85.43,
+  "brand_beat": 101.44,
+  "note": "85.43 高潮重拍 → 总结句；其后每 2 小节一个强拍（90.77 / 96.10 / 101.44 / 106.77），101.44 → 品牌字标（总结句放慢后改用这一拍）；25.07 中段重拍 → 动画「四百多倍」",
+  "mid_hit": 25.07
+ }
 }
