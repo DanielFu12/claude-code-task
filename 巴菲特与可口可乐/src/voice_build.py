@@ -8,10 +8,21 @@ ct（每个读音单元在原文中的下标与相对发声时刻），供时间
 import sys, os, json
 import numpy as np, soundfile as sf, librosa
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from tts_passage import PASSAGES, TEASE_P, spoken
+from tts_passage import PASSAGES, TEASE_P, GROUPS, spoken
 from align import align
 
 SR = 48000
+TARGET_RATE = 4.55        # 全片统一语速（音节/秒，不含停顿）：从容、不赶
+
+
+def articulation_rate(f, text):
+    """音节/秒：读音单元数 ÷ 发声时长（去掉 0.25s 以上的停顿）"""
+    from align import normalize
+    y, sr = librosa.load(f, sr=16000)
+    iv = librosa.effects.split(y, top_db=38)
+    sp = sum(b - a for a, b in iv) / sr
+    short = sum(g for g in ((iv[k][0] - iv[k - 1][1]) / sr for k in range(1, len(iv))) if g < 0.25)
+    return len(normalize(text)[0]) / (sp + short)
 
 
 def frame_db(y, sr, hop=0.005):
@@ -36,14 +47,31 @@ def build(work):
     sel = json.load(open(os.path.join(d, 'select.json'))) if os.path.exists(os.path.join(d, 'select.json')) else {}
     meta = {}
     units = []
-    for pid, ids, mood in PASSAGES + [TEASE_P]:
+    P = {p[0]: p for p in PASSAGES + [TEASE_P]}
+    if all(g in sel for g in GROUPS):                     # v8：按“大段”一次读完的录音（同一讲述者、同一语速）
+        for g, pids in GROUPS.items():
+            units.append((g, [i for pp in pids for i in P[pp][1]], os.path.join(d, sel[g])))
+    for pid, ids, mood in ([] if units else PASSAGES + [TEASE_P]):
         f = os.path.join(d, sel.get(pid, f'{pid}_0.wav'))
         if os.path.exists(f): units.append((pid, ids, f))
         else:                                                # 该段还没有整段录音：退回逐句录音（work/tts/<id>.wav）
             units += [(f'{pid}:{i}', [i], os.path.join(work, 'tts', f'{i}.wav')) for i in ids]
     import pyloudnorm as pyln
     meter = pyln.Meter(SR)
+    rates = {}
+    if TARGET_RATE:                                       # 各大段语速统一：先测每段“音节/秒”，用保持音高的 rubberband 校准到同一语速
+        for pid, ids, f in units:
+            rates[pid] = articulation_rate(f, ''.join(spoken(i) for i in ids))
     for pid, ids, f in units:
+        if pid in rates:
+            r = rates[pid] / TARGET_RATE                  # >1 表示原来偏快，要放慢
+            if abs(r - 1) > 0.005:
+                g = os.path.join(d, f'_eq_{pid}.wav')
+                import subprocess
+                subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', f, '-af', f'rubberband=tempo={1 / r:.5f}:pitchq=quality:formant=preserved',
+                                '-ar', '24000', g], check=True)
+                print(f'  {pid}: 语速 {rates[pid]:.2f} → {TARGET_RATE} 音节/秒（时长 ×{r:.3f}）', flush=True)
+                f = g
         y, sr = librosa.load(f, sr=SR)
         y = y * 10 ** ((-20.0 - meter.integrated_loudness(y)) / 20)      # 每段统一响度，段落之间不忽大忽小
         texts = [spoken(i) for i in ids]

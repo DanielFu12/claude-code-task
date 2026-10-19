@@ -118,7 +118,7 @@ for k, c in CR.items():
     w(f'- `{k}`：{c["title"].replace("File:", "")} — {c["author"]}，{c["date"]}，**{c["license"]}**。[{c["page"]}]({c["page"]})')
 w('- 世界陆地轮廓：Natural Earth 1:110m land（公有领域）。')
 w('**生成与原创部分**\n')
-w('- 旁白：Gemini TTS `gemini-3.8-flash-tts`（音色 Charon——与“巴芒价值”系列旁白统一），按叙事段落整段录制、转写逐字校对后选用；为本片中文旁白，**未模仿巴菲特或芒格的声音**。')
+w('- 旁白：Gemini TTS `gemini-3.8-flash-tts`（音色 Charon——与“巴芒价值”系列旁白统一），按 5 个大段各一次读完（用户给定的统一 AUDIO PROFILE），转写逐字校对、按音高与语速一致性选用并统一校准语速；为本片中文旁白，**未模仿巴菲特或芒格的声音**。')
 w('- 配乐：Google Lyria `lyria-3-pro-preview` 生成的同调、同速、同主题的三大段原创管弦乐（`assets/generated/music3/`），按叙事节点剪辑对位（`src/score.py`）；低频冲击、sub drop 为程序合成。')
 import json as _j
 _h = _j.load(open(os.path.join(work, 'score_hits.json')))['hits'] if os.path.exists(os.path.join(work, 'score_hits.json')) else []

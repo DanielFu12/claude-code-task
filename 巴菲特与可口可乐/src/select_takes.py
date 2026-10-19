@@ -46,7 +46,35 @@ def blind(files, rounds=3):
     return {f: sum(v) / len(v) for f, v in tot.items()}
 
 
+def select_groups(work):
+    """按“大段”整读的录音挑选：先逐字校对（读音字错误率 ≤ 2%），再选音高基线、语速最接近全片目标的一条，
+    保证全片像同一个讲述者、语速一致（用户要求：不可各章节播报速度差太多）"""
+    import librosa, numpy as np
+    from tts_passage import GROUPS
+    from voice_build import articulation_rate, TARGET_RATE
+    d = os.path.join(work, 'tts_p'); P = {p[0]: p for p in PASSAGES + [TEASE_P]}
+    cand = {}
+    for g, pids in GROUPS.items():
+        ref = ''.join(spoken(i) for pp in pids for i in P[pp][1])
+        for f in sorted(glob.glob(os.path.join(d, f'{g}_*.wav'))):
+            if not re.fullmatch(rf'{g}_\d+\.wav', os.path.basename(f)): continue
+            e = cer(ref, transcribe(f))
+            if e > 0.02: print(f'  {os.path.basename(f)} 字错误率 {e:.3f}，淘汰'); continue
+            y, sr = librosa.load(f, sr=16000)
+            f0, _, _ = librosa.pyin(y, fmin=60, fmax=300, sr=sr, frame_length=1024, hop_length=320)
+            cand.setdefault(g, []).append((os.path.basename(f), float(np.nanmedian(f0)), articulation_rate(f, ref)))
+    base = float(np.median([c[1] for cs in cand.values() for c in cs]))       # 全片音高基线
+    sel = {}
+    for g, cs in cand.items():
+        cost = lambda c: abs(12 * np.log2(c[1] / base)) / 1.0 + abs(c[2] / TARGET_RATE - 1) / 0.04
+        best = min(cs, key=cost); sel[g] = best[0]
+        print(g, '→', best[0], f'音高 {best[1]:.1f}Hz（基线 {base:.1f}）语速 {best[2]:.2f}', flush=True)
+    json.dump(sel, open(os.path.join(d, 'select.json'), 'w'), indent=1)
+    return sel
+
+
 if __name__ == '__main__':
+    if '--groups' in sys.argv: select_groups(sys.argv[1]); sys.exit()
     work = sys.argv[1]; want = sys.argv[2:]
     d = os.path.join(work, 'tts_p')
     selp = os.path.join(d, 'select.json')

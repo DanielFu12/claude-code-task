@@ -41,6 +41,18 @@ Pace: 纪录片讲述的语速，紧凑而从容，略快于播音（约每秒�
 {text}"""
 
 
+# 用户指定的全片统一 AUDIO PROFILE（原文照用；铁律优先于一切情绪描述）
+USER_PROFILE = """# AUDIO PROFILE：资深中文纪录片旁白（男声，标准普通话）——全片同一个讲述者
+## 铁律（最高优先级，覆盖下面一切情绪描述）：
+1. 全片是同一个人在录音棚里一口气讲完：音色、音高基线、共鸣位置、语速特征，从第一句到最后一句完全一致。
+2. 情绪只允许在同一嗓音内自然起伏，绝不允许改变嗓音本身：不变年轻/苍老，不变洪亮/虚弱，不在播音腔和聊天感之间横跳。
+3. 每个段落开头都当作"上一段刚讲完，接着往下讲"：不重新起调，不换状态进入，不许出现"换了个人说话"的感觉。
+## 讲述风格：
+低沉、温暖、有颗粒感的真人讲述，像在给一位听众讲真实的故事；不是播音腔，不是广告口播。语速从容，约每秒五个字；逗号、破折号处轻轻带过，句号处自然换气停顿；重要数字和关键词放慢加重；句尾自然收住，不要每句都用同样的下沉。
+#### TRANSCRIPT
+{text}"""
+
+
 # 提示词变体（盲听比较后选定）
 PROFILES = {
     'zh': PROFILE,
@@ -100,12 +112,40 @@ def gen(p, out, variant='zh', temp=None):
     return out
 
 
+# 一次 TTS 调用读完的“大段”（每段约 1 分钟；整片一次读完会超出单次输出上限，超过约 2 分钟则会越读越慢、甚至即兴编造）
+GROUPS = {'G1': ['hook', 'ch1'], 'G2': ['ch2a', 'ch2b'], 'G3': ['ch3'], 'G4': ['ch4a', 'ch4b'], 'G5': ['ch5', 'tease']}
+
+
+def gen_full(out, groups=None):
+    """整片（或指定的若干段）一次读完：同一个讲述者、同一状态、同一语速"""
+    groups = groups or PASSAGES + [TEASE_P]
+    text = '\n\n'.join('\n'.join(spoken(i) for i in ids) for _, ids, _ in groups)
+    body = {"contents": [{"parts": [{"text": USER_PROFILE.format(text=text)}]}],   # 只用用户给定的 PROFILE + 正文（附加说明会被模型当成正文读出）
+            "generationConfig": {"responseModalities": ["AUDIO"],
+                                 "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": VOICE}}}}}
+    d = post(MODEL, body, timeout=900)
+    raw = base64.b64decode(d['candidates'][0]['content']['parts'][0]['inlineData']['data'])
+    if raw[:4] == b'RIFF': open(out, 'wb').write(raw)
+    else:
+        import numpy as np, soundfile as sf
+        sf.write(out, np.frombuffer(raw, np.int16).astype(np.float32) / 32768, 24000)
+    return out
+
+
 if __name__ == '__main__':
     work = sys.argv[1]; d = os.path.join(work, 'tts_p'); os.makedirs(d, exist_ok=True)
     args = sys.argv[2:]
     takes = 1; variant = 'zh'
     if '--takes' in args: i = args.index('--takes'); takes = int(args[i + 1]); args = args[:i] + args[i + 2:]
     if '--variant' in args: i = args.index('--variant'); variant = args[i + 1]; args = args[:i] + args[i + 2:]
+    if args and args[0] == 'full':                       # python3 src/tts_passage.py WORK full [G1 ...] --takes N
+        P = {p[0]: p for p in PASSAGES + [TEASE_P]}
+        want = args[1:] or list(GROUPS)
+        jobs = [(g, k) for g in want for k in range(takes) if not os.path.exists(os.path.join(d, f'{g}_{k}.wav'))]
+        with cf.ThreadPoolExecutor(2) as ex:
+            for out in ex.map(lambda j: gen_full(os.path.join(d, f'{j[0]}_{j[1]}.wav'), [P[x] for x in GROUPS[j[0]]]), jobs):
+                print('done', out, flush=True)
+        sys.exit()
     if args and args[0] == 'gen':
         want = args[1:]
         selp = os.path.join(d, 'select.json')

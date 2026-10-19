@@ -20,8 +20,11 @@ cp -n assets/generated/tts/*.wav "$WORK/tts/" 2>/dev/null || true
 cp -n assets/generated/music3/*.mp3 "$WORK/music3/" 2>/dev/null || true
 
 python3 data/calc.py > /dev/null                       # 收益与股息计算 → data/calc.json
-python3 src/tts_passage.py "$WORK" gen --takes 3        # 整段旁白（缺失的段落才生成，每段 3 个候选）
-python3 src/select_takes.py "$WORK" $(python3 -c "import json,os,sys;sys.path.insert(0,'src');from tts_passage import PASSAGES,TEASE_P;p='$WORK/tts_p/select.json';s=json.load(open(p)) if os.path.exists(p) else {};print(' '.join(x[0] for x in PASSAGES+[TEASE_P] if x[0] not in s) or '-')")
+# 旁白：按“大段”一次读完（同一讲述者、同一语速；用户给定的 AUDIO PROFILE）。缺失才生成，并按校对 + 音高/语速一致性挑选
+if ! python3 -c "import json,sys;sys.path.insert(0,'src');from tts_passage import GROUPS;s=json.load(open('$WORK/tts_p/select.json'));sys.exit(0 if all(g in s for g in GROUPS) else 1)" 2>/dev/null; then
+  python3 src/tts_passage.py "$WORK" full --takes 4
+  python3 src/select_takes.py "$WORK" --groups
+fi
 [ -f "$WORK/music3/P3_2.mp3" ] || python3 src/music_gen3.py "$WORK" --n 3   # 生成后按听审结果选用 P1_2/P2_2/P3_2
 python3 src/voice_build.py "$WORK"                      # 强制对齐 → 逐句切分 + 字时间
 python3 src/timeline.py "$WORK"                         # 时间线（自然停顿 + 章节留白）
