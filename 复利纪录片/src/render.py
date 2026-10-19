@@ -14,19 +14,22 @@ from common import put_text
 from engine import GOLD
 from script import NARRATION, CAPTIONS
 import brand_bridge as BB
+import part1 as P1
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 HUD = BB.Hud(scale=1.0, frame_w=W)
 
 # (起, 止, 函数)
 SCENES = [
-    (0.0, A['drop'], S.sc_open),
-    (A['drop'], A['calm'], S.sc_title),
+    (0.0, A['drop'], P1.sc_part1),              # 钩子：李录原声
+    (A['drop'], A['calm'], S.sc_title),         # 标题重拍
+    (A['calm'], A['climax'], P1.sc_part1),      # 李录 → 巴菲特、芒格原声
+    (A['climax'], A['final'], S.sc_climax),     # 约 1 分钟动画：复利的第一性原理 → 人生的复利
+    (A['final'], A['end'] + 1, S.sc_brand),     # 品牌片尾
 ]
-for name, a, b in getattr(S, 'EXTRA_SCENES', []):
-    SCENES.append((a, b, getattr(S, name)))
 
-LINES = lines()
+# 屏幕文字（无配音）只用于动画段
+LINES = [l for l in lines() if l[0] >= 'N18']
 
 
 def scene_frame(t):
@@ -53,9 +56,10 @@ def post_params(t):
 
 
 CHAPTERS = [  # 左上角章节标签（与右上角品牌角标对称）
-    (A['calm'], START['N09'] - 0.1, '01', '李录 · 复利的定义'),
-    (START['N09'] - 0.1, START['N16'] - 0.2, '02', '巴菲特与芒格 · 不中断'),
-    (START['N16'] - 0.2, A['epic'] - 0.3, '03', '复利的第一性原理'),
+    (0.6, A['drop'] - 1.0, '01', '李录 · AI 时代的复利'),
+    (A['calm'], P1.T['BA'] - 4.2, '01', '李录 · AI 时代的复利'),
+    (P1.T['BA'] - 4.0, A['climax'] - 0.8, '02', '巴菲特与芒格 · 不要失去'),
+    (A['climax'], A['epic'] - 0.3, '03', '复利的第一性原理'),
     (A['epic'] - 0.3, A['final'] - 3.5, '04', '人生的复利'),
 ]
 
@@ -75,6 +79,8 @@ def frame(t):
     if txt and getattr(S, 'SHOW_SUB', lambda t: True)(t):
         subtitle(F, txt, al)
     F = post(F, t, **post_params(t))
+    if t < A['climax']:
+        P1.overlay(F, t)                          # 原始影像（显示空间合成，不经色调映射）
     # 品牌角标：全片右上角（最终淡出时随画面淡出）
     end_fade = 1 - smooth((t - (DUR - 2.2)) / 2.0)
     HUD.draw(F, t, alpha=1.0)

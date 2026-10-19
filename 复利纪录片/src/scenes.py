@@ -166,7 +166,7 @@ def sc_title(t):
     glow_line(lay, [(W / 2 - lw, 1222), (W / 2 + lw, 1222)], GOLD, 1.2, 0.4, ma * 0.7)
     F += lay
     da = win(t, A['drop'] + 4.5, A['calm'] - 0.6, 0.8, 0.8)
-    footnote(F, '旁白为 AI 配音（Gemini TTS）  ·  大师引语均为原话，附本片中文译文与出处', da, y=1640, size=22)
+    footnote(F, '李录、巴菲特、芒格均为原始影像原声  ·  中文字幕为本片翻译  ·  出处见片中标注', da, y=1640, size=22)
     # 结尾压暗，过渡到沉静段
     F *= 1 - 0.9 * smooth((t - (A['calm'] - 0.9)) / 0.9)
     return F
@@ -951,8 +951,8 @@ def sc_brand(t):
                  smooth((bt - 2.8) / 0.8), 1000, reveal=clamp01((bt - 2.8) / 1.4), glow=0.12)
     # 资料与授权（小字）
     ca = smooth((u - 5.0) / 1.0)
-    footnote(F, '引语出处：Columbia Business School 录像（2026.10.05）· 伯克希尔致股东信（1989/1996/2017/2022）· BBC（2009）· C-SPAN（1991）\n'
-                '图片：美国国际贸易署（公有领域）· TEDizen（CC BY 2.0）　旁白：AI 配音（Gemini TTS）　配乐：AI 生成（Lyria）',
+    footnote(F, '原始影像：哥伦比亚商学院（李录，2026.10）· 伯克希尔股东大会（1999）· BBC（2009）· 南加州大学（2007）\n'
+                '大师讲话均为原声，中文字幕为本片翻译　配乐：AI 生成（Lyria）　详见 SOURCES.md',
              ca * 0.9, y=1660, size=21)
     return F
 

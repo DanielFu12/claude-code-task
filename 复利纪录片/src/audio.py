@@ -1,5 +1,5 @@
-"""混音：配乐（Lyria 生成的两段原创配乐）+ 低频音效（本地合成，能量集中在 200Hz 以下）+ 旁白（Gemini TTS），
-旁白出现时自动压低音乐（侧链闪避），无旁白时音乐适度抬升。输出 work/mix.wav（48kHz 立体声）。
+"""混音：配乐（Lyria 生成的两段原创配乐）+ 低频音效（本地合成，能量集中在 200Hz 以下）+ 原始影像原声，
+原声出现时自动压低音乐（侧链闪避），无原声时音乐适度抬升。输出 work/mix.wav（48kHz 立体声）。
 """
 import os, sys
 import numpy as np, soundfile as sf, librosa
@@ -8,7 +8,8 @@ import pyloudnorm as pyln
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from timeline import A, START, C0, DUR, lines, BEAT
-from scenes import word_time
+import part1 as P1
+from clips import CLIPS
 from script import DATA
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
@@ -78,16 +79,13 @@ def sfx_track():
         m = min(len(sig), N - i); y[i:i + m] += sig[:m] * g
 
     put(swell(4.0, 38, 0.18), 0.0)                       # 开场低频脉动
-    for w in ('迭代', '贬值', '消失'):
-        put(thump(0.45), word_time('N02', w) - 0.15)
+    for cid, t0 in P1.FT.SEQ:                             # 每段原始影像入场：轻微低频落点
+        put(thump(0.22, 75, 40, 0.6), t0 - 0.35)
     put(swell(3.5, 36, 0.30), 28.4)                       # 坍缩前的低频涨起
     put(sub_drop(3.2, 60, 25, 1.0), A['drop'])            # 标题重拍
     put(boom(4.0, 100, 0.65, 1), A['drop'])
     put(thump(0.35, 70, 38, 0.9), A['calm'])
-    put(boom(3.0, 90, 0.45, 2), A['build'])
-    for k in range(4):                                    # 四次大跌面板
-        put(thump(0.5, 80, 36, 0.7), START['N12'] + 1.0 + k * BEAT * 2)
-    put(thump(0.55, 70, 30, 1.0), word_time('N17', '一次'))   # ×0.5
+    put(boom(3.0, 90, 0.40, 2), P1.T['BA'] - 0.4)          # 进入巴菲特、芒格
     put(sub_drop(1.5, 55, 30, 0.35), A['climax'])
     for k in range(0, 30, 2):                              # 30 年：每两拍一个低频脉冲，逐渐加强
         put(thump(0.12 + 0.18 * k / 30, 70, 40, 0.35), A['year0'] + k * BEAT)
@@ -104,14 +102,40 @@ def sfx_track():
 
 
 # ------------------------------------------------------------------ 旁白
+def movavg(x, k):
+    """居中滑动平均（累加和实现，O(N)）"""
+    c = np.concatenate([[0.0], np.cumsum(x, dtype=np.float64)])
+    i = np.arange(len(x)); a = np.clip(i - k // 2, 0, len(x)); b = np.clip(i + k - k // 2, 0, len(x))
+    return ((c[b] - c[a]) / np.maximum(b - a, 1)).astype(np.float32)
+
+
+def level(s, win=0.4, amount=0.6, lim_db=8.0):
+    """慢速语音电平拉平：按 0.4s 短时 RMS 把弱句子抬起来、强句子压一点（不是快速压缩，不会喘）"""
+    rms = np.sqrt(movavg(s ** 2, int(win * SR)) + 1e-10)
+    ref = np.sqrt(np.mean(s[rms > np.percentile(rms, 40)] ** 2) + 1e-10)
+    g = np.clip((ref / rms) ** amount, 10 ** (-lim_db / 20), 10 ** (lim_db / 20))
+    g[rms < ref * 0.06] = 1.0                        # 停顿处不抬底噪
+    g = movavg(g, int(0.25 * SR))
+    return (s * g).astype(np.float32)
+
+
 def voice_track():
+    """原始影像原声：逐段响度归一（约 −20 LUFS），去低频隆隆声，首尾 30ms 淡入淡出"""
     v = np.zeros(N, np.float32)
-    for nid, a, b in lines():
-        p = os.path.join(ROOT, 'assets', 'voice', f'{nid}.wav')
-        if not os.path.exists(p): continue
-        s, sr = librosa.load(p, sr=SR, mono=True)
-        s = hp(s, 75, 2).astype(np.float32)
-        i = int(a * SR); m = min(len(s), N - i)
+    meter = pyln.Meter(SR)
+    for cid, t0 in P1.FT.SEQ:
+        p = os.path.join(ROOT, 'footage', 'clips', f'{cid}.wav')
+        s, _ = librosa.load(p, sr=SR, mono=True)
+        s = hp(s, 85, 2).astype(np.float32)
+        s = high_shelf_soften(s, 7000, -2.0).astype(np.float32)
+        s = level(s)
+        if CLIPS[cid]['info']['who'] == '查理·芒格':          # 芒格的录音偏暗：+3dB 临场感
+            s = s + 0.41 * sosfiltfilt(butter(2, [2500, 6000], 'band', fs=SR, output='sos'), s).astype(np.float32)
+        l = meter.integrated_loudness(s)
+        s = s * 10 ** ((-17.5 - l) / 20)
+        fi, fo = int(0.08 * SR), int(0.12 * SR)
+        s[:fi] *= np.linspace(0, 1, fi); s[-fo:] *= np.linspace(1, 0, fo)
+        i = int(t0 * SR); m = min(len(s), N - i)
         v[i:i + m] += s[:m]
     return v
 
@@ -151,12 +175,16 @@ def main(out=None):
     mus *= suck
     # 旁白
     v = voice_track()
-    if np.abs(v).max() > 0:
-        v = v / (np.sqrt(np.mean(v[np.abs(v) > 1e-4] ** 2)) + 1e-9) * 0.12
-    env = follow(v)
-    env = env / (env.max() + 1e-9)
-    speech = np.clip(env * 3, 0, 1)
-    duck = 1 - 0.62 * speech                    # 讲话时音乐约 −8.4dB
+    # 闪避包络按「片段」而不是按音节：整段原声期间稳定压低，句间停顿不会忽大忽小（避免抽吸感）
+    speech = np.zeros(N, np.float32)
+    for cid, t0 in P1.FT.SEQ:
+        L = CLIPS[cid]['b'] - CLIPS[cid]['a']
+        speech += np.clip(np.minimum((tt - (t0 - 0.45)) / 0.45, (t0 + L + 0.9 - tt) / 0.9), 0, 1).astype(np.float32)
+    speech = np.clip(speech, 0, 1) ** 1.5
+    duck = 1 - 0.82 * speech                    # 原声时音乐约 −15dB
+    # 再在 1.2–4.5kHz 的语音清晰度频段多挖 6dB
+    pres = sosfiltfilt(butter(2, [1200, 4500], 'band', fs=SR, output='sos'), mus, axis=-1)
+    mus = mus - 0.5 * pres * speech[None, :]
     # 无讲话的段落适度抬升（+2dB），并在高潮段整体推起
     lift = 1 + 0.26 * (1 - speech)
     mus = mus * duck * lift
