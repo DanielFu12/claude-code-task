@@ -15,7 +15,7 @@
 | `SOURCES.md` | 每段原始影像的出处、原片时间、转写、语境、下载来源与授权说明；解说事实与动画数学的出处 |
 | `发布文案.md` | 发布用的标题、简介、标签 |
 | `src/story.py` | 全片叙事：解说稿、原声片段顺序、动画分段 |
-| `build3.sh` | 一键重建（片段 → 解说 → 时间线 → 混音 → 并行渲染 → 字幕） |
+| `build.sh` | 一键重建（片段 → 解说 → 时间线 → 混音 → 并行渲染 → 字幕） |
 | `tools/fetch_footage.sh` | 下载原始影像（不入库） |
 
 ## 结构
@@ -51,7 +51,7 @@
 
 ```bash
 tools/fetch_footage.sh      # 下载原始影像到 footage/src/
-./build3.sh                 # 片段 → 解说 → 混音 → 渲染 → 字幕
+./build.sh                 # 片段 → 解说 → 混音 → 渲染 → 字幕
 python3 src/render3.py still 20 60 300 390   # 只渲染几帧静帧检查
 python3 src/t3.py           # 打印时间线
 ```

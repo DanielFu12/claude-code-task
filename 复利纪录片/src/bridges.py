@@ -61,7 +61,7 @@ def g1(F, t):
         k0 = wt('S02', '变化的速度')
         if t > k0 - 0.3:
             # 加速的光流：越来越快
-            u = t - k0
+            u = max(t - k0, 0.0)
             n = 90
             r = np.random.default_rng(3)
             ys = r.uniform(420, 1300, n); sp = r.uniform(0.6, 1.4, n)

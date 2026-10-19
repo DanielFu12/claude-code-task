@@ -83,8 +83,9 @@ def fill_poly(F, pts, color, alpha=1.0, top=None, bottom=None, grad=(1.0, 0.0)):
 def darken_box(F, x0, y0, x1, y1, amt, feather=40):
     x0, y0, x1, y1 = int(x0), int(y0), int(x1), int(y1)
     X0, Y0, X1, Y1 = max(x0 - feather, 0), max(y0 - feather, 0), min(x1 + feather, W), min(y1 + feather, H)
+    if X1 - X0 < 2 or Y1 - Y0 < 2: return                     # 完全在画面外
     m = np.zeros((Y1 - Y0, X1 - X0), np.float32)
-    m[y0 - Y0:y1 - Y0, x0 - X0:x1 - X0] = 1
+    m[max(y0 - Y0, 0):max(y1 - Y0, 0), max(x0 - X0, 0):max(x1 - X0, 0)] = 1
     m = cv2.GaussianBlur(m, (0, 0), feather / 2.5)
     F[Y0:Y1, X0:X1] *= (1 - amt * m)[..., None]
 
