@@ -17,16 +17,25 @@ vo_index.json 每句：text / say / dur / words[[t0, t1, 字]]，段内句子另
 import base64, difflib, hashlib, json, os, re, ssl, subprocess, sys, time, urllib.error, urllib.request
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from story import vo_groups, SAY, TAGS, TEMPO, STYLE_BY_GROUP, VOICE_MATCH, TTS_MODEL as GEMINI_MODEL, VOICE as GEMINI_VOICE, STYLE as GEMINI_STYLE
+from story import vo_groups, SAY, TAGS, TEMPO, STYLE_BY_GROUP, VOICE_MATCH, TTS_LAYOUT, TTS_HIDDEN, TTS_MODEL as GEMINI_MODEL, VOICE as GEMINI_VOICE, STYLE as GEMINI_STYLE
 
 GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/interactions'
-TTS_GROUPS = [tuple(sid for sid, _ in it[2]) for it in vo_groups()]
+# 合成分组：(缓存名, 分组 id, 句子)。默认一个成片段落一组；story.TTS_LAYOUT 可以把一个段落拆成几组合成
+TTS_GROUPS = []
+for _it in vo_groups():
+    if _it[1] in TTS_LAYOUT:
+        TTS_GROUPS += [(name, gid, tuple(ids)) for name, gid, ids in TTS_LAYOUT[_it[1]]]
+    else:
+        _ids = tuple(sid for sid, _ in _it[2])
+        TTS_GROUPS.append(('G_' + '_'.join(_ids), _it[1], _ids))
+GROUP_OF = {sid: gid for _n, gid, ids in TTS_GROUPS for sid in ids}
 
 work = sys.argv[1]
 VD = os.path.join(work, 'vo'); os.makedirs(VD, exist_ok=True)
 CA = '/root/.ccr/ca-bundle.crt'
 SR = 48000
-ITEMS = {sid: (it[1], text, 0) for it in vo_groups() for sid, text in it[2]}
+ITEMS = {sid: (GROUP_OF.get(sid, it[1]), text, 0) for it in vo_groups() for sid, text in it[2]}
+ITEMS.update({sid: (GROUP_OF[sid], text, 0) for sid, text in TTS_HIDDEN.items()})    # 只为保持缓存而合成、不进成片的旧稿
 PUNCT = '，。；：？！、—…“”《》·（）,.;:?! '
 
 
@@ -152,11 +161,10 @@ def stop(gname, text, why):
     raise SystemExit(2)
 
 
-def gemini_group(ids):
+def gemini_group(gname, ids):
     say = {sid: SAY.get(sid, ITEMS[sid][1]) for sid in ids}
     text = ''.join((TAGS[sid] + ' ' if sid in TAGS else '') + say[sid] for sid in ids)
     plain = ''.join(say[sid] for sid in ids)
-    gname = 'G_' + '_'.join(ids)
     base = os.path.join(VD, gname)
     style = STYLE_BY_GROUP.get(ITEMS[ids[0]][0], GEMINI_STYLE)
     key = hashlib.md5(f'{GEMINI_MODEL}|{GEMINI_VOICE}|{style}|{text}'.encode()).hexdigest()[:12]
@@ -181,7 +189,7 @@ def gemini_group(ids):
         x = to_wav48(raw, mime, base)
         meta = dict(key=key, text=text, rec=rec, dur=len(x) / SR)
         json.dump(meta, open(meta_p, 'w'), ensure_ascii=False)
-    return split_group(ids, say, plain, meta, x)
+    return split_group(gname, ids, say, plain, meta, x)
 
 
 def synth(gname, text, plain, style, base):
@@ -222,8 +230,7 @@ def synth(gname, text, plain, style, base):
 
 
 def group_wav(gid):
-    ids = next([sid for sid, _ in it[2]] for it in vo_groups() if it[1] == gid)
-    return os.path.join(VD, 'G_' + '_'.join(ids) + '.wav')
+    return os.path.join(VD, next(name for name, g, _ in TTS_GROUPS if g == gid) + '.wav')
 
 
 def ref_voice(refs):
@@ -296,7 +303,7 @@ def takes_group2(gname, base, text, plain, style, key, vm, take_keys):
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
     import voice_sim as VS
     refs = vm['ref']
-    ref_text = ''.join(''.join(SAY.get(sid, ITEMS[sid][1]) for sid, _ in it[2]) for it in vo_groups() if it[1] in refs)
+    ref_text = ''.join(SAY.get(sid, ITEMS[sid][1]) for _n, g, ids in TTS_GROUPS if g in refs for sid in ids)   # 参照音频实际念的稿子
     R = VS.profile([group_wav(g) for g in refs], ref_text)
     cands = []
     for k in range(1, vm['takes'] + 4):
@@ -337,8 +344,7 @@ def takes_group2(gname, base, text, plain, style, key, vm, take_keys):
     return meta, x
 
 
-def split_group(ids, say, plain, meta, x):
-    gname = 'G_' + '_'.join(ids)
+def split_group(gname, ids, say, plain, meta, x):
     tempo = TEMPO * meta.get('tempo_adj', 1.0)          # 第五版：选中条与参照的语速差在 ±8% 内微调
     # 对齐并切句
     sc = content(plain)
@@ -376,10 +382,10 @@ def split_group(ids, say, plain, meta, x):
 
 res = {}
 only = sys.argv[2:]                    # 可只合成指定段落（例如 G1），用于试音
-for g in TTS_GROUPS:
-    if only and not any(sid in only for sid in g) and ('G_' + '_'.join(g)) not in only:
+for name, gid, g in TTS_GROUPS:
+    if only and not any(sid in only for sid in g) and name not in only:
         continue
-    res.update(gemini_group(g))
+    res.update(gemini_group(name, g))
 if only:                               # 只合成了部分段落：把这些句子并入已有的 vo_index.json（其余句子不动）
     ip = os.path.join(work, 'vo_index.json')
     idx = json.load(open(ip)) if os.path.exists(ip) else {}

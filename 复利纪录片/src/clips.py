@@ -70,10 +70,10 @@ CLIPS = {
                      (5223.46, 5226.00, "that's including your trusting relationship,", '包括你基于信任的关系，'),
                      (5226.78, 5230.25, "that's including the wisdom and even your health.", '包括你的智慧，甚至你的健康。')]),
     # 两段拼接：中间省略约 6 秒（一段停顿和半句 "always advocate is the relationship"），画面用短叠化过渡，字幕用省略号标出
-    'LT': dict(src='lilu_official_4970.mp4', off=4970.0, parts=[(5104.45, 5109.25), (5115.45, 5122.30)], info=LILU, crop=LILU_BOX,
+    'LT': dict(src='lilu_official_4970.mp4', off=4970.0, parts=[(5104.45, 5109.25), (5115.45, 5123.10)], info=LILU, crop=LILU_BOX,   # 出点含「trust」尾音（5122.78 读完）
                cues=[(5104.58, 5109.20, 'And what my mentor, partner, teacher Charlie Munger always said…',
                       '我的导师、合伙人、老师查理·芒格常说……'),
-                     (5115.62, 5122.25, 'the highest order of relationship he could discover is a seamless web of deserved trust.',
+                     (5115.62, 5122.95, 'the highest order of relationship he could discover is a seamless web of deserved trust.',
                       '他所能发现的最高级的关系，是一张无缝的、彼此值得信任的网。')]),
     # ---------------------------------------------------------------- 芒格 · BBC 2009
     'MB': dict(src='munger_bbc2009.mp4', a=29.45, b=47.00, info=MUNGER_BBC, crop=(0, 238, 505, 394),

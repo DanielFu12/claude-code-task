@@ -13,8 +13,10 @@ SR = 48000
 
 
 def gwav(gid):
-    ids = next([sid for sid, _ in it[2]] for it in vo_groups() if it[1] == gid)
-    x, _ = sf.read(os.path.join(VD, 'G_' + '_'.join(ids) + '.wav'))
+    from story import TTS_LAYOUT
+    lay = {g: name for v in TTS_LAYOUT.values() for name, g, _ in v}
+    name = lay.get(gid) or 'G_' + '_'.join(next([sid for sid, _ in it[2]] for it in vo_groups() if it[1] == gid))
+    x, _ = sf.read(os.path.join(VD, name + '.wav'))
     return x / (np.sqrt(np.mean(x[np.abs(x) > 1e-3] ** 2)) + 1e-9) * 10 ** (-20 / 20)     # 响度对齐，只比声色
 
 

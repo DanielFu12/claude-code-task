@@ -340,9 +340,9 @@ def summary(F, t):
     # 收束：「AI时代，更要守住复利。」
     gold_text(F, ST.TITLE_SMALL, W / 2, 690, 84, 'serif', a, clamp01(u / 0.35), glow=0.4 + 0.8 * math.exp(-u * 3), sweep=(u - 1.6) / 1.3)
     gold_text(F, ST.TITLE_BIG + '。', W / 2, 860, 140, 'serif', a, clamp01(u / 0.35 * 1.4 - 0.4), glow=0.5 + 0.9 * math.exp(-u * 3), sweep=(u - 1.75) / 1.3)
-    # 第二句随解说逐段出现：复利的秘密 → 不是更快 → 而是不失去（金色、最重）
-    k1, k2, k3 = wt('A11', '复利的秘密'), wt('A11', '不是更快'), wt('A11', '而是不失去')
-    put_text(F, '复利的秘密', W / 2, 1060, 54, 'serif_m', np.array([1.0, 0.93, 0.8]), a * smooth((t - k1 + 0.1) / 0.5), 900, glow=0.1)
+    # 第二句随解说逐段出现：复利的第一要义 → 不是更快 → 而是不失去（金色、最重）
+    k1, k2, k3 = wt('A11', '复利的第一要义'), wt('A11', '不是更快'), wt('A11', '而是不失去')
+    put_text(F, '复利的第一要义', W / 2, 1060, 56, 'serif', np.array([1.0, 0.93, 0.8]), a * smooth((t - k1 + 0.1) / 0.5), 900, glow=0.1)
     put_text(F, '不是更快', W / 2 - 200, 1170, 60, 'serif_m', V.DIM * 1.2, a * smooth((t - k2 + 0.1) / 0.5), 500, shadow=0.5)
     if t > k3 - 0.1:
         V.slam(F, '而是不失去', W / 2 + 170, 1170, 76, t, k3 - 0.1, a)
@@ -393,7 +393,7 @@ def _logo_pts(n=5200):
         cols = rgb[ys[idx], xs[idx]].astype(np.float32)
         # 总结画面上的全部文字化为微粒（与 summary() 的排版一致，按字面积分配微粒数）
         pieces = [(ST.TITLE_SMALL, 84, 'serif', W / 2, 690), (ST.TITLE_BIG + '。', 140, 'serif', W / 2, 860),
-                  ('复利的秘密', 54, 'serif_m', W / 2, 1060), ('不是更快', 60, 'serif_m', W / 2 - 200, 1170), ('而是不失去', 76, 'serif', W / 2 + 170, 1170)]
+                  ('复利的第一要义', 56, 'serif', W / 2, 1060), ('不是更快', 60, 'serif_m', W / 2 - 200, 1170), ('而是不失去', 76, 'serif', W / 2 + 170, 1170)]
         wsum = sum(len(p[0]) * p[1] ** 2 for p in pieces)
         cnt = [int(n * len(p[0]) * p[1] ** 2 / wsum) for p in pieces]; cnt[1] += n - sum(cnt)
         src = np.concatenate([mask_points(tx, sz, nm, k, x, y) for (tx, sz, nm, x, y), k in zip(pieces, cnt)])

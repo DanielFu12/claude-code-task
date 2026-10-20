@@ -85,7 +85,7 @@ def title(F, t):
     # 片名：小字「AI时代，」+ 大字「更要守住复利」
     gold_text(F, ST.TITLE_SMALL, W / 2, 790, 92, 'serif', a, clamp01(u / 0.4), glow=0.3 + 0.5 * math.exp(-u * 3), sweep=(u - 2.0) / 1.4)
     gold_text(F, ST.TITLE_BIG, W / 2, 975, 156, 'serif', a, clamp01(u / 0.4 * 1.6 - 0.6), glow=0.5 + 0.8 * math.exp(-u * 3), sweep=(u - 2.15) / 1.4)
-    put_text(F, '复利的秘密，不是更快，而是不失去', W / 2, 1170, 44, 'serif_m', np.array([0.95, 0.9, 0.8]), a * smooth((u - 1.6) / 0.7), 980,
+    put_text(F, ST.SUBTITLE, W / 2, 1170, 44, 'serif_m', np.array([0.95, 0.9, 0.8]), a * smooth((u - 1.6) / 0.7), 980,
              reveal=clamp01((u - 1.6) / 1.2), glow=0.1)
     put_text(F, '李录  ·  巴菲特  ·  芒格', W / 2, 1265, 32, 'sans_l', GOLD_SUB * 1.2, a * smooth((u - 2.4) / 0.7), 900, track=6)
     footnote(F, '李录、巴菲特、芒格的讲话均为原始影像原声 · 中文字幕为本片翻译', a * smooth((u - 3.0) / 0.7), y=1640, size=22)

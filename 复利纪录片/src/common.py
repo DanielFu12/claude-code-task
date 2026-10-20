@@ -90,13 +90,21 @@ def gold_text(frame, text, x, y, size, name='serif', alpha=1.0, reveal=1.0, glow
     if len(ys) == 0: return tb
     y0, y1 = ys[0], ys[-1] + 1
     ramp = np.zeros((H, 1, 3), np.float32)
-    # 每行文字单独套一次品牌渐变
+    # 每行文字单独套一次品牌渐变：渐变贴合该行字形实际的上下边缘（按字形 mask 量出来），
+    # 两端外的行取端点颜色——不能按字号估算，否则字的下边缘会落在渐变之外变成黑色，看起来发虚
     nl = max(len(tb.lines), 1)
     lhpx = size * lh
+    ink = m.max(axis=1) > 0.02
+    bands = [(int(y - tb.h / 2 + k * lhpx), int(y - tb.h / 2 + (k + 1) * lhpx)) for k in range(nl)]
+    edges = [0] + [(bands[k][1] + bands[k + 1][0]) // 2 for k in range(nl - 1)] + [H]
     for k in range(nl):
-        a = int(y - tb.h / 2 + k * lhpx - 4); b = int(a + size * 1.25)
-        a2, b2 = max(a, 0), min(b, H)
-        if b2 > a2: ramp[a2:b2, 0] = BB.gold_ramp(b - a)[a2 - a:b2 - a]
+        lo, hi = max(edges[k], 0), min(edges[k + 1], H)
+        rows = np.where(ink[lo:hi])[0]
+        if len(rows) == 0: continue
+        a, b = lo + rows[0], lo + rows[-1] + 1
+        g = BB.gold_ramp(b - a)
+        ramp[a:b, 0] = g
+        ramp[lo:a, 0] = g[0]; ramp[b:hi, 0] = g[-1]
     col = np.broadcast_to(ramp, (H, W, 3))
     sh = blur(m, size * 0.1 + 2) * 0.6 * alpha
     frame *= (1 - sh)[..., None]
