@@ -1,7 +1,7 @@
 # 李录 · 哥大演讲精华（9:16 竖屏）
 
 - **正式成片**：`李录哥大演讲精华_9x16.mp4`，1080×1920 · 30fps · H.264 + AAC 192k，时长 45:32。
-- **预览版**：`李录哥大演讲精华_预览版.mp4`，720×1280，两遍编码，体积控制在 30MB 以内，可直接观看。
+- **预览版**：`李录哥大演讲精华_预览版.mp4`，720×1280 · 15fps，两遍编码，29.2MB（30MB 以内），可直接观看。
 - **原始素材**：YouTube [36th Annual Graham & Dodd Event with Li Lu '96](https://www.youtube.com/watch?v=YRhnX_JAbC8)（Columbia Business School，2026-10-05，1:28:17）。云端剪辑环境的出口 IP 过不了 YouTube 视频服务器的校验，所以原片由用户本地下载后上传到本仓库 Release `source-YRhnX_JAbC8`。时长和逐帧时间码都与 YouTube 版一致。
 - **中文字幕底本**：哥大商学院官方发布的中文实录（`36th Annual Graham & Dodd Luncheon Transcript 20261005 CBS Chinese.pdf`），按字幕节奏做了精简。
 
