@@ -380,7 +380,13 @@ for g in TTS_GROUPS:
     if only and not any(sid in only for sid in g) and ('G_' + '_'.join(g)) not in only:
         continue
     res.update(gemini_group(g))
-if only:
+if only:                               # 只合成了部分段落：把这些句子并入已有的 vo_index.json（其余句子不动）
+    ip = os.path.join(work, 'vo_index.json')
+    idx = json.load(open(ip)) if os.path.exists(ip) else {}
+    for sid, r in res.items():
+        idx[sid] = dict(group=ITEMS[sid][0], text=ITEMS[sid][1], say=r['say'], dur=r['dur'], words=r['words'], engine=GEMINI_MODEL, voice=GEMINI_VOICE)
+        if 'gap' in r: idx[sid]['gap'] = r['gap']
+    json.dump(idx, open(ip, 'w'), ensure_ascii=False, indent=1)
     print('partial run:', list(res)); raise SystemExit(0)
 assert set(res) == set(ITEMS), set(ITEMS) ^ set(res)
 idx = {}

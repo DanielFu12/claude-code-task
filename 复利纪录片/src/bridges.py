@@ -23,7 +23,7 @@ def still(F, cid, u, cx, cy, w, a, zoom=(1.0, 1.08), dur=8.0, t=0.0, t0=0.0, dim
     z = lerp(zoom[0], zoom[1], ease_io(clamp01((t - t0) / dur)))
     big = cv2.resize(fr, (int(w * z), int(h * z)), interpolation=cv2.INTER_AREA)
     ox, oy = (big.shape[1] - w) // 2, (big.shape[0] - h) // 2
-    img = FT.inv_tonemap(big[oy:oy + h, ox:ox + w]) * dim
+    img = FT.inv_tonemap(np.minimum(big[oy:oy + h, ox:ox + w], 0.82)) * dim      # 压住高光，饱和的红色不会泛成光晕
     x0, y0 = int(cx - w / 2), int(cy - h / 2)
     m = FT._round_mask(w, h, 16) * a
     V.darken_box(F, x0, y0 + 14, x0 + w, y0 + h + 14, 0.6 * a, 40)
@@ -166,7 +166,7 @@ def gh(F, t):
     h1, h2, h3, h4 = st('H01'), st('H02'), st('H03'), st('H04')
     end = st('S09')
     # ---------------------------------------------------------------- AI 核心：H01 居中长大 → H02 退到右上 → H03 消失
-    ac = win(t, h1 - 0.3, h3 + 0.2, 0.5, 0.45)
+    ac = win(t, h1 - 0.05, h3 + 0.2, 0.5, 0.45)
     if ac > 0:
         grow = ease_out(clamp01((t - wt('H01', '越强大') + 0.1) / 0.9))
         mv = ease_io(clamp01((t - h2 + 0.1) / 0.8))
@@ -284,9 +284,13 @@ def gh(F, t):
             xs = np.linspace(0, u, 120)
             gy = yb - Hc * (np.exp(3.0 * xs) - 1) / (math.e ** 3 - 1)
             pts = np.c_[x0 + xs * (x1 - x0), gy]
+            gs = np.linspace(u, 1, 60)                               # 还没画到的部分：沿用上一句「本该如此」的虚线，金线把它一点点填满
+            gq = np.c_[x0 + gs * (x1 - x0), yb - Hc * (np.exp(3.0 * gs) - 1) / (math.e ** 3 - 1)]
+            for i in range(0, 59, 2):
+                V.line(F, [gq[i], gq[i + 1]], GOLD, 1.6, a4 * 0.45, 0.3)
             V.fill_poly(F, list(map(tuple, pts)) + [(pts[-1, 0], yb), (x0, yb)], GOLD * 0.30, a4, top=float(gy.min()), bottom=yb, grad=(0.9, 0.0))
             V.line(F, pts, GOLD_HI, 3.4, a4, 1.0)
-            V.dot(F, pts[-1, 0], pts[-1, 1], 10, GOLD_HI, a4, 1.8)
+            V.dot(F, pts[-1, 0], pts[-1, 1], 4 + 5 * smooth(u / 0.3), GOLD_HI, a4, 1.0 + 0.6 * smooth(u / 0.3))
             r = np.random.default_rng(5); n = 50                     # 彗星尾
             back = r.uniform(0, 0.25, n)
             q = np.c_[x0 + np.clip(u - back, 0, 1) * (x1 - x0), yb - Hc * (np.exp(3.0 * np.clip(u - back, 0, 1)) - 1) / (math.e ** 3 - 1)]
@@ -349,7 +353,7 @@ def g4(F, t):
             V.line(F, [(W / 2 - 380, 880), (W / 2 - 380 + 260 * s, 880)], RED_S, 5, a, 0.6)
         V.rise(F, '而是', W / 2 + 230, 760, 60, t, wt('S07', '而是'), 'serif_m', V.INK_T, a)
         V.slam(F, '不失去', W / 2 + 230, 880, 120, t, wt('S07', '不失去'), a)
-    a = win(t, st('S08') - 0.2, st('H01') + 0.05, 0.35, 0.4)
+    a = win(t, st('S08') - 0.2, st('H01') - 0.15, 0.35, 0.35)
     if a > 0:
         lose_t = wt('S08', '失去')
         for i, (name, col) in enumerate(LIFE4):
@@ -375,7 +379,8 @@ def g4(F, t):
             put_text(F, '一年一年地叠加', W / 2, 520, 50, 'serif_m', GOLD_HI, a * smooth((t - wt('S08', '叠加')) / 0.4), 980, shadow=0.5)
     a = win(t, st('S09') - 0.2, t3.seg('LT')['t0'] + 0.3, 0.35, 0.3)
     if a > 0:
-        still(F, 'MU', 3.0, W / 2, 800, 760, a * smooth((t - wt('S09', '来自一个人')) / 0.6), t=t, t0=st('S09'), dur=4, dim=0.55)
+        still(F, 'MU', 3.0, W / 2, 800, 760, a * (0.3 + 0.7 * smooth((t - wt('S09', '来自一个人')) / 0.6)), t=t, t0=st('S09'), dur=4,
+              dim=0.35 + 0.2 * smooth((t - wt('S09', '来自一个人')) / 0.6))           # 先暗暗地出现，说到「来自一个人」再亮起
         V.rise(F, '这套人生观，来自一个人', W / 2, 1230, 54, t, st('S09'), 'serif', V.INK_T, a)
     gh(F, t)
 
