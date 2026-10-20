@@ -1,7 +1,5 @@
-"""成片音轨：原声片段按时间线拼接 + 片头/章节卡/片尾配乐（取自仓库根目录 opus5.5涌现.mp4）。
+"""成片音轨：原声片段按时间线拼接 + 片头/章节卡/片尾配乐（配乐来源与重拍位置见 render_consts.py）。
 用法: python3 audio.py <orig.mp4> <bgm.mp4> <out.wav>
-配乐重拍：原曲 17.14s（安静段后的第一个重拍）→ 章节卡 0.24s 处、片尾 4.6s 处（金色字出现）；
-          原曲 93.65s（第二个重拍）→ 片头 0.35s 处（标题出现）。
 """
 import subprocess, sys
 import numpy as np
@@ -37,7 +35,7 @@ def main(orig, bgm_path, out):
         buf[i:i + len(x)] += x; speech.append(x)
     sp_db = rms_db(np.concatenate(speech[:3]))
     bgm = load(bgm_path)
-    bg_db = rms_db(bgm[int(18 * SR):int(78 * SR)])
+    bg_db = rms_db(bgm[int(100 * SR):int(240 * SR)])      # 配乐主体段的平均响度
 
     def bed(src_t, dur, at, rel_db, fi, fo):
         x = bgm[int(src_t * SR):int((src_t + dur) * SR)]
@@ -47,11 +45,11 @@ def main(orig, bgm_path, out):
 
     for it in items:
         if it['kind'] == 'intro':
-            bed(RC.HIT2 - 0.35, edl.INTRO, it['t0'], -3, 0.05, 1.4)
+            bed(RC.HIT_INTRO - 0.35, edl.INTRO, it['t0'], -3, 0.05, 1.4)
         elif it['kind'] == 'card':
-            bed(RC.HIT1 - 0.24, edl.CARD, it['t0'], -7, 0.02, 1.0)
+            bed(RC.HIT_CARD - 0.24, edl.CARD, it['t0'], -7, 0.02, 1.0)
         elif it['kind'] == 'outro':
-            bed(RC.HIT1 - RC.OUTRO_HIT, edl.OUTRO, it['t0'], -2, 0.9, 1.6)
+            bed(RC.HIT_OUTRO - RC.OUTRO_HIT, edl.OUTRO, it['t0'], -2, 0.9, 1.6)
     buf = buf[:int(total * SR)]
     import soundfile as sf
     sf.write(out, buf, SR, subtype='FLOAT')

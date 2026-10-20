@@ -2,8 +2,11 @@
 用法: python3 align.py <orig.en-orig.json3> <script_en.txt> <out.json>
 
 1. 每句先用 3-gram 投票粗定位，取高置信度句子确定每章在原片中的范围；
-2. 在该范围内对整章做序列比对（difflib），得到 文稿词 → 原片词 的映射；
-3. 相邻两句在原片中间隔超过 GAP 个词，说明中间有被删掉的内容，在此处剪开。
+2. 剪辑点：在该范围内对整章做序列比对（difflib），相邻两句在原片中间隔超过 GAP 个词，
+   说明中间有被删掉的内容，在此处剪开；
+3. 字幕计时：在各章片段范围内做全局动态规划比对（Needleman–Wunsch，原片多出的口头语
+   代价低、文稿词缺失代价高），每个文稿词都落到一个原片词上；不会因为相邻句里重复出现的
+   短语（如 middle-class Chinese family）把整句错配到前一句的位置。
 输出 JSON: {sentences:[{ch,para,text,i0,i1,t0,t1}], segments:[{ch,t0,t1,s0,s1}]}
 """
 import json, re, sys
@@ -58,6 +61,40 @@ def rough(toks, atok, grams):
     off = max(votes, key=votes.get)
     return off, votes[off] / max(1, len(toks) - 2)
 
+def sim(a, b):
+    if a == b: return 3.0
+    if len(a) >= 4 and len(b) >= 4 and (a.startswith(b[:4]) or b.startswith(a[:4])): return 1.5
+    return -1.0
+
+def nw_map(ctok, atok, g_script=-1.0, g_asr=-0.4):
+    """全局比对：文稿词全部参与、原片两端可空；返回每个文稿词对应的原片下标（未对上为 None）"""
+    import numpy as np
+    n, m = len(ctok), len(atok)
+    vocab = {w: k for k, w in enumerate(set(ctok) | set(atok))}
+    av = np.array([vocab[w] for w in atok])
+    H = np.zeros(m + 1, np.float32)                    # 第 0 行：原片前缀可以白跳过
+    ptr = np.zeros((n + 1, m + 1), np.int8)
+    jj = np.arange(m + 1, dtype=np.float32)
+    simrow = {}
+    for i in range(1, n + 1):
+        w = ctok[i - 1]
+        if w not in simrow:
+            simrow[w] = np.array([sim(w, x) for x in atok], np.float32)
+        D = np.full(m + 1, -1e9, np.float32); D[1:] = H[:-1] + simrow[w]
+        U = H + g_script
+        A = np.maximum(D, U)
+        Hn = jj * g_asr + np.maximum.accumulate(A - jj * g_asr)     # 向左延伸（跳过原片词）
+        p = np.where(D >= U, 0, 1).astype(np.int8)
+        p[Hn > A + 1e-6] = 2
+        ptr[i] = p; H = Hn
+    j = int(np.argmax(H)); i = n; out = [None] * n
+    while i > 0:
+        p = ptr[i, j]
+        if p == 0: out[i - 1] = j - 1; i -= 1; j -= 1
+        elif p == 1: i -= 1
+        else: j -= 1
+    return out
+
 def main(asr_p, script_p, out_p):
     A = words_asr(asr_p); atok = [w[0] for w in A]
     grams = {}
@@ -109,6 +146,20 @@ def main(asr_p, script_p, out_p):
     for g in segs:
         g['t0'], g['t1'] = A[g['i0']][1], A[g['i1']][2]
         g.update({k: v for k, v in SEG_FIX.get(g['ch'], {}).items() if g is [x for x in segs if x['ch'] == g['ch']][0 if k == 't0' else -1]})
+    # 字幕计时：各章片段范围内的全局比对
+    for ch in sorted({s['ch'] for s in S}):
+        CS = [s for s in S if s['ch'] == ch]
+        gs = [g for g in segs if g['ch'] == ch]
+        lo, hi = max(0, gs[0]['i0'] - 20), min(len(atok), gs[-1]['i1'] + 20)
+        ctok, owner = [], []
+        for k, s in enumerate(CS):
+            ctok += s['tok']; owner += [k] * len(s['tok'])
+        mm = nw_map(ctok, atok[lo:hi])
+        for k, s in enumerate(CS):
+            idx = [lo + mm[j] for j in range(len(ctok)) if owner[j] == k and mm[j] is not None]
+            s['wt'] = [A[lo + mm[j]][1] if mm[j] is not None else None for j in range(len(ctok)) if owner[j] == k]
+            s['ok'] = bool(idx)
+            if idx: s['i0'], s['i1'] = min(idx), max(idx)
     keep = [s for s in S if s.get('keep')]
     for s in keep:
         if s['ok']: s['t0'], s['t1'] = A[s['i0']][1], A[s['i1']][2]

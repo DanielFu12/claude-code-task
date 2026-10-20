@@ -22,8 +22,8 @@ python3 build_cues.py "$WORK/align.json" cues.txt "$WORK/cues.json"
 [ -f "$WORK/yunet.onnx" ] || curl -sSfL -o "$WORK/yunet.onnx" \
   https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx
 python3 shots.py "$SRC" "$WORK/yunet.onnx" youtube_asr.en.json3
-# 4) 音轨：原声拼接 + 配乐（仓库根目录 opus5.5涌现.mp4）
-python3 audio.py "$SRC" "../../opus5.5涌现.mp4" "$WORK/mix_raw.wav"
+# 4) 音轨：原声拼接 + 配乐（仓库根目录 从现在看过去-AI简史.mp4，见 src/render_consts.py）
+python3 audio.py "$SRC" "../../$(python3 -c 'import render_consts as R; print(R.BGM)')" "$WORK/mix_raw.wav"
 # 5) 逐帧渲染（4 进程并行）
 N=$(python3 render.py info | awk '/^frames/{print $2}'); K=4; S=$(( (N + K - 1) / K ))
 for k in $(seq 0 $((K-1))); do LILU_CRF=${LILU_CRF:-20} python3 render.py chunk $((k*S)) $(((k+1)*S)) "$WORK/seg$k.mp4" & done; wait

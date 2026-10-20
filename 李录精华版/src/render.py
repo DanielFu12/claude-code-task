@@ -190,8 +190,6 @@ def chrome(ch):
         put_text(img, 'Li Lu at the 36th Annual Graham & Dodd Event, Columbia Business School', 'latin_reg', 24, 52, 394, GREY, 0.9)
     hairline(img, 426, 0.5, 52, 1028)
     hairline(img, VY - 1, 0.6); hairline(img, VY + VS, 0.6)
-    put_text(img, 'Source: Columbia Business School · 36th Annual Graham & Dodd Event (YouTube)', 'latin_reg', 17,
-             W // 2, 1893, GREY, 0.45, anchor='m')
     _chrome[ch] = img
     return img
 
@@ -388,7 +386,7 @@ LOGO_RGB, LOGO_A = load_logo(LOGO_PX)                   # 官方 logo：brand/lo
 LOGO_CY = 760
 TITLE_Y, SUB_Y2, LINE_Y, FOLLOW_Y = 1030, 1100, 1168, 1232
 import render_consts as RC
-HIT = RC.OUTRO_HIT                                      # 片尾音乐重拍（见 audio.py）
+HIT = RC.OUTRO_HIT                                      # 片尾音乐重拍（见 render_consts.py）
 _rng = np.random.default_rng(7)
 _ys, _xs = np.where(LOGO_A > 0.5)
 _pick = _rng.choice(len(_ys), 3200, replace=len(_ys) < 3200)

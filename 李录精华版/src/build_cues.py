@@ -5,6 +5,8 @@
 import json, re, sys
 from align import tokens
 
+FILL = 8.0
+
 def parse(path):
     out, ch, spk, e = [], None, 'L', None
     for line in open(path, encoding='utf8'):
@@ -41,9 +43,9 @@ def main(align_p, cues_p, out_p):
         for k in range(len(n)):
             en = re.sub(r'\s*\[[^\]]*\]', '', c['en'][k]).strip()   # 编者补注不显示
             res.append(dict(ch=c['ch'], spk=c['spk'], t0=round(bounds[k], 3), t1=round(bounds[k + 1], 3), en=en, zh=c['zh'][k]))
-    # 相邻字幕首尾相接：小于 0.6s 的空隙补齐，避免闪烁
+    # 相邻字幕首尾相接：同章内小于 FILL 秒的空隙（停顿、口头语）由前一条延长补齐，避免字幕空白
     for a, b in zip(res, res[1:]):
-        if a['ch'] == b['ch'] and 0 < b['t0'] - a['t1'] < 0.6: a['t1'] = b['t0']
+        if a['ch'] == b['ch'] and 0 < b['t0'] - a['t1'] < FILL: a['t1'] = b['t0']
     # 最短显示时长：太短的字幕向后借时间（下一条足够长时把它的开头往后推）
     for k, a in enumerate(res):
         need = min(2.2, 0.7 + 0.075 * len(a['zh']))
@@ -52,9 +54,6 @@ def main(align_p, cues_p, out_p):
         if b is None: a['t1'] = a['t0'] + need; continue
         give = max(0.0, min(need - (a['t1'] - a['t0']), (b['t1'] - b['t0']) - min(2.2, 0.7 + 0.075 * len(b['zh']))))
         a['t1'] += give; b['t0'] = a['t1']
-    # 过长的字幕（说话停顿或改写较多）最多显示 0.32s/字 + 2s
-    for a in res:
-        a['t1'] = min(a['t1'], a['t0'] + 2.0 + 0.32 * len(a['zh']))
     json.dump(res, open(out_p, 'w'), ensure_ascii=False, indent=0)
     print(len(res), 'cues; max zh', max(len(r['zh']) for r in res), 'max en words', max(len(r['en'].split()) for r in res))
 

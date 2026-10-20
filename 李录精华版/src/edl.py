@@ -57,6 +57,13 @@ def load(src_json3):
                 if b - a > 0.2:
                     out_cues.append(dict(c, o0=it['t0'] + a - it['src0'], o1=it['t0'] + b - it['src0']))
                 break
+    # 片段首尾：首条字幕不晚于片段开头 1 秒内出现，末条字幕延续到片段结束（原话常有简短复述）
+    for it in items:
+        if it['kind'] != 'clip': continue
+        cs = [c for c in out_cues if it['t0'] <= c['o0'] < it['t1']]
+        if not cs: continue
+        if 0 < cs[0]['o0'] - it['t0'] < 1.0: cs[0]['o0'] = it['t0'] + 0.05
+        if 0 < it['t1'] - cs[-1]['o1'] < 8.0: cs[-1]['o1'] = it['t1'] - 0.1
     return items, out_cues, t
 
 if __name__ == '__main__':
