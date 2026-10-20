@@ -233,7 +233,7 @@ def vo_sub(F, t, sents, hide=()):
 
 
 def _screens(txt):
-    """超过约 40 字的句子，在中间附近的句读处拆成两屏"""
+    """超过约 40 字的句子，在中间附近的句读处拆成两屏（必要时再拆）"""
     if len(txt) <= 40: return [txt]
     best = None
     for i, ch in enumerate(txt):
@@ -241,4 +241,5 @@ def _screens(txt):
             d = abs(i - len(txt) / 2)
             if best is None or d < best[0]: best = (d, i + 1)
     if not best: return [txt]
-    return [txt[:best[1]].rstrip('，'), txt[best[1]:].lstrip('—')]
+    a, b = txt[:best[1]].rstrip('，—'), txt[best[1]:].lstrip('—')
+    return _screens(a) + _screens(b)                 # 半句仍超过 40 字就再拆（字幕始终不超过两行）
