@@ -32,9 +32,9 @@ cd "$ROOT"
 OUT="李录哥大演讲精华_9x16.mp4"
 ffmpeg -loglevel error -y -f concat -safe 0 -i "$WORK/list.txt" -i "$WORK/mix_raw.wav" -map 0:v -map 1:a -c:v copy \
   -af "loudnorm=I=-16:TP=-1.5:LRA=11" -ar 48000 -c:a aac -b:a 192k -shortest -movflags +faststart "$OUT"
-# 6) 30MB 以内预览版：720×1280 · 15fps，两遍编码；按时长反推码率（目标 29.5MB，语音 24kbps 单声道）
+# 6) 30MB 以内预览版：720×1280 · 15fps，两遍编码；按时长反推码率（目标 28.5MB，语音 24kbps 单声道）
 DUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$OUT")
-VB=$(python3 -c "print(int(29.5e6*8/$DUR/1000 - 24 - 2))")
+VB=$(python3 -c "print(int(28.5e6*8/$DUR/1000 - 24 - 2))")
 VF="fps=15,scale=720:1280:flags=lanczos"
 X264="-c:v libx264 -preset veryslow -tune stillimage -g 300 -bf 8 -b:v ${VB}k"
 ffmpeg -loglevel error -y -i "$OUT" -vf "$VF" $X264 -pass 1 -passlogfile "$WORK/p" -an -f mp4 /dev/null
