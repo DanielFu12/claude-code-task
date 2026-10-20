@@ -1,11 +1,11 @@
-"""解说声色 A/B 试听包：参照段（片名后的第一段解说 G2，及开场解说 G1）→ 0.8 秒间隔 → 重新合成的段落。
+"""解说声色 A/B 试听包：参照段（开场解说 G1 的前 12 秒）→ 提示音 → 重新合成的段落。
 每个文件都是「A = 参照，B = 新合成」，用于人耳确认同一声音、同一风格。
 用法：python3 tools/ab_pack.py OUT_DIR
 """
 import os, sys, json
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
-from story import vo_groups, TAKES, REF_GROUPS
+from story import vo_groups, VOICE_MATCH
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 VD = os.path.join(ROOT, 'work', 'vo')
@@ -26,9 +26,9 @@ def tone(f=880, d=0.12):
 if __name__ == '__main__':
     out = sys.argv[1]; os.makedirs(out, exist_ok=True)
     gap = np.zeros(int(0.8 * SR))
-    ref = np.concatenate([gwav(REF_GROUPS[1]), gap, gwav(REF_GROUPS[0])[:int(8 * SR)]])
-    for gid in TAKES:
+    ref = gwav('G1')[:int(12 * SR)]
+    for gid in VOICE_MATCH:
         y = np.concatenate([ref, gap, tone(), gap, gwav(gid)])
-        p = os.path.join(out, f'AB_参照G2G1_vs_{gid}.wav')
+        p = os.path.join(out, f'AB_开场解说_vs_{gid}.wav')
         sf.write(p, y, SR, subtype='PCM_16')
         print(p)

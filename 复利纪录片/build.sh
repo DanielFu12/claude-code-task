@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 一键重建第四版《AI时代，更要守住复利：李录、巴菲特、芒格谈复利》（1080×1920 · 30fps · 约 6 分 46 秒）
+# 一键重建第五版《AI时代，更要守住复利：李录、巴菲特、芒格谈复利》（1080×1920 · 30fps · 6 分 36 秒）
 # 依赖：ffmpeg（含 rubberband）、yt-dlp、python3（numpy numba opencv-python-headless pillow soundfile librosa scipy pyloudnorm
 #       faster-whisper）。解说只用 Gemini TTS gemini-3.8-flash-tts（Gemini API 的 key 由环境注入）。
 # 品牌角标 / logo / 字体与颜色全部取自仓库根目录 brand/（见 brand/BRAND.md）
