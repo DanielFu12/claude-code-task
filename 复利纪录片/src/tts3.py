@@ -169,7 +169,7 @@ def gemini_group(ids):
         base_key = key
         key = hashlib.md5((f'{key}|takes{ntake}|ref{"+".join(vm["ref"])}' + (f'|m{vm["metric"]}' if vm.get('metric', 1) > 1 else '')).encode()).hexdigest()[:12]
         # 候选条的缓存只取决于朗读稿、声音与风格（第五版早期的候选条用的是 m2 键，同样认）
-        take_keys = (base_key, hashlib.md5(f'{base_key}|takes{ntake}|ref{"+".join(vm["ref"])}|m2'.encode()).hexdigest()[:12])
+        take_keys = (base_key,) + tuple(hashlib.md5(f'{base_key}|takes{n}|ref{"+".join(vm["ref"])}|m2'.encode()).hexdigest()[:12] for n in range(1, 13))
     if os.path.exists(meta_p) and json.load(open(meta_p)).get('key') == key:
         meta = json.load(open(meta_p)); x, _ = sf.read(base + '.wav')
     elif ntake and vm.get('metric', 1) > 1:
@@ -280,6 +280,8 @@ def take_audio(gname, base, text, plain, style, keys, k):
     tj = xb + '.json'
     if os.path.exists(tj) and json.load(open(tj)).get('key') in keys:
         return xb, [tuple(r) for r in json.load(open(tj))['rec']]
+    if os.environ.get('TTS_CACHE_ONLY'):              # 只用已缓存的候选条重新挑选，不调用接口
+        return None, None
     raw, mime, rec = synth(gname, text, plain, style, base)
     to_wav48(raw, mime, xb)
     json.dump(dict(key=key, rec=rec), open(tj, 'w'), ensure_ascii=False)
@@ -301,6 +303,7 @@ def takes_group2(gname, base, text, plain, style, key, vm, take_keys):
         best = min((c['d'] for c in cands), default=99)
         if (k > 4 and best <= 5.0) or (k > vm['takes'] and best <= 7.0): break
         xb, rec = take_audio(gname, base, text, plain, style, take_keys, k)
+        if xb is None: break
         y, _ = sf.read(xb + '.wav')
         parts = [(xb + '.wav', plain)]
         if len(y) / SR > 20:                     # 长段：按识别出的逐字时间在中点切开，两半分别比
