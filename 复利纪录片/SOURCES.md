@@ -1,6 +1,6 @@
-# 资料来源、原始影像与授权说明（第四版）
+# 资料来源、原始影像与授权说明（第五版）
 
-《AI时代，更要守住复利：李录、巴菲特、芒格谈复利》第四版，约 6 分 46 秒。
+《AI时代，更要守住复利：李录、巴菲特、芒格谈复利》第五版，约 6 分 37 秒。
 - **原始影像**：李录、巴菲特、芒格的讲话全部是原始影像原声，英文字幕是原话，中文字幕是本片翻译。
 - **解说**：用 Gemini TTS `gemini-3.8-flash-tts` 合成，是本片的串联与解读，不代表任何大师的原话。
 - **动画**：所有数字都有出处，或者是标明假设的数学示意。
@@ -48,7 +48,7 @@ https://business.columbia.edu/sites/default/files-efs/imce-uploads/36th%20Annual
 | 「变化的速度、涉及的规模，都前所未有」 | 逐字稿第 6 页："the pace of change, the scale involved … They're all incredibly unprecedented." |
 | 李录称芒格为「导师、合伙人、老师」 | 逐字稿第 22 页（片段 LT） |
 | 1999 年股东大会上的提问 | 片段 BB 之前的提问原声（整场录像 3:46:45 起） |
-| LTCM：华尔街顶尖交易员管理，两位诺贝尔经济学奖得主（Myron Scholes、Robert Merton）坐镇，高杠杆，1998 年几个月内亏掉约 46 亿美元，几乎赔光全部资本 | Wikipedia "Long-Term Capital Management"（1998 年不到四个月亏损 46 亿美元）。画面上的资本曲线标注为「示意」 |
+| LTCM（解说：「就在那届股东大会的前一年」，即 1999 年股东大会的前一年）：华尔街顶尖交易员管理，两位诺贝尔经济学奖得主（Myron Scholes、Robert Merton）坐镇，高杠杆，1998 年几个月内亏掉约 46 亿美元，几乎赔光全部资本 | Wikipedia "Long-Term Capital Management"（1998 年不到四个月亏损 46 亿美元）。画面上的资本曲线标注为「示意」 |
 | 伯克希尔股价四次大跌：1973.03–1975.01 −59.1%；1987.10.02–10.27 −37.1%；1998.06.19–2000.03.10 −48.9%；2008.09.19–2009.03.05 −50.7% | 伯克希尔 2017 年致股东信第 10 页 https://www.berkshirehathaway.com/letters/2017ltr.pdf |
 | "any series of positive numbers, however impressive the numbers may be, evaporates when multiplied by a single zero." | 伯克希尔 2010 年致股东信 "Life and Debt" 一节 https://www.berkshirehathaway.com/letters/2010ltr.pdf （已下载原文核对） |
 | "The fundamental principle of auto racing is that to finish first, you must first finish." | 同上，同一节第一句。巴菲特说这是赛车界的基本原则，所以解说用的是「他引用赛车界的一条原则」 |

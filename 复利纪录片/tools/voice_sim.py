@@ -41,6 +41,32 @@ def sim(a, b):
     return float(np.dot(a, b) / np.linalg.norm(a) / np.linalg.norm(b))
 
 
+PUNCT = '，。；：？！、—…“”《》·（）,.;:?! '
+
+
+def profile(path, text):
+    """更贴近听感的声色画像：声纹、平均 MFCC（音色）、基频分布（半音）、语速（每秒字数，不含停顿）、亮度"""
+    y = load(path); sr = 16000
+    f0, v, _ = librosa.pyin(y, fmin=70, fmax=300, sr=sr, frame_length=1024)
+    st = 12 * np.log2(f0[v & ~np.isnan(f0)] / 100)
+    db = 20 * np.log10(librosa.feature.rms(y=y, frame_length=512, hop_length=160)[0] + 1e-9)
+    sp = db > db.max() - 35
+    S = np.abs(librosa.stft(y, n_fft=1024, hop_length=160))[:, :len(sp)]
+    vs = S[:, sp[:S.shape[1]]]
+    mf = librosa.feature.mfcc(S=librosa.power_to_db(librosa.feature.melspectrogram(S=vs ** 2, sr=sr)), n_mfcc=14)[1:].mean(1)
+    n = len([c for c in text if c not in PUNCT and not c.isspace()])
+    return dict(emb=embed(path), mfcc=mf, st=np.percentile(st, [10, 50, 90]), rate=n / (sp.mean() * len(y) / sr),
+                cen=float(np.median(librosa.feature.spectral_centroid(S=vs, sr=sr)[0])))
+
+
+def distance(a, r):
+    """与参照的综合距离（越小越像）：各项按「听得出差别」的量级归一后相加"""
+    d = dict(emb=(1 - sim(a['emb'], r['emb'])) / 0.04, mfcc=float(np.linalg.norm(a['mfcc'] - r['mfcc'])) / 12,
+             pitch=abs(a['st'][1] - r['st'][1]) / 0.8, range=abs(a['st'][2] - r['st'][2]) / 1.5,
+             rate=abs(a['rate'] - r['rate']) / 0.4, bright=abs(a['cen'] - r['cen']) / 120)
+    return sum(d.values()), d
+
+
 if __name__ == '__main__':
     refp = sys.argv[1].split('+')                 # 参照可以是多个文件：a.wav+b.wav
     ref = embed(refp); rs = stats(refp)

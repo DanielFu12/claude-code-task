@@ -93,7 +93,7 @@ def g1(F, t):
                 V.line(F, pts, col, 1.6, al, 0.6, closed=True)
         put_text(F, '学到的东西不断作废', W / 2, 1300, 34, 'sans', V.DIM, a3 * smooth((t - wt('S03', '学到的东西')) / 0.4), 900, shadow=0)
     # S04：问题
-    a4 = win(t, st('S04') - 0.2, t3.seg('GH')['t0'] + 0.35, 0.4, 0.35)
+    a4 = win(t, st('S04') - 0.2, t3.seg('title')['t0'] + 0.05, 0.4, 0.25)
     if a4 > 0:
         V.rise(F, '在一个越来越快的时代', W / 2, 760, 54, t, st('S04'), 'serif_m', V.INK_T, a4)
         k = wt('S04', '什么才值得')
@@ -101,114 +101,205 @@ def g1(F, t):
         V.slam(F, '花几十年去积累？', W / 2, 1000, 84, t, wt('S04', '几十年'), a4)
 
 
-# ------------------------------------------------------------------ GH：AI 时代的两种诱惑 → 守住复利（第四版新增，引出片名）
-def ai_chip(F, x, y, r, a, glow=0.6, label='AI'):
-    pts = [(x - r, y - r), (x + r, y - r), (x + r, y + r), (x - r, y + r)]
-    V.fill_poly(F, pts, CYAN * 0.18, a)
-    V.line(F, pts, CYAN, 2.0, a, glow, closed=True)
-    for k in range(4):                                   # 芯片引脚
-        d = -r * 0.6 + k * r * 0.4
-        for (x0, y0, x1, y1) in ((x + d, y - r, x + d, y - r - 16), (x + d, y + r, x + d, y + r + 16),
-                                 (x - r, y + d, x - r - 16, y + d), (x + r, y + d, x + r + 16, y + d)):
-            V.line(F, [(x0, y0), (x1, y1)], CYAN, 1.4, a * 0.8, 0.3)
-    put_text(F, label, x, y, int(r * 0.9), 'mono', WHITE, a, 400, shadow=0, glow=0.3)
+# ------------------------------------------------------------------ GH：AI 时代的两种诱惑 → 守住复利
+# 第五版：放在李录讲完复利的定义（S07–S08）之后、「这套人生观来自一个人」（S09）之前，与 G4 同段解说。
+_rn = np.random.default_rng(21)
+_NODE = _rn.normal(0, 1, (64, 3)); _NODE /= np.linalg.norm(_NODE, axis=1, keepdims=True)
+_EDGE = [(i, j) for i in range(64) for j in range(i + 1, 64) if _NODE[i] @ _NODE[j] > 0.80]
+_PULSE = _rn.integers(0, len(_EDGE), 18), _rn.uniform(0, 1, 18), _rn.uniform(0.6, 1.4, 18)
+_VORT = np.c_[_rn.uniform(0, 2 * math.pi, 700), _rn.uniform(380, 900, 700), _rn.uniform(0.5, 1.5, 700)]
+
+
+def circle(cx, cy, r, n=96):
+    th = np.linspace(0, 2 * math.pi, n, endpoint=False)
+    return np.c_[cx + r * np.cos(th), cy + r * np.sin(th)].astype(np.float32)
+
+
+def ai_core(F, cx, cy, R, t, a, energy=0.5):
+    """旋转的神经网络球：节点 + 近邻连线（按前后深度分三层画）+ 沿连线跑动的光脉冲 + 中心「AI」"""
+    if a <= 0.003: return
+    th = t * 0.45; c, s_ = math.cos(th), math.sin(th)
+    P = _NODE @ np.array([[c, 0, -s_], [0, 1, 0], [s_, 0, c]], np.float32).T
+    P = P @ np.array([[1, 0, 0], [0, math.cos(0.35), -math.sin(0.35)], [0, math.sin(0.35), math.cos(0.35)]], np.float32).T
+    xy = np.c_[cx + P[:, 0] * R, cy + P[:, 1] * R]
+    depth = (P[:, 2] + 1) / 2                                       # 0 远 → 1 近
+    pad = 40
+    x0, y0 = int(cx - R - pad), int(cy - R - pad); w = h = int(2 * R + 2 * pad)
+    X0, Y0, X1, Y1 = max(x0, 0), max(y0, 0), min(x0 + w, W), min(y0 + h, H)
+    if X1 <= X0 or Y1 <= Y0: return
+    lay = np.zeros((h, w), np.float32)
+    for lo, hi, k in ((0, 0.4, 0.25), (0.4, 0.7, 0.55), (0.7, 1.01, 1.0)):
+        m = np.zeros((h, w), np.uint8)
+        segs = [np.round((np.array([xy[i], xy[j]]) - [x0, y0]) * 16).astype(np.int32) for i, j in _EDGE
+                if lo <= (depth[i] + depth[j]) / 2 < hi]
+        if segs: cv2.polylines(m, segs, False, 255, 1, cv2.LINE_AA, shift=4)
+        lay += m.astype(np.float32) / 255 * k
+    g = lay + cv2.GaussianBlur(lay, (0, 0), 4) * (0.8 + 1.2 * energy) + cv2.GaussianBlur(lay, (0, 0), 14) * (0.5 + 1.0 * energy)
+    F[Y0:Y1, X0:X1] += g[Y0 - y0:Y1 - y0, X0 - x0:X1 - x0, None] * (CYAN * 0.75 * a)
+    splat(F, xy[:, 0].astype(np.float32), xy[:, 1].astype(np.float32), (1.6 + 2.2 * depth).astype(np.float32),
+          np.outer(0.4 + 0.6 * depth, CYAN * 0.6 + 0.4), a * (0.5 + 0.5 * energy))
+    ei, ph, sp = _PULSE                                              # 光脉冲
+    u = (ph + t * sp * (0.6 + 1.2 * energy)) % 1.0
+    pa = np.array([xy[_EDGE[k][0]] for k in ei]); pb = np.array([xy[_EDGE[k][1]] for k in ei])
+    pp = pa + (pb - pa) * u[:, None]
+    splat(F, pp[:, 0].astype(np.float32), pp[:, 1].astype(np.float32), np.full(len(pp), 2.6, np.float32), WHITE * 1.4, a * energy)
+    V.dot(F, cx, cy, R * 0.22, CYAN * 0.5, a * (0.25 + 0.35 * energy), 1.0)
+    put_text(F, 'AI', cx, cy, int(R * 0.42), 'mono', WHITE, a, 400, shadow=0, glow=0.4 + 0.6 * energy)
+
+
+def person(F, x, y, a, s=1.0, col=GOLD):
+    """线描人像：头 + 肩"""
+    if a <= 0.003: return
+    V.line(F, circle(x, y, 46 * s, 64), col, 2.4, a, 0.7, closed=True)
+    u = np.linspace(0, 1, 40)
+    sx = x + (u - 0.5) * 230 * s
+    sy = y + 190 * s - 120 * s * np.sin(u * math.pi) ** 0.6
+    V.line(F, np.c_[sx, sy], col, 2.4, a, 0.7)
+
+
+def bezier(p0, p1, p2, u):
+    u = np.asarray(u)[:, None]
+    return (1 - u) ** 2 * p0 + 2 * (1 - u) * u * p1 + u ** 2 * p2
 
 
 def gh(F, t):
-    # H01：AI 越强大（芯片 + 扩散的波纹），诱惑也越大
-    a1 = win(t, st('H01') - 0.3, st('H02') + 0.1, 0.4, 0.45)
-    if a1 > 0:
-        u = t - st('H01')
-        grow = ease_out(clamp01((t - wt('H01', '越强大')) / 0.8))
-        ai_chip(F, W / 2, 760, 90 + 40 * grow, a1, 0.6 + 0.6 * grow)
-        for i in range(4):
-            ph = (u * 0.9 + i / 4) % 1.0
-            V.line(F, AN_circle(W / 2, 760, 150 + 420 * ph), CYAN, 1.6, a1 * (1 - ph) * 0.6 * smooth(u / 0.4), 0.6, closed=True)
-        V.slam(F, '诱惑也越大', W / 2, 1100, 96, t, wt('H01', '诱惑'), a1)
-    # H02：外包思考——思考流向 AI，自己的积累停在 0
-    a2b = win(t, st('H02') - 0.2, st('H04') + 0.1, 0.4, 0.45)
-    a2 = a2b * (1 - 0.45 * smooth((t - st('H03')) / 0.5))       # 第二种诱惑出现时，第一张卡片退后
+    h1, h2, h3, h4 = st('H01'), st('H02'), st('H03'), st('H04')
+    end = st('S09')
+    # ---------------------------------------------------------------- AI 核心：H01 居中长大 → H02 退到右上 → H03 消失
+    ac = win(t, h1 - 0.3, h3 + 0.2, 0.5, 0.45)
+    if ac > 0:
+        grow = ease_out(clamp01((t - wt('H01', '越强大') + 0.1) / 0.9))
+        mv = ease_io(clamp01((t - h2 + 0.1) / 0.8))
+        cx, cy = lerp(W / 2, 790, mv), lerp(820, 650, mv)
+        R = lerp(lerp(130, 250, grow), 150, mv)
+        en = 0.35 + 0.65 * grow * (1 - 0.4 * mv) + 0.3 * math.exp(-max(t - wt('H01', '越强大'), 0) * 3) * (t > wt('H01', '越强大'))
+        if t < h2 + 0.3:                                              # 长大时的冲击波
+            ku = t - wt('H01', '越强大')
+            if 0 < ku < 1.3:
+                V.line(F, circle(cx, cy, R + 500 * ease_out(ku / 1.3)), CYAN, 2.5, ac * (1 - ku / 1.3) ** 1.6, 1.0, closed=True)
+        ai_core(F, cx, cy, R, t, ac, en)
+        # 诱惑：金色微粒被卷进漩涡
+        kv = wt('H01', '诱惑')
+        va = ac * smooth((t - kv + 0.4) / 0.5) * (1 - mv)
+        if va > 0:
+            ang, r0, spd = _VORT[:, 0], _VORT[:, 1], _VORT[:, 2]
+            u = max(t - kv + 0.4, 0)
+            rr = r0 * np.exp(-u * 0.55 * spd) + R * 0.3
+            aa = ang + u * 1.6 * spd + 260 / rr
+            splat(F, (cx + np.cos(aa) * rr).astype(np.float32), (cy + np.sin(aa) * rr * 0.92).astype(np.float32),
+                  np.full(len(aa), 1.5, np.float32), GOLD_HI, va * 0.55 * np.clip(rr / 300, 0.2, 1))
+        if t < h2 + 0.2:
+            V.slam(F, '诱惑也越大', W / 2, 1270, 108, t, kv, ac * (1 - smooth((t - h2 + 0.3) / 0.4)))
+    # ---------------------------------------------------------------- H02：外包思考
+    a2 = win(t, h2 - 0.1, h3 + 0.05, 0.5, 0.4)
     if a2 > 0:
-        V.bracket(F, 90, 420, W - 90, 880, CYAN, a2, plate=0.45)
-        V.rise(F, '①  把思考外包给 AI', W / 2, 488, 46, t, st('H02'), 'serif', WHITE, a2)
-        k = wt('H02', '外包')
-        pa = a2 * smooth((t - k + 0.2) / 0.4)
-        if pa > 0:
-            V.dot(F, 290, 640, 52, GOLD * 0.5, pa * 0.5, 0.6)
-            V.line(F, AN_circle(290, 640, 52), GOLD, 2, pa, 0.5, closed=True)
-            put_text(F, '你', 290, 640, 44, 'serif', WHITE, pa, 200, shadow=0)
-            ai_chip(F, 790, 640, 52, pa, 0.5)
-            for i in range(6):                           # 一串「思考」流向 AI
-                ph = ((t - k) * 0.8 + i / 6) % 1.0
-                x = 360 + 350 * ph
-                V.dot(F, x, 640 + math.sin(ph * math.pi * 2 + i) * 10, 6, GOLD_HI, pa * math.sin(ph * math.pi), 1.2)
-            V.dashed(F, (360, 640), (710, 640), V.DIM, 1.2, pa * 0.6, phase=(t - k) * 40)
-        k2 = wt('H02', '不再积累')
-        ka = a2 * smooth((t - k2 + 0.2) / 0.4)
-        if ka > 0:
-            V.line(F, [(200, 790), (880, 790)], V.DIM, 1.4, ka * 0.8, 0.2)
-            put_text(F, '自己的积累', 200, 752, 26, 'sans', V.DIM, ka, 400, 'left', shadow=0)
-            put_text(F, '0', 900, 790, 30, 'mono', RED_S, ka, 100, 'left', shadow=0)
-        if t > wt('H02', '没有积累') - 0.1:
-            V.slam(F, '没有积累，谈何复利？', W / 2, 945, 56, t, wt('H02', '没有积累') - 0.1, a2b * (1 - smooth((t - st('H03') + 0.1) / 0.4)),
-                   gold=False, color=WHITE)
-    # H03：被速度裹挟——追风口、频繁切换，曲线一次次归零
-    a3 = win(t, st('H03') - 0.2, st('H04') + 0.1, 0.4, 0.45)
+        put_text(F, '诱惑一', 150, 430, 30, 'sans', CYAN, a2, 300, 'left', shadow=0, track=4)
+        V.rise(F, '把思考外包给 AI', 150, 486, 52, t, h2 + 0.1, 'serif', WHITE, a2, align='left')
+        hx, hy = 250, 820
+        person(F, hx, hy, a2 * smooth((t - h2) / 0.6))
+        ko = wt('H02', '外包')
+        fa = a2 * smooth((t - ko + 0.3) / 0.4)
+        if fa > 0:                                                    # 思考的光点沿弧线流向 AI
+            p0, p1, p2 = np.array([hx + 40, hy - 30.]), np.array([480, 560.]), np.array([690, 640.])
+            u = ((np.arange(60) / 60 + (t - ko) * 0.55) % 1.0)
+            q = bezier(p0, p1, p2, u)
+            splat(F, q[:, 0].astype(np.float32), (q[:, 1] + np.sin(u * 20 + t * 3) * 6).astype(np.float32),
+                  np.full(60, 2.2, np.float32), GOLD_HI, fa * np.sin(u * math.pi) ** 0.7)
+            V.dot(F, hx, hy, 10, GOLD_HI, fa * (0.6 + 0.4 * math.sin(t * 9)), 1.4)
+        # 底部图表：AI 的能力一路上扬，自己的积累停在 0
+        kn = wt('H02', '不再积累')
+        ga = a2 * smooth((t - kn + 0.6) / 0.5)
+        if ga > 0:
+            x0, x1, yb = 140, 940, 1390
+            u = ease_out(clamp01((t - kn + 0.6) / 2.0))
+            xs = np.linspace(0, u, 60)
+            V.line(F, np.c_[x0 + xs * (x1 - x0), yb - 200 * (np.exp(3 * xs) - 1) / (math.e ** 3 - 1)], CYAN, 2.6, ga, 0.8)
+            V.line(F, np.c_[x0 + xs * (x1 - x0), np.full(60, yb - 2.0)], GOLD, 3.0, ga, 0.8)
+            V.line(F, [(x0, yb + 14), (x1, yb + 14)], V.DIM, 1.0, ga * 0.5, 0)
+            put_text(F, 'AI 的能力', x0 + u * (x1 - x0) - 10, yb - 200 * (math.exp(3 * u) - 1) / (math.e ** 3 - 1) - 40, 30, 'sans', CYAN, ga * smooth(u / 0.5), 300, 'right', shadow=0)
+            put_text(F, '自己的积累  0', x0 + u * (x1 - x0) - 10, yb - 36, 30, 'sans', GOLD, ga * smooth(u / 0.5), 400, 'right', shadow=0)
+        km = wt('H02', '没有积累')
+        if t > km - 0.1:
+            V.slam(F, '没有积累，谈何复利？', W / 2, 1062, 66, t, km - 0.1, a2, gold=False, color=WHITE)
+    # ---------------------------------------------------------------- H03：被速度裹挟——曲线一次次归零
+    a3 = win(t, h3 - 0.15, h4 + 0.6, 0.4, 0.6)
+    x0, x1, yb, Hc = 120, 960, 1290, 520
     if a3 > 0:
-        V.bracket(F, 90, 990, W - 90, 1450, RED_S * 0.9, a3, plate=0.45)
-        V.rise(F, '②  被速度裹挟', W / 2, 1056, 46, t, st('H03'), 'serif', WHITE, a3)
-        u = max(t - st('H03'), 0.0)
+        u = max(t - h3, 0.0)
         r = np.random.default_rng(11)
-        ys = r.uniform(1000, 1440, 40); sp = r.uniform(0.7, 1.4, 40); x0s = r.uniform(0, 1, 40)
-        for i in range(40):                              # 掠过的速度线
-            x = ((x0s[i] + u * 0.45 * sp[i]) % 1.0) * (W - 180) + 90
-            V.line(F, [(x - 90 * sp[i], ys[i]), (x, ys[i])], CYAN, 1.0, a3 * 0.22, 0.2)
-        x0, x1, yb = 170, 910, 1380
+        ys = r.uniform(400, 1400, 60); sp = r.uniform(0.6, 1.6, 60); xo = r.uniform(0, 1, 60)
+        for i in range(60):                                           # 掠过的速度线
+            x = ((xo[i] + u * 0.6 * sp[i]) % 1.0) * (W + 300) - 150
+            V.line(F, [(x - 160 * sp[i], ys[i]), (x, ys[i])], CYAN if i % 4 else WHITE, 1.0, a3 * 0.20 * (1 - 0.6 * smooth((t - h4) / 0.6)), 0.2)
+        put_text(F, '诱惑二', 150, 430, 30, 'sans', RED_S, a3 * (1 - smooth((t - h4) / 0.4)), 300, 'left', shadow=0, track=4)
+        V.rise(F, '被速度裹挟', 150, 486, 52, t, h3 + 0.1, 'serif', WHITE, a3 * (1 - smooth((t - h4) / 0.4)), align='left')
         V.line(F, [(x0, yb), (x1, yb)], V.DIM, 1.2, a3 * 0.7, 0)
-        cyc = 1.35; nseg = 4
-        tags = ['追风口', '切换', '再追', '再切换']
-        prog = u / cyc
-        for j in range(nseg):
-            if prog < j: break
-            f = clamp01(prog - j)
-            xa = x0 + (x1 - x0) * j / nseg; xw = (x1 - x0) / nseg
-            xs = np.linspace(0, f * 0.82, 30)
-            pts = np.c_[xa + xs * xw, yb - 150 * (np.exp(2.2 * xs) - 1) / (np.exp(2.2 * 0.82) - 1)]
-            V.line(F, pts, GOLD_HI, 2.4, a3, 0.6)
-            if f > 0.82:                                 # 断掉：归零
-                xe = xa + 0.82 * xw
-                cut = clamp01((f - 0.82) / 0.1)
-                V.line(F, [(xe, yb - 150), (xe, yb - 150 + 150 * cut)], RED_S, 2.4, a3 * 0.9, 0.8)
-                V.line(F, [(xe - 12, yb - 87), (xe + 12, yb - 63)], RED_S, 3, a3 * cut, 0.8)
-                V.line(F, [(xe + 12, yb - 87), (xe - 12, yb - 63)], RED_S, 3, a3 * cut, 0.8)
-            put_text(F, tags[j], xa + xw * 0.4, yb + 30, 24, 'sans', V.DIM, a3 * smooth(f / 0.3), 300, shadow=0)
-        k3 = wt('H03', '每一次失去')
-        if t > k3 - 0.1:
-            V.rise(F, '每一次失去，都是复利的中断', W / 2, 1150, 44, t, k3 - 0.1, 'serif', RED_S, a3)
-    # H04：所以在 AI 时代，复利反而成了最稀缺的能力：守住已有的，让人生复利
-    a4 = win(t, st('H04') - 0.1, t3.seg('title')['t0'] + 0.05, 0.5, 0.25)
+        # 每个「风口」：指数上升 → 切换时断掉归零
+        k_starts, k_ends = t3.gh_breaks()                           # 越切越快
+        k_stop = k_ends[-1]
+        span = (x1 - x0) / 4
+        for j, ks in enumerate(k_starts):
+            if t < ks: break
+            ke = k_ends[j]
+            f = ease_out(clamp01((min(t, ke) - ks) / max(ke - ks, 0.3)) ** 0.8)
+            xa = x0 + j * span
+            xs = np.linspace(0, f * 0.86, 40)
+            yv = Hc * 0.42 * (np.exp(2.4 * xs) - 1) / (math.exp(2.4 * 0.86) - 1)
+            pts = np.c_[xa + xs * span, yb - yv]
+            broke = t >= ke
+            V.line(F, pts, GOLD_HI if not broke else GOLD * 0.55, 2.6, a3, 0.7)
+            put_text(F, '风口', xa + span * 0.43, yb + 34, 24, 'sans', V.DIM, a3 * smooth(f / 0.3), 200, shadow=0)
+            if broke:
+                kb = t - ke
+                xe, ye = pts[-1]
+                V.line(F, [(xe, ye), (xe, ye + (yb - ye) * ease_out(clamp01(kb / 0.18)))], RED_S, 3.0, a3, 1.0)
+                if kb < 0.6:
+                    F += np.float32(0.05 * (1 - kb / 0.6)) * np.array([1.0, 0.3, 0.25], np.float32)
+                rr = np.random.default_rng(j)
+                n = 40
+                sx = xe + rr.normal(0, 14, n) + rr.normal(0, 60, n) * min(kb, 1.2)
+                sy = ye + rr.uniform(-10, 10, n) + 520 * min(kb, 1.2) ** 2 * rr.uniform(0.5, 1.2, n)
+                splat(F, sx.astype(np.float32), sy.astype(np.float32), np.full(n, 1.8, np.float32), RED_S * 1.2, a3 * clamp01(1 - kb / 1.2))
+                V.dot(F, xe, yb, 6, RED_S, a3 * 0.9, 1.0)
+        # 失去的部分：本该连续复利的虚线（与下面 H04 的金色曲线同一条）
+        if t > k_stop - 0.1:
+            gu = ease_out(clamp01((t - k_stop + 0.1) / 1.2))
+            xs = np.linspace(0, gu, 80)
+            gy = yb - Hc * (np.exp(3.0 * xs) - 1) / (math.e ** 3 - 1)
+            for i in range(0, 79, 2):
+                V.line(F, [(x0 + xs[i] * (x1 - x0), gy[i]), (x0 + xs[i + 1] * (x1 - x0), gy[i + 1])], GOLD, 1.6, a3 * 0.6 * (1 - smooth((t - h4) / 0.5)), 0.3)
+            kq = wt('H03', '复利的中断')
+            ta = a3 * (1 - smooth((t - h4 + 0.2) / 0.4))
+            V.slam(F, '每一次失去', W / 2, 640, 92, t, k_stop - 0.05, ta, gold=False, color=RED_S)
+            if t > kq - 0.1:
+                V.rise(F, '都是复利的中断', W / 2, 760, 60, t, kq - 0.1, 'serif', WHITE, ta)
+    # ---------------------------------------------------------------- H04：守住已有的，让人生复利
+    a4 = win(t, h4 - 0.1, end + 0.05, 0.5, 0.35)
     if a4 > 0:
-        V.rise(F, '所以在 AI 时代，复利反而成了', W / 2, 560, 46, t, st('H04') + 0.1, 'serif_m', V.INK_T, a4)
-        V.slam(F, '最稀缺的能力', W / 2, 680, 100, t, wt('H04', '最稀缺'), a4)
-        k = wt('H04', '守住已有的')
-        if t > k - 0.3:
-            u = clamp01((t - k + 0.3) / max(t3.seg('title')['t0'] - k, 1.5))
-            x0, x1, yb = 190, 890, 1180
-            xs = np.linspace(0, ease_out(u), 80)
-            ys = yb - 330 * (np.exp(3.0 * xs) - 1) / (np.exp(3.0) - 1)
-            pts = np.c_[x0 + xs * (x1 - x0), ys]
-            V.fill_poly(F, list(map(tuple, pts)) + [(pts[-1, 0], yb), (x0, yb)], GOLD * 0.25, a4, top=float(ys.min()), bottom=yb, grad=(0.9, 0.0))
-            V.line(F, pts, GOLD_HI, 3, a4, 0.9)
-            V.dot(F, pts[-1, 0], pts[-1, 1], 9, GOLD_HI, a4, 1.6)
+        V.rise(F, '所以在 AI 时代，复利反而成了', W / 2, 470, 44, t, h4 + 0.05, 'serif_m', V.INK_T, a4)
+        V.slam(F, '最稀缺的能力', W / 2, 590, 104, t, wt('H04', '最稀缺'), a4)
+        kh = wt('H04', '守住已有的'); kl = wt('H04', '让人生复利')
+        if t > h4 + 0.2:
+            u = ease_io(clamp01((t - h4 - 0.2) / max(kl - h4 + 0.2, 1.0)))     # 从「所以」开始画，到「让人生复利」画满
+            xs = np.linspace(0, u, 120)
+            gy = yb - Hc * (np.exp(3.0 * xs) - 1) / (math.e ** 3 - 1)
+            pts = np.c_[x0 + xs * (x1 - x0), gy]
+            V.fill_poly(F, list(map(tuple, pts)) + [(pts[-1, 0], yb), (x0, yb)], GOLD * 0.30, a4, top=float(gy.min()), bottom=yb, grad=(0.9, 0.0))
+            V.line(F, pts, GOLD_HI, 3.4, a4, 1.0)
+            V.dot(F, pts[-1, 0], pts[-1, 1], 10, GOLD_HI, a4, 1.8)
+            r = np.random.default_rng(5); n = 50                     # 彗星尾
+            back = r.uniform(0, 0.25, n)
+            q = np.c_[x0 + np.clip(u - back, 0, 1) * (x1 - x0), yb - Hc * (np.exp(3.0 * np.clip(u - back, 0, 1)) - 1) / (math.e ** 3 - 1)]
+            splat(F, (q[:, 0] + r.normal(0, 6, n)).astype(np.float32), (q[:, 1] + r.normal(0, 6, n) - 30 * back).astype(np.float32),
+                  np.full(n, 1.6, np.float32), GOLD_HI, a4 * (1 - back / 0.25) * 0.8)
             V.line(F, [(x0, yb), (x1, yb)], V.DIM, 1.2, a4 * 0.6, 0)
-            V.slam(F, '守住已有的', W / 2, 1290, 76, t, k, a4, gold=False, color=WHITE)
-        if t > wt('H04', '让人生复利') - 0.1:
-            V.slam(F, '让人生复利', W / 2, 1400, 64, t, wt('H04', '让人生复利') - 0.1, a4)
-
-
-def AN_circle(cx, cy, r, n=96):
-    th = np.linspace(0, 2 * math.pi, n, endpoint=False)
-    return np.c_[cx + r * np.cos(th), cy + r * np.sin(th)].astype(np.float32)
+            if t > kh - 0.05:
+                V.slam(F, '守住已有的，', 400, 930, 76, t, kh - 0.05, a4, gold=False, color=WHITE)    # 曲线左上方的空白处
+        if t > kl - 0.1:
+            ku = t - kl
+            if ku < 1.1:
+                V.line(F, circle(x1, yb - Hc, 20 + 420 * ease_out(ku / 1.1)), GOLD_HI, 3, a4 * (1 - ku / 1.1) ** 1.5, 1.0, closed=True)
+            V.slam(F, '让人生复利', 400, 1050, 84, t, kl - 0.1, a4)
 
 
 # ------------------------------------------------------------------ G2 / G3
@@ -222,7 +313,24 @@ def g2(F, t):
 
 def g3(F, t):
     a = win(t, st('S06') - 0.2, en('S06') + 0.4, 0.35, 0.45)
-    V.rise(F, '复利最关键的是什么？', W / 2, 860, 76, t, st('S06'), 'serif', WHITE, a, glow=0.1)
+    if a <= 0: return
+    # 身后一条缓缓画出的复利曲线，曲线头上是一个跳动的问号；说到「朴素」时，曲线收成一个点
+    u = ease_out(clamp01((t - st('S06') + 0.2) / 2.6))
+    ks = wt('S06', '朴素')
+    shrink = ease_io(clamp01((t - ks + 0.1) / 0.9))
+    x0, x1, yb = 150, 930, 1330
+    xs = np.linspace(shrink * u, u, 90)
+    pts = np.c_[x0 + xs * (x1 - x0), yb - 420 * (np.exp(3 * xs) - 1) / (math.e ** 3 - 1)]
+    V.line(F, pts, GOLD, 2.4, a * 0.75 * (1 - 0.5 * shrink), 0.7)
+    hx, hy = pts[-1]
+    if shrink < 1:
+        V.dot(F, hx, hy, 8, GOLD_HI, a * (1 - shrink), 1.4)
+        put_text(F, '?', hx + 46, hy - 64, 110, 'corm_sb', GOLD_HI, a * smooth((u - 0.6) / 0.3) * (1 - shrink) * (0.75 + 0.25 * math.sin(t * 5)), 200, shadow=0)
+    if shrink > 0:
+        V.dot(F, hx, hy, 5 + 4 * math.sin(clamp01((t - ks) / 1.2) * math.pi), WHITE, a * shrink, 1.2)
+    V.rise(F, '复利最关键的是什么？', W / 2, 760, 76, t, st('S06'), 'serif', WHITE, a, glow=0.1)
+    if t > ks - 0.1:
+        V.rise(F, '答案，朴素得出人意料', W / 2, 880, 44, t, ks - 0.1, 'serif_m', GOLD_SUB * 1.2, a)
 
 
 # ------------------------------------------------------------------ G4：不是更快，而是不失去 → 四种积累 → “来自一个人”
@@ -241,7 +349,7 @@ def g4(F, t):
             V.line(F, [(W / 2 - 380, 880), (W / 2 - 380 + 260 * s, 880)], RED_S, 5, a, 0.6)
         V.rise(F, '而是', W / 2 + 230, 760, 60, t, wt('S07', '而是'), 'serif_m', V.INK_T, a)
         V.slam(F, '不失去', W / 2 + 230, 880, 120, t, wt('S07', '不失去'), a)
-    a = win(t, st('S08') - 0.2, st('S09') - 0.05, 0.35, 0.35)
+    a = win(t, st('S08') - 0.2, st('H01') + 0.05, 0.35, 0.4)
     if a > 0:
         lose_t = wt('S08', '失去')
         for i, (name, col) in enumerate(LIFE4):
@@ -269,6 +377,12 @@ def g4(F, t):
     if a > 0:
         still(F, 'MU', 3.0, W / 2, 800, 760, a * smooth((t - wt('S09', '来自一个人')) / 0.6), t=t, t0=st('S09'), dur=4, dim=0.55)
         V.rise(F, '这套人生观，来自一个人', W / 2, 1230, 54, t, st('S09'), 'serif', V.INK_T, a)
+    gh(F, t)
+
+
+def g4_mood(t):
+    """讲 AI 的那几句转为冷色，讲完回到暖色"""
+    return ('warm', 'cool', smooth((t - st('H01') + 0.4) / 0.8) * (1 - smooth((t - st('H04') - 0.5) / 1.5)))
 
 
 # ------------------------------------------------------------------ G5：芒格与巴菲特 → 1999 年的问题
@@ -408,5 +522,5 @@ def g9(F, t):
                  a * smooth((t - wt('S20', '那句话')) / 0.5), 980, shadow=0.4)
 
 
-SCENES = {'G1': (g1, 'cool'), 'GH': (gh, 'cool'), 'G2': (g2, 'warm'), 'G3': (g3, 'warm'), 'G4': (g4, 'warm'), 'G5': (g5, 'neutral'),
+SCENES = {'G1': (g1, 'cool'), 'G2': (g2, 'warm'), 'G3': (g3, 'warm'), 'G4': (g4, g4_mood), 'G5': (g5, 'neutral'),
           'G6': (g6, 'neutral'), 'G7': (g7, 'neutral'), 'G8': (g8, 'neutral'), 'G9': (g9, 'warm')}

@@ -3,7 +3,7 @@
 每个视觉都卡在解说关键词上（t3.wt）；数字全部来自 script.MATH（与 SOURCES.md 一致）。"""
 import math
 import numpy as np, cv2
-from engine import W, H, GOLD, GOLD_HI, GOLD_SUB, CYAN, RED, WHITE, GREY, smooth, clamp01, ease_out, ease_io, ease_back, win, lerp, splat, blur
+from engine import W, H, GOLD, GOLD_HI, GOLD_DEEP, GOLD_SUB, CYAN, RED, WHITE, GREY, smooth, clamp01, ease_out, ease_io, ease_back, win, lerp, splat, blur
 from common import put_text, gold_text, footnote, mask_points
 import vis as V
 import t3
@@ -292,12 +292,21 @@ def g13(F, t):
     if a <= 0: return
     k9 = wt('A09', '不只适用于钱')
     grow = ease_out(clamp01((t - wt('A10', '知识')) / 2.5))
-    # A09：一枚金币（金钱）分成四道光
+    # A09：一枚金币（钱）裂成四道彩色的光，各自飞向下面的四条光带
     split = clamp01((t - k9 - 0.5) / 1.0)
+    ca = a * smooth((t - seg['t0']) / 0.5)
     if split < 1:
-        V.dot(F, W / 2, 900, 40 * (1 - split) + 4, GOLD_HI, a * (1 - split), 1.6)
-        put_text(F, '金钱', W / 2, 990, 40, 'serif', GOLD, a * (1 - split) * smooth((t - seg['t0']) / 0.4), 300, shadow=0.4)
-    put_text(F, '不只适用于钱', W / 2, 700, 64, 'serif', WHITE, a * win(t, k9 - 0.1, wt('A10', '知识') - 0.1, 0.4, 0.4), 980, shadow=0.5)
+        r = 78 * (1 + 0.6 * ease_out(split))
+        V.dot(F, W / 2, 920, 66, GOLD * 0.25, ca * (1 - split) * 0.5, 0.4)
+        V.line(F, _circle(W / 2, 920, r), GOLD, 3.2, ca * (1 - split), 0.7, closed=True)
+        V.line(F, _circle(W / 2, 920, r - 12), GOLD_DEEP, 1.4, ca * (1 - split) * 0.8, 0.3, closed=True)
+        put_text(F, '钱', W / 2, 920, 72, 'serif', GOLD_HI, ca * (1 - split) ** 2, 200, shadow=0.3, glow=0.2)
+    if 0 < split:
+        for i, (name, col) in enumerate(LIFE):
+            k = ease_io(clamp01((t - k9 - 0.5 - i * 0.08) / 1.1))
+            x = lerp(W / 2, 210 + i * 220, k); y = lerp(920, 1300, k ** 1.5)
+            V.dot(F, x, y, 7, col * 1.4, a * smooth(k / 0.2) * (1 - smooth((k - 0.85) / 0.15)), 1.2)
+    put_text(F, '不只适用于钱', W / 2, 660, 64, 'serif', WHITE, a * win(t, k9 - 0.1, wt('A10', '知识') - 0.1, 0.4, 0.4), 980, shadow=0.5)
     kd = wt('A10', '中断')
     gap = clamp01((t - kd) / 0.3) * (1 - clamp01((t - kd - 1.2) / 0.5))
     conv = ease_io(clamp01((t - (seg['t1'] - 2.4)) / 2.2))
@@ -341,29 +350,6 @@ def summary(F, t):
             V.line(F, _circle(W / 2 + 170, 1170, 40 + 600 * ease_out((t - k3) / 1.0)), GOLD_HI, 3, a * (1 - (t - k3)), 1.0, closed=True)
 
 
-# ------------------------------------------------------------------ 互动提问（logo 之前）
-ASK_Y = (880, 1010)
-
-
-def ask(F, t):
-    seg = t3.seg('G15')
-    u = t - seg['t0']
-    a = win(t, seg['t0'], seg['t1'] + 0.6, 0.5, 0.6)
-    if a <= 0: return
-    k = t3.SENTS['A12']['t0']
-    put_text(F, '—  留 言 区 见  —', W / 2, 700, 28, 'sans', GOLD_SUB * 1.15, a * smooth((u - 0.2) / 0.6), 900, track=4, shadow=0)
-    V.rise(F, ST.ASK.split('，')[0] + '，', W / 2, ASK_Y[0], 60, t, k - 0.1, 'serif_m', V.INK_T, a)
-    gold_text(F, ST.ASK.split('，')[1], W / 2, ASK_Y[1], 72, 'serif', a * smooth((t - wt('A12', '你最想') + 0.1) / 0.5),
-              clamp01((t - wt('A12', '你最想') + 0.1) / 1.0), glow=0.25, sweep=(t - wt('A12', '是什么', end=True)) / 1.3)
-    lt = ease_out(clamp01((u - 0.5) / 1.0))
-    if lt > 0:
-        V.line(F, [(W / 2 - 260 * lt, 1110), (W / 2 + 260 * lt, 1110)], GOLD, 1.2, a * 0.8, 0.6)
-    # 呼吸的光点：等待回答
-    for i in range(3):
-        ph = (u * 1.4 - i * 0.25) % 1.4
-        V.dot(F, W / 2 - 40 + i * 40, 1180, 7, GOLD_HI, a * smooth((u - 1.5) / 0.5) * (0.35 + 0.65 * math.exp(-ph * 4)), 1.0)
-
-
 # ------------------------------------------------------------------ 品牌片尾（系列准则第 8 节）
 LOGO_PX = 240
 LOGO_CY = 760
@@ -405,13 +391,18 @@ def _logo_pts(n=5200):
         idx = r.choice(len(xs), n, replace=len(xs) < n)
         pts = np.c_[xs[idx] + W / 2 - LOGO_PX / 2, ys[idx] + LOGO_CY - LOGO_PX / 2].astype(np.float32)
         cols = rgb[ys[idx], xs[idx]].astype(np.float32)
-        src = mask_points(ST.ASK.split('，')[1], 72, 'serif', n, W / 2, ASK_Y[1])      # 互动提问的文字化为微粒
+        # 总结画面上的全部文字化为微粒（与 summary() 的排版一致，按字面积分配微粒数）
+        pieces = [(ST.TITLE_SMALL, 84, 'serif', W / 2, 690), (ST.TITLE_BIG + '。', 140, 'serif', W / 2, 860),
+                  ('复利的秘密', 54, 'serif_m', W / 2, 1060), ('不是更快', 60, 'serif_m', W / 2 - 200, 1170), ('而是不失去', 76, 'serif', W / 2 + 170, 1170)]
+        wsum = sum(len(p[0]) * p[1] ** 2 for p in pieces)
+        cnt = [int(n * len(p[0]) * p[1] ** 2 / wsum) for p in pieces]; cnt[1] += n - sum(cnt)
+        src = np.concatenate([mask_points(tx, sz, nm, k, x, y) for (tx, sz, nm, x, y), k in zip(pieces, cnt)])
         _PTS['logo'] = (pts, cols, np.asarray(src, np.float32))
     return _PTS['logo']
 
 
 def brand(F, t, beat=None):
-    """深色 → 互动提问的文字化为微粒沿 logo 透明通道汇聚 → logo 原图（240px，淡蓝光晕）→ 重拍上浮现官方字标 →
+    """深色 → 总结画面的文字化为微粒沿 logo 透明通道汇聚 → logo 原图（240px，淡蓝光晕）→ 重拍上浮现官方字标 →
     整句品牌金渐变关注语 → 流光扫过 → 整体（含右上角角标，由 render3 处理）淡出"""
     seg = t3.seg('brand')
     u = t - seg['t0']
@@ -422,7 +413,7 @@ def brand(F, t, beat=None):
     if fade_p > 0:
         swirl = math.sin(conv * math.pi) * 0.3                  # 从水平文字出发、最后落回 logo，中途轻轻旋转
         c, s_ = math.cos(swirl), math.sin(swirl)
-        cen = np.array([W / 2, (ASK_Y[1] + LOGO_CY) / 2], np.float32)
+        cen = np.array([W / 2, (950 + LOGO_CY) / 2], np.float32)
         mid = (src - cen) @ np.array([[c, -s_], [s_, c]], np.float32) * (1 + 0.3 * math.sin(conv * math.pi)) + cen
         xy = mid * (1 - conv) + pts * conv
         colp = cols * conv + GOLD_HI * (1 - conv)

@@ -75,7 +75,7 @@ def ft_bg(F, t):
     cid, u, a, _ = ac
     fr = frame_of(cid, u)
     sm = cv2.resize(fr, (54, int(54 * fr.shape[0] / fr.shape[1])), interpolation=cv2.INTER_AREA)
-    sm = inv_tonemap(cv2.GaussianBlur(sm, (0, 0), 2.0)).astype(np.float32)
+    sm = inv_tonemap(np.minimum(cv2.GaussianBlur(sm, (0, 0), 2.0), 0.72)).astype(np.float32)   # 压住高光：白纸、灯光不会在铺底里变成一团亮斑
     big = cv2.resize(sm, (int(H * fr.shape[1] / fr.shape[0]), H), interpolation=cv2.INTER_CUBIC)
     x0 = (big.shape[1] - W) // 2
     lin = big[:, x0:x0 + W] * 0.22

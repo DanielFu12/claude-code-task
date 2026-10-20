@@ -143,6 +143,10 @@ def main(out=None):
     for s in t3.SEGS:
         if s['kind'] == 'clip':
             put(thump(0.18, 75, 40, 0.6), s['a0'] - 0.4)
+    if 'H03' in t3.SENTS:                                          # 「被速度裹挟」：曲线每断一次，一记低频；「守住已有的」轻轻托起
+        for k, tb in enumerate(t3.gh_breaks()[1]):
+            put(thump(0.22 + 0.06 * k, 70, 36, 0.5), tb)
+        put(swell(3.2, 44, 0.28), t3.wt('H04', '守住已有的') - 0.6)
     beat = seg['G14']['t0'] + M['climax']['brand_beat'] - M['climax']['hit']
     put(sub_drop(2.6, 64, 28, 0.8), beat)
     sfx = lp(sfx, 200, 4)

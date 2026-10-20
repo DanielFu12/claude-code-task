@@ -165,7 +165,14 @@ MOODS = {
 
 
 def bg(t, mood='neutral', stars=1.0, drift=0.5):
-    F = backdrop(t, drift=drift, **MOODS[mood])
+    """mood 为名字，或 (mood1, mood2, k)：两种氛围按 k 平滑过渡"""
+    if isinstance(mood, tuple):
+        m1, m2, k = MOODS[mood[0]], MOODS[mood[1]], mood[2]
+        par = {key: (tuple(a + (b - a) * k for a, b in zip(m1[key], m2[key])) if isinstance(m1[key], tuple) else m1[key] + (m2[key] - m1[key]) * k)
+               for key in m1}
+    else:
+        par = MOODS[mood]
+    F = backdrop(t, drift=drift, **par)
     starfield(F, t, stars)
     return F
 

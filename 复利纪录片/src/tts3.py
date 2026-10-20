@@ -17,7 +17,7 @@ vo_index.json 每句：text / say / dur / words[[t0, t1, 字]]，段内句子另
 import base64, difflib, hashlib, json, os, re, ssl, subprocess, sys, time, urllib.error, urllib.request
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from story import vo_groups, SAY, TAGS, TEMPO, STYLE_BY_GROUP, TAKES, REF_GROUPS, TTS_MODEL as GEMINI_MODEL, VOICE as GEMINI_VOICE, STYLE as GEMINI_STYLE
+from story import vo_groups, SAY, TAGS, TEMPO, STYLE_BY_GROUP, VOICE_MATCH, TTS_MODEL as GEMINI_MODEL, VOICE as GEMINI_VOICE, STYLE as GEMINI_STYLE
 
 GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/interactions'
 TTS_GROUPS = [tuple(sid for sid, _ in it[2]) for it in vo_groups()]
@@ -162,13 +162,16 @@ def gemini_group(ids):
     key = hashlib.md5(f'{GEMINI_MODEL}|{GEMINI_VOICE}|{style}|{text}'.encode()).hexdigest()[:12]
     meta_p = base + '.json'
     gid = ITEMS[ids[0]][0]
-    ntake = TAKES.get(gid, 0)
+    vm = VOICE_MATCH.get(gid)
+    ntake = vm['takes'] if vm else 0
     if ntake:
-        key = hashlib.md5(f'{key}|takes{ntake}|ref{"+".join(REF_GROUPS)}'.encode()).hexdigest()[:12]
+        key = hashlib.md5((f'{key}|takes{ntake}|ref{"+".join(vm["ref"])}' + (f'|m{vm["metric"]}' if vm.get('metric', 1) > 1 else '')).encode()).hexdigest()[:12]
     if os.path.exists(meta_p) and json.load(open(meta_p)).get('key') == key:
         meta = json.load(open(meta_p)); x, _ = sf.read(base + '.wav')
+    elif ntake and vm.get('metric', 1) > 1:
+        meta, x = takes_group2(gname, base, text, plain, style, key, vm)
     elif ntake:
-        meta, x = takes_group(gname, base, text, plain, style, key, ntake)
+        meta, x = takes_group(gname, base, text, plain, style, key, ntake, vm['ref'])
     else:
         raw, mime, rec = synth(gname, text, plain, style, base)
         x = to_wav48(raw, mime, base)
@@ -214,18 +217,23 @@ def synth(gname, text, plain, style, base):
     return raw, mime, rec
 
 
-def ref_voice():
-    """参照段（G1 + G2：观众最先听到、用户认可的解说）的声纹与基频分布"""
+def group_wav(gid):
+    ids = next([sid for sid, _ in it[2]] for it in vo_groups() if it[1] == gid)
+    return os.path.join(VD, 'G_' + '_'.join(ids) + '.wav')
+
+
+def ref_voice(refs):
+    """参照段的声纹与基频分布（第四版：G1 + G2）"""
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
     import voice_sim as VS
-    ps = [os.path.join(VD, 'G_' + '_'.join(sid for sid, _ in it[2]) + '.wav') for it in vo_groups() if it[1] in REF_GROUPS]
+    ps = [group_wav(g) for g in refs]
     return VS, VS.embed(ps), VS.stats(ps)
 
 
-def takes_group(gname, base, text, plain, style, key, ntake):
+def takes_group(gname, base, text, plain, style, key, ntake, refs):
     """同一 voice、同一 style 合成 ntake 条（基频分布偏离参照 > 6% 时最多再补 3 条），
     按「声纹余弦相似度 − 1.5 × 基频偏离」取与参照段最接近的一条。每条都缓存，重跑不重复调用接口"""
-    VS, ref_e, ref_s = ref_voice()
+    VS, ref_e, ref_s = ref_voice(refs)
     cands = []
     for k in range(ntake + 3):
         if k >= ntake and min(c['df0'] for c in cands) <= 0.06: break
@@ -252,14 +260,71 @@ def takes_group(gname, base, text, plain, style, key, ntake):
     x, _ = sf.read(base + '.wav')
     meta = dict(key=key, text=text, rec=best['rec'], dur=len(x) / SR, take=best['take'],
                 takes=[{k: round(v, 4) if isinstance(v, float) else v for k, v in c.items() if k != 'rec'} for c in cands],
-                ref=dict(groups=list(REF_GROUPS), f0_q=[round(v, 1) for v in ref_s['f0_q']]))
+                ref=dict(groups=list(refs), f0_q=[round(v, 1) for v in ref_s['f0_q']]))
     json.dump(meta, open(base + '.json', 'w'), ensure_ascii=False)
     print(f'  {gname}: 选用 take {best["take"]}', flush=True)
     return meta, x
 
 
+def take_audio(gname, base, text, plain, style, key, k):
+    """第 k 条候选（已缓存就直接用）：返回 (wav 路径, rec)"""
+    xb = f'{base}.take{k}'
+    tj = xb + '.json'
+    if os.path.exists(tj) and json.load(open(tj)).get('key') == key:
+        return xb, [tuple(r) for r in json.load(open(tj))['rec']]
+    raw, mime, rec = synth(gname, text, plain, style, base)
+    to_wav48(raw, mime, xb)
+    json.dump(dict(key=key, rec=rec), open(tj, 'w'), ensure_ascii=False)
+    return xb, rec
+
+
+def takes_group2(gname, base, text, plain, style, key, vm):
+    """第五版的挑选：与参照段比声纹、音色（MFCC）、基频分布、语速、亮度的综合距离（tools/voice_sim.py: distance）。
+    超过 20 秒的长段按时间切成两半分别比，取较差的一半（防止段内后半截跑调）。
+    至少合成 4 条；最好一条距离 ≤ 5（相当于现有段落里最一致的几段）就停，否则合成到 takes 条，仍 > 7 时最多再补 3 条。
+    选中后，语速与参照差几个百分点的，用 rubberband 再微调（±5% 以内）。"""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
+    import voice_sim as VS
+    refs = vm['ref']
+    ref_text = ''.join(''.join(SAY.get(sid, ITEMS[sid][1]) for sid, _ in it[2]) for it in vo_groups() if it[1] in refs)
+    R = VS.profile([group_wav(g) for g in refs], ref_text)
+    cands = []
+    for k in range(1, vm['takes'] + 4):
+        best = min((c['d'] for c in cands), default=99)
+        if (k > 4 and best <= 5.0) or (k > vm['takes'] and best <= 7.0): break
+        xb, rec = take_audio(gname, base, text, plain, style, key, k)
+        y, _ = sf.read(xb + '.wav')
+        parts = [(xb + '.wav', plain)]
+        if len(y) / SR > 20:                     # 长段：按识别出的逐字时间在中点切开，两半分别比
+            mid = len(y) / SR / 2
+            j = min(range(len(rec)), key=lambda i: abs(rec[i][1] - mid))
+            for nm, seg, txt in (('a', y[:int(rec[j][2] * SR)], ''.join(c for c, _, _ in rec[:j + 1])),
+                                 ('b', y[int(rec[j][2] * SR):], ''.join(c for c, _, _ in rec[j + 1:]))):
+                sf.write(f'{xb}.{nm}.wav', seg, SR); parts.append((f'{xb}.{nm}.wav', txt))
+            parts = parts[1:]
+        ds = [VS.distance(VS.profile(pp, tx), R) for pp, tx in parts]
+        D, det = max(ds, key=lambda z: z[0])
+        P = VS.profile(xb + '.wav', plain)
+        c = dict(take=k, d=round(D, 2), parts=[round(z[0], 2) for z in ds], rate=round(P['rate'], 2), ref_rate=round(R['rate'], 2),
+                 pitch=round(float(P['st'][1]), 2), ref_pitch=round(float(R['st'][1]), 2), detail={a: round(b, 2) for a, b in det.items()}, rec=rec)
+        cands.append(c)
+        print(f"  {gname} take {k}: 综合距离 {D:.2f}（分段 {c['parts']}）  语速 {c['rate']}/{c['ref_rate']} 字/秒  中位音高 {c['pitch']:+.1f}/{c['ref_pitch']:+.1f} 半音  "
+              + ' '.join(f'{a}={b:.1f}' for a, b in det.items()), flush=True)
+    best = min(cands, key=lambda c: c['d'])
+    for ext in ('.src.wav', '.wav', '.mp3'):
+        subprocess.run(['cp', f'{base}.take{best["take"]}{ext}', base + ext], check=True)
+    x, _ = sf.read(base + '.wav')
+    adj = float(np.clip(best['ref_rate'] / best['rate'], 0.95, 1.05))
+    meta = dict(key=key, text=text, rec=best['rec'], dur=len(x) / SR, take=best['take'], tempo_adj=round(adj, 4),
+                takes=[{k: v for k, v in c.items() if k != 'rec'} for c in cands], ref=dict(groups=list(refs), metric=2))
+    json.dump(meta, open(base + '.json', 'w'), ensure_ascii=False)
+    print(f'  {gname}: 选用 take {best["take"]}（综合距离 {best["d"]}），语速微调 ×{adj:.3f}', flush=True)
+    return meta, x
+
+
 def split_group(ids, say, plain, meta, x):
     gname = 'G_' + '_'.join(ids)
+    tempo = TEMPO * meta.get('tempo_adj', 1.0)          # 第五版：选中条与参照的语速差在 ±5% 内微调
     # 对齐并切句
     sc = content(plain)
     tt, ratio = align(sc, [tuple(r) for r in meta['rec']])
@@ -282,13 +347,13 @@ def split_group(ids, say, plain, meta, x):
         p = os.path.join(VD, sid + '.wav')
         sf.write(p + '.raw.wav', x[a:b], SR)
         # 整体提速（rubberband：保留音高与共振峰），时间信息同比缩放
-        ff('-i', p + '.raw.wav', '-af', f'rubberband=tempo={TEMPO}:pitchq=quality:formant=preserved:transients=smooth', p)
+        ff('-i', p + '.raw.wav', '-af', f'rubberband=tempo={tempo}:pitchq=quality:formant=preserved:transients=smooth', p)
         os.remove(p + '.raw.wav')
         s0, s1 = spans[i]
-        words = [[round((tt[j][0] - a / SR) / TEMPO, 3), round((tt[j][1] - a / SR) / TEMPO, 3), sc[j]] for j in range(s0, s1 + 1)]
+        words = [[round((tt[j][0] - a / SR) / tempo, 3), round((tt[j][1] - a / SR) / tempo, 3), sc[j]] for j in range(s0, s1 + 1)]
         d = dict(words=words, dur=len(sf.read(p)[0]) / SR, say=say[sid])
         if i < len(ids) - 1:
-            d['gap'] = round((ext[i + 1][0] - ext[i][1]) / SR / TEMPO, 3)
+            d['gap'] = round((ext[i + 1][0] - ext[i][1]) / SR / tempo, 3)
         out[sid] = d
     print(f'{gname}: {len(x) / SR:5.1f}s  对齐覆盖率 {ratio:.2f}  ' + ' '.join(f'{sid}={out[sid]["dur"]:.1f}s' for sid in ids))
     return out

@@ -1,4 +1,4 @@
-"""第四版逐帧渲染。
+"""第五版逐帧渲染。
 
 python3 src/render3.py still 12.5 33 80 ...        → work/stills3/t_XXX.png
 python3 src/render3.py chunk F0 F1 out.mp4 [crf]   → 渲染 [F0, F1) 帧
@@ -122,7 +122,7 @@ def frame(t):
         clip_head(F, t)
     elif kind == 'vo':
         fn, mood = BR.SCENES[sg['id']]
-        F = V.bg(t, mood)
+        F = V.bg(t, mood(t) if callable(mood) else mood)
         V.grid_floor(F, t, 0.5)
         fn(F, t)
         # 片段窗口的淡入淡出跨越到解说段时，也要画背景铺底
@@ -138,9 +138,6 @@ def frame(t):
     elif kind == 'summary':
         F = V.bg(t, 'warm', stars=1.0)
         AN.summary(F, t)
-    elif kind == 'ask':
-        F = V.bg(t, 'warm', stars=0.8, drift=0.4)
-        AN.ask(F, t)
     else:
         F = V.bg(t, 'neutral', stars=0.4, drift=0.3)
         AN.brand(F, t)
@@ -149,7 +146,7 @@ def frame(t):
         z = 1.0 + 0.035 * smooth((t - sg['t0']) / max(sg['t1'] - sg['t0'], 1.0))
         M = cv2.getRotationMatrix2D((W / 2, 880), 0, z)
         F = cv2.warpAffine(F, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
-    if kind not in ('title', 'summary', 'ask', 'brand'):
+    if kind not in ('title', 'summary', 'brand'):
         chapter(F, t)
     if kind in ('vo', 'anim'):
         V.vo_sub(F, t, t3.SENTS)
