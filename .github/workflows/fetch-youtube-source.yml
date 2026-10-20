@@ -1,0 +1,50 @@
+# 从 YouTube 拉取《李录精华版》的原始素材，作为 Release 附件保存，供剪辑环境下载。
+# 云端剪辑容器的出口 IP 无法通过 YouTube 视频服务器校验，所以改在 Actions runner 上下载。
+name: fetch-youtube-source
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/festive-brown-49d0no]
+    paths: [.github/workflows/fetch-youtube-source.yml]
+permissions:
+  contents: write
+env:
+  VIDEO_URL: https://www.youtube.com/watch?v=YRhnX_JAbC8
+  TAG: source-YRhnX_JAbC8
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    services:
+      pot:
+        image: brainicism/bgutil-ytdlp-pot-provider
+        ports: ['4416:4416']
+    steps:
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: install
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -U "yt-dlp[default]" yt-dlp-ejs bgutil-ytdlp-pot-provider
+          yt-dlp --version
+      - name: download
+        run: |
+          set +e
+          for c in "default" "web_embedded" "mweb" "web_safari" "tv" "android_vr" "ios"; do
+            echo "=== client $c"
+            yt-dlp --js-runtimes node --remote-components ejs:github \
+              --extractor-args "youtube:player_client=$c" \
+              -f "137+140-5/137+140/248+140-5/bv*[height<=1080]+ba[language^=en]/bv*[height<=1080]+ba" \
+              --merge-output-format mp4 -o "orig.%(ext)s" "$VIDEO_URL" && break
+            rm -f orig.*
+          done
+          ls -la
+          test -f orig.mp4
+      - name: probe
+        run: ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate:format=duration,size orig.mp4
+      - name: release
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          split -b 1900m -d orig.mp4 orig.mp4.part || true
+          gh release delete "$TAG" -y --cleanup-tag -R "$GITHUB_REPOSITORY" || true
+          gh release create "$TAG" -R "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease \
+            --title "YouTube 原始素材 YRhnX_JAbC8" --notes "36th Annual Graham & Dodd Event with Li Lu — 原始素材，仅供剪辑使用" orig.mp4
