@@ -1,0 +1,640 @@
+# 双语字幕：每句英文（E）对应中文（Z），用 || 拆成多条字幕，两边条数必须一致。
+# 英文与 script_en.txt 逐句对应（拼起来须一字不差）；中文以哥大官方中文实录为底本，按字幕节奏精简。
+# @Q 之后为主持人塔诺（Tano Santos）的发言，@L 切回李录。方括号内为编者补注，英文字幕不显示。
+## 1
+E: The discipline of value investing started with Columbia.
+Z: 价值投资这门学问，起源于哥伦比亚大学。
+E: When Ben Graham first started his classes, it was almost 90 years ago.
+Z: 本·格雷厄姆最早在这里开课，已是将近 90 年前的事。
+E: Of course, he practiced 10 or 20 years before that, so we call it a 100-year-old discipline.
+Z: 在此之前他已实践了一二十年，所以我们称它为一门有百年历史的学问。
+E: It really has evolved, but some of the core principles have not and have become timeless.
+Z: 它一直在演进，但一些核心原则从未改变，已经历久弥新。
+E: If I have to distill the main principles for the discipline of value investing, || I would say there are six in my mind.
+Z: 如果要提炼价值投资的主要原则， || 在我看来有六条。
+E: Three come directly from Ben Graham, the namesake of today's lunch; || one each from Warren and Charlie; || and we add a small twist — you could call that the sixth.
+Z: 三条直接来自本·格雷厄姆，也就是今天这场午餐会所纪念的人； || 沃伦和查理各贡献一条； || 我们自己又加了一点小小的延伸，可以算作第六条。
+E: Here are the six basic principles in my mind that have guided our discipline, || at least our practice, over the last 33 years.
+Z: 这六条基本原则一直指导着我们的投资方法， || 至少指导了我们过去 33 年的实践。
+E: Ben Graham laid it out pretty quickly as he started this discipline with three basic ideas.
+Z: 格雷厄姆在开创这门学问时，很快就提出了三个基本理念。
+E: A stock is a piece of ownership, not a piece of paper to trade around.
+Z: 第一，股票是企业的部分所有权，而不是一张拿来买卖的纸。
+E: Buying stock is really the same as buying a company.
+Z: 买股票，本质上就是买公司。
+E: Secondly, the market is there to serve you, not to instruct you, || which is a profound insight if you are in the midst of market activities.
+Z: 第二，市场是来为你服务的，而不是来指导你的。 || 对身处市场之中的人来说，这是一个非常深刻的洞见。
+E: Thirdly, investing is about predicting the future, which is inherently unpredictable.
+Z: 第三，投资是预测未来，而未来本质上不可预测。
+E: Therefore, you always want to require a margin of safety || that will help protect the downside as well as make a better upside.
+Z: 所以你始终要坚持安全边际， || 它既能保护下行风险，也能让上行回报更好。
+E: When Warren practiced, I think he added this further discipline, || which I call a circle of competence.
+Z: 沃伦在实践中又加入了一项要求， || 我称之为「能力圈」。
+E: All of us are probably predisposed to have certain interests, || and over time you develop particular expertise and try to study more and make it better.
+Z: 我们每个人天生对某些事情更感兴趣， || 久而久之形成专长，再通过不断学习加深和完善它。
+E: The most important concept of a circle of competence is knowing the edge of it, || because most of us are wired to think we know a little more than we actually do.
+Z: 能力圈最重要的一点，是知道它的边界在哪里， || 因为大多数人天生会觉得，自己知道的比实际多一点。
+E: Understanding the edge is as important as understanding what is inside it.
+Z: 认清边界，和认清圈内的东西同样重要。
+E: Charlie had this idea that you've got to fish where the fish are.
+Z: 查理有个理念：要到有鱼的地方钓鱼。
+E: He was a lifelong fisherman, and that is a wonderful analogy for the actual market.
+Z: 他一生都爱钓鱼，这也是对真实市场非常贴切的比喻。
+E: There are certain markets, industries, and businesses that draw a lot of attention.
+Z: 有些市场、行业和企业吸引了大量关注。
+E: With that competition, your returns are averaged out.
+Z: 竞争者众多，你的回报就会被拉回平均水平。
+E: Then there are other industries, businesses, countries, or markets || that don't attract enough attention and have far fewer fishermen.
+Z: 还有一些行业、企业、国家或市场， || 没有受到足够关注，钓鱼的人少得多。
+E: You do way better to fish where the fish are.
+Z: 到有鱼的地方钓鱼，收获会好得多。
+E: It's a simple idea, but in practice it is amazingly effective.
+Z: 道理很简单，但在实践中效果惊人。
+E: Lastly, over my own 33 years of practice as a global investor, || applying the principles of value investing on a global basis || at a time when global commerce is becoming one single market.
+Z: 最后，在我自己 33 年的全球投资实践中， || 我们一直在全球范围内运用价值投资原则， || 而全球商业也正在形成一个统一的市场。
+E: One insight we have is that wealth, in the end, || is really the percentage ownership of global purchasing power.
+Z: 我们形成了一个认识：财富归根结底， || 是你在全球购买力中所占的份额。
+E: It isn't expressed, especially in the modern economy, || in the amount of gold, diamonds, or currencies of any kind.
+Z: 尤其在现代经济中，财富并不体现为 || 你持有多少黄金、钻石或任何一种货币。
+E: With inflation, all of those will dissipate over time.
+Z: 在通胀的作用下，这些都会随时间流失。
+E: What is important is what you can buy with it, what you can use it for.
+Z: 重要的是你能用它买到什么、做成什么。
+E: A better measurement of wealth is your percentage ownership of global purchasing power.
+Z: 衡量财富更好的方式，是你在全球购买力中拥有的比例。
+E: The way we express that is by buying great businesses in the most dynamic economies at advantageous prices, || waiting long enough for value to be created over time, || and sharing proportionally in the upside.
+Z: 我们的做法是：以有利的价格，买入最具活力经济体中的优秀企业， || 给它们足够长的时间去创造价值， || 并按持股比例分享价值的增长。
+E: Here are the six basic ideas || that I think can withstand the test of time and will serve everyone well.
+Z: 这就是六条基本理念， || 我相信它们经得起时间考验，也能让每个人受益。
+## 2
+E: That is what distinguishes this generation of technology, why it is different, || and the different impacts, particularly the financial market impact.
+Z: 这就是这一代技术与众不同的地方， || 也是它影响不同、尤其对金融市场影响不同的原因。
+E: But leaving that aside, when you ask – Is this a useful technology?
+Z: 但先把这点放在一边，如果你问：这是一项有用的技术吗？
+E: The answer is also a resounding yes.
+Z: 答案同样是非常明确的「是」。
+E: What is it, in essence?
+Z: 它的本质是什么？
+E: If I were to give it a provisional definition, || from observing what it does and where it came from – || Generative AI is a machine that by applying brute compute with clever algorithms, || using all human-generated data and its first derivative, || come up and establish systematic contextual correlations || among near-infinite variables of human-generated data and its first derivative.
+Z: 如果让我给它一个暂定的定义， || 根据对它的功能和来源的观察—— || 生成式 AI 是一种机器，它用庞大的算力加上精巧的算法， || 以人类生成的全部数据及其一阶衍生数据为基础， || 建立起系统性的、基于语境的关联， || 覆盖这些数据近乎无穷的变量。
+E: In doing so, it establishes capabilities that include much of human reasoning and human intelligence.
+Z: 由此，它形成了涵盖相当一部分人类推理和智能的能力。
+E: At present, we know how it works and how to make it better, || but we don't quite understand why it works, || much as to the extent that we don't quite understand how human machinery works.
+Z: 目前，我们知道它如何运作，也知道如何让它更好， || 但还没有完全理解它为什么奏效， || 就像我们也没有完全理解人类自身这套机制一样。
+E: With that provisional definition, observing what is happening now, || it equalizes a layer of the economy that is very helpful.
+Z: 按这个暂定定义，再看当下发生的事， || 它正在拉平经济中某一层的能力差距，这非常有用。
+E: If you look at the economy, at the bottom we have energy and transportation.
+Z: 看整个经济结构，最底层是能源和交通运输。
+E: On top of that sits manufacturing.
+Z: 其上是制造业。
+E: On top of that, we have communication and digital media.
+Z: 再往上，是通信和数字媒体。
+E: Then we have an enormous amount of knowledge-based, technology-based services || that synthesize all the knowledge we've accumulated and serve all the different layers of the economy.
+Z: 然后是大量以知识和技术为基础的服务， || 它们整合人类积累的知识，服务于经济的各个层面。
+E: Generative AI today, at its current stage, || is great at synthesizing and equalizing all the knowledge and expertise that has accrued to that layer, || helping all the other ones.
+Z: 现阶段的生成式 AI， || 非常擅长整合这一层积累的知识和专业能力，并让它们普惠可得， || 从而帮助其他各层。
+E: But it can't change, for example, energy and transportation.
+Z: 但它改变不了能源和交通运输这样的底层。
+E: It doesn't change manufacturing, which is essentially the combination of different molecules and atoms || and transforming them into different combinations.
+Z: 它也没有改变制造业——制造业本质上是把分子和原子组合起来， || 再转换成不同的组合。
+E: In communication and digitization, they're already great synthesizers.
+Z: 在通信和数字化领域，它们已经是出色的整合者。
+E: That is the realm where it is going.
+Z: 它的发展空间就在这里。
+E: It has not gone beyond humans.
+Z: 它还没有超越人类。
+E: By this extension, it may not rise || to whatever the narrative would dictate or lead you to believe.
+Z: 顺着这条路延伸下去，它未必会达到 || 那些叙事所宣称、或让你相信的高度。
+E: We're still firmly within the human-generated data realm.
+Z: 我们仍然牢牢处在「人类生成数据」的范围之内。
+E: Each cell contains let's say at least fifty petabytes of files, || and you need to multiply that by trillions to get us on the biological level.
+Z: 每个细胞所含的信息，可以说至少有 50 PB， || 要达到我们这样的生物学层级，还得再乘以数万亿。
+E: We're not anywhere close to getting to that level.
+Z: 我们离那个层级还差得很远。
+E: But what has been established already begins to tip this balance between tool versus creature.
+Z: 但已经形成的能力，开始改变「工具」与「物种」之间的平衡。
+E: One of the two arguments would persuade you || to stop any further development without a human in the loop.
+Z: 这两种论证中的任何一种，都足以让你相信： || 应该停止任何脱离人类参与的进一步发展。
+E: RSI – recursive self-improvement – without a human in the loop would be very dangerous.
+Z: 没有人类参与的 RSI——递归自我改进——会非常危险。
+E: They would develop goals and subgoals for their own purposes, || and that would get them further from human control.
+Z: 它们会为自己的目的设定目标和子目标， || 从而越来越脱离人类的控制。
+E: In summary, this technology is enormously helpful, transformative, and extraordinarily dangerous.
+Z: 概括来说，这项技术非常有用、具有变革性，也极其危险。
+E: We have to, as a society and together as human beings, || have a red line to firmly establish || that whatever the self-learning or utilization of the tools, it cannot be without a human in the loop.
+Z: 作为社会、作为全体人类，我们必须共同 || 确立一条红线： || 无论是自主学习还是工具使用，都不能脱离人类的参与。
+E: In other words, firmly establish it on the tool side rather than the creature side.
+Z: 换句话说，要把它牢牢限定在「工具」一侧，而不是「物种」一侧。
+E: It's also enormously disruptive, || from employment to emotional dependency to risks from cyber to bio to nuclear.
+Z: 它还会带来巨大冲击， || 从就业、情感依赖，到网络、生物和核领域的风险。
+E: In the end, what you want society to develop || is a balanced pace of development that balances benefit and risk.
+Z: 最终，我们希望社会走出的 || 是一条兼顾收益与风险的平衡发展之路。
+E: By the way, this technology will always have incremental costs.
+Z: 顺便说一句，这项技术始终伴随增量成本。
+E: This is fundamentally different from the internet or a bunch of previous technologies, || where you have a one-time investment and can amortize it for a long time.
+Z: 这和互联网以及以往许多技术有根本区别： || 那些技术一次投入，就能长期摊销。
+E: This is not the case.
+Z: 这项技术不是这样。
+E: You always have an incremental cost associated with it.
+Z: 每多用一次，都有新增的成本。
+E: Cost, revenue, and profit are also very important.
+Z: 所以成本、收入和利润也非常重要。
+E: Capital needs and financial discipline will always be in operation.
+Z: 资本需求和财务纪律始终会发挥作用。
+E: Also, the pace of development and the level of societal tolerance.
+Z: 还有发展的速度，以及社会能承受的程度。
+E: You have four or five different layers of considerations for pacing and development into it.
+Z: 考虑它的发展节奏，需要同时权衡四五个层面的因素。
+E: How does human society adapt to those kinds of changes?
+Z: 人类社会如何适应这样的变化？
+E: Not always by planning.
+Z: 并不总是靠事先规划。
+E: We're going to go through big boom and bust cycles, or even multiple ones.
+Z: 我们会经历巨大的繁荣与萧条周期，甚至不止一轮。
+E: That is the nature of how it is going to develop.
+Z: 这就是它发展的基本方式。
+E: Those are the lines we have to think about as we approach this transformative, || dangerous, disruptive, and costly technological wave.
+Z: 面对这股具有变革性、 || 危险性、颠覆性，而且代价高昂的技术浪潮，我们需要沿着这些方向思考。
+## 3
+@Q
+E: I have a very vague question for you.
+Z: 我想问你一个比较宽泛的问题。
+E: The market seems to be driven by a very low number of companies || that are pushing the technological frontier.
+Z: 市场似乎被极少数公司所主导， || 它们在推动技术前沿。
+E: The world seems dependent on these companies to push this frontier, || and as a result, valuations are completely distorted by that.
+Z: 整个世界似乎都依赖它们来推进技术边界， || 估值也因此被严重扭曲。
+E: There's a plot I show my students: || the market capitalization of the company with the highest market capitalization, normalized by GDP.
+Z: 我给学生看过一张图： || 用市值最高的那家公司的市值除以 GDP。
+E: That number traditionally has been between 2 and 4 percent.
+Z: 这个比例过去通常在 2% 到 4% 之间。
+E: It is now about 15 percent with Nvidia.
+Z: 而现在，英伟达的这个比例大约是 15%。
+E: How do you think about this market, one that is becoming overly dependent on those few companies, || with a very high beta to those companies?
+Z: 你如何看待这样一个越来越依赖少数公司的市场， || 它对这些公司的贝塔非常高？
+E: How do we design portfolios to protect ourselves against the shocks of this technology?
+Z: 我们该如何构建投资组合，抵御这项技术带来的冲击？
+@L
+E: The market always does peculiar things.
+Z: 市场总会做一些奇怪的事情。
+@Q
+E: Yes.
+Z: 是的。
+@L
+E: From the very beginning, we go through this, and we'll probably continue to do so.
+Z: 从市场诞生之初我们就不断经历这些，以后很可能还会继续。
+E: You don't have to be dictated to by what the market decides to do at any given time.
+Z: 你不必被市场在某个时刻的所作所为牵着走。
+E: This is one of the most important insights and contributions from Ben Graham himself.
+Z: 这是本·格雷厄姆最重要的洞见和贡献之一。
+E: At this point, if you look at the proposition of one recent prospectus that I read.
+Z: 比如，我最近读过的一份招股说明书。
+E: Here's a company that calls itself a research lab, || yet it burns through tens of billions || and promises to continue burning through hundreds of billions of dollars.
+Z: 这家公司自称是一家研究实验室， || 却已经烧掉了数百亿美元， || 还承诺会继续烧掉数千亿美元。
+E: It promises a transformative technology, || but at the same time has a 10 percent chance of killing everyone.
+Z: 它承诺带来一项变革性的技术， || 却同时说，这项技术有 10% 的概率导致所有人死亡。
+E: It wrote that in the prospectus and invited everybody || to put in at least $100 billion at a $2 trillion valuation.
+Z: 它把这些写进招股书，然后邀请大家 || 按 2 万亿美元的估值，至少投入 1000 亿美元。
+E: If there is there any inconsistency or irony?!
+Z: 如果说有什么自相矛盾、充满讽刺的事——
+E: Then this is.
+Z: 那就是这件事了。
+E: This is one extreme illustration of how irrational the market gets.
+Z: 这是市场非理性走向极端的一个例子。
+E: It cannot both be true, but that's where they are.
+Z: 两种说法不可能同时成立，但现实就是如此。
+E: It also tells you that things are not rational and not sustainable.
+Z: 这也说明，有些事情既不理性，也不可持续。
+E: Eventually, they won't continue.
+Z: 它们终究不会一直持续下去。
+E: Those are also the rules of the market, if you look throughout the centuries.
+Z: 回顾几个世纪的历史，这也是市场的规律。
+E: They do strange things over a long period of time.
+Z: 市场会在很长时间里做出奇怪的事。
+E: Take the S&P since 2010, for example.
+Z: 比如 2010 年以来的标普指数。
+E: In the last 16 years, it averaged 14 or 15 percent [of annualized return].
+Z: 过去 16 年，它的年化回报平均达到 14% 到 15%。
+E: In the preceding 10 years, from 2000 to 2010, || it averaged exactly zero — in fact, slightly negative for 10 years.
+Z: 而此前的十年，也就是 2000 到 2010 年， || 平均回报恰好是零——事实上十年下来还略为负数。
+E: If you average the last 26 years, you get high single digits, || and that is roughly right over the long term.
+Z: 把过去 26 年合起来算，平均是较高的个位数， || 从长期看，这大体是合理的。
+E: If GDP grew in that period maybe 2 percent, || and you have 2 to 3 percent inflation, || you average about 4 to 5 percent nominal growth.
+Z: 假设同期 GDP 实际增长约 2%， || 再加上 2% 到 3% 的通胀， || 名义增长大约就是 4% 到 5%。
+E: Publicly listed companies do slightly better, || especially those chosen by elimination to be the 500 best companies.
+Z: 上市公司表现会略好一些， || 尤其是经过优胜劣汰留下的这 500 家优秀公司。
+E: You come up with high single digits, and that is where the long-term average has been.
+Z: 于是得到较高的个位数回报，这正是长期平均水平。
+E: That should serve as a basic grounding pillar of getting what you deserve || and how the market rationalizes over a longer period.
+Z: 这应当成为一个基本的判断支柱：你终将得到应得的回报， || 市场也会在更长时间里回归理性。
+E: But it is punctuated by periods, sometimes long periods, when it goes to extremes.
+Z: 但这个过程会被走向极端的时期打断，有时还会持续很久。
+E: The example we just cited does strike people as, at a minimum, odd.
+Z: 我们刚才举的例子，至少让人觉得很奇怪。
+E: That happens throughout history.
+Z: 这样的事在历史上一再发生。
+E: If we ground society in the sense || that a super-creature is simply not allowed or tolerated, it won't go there.
+Z: 如果我们让社会确立一个基本共识： || 绝不允许、也不容忍某种「超级物种」，技术就不会走到那一步。
+E: If it stays in the realm of tools, || it will be like any other tool, with costs and benefits associated with it.
+Z: 如果它始终停留在工具的范畴， || 就会像其他工具一样，有相应的成本和收益。
+E: Therefore, financial discipline and capital market discipline will eventually apply.
+Z: 因此，财务纪律和资本市场的纪律终将发挥作用。
+E: The way you get there is through multiple ups and downs and boom and bust cycles, || and that's also fine.
+Z: 到达那里的过程，会经历多次起伏和繁荣萧条的周期， || 这也没什么不好。
+E: From that perspective, the bifurcation as a result of it — || at any given time, you don't create an enormous amount of new capital.
+Z: 从这个角度看，由此产生的分化意味着—— || 在任何时点，都不会凭空创造出海量的新资本。
+E: If it is overwhelmingly driven to the top, || that means you also have a whole bunch of otherwise wonderful businesses trading at very low prices.
+Z: 如果资金压倒性地涌向最顶端， || 就意味着还有一大批原本非常优秀的企业，正以很低的价格交易。
+E: This is the same here, in China, or anywhere else.
+Z: 美国如此，中国如此，其他地方也一样。
+E: In China, it is probably more extreme, || as some of the Chinese participants [in the room] would be well aware.
+Z: 在中国可能更加极端， || 在座的一些中国朋友应该很清楚。
+E: Over time, the weight of the market will dictate the long-term returns of investors.
+Z: 随着时间推移，市场这台「称重机」会决定投资者的长期回报。
+E: You still get what you deserve in the end.
+Z: 最终，你仍会得到你应得的。
+E: There's not much of a free lunch, || even if it appears to be for a period of time, even a long period.
+Z: 市场上没有多少免费的午餐， || 即使它在一段时间、甚至很长时间里看似存在。
+E: Over the longer term, it will be weighed out by the natural weight of market rationalization itself.
+Z: 从更长期看，市场回归理性的力量终将衡量一切。
+E: That's why it has existed for a few hundred years already.
+Z: 这也是市场已经存在几百年的原因。
+E: I would say this bifurcation offers those with a rational mind || a better opportunity set than at other times, || if you stay rational, which is very difficult.
+Z: 我会说，这种分化给理性的人 || 提供了比其他时期更好的机会—— || 前提是你能保持理性，而这非常困难。
+E: It's easy to get swept up, especially when you have a big technology wave.
+Z: 人很容易被卷进去，尤其是在巨大的技术浪潮中。
+E: Your margin of imagination can expand dramatically.
+Z: 你的「想象边际」可能急剧膨胀。
+E: The speculative side of the market gets much more active, || and the imagination becomes wilder, so the exaggerations tend to be more extreme.
+Z: 市场投机的一面会更加活跃， || 想象更加狂放，夸大也往往更加极端。
+E: But for a rational mind, those create a better long-term opportunity set than otherwise.
+Z: 但对理性的人来说，这反而创造了更好的长期机会。
+## 4
+E: In addition to migrating manufacturing into the mid- to high-end, || it added technological self-sufficiency, || particularly in areas where they had real bottlenecks: || semiconductors, big aircraft engines, operating software code, and so on.
+Z: 除了推动制造业迈向中高端， || 又增加了科技自主的目标， || 尤其是在那些存在真正瓶颈的领域： || 半导体、大飞机发动机、操作系统软件代码等等。
+E: There was a long list China was facing.
+Z: 中国面临的瓶颈清单很长。
+E: That started another five years of doubling down and accelerating that process.
+Z: 于是又开启了五年的加码和提速。
+E: When you try to achieve those impossible goals that so many countries have failed to achieve, || it doesn't come without deep and heavy costs.
+Z: 当你试图实现那些许多国家都没能实现的「不可能目标」时， || 必然要付出深刻而沉重的代价。
+E: That has been the model by which China developed its economy.
+Z: 这一直是中国发展经济的方式。
+E: At different periods, they have big objectives and targets, with big costs associated with them.
+Z: 在不同阶段设定重大目标，也承担相应的巨大代价。
+E: You mentioned real estate.
+Z: 你提到了房地产。
+E: In the last five years, one of the principal costs of achieving that goal || has been the balance sheets and family wealth of middle-class Chinese families.
+Z: 过去五年，为实现这些目标付出的主要代价之一， || 就是中国中产家庭的资产负债表和家庭财富。
+E: By 2021, real estate prices reached their peak.
+Z: 到 2021 年，房价达到顶峰。
+E: A typical middle-class Chinese family had 70 percent of its net worth tied up in the home it owned.
+Z: 一个典型的中国中产家庭，约 70% 的净资产都在自住房上。
+E: But that home carried roughly 50 percent leverage through a mortgage.
+Z: 而这套房子通过按揭，承担着约 50% 的杠杆。
+E: In the next five years, until now, || real estate prices nationwide lost about 40 percent of their value on average.
+Z: 此后五年直到现在， || 全国房价平均下跌了约 40%。
+E: They saw their entire family fortune go down 60 to 70 percent on average.
+Z: 这些家庭的总财富平均缩水了 60% 到 70%。
+E: When that happens, what do you do?
+Z: 遇到这种情况，你会怎么办？
+E: You do three things: consume less, save more, and, to the extent possible, pay down debt.
+Z: 你会做三件事：少消费、多储蓄、尽可能还债。
+E: That is exactly what typical middle-class Chinese families have done over the last five years.
+Z: 这正是过去五年中国中产家庭所做的事。
+E: Domestic demand has been growing slower and slower, to today roughly zero.
+Z: 内需增长越来越慢，到今天大致已接近零。
+E: Savings have gone up to about 120 percent of GDP, || probably the largest savings deposits anywhere in the world, basically RMB 165 trillion.
+Z: 储蓄上升到相当于 GDP 的 120% 左右， || 可能是全球规模最大的储蓄存款，约 165 万亿元人民币。
+E: People have also been through two or three years of roughly zero price increases or slightly negative ones, || more or less in that range.
+Z: 人们还经历了两三年物价基本不涨甚至略降的时期， || 大体就在这个范围。
+E: Therefore, they have a bit of a confidence issue when they look to the future.
+Z: 所以展望未来时，大家多少有些信心不足。
+E: That is one tier of the economy.
+Z: 这是经济的一个层面。
+E: But if you look at the other tier, || at the Chinese government's objectives over the last 10 years and five years, || you see a remarkably different picture.
+Z: 但如果看另一个层面—— || 看中国政府过去十年、过去五年设定的目标， || 你会看到一幅截然不同的图景。
+E: Chinese manufacturing has finally broken through from low- to mid-end, firmly into mid- to high-end.
+Z: 中国制造业终于突破了中低端，稳稳迈入中高端。
+E: Every single objective of Made in China 2025 has been hit.
+Z: 「中国制造 2025」的每一个目标都已基本实现。
+E: In the last five years, solving the bottleneck issues has also made tremendous progress.
+Z: 过去五年，在解决「卡脖子」问题上也取得了巨大进展。
+E: Take the example of semiconductors.
+Z: 以半导体为例。
+E: It turns out that the U.S.-led technology sanctions || have been a godsend for the Chinese semiconductor industry || because they have one of the most precious things in a market economy – DEMAND.
+Z: 事实证明，美国主导的技术制裁， || 反而成了中国半导体产业的天赐良机， || 因为它带来了市场经济中最宝贵的东西之一——需求。
+E: Ask any entrepreneur what is most important, and they say the order book.
+Z: 问任何一位企业家什么最重要，他们都会说：订单。
+E: If you have revenue, you get the whole ball rolling.
+Z: 有了收入，整个循环就转起来了。
+E: With more revenue comes profit, comes R&D, comes better improvement, comes more revenue.
+Z: 更多收入带来利润，带来研发，带来改进，再带来更多收入。
+E: That happened to the point that, on mature nodes, || both the Chinese equipment side and fabrication side have achieved almost complete self-sufficiency.
+Z: 这个循环一路推进，在成熟制程上， || 中国的设备端和制造端都已实现近乎完全的自主。
+E: On more cutting-edge, advanced nodes, they are getting close to self-sufficiency, || with a few key missing ingredients.
+Z: 在更前沿的先进制程上，也正在接近自主， || 只剩少数关键环节尚未解决。
+E: If you keep this way, on its natural course it will happen.
+Z: 沿着这条路走下去，事情自然会发生。
+E: That's just one aspect.
+Z: 这还只是一个方面。
+E: One of the key capabilities of generative AI is producing intelligence at scale on demand.
+Z: 生成式 AI 的一项核心能力，是按需、大规模地产生智能。
+E: One of the biggest applications is code generation, || and that solves a big problem in some of those bottlenecks, || primarily the missing layer of operating code systems.
+Z: 其中最大的应用之一是生成代码， || 这恰好能解决某些瓶颈中的大问题， || 主要是原先缺失的操作系统代码层。
+E: From PCs to servers to semiconductors to CUDA system of Nvidia, one by one, || all of those are now being replaced with the help of AI.
+Z: 从个人电脑到服务器、到半导体、再到英伟达的 CUDA 体系， || 如今都在 AI 的帮助下被一个个替代。
+E: This becomes a great equalizer.
+Z: AI 成了拉平差距的强大工具。
+E: Field after field, over the last 10 years, || you've seen remarkable progress in migrating the basic contours of manufacturing || from low- to mid-end to mid- to high-end.
+Z: 过去十年，在一个又一个领域， || 我们看到制造业的基本格局取得了显著进展： || 从中低端迈向中高端。
+E: In some areas—new energy, EVs, storage, batteries, you name it, || and it goes on and on, heavy machinery—they dominate.
+Z: 在一些领域——新能源、电动车、储能、电池， || 还有重型机械，名单可以一直列下去——中国已占据主导。
+E: They have become global leaders.
+Z: 它们已经成为全球领导者。
+E: In areas where they have bottlenecks, they have also begun to migrate and close the gap.
+Z: 在存在瓶颈的领域，也开始转型、缩小差距。
+E: At the same time, it comes with very heavy costs to other industries.
+Z: 与此同时，其他行业付出了非常沉重的代价。
+E: Real estate, for example, on an annual new sales basis, we're now probably down about 70 percent.
+Z: 以房地产为例，按每年新房销售额计算，现在大概已经下降了 70%。
+E: That RMB 10 trillion [in declining sales] || is also exactly how much has been spent on manufacturing upgrading and technology efficiency, || about RMB 10 trillion a year.
+Z: 减少的那 10 万亿元销售额， || 恰好也相当于每年投入制造业升级和技术效率提升的金额， || 大约每年 10 万亿元。
+E: If you look at the diversion, it is around 2021.
+Z: 资金流向的这一转变，大约发生在 2021 年前后。
+E: That has been the development model if you look back over the last 50 years of China's development.
+Z: 回顾中国过去 50 年的发展，这一直是它的发展模式。
+E: At any given time, roughly every 10 years or so in my mind, || you get a new set of objectives and targets, and it comes with heavy costs.
+Z: 在我看来，大约每隔十年， || 就会出现一组新的目标，并伴随沉重的代价。
+E: Sometimes in the next 10 years, the objective could become the cost.
+Z: 有时到了下一个十年，目标会变成代价。
+E: In the early days of industrial takeoff, the environment, air pollution, and rivers all became costs.
+Z: 在工业起飞初期，环境、空气和河流都成了代价。
+E: In the proceeding next 10 years, they became the objectives, || and new environmentally friendly technologies were developed.
+Z: 接下来的十年，它们又变成了目标， || 新的环保技术随之发展起来。
+E: The polluters were the cost.
+Z: 污染企业则成了代价。
+E: In the course of urbanization, real estate developers were the objective, || building China into what it is, with home ownership and firm middle-class wealth.
+Z: 在城市化进程中，房地产开发商曾是目标， || 他们建设了今天的中国，让人们拥有住房，奠定了中产阶层的财富。
+E: In the last five or 10 years, they became the cost.
+Z: 而在过去五到十年，他们变成了代价。
+E: You begin to suffer quite a bit, || but overall you see the progress of the country through those periods.
+Z: 过程中会有很多痛苦， || 但总体上，你能看到国家在这些阶段取得的进步。
+E: That is why you can compress development over a few hundred years into, say, 40 years.
+Z: 这就是为什么几百年的发展，可以压缩到大约 40 年完成。
+E: But at any given time, as an investor or entrepreneur — || and I'm sure all those people from China would strongly identify — || you always want to know whether you are the objective or the cost.
+Z: 但在任何时点，作为投资者或企业家—— || 我相信在座来自中国的朋友都深有体会—— || 你始终要知道：你是国家的「目标」，还是「代价」？
+E: Being the cost of a state objective is no fun!
+Z: 成为国家目标的代价，可一点都不好受！
+E: I'm sure all of you intimately know that or have friends involved in the process.
+Z: 相信各位都有切身体会，或者身边有朋友经历过。
+E: That's how it has developed.
+Z: 中国就是这样发展过来的。
+E: Overall, if you give the score, you would say that, of all those changes, || you now have a country of such size and population || that has finally embarked on a complete course of modernization.
+Z: 总体上，如果给这些变化打个分，你会说： || 这样一个体量和人口如此巨大的国家， || 终于走上了全面现代化的道路。
+E: But because of this two-tier economy and the general loss of confidence, || you also have a financial market that has been stagnant for 10 years, going nowhere.
+Z: 但由于经济的两层分化和普遍的信心不足， || 金融市场也已停滞了十年，原地踏步。
+E: Meanwhile, you have some of the greatest companies, globally competitive, trading at very low prices.
+Z: 与此同时，一些具有全球竞争力的伟大企业，正以非常低的价格交易。
+E: Again, you have the bifurcation you see here.
+Z: 这里同样存在你在美国看到的那种分化。
+E: If you're a rational investor and look at the whole picture, you might take a different perspective.
+Z: 如果你是理性的投资者，看清全貌，可能会得出不同的看法。
+E: I would say that in today's market, || you probably find a better opportunity set than you would at different times.
+Z: 我会说，在今天的市场里， || 你很可能找到比其他时期更好的机会。
+E: That's what you want.
+Z: 这正是你想要的。
+## 5
+E: All countries would felt the weight of one single common market || and the cost of withdrawing from it.
+Z: 所有国家都会感受到这个统一共同市场的分量， || 以及退出它要付出的代价。
+E: The world, by and large, will continue to progress in that regard.
+Z: 总体而言，世界将继续沿着这个方向发展。
+E: The order we have been familiar with since the end of World War II || is changing and transforming.
+Z: 我们自二战结束以来所熟悉的秩序， || 正在改变和转型。
+E: What will emerge, and in what form, is yet to be seen.
+Z: 最终会形成什么、以什么形式出现，还有待观察。
+E: But the underlying formation of something with a more prominent impact, || the forming of one single global common market, is here to stay.
+Z: 但在它之下，一个影响更为深远的结构已经形成—— || 全球统一的共同市场，它会一直存在下去。
+E: What is the implication for an investor?
+Z: 这对投资者意味着什么？
+E: We come back to our basic tenets of value investing, the six principles.
+Z: 我们又回到价值投资的基本信条，那六条原则。
+E: The last one we added is that, as a global investor, || your wealth is expressed as your percentage ownership of global purchasing power.
+Z: 我们最后加入的一条是：作为全球投资者， || 你的财富体现为你在全球购买力中拥有的份额。
+E: One way to accomplish that, certainly the way we've been practicing, || is by buying great businesses in dynamic countries and markets at advantageous prices, || and holding them for the long term to create value, preserve our percentage, and grow it over time.
+Z: 实现它的一种方式，也正是我们一直在实践的方式， || 是以有利的价格，买入充满活力的国家和市场中的优秀企业， || 长期持有，让它们创造价值，守住并不断提高我们的份额。
+E: Back to Warren's analogy describing the stock market as a church with a casino attached to it.
+Z: 再回到沃伦的比喻：股票市场是一座附带赌场的教堂。
+E: What Berkshire has accomplished over the last 60 years || is to build that church into a gigantic cathedral, || which not only symbolizes and functions, but where people can find spiritual solace, || because it provides the right function for which the market exists.
+Z: 伯克希尔过去 60 年的成就， || 就是把那座教堂建成了一座宏伟的大教堂。 || 它不仅有象征意义、履行实际功能，人们还能在那里获得精神慰藉， || 因为它发挥了市场本应具有的正确功能。
+E: What we're trying to practice, back to your question, over the last 30 years, || is that we want to prove that the gospel can be spread.
+Z: 回到你的问题，过去 30 年我们努力实践的， || 就是要证明这套「福音」可以传播出去。
+E: We can build churches in other countries.
+Z: 我们可以在其他国家建起教堂。
+E: We chose to build that church in Asia as well as other regions, as a global investor.
+Z: 作为全球投资者，我们选择在亚洲以及其他地区建造这样的教堂。
+E: Over time, some of those churches will appear in different countries, || and some might grow into cathedrals as well.
+Z: 随着时间推移，不同国家会出现这样的教堂， || 其中一些也可能成长为大教堂。
+E: Let's come back to your other question, to students and young professionals: || What would you choose to do in this market?
+Z: 再回到你另一个问题，对学生和年轻从业者来说： || 在这个市场中，你会选择做什么？
+E: This is the basic setup, || a church with a casino attached as part of the permitting process because of the human condition.
+Z: 市场的基本结构就是如此—— || 一座附带赌场的教堂；因为人性使然，赌场成了取得「建筑许可」的一部分。
+E: They have different implications for the overall society.
+Z: 两者对整个社会的影响截然不同。
+E: On one side, you have a win-win approach and a net benefit to society.
+Z: 一边是双赢，为社会带来净收益；
+E: On the other, you have zero-sum and a net cost, a net negative impact on society.
+Z: 另一边是零和，给社会带来净成本、净负面影响。
+E: The choices are yours.
+Z: 选择权在你们手中。
+E: Technology, including AI, will remain a tool, not a replacement.
+Z: 技术，包括 AI，仍会是工具，而不是人的替代品。
+E: If it has any tendency to replace humans, as I said, || we will all unite to oppose such a creation of a man-made god.
+Z: 正如我所说，如果它出现任何取代人类的趋势， || 我们所有人都会团结起来，反对创造这样一个「人造之神」。
+E: Therefore, in my view, you don't have to participate in a prospectus || that calls it an IPO of a demigod.
+Z: 所以在我看来，你没有必要参与 || 一份自称「半神 IPO」的招股书。
+## 6
+E: The Chinese stock market — is that the objective or cost?
+Z: 中国股市究竟是「目标」还是「代价」？
+E: At different times, the emphasis is different.
+Z: 在不同阶段，侧重点会有所不同。
+E: But when you are the primary balance sheets of both individual families and the nation, || when the real estate as a proportion begins to go down in one way, || by the way, they don't really go down forever because it has real value, || then what in its place, would constitute the wealth of the nation, the people, and the families?
+Z: 但想一想家庭和国家最主要的资产负债表： || 当房地产所占的比重开始下降时—— || 顺便说一句，房地产不会一直跌下去，因为它有实际价值—— || 那么，什么会接替它，构成国家、人民和家庭的财富？
+E: When you answer that question, you would say that at some point, || whether it's today or another time, it [the market] has to be.
+Z: 回答了这个问题你就会发现，在某个时刻， || 无论是今天还是将来，股市必然要成为那个目标。
+E: That is the only asset that grows with the economy, || in fact grows because of the economy, || and is also the reason why the economy grows.
+Z: 它是唯一一种随经济增长而增长的资产， || 事实上它因经济发展而增长， || 同时也是推动经济增长的原因。
+E: They are all in a flywheel together.
+Z: 它们共同构成一个飞轮。
+## 7
+E: First of all, the value principle — I put it this way.
+Z: 首先，关于价值投资的原则，我会这样说：
+E: I think all intelligent investment is value investment, || because you always want to get a little more than what you pay for.
+Z: 我认为，所有聪明的投资都是价值投资， || 因为你总希望得到的比付出的多一点。
+E: What you pay is the price; what you get is value.
+Z: 你付出的是价格，得到的是价值。
+E: Whatever value you can express yourself, || whether it is in a business that is stagnant or even declining but pays you a whole bunch of money back, || or a company that is rapidly growing, || or a bet that has only a small percentage of winning and a large percentage of losing, therefore you spread [your bets] — || all of that come down to your understanding of where value will be created.
+Z: 无论你所理解的价值体现在哪里—— || 是一家停滞甚至衰退、却会返还你大量现金的企业， || 是一家快速成长的公司， || 还是一笔胜率很低、败率很高，因而需要分散下注的投资—— || 最终都归结为：你是否理解价值将在哪里被创造。
+E: The basic principle is discounted future cash flow, || to the extent that you can understand and estimate it accurately.
+Z: 基本原则就是未来现金流折现， || 前提是你能理解它，并作出准确的估计。
+E: They all come down to the same mathematics.
+Z: 它们最终都归结为同一套数学。
+E: That's why I say almost all intelligent investing is value investing.
+Z: 所以我说，几乎所有聪明的投资都是价值投资。
+E: The basic principle doesn't change.
+Z: 基本原则不会改变。
+E: You can apply it differently based on where your circle of competence is, || going back to the concept Warren articulated so well.
+Z: 你可以根据自己的能力圈，把它用在不同的地方—— || 这又回到了沃伦阐述得非常清楚的能力圈概念。
+## 8
+E: Now, your question [about the risk of underperformance] is very real.
+Z: 现在说你关于「业绩落后风险」的问题，这确实非常现实。
+E: You're buying into it, but then, of course, || you also want to ask it to cooperate with you.
+Z: 你认同价值投资这套理念，但当然， || 你也希望市场能配合你。
+E: As I said, that is where human psychology is.
+Z: 正如我所说，这就是人性。
+E: Everybody likes to have the best of both worlds.
+Z: 每个人都想两全其美。
+E: In fact, they want everything – || I want to be doing win-win, || but I also want to report good numbers every year at least, preferably every quarter, || then every month, every day, every hour – || Pretty soon, you will become a speculator.
+Z: 事实上，人们什么都想要—— || 「我想做双赢的事， || 但我也想至少每年都交出漂亮的业绩，最好每个季度， || 然后每个月、每天、每小时都如此。」 || 用不了多久，你就会变成一个投机者。
+E: You cannot have both worlds.
+Z: 你不可能两头都占。
+E: Either you think the market is there to instruct you, || or you think the market is there to serve you.
+Z: 要么你认为市场是来指导你的， || 要么你认为市场是来为你服务的。
+E: You can only take one of the two.
+Z: 两者只能选一个。
+E: Anyone who wants to mishmash all of it is better off indexing, || because it is exactly the average of all the market participants.
+Z: 想把两者混在一起的人，不如去做指数投资， || 因为指数恰好就是所有市场参与者的平均。
+E: You average out those four kinds of market participants, that's the index.
+Z: 把那四类市场参与者平均起来，就是指数。
+E: You're better off doing that.
+Z: 这样做对你反而更好。
+E: If you say – How do I make a business out of it? – || In the end, you have to have people with a like-minded approach who stick with you.
+Z: 如果你问：「我怎样才能把它做成一门生意？」 || 归根结底，你必须找到理念相同、愿意一直跟你走的人。
+E: The difficult thing about this line of work is that || you have to be a bit contrarian in terms of human nature.
+Z: 这一行的难处在于， || 你必须在一定程度上逆人性而行。
+E: You've got to have some element of a mutated genome to think you are right || because logic and facts say so, not because anybody else agrees or disagrees with you.
+Z: 你得有点像「基因变异」：你认为自己是对的， || 是因为逻辑和事实支持你，而不是因为别人赞同或反对你。
+E: That requires a different kind of psychology.
+Z: 这需要一种不同的心理特质。
+E: Some people fit it, if you decide you don't, don't even try.
+Z: 有些人适合；如果你认定自己不适合，就别勉强。
+E: You also have to have people who believe in that to be along with you.
+Z: 你还必须让相信这套理念的人与你同行。
+E: Therefore, you cannot say – || I want to have the biggest fund, have this AUM. – It doesn't happen that way.
+Z: 所以你不能说—— || 「我要拥有最大的基金、做到多少管理规模。」事情不是这样发生的。
+E: You get what you deserve in the end.
+Z: 最终，你会得到你应得的。
+## 9
+E: One of the distinguishing characteristics that separates a value investor from most other investors || is the enormous attention paid to downside protection.
+Z: 价值投资者与大多数投资者的一个显著区别， || 就是极其重视下行保护。
+E: Investing is predicting the future, which is inherently unpredictable.
+Z: 投资是预测未来，而未来本质上不可预测。
+E: What you do is invest in the things you do know.
+Z: 你能做的，是投资于你真正了解的东西。
+E: What you know could be limited.
+Z: 你知道的也许很有限。
+E: Everybody starts with very limited known knowledge.
+Z: 每个人起步时，掌握的知识都很有限。
+E: That's how I started when I was in my 20s.
+Z: 我二十多岁刚开始时也是如此。
+E: I didn't know much.
+Z: 知道的并不多。
+E: I go with the things I know are there.
+Z: 我从那些我确知存在的东西入手。
+E: The balance sheet, obviously, as in Benjamin Graham's work, || because some things are easier to understand.
+Z: 比如资产负债表，就像本杰明·格雷厄姆的方法， || 因为有些东西更容易理解。
+E: Then I gradually progress from something simple to something less simple and more complex.
+Z: 然后逐步从简单的东西，走向更复杂的东西。
+E: It's a natural progression in terms of the circle of competence.
+Z: 这是能力圈自然扩展的过程。
+E: About circle of competence, one thing is to understand its edge.
+Z: 关于能力圈，一方面是要清楚它的边界，
+E: The other is consciously to expand it gradually over time.
+Z: 另一方面，是要有意识地随时间逐步扩大它。
+E: I always say, if you can compound your knowledge sustainably, || eventually you can compound your capital as well.
+Z: 我常说，如果你的知识能够持续复利增长， || 最终你的资本也能复利增长。
+E: That goes back to your question about what I've learned over 10 years.
+Z: 这又回到你问的：过去十年我学到了什么。
+E: Every 10 years, I find I've learned so much that you're almost somewhat a different person.
+Z: 每隔十年，我都发现自己学到了很多，几乎成了一个不同的人。
+E: You want to have that renewed sense that, over a long period, || if you do the right thing in the right way, || it will be remarkable to find that you actually compound.
+Z: 你会一次次重新感受到：在很长一段时间里， || 用正确的方式做正确的事， || 最终发现自己真的实现了复利，那是非常令人惊叹的。
+E: This is another reason, I would say, || if you want to choose to go to a win-win situation rather than zero-sum.
+Z: 我会说，这也是另一个理由： || 选择双赢，而不是零和。
+E: You actually will compound your ability and knowledge, and perhaps your health, too.
+Z: 你的能力和知识真的会复利增长，也许健康也是。
+E: Maybe not quite, but you can at least prolong your productive span, your health span.
+Z: 健康也许不完全如此，但至少能延长你有效工作的年限、你的健康期。
+E: Maybe not lifespan, but your health span.
+Z: 未必能延长寿命，但能延长健康地生活的时间。
+E: You keep engaged.
+Z: 你始终保持投入。
+E: It's interesting.
+Z: 因为它很有意思。
+E: You know it's helpful to society, and you're not taking away from society.
+Z: 你知道这对社会有益，而不是从社会拿走什么。
+E: With the zero-sum game, the trouble is || that a lot of human nature goes to zero-sum, to the short term.
+Z: 零和博弈的问题在于， || 人性中有很多东西会把人推向零和、推向短期。
+E: Whatever you learn today is useless tomorrow.
+Z: 你今天学到的，明天就没用了。
+E: You don't accumulate.
+Z: 你无法积累。
+E: You rely more and more on the impersonal.
+Z: 你越来越依赖非人的手段。
+E: You get a bigger computer, and now you use AI.
+Z: 你买更强大的计算机，现在又用上了 AI。
+E: You'll be replaced at some point, so what is the value of that as a human?
+Z: 到某个时刻你就会被替代，那作为一个人，你的价值在哪里？
+E: Of course, I like the human in the loop.
+Z: 当然，我喜欢让人参与其中。
+E: I advocate learning, having an engaged and improved life over time, || and compounding your knowledge as well as the capital of the people in the trusting way.
+Z: 我提倡不断学习，过一种积极投入、不断改善的生活， || 让自己的知识复利增长，也在信任之中，让托付给你的资本复利增长。
+E: What my mentor, partner, and teacher Charlie Munger always said and advocated is || that the highest order of relationship he could discover is a seamless web of deserved trust.
+Z: 我的导师、合伙人和老师查理·芒格一直说、也一直倡导： || 他所发现的最高层次的人际关系，是「一张由值得的信任编织成的无缝之网」。
+E: A seamless web of deserved trust!
+Z: 一张由值得的信任编织成的无缝之网！
+E: There lies a whole philosophy of approaching life in a productive way || that is win-win for society as well.
+Z: 这里面有一整套人生哲学：让人生富有建设性， || 同时也与社会实现双赢。
+E: I recommend anyone starting your career to lean towards that way of life.
+Z: 我建议所有刚开始职业生涯的人，都朝这种生活方式靠近。
+E: It could take years.
+Z: 这可能要花很多年，
+E: It could be slow, but slowly and surely you will get to where you deserve to go.
+Z: 也可能很慢，但缓慢而坚定，你终将抵达你应得的地方。
+E: That is a better way of living.
+Z: 这是一种更好的生活方式。
+E: Some people have a little more luck than others along the way.
+Z: 一路上，有些人的运气比别人好一些。
+E: Our life, success, and failure are sometimes a combination of lucky or unlucky breaks in life.
+Z: 我们的人生、成功与失败，有时是幸运与不幸共同作用的结果。
+E: We've had a fair share of all of it.
+Z: 这些我们都经历过不少。
+E: I, for one, never felt our record was completely our genius or anything.
+Z: 至少我从不觉得，我们的业绩完全来自自己的天才。
+E: We've got so many lucky breaks along the way.
+Z: 一路走来，我们遇到过太多幸运的机缘。
+E: But if you choose the right partners, the right approach, the right people to bet on, || and the right things to do, || over time it's remarkable how compound returns work.
+Z: 但如果你选对了合伙人、选对了方法、选对了值得押注的人， || 也选对了要做的事， || 随着时间推移，复利的力量会令人惊叹。
+E: The basic idea of compounding is that you don't lose what you already have.
+Z: 复利的基本理念，是不要失去你已经拥有的东西。
+E: That's a profound idea.
+Z: 这是一个非常深刻的理念。
+E: You don't lose what you already have, including your knowledge, || your trusting relationships, your wisdom, and even your health.
+Z: 不要失去你已拥有的——你的知识、 || 建立在信任之上的关系、你的智慧，甚至你的健康。
+E: Those are amazingly powerful things to have in life.
+Z: 这些都是人生中极其强大的财富。
+E: In that regard, I think structurally the U.S. and China are the same.
+Z: 从这个角度看，我认为美国和中国在结构上是一样的。
+E: In fact, that's the structure of humanity.
+Z: 事实上，这就是人类共同的结构。
+E: That doesn't necessarily answer your question, I'm sure.
+Z: 我知道，这未必真正回答了你的问题。
+E: Maybe we'll find another time to discuss exactly what you mean by structural changes.
+Z: 也许我们可以另找时间，讨论你说的「结构性变化」具体指什么。
+E: There are always changes in life.
+Z: 人生总在变化。
+E: This is one constant we're always going to have to deal with.
+Z: 变化本身，就是我们始终要面对的常量。
+E: You will always have your share of luck and unluck, || and your share of great opportunities, no matter which way you naturally lean.
+Z: 无论你天生倾向哪条路，你总会遇到属于自己的幸运与不幸， || 也会遇到属于自己的重大机会。
+E: Finding something you naturally lean towards || and building on it over time in a compounded and cumulative fashion || is just a better way of living a productive life.
+Z: 找到你天生倾向的事， || 然后随着时间推移，以复利和积累的方式不断在其上建设， || 这就是一种更好的、富有建设性的人生。
