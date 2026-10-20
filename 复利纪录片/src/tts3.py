@@ -318,7 +318,7 @@ def takes_group2(gname, base, text, plain, style, key, vm, take_keys):
         ds = []
         for pp, tx in parts:
             Q = VS.profile(pp, tx); Q['rate'] *= adj
-            ds.append(VS.distance(Q, R))
+            ds.append(VS.distance(Q, R, 0.5 if vm.get('metric', 1) >= 4 else 0.8))
         D, det = max(ds, key=lambda z: z[0])
         c = dict(take=k, d=round(D, 2), parts=[round(z[0], 2) for z in ds], rate=round(P['rate'], 2), ref_rate=round(R['rate'], 2),
                  pitch=round(float(P['st'][1]), 2), ref_pitch=round(float(R['st'][1]), 2), detail={a: round(b, 2) for a, b in det.items()}, rec=rec)

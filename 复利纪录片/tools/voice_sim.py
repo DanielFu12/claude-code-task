@@ -59,10 +59,11 @@ def profile(path, text):
                 cen=float(np.median(librosa.feature.spectral_centroid(S=vs, sr=sr)[0])))
 
 
-def distance(a, r):
-    """与参照的综合距离（越小越像）：各项按「听得出差别」的量级归一后相加"""
+def distance(a, r, pitch_unit=0.8):
+    """与参照的综合距离（越小越像）：各项按「听得出差别」的量级归一后相加。
+    pitch_unit：音高差多少半音算 1 分（第五版起用 0.5——被指出声色不一致的段落都是偏低沉）"""
     d = dict(emb=(1 - sim(a['emb'], r['emb'])) / 0.04, mfcc=float(np.linalg.norm(a['mfcc'] - r['mfcc'])) / 12,
-             pitch=abs(a['st'][1] - r['st'][1]) / 0.8, range=abs(a['st'][2] - r['st'][2]) / 1.5,
+             pitch=abs(a['st'][1] - r['st'][1]) / pitch_unit, range=abs(a['st'][2] - r['st'][2]) / 1.5,
              rate=abs(a['rate'] - r['rate']) / 0.4, bright=abs(a['cen'] - r['cen']) / 120)
     return sum(d.values()), d
 
