@@ -181,7 +181,7 @@ def gemini_group(gname, ids):
     if os.path.exists(meta_p) and json.load(open(meta_p)).get('key') == key:
         meta = json.load(open(meta_p)); x, _ = sf.read(base + '.wav')
     elif ntake and vm.get('metric', 1) > 1:
-        meta, x = takes_group2(gname, base, text, plain, style, key, vm, take_keys)
+        meta, x = takes_group2(gname, base, text, plain, style, key, vm, take_keys, ids)
     elif ntake:
         meta, x = takes_group(gname, base, text, plain, style, key, ntake, vm['ref'])
     else:
@@ -295,7 +295,7 @@ def take_audio(gname, base, text, plain, style, keys, k):
     return xb, rec
 
 
-def takes_group2(gname, base, text, plain, style, key, vm, take_keys):
+def takes_group2(gname, base, text, plain, style, key, vm, take_keys, ids):
     """第五版的挑选：与参照段比声纹、音色（MFCC）、基频分布、语速、亮度的综合距离（tools/voice_sim.py: distance）。
     超过 20 秒的长段按时间切成两半分别比，取较差的一半（防止段内后半截跑调）。
     至少合成 4 条；最好一条距离 ≤ 5（相当于现有段落里最一致的几段）就停，否则合成到 takes 条，仍 > 7 时最多再补 3 条。
@@ -313,14 +313,23 @@ def takes_group2(gname, base, text, plain, style, key, vm, take_keys):
         if xb is None: break
         y, _ = sf.read(xb + '.wav')
         parts = [(xb + '.wav', plain)]
-        if len(y) / SR > 20:                     # 长段：按识别出的逐字时间在中点切开，两半分别比
+        if vm.get('score_from'):                 # 带引子合成：只比成片里用到的那几句（从 score_from 开始）
+            pre = ''.join(SAY.get(sid, ITEMS[sid][1]) for sid in ids[:ids.index(vm['score_from'])])
+            k0 = len(content(pre))
+            tt, _r = align(content(plain), [tuple(r) for r in rec])
+            t0 = max(tt[k0][0] - 0.08, 0)
+            sub = plain[len(pre):]
+            sf.write(xb + '.s.wav', y[int(t0 * SR):], SR)
+            parts = [(xb + '.s.wav', sub)]
+            y = y[int(t0 * SR):]
+        if not vm.get('score_from') and len(y) / SR > 20:   # 长段：按识别出的逐字时间在中点切开，两半分别比
             mid = len(y) / SR / 2
             j = min(range(len(rec)), key=lambda i: abs(rec[i][1] - mid))
             for nm, seg, txt in (('a', y[:int(rec[j][2] * SR)], ''.join(c for c, _, _ in rec[:j + 1])),
                                  ('b', y[int(rec[j][2] * SR):], ''.join(c for c, _, _ in rec[j + 1:]))):
                 sf.write(f'{xb}.{nm}.wav', seg, SR); parts.append((f'{xb}.{nm}.wav', txt))
             parts = parts[1:]
-        P = VS.profile(xb + '.wav', plain)
+        P = VS.profile(parts[0][0] if vm.get('score_from') else xb + '.wav', parts[0][1] if vm.get('score_from') else plain)
         adj = float(np.clip(R['rate'] / P['rate'], 1 / TRIM, TRIM))       # 选中后会做的语速微调，按微调后的语速比
         ds = []
         for pp, tx in parts:

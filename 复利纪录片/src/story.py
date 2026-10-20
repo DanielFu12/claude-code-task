@@ -30,7 +30,7 @@ STYLE_BY_GROUP = {
 VOICE_MATCH = {
     'G3': dict(takes=3, ref=('G1', 'G2')), 'G13': dict(takes=3, ref=('G1', 'G2')),
     # 第六版：S04 改稿后单独重录；G14「复利的第一要义」重录
-    'G1R': dict(takes=8, ref=('G1',), metric=4), 'G14': dict(takes=8, ref=('G1',), metric=4),
+    'G1R': dict(takes=8, ref=('G1',), metric=4), 'G14': dict(takes=6, ref=('G1',), metric=4, score_from='A11'),
     'G4': dict(takes=7, ref=('G1',), metric=4), 'G6': dict(takes=4, ref=('G1',), metric=4), 'G9': dict(takes=8, ref=('G1',), metric=4),
 }
 
@@ -38,8 +38,12 @@ VOICE_MATCH = {
 #   G1 仍按原稿整段合成（缓存命中，开场解说的声音一点不变），其中 S04 的旧稿记作 S04x，只为保持缓存，不进成片；
 #   改稿后的 S04 用同一套锁定参数单独合成（G1R），按声色与开场解说匹配。
 #   格式：成片段落 → [(缓存名, 合成分组 id, [句子])]
-TTS_LAYOUT = {'G1': [('G_S01_S02_S03_S04', 'G1', ['S01', 'S02', 'S03', 'S04x']), ('G_S04', 'G1R', ['S04'])]}
-TTS_HIDDEN = {'S04x': '那么，在一个越来越快的时代，什么才值得我们花几十年去积累？'}
+#   G14（收束句）单独合成时，模型总把它读成高亢或压低的「结尾腔」，与开场解说差得远；
+#   所以把上一段的末句（A10x，同 A10 的稿子）作为引子一起合成，让声音延续正常的讲述音区，成片只用 A11。
+TTS_LAYOUT = {'G1': [('G_S01_S02_S03_S04', 'G1', ['S01', 'S02', 'S03', 'S04x']), ('G_S04', 'G1R', ['S04'])],
+              'G14': [('G_A10x_A11', 'G14', ['A10x', 'A11'])]}
+TTS_HIDDEN = {'S04x': '那么，在一个越来越快的时代，什么才值得我们花几十年去积累？',
+              'A10x': '知识、信任、技能、健康，都在复利。它们共同的敌人，不是慢，而是中断。'}
 
 STORY = [
     ('clip', 'LB'),                                   # 冷开场：李录原声（AI 与“学到的明天就没用了”）
@@ -128,7 +132,7 @@ SAY = {
     'A04': '可乘法也有残酷的一面：亏掉一半，要翻一倍才能回来——按每年百分之十算，要七年多。',
     'A06': '巴菲特在二零一零年的致股东信里写道：一长串正数，不管多么亮眼，只要乘以一个零，就会全部蒸发。',
 }
-TAGS = {'S03': '<breath>', 'S04x': '<short pause>', 'S08': '<breath>', 'S09': '<short pause>', 'S11': '<breath>',
+TAGS = {'S03': '<breath>', 'S04x': '<short pause>', 'A11': '<breath>', 'S08': '<breath>', 'S09': '<short pause>', 'S11': '<breath>',
         'S13': '<breath>', 'H01': '<breath>', 'H03': '<breath>', 'H04': '<short pause>', 'S16': '<breath>', 'S18': '<short pause>', 'S19': '<breath>', 'A03': '<short pause>',
         'A05': '<breath>', 'A06': '<short pause>', 'A08': '<breath>', 'A10': '<breath>'}
 
