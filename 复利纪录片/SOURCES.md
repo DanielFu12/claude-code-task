@@ -1,6 +1,6 @@
-# 资料来源、原始影像与授权说明（第五版）
+# 资料来源、原始影像与授权说明（第六版）
 
-《AI时代，更要守住复利：李录、巴菲特、芒格谈复利》第五版，6 分 36 秒。
+《AI时代，更要守住复利：李录、巴菲特、芒格谈复利》第六版，6 分 37 秒。
 - **原始影像**：李录、巴菲特、芒格的讲话全部是原始影像原声，英文字幕是原话，中文字幕是本片翻译。
 - **解说**：用 Gemini TTS `gemini-3.8-flash-tts` 合成，是本片的串联与解读，不代表任何大师的原话。
 - **动画**：所有数字都有出处，或者是标明假设的数学示意。
@@ -14,14 +14,14 @@
 | LB | 李录 · 哥大第 36 届格雷厄姆与多德年度活动（2026.10.05） | 1:24:24.9–1:24:40.6 | 15.7 s | "Whatever you learn today is useless tomorrow. You don't accumulate. And so you rely more and more on the impersonal. You get a bigger computer, and now you use AI. And of course, you'll be replaced at some point." |
 | LC | 同上 | 1:23:03.7–1:23:13.0 | 9.3 s | "And I always say, look, if you can compound your knowledge in a sustainable fashion, eventually you can compound your capital as well." |
 | LD | 同上 | 1:26:49.7–1:27:10.4 | 20.7 s | "And the basic idea of compounding is you don't lose what you already have, and that's a profound idea. You don't lose what you already have. That's including your knowledge, that's including your trusting relationship, that's including the wisdom and even your health." |
-| LT | 同上（两段拼接） | 1:25:04.5–1:25:09.3 + 1:25:15.5–1:25:22.3 | 11.7 s | "And what my mentor, partner, teacher Charlie Munger always said… the highest order of relationship he could discover is a seamless web of deserved trust." |
+| LT | 同上（两段拼接） | 1:25:04.5–1:25:09.3 + 1:25:15.5–1:25:23.1 | 12.5 s | "And what my mentor, partner, teacher Charlie Munger always said… the highest order of relationship he could discover is a seamless web of deserved trust." |
 | BB | 巴菲特 · 伯克希尔 1999 年股东大会 | 整场录像 3:47:19.6–3:47:30.7 | 11.1 s | "The nature of compound interest is it behaves like a snowball of sticky snow, and the trick is to have a very long hill, which means either starting very young or living very, to be very old." |
 | BA | 同上 | 整场录像 0:24:00.1–0:24:17.8 | 17.7 s | "You only have to get rich once. And why do people, very bright people, risk losing something that's very important to them to gain something that's totally unimportant? The added money has no utility whatsoever. And the money that was lost had enormous utility." |
 | MB | 芒格 · BBC 专访（2009.10） | 访谈约 0:39 起 | 17.6 s | "In fact, you can argue that if you're not willing to react with equanimity to a market price decline of 50% two or three times a century, you're not fit to be a common shareholder, and you deserve the mediocre result you're going to get" |
 | MU | 芒格 · 南加州大学法学院毕业典礼演讲（2007.05.13） | 演讲录像 6:30.9–6:55.4 | 24.5 s | "I constantly see people rise in life who were not the smartest, sometimes not even the most diligent, but they are learning machines. They go to bed every night a little wiser than they were when they got up. And boy, does that habit help, particularly when you have a long run ahead of you." |
 | MT | 同上 | 演讲录像 35:49.2–35:56.1 | 6.9 s | "The highest form that civilization can reach is a seamless web of deserved trust." |
 
-**李录片段合计 57.4 秒**，在 1 分钟以内。
+**李录片段合计 58.2 秒**，在 1 分钟以内（第六版把 LT 的出点后延 0.8 秒，收齐「trust」的完整发音）。
 
 **出入点**：全部取自本地 Whisper 的词级时间戳。李录的四段已与哥大官方逐字稿逐句核对，逐字稿 PDF 见：
 https://business.columbia.edu/sites/default/files-efs/imce-uploads/36th%20Annual%20Graham%20%26%20Dodd%20Luncheon%20Transcript%20(20261005)%20CBS.pdf
@@ -97,7 +97,7 @@ https://business.columbia.edu/sites/default/files-efs/imce-uploads/36th%20Annual
 ## 五、授权与使用依据（发布前请确认）
 
 **这些影像都没有取得版权方的书面授权。** 本片使用它们的依据是评论、介绍性质的合理使用或适当引用：
-- 每段都很短：最长 24.5 秒，李录合计 57.4 秒；
+- 每段都很短：最长 24.5 秒，李录合计 58.2 秒；
 - 每段都标注了人物、场合、日期和出处；
 - 每段都配有本片的翻译和解说，不替代原片。
 
