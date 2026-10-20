@@ -25,10 +25,10 @@ STYLE_BY_GROUP = {
 #   takes：候选条数（不达标时最多再补 3 条）；ref：参照段。缓存键包含这两项，已选定的段落不会重新合成。
 #   第四版：G3、G13、G14 以 G1+G2 为参照（按声纹与基频挑选）。
 #   第五版：G4（并入「AI 时代的两种诱惑」，整段一次合成）、G6（「那届股东大会的前一年」）、G9（信任）
-#           以开场解说 G1 为参照，按声纹、音色（MFCC）、基频分布与语速综合挑选。
+#           以开场解说 G1 为参照，按声纹、音色（MFCC）、基频分布、语速（按微调后的值）与亮度综合挑选。
 VOICE_MATCH = {
     'G3': dict(takes=3, ref=('G1', 'G2')), 'G13': dict(takes=3, ref=('G1', 'G2')), 'G14': dict(takes=3, ref=('G1', 'G2')),
-    'G4': dict(takes=8, ref=('G1',), metric=2), 'G6': dict(takes=8, ref=('G1',), metric=2), 'G9': dict(takes=8, ref=('G1',), metric=2),
+    'G4': dict(takes=8, ref=('G1',), metric=3), 'G6': dict(takes=8, ref=('G1',), metric=3), 'G9': dict(takes=8, ref=('G1',), metric=3),
 }
 
 STORY = [

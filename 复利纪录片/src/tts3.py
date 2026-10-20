@@ -164,12 +164,16 @@ def gemini_group(ids):
     gid = ITEMS[ids[0]][0]
     vm = VOICE_MATCH.get(gid)
     ntake = vm['takes'] if vm else 0
+    take_keys = None
     if ntake:
+        base_key = key
         key = hashlib.md5((f'{key}|takes{ntake}|ref{"+".join(vm["ref"])}' + (f'|m{vm["metric"]}' if vm.get('metric', 1) > 1 else '')).encode()).hexdigest()[:12]
+        # 候选条的缓存只取决于朗读稿、声音与风格（第五版早期的候选条用的是 m2 键，同样认）
+        take_keys = (base_key, hashlib.md5(f'{base_key}|takes{ntake}|ref{"+".join(vm["ref"])}|m2'.encode()).hexdigest()[:12])
     if os.path.exists(meta_p) and json.load(open(meta_p)).get('key') == key:
         meta = json.load(open(meta_p)); x, _ = sf.read(base + '.wav')
     elif ntake and vm.get('metric', 1) > 1:
-        meta, x = takes_group2(gname, base, text, plain, style, key, vm)
+        meta, x = takes_group2(gname, base, text, plain, style, key, vm, take_keys)
     elif ntake:
         meta, x = takes_group(gname, base, text, plain, style, key, ntake, vm['ref'])
     else:
@@ -266,11 +270,15 @@ def takes_group(gname, base, text, plain, style, key, ntake, refs):
     return meta, x
 
 
-def take_audio(gname, base, text, plain, style, key, k):
+TRIM = 1.08                                   # 语速微调上限（±8%：配合整体 1.04 的提速，听感仍自然）
+
+
+def take_audio(gname, base, text, plain, style, keys, k):
     """第 k 条候选（已缓存就直接用）：返回 (wav 路径, rec)"""
+    key = keys[0]
     xb = f'{base}.take{k}'
     tj = xb + '.json'
-    if os.path.exists(tj) and json.load(open(tj)).get('key') == key:
+    if os.path.exists(tj) and json.load(open(tj)).get('key') in keys:
         return xb, [tuple(r) for r in json.load(open(tj))['rec']]
     raw, mime, rec = synth(gname, text, plain, style, base)
     to_wav48(raw, mime, xb)
@@ -278,11 +286,11 @@ def take_audio(gname, base, text, plain, style, key, k):
     return xb, rec
 
 
-def takes_group2(gname, base, text, plain, style, key, vm):
+def takes_group2(gname, base, text, plain, style, key, vm, take_keys):
     """第五版的挑选：与参照段比声纹、音色（MFCC）、基频分布、语速、亮度的综合距离（tools/voice_sim.py: distance）。
     超过 20 秒的长段按时间切成两半分别比，取较差的一半（防止段内后半截跑调）。
     至少合成 4 条；最好一条距离 ≤ 5（相当于现有段落里最一致的几段）就停，否则合成到 takes 条，仍 > 7 时最多再补 3 条。
-    选中后，语速与参照差几个百分点的，用 rubberband 再微调（±5% 以内）。"""
+    选中后，语速与参照差几个百分点的，用 rubberband 再微调（±8% 以内）；比较语速时按微调后的值算。"""
     sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'tools'))
     import voice_sim as VS
     refs = vm['ref']
@@ -292,7 +300,7 @@ def takes_group2(gname, base, text, plain, style, key, vm):
     for k in range(1, vm['takes'] + 4):
         best = min((c['d'] for c in cands), default=99)
         if (k > 4 and best <= 5.0) or (k > vm['takes'] and best <= 7.0): break
-        xb, rec = take_audio(gname, base, text, plain, style, key, k)
+        xb, rec = take_audio(gname, base, text, plain, style, take_keys, k)
         y, _ = sf.read(xb + '.wav')
         parts = [(xb + '.wav', plain)]
         if len(y) / SR > 20:                     # 长段：按识别出的逐字时间在中点切开，两半分别比
@@ -302,9 +310,13 @@ def takes_group2(gname, base, text, plain, style, key, vm):
                                  ('b', y[int(rec[j][2] * SR):], ''.join(c for c, _, _ in rec[j + 1:]))):
                 sf.write(f'{xb}.{nm}.wav', seg, SR); parts.append((f'{xb}.{nm}.wav', txt))
             parts = parts[1:]
-        ds = [VS.distance(VS.profile(pp, tx), R) for pp, tx in parts]
-        D, det = max(ds, key=lambda z: z[0])
         P = VS.profile(xb + '.wav', plain)
+        adj = float(np.clip(R['rate'] / P['rate'], 1 / TRIM, TRIM))       # 选中后会做的语速微调，按微调后的语速比
+        ds = []
+        for pp, tx in parts:
+            Q = VS.profile(pp, tx); Q['rate'] *= adj
+            ds.append(VS.distance(Q, R))
+        D, det = max(ds, key=lambda z: z[0])
         c = dict(take=k, d=round(D, 2), parts=[round(z[0], 2) for z in ds], rate=round(P['rate'], 2), ref_rate=round(R['rate'], 2),
                  pitch=round(float(P['st'][1]), 2), ref_pitch=round(float(R['st'][1]), 2), detail={a: round(b, 2) for a, b in det.items()}, rec=rec)
         cands.append(c)
@@ -314,7 +326,7 @@ def takes_group2(gname, base, text, plain, style, key, vm):
     for ext in ('.src.wav', '.wav', '.mp3'):
         subprocess.run(['cp', f'{base}.take{best["take"]}{ext}', base + ext], check=True)
     x, _ = sf.read(base + '.wav')
-    adj = float(np.clip(best['ref_rate'] / best['rate'], 0.95, 1.05))
+    adj = float(np.clip(best['ref_rate'] / best['rate'], 1 / TRIM, TRIM))
     meta = dict(key=key, text=text, rec=best['rec'], dur=len(x) / SR, take=best['take'], tempo_adj=round(adj, 4),
                 takes=[{k: v for k, v in c.items() if k != 'rec'} for c in cands], ref=dict(groups=list(refs), metric=2))
     json.dump(meta, open(base + '.json', 'w'), ensure_ascii=False)
@@ -324,7 +336,7 @@ def takes_group2(gname, base, text, plain, style, key, vm):
 
 def split_group(ids, say, plain, meta, x):
     gname = 'G_' + '_'.join(ids)
-    tempo = TEMPO * meta.get('tempo_adj', 1.0)          # 第五版：选中条与参照的语速差在 ±5% 内微调
+    tempo = TEMPO * meta.get('tempo_adj', 1.0)          # 第五版：选中条与参照的语速差在 ±8% 内微调
     # 对齐并切句
     sc = content(plain)
     tt, ratio = align(sc, [tuple(r) for r in meta['rec']])
