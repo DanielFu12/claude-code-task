@@ -475,7 +475,8 @@ def outro(img, t, last):
         glow_blob(img, W // 2, LINE_Y, 40, GOLD_HI, 0.05 * eio((t - 6.4) / 0.8))
     kf = eo((t - 7.0) / 0.7)
     if kf > 0:
-        put_text(img, '关注「巴芒价值」，传承大师智慧，领悟投资真谛', 'sans_med', 36, W // 2, FOLLOW_Y + int(10 * (1 - kf)), WHITE, kf, anchor='m')
+        put_text(img, '关注「巴芒价值」，传承大师智慧，领悟投资真谛', 'sans_med', 36, W // 2, FOLLOW_Y + int(10 * (1 - kf)), None, kf,
+                 anchor='m', gold=True)                          # 品牌金色（brand.GOLD_STOPS 竖向渐变）
 
 # ---------------------------------------------------------------- 主渲染
 READER = Reader()
