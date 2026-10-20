@@ -32,11 +32,12 @@ cd "$ROOT"
 OUT="李录哥大演讲精华_9x16.mp4"
 ffmpeg -loglevel error -y -f concat -safe 0 -i "$WORK/list.txt" -i "$WORK/mix_raw.wav" -map 0:v -map 1:a -c:v copy \
   -af "loudnorm=I=-16:TP=-1.5:LRA=11" -ar 48000 -c:a aac -b:a 192k -shortest -movflags +faststart "$OUT"
-# 6) 30MB 以内预览版：720×1280，两遍编码，码率按时长自动计算
+# 6) 30MB 以内预览版：720×1280 · 15fps，两遍编码；按时长反推码率（目标 29.5MB，语音 24kbps 单声道）
 DUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$OUT")
-VB=$(python3 -c "print(int((29.0*8*1024*1024/$DUR - 40000)/1000))")
-ffmpeg -loglevel error -y -i "$OUT" -vf "scale=720:1280:flags=lanczos" -c:v libx264 -preset veryslow -tune film -b:v ${VB}k \
-  -pass 1 -passlogfile "$WORK/p" -an -f mp4 /dev/null
-ffmpeg -loglevel error -y -i "$OUT" -vf "scale=720:1280:flags=lanczos" -c:v libx264 -preset veryslow -tune film -b:v ${VB}k \
-  -pass 2 -passlogfile "$WORK/p" -c:a aac -b:a 40k -ac 1 -movflags +faststart "李录哥大演讲精华_预览版.mp4"
+VB=$(python3 -c "print(int(29.5e6*8/$DUR/1000 - 24 - 2))")
+VF="fps=15,scale=720:1280:flags=lanczos"
+X264="-c:v libx264 -preset veryslow -tune stillimage -g 300 -bf 8 -b:v ${VB}k"
+ffmpeg -loglevel error -y -i "$OUT" -vf "$VF" $X264 -pass 1 -passlogfile "$WORK/p" -an -f mp4 /dev/null
+ffmpeg -loglevel error -y -i "$OUT" -vf "$VF" $X264 -pass 2 -passlogfile "$WORK/p" \
+  -c:a aac -b:a 24k -ac 1 -ar 24000 -movflags +faststart "李录哥大演讲精华_预览版.mp4"
 echo "done -> $ROOT/$OUT"

@@ -1,6 +1,6 @@
 # 双语字幕：每句英文（E）对应中文（Z），用 || 拆成多条字幕，两边条数必须一致。
 # 英文与 script_en.txt 逐句对应（拼起来须一字不差）；中文以哥大官方中文实录为底本，按字幕节奏精简。
-# @Q 之后为主持人塔诺（Tano Santos）的发言，@L 切回李录。方括号内为编者补注，英文字幕不显示。
+# 中文里的 / 是人工断行位置（不显示）。@Q 之后为主持人塔诺（Tano Santos）的发言，@L 切回李录。方括号内为编者补注，英文字幕不显示。
 ## 1
 E: The discipline of value investing started with Columbia.
 Z: 价值投资这门学问，起源于哥伦比亚大学。
@@ -15,7 +15,7 @@ Z: 如果要提炼价值投资的主要原则， || 在我看来有六条。
 E: Three come directly from Ben Graham, the namesake of today's lunch; || one each from Warren and Charlie; || and we add a small twist — you could call that the sixth.
 Z: 三条直接来自本·格雷厄姆，也就是今天这场午餐会所纪念的人； || 沃伦和查理各贡献一条； || 我们自己又加了一点小小的延伸，可以算作第六条。
 E: Here are the six basic principles in my mind that have guided our discipline, || at least our practice, over the last 33 years.
-Z: 这六条基本原则一直指导着我们的投资方法， || 至少指导了我们过去 33 年的实践。
+Z: 这六条基本原则/一直指导着我们的投资方法， || 至少指导了我们过去 33 年的实践。
 E: Ben Graham laid it out pretty quickly as he started this discipline with three basic ideas.
 Z: 格雷厄姆在开创这门学问时，很快就提出了三个基本理念。
 E: A stock is a piece of ownership, not a piece of paper to trade around.
@@ -76,11 +76,11 @@ Z: 答案同样是非常明确的「是」。
 E: What is it, in essence?
 Z: 它的本质是什么？
 E: If I were to give it a provisional definition, || from observing what it does and where it came from – || Generative AI is a machine that by applying brute compute with clever algorithms, || using all human-generated data and its first derivative, || come up and establish systematic contextual correlations || among near-infinite variables of human-generated data and its first derivative.
-Z: 如果让我给它一个暂定的定义， || 根据对它的功能和来源的观察—— || 生成式 AI 是一种机器，它用庞大的算力加上精巧的算法， || 以人类生成的全部数据及其一阶衍生数据为基础， || 建立起系统性的、基于语境的关联， || 覆盖这些数据近乎无穷的变量。
+Z: 如果让我给它一个暂定的定义， || 根据对它的功能和来源的观察—— || 生成式 AI 是一种机器，它用庞大的算力加上精巧的算法， || 以人类生成的全部数据/及其一阶衍生数据为基础， || 建立起系统性的、基于语境的关联， || 覆盖这些数据近乎无穷的变量。
 E: In doing so, it establishes capabilities that include much of human reasoning and human intelligence.
-Z: 由此，它形成了涵盖相当一部分人类推理和智能的能力。
+Z: 由此，它形成了涵盖相当一部分/人类推理和智能的能力。
 E: At present, we know how it works and how to make it better, || but we don't quite understand why it works, || much as to the extent that we don't quite understand how human machinery works.
-Z: 目前，我们知道它如何运作，也知道如何让它更好， || 但还没有完全理解它为什么奏效， || 就像我们也没有完全理解人类自身这套机制一样。
+Z: 目前，我们知道它如何运作，也知道如何让它更好， || 但还没有完全理解它为什么奏效， || 就像我们也没有完全理解/人类自身这套机制一样。
 E: With that provisional definition, observing what is happening now, || it equalizes a layer of the economy that is very helpful.
 Z: 按这个暂定定义，再看当下发生的事， || 它正在拉平经济中某一层的能力差距，这非常有用。
 E: If you look at the economy, at the bottom we have energy and transportation.
@@ -92,7 +92,7 @@ Z: 再往上，是通信和数字媒体。
 E: Then we have an enormous amount of knowledge-based, technology-based services || that synthesize all the knowledge we've accumulated and serve all the different layers of the economy.
 Z: 然后是大量以知识和技术为基础的服务， || 它们整合人类积累的知识，服务于经济的各个层面。
 E: Generative AI today, at its current stage, || is great at synthesizing and equalizing all the knowledge and expertise that has accrued to that layer, || helping all the other ones.
-Z: 现阶段的生成式 AI， || 非常擅长整合这一层积累的知识和专业能力，并让它们普惠可得， || 从而帮助其他各层。
+Z: 现阶段的生成式 AI， || 非常擅长整合这一层的知识与专业能力，/并让它们普惠可得， || 从而帮助其他各层。
 E: But it can't change, for example, energy and transportation.
 Z: 但它改变不了能源和交通运输这样的底层。
 E: It doesn't change manufacturing, which is essentially the combination of different molecules and atoms || and transforming them into different combinations.
@@ -106,7 +106,7 @@ Z: 它还没有超越人类。
 E: By this extension, it may not rise || to whatever the narrative would dictate or lead you to believe.
 Z: 顺着这条路延伸下去，它未必会达到 || 那些叙事所宣称、或让你相信的高度。
 E: We're still firmly within the human-generated data realm.
-Z: 我们仍然牢牢处在「人类生成数据」的范围之内。
+Z: 我们仍然牢牢处在/「人类生成数据」的范围之内。
 E: Each cell contains let's say at least fifty petabytes of files, || and you need to multiply that by trillions to get us on the biological level.
 Z: 每个细胞所含的信息，可以说至少有 50 PB， || 要达到我们这样的生物学层级，还得再乘以数万亿。
 E: We're not anywhere close to getting to that level.
@@ -124,7 +124,7 @@ Z: 概括来说，这项技术非常有用、具有变革性，也极其危险�
 E: We have to, as a society and together as human beings, || have a red line to firmly establish || that whatever the self-learning or utilization of the tools, it cannot be without a human in the loop.
 Z: 作为社会、作为全体人类，我们必须共同 || 确立一条红线： || 无论是自主学习还是工具使用，都不能脱离人类的参与。
 E: In other words, firmly establish it on the tool side rather than the creature side.
-Z: 换句话说，要把它牢牢限定在「工具」一侧，而不是「物种」一侧。
+Z: 换句话说，要把它限定在「工具」一侧，/而不是「物种」一侧。
 E: It's also enormously disruptive, || from employment to emotional dependency to risks from cyber to bio to nuclear.
 Z: 它还会带来巨大冲击， || 从就业、情感依赖，到网络、生物和核领域的风险。
 E: In the end, what you want society to develop || is a balanced pace of development that balances benefit and risk.
@@ -154,7 +154,7 @@ Z: 我们会经历巨大的繁荣与萧条周期，甚至不止一轮。
 E: That is the nature of how it is going to develop.
 Z: 这就是它发展的基本方式。
 E: Those are the lines we have to think about as we approach this transformative, || dangerous, disruptive, and costly technological wave.
-Z: 面对这股具有变革性、 || 危险性、颠覆性，而且代价高昂的技术浪潮，我们需要沿着这些方向思考。
+Z: 面对这股具有变革性、 || 危险性、颠覆性且代价高昂的技术浪潮，/我们要沿着这些方向思考。
 ## 3
 @Q
 E: I have a very vague question for you.
@@ -170,7 +170,7 @@ Z: 这个比例过去通常在 2% 到 4% 之间。
 E: It is now about 15 percent with Nvidia.
 Z: 而现在，英伟达的这个比例大约是 15%。
 E: How do you think about this market, one that is becoming overly dependent on those few companies, || with a very high beta to those companies?
-Z: 你如何看待这样一个越来越依赖少数公司的市场， || 它对这些公司的贝塔非常高？
+Z: 你如何看待这样一个/越来越依赖少数公司的市场， || 它对这些公司的贝塔非常高？
 E: How do we design portfolios to protect ourselves against the shocks of this technology?
 Z: 我们该如何构建投资组合，抵御这项技术带来的冲击？
 @L
@@ -183,15 +183,15 @@ Z: 是的。
 E: From the very beginning, we go through this, and we'll probably continue to do so.
 Z: 从市场诞生之初我们就不断经历这些，以后很可能还会继续。
 E: You don't have to be dictated to by what the market decides to do at any given time.
-Z: 你不必被市场在某个时刻的所作所为牵着走。
+Z: 你不必被市场/在某个时刻的所作所为牵着走。
 E: This is one of the most important insights and contributions from Ben Graham himself.
-Z: 这是本·格雷厄姆最重要的洞见和贡献之一。
+Z: 这是本·格雷厄姆/最重要的洞见和贡献之一。
 E: At this point, if you look at the proposition of one recent prospectus that I read.
 Z: 比如，我最近读过的一份招股说明书。
 E: Here's a company that calls itself a research lab, || yet it burns through tens of billions || and promises to continue burning through hundreds of billions of dollars.
 Z: 这家公司自称是一家研究实验室， || 却已经烧掉了数百亿美元， || 还承诺会继续烧掉数千亿美元。
 E: It promises a transformative technology, || but at the same time has a 10 percent chance of killing everyone.
-Z: 它承诺带来一项变革性的技术， || 却同时说，这项技术有 10% 的概率导致所有人死亡。
+Z: 它承诺带来一项变革性的技术， || 却同时说，这项技术/有 10% 的概率导致所有人死亡。
 E: It wrote that in the prospectus and invited everybody || to put in at least $100 billion at a $2 trillion valuation.
 Z: 它把这些写进招股书，然后邀请大家 || 按 2 万亿美元的估值，至少投入 1000 亿美元。
 E: If there is there any inconsistency or irony?!
@@ -221,7 +221,7 @@ Z: 把过去 26 年合起来算，平均是较高的个位数， || 从长期看
 E: If GDP grew in that period maybe 2 percent, || and you have 2 to 3 percent inflation, || you average about 4 to 5 percent nominal growth.
 Z: 假设同期 GDP 实际增长约 2%， || 再加上 2% 到 3% 的通胀， || 名义增长大约就是 4% 到 5%。
 E: Publicly listed companies do slightly better, || especially those chosen by elimination to be the 500 best companies.
-Z: 上市公司表现会略好一些， || 尤其是经过优胜劣汰留下的这 500 家优秀公司。
+Z: 上市公司表现会略好一些， || 尤其是经过优胜劣汰/留下的这 500 家优秀公司。
 E: You come up with high single digits, and that is where the long-term average has been.
 Z: 于是得到较高的个位数回报，这正是长期平均水平。
 E: That should serve as a basic grounding pillar of getting what you deserve || and how the market rationalizes over a longer period.
@@ -237,7 +237,7 @@ Z: 如果我们让社会确立一个基本共识： || 绝不允许、也不容�
 E: If it stays in the realm of tools, || it will be like any other tool, with costs and benefits associated with it.
 Z: 如果它始终停留在工具的范畴， || 就会像其他工具一样，有相应的成本和收益。
 E: Therefore, financial discipline and capital market discipline will eventually apply.
-Z: 因此，财务纪律和资本市场的纪律终将发挥作用。
+Z: 因此，财务纪律和资本市场的纪律/终将发挥作用。
 E: The way you get there is through multiple ups and downs and boom and bust cycles, || and that's also fine.
 Z: 到达那里的过程，会经历多次起伏和繁荣萧条的周期， || 这也没什么不好。
 E: From that perspective, the bifurcation as a result of it — || at any given time, you don't create an enormous amount of new capital.
@@ -249,7 +249,7 @@ Z: 美国如此，中国如此，其他地方也一样。
 E: In China, it is probably more extreme, || as some of the Chinese participants [in the room] would be well aware.
 Z: 在中国可能更加极端， || 在座的一些中国朋友应该很清楚。
 E: Over time, the weight of the market will dictate the long-term returns of investors.
-Z: 随着时间推移，市场这台「称重机」会决定投资者的长期回报。
+Z: 随着时间推移，市场这台「称重机」/会决定投资者的长期回报。
 E: You still get what you deserve in the end.
 Z: 最终，你仍会得到你应得的。
 E: There's not much of a free lunch, || even if it appears to be for a period of time, even a long period.
@@ -276,7 +276,7 @@ Z: 中国面临的瓶颈清单很长。
 E: That started another five years of doubling down and accelerating that process.
 Z: 于是又开启了五年的加码和提速。
 E: When you try to achieve those impossible goals that so many countries have failed to achieve, || it doesn't come without deep and heavy costs.
-Z: 当你试图实现那些许多国家都没能实现的「不可能目标」时， || 必然要付出深刻而沉重的代价。
+Z: 当你试图实现那些/许多国家都没能实现的「不可能目标」时， || 必然要付出深刻而沉重的代价。
 E: That has been the model by which China developed its economy.
 Z: 这一直是中国发展经济的方式。
 E: At different periods, they have big objectives and targets, with big costs associated with them.
@@ -284,7 +284,7 @@ Z: 在不同阶段设定重大目标，也承担相应的巨大代价。
 E: You mentioned real estate.
 Z: 你提到了房地产。
 E: In the last five years, one of the principal costs of achieving that goal || has been the balance sheets and family wealth of middle-class Chinese families.
-Z: 过去五年，为实现这些目标付出的主要代价之一， || 就是中国中产家庭的资产负债表和家庭财富。
+Z: 过去五年，为实现这些目标付出的主要代价之一， || 就是中国中产家庭的/资产负债表和家庭财富。
 E: By 2021, real estate prices reached their peak.
 Z: 到 2021 年，房价达到顶峰。
 E: A typical middle-class Chinese family had 70 percent of its net worth tied up in the home it owned.
@@ -294,7 +294,7 @@ Z: 而这套房子通过按揭，承担着约 50% 的杠杆。
 E: In the next five years, until now, || real estate prices nationwide lost about 40 percent of their value on average.
 Z: 此后五年直到现在， || 全国房价平均下跌了约 40%。
 E: They saw their entire family fortune go down 60 to 70 percent on average.
-Z: 这些家庭的总财富平均缩水了 60% 到 70%。
+Z: 这些家庭的总财富/平均缩水了 60% 到 70%。
 E: When that happens, what do you do?
 Z: 遇到这种情况，你会怎么办？
 E: You do three things: consume less, save more, and, to the extent possible, pay down debt.
@@ -306,7 +306,7 @@ Z: 内需增长越来越慢，到今天大致已接近零。
 E: Savings have gone up to about 120 percent of GDP, || probably the largest savings deposits anywhere in the world, basically RMB 165 trillion.
 Z: 储蓄上升到相当于 GDP 的 120% 左右， || 可能是全球规模最大的储蓄存款，约 165 万亿元人民币。
 E: People have also been through two or three years of roughly zero price increases or slightly negative ones, || more or less in that range.
-Z: 人们还经历了两三年物价基本不涨甚至略降的时期， || 大体就在这个范围。
+Z: 人们还经历了两三年/物价基本不涨甚至略降的时期， || 大体就在这个范围。
 E: Therefore, they have a bit of a confidence issue when they look to the future.
 Z: 所以展望未来时，大家多少有些信心不足。
 E: That is one tier of the economy.
@@ -316,13 +316,13 @@ Z: 但如果看另一个层面—— || 看中国政府过去十年、过去五�
 E: Chinese manufacturing has finally broken through from low- to mid-end, firmly into mid- to high-end.
 Z: 中国制造业终于突破了中低端，稳稳迈入中高端。
 E: Every single objective of Made in China 2025 has been hit.
-Z: 「中国制造 2025」的每一个目标都已基本实现。
+Z: 「中国制造 2025」的每一个目标/都已基本实现。
 E: In the last five years, solving the bottleneck issues has also made tremendous progress.
-Z: 过去五年，在解决「卡脖子」问题上也取得了巨大进展。
+Z: 过去五年，在解决「卡脖子」问题上/也取得了巨大进展。
 E: Take the example of semiconductors.
 Z: 以半导体为例。
 E: It turns out that the U.S.-led technology sanctions || have been a godsend for the Chinese semiconductor industry || because they have one of the most precious things in a market economy – DEMAND.
-Z: 事实证明，美国主导的技术制裁， || 反而成了中国半导体产业的天赐良机， || 因为它带来了市场经济中最宝贵的东西之一——需求。
+Z: 事实证明，美国主导的技术制裁， || 反而成了中国半导体产业的天赐良机， || 因为它带来了市场经济中/最宝贵的东西之一——需求。
 E: Ask any entrepreneur what is most important, and they say the order book.
 Z: 问任何一位企业家什么最重要，他们都会说：订单。
 E: If you have revenue, you get the whole ball rolling.
@@ -330,7 +330,7 @@ Z: 有了收入，整个循环就转起来了。
 E: With more revenue comes profit, comes R&D, comes better improvement, comes more revenue.
 Z: 更多收入带来利润，带来研发，带来改进，再带来更多收入。
 E: That happened to the point that, on mature nodes, || both the Chinese equipment side and fabrication side have achieved almost complete self-sufficiency.
-Z: 这个循环一路推进，在成熟制程上， || 中国的设备端和制造端都已实现近乎完全的自主。
+Z: 这个循环一路推进，在成熟制程上， || 中国的设备端和制造端/都已实现近乎完全的自主。
 E: On more cutting-edge, advanced nodes, they are getting close to self-sufficiency, || with a few key missing ingredients.
 Z: 在更前沿的先进制程上，也正在接近自主， || 只剩少数关键环节尚未解决。
 E: If you keep this way, on its natural course it will happen.
@@ -346,7 +346,7 @@ Z: 从个人电脑到服务器、到半导体、再到英伟达的 CUDA 体系�
 E: This becomes a great equalizer.
 Z: AI 成了拉平差距的强大工具。
 E: Field after field, over the last 10 years, || you've seen remarkable progress in migrating the basic contours of manufacturing || from low- to mid-end to mid- to high-end.
-Z: 过去十年，在一个又一个领域， || 我们看到制造业的基本格局取得了显著进展： || 从中低端迈向中高端。
+Z: 过去十年，在一个又一个领域， || 我们看到制造业的基本格局/取得了显著进展： || 从中低端迈向中高端。
 E: In some areas—new energy, EVs, storage, batteries, you name it, || and it goes on and on, heavy machinery—they dominate.
 Z: 在一些领域——新能源、电动车、储能、电池， || 还有重型机械，名单可以一直列下去——中国已占据主导。
 E: They have become global leaders.
@@ -358,7 +358,7 @@ Z: 与此同时，其他行业付出了非常沉重的代价。
 E: Real estate, for example, on an annual new sales basis, we're now probably down about 70 percent.
 Z: 以房地产为例，按每年新房销售额计算，现在大概已经下降了 70%。
 E: That RMB 10 trillion [in declining sales] || is also exactly how much has been spent on manufacturing upgrading and technology efficiency, || about RMB 10 trillion a year.
-Z: 减少的那 10 万亿元销售额， || 恰好也相当于每年投入制造业升级和技术效率提升的金额， || 大约每年 10 万亿元。
+Z: 减少的那 10 万亿元销售额， || 恰好也相当于每年投入/制造业升级和技术效率提升的金额， || 大约每年 10 万亿元。
 E: If you look at the diversion, it is around 2021.
 Z: 资金流向的这一转变，大约发生在 2021 年前后。
 E: That has been the development model if you look back over the last 50 years of China's development.
@@ -394,7 +394,7 @@ Z: 总体上，如果给这些变化打个分，你会说： || 这样一个体�
 E: But because of this two-tier economy and the general loss of confidence, || you also have a financial market that has been stagnant for 10 years, going nowhere.
 Z: 但由于经济的两层分化和普遍的信心不足， || 金融市场也已停滞了十年，原地踏步。
 E: Meanwhile, you have some of the greatest companies, globally competitive, trading at very low prices.
-Z: 与此同时，一些具有全球竞争力的伟大企业，正以非常低的价格交易。
+Z: 同时，一些具有全球竞争力的伟大企业，/正以非常低的价格交易。
 E: Again, you have the bifurcation you see here.
 Z: 这里同样存在你在美国看到的那种分化。
 E: If you're a rational investor and look at the whole picture, you might take a different perspective.
@@ -405,7 +405,7 @@ E: That's what you want.
 Z: 这正是你想要的。
 ## 5
 E: All countries would felt the weight of one single common market || and the cost of withdrawing from it.
-Z: 所有国家都会感受到这个统一共同市场的分量， || 以及退出它要付出的代价。
+Z: 所有国家都会感受到/这个统一共同市场的分量， || 以及退出它要付出的代价。
 E: The world, by and large, will continue to progress in that regard.
 Z: 总体而言，世界将继续沿着这个方向发展。
 E: The order we have been familiar with since the end of World War II || is changing and transforming.
@@ -419,7 +419,7 @@ Z: 这对投资者意味着什么？
 E: We come back to our basic tenets of value investing, the six principles.
 Z: 我们又回到价值投资的基本信条，那六条原则。
 E: The last one we added is that, as a global investor, || your wealth is expressed as your percentage ownership of global purchasing power.
-Z: 我们最后加入的一条是：作为全球投资者， || 你的财富体现为你在全球购买力中拥有的份额。
+Z: 我们最后加入的一条是：作为全球投资者， || 你的财富体现为/你在全球购买力中拥有的份额。
 E: One way to accomplish that, certainly the way we've been practicing, || is by buying great businesses in dynamic countries and markets at advantageous prices, || and holding them for the long term to create value, preserve our percentage, and grow it over time.
 Z: 实现它的一种方式，也正是我们一直在实践的方式， || 是以有利的价格，买入充满活力的国家和市场中的优秀企业， || 长期持有，让它们创造价值，守住并不断提高我们的份额。
 E: Back to Warren's analogy describing the stock market as a church with a casino attached to it.
@@ -431,7 +431,7 @@ Z: 回到你的问题，过去 30 年我们努力实践的， || 就是要证明
 E: We can build churches in other countries.
 Z: 我们可以在其他国家建起教堂。
 E: We chose to build that church in Asia as well as other regions, as a global investor.
-Z: 作为全球投资者，我们选择在亚洲以及其他地区建造这样的教堂。
+Z: 作为全球投资者，我们选择在亚洲/以及其他地区建造这样的教堂。
 E: Over time, some of those churches will appear in different countries, || and some might grow into cathedrals as well.
 Z: 随着时间推移，不同国家会出现这样的教堂， || 其中一些也可能成长为大教堂。
 E: Let's come back to your other question, to students and young professionals: || What would you choose to do in this market?
@@ -483,7 +483,7 @@ Z: 所以我说，几乎所有聪明的投资都是价值投资。
 E: The basic principle doesn't change.
 Z: 基本原则不会改变。
 E: You can apply it differently based on where your circle of competence is, || going back to the concept Warren articulated so well.
-Z: 你可以根据自己的能力圈，把它用在不同的地方—— || 这又回到了沃伦阐述得非常清楚的能力圈概念。
+Z: 你可以根据自己的能力圈，把它用在不同的地方—— || 这又回到了沃伦阐述得非常清楚的/能力圈概念。
 ## 8
 E: Now, your question [about the risk of underperformance] is very real.
 Z: 现在说你关于「业绩落后风险」的问题，这确实非常现实。
@@ -520,12 +520,12 @@ Z: 有些人适合；如果你认定自己不适合，就别勉强。
 E: You also have to have people who believe in that to be along with you.
 Z: 你还必须让相信这套理念的人与你同行。
 E: Therefore, you cannot say – || I want to have the biggest fund, have this AUM. – It doesn't happen that way.
-Z: 所以你不能说—— || 「我要拥有最大的基金、做到多少管理规模。」事情不是这样发生的。
+Z: 所以你不能说—— || 「我要做最大的基金、管理多少规模。」/事情不是这样发生的。
 E: You get what you deserve in the end.
 Z: 最终，你会得到你应得的。
 ## 9
 E: One of the distinguishing characteristics that separates a value investor from most other investors || is the enormous attention paid to downside protection.
-Z: 价值投资者与大多数投资者的一个显著区别， || 就是极其重视下行保护。
+Z: 价值投资者与大多数投资者的/一个显著区别， || 就是极其重视下行保护。
 E: Investing is predicting the future, which is inherently unpredictable.
 Z: 投资是预测未来，而未来本质上不可预测。
 E: What you do is invest in the things you do know.
@@ -563,7 +563,7 @@ Z: 我会说，这也是另一个理由： || 选择双赢，而不是零和。
 E: You actually will compound your ability and knowledge, and perhaps your health, too.
 Z: 你的能力和知识真的会复利增长，也许健康也是。
 E: Maybe not quite, but you can at least prolong your productive span, your health span.
-Z: 健康也许不完全如此，但至少能延长你有效工作的年限、你的健康期。
+Z: 健康也许不完全如此，但至少能延长/你有效工作的年限、你的健康期。
 E: Maybe not lifespan, but your health span.
 Z: 未必能延长寿命，但能延长健康地生活的时间。
 E: You keep engaged.
@@ -589,9 +589,9 @@ Z: 当然，我喜欢让人参与其中。
 E: I advocate learning, having an engaged and improved life over time, || and compounding your knowledge as well as the capital of the people in the trusting way.
 Z: 我提倡不断学习，过一种积极投入、不断改善的生活， || 让自己的知识复利增长，也在信任之中，让托付给你的资本复利增长。
 E: What my mentor, partner, and teacher Charlie Munger always said and advocated is || that the highest order of relationship he could discover is a seamless web of deserved trust.
-Z: 我的导师、合伙人和老师查理·芒格一直说、也一直倡导： || 他所发现的最高层次的人际关系，是「一张由值得的信任编织成的无缝之网」。
+Z: 我的导师、合伙人和老师查理·芒格/一直说、也一直倡导： || 他所发现的最高层次的人际关系，是/「一张由值得的信任织成的无缝之网」。
 E: A seamless web of deserved trust!
-Z: 一张由值得的信任编织成的无缝之网！
+Z: 一张由值得的信任织成的无缝之网！
 E: There lies a whole philosophy of approaching life in a productive way || that is win-win for society as well.
 Z: 这里面有一整套人生哲学：让人生富有建设性， || 同时也与社会实现双赢。
 E: I recommend anyone starting your career to lean towards that way of life.

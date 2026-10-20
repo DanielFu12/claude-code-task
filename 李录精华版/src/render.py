@@ -108,7 +108,17 @@ def put_text(img, s, name, size, x, y, col, alpha=1.0, track=0.0, anchor='l', go
     blend(img, a, rgb, int(xx), int(y - base), alpha)
     return xx, w
 
+PUNCT = '，、；：。！？—'
 def wrap_zh(s, name, size, maxw):
+    """中文换行：cues.txt 中的 / 为人工断行；否则在最均衡且放得下的标点处断开；都不行再逐字换行"""
+    if '/' in s:
+        return [x for p in s.split('/') for x in wrap_zh(p, name, size, maxw)]
+    if text_width(s, name, size) <= maxw: return [s]
+    cands = [i + 1 for i, c in enumerate(s[:-1]) if c in PUNCT
+             and text_width(s[:i + 1], name, size) <= maxw and text_width(s[i + 1:], name, size) <= maxw]
+    if cands:
+        k = min(cands, key=lambda i: abs(text_width(s[:i], name, size) - text_width(s[i:], name, size)))
+        return [s[:k], s[k:]]
     lines, cur = [], ''
     for c in s:
         if text_width(cur + c, name, size) > maxw and cur:
@@ -117,9 +127,6 @@ def wrap_zh(s, name, size, maxw):
             lines.append(cur); cur = c
         else: cur += c
     if cur: lines.append(cur)
-    if len(lines) == 2 and len(lines[1]) <= 3 and len(s) > 10:    # 避免末行孤字：两行均衡
-        k = (len(s) + 1) // 2
-        lines = [s[:k], s[k:]]
     return lines
 
 def wrap_en(s, name, size, maxw):
