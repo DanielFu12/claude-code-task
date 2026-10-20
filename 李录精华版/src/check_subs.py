@@ -1,5 +1,6 @@
 """成片字幕在场扫描：每 STEP 秒采样一次字幕带（y 1560–1860）亮度，统计正片段内的字幕空白。
 用法: python3 check_subs.py <成片.mp4> [STEP=2]
+采样点精确取在 0, STEP, 2·STEP… 秒处的帧（select 滤镜；fps 滤镜会取区间末尾的帧，时间会偏后）。
 判定：字幕带中亮度 >150 的像素超过 400 个即视为「有字幕」；片头、章节卡、片尾不计。
 """
 import subprocess, sys
@@ -10,7 +11,7 @@ def main(path, step=2.0):
     items, _, total = edl.load(edl.ASR_DEFAULT)
     clips = [(it['t0'], it['t1']) for it in items if it['kind'] == 'clip']
     Y0, HH = 1560, 300
-    p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-i', path, '-vf', f'fps=1/{step}:round=down,crop=1080:{HH}:0:{Y0},format=gray',
+    p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-i', path, '-vf', f"select='isnan(prev_selected_t)+gte(t-prev_selected_t\\,{step}-0.001)',crop=1080:{HH}:0:{Y0},format=gray", '-fps_mode', 'passthrough',
                           '-f', 'rawvideo', '-'], stdout=subprocess.PIPE)
     n = 1080 * HH; k = 0; rows = []
     while True:
