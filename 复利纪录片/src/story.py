@@ -28,7 +28,7 @@ STYLE_BY_GROUP = {
 #           以开场解说 G1 为参照，按声纹、音色（MFCC）、基频分布、语速（按微调后的值）与亮度综合挑选。
 VOICE_MATCH = {
     'G3': dict(takes=3, ref=('G1', 'G2')), 'G13': dict(takes=3, ref=('G1', 'G2')), 'G14': dict(takes=3, ref=('G1', 'G2')),
-    'G4': dict(takes=8, ref=('G1',), metric=3), 'G6': dict(takes=8, ref=('G1',), metric=3), 'G9': dict(takes=8, ref=('G1',), metric=3),
+    'G4': dict(takes=7, ref=('G1',), metric=3), 'G6': dict(takes=8, ref=('G1',), metric=3), 'G9': dict(takes=8, ref=('G1',), metric=3),
 }
 
 STORY = [
