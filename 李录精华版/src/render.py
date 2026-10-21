@@ -29,10 +29,18 @@ W, H, FPS = 1080, 1920, edl.FPS
 SRC = os.environ.get('LILU_SRC', os.path.join(edl.WORK, 'orig.mp4'))
 ASR = os.path.join(HERE, 'youtube_asr.en.json3')
 ITEMS, CUES, TOTAL = edl.load(ASR)
+LONG_LAST_CLIP = [it for it in ITEMS if it['kind'] == 'clip'][-1]    # 长片最后一个片段（片尾粒子取自它的末帧）
+# 拆分版：LILU_SPLIT=章号 → 本章章节卡 + 本章正片 + 片尾；顶部去掉九章导航，首行下移
+SPLIT = int(os.environ.get('LILU_SPLIT', '0'))
+SPLIT_TOP = int(os.environ.get('LILU_SPLIT_TOP', '72'))           # 拆分版首行（标签、角标）距顶边
+LONG_OUTRO_T0 = None
+if SPLIT:
+    ITEMS, CUES, TOTAL, LONG_OUTRO_T0 = edl.load_chapter(ASR, SPLIT)
 SHOTS = json.load(open(os.path.join(edl.WORK, 'shots.json')))
 NFRAMES = int(round(TOTAL * FPS))
 
 HUD = Hud(scale=1.0, frame_w=W)
+if SPLIT: HUD.y0 = SPLIT_TOP                                      # 官方角标整体下移（组件本身不改）
 GLOW_RGB = np.array(SPEC['glow_rgb'], np.float32) / 255
 SUBG = np.array(SUB_GOLD, np.float32) / 255
 GOLD_HI = np.array(GOLD_STOPS[1][1], np.float32) / 255
@@ -167,6 +175,16 @@ def chrome(ch):
     """固定版式：背景、左上标签、进度条（不含当前章的进度填充）、章节标题、细金线、出处"""
     if ch in _chrome: return _chrome[ch]
     img = BG.copy()
+    if SPLIT:   # 拆分版：首行与下移后的角标上下对齐（角标文字区 y0+8 … y0+60）
+        put_text(img, '李录 · 哥大演讲精华', 'sans_med', 30, 52, SPLIT_TOP + 34, WHITE)
+        put_text(img, '第 36 届格雷厄姆-多德年度午餐会 · 2026', 'sans_reg', 20, 52, SPLIT_TOP + 66, GREY, 0.9)
+        zh, en = edl.CHAPTERS[ch]
+        put_text(img, zh, 'serif_black', fit_size(zh, 'serif_black', 66, 976), 52, 344, None, gold=True)
+        put_text(img, en, 'latin_reg', fit_size(en, 'latin_reg', 27, 976), 52, 394, GREY, 0.9)
+        hairline(img, 426, 0.5, 52, 1028)
+        hairline(img, VY - 1, 0.6); hairline(img, VY + VS, 0.6)
+        _chrome[ch] = img
+        return img
     put_text(img, '李录 · 哥大演讲精华', 'sans_med', 30, 52, 66, WHITE)
     put_text(img, '第 36 届格雷厄姆-多德年度午餐会 · 2026', 'sans_reg', 20, 52, 100, GREY, 0.9)
     for i in range(9):
@@ -194,7 +212,7 @@ def chrome(ch):
     return img
 
 def draw_progress(img, ch, p, a=1.0):
-    if not ch: return
+    if not ch or SPLIT: return
     x = slot_x(ch - 1)
     w = int(PB_W * cl(p))
     if w > 0:
@@ -502,7 +520,7 @@ def render(f):
     ch = it.get('ch', 0) if it['kind'] != 'outro' else 9
     img = chrome(ch).copy()
     # 章节切换：版式 0.5s 交叉淡化
-    if it['kind'] == 'card' and lt < 0.5:
+    if it['kind'] == 'card' and lt < 0.5 and not SPLIT:
         k = eio(lt / 0.5)
         img = chrome(ch - 1 if ch > 1 else 0) * (1 - k) + img * k
     if it['kind'] == 'intro':
@@ -529,15 +547,15 @@ def render(f):
     else:   # outro
         draw_progress(img, 9, 1.0)
         if not hasattr(render, 'last'):
-            lc = ITEMS[-2]
-            render.last = still(lc['src1'] - 2 / FPS)
+            render.last = still(LONG_LAST_CLIP['src1'] - 2 / FPS)    # 与长片相同：取长片最后一帧
         img[VY:VY + VS] = render.last
         outro(img, lt, render.last)
     # 右上角官方角标：全程保留，直到片尾整体淡出
     end_fade = 1 - eio((t - (TOTAL - 1.5)) / 1.5)
     h = HUD.y0 + HUD.h + HUD.P + 2
     reg = np.clip(img[:h], 0, 1)
-    HUD.draw(reg, t, 1.0)
+    # 拆分版的角标流光相位与长片片尾对齐（片尾段的角标与长片同步）
+    HUD.draw(reg, t + (LONG_OUTRO_T0 - ITEMS[-1]['t0'] if SPLIT else 0), 1.0)
     img[:h] = reg
     img = np.clip(img, 0, 1)
     fade = cl(t / 0.5) * end_fade

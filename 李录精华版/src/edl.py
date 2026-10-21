@@ -72,3 +72,18 @@ if __name__ == '__main__':
     for it in items:
         print(it['kind'], it.get('ch', ''), round(it['t0'], 2), round(it['t1'] - it['t0'], 2), it.get('src0', ''), it.get('src1', ''))
     print('cues', len(cues), 'total', round(total, 2), 's =', f'{int(total//60)}:{total%60:05.2f}')
+
+def load_chapter(src_json3, ch):
+    """拆分版时间线：本章章节卡 → 本章正片 → 片尾（与长片片尾同长）。时间从 0 开始。
+    返回 (items, cues, total, long_outro_t0)；long_outro_t0 为长片片尾的起点，用于对齐角标流光相位。"""
+    items, cues, _ = load(src_json3)
+    mine = [dict(it) for it in items if it.get('ch') == ch and it['kind'] in ('card', 'clip')]
+    shift = mine[0]['t0']
+    for it in mine: it['t0'] -= shift; it['t1'] -= shift
+    t = mine[-1]['t1']
+    mine.append(dict(kind='outro', ch=ch, t0=t, t1=t + OUTRO))
+    for it in mine:
+        it['f0'], it['f1'] = int(round(it['t0'] * FPS)), int(round(it['t1'] * FPS))
+    out = [dict(c, o0=c['o0'] - shift, o1=c['o1'] - shift) for c in cues if c['ch'] == ch]
+    long_outro = [it for it in items if it['kind'] == 'outro'][0]
+    return mine, out, t + OUTRO, long_outro['t0']
