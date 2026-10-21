@@ -34,6 +34,8 @@ LONG_LAST_CLIP = [it for it in ITEMS if it['kind'] == 'clip'][-1]    # 长片最
 SPLIT = int(os.environ.get('LILU_SPLIT', '0'))
 SPLIT_TOP = int(os.environ.get('LILU_SPLIT_TOP', '72'))           # 拆分版首行（标签、角标）距顶边
 LONG_OUTRO_T0 = None
+_lo = [it for it in ITEMS if it['kind'] == 'outro'][0]
+LONG_OUTRO_F0, LONG_TOTAL = _lo['f0'], TOTAL                     # 长片片尾首帧帧号、长片总长
 if SPLIT:
     ITEMS, CUES, TOTAL, LONG_OUTRO_T0 = edl.load_chapter(ASR, SPLIT)
 SHOTS = json.load(open(os.path.join(edl.WORK, 'shots.json')))
@@ -517,6 +519,13 @@ def render(f):
     t = f / FPS
     it = item_at(f)
     lt = t - it['t0']
+    t_hud, t_end = t, TOTAL
+    if SPLIT:
+        t_hud = t + LONG_OUTRO_T0 - ITEMS[-1]['t0']
+        if it['kind'] == 'outro':
+            # 片尾按帧号映射到长片片尾的同一帧：动画、角标流光、淡出与长片逐帧同步
+            t_hud = (LONG_OUTRO_F0 + f - it['f0']) / FPS
+            lt, t, t_end = t_hud - LONG_OUTRO_T0, t_hud, LONG_TOTAL
     ch = it.get('ch', 0) if it['kind'] != 'outro' else 9
     img = chrome(ch).copy()
     # 章节切换：版式 0.5s 交叉淡化
@@ -551,14 +560,13 @@ def render(f):
         img[VY:VY + VS] = render.last
         outro(img, lt, render.last)
     # 右上角官方角标：全程保留，直到片尾整体淡出
-    end_fade = 1 - eio((t - (TOTAL - 1.5)) / 1.5)
+    end_fade = 1 - eio((t - (t_end - 1.5)) / 1.5)
     h = HUD.y0 + HUD.h + HUD.P + 2
     reg = np.clip(img[:h], 0, 1)
-    # 拆分版的角标流光相位与长片片尾对齐（片尾段的角标与长片同步）
-    HUD.draw(reg, t + (LONG_OUTRO_T0 - ITEMS[-1]['t0'] if SPLIT else 0), 1.0)
+    HUD.draw(reg, t_hud, 1.0)                  # 拆分版：流光相位与长片片尾对齐
     img[:h] = reg
     img = np.clip(img, 0, 1)
-    fade = cl(t / 0.5) * end_fade
+    fade = cl(f / FPS / 0.5) * end_fade
     return (img * (255 * fade) + 0.5).astype(np.uint8)
 
 if __name__ == '__main__':
