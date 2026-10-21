@@ -1,7 +1,7 @@
 """成片音轨：原声片段按时间线拼接 + 片头/章节卡/片尾配乐（配乐来源与重拍位置见 render_consts.py）。
 用法: python3 audio.py <orig.mp4> <bgm.mp4> <out.wav>
 """
-import subprocess, sys
+import os, subprocess, sys
 import numpy as np
 import edl, render_consts as RC
 
@@ -25,7 +25,8 @@ def ramp(x, fi, fo):
 def rms_db(x): return 20 * np.log10(np.sqrt(np.mean(x ** 2)) + 1e-9)
 
 def main(orig, bgm_path, out):
-    items, _, total = edl.load(edl.ASR_DEFAULT)
+    ch = int(os.environ.get('LILU_SPLIT', '0'))          # 拆分版：只合成本章（章节卡 + 正片 + 片尾）
+    items, _, total = edl.load_chapter(edl.ASR_DEFAULT, ch)[:3] if ch else edl.load(edl.ASR_DEFAULT)
     buf = np.zeros((int(total * SR) + SR, 2), np.float32)
     speech = []
     for it in items:
@@ -33,7 +34,9 @@ def main(orig, bgm_path, out):
         x = ramp(load(orig, it['src0'], it['src1'] - it['src0']), 0.012, 0.03)
         i = int(round(it['f0'] / edl.FPS * SR))
         buf[i:i + len(x)] += x; speech.append(x)
-    sp_db = rms_db(np.concatenate(speech[:3]))
+    # 配乐电平参照：固定用长片前 3 个片段的原声响度，拆分版的配乐与长片同一电平
+    ref = [it for it in edl.load(edl.ASR_DEFAULT)[0] if it['kind'] == 'clip'][:3]
+    sp_db = rms_db(np.concatenate([ramp(load(orig, it['src0'], it['src1'] - it['src0']), 0.012, 0.03) for it in ref]))
     bgm = load(bgm_path)
     bg_db = rms_db(bgm[int(100 * SR):int(240 * SR)])      # 配乐主体段的平均响度
 
