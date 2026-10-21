@@ -364,6 +364,77 @@ def speaker_tag(img, spk, a):
     al, rgb = _tagc[spk]
     blend(img, al, rgb, 40, VY + VS - 40 - al.shape[0], a)
 
+# ---------------------------------------------------------------- 拆分版：正片中途关注语胶囊条
+FOLLOW_DUR, FOLLOW_FADE = 4.5, 0.4               # 每次 4.5s：0.4s 淡入 + 3.7s 停留 + 0.4s 淡出
+FOLLOW_MARGIN = 36                               # 距画面区右、下边
+
+def follow_schedule():
+    """按句子结束点（整句最后一条字幕的 o1）排关注语触发时刻。返回 [(时刻, 是否带小字)]"""
+    clips = [it for it in ITEMS if it['kind'] == 'clip']
+    b0, b1 = clips[0]['t0'], clips[-1]['t1']
+    ends = sorted(c['o1'] for c in CUES if c.get('send') and b0 < c['o1'] < b1)
+    after = lambda x: next((e for e in ends if e >= x), None)
+    def closing(before):                          # 收尾：最接近「结束前 before 秒」、且开始距正片结束 ≥8s 的句末
+        ok = [e for e in ends if e <= b1 - 8]
+        return min(ok, key=lambda e: abs(e - (b1 - before)))
+    d = b1 - b0
+    if d >= 240:
+        end = closing(25)
+        ts = [after(b0 + 50)]
+        while True:
+            n = after(ts[-1] + 180)
+            if n is None or n >= end: break
+            ts.append(n)
+        ts = [x for x in ts if x is not None and x < end] + [end]
+        while True:                               # 间隔 <120s 合并为靠后的一个（收尾优先）
+            k = next((i for i in range(len(ts) - 1) if ts[i + 1] - ts[i] < 120), None)
+            if k is None: break
+            ts.pop(k)
+        while len(ts) > 5: ts.pop(-2)             # 单条上限 5 次
+    else:
+        end = closing(20)
+        mid = min(ends, key=lambda e: abs(e - (b0 + 0.4 * d)))
+        ts = [end] if end - mid < 45 else [mid, end]
+    return [(x, x == ts[-1]) for x in ts]
+
+FOLLOWS = follow_schedule() if SPLIT else []
+_pill = {}
+def follow_pill(img, t):
+    for t0, tagged in FOLLOWS:
+        if not (t0 <= t < t0 + FOLLOW_DUR): continue
+        if tagged not in _pill:
+            ink = lambda m: m[np.where(m.max(1) > 0.01)[0].min():np.where(m.max(1) > 0.01)[0].max() + 1]   # 裁到笔画范围
+            m1 = ink(text_mask('关注 @巴芒价值', 'sans_med', 30)[0])
+            m2 = ink(text_mask('完整 9 章 · 主页合集', 'sans_reg', 20)[0]) if tagged else None
+            lg = 46
+            lrgb, la = load_logo(lg)                  # 官方 logo：brand/logo_baman.png
+            tw = max(m1.shape[1], m2.shape[1] if tagged else 0)
+            w, h = 18 + lg + 14 + tw + 28, (88 if tagged else 70)
+            al = np.zeros((h, w), np.float32); rgb = np.zeros((h, w, 3), np.float32)
+            r = h // 2
+            box = np.zeros((h, w), np.uint8)
+            cv2.rectangle(box, (r, 0), (w - r, h - 1), 255, -1)
+            cv2.circle(box, (r, r), r, 255, -1, cv2.LINE_AA); cv2.circle(box, (w - r - 1, r), r, 255, -1, cv2.LINE_AA)
+            al[:] = box / 255 * 0.62; rgb[:] = (0.03, 0.035, 0.06)
+            def put(m, x, y, col):
+                reg = (slice(y, y + m.shape[0]), slice(x, x + m.shape[1]))
+                rgb[reg] = rgb[reg] * (1 - m[..., None]) + m[..., None] * col
+                al[reg] = np.maximum(al[reg], m)
+            ly = (h - lg) // 2
+            rgb[ly:ly + lg, 18:18 + lg] = rgb[ly:ly + lg, 18:18 + lg] * (1 - la[..., None]) + lrgb * la[..., None]
+            al[ly:ly + lg, 18:18 + lg] = np.maximum(al[ly:ly + lg, 18:18 + lg], la)
+            tx = 18 + lg + 14
+            if tagged:   # 两行整体垂直居中，行距 10px
+                y1 = (h - (m1.shape[0] + 10 + m2.shape[0])) // 2
+                put(m1, tx, y1, WHITE); put(m2, tx, y1 + m1.shape[0] + 10, SUBG)
+            else:
+                put(m1, tx, (h - m1.shape[0]) // 2, WHITE)
+            _pill[tagged] = (al, rgb)
+        al, rgb = _pill[tagged]
+        a = env(t, t0, t0 + FOLLOW_DUR, FOLLOW_FADE, FOLLOW_FADE)
+        dy = int(round(14 * (1 - eo((t - t0) / FOLLOW_FADE))))        # 入场：轻微上滑
+        blend(img, al, rgb, W - FOLLOW_MARGIN - al.shape[1], VY + VS - FOLLOW_MARGIN - al.shape[0] + dy, a)
+
 # ---------------------------------------------------------------- 片头 / 章节卡
 def intro(img, t, bg):
     img[VY:VY + VS] = soft(bg, 0.32 * eo(t / 0.8) + 0.08)
@@ -552,6 +623,7 @@ def render(f):
                 since = c['o0']
             since = max(since, it['t0'])
             speaker_tag(img, spk, env(t, since + 0.3, since + 5.3, 0.4, 0.5))
+        follow_pill(img, t)
         draw_subs(img, t)
     else:   # outro
         draw_progress(img, 9, 1.0)
@@ -589,3 +661,7 @@ if __name__ == '__main__':
         p.stdin.close(); p.wait()
     elif mode == 'info':
         print('frames', NFRAMES, 'total', TOTAL)
+    elif mode == 'follows':      # 拆分版关注语触发清单
+        clips = [it for it in ITEMS if it['kind'] == 'clip']
+        b0, b1 = clips[0]['t0'], clips[-1]['t1']
+        print(json.dumps(dict(ch=SPLIT, body=[round(b0, 2), round(b1, 2)], follows=[[round(x, 2), tg] for x, tg in FOLLOWS])))

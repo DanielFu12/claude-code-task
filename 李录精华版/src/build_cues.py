@@ -42,7 +42,8 @@ def main(align_p, cues_p, out_p):
         bounds.append(s['t1'])
         for k in range(len(n)):
             en = re.sub(r'\s*\[[^\]]*\]', '', c['en'][k]).strip()   # 编者补注不显示
-            res.append(dict(ch=c['ch'], spk=c['spk'], t0=round(bounds[k], 3), t1=round(bounds[k + 1], 3), en=en, zh=c['zh'][k]))
+            res.append(dict(ch=c['ch'], spk=c['spk'], t0=round(bounds[k], 3), t1=round(bounds[k + 1], 3), en=en, zh=c['zh'][k],
+                            send=k == len(n) - 1))          # send：整句的最后一条（用于找句子结束点）
     # 相邻字幕首尾相接：同章内小于 FILL 秒的空隙（停顿、口头语）由前一条延长补齐，避免字幕空白
     for a, b in zip(res, res[1:]):
         if a['ch'] == b['ch'] and 0 < b['t0'] - a['t1'] < FILL: a['t1'] = b['t0']
