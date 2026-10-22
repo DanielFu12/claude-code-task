@@ -510,7 +510,7 @@ def sc_verdict(F, t):
                 if hl: cc = col
                 F.fill([(zero, y - 16), (zero + L, y - 16), (zero + L, y + 16), (zero, y + 16)] if L >= 0 else
                        [(zero + L, y - 16), (zero, y - 16), (zero, y + 16), (zero + L, y + 16)], cc, ia * 0.85, glow=0.3)
-                F.text(fmt_pct(mult - 1, 0), (zero + L + 14) if L >= 0 else (zero + L - 14), y, 28, 'num', cc, ia, anchor='l' if L >= 0 else 'r')
+                F.text(fmt_pct(mult - 1, 0), (zero + L + 14) if L >= 0 else (zero + 14), y, 28, 'num', cc, ia, anchor='l')   # 负值标签放在零线右侧，避免压住左侧名称
             F.line((480, y0 + 50), (480, y0 + 95 + len(items) * 108 - 60), GOLD, a5 * 0.6, 2)
         F.text(STORY['robust_msg'], 540, 1790, 30, 'sans_bold', GOLD_L, a5 * eo(ramp(t, B(163), B(164))))
 
