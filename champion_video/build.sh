@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 一键重建《追涨十年》视频（1080×1920 · 30fps · 200s）
+# 一键重建《追涨十年》视频（1080×1920 · 30fps · 239s）
 # 依赖: ffmpeg, python3 (numpy opencv-python-headless pillow[raqm] scipy soundfile librosa pandas requests curl_cffi)
 # 品牌角标与片尾 logo 取自仓库根目录 brand/（见 brand/BRAND.md）
 #

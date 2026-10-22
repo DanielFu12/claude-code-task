@@ -508,7 +508,9 @@ def sc_break(F, t):
 
 # ================================================================ why：从第一性原理讲清差异（v5：12 个整屏镜头，每 4 拍一个）
 # 每个原因拆成两个镜头；每个镜头只有一个标题 + 一个主视觉 + 一句结论，前一个镜头完全淡出后下一个才出现。
-WHY_SHOT_T = [T_WHY] + [B(k) for k in range(140, 181, 4)] + [T_INSIGHT]      # 13 个边界 → 12 个镜头
+WHY_SHOT_T = [T_WHY] + [B(k) for k in range(144, 225, 8)] + [T_INSIGHT]      # 13 个边界 → 12 个镜头，每个 8 拍
+WHY_SLOW = 1.4          # 镜头内动画放慢 1.4 倍：约 3 秒搭建完成，其余时间留给阅读
+SHOT_T0 = 0.0
 CH_COL = [GOLD, GOLD_L, UP, CN, US, hexc('#E040FB')]
 
 
@@ -587,7 +589,7 @@ def big_stat(F, num, unit, line, y, col, a, nsize=130, pre=None):
 # ---------------------------------------------------------------- 镜头
 def shot_bars(F, t, u, a, g, us):
     lab, col, vals, bench = STORY['why'][0]['groups'][0 if us else 1]
-    why_head(F, F.t - u, '美股冠军的下一年' if us else 'A股冠军的下一年', a, '每根柱子 = 买入当年的实际收益（扣成本）　白线 = 同期指数')
+    why_head(F, SHOT_T0, '美股冠军的下一年' if us else 'A股冠军的下一年', a, '每根柱子 = 买入当年的实际收益（扣成本）　白线 = 同期指数')
     base = 1150 if us else 960
     K = 300
     F.line((90, base), (990, base), WHITE, a * 0.35, 1)
@@ -611,7 +613,7 @@ def shot_bars(F, t, u, a, g, us):
 
 
 def shot_formula(F, t, u, a, g):
-    why_head(F, F.t - u, '股价从长期看，由什么决定？', a)
+    why_head(F, SHOT_T0, '股价从长期看，由什么决定？', a)
     tiles = [('股价', INK, 150), ('利润', UP, 540), ('估值', GOLD, 930)]
     for k, (s, c, x) in enumerate(tiles):
         tk = 0.2 + k * 0.25
@@ -639,7 +641,7 @@ def shot_formula(F, t, u, a, g):
 
 
 def shot_weigh(F, t, u, a, g):
-    why_head(F, F.t - u, '价格，围绕价值波动', a, '金线 = 内在价值（随利润增长）　蓝线 = 股价')
+    why_head(F, SHOT_T0, '价格，围绕价值波动', a, '金线 = 内在价值（随利润增长）　蓝线 = 股价')
     gx0, gx1 = 90, 990
     n = 260
     xx = np.linspace(0, 1, n)
@@ -686,13 +688,13 @@ def stock_card(F, y, row, a, u, tk, gold=False):
 def shot_profit(F, t, u, a, g, part):
     rows = STORY['why'][2]['rows']
     if part == 0:
-        why_head(F, F.t - u, '利润是真的，但已到顶', a, '一次性景气：疫情、政策、周期')
+        why_head(F, SHOT_T0, '利润是真的，但已到顶', a, '一次性景气：疫情、政策、周期')
         for k, r in enumerate(rows[0][1]):
             stock_card(F, 600 + k * 260, r, a, u, 0.25 + k * 0.4)
         fa = a * eo(ramp(u, 1.9, 2.3))
         F.text('高点买入的，是一次性的利润', 540, 1470, 42, 'sans_black', GOLD_L, fa, glow=0.25)
     else:
-        why_head(F, F.t - u, '股价跑在利润前面', a, '题材驱动 vs 价值兑现')
+        why_head(F, SHOT_T0, '股价跑在利润前面', a, '题材驱动 vs 价值兑现')
         for k, r in enumerate(rows[1][1]):
             stock_card(F, 600 + k * 260, r, a, u, 0.25 + k * 0.4)
         stock_card(F, 1120, rows[2][1][0], a, u, 1.05, gold=True)
@@ -703,7 +705,7 @@ def shot_profit(F, t, u, a, g, part):
 
 def shot_ipo(F, t, u, a, g):
     p = STORY['why'][3]
-    why_head(F, F.t - u, '涨幅榜前 50 名，几只是新股？', a, '每年 A 股涨幅前 50 名中，当年新上市的股票数量')
+    why_head(F, SHOT_T0, '涨幅榜前 50 名，几只是新股？', a, '每年 A 股涨幅前 50 名中，当年新上市的股票数量')
     base, K = 1200, 11.0
     F.line((90, base), (990, base), WHITE, a * 0.35, 1)
     F.line((90, base - 50 * K), (990, base - 50 * K), WHITE, a * 0.18, 1)
@@ -725,7 +727,7 @@ def shot_ipo(F, t, u, a, g):
 
 def shot_ipo_why(F, t, u, a, g):
     p = STORY['why'][3]
-    why_head(F, F.t - u, '新股为什么霸占涨幅榜？', a, '核准制时代的定价机制')
+    why_head(F, SHOT_T0, '新股为什么霸占涨幅榜？', a, '核准制时代的定价机制')
     steps = [('①', '发行价被压在约 23 倍市盈率', '上市即「便宜」'), ('②', '首日涨幅封顶 44%', '涨不够的，留到后面'),
              ('③', '上市后连续一字涨停', '散户几乎买不到'), ('④', '稀缺 + 连板', '霸占全年涨幅榜')]
     for k, (n, l1, l2) in enumerate(steps):
@@ -745,7 +747,7 @@ def shot_ipo_why(F, t, u, a, g):
 
 
 def shot_players(F, t, u, a, g):
-    why_head(F, F.t - u, 'A股：散户主导交易', a)
+    why_head(F, SHOT_T0, 'A股：散户主导交易', a)
     C = (540, 760)
     fr = 0.6135 * eio(ramp(u, 0.2, 1.4))
     ring_gauge(F, C, 220, fr, CN, a, th=22)
@@ -765,7 +767,7 @@ def shot_players(F, t, u, a, g):
 
 def shot_momentum(F, t, u, a, g):
     p = STORY['why'][4]
-    why_head(F, F.t - u, '涨幅前 10 名，下一年会怎样？', a, '相对全市场的超额收益 · 十年平均')
+    why_head(F, SHOT_T0, '涨幅前 10 名，下一年会怎样？', a, '相对全市场的超额收益 · 十年平均')
     zero = 540
     F.line((zero, 560), (zero, 1180), GOLD, a * 0.6, 2, glow=0.8)
     for j, (lab, v, col, tag) in enumerate([('美股', p['us_top10'], US, '动量：强者恒强'), ('A股', p['cn_top10'], CN, '反转：物极必反')]):
@@ -796,7 +798,7 @@ def shot_loop(F, t, u, a, g, brk_part):
     cx, cy, R = 540, 900, 300
     nodes = p['nodes']; n = len(nodes)
     if not brk_part:
-        why_head(F, F.t - u, '上涨本身，会吸引更多人追涨', a, '价格反过来改变人们的预期 —— 反身性')
+        why_head(F, SHOT_T0, '上涨本身，会吸引更多人追涨', a, '价格反过来改变人们的预期 —— 反身性')
         heat = ramp(u, 0, 3.0)
         col = lerpc(GOLD, UP, heat)
         # 加速旋转的彗星
@@ -833,7 +835,7 @@ def shot_loop(F, t, u, a, g, brk_part):
         if u < 0.5:
             F.flash = max(F.flash, 0.25 * (1 - u / 0.5))
         ha = a * eo(ramp(u, 0.55, 0.9))
-        F.text3d('直到：预期透支，泡沫破裂', 540, 820, 70 * pop(F.t, F.t - u + 0.55, 0.2), 'serif_black',
+        F.text3d('直到：预期透支，泡沫破裂', 540, 820, 70 * pop(F.t, SHOT_T0 + 0.55 * WHY_SLOW, 0.2), 'serif_black',
                  face=[(0, lerpc(DOWN, WHITE, 0.5)), (1, DOWN)], a=ha, glow=0.5)
         F.text('冠军的涨幅，变成了下一年的跌幅', 540, 930, 34, 'sans_med', INK, ha)
         ca = a * eo(ramp(u, 1.4, 1.8))
@@ -857,10 +859,12 @@ def sc_why(F, t):
     for k, (ch, fn) in enumerate(WHY_SHOTS):
         t0, t1 = WHY_SHOT_T[k], WHY_SHOT_T[k + 1]
         if not (t0 <= t < t1): continue
-        a = env(t, t0, t1 - 0.02, 0.3, 0.28)
+        a = env(t, t0, t1 - 0.02, 0.35, 0.4)
         ch0 = WHY_SHOT_T[2 * ch]; ch1 = WHY_SHOT_T[2 * ch + 2]
         why_frame(F, t, ch, env(t, ch0, ch1 - 0.02, 0.3, 0.28))
-        fn(F, t, t - t0, a)
+        global SHOT_T0
+        SHOT_T0 = t0
+        fn(F, t, (t - t0) / WHY_SLOW, a)
 
 
 # ================================================================ 投资启示：金色粒子汇聚成字的转场（音乐抽空段）
@@ -1059,7 +1063,7 @@ def sc_value(F, t):
         lines = STORY['final_msg']
         for q, ln in enumerate(lines):
             F.text_chars(ln, 540, 680 + q * 100, 56, 'serif_black', INK if q < 2 else GOLD_L, a5, t0=T_TRUTH + 0.3 + q * 1.6, stag=0.045, dur=0.5)
-        tk = B(232)                                        # 185.72：最后一句金句
+        tk = B(280)                                        # 224.12：最后一句金句
         ia = a5 * eo(ramp(t, tk, tk + 0.35))
         if ia > 0:
             uu = t - tk
