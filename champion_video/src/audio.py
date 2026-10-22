@@ -101,17 +101,33 @@ def reverb_ir(d=2.4):
 SOUNDS = dict(boom=boom, subdrop=subdrop, pulse=pulse, braam=braam, riser=riser, tick=tick)
 
 
-def render(music_path, out_path, events, T, music_gain=1.0, music_offset=0.0):
+def edit_music(y, segments, xf=0.06):
+    """按 [(原曲起点, 原曲终点), ...] 拼接原曲片段，接缝处做等功率交叉淡化"""
+    out = None
+    nx = int(xf * SR)
+    for a, b in segments:
+        seg = y[int(a * SR):int(b * SR)].copy()
+        if out is None:
+            out = seg; continue
+        t = np.linspace(0, 1, nx)[:, None]
+        mixz = out[-nx:] * np.cos(t * np.pi / 2) + seg[:nx] * np.sin(t * np.pi / 2)
+        out = np.concatenate([out[:-nx], mixz, seg[nx:]])
+    return out
+
+
+def render(music_path, out_path, events, T, music_gain=1.0, segments=None):
     import librosa
     y, sr = librosa.load(music_path, sr=SR, mono=False)
     if y.ndim == 1:
         y = np.stack([y, y])
     y = y.T * music_gain
+    if segments:
+        y = edit_music(y, segments)
     n = int(T * SR)
     mus = np.zeros((n, 2))
-    o = int(music_offset * SR)
-    seg = y[max(0, -o):max(0, -o) + n - max(o, 0)]
-    mus[max(o, 0):max(o, 0) + len(seg)] = seg
+    m = min(n, len(y))
+    mus[:m] = y[:m]
+    fi = int(0.12 * SR); mus[:fi] *= np.linspace(0, 1, fi)[:, None]      # 剪掉铺垫后，开头 0.12 s 渐入
     fx = np.zeros(n)
     duck = np.ones(n)
     for ev in events:
@@ -131,7 +147,6 @@ def render(music_path, out_path, events, T, music_gain=1.0, music_offset=0.0):
     fxs = np.stack([fx + wet * 0.9, fx + np.roll(wet, 331) * 0.9], 1)
     out = mus * duck[:, None] + fxs * 0.55
     # 全片淡入淡出
-    fi = int(0.05 * SR); out[:fi] *= np.linspace(0, 1, fi)[:, None]
     fo = int(3.5 * SR); out[-fo:] *= (np.linspace(1, 0, fo) ** 1.6)[:, None]
     # 软限幅 + 归一化到 -1 dBFS
     out = highpass(out.T, 22).T
@@ -142,6 +157,6 @@ def render(music_path, out_path, events, T, music_gain=1.0, music_offset=0.0):
 
 
 if __name__ == '__main__':
-    from timeline import AUDIO_EVENTS, T_TOTAL, MUSIC_OFFSET
-    render(sys.argv[1], sys.argv[2], AUDIO_EVENTS, T_TOTAL, music_offset=MUSIC_OFFSET)
+    from timeline import AUDIO_EVENTS, T_TOTAL, MUSIC_EDIT
+    render(sys.argv[1], sys.argv[2], AUDIO_EVENTS, T_TOTAL, segments=MUSIC_EDIT)
     print('wrote', sys.argv[2])

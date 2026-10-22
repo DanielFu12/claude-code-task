@@ -158,7 +158,7 @@ class Frame:
 
     # ---------------- text
     def text(self, s, x, y, size, fname='sans', col=INK, a=1.0, anchor='m', track=0.0, glow=0.0,
-             grad=None, mode='over', shadow=0.0, scale=1.0, clip=None):
+             grad=None, mode='over', shadow=0.0, scale=1.0, clip=None, wipe=None, shine=None):
         """y 是文字视觉中心（约为 x-height 中部）；anchor: m/l/r。grad=[(pos,col)] 竖向渐变"""
         if a <= 0.002 or not s: return 0
         if scale != 1.0:
@@ -169,11 +169,22 @@ class Frame:
         y0 = y + size * 0.36 - base
         if clip is not None:   # clip=(0..1) 从左到右擦除显现
             m = m.copy(); cut = int(pad + w * cl(clip)); m[:, cut:] = 0
+        if wipe is not None:   # 柔边擦除（品牌片尾）
+            if wipe <= 0: return w
+            soft = 0.35 * w + 30
+            ramp_ = np.clip((wipe * (w + soft) - (np.arange(m.shape[1]) - pad)) / soft, 0, 1).astype(np.float32)
+            m = m * ramp_[None, :]
         col_arr = col
         if grad is not None:
             g = vgrad(m.shape[0] - 2 * pad, grad)
             col_arr = np.concatenate([np.repeat(g[:1], pad, 0), g, np.repeat(g[-1:], pad, 0)], 0)
             col_arr = np.repeat(col_arr, m.shape[1], 1)
+        if shine is not None and 0 < shine < 1:   # 斜向流光扫过
+            base = col_arr if isinstance(col_arr, np.ndarray) and col_arr.ndim == 3 and col_arr.shape[0] > 1 else \
+                np.broadcast_to(np.asarray(col_arr, np.float32), m.shape + (3,))
+            xx = np.arange(m.shape[1])[None, :] + np.arange(m.shape[0])[:, None] * 0.6
+            pos = pad - 60 + (0.5 - 0.5 * math.cos(shine * math.pi)) * (w + 120)
+            col_arr = np.clip(base + np.exp(-((xx - pos) / (0.06 * w + 10)) ** 2)[..., None] * 0.6, 0, 1.25).astype(np.float32)
         if shadow > 0:
             sh = cv2.GaussianBlur(m, (0, 0), max(2, size * 0.08))
             self.darken(sh, x0, y0 + size * 0.05, shadow * a)
