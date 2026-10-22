@@ -679,7 +679,7 @@ def sc_value(F, t):
     if a <= 0: return
     u = t - T_VALUE
     if u >= 0:
-        F.flash = max(F.flash, 0.35 * math.exp(-u / 0.12))
+        F.flash = max(F.flash, 0.12 * math.exp(-u / 0.10))
     # ---- 1) 同一个市场，换一种方法
     a1 = a * (1 - eio(ramp(t, T_QUOTE - 0.3, T_QUOTE + 0.1)))
     if a1 > 0:
