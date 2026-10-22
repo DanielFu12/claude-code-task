@@ -56,9 +56,9 @@ ffmpeg -loglevel error -y -f concat -safe 0 -i "$WORK/list.txt" -i "$WORK/mix.wa
   -map 0:v -map 1:a -c:v libx264 -preset slow -crf 16 -profile:v high -level 4.2 -pix_fmt yuv420p \
   -c:a aac -b:a 256k -ar 48000 -shortest -movflags +faststart "$ROOT/$NAME.mp4"
 
-# 5) 预览版（≤30MB：两遍 x264 码率控制）
+# 5) 预览版（< 30 MB：两遍 x264 码率控制）
 DUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$ROOT/$NAME.mp4")
-VB=$(python3 -c "print(int((29.0*8*1024*1024/$DUR - 128000)*0.97))")
+VB=$(python3 -c "print(int(27.5e6*8/$DUR - 128000))")   # 目标约 27.5 MB（十进制），确保 < 30,000,000 字节
 ffmpeg -loglevel error -y -i "$ROOT/$NAME.mp4" -c:v libx264 -preset slow -b:v $VB -pass 1 -an -f mp4 -passlogfile "$WORK/x264" /dev/null
 ffmpeg -loglevel error -y -i "$ROOT/$NAME.mp4" -c:v libx264 -preset slow -b:v $VB -pass 2 -passlogfile "$WORK/x264" \
   -c:a aac -b:a 128k -movflags +faststart "$ROOT/${NAME}_预览版.mp4"
