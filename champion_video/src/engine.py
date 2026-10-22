@@ -213,19 +213,14 @@ class Frame:
 
     def text3d(self, s, x, y, size, fname='num', face=None, side=(0.08, 0.10, 0.16), a=1.0, depth=14,
                ang=(0.6, 0.9), glow=0.25, anchor='m', spec=0.0, track=0.0):
-        """伪三维挤出文字：沿 ang 方向叠 depth 层暗色侧面，再叠正面渐变与高光"""
+        """平面渐变大字：柔和投影 + 渐变正面 + 斜向流光（v4 起不再做多层挤出，避免文字看起来重影）"""
         if a <= 0.002: return
         size = int(round(size))
         m, base, pad, w = text_mask(s, fname, size, track)
         x0 = x - w / 2 - pad if anchor == 'm' else (x - pad if anchor == 'l' else x - w - pad)
         y0 = y + size * 0.36 - base
-        # 投影
-        sh = cv2.GaussianBlur(m, (0, 0), size * 0.06)
-        self.darken(sh, x0 + depth * ang[0] * 1.6, y0 + depth * ang[1] * 1.6, 0.6 * a)
-        n = max(2, int(depth))
-        for k in range(n, 0, -1):
-            sc = 0.55 + 0.45 * (1 - k / n)
-            self.over(m, x0 + k * ang[0], y0 + k * ang[1], mix(side, sc * 1.4), a)
+        sh = cv2.GaussianBlur(m, (0, 0), size * 0.08)
+        self.darken(sh, x0, y0 + size * 0.04, 0.55 * a)
         face = face or [(0, WHITE), (1, INK)]
         g = vgrad(m.shape[0], [(0, face[0][1]), (pad / m.shape[0], face[0][1]), (1 - pad / m.shape[0], face[-1][1]), (1, face[-1][1])]) \
             if len(face) == 2 else vgrad(m.shape[0], face)
@@ -236,9 +231,6 @@ class Frame:
             band = np.exp(-((xx - pos) / (size * 0.35)) ** 2)[..., None]
             col = np.clip(col + band * 0.7, 0, 1.4)
         self.over(m, x0, y0, col, a, glow)
-        # 顶边细高光
-        edge = np.clip(m - np.roll(m, 2, 0), 0, 1) * 0.5
-        self.add(edge, x0, y0, WHITE, a * 0.6)
         return w
 
     # ---------------- shapes (cv2, 4 bit subpixel)

@@ -106,9 +106,9 @@ def edit_music(y, segments, xf=0.06):
     out = None
     nx = int(xf * SR)
     for a, b in segments:
-        seg = y[int(a * SR):int(b * SR)].copy()
         if out is None:
-            out = seg; continue
+            out = y[int(a * SR):int(b * SR)].copy(); continue
+        seg = y[int((a - xf) * SR):int(b * SR)].copy()      # 交叉淡化放在接缝之前，原曲 a 点精确落在拼接位置
         t = np.linspace(0, 1, nx)[:, None]
         mixz = out[-nx:] * np.cos(t * np.pi / 2) + seg[:nx] * np.sin(t * np.pi / 2)
         out = np.concatenate([out[:-nx], mixz, seg[nx:]])

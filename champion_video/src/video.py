@@ -72,67 +72,122 @@ def spin_number(t, seed):
     return f'{v:,.1f}' if v < 100 else f'{v:,.0f}'
 
 
+HOOK = [0.0, B(4), B(8), B(12), T_TITLE]
+
+
+def hwin(t, k, fi=0.22, fo=0.2):
+    """开场第 k 屏的可见度：上一屏完全淡出后下一屏才出现，画面里永远只有一个信息"""
+    return env(t, HOOK[k], HOOK[k + 1] - 0.02, fi, fo)
+
+
+def pop(t, t0, k=0.3, d=0.14):
+    return 1 + k * math.exp(-max(t - t0, 0) / d)
+
+
+def halo(F, c, r, t, a, col, n=3, th=3):
+    """旋转的光环：几段弧线以不同速度绕圈 + 柔光"""
+    if a <= 0.01: return
+    F.blob(c, r * 1.1, col, 0.10 * a)
+    for k in range(n):
+        rr = r * (1 + 0.12 * k)
+        a0 = t * (0.6 - 0.35 * k) + k * 2.1
+        for s in range(3):
+            q0 = a0 + s * 2 * math.pi / 3
+            pts = [(c[0] + rr * math.cos(q), c[1] + rr * math.sin(q)) for q in np.linspace(q0, q0 + 1.5 - 0.3 * k, 40)]
+            F.poly(pts, col, a * (0.75 - 0.2 * k), th - k * 0.8 if th - k * 0.8 > 1 else 1, glow=0.9)
+
+
+def wan_str(x):
+    num, unit = fmt_wan(x)
+    return num, unit
+
+
+def big_money(F, x, cx, y, size, col, a, glow=0.4):
+    num, unit = fmt_wan(x) if abs(x - 1) > 1e-9 else ('10', '万')
+    nw = text_w(num, 'num', int(size)); uw = text_w(unit, 'sans_black', int(size * 0.5))
+    x0 = cx - (nw + uw + 10) / 2
+    F.text(num, x0, y, size, 'num', col, a, anchor='l', glow=glow, shadow=0.4)
+    F.text(unit, x0 + nw + 10, y + size * 0.12, size * 0.5, 'sans_black', col, a, anchor='l', glow=glow * 0.6)
+
+
 def sc_hook(F, t):
-    """0 – 12.9 s：一个问题 + 两个账户 + 悬念"""
-    a_all = 1 - ramp(t, T_TITLE - 0.25, T_TITLE)
-    F.flash = max(F.flash, 0.12 * math.exp(-t / 0.15))
-    # 1) 问题
-    a1 = a_all * (1 - 0.35 * ramp(t, B(8) - 0.2, B(8) + 0.3))
-    two_tone(F, [('每年第一个交易日', INK)], 540, 300, 62, 'serif_black', -0.3, a1)
-    two_tone(F, [('买入上一年的', INK), ('涨幅冠军', GOLD_GRAD)], 540, 400, 62, 'serif_black', 0.75, a1, glow=0.25)
-    if t > B(2) - 0.1:
-        u = t - B(2)
-        sc = 1 + 0.35 * math.exp(-max(u, 0) / 0.15)
-        F.text3d('连续 10 年', 540, 545, 120 * sc, 'serif_black', face=GOLD_GRAD, side=(0.32, 0.18, 0.04), depth=10,
-                 a=a1 * eo(ramp(u, -0.1, 0.25)), glow=0.4, spec=ramp(u, 0.3, 1.4))
-    # 2) 两个账户：同样的 10 万本金，十年后的余额在「老虎机」里翻滚
-    for j, (lab, col, sub) in enumerate([('美股账户', US, '标普500 冠军'), ('A股账户', CN, '沪深全市场冠军')]):
-        tk = B(4) + j * 0.25
-        ca = a_all * eo(ramp(t, tk, tk + 0.45))
-        if ca <= 0: continue
-        x0 = 60 + j * 490; x1 = x0 + 470
-        dy = (1 - eo(ramp(t, tk, tk + 0.5))) * 60
-        F.glass(x0, 700 + dy, x1, 1130 + dy, 36, ca, tint=col, tint_a=0.10, spec=ramp(t, tk, tk + 1.0))
-        cx = (x0 + x1) / 2
-        F.circle((x0 + 44, 760 + dy), 10, col, ca, fill=True, glow=0.8)
-        F.text(lab, x0 + 66, 760 + dy, 40, 'sans_black', col, ca, anchor='l')
-        F.text(sub, x0 + 36, 815 + dy, 24, 'sans_reg', DIM, ca, anchor='l')
-        F.text('本金', x0 + 36, 880 + dy, 26, 'sans_reg', DIM, ca, anchor='l')
-        F.text('10 万', x1 - 36, 880 + dy, 36, 'sans_bold', INK, ca, anchor='r')
-        F.line((x0 + 36, 925 + dy), (x1 - 36, 925 + dy), col, ca * 0.35, 1)
-        F.text('10 年后', x0 + 36, 975 + dy, 26, 'sans_reg', DIM, ca, anchor='l')
-        spin = ramp(t, B(5), B(6))
-        if spin > 0:
-            num = spin_number(t, j)
-            F.text(num, cx + 10, 1050 + dy, 72, 'num', lerpc(col, WHITE, 0.4), ca * spin, glow=0.4)
-            F.text('万', cx + 10 + text_w(num, 'num', 72) / 2 + 30, 1060 + dy, 36, 'sans_bold', lerpc(col, WHITE, 0.4), ca * spin)
-        # 余额后面的「?」
-        F.text('?', x1 - 50, 975 + dy, 40, 'num', GOLD, ca * (0.5 + 0.5 * math.sin(t * 9)))
-    # 3) 差多少？
-    a3 = a_all * env(t, B(8) - 0.05, T_TITLE, 0.2, 0.3)
-    if a3 > 0:
-        sc = 1 + 0.3 * math.exp(-max(t - B(8), 0) / 0.15)
-        F.text3d('两个账户，会差多少？', 540, 1290, 72 * sc, 'serif_black', face=[(0, WHITE), (1, (0.78, 0.84, 0.95))],
-                 side=(0.05, 0.07, 0.12), depth=8, a=a3, glow=0.25)
-    # 4) 悬念：差距超过 1000 倍
-    a4 = a_all * env(t, B(12) - 0.05, T_TITLE, 0.15, 0.25)
-    if a4 > 0:
-        u = t - B(12)
-        sc = 1 + 0.5 * math.exp(-max(u, 0) / 0.12)
-        F.text('答案是：', 540, 1430, 40, 'sans_med', DIM, a4)
-        F.text3d('相差超过 1,000 倍', 540, 1560, 104 * sc, 'serif_black', face=GOLD_GRAD, side=(0.32, 0.18, 0.04), depth=12,
-                 a=a4, glow=0.5, spec=ramp(u, 0.2, 1.2))
-        F.text_chars('谁赢了？为什么？', 540, 1700, 44, 'sans_bold', INK, a4, t0=B(14), stag=0.06)
-        if u < 0.6:
-            F.circle((540, 1560), 80 + 600 * eo(u / 0.6), GOLD, a4 * (1 - u / 0.6), 4, glow=1.0)
-            F.zoom = 1 + 0.025 * math.exp(-u / 0.15)
-            F.shake = (math.sin(u * 90) * 8 * math.exp(-u / 0.12), 0.0)
+    """0 – 12.9 s：结果先行的悬念钩子。四屏，每屏只讲一件事，严格前后衔接"""
+    UT, CT = STORY['us_total'], STORY['cn_total']
+    BASE = 1330; K = 300                        # 光柱基线 / 每 10 倍的高度
+    # ① 同样的起点
+    a = hwin(t, 0, fi=0.06)
+    if a > 0:
+        F.text_chars('同样的 10 万本金', 540, 380, 72, 'serif_black', INK, a, t0=0.02, stag=0.05)
+        two_tone(F, [('同一个策略，坚持 ', INK), ('10 年', GOLD_GRAD)], 540, 490, 56, 'serif_black', B(1.2), a, glow=0.25)
+        for j in range(2):
+            cx = 300 + j * 480; cy = 930
+            ca = a * eo(ramp(t, B(2) + j * 0.15, B(2) + 0.5 + j * 0.15))
+            if ca <= 0: continue
+            halo(F, (cx, cy), 165 * (0.85 + 0.15 * eo(ramp(t, B(2), B(2) + 0.6))), t + j, ca, GOLD)
+            F.text(f'账户 {"①②"[j]}', cx, cy - 70, 34, 'sans_bold', SUBGOLD, ca)
+            spin = ramp(t, B(3), B(3) + 0.2)
+            if spin <= 0:
+                big_money(F, 1.0, cx, cy + 20, 84, GOLD_L, ca)
+            else:
+                num = spin_number(t, j)
+                F.text(num, cx, cy + 20, 76, 'num', GOLD_L, ca, glow=0.5)
+            F.text('十年后 = ?', cx, cy + 105, 28, 'sans_med', DIM, ca)
+    # ② 十年后：一个冲上云霄，一个跌穿地板
+    a = hwin(t, 1)
+    if a > 0:
+        F.text('十年后', 540, 300, 56, 'serif_black', INK, a)
+        F.line((80, BASE), (1000, BASE), GOLD, a * 0.7, 2, glow=0.6)
+        F.text('起点 10 万', 1000, BASE + 30, 22, 'sans_reg', GOLD, a * 0.8, anchor='r')
+        for j, (tot, col, t0) in enumerate([(UT, US, B(4) + 0.1), (CT, CN, B(5))]):
+            cx = 300 + j * 480
+            p = eio(ramp(t, t0, t0 + 1.6))
+            cur = 10 ** (math.log10(tot) * p)
+            h = K * math.log10(cur)
+            x0, x1 = cx - 80, cx + 80
+            if h >= 0:
+                F.fill([(x0, BASE - h), (x1, BASE - h), (x1, BASE), (x0, BASE)], col, a * 0.55, glow=0.5)
+                F.line((x0, BASE - h), (x1, BASE - h), lerpc(col, WHITE, 0.6), a, 4, glow=1.5)
+                F.blob((cx, BASE - h), 110, col, 0.35 * a)
+                ny = BASE - h - 80
+            else:
+                F.fill([(x0, BASE), (x1, BASE), (x1, BASE - h), (x0, BASE - h)], mix(CN2, 0.8), a * 0.5, glow=0.4)
+                F.line((x0, BASE - h), (x1, BASE - h), CN2, a, 4, glow=1.2)
+                ny = BASE - h + 80
+            done = ramp(t, t0 + 1.6, t0 + 1.7)
+            sz = 96 * pop(t, t0 + 1.6, 0.35) if done > 0 else 84
+            big_money(F, cur, cx, ny, sz, lerpc(col, WHITE, 0.35), a, glow=0.5 + 0.4 * done)
+            F.text(f'账户 {"①②"[j]}', cx, BASE + (40 if h >= 0 else -40), 30, 'sans_bold', col, a)
+            if 0 < t - t0 - 1.6 < 0.6:
+                u = (t - t0 - 1.6) / 0.6
+                F.circle((cx, ny), 60 + 260 * eo(u), col, a * (1 - u), 3, glow=1.0)
+    # ③ 相差 1,332 倍
+    a = hwin(t, 2, fi=0.08)
+    if a > 0:
+        u = t - B(8)
+        F.text('两个账户相差', 540, 700, 52, 'serif_black', INK, a)
+        F.text3d(f"{STORY['gap']:,.0f}", 470, 900, 230 * pop(t, B(8), 0.4), 'num', face=GOLD_GRAD, a=a, glow=0.55, spec=ramp(u, 0.2, 1.4))
+        F.text('倍', 470 + text_w(f"{STORY['gap']:,.0f}", 'num', 230) / 2 + 70, 930, 110, 'serif_black', a=a, grad=GOLD_GRAD, glow=0.4)
+        if u < 0.8:
+            F.circle((540, 900), 100 + 800 * eo(u / 0.8), GOLD, a * (1 - u / 0.8), 5, glow=1.2)
+            F.zoom = 1 + 0.03 * math.exp(-u / 0.15)
+            F.shake = (math.sin(u * 90) * 10 * math.exp(-u / 0.12), 0.0)
+        F.text('规则只有一条', 540, 1130, 36, 'sans_med', DIM, a * eo(ramp(t, B(10), B(10) + 0.4)))
+        two_tone(F, [('每年买入上一年的', INK), ('涨幅冠军', GOLD_GRAD)], 540, 1215, 58, 'serif_black', B(10) + 0.25, a, glow=0.25)
+    # ④ 一个美股，一个 A 股 —— 你猜？
+    a = hwin(t, 3, fi=0.08, fo=0.12)
+    if a > 0:
+        two_tone(F, [('一个投 ', INK), ('美股', [(0, US), (1, US2)]), ('，一个投 ', INK), ('A 股', [(0, CN), (1, CN2)])],
+                 540, 780, 62, 'serif_black', B(12) + 0.02, a, stag=0.035, glow=0.3)
+        qa = a * eo(ramp(t, B(13.5), B(13.5) + 0.35))
+        F.text3d('你猜，哪个是 A 股？', 540, 960, 88 * pop(t, B(13.5), 0.25), 'serif_black', face=GOLD_GRAD, a=qa, glow=0.45,
+                 spec=ramp(t, B(13.5) + 0.2, B(13.5) + 1.2))
+        F.text('答案和背后的原因，马上揭晓', 540, 1090, 36, 'sans_med', DIM, a * eo(ramp(t, B(14.5), B(14.5) + 0.4)))
 
 
 def sc_title(F, t):
     """12.91 s 重击：标题"""
     u = t - T_TITLE
-    a = env(t, T_TITLE, T_RULES + 0.4, 0.05, 0.5)
+    a = env(t, T_TITLE, T_RULES - 0.02, 0.05, 0.35)
     if a <= 0: return
     F.flash = 0.9 * math.exp(-u / 0.12) if u >= 0 else 0
     # 冲击波环
@@ -142,10 +197,9 @@ def sc_title(F, t):
             r = 80 + 1400 * eo(uu / 1.6)
             F.circle((540, 900), r, GOLD, a * 0.7 * (1 - ramp(uu, 0, 1.6)), 4, glow=1.0)
     sc = 1 + 0.25 * math.exp(-u / 0.25)
-    F.text3d('追涨十年', 540, 860, 230 * sc, 'serif_black', face=GOLD_GRAD, side=(0.32, 0.18, 0.04), depth=16, a=a,
+    F.text3d('追涨十年', 540, 860, 230 * sc, 'serif_black', face=GOLD_GRAD, a=a, track=0.04,
              glow=0.45, spec=ramp(u, 0.3, 1.8))
-    F.text_chars('每年只买去年的涨幅冠军，', 540, 1060, 50, 'sans_bold', INK, a, t0=T_TITLE + 0.35, stag=0.03)
-    F.text_chars('10 年后会怎样？', 540, 1135, 50, 'sans_bold', INK, a, t0=T_TITLE + 0.75, stag=0.04)
+    F.text_chars('每年只买去年的涨幅冠军', 540, 1090, 54, 'sans_bold', INK, a, t0=T_TITLE + 0.35, stag=0.035)
     w = 360 * eo(ramp(u, 0.9, 1.8))
     F.line((540 - w, 1215), (540 + w, 1215), GOLD, a * 0.7, 2, glow=0.6)
     F.text('美股 vs A股 · 2016—2025', 540, 1268, 34, 'sans_med', SUBGOLD, a * ramp(u, 1.2, 1.9))
@@ -154,9 +208,9 @@ def sc_title(F, t):
 
 
 def sc_rules(F, t):
-    a = env(t, T_RULES, year_t0(0) + 0.05, 0.35, 0.3)
+    a = env(t, T_RULES, year_t0(0) - 0.03, 0.35, 0.3)
     if a <= 0: return
-    F.text_chars('实验规则', 540, 300, 64, 'serif_black', GOLD, a, t0=T_RULES, stag=0.06)
+    F.text_chars('实验规则', 540, 300, 64, 'serif_black', GOLD, a, t0=T_RULES + 0.05, stag=0.06, grad=GOLD_GRAD)
     rules = STORY['rules']
     for i, (num, s1, s2) in enumerate(rules):
         tk = B(23 + i)
@@ -242,7 +296,7 @@ def sc_race(F, t):
     u = t - year_t0(i)
     D = YEAR_BEATS * SPB
     Y = STORY['years']; yd = Y[i]
-    a_sec = env(t, year_t0(0) - 0.05, T_RACE_END + 0.6, 0.3, 0.6)
+    a_sec = env(t, year_t0(0), T_RACE_END + 0.15, 0.3, 0.45)
     # 年份 + 进度
     ain = eo(ramp(u, 0, 0.35)) if i else eo(ramp(u, -0.2, 0.4))
     sc = 1 + 0.25 * math.exp(-max(u, 0) / 0.18)
@@ -366,9 +420,9 @@ SER = {k: series(*k) for k in [('us', False), ('cn', False), ('us', True), ('cn'
 
 
 def sc_final(F, t):
-    a = env(t, T_FINAL - 0.2, T_BREAK + 0.4, 0.5, 0.5)
+    a = env(t, T_FINAL + 0.15, T_BREAK + 0.3, 0.4, 0.5)
     if a <= 0: return
-    F.text_chars('十年后，10 万变成了……', 540, 250, 58, 'serif_black', INK, a, t0=T_FINAL + 0.1, stag=0.05)
+    F.text_chars('十年后，10 万变成了……', 540, 250, 58, 'serif_black', INK, a, t0=T_FINAL + 0.25, stag=0.05)
     gx0, gx1, gy0, gy1 = 140, 820, 420, 1280
     lo, hi = -2, 3          # log10 倍数：0.01 ~ 1000
     def X(x): return gx0 + x / 10 * (gx1 - gx0)
@@ -448,20 +502,20 @@ def sc_break(F, t):
     a = env(t, T_BREAK, T_WHY + 0.05, 0.5, 0.05)
     if a <= 0: return
     F.darken(np.ones((H, W), np.float32), 0, 0, 0.75 * a)
-    F.text_chars('为什么差距这么大？', 540, 860, 76, 'serif_black', INK, a, t0=T_BREAK + 0.4, stag=0.08, dur=0.6)
+    F.text_chars('为什么差距这么大？', 540, 860, 80, 'serif_black', INK, a, t0=T_BREAK + 0.5, stag=0.08, dur=0.6)
     two_tone(F, [('答案，藏在「', DIM), ('冠军', GOLD_GRAD), ('」是怎么来的', DIM)], 540, 1000, 44, 'serif', B(132), a, stag=0.05)
 
 
 # ================================================================ why：从第一性原理讲清差异
 def sc_why(F, t):
-    a = env(t, T_WHY - 0.05, T_STATEMENT + 0.1, 0.05, 0.4)
+    a = env(t, T_WHY - 0.05, T_INSIGHT, 0.05, 0.4)
     if a <= 0: return
     if t >= T_WHY:
         F.flash = max(F.flash, 0.6 * math.exp(-(t - T_WHY) / 0.12))
     panels = STORY['why']
-    ts = WHY_T + [T_STATEMENT]
+    ts = WHY_T + [T_INSIGHT]
     for k, pnl in enumerate(panels):
-        pa = a * env(t, ts[k] - 0.05, ts[k + 1] + 0.05, 0.3, 0.3)
+        pa = a * env(t, ts[k], ts[k + 1] - 0.02, 0.3, 0.3)
         if pa <= 0: continue
         u = t - ts[k]
         F.text(f'0{k + 1}', 540, 215, 38, 'num', GOLD, pa, glow=0.4)
@@ -663,31 +717,115 @@ def why_loop(F, t, u, a, p):
 WHY_DRAW = dict(bars=why_bars, principle=why_principle, profit=why_profit, ipo=why_ipo, players=why_players, loop=why_loop)
 
 
-# ================================================================ statement / value
-def sc_statement(F, t):
-    a = env(t, T_STATEMENT, T_VALUE + 0.2, 0.3, 0.4)
-    if a <= 0: return
-    F.darken(np.ones((H, W), np.float32), 0, 0, 0.6 * a)
-    F.text_chars('过去涨得最多，', 540, 820, 82, 'serif_black', INK, a, t0=T_STATEMENT + 0.2, stag=0.09, dur=0.6)
-    F.text_chars('不代表未来最值得买。', 540, 960, 82, 'serif_black', GOLD, a, t0=T_STATEMENT + 1.6, stag=0.09, dur=0.6, grad=GOLD_GRAD)
-    w = 380 * eo(ramp(t, T_STATEMENT + 3.0, T_STATEMENT + 4.0))
-    F.line((540 - w, 1080), (540 + w, 1080), GOLD, a * 0.7, 2, glow=0.6)
+# ================================================================ 投资启示：金色粒子汇聚成字的转场（音乐抽空段）
+INS_SIZE, INS_Y = 190, 900
+
+
+def _text_particles(s, fname, size, cx, cy, n, seed):
+    """在文字 mask 内按亮度采样 n 个点，返回 (x, y, 竖向位置 0..1)"""
+    rng = np.random.default_rng(seed)
+    m, base, pad, w = text_mask(s, fname, size)
+    ys, xs = np.where(m > 0.5)
+    k = rng.choice(len(xs), n, replace=len(xs) < n)
+    x = xs[k] + rng.random(n) - 0.5 + cx - w / 2 - pad
+    y = ys[k] + rng.random(n) - 0.5 + cy + size * 0.36 - base
+    return x, y, (ys[k] - ys.min()) / max(1, ys.max() - ys.min())
+
+
+def _gold_at(v):
+    """品牌金竖向渐变上的颜色（v=0 顶部 → 1 底部）"""
+    P = np.array([p for p, _ in GOLD_GRAD]); C = np.array([c for _, c in GOLD_GRAD])
+    return np.stack([np.interp(v, P, C[:, k]) for k in range(3)], -1)
+
+
+N_IP = 7000
+_IP = None
+
+
+def _insight_particles():
+    rng = np.random.default_rng(7)
+    tx, ty, tv = _text_particles('投资启示', 'serif_black', INS_SIZE, 540, INS_Y, N_IP, 7)
+    r = 280 + 520 * rng.random(N_IP) ** 0.7; q = rng.random(N_IP) * 2 * math.pi
+    sx, sy = 540 + r * np.cos(q), INS_Y + r * np.sin(q) * 1.4
+    return tx, ty, sx, sy, _gold_at(tv), rng.uniform(0, 0.6, N_IP)
+
+
+def splat(F, x, y, c, dens, glow=1.2):
+    ok = (x >= 0) & (x < W - 1) & (y >= 0) & (y < H - 1)
+    if not ok.any(): return
+    xi, yi = x[ok].astype(int), y[ok].astype(int)
+    v = c[ok] * dens[ok, None] if np.ndim(dens) else c[ok] * dens
+    np.add.at(F.img, (yi, xi), v)
+    np.add.at(F.glow, (yi, xi), v * glow)
+    np.add.at(F.img, (yi, xi + 1), v * 0.5)
+    np.add.at(F.img, (yi + 1, xi), v * 0.5)
+
+
+def sc_insight(F, t):
+    """147.5 – 154.0：金色「投资启示」。粒子从四周旋转汇聚成字 → 实体金字 + 流光 → 冲击点上穿过镜头"""
+    global _IP
+    if _IP is None:
+        _IP = _insight_particles()
+    tx, ty, sx, sy, col, delay = _IP
+    u = t - T_INSIGHT
+    out = eio(ramp(t, T_VALUE - 0.55, T_VALUE))          # 冲击前 0.55 s：整体放大穿过镜头
+    sc = 1 + 0.06 * ramp(t, T_INSIGHT + 2.5, T_VALUE - 0.55) + 2.2 * out ** 2
+    A = 1 - out
+    def S(x, y):                                           # 以字中心缩放
+        return 540 + (x - 540) * sc, INS_Y + (y - INS_Y) * sc
+    # 1) 粒子汇聚
+    p = np.clip((u - 0.2 - delay) / 1.8, 0, 1); e = p * p * (3 - 2 * p)
+    sw = (1 - e) * 2.2
+    dx, dy = sx - 540, sy - INS_Y
+    rx = dx * np.cos(sw) - dy * np.sin(sw); ry = dx * np.sin(sw) + dy * np.cos(sw)
+    x = 540 + rx * (1 - e) + (tx - 540) * e; y = INS_Y + ry * (1 - e) + (ty - INS_Y) * e
+    pa = ramp(u, 0, 0.3) * (1 - 0.85 * ramp(u, 2.0, 2.6)) * A
+    if pa > 0:
+        splat(F, *S(x, y), col, (1.3 + 0.9 * (1 - e)) * pa)
+    # 2) 实体金字：汇聚完成时显现，随后流光扫过
+    ta = eo(ramp(u, 1.9, 2.5)) * A
+    if ta > 0:
+        F.blob((540, INS_Y), 420 * sc, GOLD_D, 0.16 * ta)
+        F.text3d('投资启示', 540, INS_Y, INS_SIZE * sc, 'serif_black', face=GOLD_GRAD, a=ta, glow=0.55, spec=ramp(u, 2.6, 4.2), track=0.08)
+        if 1.9 < u < 2.9:
+            uu = (u - 1.9) / 1.0
+            F.circle((540, INS_Y), 200 + 700 * eo(uu), GOLD, ta * (1 - uu), 3, glow=1.2)
+    # 3) 英文小标 + 两侧金线 + 副标题
+    la = eo(ramp(u, 2.5, 3.3)) * A
+    if la > 0:
+        F.text('INVESTMENT  INSIGHTS', 540, INS_Y - 170 * sc, 30, 'corm', SUBGOLD, la, track=0.25)
+        w = 330 * eo(ramp(u, 2.6, 3.6)) * sc
+        F.line((540 - w, INS_Y + 150 * sc), (540 + w, INS_Y + 150 * sc), GOLD, la * 0.8, 2, glow=0.8)
+        F.blob((540 - w, INS_Y + 150 * sc), 10, GOLD, la); F.blob((540 + w, INS_Y + 150 * sc), 10, GOLD, la)
+        F.text_chars('巴菲特与芒格：价值投资的真谛', 540, INS_Y + 225 * sc, 44 * sc, 'serif_bold', SUBGOLD, A, t0=T_INSIGHT + 3.2, stag=0.06)
+    if out > 0:
+        F.flash = max(F.flash, 0.5 * out ** 3)
+
+
+# ================================================================ 价值投资：巴菲特与芒格（拼接后的高潮乐段）
+def vwin(t, t0, t1, fi=0.3, fo=0.3):
+    return env(t, t0, t1 - 0.02, fi, fo)
+
+
+def x_mark(F, c, r, col, a):
+    F.line((c[0] - r, c[1] - r), (c[0] + r, c[1] + r), col, a, 4, glow=0.8)
+    F.line((c[0] - r, c[1] + r), (c[0] + r, c[1] - r), col, a, 4, glow=0.8)
 
 
 def sc_value(F, t):
-    a = env(t, T_VALUE - 0.05, T_END + 0.6, 0.2, 0.7)
-    if a <= 0: return
     u = t - T_VALUE
     if u >= 0:
-        F.flash = max(F.flash, 0.12 * math.exp(-u / 0.10))
-    # ---- 1) 同一个市场，换一种方法
-    a1 = a * (1 - eio(ramp(t, T_QUOTE - 0.3, T_QUOTE + 0.1)))
+        F.flash = max(F.flash, 0.45 * math.exp(-u / 0.12))
+        if u < 0.6:
+            F.zoom = 1 + 0.035 * math.exp(-u / 0.18)
+    # ---- 1) 同一个市场，换一种方法（冲击点）
+    a1 = vwin(t, T_VALUE, T_BUFFETT, 0.15)
     if a1 > 0:
         F.text_chars('同一个市场，', 540, 300, 58, 'serif_black', INK, a1, t0=T_VALUE + 0.05, stag=0.04)
         two_tone(F, [('换一种方法，', INK), ('结果天差地别', GOLD_GRAD)], 540, 385, 58, 'serif_black', T_VALUE + 0.4, a1, stag=0.04, glow=0.25)
         for j, (lab, col, items) in enumerate(STORY['value_cmp']):
             y0 = 540 + j * 400
-            F.glass(60, y0 - 50, 1020, y0 + 300, 34, a1 * eo(ramp(t, T_VALUE + 0.5 + j * 0.4, T_VALUE + 0.9 + j * 0.4)), tint=col, tint_a=0.07)
+            F.glass(60, y0 - 50, 1020, y0 + 300, 34, a1 * eo(ramp(t, T_VALUE + 0.5 + j * 0.4, T_VALUE + 0.9 + j * 0.4)), tint=col, tint_a=0.09)
             F.text(lab, 100, y0 + 5, 40, 'sans_black', col, a1, anchor='l')
             for k, (name, mult, hl) in enumerate(items):
                 tk = T_VALUE + 0.6 + j * 0.5 + k * 0.2
@@ -699,55 +837,106 @@ def sc_value(F, t):
                 L = v * 150 * eo(ramp(t, tk, tk + 0.7))
                 cc = (col if hl else GOLD) if v >= 0 else DOWN
                 F.fill([(zero, y - 4), (zero + L, y - 4), (zero + L, y + 34), (zero, y + 34)] if L >= 0 else
-                       [(zero + L, y - 4), (zero, y - 4), (zero, y + 34), (zero + L, y + 34)], cc, ia * 0.85, glow=0.35)
+                       [(zero + L, y - 4), (zero, y - 4), (zero, y + 34), (zero + L, y + 34)], cc, ia * 0.85, glow=0.45)
                 F.text(fmt_pct(mult - 1, 0), (zero + L + 18) if L >= 0 else (zero + 18), y + 15, 40, 'num', ret_col(mult - 1), ia, anchor='l', glow=0.3)
             F.line((400, y0 + 60), (400, y0 + 270), GOLD, a1 * 0.5, 2)
         ma = a1 * eo(ramp(t, T_VALUE + 2.6, T_VALUE + 3.1))
         F.text('利润支撑的上涨会延续，情绪推动的上涨终会回落', 540, 1400, 34, 'sans_black', GOLD_L, ma, glow=0.25)
         F.text('A股同样奖励价值：寒武纪利润兑现的那一年，股价 +107%', 540, 1470, 28, 'sans_reg', INK, ma * eo(ramp(t, T_VALUE + 3.3, T_VALUE + 3.8)))
         F.text('长期持有沪深300（含分红），十年也有 +56%', 540, 1520, 28, 'sans_reg', INK, ma * eo(ramp(t, T_VALUE + 3.6, T_VALUE + 4.1)))
-    # ---- 2) 巴菲特 + 芒格（重复的尾段重拍）
-    a2 = a * eo(ramp(t, T_QUOTE, T_QUOTE + 0.3))
+    # ---- 2) 巴菲特：价格与价值
+    a2 = vwin(t, T_BUFFETT, T_MUNGER)
     if a2 > 0:
-        uq = t - T_QUOTE
-        F.text('“', 110, 250, 150, 'serif_black', GOLD, a2 * 0.6)
-        F.text_chars('价格是你付出的，', 540, 320, 64, 'serif_black', INK, a2, t0=T_QUOTE + 0.05, stag=0.045)
-        F.text_chars('价值是你得到的。', 540, 415, 64, 'serif_black', GOLD_L, a2, t0=T_QUOTE + 0.5, stag=0.045)
-        F.text('—— 沃伦 · 巴菲特', 980, 495, 28, 'serif_med', SUBGOLD, a2 * eo(ramp(uq, 1.0, 1.5)), anchor='r')
-        ma = a2 * eo(ramp(uq, 1.8, 2.3))
-        F.glass(60, 560, 1020, 700, 30, ma, tint=GOLD, tint_a=0.05, shadow=0.2)
-        F.text('反过来想，总是反过来想。—— 查理 · 芒格', 540, 610, 32, 'serif', GOLD_L, ma)
-        F.text('先想清楚怎样会亏大钱：在狂热中追高，就是其中之一', 540, 660, 25, 'sans_reg', INK, ma)
-    # ---- 3) 四个原则 + 最终启示
-    prin = STORY['principles']
-    for k, (hh, d) in enumerate(prin):
-        tk = T_PRIN + k * 0.3
-        pa = a * eo(ramp(t, tk, tk + 0.45))
-        if pa <= 0: continue
-        x0 = 60 + (k % 2) * 490; y0 = 760 + (k // 2) * 240
-        F.glass(x0, y0, x0 + 470, y0 + 215, 34, pa, tint=GOLD, tint_a=0.07, spec=ramp(t, tk, tk + 1))
-        F.text(hh, x0 + 235, y0 + 70, 46, 'serif_black', GOLD, pa, glow=0.3)
-        for q, ln in enumerate(d.split('\n')):
-            F.text(ln, x0 + 235, y0 + 135 + q * 38, 27, 'sans_reg', INK, pa)
-    fa = a * eo(ramp(t, B(208), B(208) + 0.5))
-    lines = STORY['final_msg']
-    for q, ln in enumerate(lines):
-        F.text_chars(ln, 540, 1340 + q * 72, 42, 'serif', GOLD_L if q == len(lines) - 1 else INK, fa, t0=B(208) + q * 0.55, stag=0.03)
-    ia = a * eo(ramp(t, B(211), B(211) + 0.5))
-    F.text3d('独立思考，在狂热中保持理性', 540, 1610, 50, 'serif_black', face=GOLD_GRAD, side=(0.3, 0.17, 0.04), depth=5, a=ia, glow=0.4)
-    F.text('数据：Yahoo Finance、腾讯证券、东方财富、中证指数；回测脚本与明细见项目目录', 540, 1840, 19, 'sans_reg', FAINT, a * eo(ramp(u, 2, 3)))
+        uq = t - T_BUFFETT
+        halo(F, (540, 900), 400, t, a2 * 0.7, GOLD_D, th=2)
+        F.text('“', 170, 600, 220, 'serif_black', a=a2 * 0.55, grad=GOLD_GRAD)
+        F.text_chars('价格是你付出的，', 540, 800, 80, 'serif_black', INK, a2, t0=T_BUFFETT + 0.05, stag=0.05, dur=0.45)
+        va = a2 * eo(ramp(uq, 0.75, 1.15))
+        F.text3d('价值是你得到的。', 540, 940, 80 * pop(t, T_BUFFETT + 0.75, 0.15), 'serif_black', face=GOLD_GRAD, a=va, glow=0.5,
+                 spec=ramp(uq, 1.2, 2.6))
+        F.text('—— 沃伦 · 巴菲特', 900, 1060, 34, 'serif_med', SUBGOLD, a2 * eo(ramp(uq, 1.6, 2.1)), anchor='r')
+        F.text('Price is what you pay. Value is what you get.', 540, 1160, 30, 'corm', SUBGOLD, a2 * 0.8 * eo(ramp(uq, 2.2, 2.8)))
+        F.text('看清价值，才知道价格是贵还是便宜', 540, 1300, 36, 'sans_bold', INK, a2 * eo(ramp(uq, 3.2, 3.7)))
+    # ---- 3) 芒格：反过来想
+    a3 = vwin(t, T_MUNGER, T_PRIN)
+    if a3 > 0:
+        um = t - T_MUNGER
+        F.text3d('反过来想，', 540, 430, 92 * pop(t, T_MUNGER, 0.2), 'serif_black', face=GOLD_GRAD, a=a3, glow=0.45)
+        F.text3d('总是反过来想。', 540, 560, 92, 'serif_black', face=GOLD_GRAD, a=a3 * eo(ramp(um, 0.4, 0.8)), glow=0.45, spec=ramp(um, 0.9, 2.3))
+        F.text('—— 查理 · 芒格', 900, 670, 34, 'serif_med', SUBGOLD, a3 * eo(ramp(um, 1.0, 1.4)), anchor='r')
+        F.text('先想清楚：怎样最容易亏大钱？', 540, 820, 46, 'serif_bold', INK, a3 * eo(ramp(um, 1.6, 2.0)))
+        for k, s in enumerate(['只看过去涨了多少', '在一片狂热中追高', '为情绪支付过高的价格']):
+            tk = 2.4 + k * 0.8
+            ka = a3 * eo(ramp(um, tk, tk + 0.35))
+            if ka <= 0: continue
+            y = 960 + k * 130; dx = (1 - eo(ramp(um, tk, tk + 0.4))) * 60
+            F.glass(170 + dx, y - 50, 910 + dx, y + 50, 50, ka, tint=UP, tint_a=0.10, shadow=0.2, blur=12)
+            x_mark(F, (240 + dx, y), 16, UP, ka)
+            F.text(s, 300 + dx, y, 40, 'sans_bold', INK, ka, anchor='l')
+        fa = a3 * eo(ramp(um, 5.0, 5.4))
+        F.text('然后，避开它们。', 540, 1400, 56, 'serif_black', a=fa, grad=GOLD_GRAD, glow=0.4)
+    # ---- 4) 四个原则：围绕「价值投资」光环逐拍点亮
+    a4 = vwin(t, T_PRIN, T_TRUTH)
+    if a4 > 0:
+        up = t - T_PRIN
+        C0 = (540, 1000)
+        F.text('巴菲特与芒格的四条原则', 540, 400, 52, 'serif_black', INK, a4 * eo(ramp(up, 0, 0.4)))
+        halo(F, C0, 150, t, a4, GOLD, th=3)
+        F.text3d('价值', 540, C0[1] - 34, 66, 'serif_black', face=GOLD_GRAD, a=a4, glow=0.5)
+        F.text3d('投资', 540, C0[1] + 44, 66, 'serif_black', face=GOLD_GRAD, a=a4, glow=0.5)
+        pos = [(60, 540), (590, 540), (60, 1250), (590, 1250)]
+        for k, ((hh, d), (x0, y0)) in enumerate(zip(STORY['principles'], pos)):
+            tk = 0.4 + 0.8 * k
+            pa = a4 * eo(ramp(up, tk, tk + 0.35))
+            if pa <= 0: continue
+            cx, cy = x0 + 215, y0 + 105
+            # 从光环射向卡片的一道光
+            q = eo(ramp(up, tk - 0.1, tk + 0.3))
+            L0 = math.hypot(cx - C0[0], cy - C0[1]); ux, uy = (cx - C0[0]) / L0, (cy - C0[1]) / L0
+            p0 = (C0[0] + ux * 185, C0[1] + uy * 185)               # 从光环外缘射出，不压住中间的字
+            F.line(p0, (p0[0] + (cx - p0[0]) * q, p0[1] + (cy - p0[1]) * q), GOLD, pa * 0.6, 2, glow=1.0)
+            F.glass(x0, y0, x0 + 430, y0 + 210, 34, pa, tint=GOLD, tint_a=0.10, spec=ramp(up, tk, tk + 1))
+            F.text(hh, cx, y0 + 68, 50, 'serif_black', a=pa, grad=GOLD_GRAD, glow=0.35)
+            for qn, ln in enumerate(d.split('\n')):
+                F.text(ln, cx, y0 + 132 + qn * 38, 28, 'sans_reg', INK, pa)
+            if up - tk < 0.5:
+                F.circle((cx, cy), 60 + 260 * eo((up - tk) / 0.5), GOLD, pa * (1 - (up - tk) / 0.5), 2, glow=1.0)
+    # ---- 5) 价值投资的真谛（尾段重拍，全片高潮，停留 10 秒）
+    a5 = env(t, T_TRUTH, T_END + 0.2, 0.25, 0.45)
+    if a5 > 0:
+        ut = t - T_TRUTH
+        if ut < 0.5:
+            F.flash = max(F.flash, 0.35 * math.exp(-ut / 0.12))
+        F.text('价值投资的真谛', 540, 480, 40, 'serif_bold', SUBGOLD, a5 * eo(ramp(ut, 0, 0.4)), track=0.3)
+        w = 220 * eo(ramp(ut, 0.1, 0.9))
+        F.line((540 - w, 545), (540 + w, 545), GOLD, a5 * 0.7, 2, glow=0.8)
+        lines = STORY['final_msg']
+        for q, ln in enumerate(lines):
+            F.text_chars(ln, 540, 680 + q * 100, 56, 'serif_black', INK if q < 2 else GOLD_L, a5, t0=T_TRUTH + 0.3 + q * 1.6, stag=0.045, dur=0.5)
+        tk = B(232)                                        # 185.72：最后一句金句
+        ia = a5 * eo(ramp(t, tk, tk + 0.35))
+        if ia > 0:
+            uu = t - tk
+            F.blob((540, 1150), 360, GOLD_D, 0.18 * ia)
+            F.text3d('独立思考', 540, 1100, 120 * pop(t, tk, 0.25), 'serif_black', face=GOLD_GRAD, a=ia, glow=0.6, spec=ramp(uu, 0.3, 1.8), track=0.06)
+            F.text3d('在狂热中保持理性', 540, 1250, 76, 'serif_black', face=GOLD_GRAD, a=a5 * eo(ramp(uu, 0.5, 0.9)), glow=0.5,
+                     spec=ramp(uu, 0.9, 2.4))
+            if uu < 0.9:
+                F.circle((540, 1160), 120 + 900 * eo(uu / 0.9), GOLD, ia * (1 - uu / 0.9), 4, glow=1.4)
+                F.shake = (math.sin(uu * 80) * 6 * math.exp(-uu / 0.12), 0.0)
+        F.text('数据：Yahoo Finance、腾讯证券、东方财富、中证指数；回测脚本与明细见项目目录', 540, 1840, 19, 'sans_reg', FAINT, a5 * eo(ramp(ut, 2, 3)))
 
 
-# ================================================================ end card（品牌片尾，参考 love_video/render.py）
-LOGO_PX = 300
+# ================================================================ end card（品牌片尾，参考诺贝尔经济学奖视频的片尾）
+LOGO_PX = 220
 LOGO_RGB, LOGO_A = load_logo(LOGO_PX)          # 官方 logo（brand/logo_baman.png）
-LOGO_Y = 700
-N_LP = 9000
+LOGO_Y = 760
+N_LP = 6000
 _LP = None
 
 
 def _logo_particles():
-    """起点 = 上一幕画面里的文字/图形像素（画面元素本身化作粒子），终点 = 官方 logo 透明通道采样"""
+    """起点 = 上一幕金句「独立思考 / 在狂热中保持理性」的字形像素（金句化作金粒子），终点 = 官方 logo 透明通道采样"""
     rng = np.random.default_rng(42)
     ys, xs = np.where(LOGO_A > 0.4)
     w = LOGO_A[ys, xs].astype(np.float64)
@@ -755,17 +944,12 @@ def _logo_particles():
     tx = xs[k] + rng.random(N_LP) - 0.5 + (540 - LOGO_PX / 2)
     ty = ys[k] + rng.random(N_LP) - 0.5 + (LOGO_Y - LOGO_PX / 2)
     col = LOGO_RGB[ys[k], xs[k]]
-    # 上一幕（投资启示）最后一帧的亮像素
-    G = Frame(T_END, np.zeros((H, W, 3), np.float32))
-    sc_value(G, T_END - 0.01)
-    lum = G.img.max(2)
-    sy, sx = np.where(lum > 0.35)
-    j = rng.choice(len(sx), N_LP, replace=len(sx) < N_LP)
-    sx, sy = sx[j] + rng.random(N_LP) - 0.5, sy[j] + rng.random(N_LP) - 0.5
-    scol = np.clip(G.img[sy.astype(int), sx.astype(int)], 0, 1)
-    delay = rng.uniform(0, 0.5, N_LP)
-    drift = rng.normal(0, 1, (N_LP, 2))
-    return tx, ty, sx, sy, col, scol, delay, drift
+    n1 = N_LP * 3 // 5
+    x1, y1, v1 = _text_particles('独立思考', 'serif_black', 120, 540, 1100, n1, 1)
+    x2, y2, v2 = _text_particles('在狂热中保持理性', 'serif_black', 76, 540, 1250, N_LP - n1, 2)
+    sx, sy = np.r_[x1, x2], np.r_[y1, y2]
+    scol = _gold_at(np.r_[v1, v2])
+    return tx, ty, sx, sy, col, scol, rng.uniform(0, 0.5, N_LP), rng.normal(0, 1, (N_LP, 2))
 
 
 def sc_end(F, t):
@@ -774,101 +958,143 @@ def sc_end(F, t):
         _LP = _logo_particles()
     tx, ty, sx, sy, col, scol, delay, drift = _LP
     u = t - T_END
-    a = ramp(t, T_END - 0.2, T_END + 0.5)
-    F.darken(np.ones((H, W), np.float32), 0, 0, 0.55 * a)
-    # 1) 画面元素化作粒子，旋转汇聚成官方 logo
+    # 顶部聚光
+    BGR.beams(F, t, (0.55, 0.7, 1.0), a=0.7 * ramp(u, 0, 1.5), n=3, spread=0.25, seed=11)
+    # 1) 金句化作粒子，旋转汇聚成官方 logo
     dur = T_LOGO - T_END
     p = np.clip((u - delay) / (dur - 0.55), 0, 1)
     e = p * p * (3 - 2 * p)
-    def pos(e):
-        sw = (1 - e) * 1.4
-        cxp, cyp = sx - 540, sy - LOGO_Y
-        rx = cxp * np.cos(sw) - cyp * np.sin(sw); ry = cxp * np.sin(sw) + cyp * np.cos(sw)
-        return 540 + rx * (1 - e) + (tx - 540) * e, LOGO_Y + ry * (1 - e) + (ty - LOGO_Y) * e
-    x, y = pos(e)
-    # logo 出现后，粒子慢慢化作四散的微尘
-    k = eo(ramp(t, T_LOGO + 0.3, T_LOGO + 3.0))
-    x = x + drift[:, 0] * 160 * k; y = y + drift[:, 1] * 160 * k
-    pa = ramp(u, 0, 0.25) * (1 - 0.7 * ramp(t, T_LOGO - 0.1, T_LOGO + 0.4)) * (1 - ramp(t, T_LOGO + 2.0, T_FADE))
+    sw = np.sin(np.pi * e) * 1.4                          # 起止都不旋转：粒子从金句原位出发，精确落到 logo 上
+    cxp, cyp = sx - 540, sy - LOGO_Y
+    rx = cxp * np.cos(sw) - cyp * np.sin(sw); ry = cxp * np.sin(sw) + cyp * np.cos(sw)
+    x = 540 + rx * (1 - e) + (tx - 540) * e; y = LOGO_Y + ry * (1 - e) + (ty - LOGO_Y) * e
+    k = eo(ramp(t, T_LOGO + 0.2, T_LOGO + 2.5))
+    x = x + drift[:, 0] * 140 * k; y = y + drift[:, 1] * 140 * k
+    pa = ramp(u, 0, 0.3) * (1 - 0.8 * ramp(t, T_LOGO - 0.1, T_LOGO + 0.4)) * (1 - ramp(t, T_LOGO + 1.5, T_FADE))
     if pa > 0:
         c = scol * (1 - e[:, None]) + col * e[:, None]
-        for kk, wgt in enumerate((1.0, 0.5, 0.25)):
-            if kk:
-                p2 = np.clip((u - kk * 0.035 - delay) / (dur - 0.55), 0, 1); xx, yy = pos(p2 * p2 * (3 - 2 * p2))
-                xx = xx + drift[:, 0] * 160 * k; yy = yy + drift[:, 1] * 160 * k
-            else:
-                xx, yy = x, y
-            ok = (xx >= 0) & (xx < W - 1) & (yy >= 0) & (yy < H - 1)
-            dens = (0.6 - 0.32 * e[ok, None]) * pa * wgt
-            for ox, oy in ((0, 0), (1, 0), (0, 1), (1, 1)):
-                idx = ((yy[ok] + oy).astype(int), (xx[ok] + ox).astype(int))
-                np.add.at(F.img, idx, c[ok] * dens)
-                np.add.at(F.glow, idx, c[ok] * dens * 1.2)
-    # 2) 清晰的官方 logo 居中浮现
-    la = eo(ramp(t, T_LOGO - 0.12, T_LOGO + 0.6))
+        splat(F, x, y, c, (1.0 - 0.45 * e) * pa)
+    # 2) 官方 logo：由虚到实浮现
+    la = eo(ramp(t, T_LOGO - 0.15, T_LOGO + 0.6))
     if la > 0:
-        sc = 1 + 0.05 * (1 - eo(ramp(t, T_LOGO - 0.12, T_LOGO + 1.4)))
+        sc = 1 + 0.05 * (1 - eo(ramp(t, T_LOGO - 0.15, T_LOGO + 1.4)))
         px = int(LOGO_PX * sc)
         rgb, al = load_logo(px) if px != LOGO_PX else (LOGO_RGB, LOGO_A)
-        F.blob((540, LOGO_Y), 110, (110 / 255, 175 / 255, 1.0), 0.12 * la)       # 很淡的蓝色光晕（品牌规范）
+        bl = (1 - eo(ramp(t, T_LOGO - 0.15, T_LOGO + 0.5))) * 12
+        if bl > 0.5:
+            al = cv2.GaussianBlur(al, (0, 0), bl)
+        F.blob((540, LOGO_Y), 120, (110 / 255, 175 / 255, 1.0), 0.14 * la)     # 很淡的蓝色光晕（品牌规范）
         F.over(al, 540 - px // 2, LOGO_Y - px // 2, rgb, la)
         if t > T_LOGO:
             uu = t - T_LOGO
-            F.circle((540, LOGO_Y), 170 + 420 * eo(uu / 1.4), (110 / 255, 175 / 255, 1.0), la * (1 - ramp(uu, 0, 1.4)) * 0.7, 3, glow=1.0)
-            F.flash = 0.16 * math.exp(-uu / 0.1)
-    # 3) 金色「巴芒价值」：重拍上自左向右擦出，随后流光扫过；两侧细金线向外延伸
+            F.circle((540, LOGO_Y), 130 + 380 * eo(uu / 1.4), (110 / 255, 175 / 255, 1.0), la * (1 - ramp(uu, 0, 1.4)) * 0.7, 3, glow=1.0)
+            F.flash = max(F.flash, 0.14 * math.exp(-uu / 0.1))
+    # 3) 金色「巴芒价值」：重拍上擦出，流光扫过；两侧细金线
     if t >= T_GOLD - 0.02:
         w = eo(ramp(t, T_GOLD, T_GOLD + 0.8))
         sp = ramp(t, T_GOLD + 0.9, T_GOLD + 2.3)
-        tw = F.text('巴芒价值', 540, 980, 132, 'serif_black', a=1.0, grad=GOLD_GRAD, glow=0.35, wipe=w, shine=sp,
-                    shadow=0.5, track=0.06)
-        hw = tw / 2 + 40
-        ln = 150 * eo(ramp(t, T_GOLD + 0.3, T_GOLD + 1.3))
+        tw = F.text('巴芒价值', 540, 1010, 124, 'serif_black', a=1.0, grad=GOLD_GRAD, glow=0.35, wipe=w, shine=sp, shadow=0.5, track=0.06)
+        hw = tw / 2 + 36
+        ln = 120 * eo(ramp(t, T_GOLD + 0.3, T_GOLD + 1.3))
         for sg in (-1, 1):
-            F.line((540 + sg * hw, 978), (540 + sg * (hw + ln), 978), SUBGOLD, 0.8, 2, glow=0.4)
-        # BUFFETT · MUNGER：两端对齐到与「巴芒价值」等宽
+            F.line((540 + sg * hw, 1008), (540 + sg * (hw + ln), 1008), SUBGOLD, 0.8, 2, glow=0.4)
         ws = eo(ramp(t, T_SUB, T_SUB + 0.8))
         sub = 'BUFFETT · MUNGER'
-        fs = 34
+        fs = 32
         f = font('corm', fs)
         nat = sum(f.getlength(ch) for ch in sub)
         tr = (tw - nat) / (len(sub) - 1)
         xc = 540 - tw / 2
-        for i, ch in enumerate(sub):
-            cw = f.getlength(ch)
+        for ch in sub:
             ca = cl((ws * (tw + 120) - (xc - (540 - tw / 2))) / 120)
-            F.text(ch, xc, 1082, fs, 'corm', SUBGOLD, ca, anchor='l')
-            xc += cw + tr
-    # 4) 细金线引出金色关注语
-    la2 = ramp(t, T_FOLLOW, T_FOLLOW + 0.7)
+            F.text(ch, xc, 1108, fs, 'corm', SUBGOLD, ca, anchor='l')
+            xc += f.getlength(ch) + tr
+    # 4) 细金线 + 一行金色关注语
+    la2 = ramp(t, T_FOLLOW, T_FOLLOW + 0.6)
     if la2 > 0:
-        w = 300 * eo(la2)
-        F.line((540 - w, 1170), (540 + w, 1170), GOLD, 0.8, 2, glow=0.8)
-        for sg in (-1, 1):
-            F.blob((540 + sg * w, 1170), 8, GOLD, 0.8 * (1 - la2))
-        F.text('关注「巴芒价值」', 540, 1255, 46, 'serif_black', a=1.0, grad=GOLD_GRAD, glow=0.3,
-               wipe=eo(ramp(t, T_FOLLOW + 0.3, T_FOLLOW + 1.0)))
-        F.text('传承大师智慧，领悟投资真谛', 540, 1335, 38, 'serif', a=1.0, grad=GOLD_GRAD, glow=0.2,
-               wipe=eo(ramp(t, T_FOLLOW + 0.7, T_FOLLOW + 1.5)))
+        w = 60 * eo(la2)
+        F.line((540 - w, 1190), (540 + w, 1190), GOLD, 0.85, 2, glow=0.8)
+        parts = [('关注', SUBGOLD), ('「巴芒价值」', GOLD_GRAD), ('，传承大师智慧，领悟投资真谛', SUBGOLD)]
+        two_tone(F, parts, 540, 1262, 38, 'serif_med', T_FOLLOW + 0.25, 1.0, stag=0.03, glow=0.15)
 
 
 # ================================================================ frame
-SCENES = [(0, T_TITLE + 0.1, sc_hook), (T_TITLE - 0.05, T_RULES + 0.5, sc_title), (T_RULES, year_t0(0) + 0.4, sc_rules),
-          (year_t0(0) - 0.3, T_RACE_END + 0.7, sc_race), (T_FINAL - 0.3, T_BREAK + 0.5, sc_final),
-          (T_BREAK - 0.1, T_WHY + 0.1, sc_break), (T_WHY - 0.1, T_STATEMENT + 0.2, sc_why),
-          (T_STATEMENT - 0.1, T_VALUE + 0.3, sc_statement), (T_VALUE - 0.1, T_END + 0.8, sc_value), (T_END - 0.2, T_TOTAL + 1, sc_end)]
+SCENES = [(0, T_TITLE + 0.1, sc_hook), (T_TITLE - 0.05, T_RULES + 0.1, sc_title), (T_RULES, year_t0(0) + 0.1, sc_rules),
+          (year_t0(0) - 0.1, T_RACE_END + 0.3, sc_race), (T_FINAL, T_BREAK + 0.5, sc_final),
+          (T_BREAK - 0.1, T_WHY + 0.1, sc_break), (T_WHY - 0.1, T_INSIGHT + 0.1, sc_why),
+          (T_INSIGHT - 0.1, T_VALUE + 0.05, sc_insight), (T_VALUE - 0.1, T_END + 0.5, sc_value), (T_END - 0.1, T_TOTAL + 1, sc_end)]
+
+
+# 每段的星云配色（关键帧之间平滑过渡）
+CRIMSON, MAGENTA, TEAL, AMBER = hexc('#C2185B'), hexc('#B5179E'), hexc('#00B3A4'), hexc('#E08A1E')
+PALETTE = [(0, VIOLET, CRIMSON), (T_TITLE, GOLD_D, CRIMSON), (T_RULES, US2, TEAL), (year_t0(0), US2, CN2), (T_BREAK, VIOLET, US2),
+           (T_WHY, TEAL, MAGENTA), (T_INSIGHT, GOLD_D, AMBER), (T_VALUE, AMBER, US2), (T_BUFFETT, GOLD_D, MAGENTA),
+           (T_MUNGER, AMBER, CRIMSON), (T_PRIN, GOLD_D, TEAL), (T_TRUTH, GOLD, AMBER), (T_END, US2, VIOLET)]
 
 
 def bg_colors(t):
-    if t < T_TITLE: return US2, (0.25, 0.1, 0.35)
-    return US2, CN2
+    k = max(i for i, p in enumerate(PALETTE) if p[0] <= t + 1e-6)
+    _, a1, a2 = PALETTE[k]
+    if k:
+        x = eio(ramp(t, PALETTE[k][0] - 0.1, PALETTE[k][0] + 0.9))
+        a1, a2 = lerpc(PALETTE[k - 1][1], a1, x), lerpc(PALETTE[k - 1][2], a2, x)
+    return a1, a2
+
+
+def scene_fx(F, t):
+    """全片的炫光层：粒子地面 / 体积光 / 金尘 / 转场光晕（各段配色不同）"""
+    H0 = HOOK[1]
+    if t < T_TITLE:
+        BGR.field(F, t, GOLD, CN, a=0.9 * (1 - 0.6 * (H0 <= t < HOOK[2])), horizon=1330 if H0 <= t < HOOK[2] else 1420)
+        BGR.beams(F, t, GOLD_D, a=0.35)
+        BGR.dust(F, t, GOLD, a=0.8)
+    elif t < T_RULES:
+        u = t - T_TITLE
+        BGR.beams(F, t, GOLD, a=0.4 + 0.8 * math.exp(-u / 1.2), n=6)
+        BGR.field(F, t, GOLD, CN2, a=0.9, horizon=1420, speed=1.0)
+        BGR.dust(F, t, GOLD, a=1.0, rise=40)
+    elif t < year_t0(0):
+        BGR.field(F, t, US, TEAL, a=0.6, horizon=1650)
+        BGR.dust(F, t, US, a=0.5)
+    elif t < T_FINAL:
+        BGR.dust(F, t, (0.7, 0.85, 1.0), a=0.45)
+    elif t < T_BREAK:
+        BGR.beams(F, t, US2, a=0.45, n=4, seed=4)
+        BGR.dust(F, t, (0.7, 0.85, 1.0), a=0.5)
+    elif t < T_WHY:
+        BGR.beams(F, t, VIOLET, a=0.4 * ramp(t, T_BREAK, T_BREAK + 1.5), n=4)
+    elif t < T_INSIGHT:
+        BGR.beams(F, t, TEAL, a=0.35, n=4, seed=6)
+        BGR.field(F, t, TEAL, MAGENTA, a=0.45, horizon=1800, speed=0.4)
+        BGR.dust(F, t, (0.6, 1.0, 0.95), a=0.45)
+    elif t < T_VALUE:
+        u = t - T_INSIGHT
+        BGR.beams(F, t, GOLD, a=ramp(u, 0.3, 2.5) * 1.1, n=6, seed=5)
+        BGR.field(F, t, GOLD, AMBER, a=ramp(u, 0, 2.0), horizon=1450, speed=0.5 + 6 * ramp(t, T_VALUE - 0.6, T_VALUE))
+        BGR.dust(F, t, GOLD, a=ramp(u, 0, 1.5), rise=25 + 120 * ramp(t, T_VALUE - 0.6, T_VALUE))
+    elif t < T_END:
+        hi = t >= T_BUFFETT
+        BGR.field(F, t, GOLD, US if not hi else AMBER, a=0.5 if t < T_BUFFETT else 0.85, horizon=1620 if t < T_BUFFETT else 1500,
+                  speed=0.6 + 0.8 * (t >= T_TRUTH))
+        if hi:
+            BGR.beams(F, t, GOLD, a=0.6 + 0.6 * (t >= T_TRUTH) * math.exp(-max(t - T_TRUTH, 0) / 4), n=5, seed=8)
+        BGR.dust(F, t, GOLD, a=0.9, rise=30 + 20 * (t >= T_TRUTH))
+    else:
+        BGR.dust(F, t, (0.85, 0.8, 0.6), a=0.6 * (1 - ramp(t, T_FOLLOW, T_FADE)))
+    # 转场光晕：章节切换的重拍上扫过一道横向光
+    for tb, y, col in [(T_TITLE, 860, GOLD), (T_RULES, 300, GOLD), (year_t0(0), 190, US), (T_FINAL, 250, GOLD), (T_WHY, 300, TEAL),
+                       (T_VALUE, 900, GOLD), (T_BUFFETT, 900, GOLD), (T_MUNGER, 430, GOLD), (T_PRIN, 1000, GOLD), (T_TRUTH, 545, GOLD)]:
+        u = t - tb
+        if -0.05 < u < 0.7:
+            BGR.flare(F, y, col, a=math.exp(-max(u, 0) / 0.22) * 0.9, length=0.4 + 0.8 * eo(cl(u / 0.4)))
 
 
 def render(t, idx=0):
     c1, c2 = bg_colors(t)
-    base = BGR.nebula(t, c1, c2, amt=1.0)
+    base = BGR.nebula(t, c1, c2, amt=1.5)
     F = Frame(t, base)
     BGR.stars(F, t, speed=0.015, a=0.8, warp=max(0.0, 1 - abs(t - T_TITLE) / 0.6) * 1.5)
+    scene_fx(F, t)
     for a, b, fn in SCENES:
         if a <= t < b:
             fn(F, t)
