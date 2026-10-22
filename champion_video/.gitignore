@@ -1,0 +1,5 @@
+fonts/
+work/
+__pycache__/
+backtest/cache
+backtest/cn_run.log
