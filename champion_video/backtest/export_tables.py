@@ -18,7 +18,7 @@ def cagr(m):
 
 rows = []
 for mk, res, bench, uni, cur in [('美股', us['main'], us['bench'], '标普500 当年年末成分股（含后来退市）', '$'),
-                                  ('A股', cn['main'], cn['bench'], '沪深全部A股（含退市，剔除当年新股）', '¥')]:
+                                  ('A股', cn['main'], cn['bench'], '沪深全部A股（含退市，剔除次新股：选股年及上一年上市的股票）', '¥')]:
     for r, b in zip(res, bench):
         p = r['picks'][0]
         code = p['sym'] if mk == '美股' else p['sym'][2:]
@@ -71,7 +71,7 @@ md = f"""# 十年回测结果（2016—2025 投资年度）
 
 {table('美股')}
 
-## A股逐年明细（沪深全部 A 股，含已退市，剔除当年新股）
+## A股逐年明细（沪深全部 A 股，含已退市，剔除次新股）
 
 {table('A股')}
 
@@ -84,6 +84,7 @@ md = f"""# 十年回测结果（2016—2025 投资年度）
 {var_line('美股 · 前 5 名等权', us['top5'])}
 {var_line('美股 · 前 10 名等权', us['top10'])}
 {var_line('A股 · 主口径', cn['main'])}
+{var_line('A股 · 保留次新股（只剔除当年新股，v1–v5 视频口径）', cn['incl_sub'])}
 {var_line('A股 · 包含当年新股（新股涨幅按发行价计）', cn['with_ipo'])}
 {var_line('A股 · 理想化：必能成交、零成本', cn['ideal'])}
 {var_line('A股 · 前 5 名等权', cn['top5'])}

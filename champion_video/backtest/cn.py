@@ -8,8 +8,9 @@
   不计入复权（腾讯后复权会把它当成送股，造成虚假涨幅）。
 
 主口径（A1）
-- 选股池：沪深两市全部 A 股（主板、原中小板、创业板、科创板），含此后退市的股票；
-  剔除选股年 Y 当年才上市的新股（没有完整年度涨幅）。北交所不在范围内。
+- 选股池：沪深两市全部 A 股（主板、原中小板、创业板、科创板），含此后退市的股票；北交所不在范围内。
+  剔除次新股：选股年 Y 当年和上一年（Y−1）上市的股票都不参与排名（以东方财富发行资料的上市日期为准），
+  保证每只候选股在选股年之前至少有一个完整年度的交易历史。
 - 涨幅：Y 年全年总回报（上一年最后收盘 → 当年最后收盘，含分红送转），取第一名。
 - 买入：Y+1 年第一个交易日开盘价；若当天停牌或「一字涨停」（全天最高 = 最低且涨幅 ≥ 4.8%，
   覆盖 ST 5% / 主板 10% / 创业板科创板 20%），顺延到第一个能成交的交易日开盘买入，期间资金闲置。
@@ -17,6 +18,7 @@
   持有期内退市：按最后成交价清算。
 - 成本：佣金 0.025%×2 + 滑点 0.10%×2 + 卖出印花税（2023-08-28 前 0.1%，之后 0.05%）。
 对照口径
+- incl_sub：只剔除当年新股、保留次新股（v1–v5 视频使用的口径）。
 - A2：包含当年新股，新股涨幅按「发行价 → 年末收盘」计算（媒体年度涨幅榜常见口径）。
 - A3：理想化 —— 假设第一个交易日开盘必能买到、年末收盘必能卖出，不计成本。
 - Top5 / Top10 等权；基准：沪深 300 全收益指数 H00300（中证指数公司，含分红再投资）。
@@ -108,10 +110,12 @@ def approx_year_return(df, y):
     return a, b
 
 
-def rank_year(M, y, include_ipo=False, exact_top=30):
+def rank_year(M, y, include_ipo=False, exact_top=30, exclude_sub=True):
     e0, e1 = pd.Timestamp(f'{y - 1}-12-31'), pd.Timestamp(f'{y}-12-31')
     cand = []
     for s, df in M.items():
+        if exclude_sub and not include_ipo and listing_year(s) is not None and listing_year(s) >= y - 1:
+            continue                  # 剔除次新股：选股年及上一年上市的股票（上市不满一个完整年度）
         b = df[(df.index > e0) & (df.index <= e1)]
         if len(b) == 0:
             continue
@@ -144,6 +148,11 @@ def rank_year(M, y, include_ipo=False, exact_top=30):
     rows.sort(key=lambda x: -x[1])
     assert rows[0][1] > cand[exact_top][0] * 0.98 + 0.0, ('need larger exact_top', y)
     return rows, len(cand)
+
+
+def listing_year(sym):
+    ipo = IPO.get(sym[2:])
+    return int(ipo['LISTING_DATE'][:4]) if ipo and ipo.get('LISTING_DATE') else None
 
 
 def locked(row, prev_close, up=True):
@@ -206,10 +215,10 @@ def calendar():
 TRADING_DAYS = None
 
 
-def run(M, include_ipo=False, topn=1, realistic=True, years=range(2016, 2026)):
+def run(M, include_ipo=False, topn=1, realistic=True, years=range(2016, 2026), exclude_sub=True):
     cap, out = 1.0, []
     for y in years:
-        rows, n = rank_year(M, y - 1, include_ipo)
+        rows, n = rank_year(M, y - 1, include_ipo, exclude_sub=exclude_sub)
         picks, hs, i = [], [], 0
         while len(picks) < topn:
             s, r, kind, _ = rows[i]; i += 1
@@ -255,7 +264,7 @@ if __name__ == '__main__':
     M = all_month()
     print('stocks loaded', len(M))
     res = {}
-    variants = [('main', {}), ('ideal', dict(realistic=False)), ('with_ipo', dict(include_ipo=True)),
+    variants = [('main', {}), ('ideal', dict(realistic=False)), ('incl_sub', dict(exclude_sub=False)), ('with_ipo', dict(include_ipo=True)),
                 ('top5', dict(topn=5)), ('top10', dict(topn=10))]
     for name, kw in variants:
         o, c = run(M, **kw)

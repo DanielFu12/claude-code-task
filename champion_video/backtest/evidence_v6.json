@@ -1,0 +1,361 @@
+{
+ "next_year": {
+  "us_beat": 9,
+  "cn_beat": 2,
+  "us_loss": 1,
+  "cn_loss": 7,
+  "us_worst": -0.03209277894087059,
+  "cn_worst": -0.6007484176634017,
+  "cn_big_loss": 6
+ },
+ "profit": [
+  {
+   "mk": "us",
+   "year": 2016,
+   "sym": "NFLX",
+   "name": "Netflix, Inc.",
+   "np_champ": 122641000,
+   "np_hold": 186678000,
+   "np_after": 558929000,
+   "growth": 0.5221500150846781,
+   "turn": false,
+   "loss": false,
+   "pe_change": -0.2553234362085173,
+   "ret": 0.1335094428084116
+  },
+  {
+   "mk": "us",
+   "year": 2017,
+   "sym": "NVDA",
+   "name": "NVIDIA Corporation",
+   "np_champ": 1666000000,
+   "np_hold": 3047000000,
+   "np_after": 4141000000,
+   "growth": 0.8289315726290516,
+   "turn": false,
+   "loss": false,
+   "pe_change": 0.015318999543243006,
+   "ret": 0.8569489745547789
+  },
+  {
+   "mk": "us",
+   "year": 2018,
+   "sym": "NRG",
+   "name": "NRG Energy, Inc.",
+   "np_champ": -2153000000,
+   "np_hold": 268000000,
+   "np_after": 4438000000,
+   "growth": null,
+   "turn": true,
+   "loss": false,
+   "pe_change": null,
+   "ret": 0.388716603393122
+  },
+  {
+   "mk": "us",
+   "year": 2019,
+   "sym": "AMD",
+   "name": "Advanced Micro Devices, Inc.",
+   "np_champ": 337000000,
+   "np_hold": 341000000,
+   "np_after": 2490000000,
+   "growth": 0.011869436201780381,
+   "turn": false,
+   "loss": false,
+   "pe_change": 1.5114632998091393,
+   "ret": 1.5412729532193366
+  },
+  {
+   "mk": "us",
+   "year": 2020,
+   "sym": "AMD",
+   "name": "Advanced Micro Devices, Inc.",
+   "np_champ": 341000000,
+   "np_hold": 2490000000,
+   "np_after": 3162000000,
+   "growth": 6.302052785923753,
+   "turn": false,
+   "loss": false,
+   "pe_change": -0.7325143995956406,
+   "ret": 0.9531939736271404
+  },
+  {
+   "mk": "us",
+   "year": 2021,
+   "sym": "TSLA",
+   "name": "Tesla, Inc.",
+   "np_champ": 721000000,
+   "np_hold": 5519000000,
+   "np_after": 12556000000,
+   "growth": 6.654646324549237,
+   "turn": false,
+   "loss": false,
+   "pe_change": -0.8084933858444425,
+   "ret": 0.4659154001727064
+  },
+  {
+   "mk": "us",
+   "year": 2022,
+   "sym": "DVN",
+   "name": "Devon Energy Corporation",
+   "np_champ": 2813000000,
+   "np_hold": 6015000000,
+   "np_after": 3747000000,
+   "growth": 1.1382865268396731,
+   "turn": false,
+   "loss": false,
+   "pe_change": -0.2973088882546814,
+   "ret": 0.502554936775006
+  },
+  {
+   "mk": "us",
+   "year": 2023,
+   "sym": "OXY",
+   "name": "Occidental Petroleum Corporation",
+   "np_champ": 13304000000,
+   "np_hold": 4696000000,
+   "np_after": null,
+   "growth": -0.6470234515935057,
+   "turn": false,
+   "loss": false,
+   "pe_change": 1.742128975504825,
+   "ret": -0.03209277894087059
+  },
+  {
+   "mk": "us",
+   "year": 2024,
+   "sym": "NVDA",
+   "name": "NVIDIA Corporation",
+   "np_champ": 29760000000,
+   "np_hold": 72880000000,
+   "np_after": 120067000000,
+   "growth": 1.4489247311827955,
+   "turn": false,
+   "loss": false,
+   "pe_change": 0.11165236300293424,
+   "ret": 1.72235296423568
+  },
+  {
+   "mk": "us",
+   "year": 2025,
+   "sym": "PLTR",
+   "name": "Palantir Technologies Inc.",
+   "np_champ": 462190000,
+   "np_hold": 1625033000,
+   "np_after": null,
+   "growth": 2.5159414959215907,
+   "turn": false,
+   "loss": false,
+   "pe_change": -0.3378688924043233,
+   "ret": 1.3280142369361632
+  },
+  {
+   "mk": "cn",
+   "year": 2016,
+   "sym": "000025",
+   "name": "特力A",
+   "np_champ": 42768789.52,
+   "np_hold": 27193562.63,
+   "np_after": 66862772.68,
+   "growth": -0.36417273120897076,
+   "turn": false,
+   "loss": false,
+   "pe_change": 0.03244489905624115,
+   "ret": -0.34354337965584025
+  },
+  {
+   "mk": "cn",
+   "year": 2017,
+   "sym": "000935",
+   "name": "四川双马",
+   "np_champ": 84538922.11,
+   "np_hold": 203665683,
+   "np_after": 695658081.73,
+   "growth": 1.4091350814125017,
+   "turn": false,
+   "loss": false,
+   "pe_change": -0.7621918809648223,
+   "ret": -0.42708811778763334
+  },
+  {
+   "mk": "cn",
+   "year": 2018,
+   "sym": "300176",
+   "name": "鸿特科技",
+   "np_champ": 491155186.58,
+   "np_hold": 369645279.23,
+   "np_after": -428499237.61,
+   "growth": -0.24739616046018942,
+   "turn": false,
+   "loss": false,
+   "pe_change": 0.4028824500566448,
+   "ret": 0.05581471833564744
+  },
+  {
+   "mk": "cn",
+   "year": 2019,
+   "sym": "300253",
+   "name": "卫宁健康",
+   "np_champ": 303305204.12,
+   "np_hold": 398420733.04,
+   "np_after": 491097996.59,
+   "growth": 0.313596758736683,
+   "turn": false,
+   "loss": false,
+   "pe_change": -0.08667066855528116,
+   "ret": 0.19974644944492437
+  },
+  {
+   "mk": "cn",
+   "year": 2020,
+   "sym": "300552",
+   "name": "万集科技",
+   "np_champ": 871546755.73,
+   "np_hold": 602932742.6,
+   "np_after": 42588141.22,
+   "growth": -0.30820378982996866,
+   "turn": false,
+   "loss": false,
+   "pe_change": 0.40731252689554953,
+   "ret": -0.02642652736884854
+  },
+  {
+   "mk": "cn",
+   "year": 2021,
+   "sym": "300677",
+   "name": "英科医疗",
+   "np_champ": 7007048194,
+   "np_hold": 7430075719,
+   "np_after": 629070097,
+   "growth": 0.06037171620458248,
+   "turn": false,
+   "loss": false,
+   "pe_change": -0.5073271922058106,
+   "ret": -0.47758368927194494
+  },
+  {
+   "mk": "cn",
+   "year": 2022,
+   "sym": "000422",
+   "name": "湖北宜化",
+   "np_champ": 1569026236.42,
+   "np_hold": 2164385796.11,
+   "np_after": 452140282.27,
+   "growth": 0.37944525456018763,
+   "turn": false,
+   "loss": false,
+   "pe_change": -0.5034385979078386,
+   "ret": -0.3150207302862147
+  },
+  {
+   "mk": "cn",
+   "year": 2023,
+   "sym": "002868",
+   "name": "绿康生化",
+   "np_champ": -121938109.79,
+   "np_hold": -221817878.58,
+   "np_after": -444864018.29,
+   "growth": null,
+   "turn": false,
+   "loss": true,
+   "pe_change": null,
+   "ret": -0.6007484176634017
+  },
+  {
+   "mk": "cn",
+   "year": 2024,
+   "sym": "603178",
+   "name": "圣龙股份",
+   "np_champ": 53347610.73,
+   "np_hold": 29752176.72,
+   "np_after": -211407669.92,
+   "growth": -0.4422959845272155,
+   "turn": false,
+   "loss": false,
+   "pe_change": -0.25233676528138027,
+   "ret": -0.5830252117760548
+  },
+  {
+   "mk": "cn",
+   "year": 2025,
+   "sym": "688256",
+   "name": "寒武纪",
+   "np_champ": -452338791.01,
+   "np_hold": 2059228538.67,
+   "np_after": null,
+   "growth": null,
+   "turn": true,
+   "loss": false,
+   "pe_change": null,
+   "ret": 1.0696257565207659
+  }
+ ],
+ "momentum": {
+  "us_top10": 0.11404459064202095,
+  "cn_top10": -0.08674186198376699,
+  "cn_top10_by_year": [
+   -0.2815352452804811,
+   -0.11585959311233124,
+   -0.012693369890620976,
+   0.15761964881612284,
+   -0.0544517360616385,
+   0.10793628818821971,
+   -0.062489156495708395,
+   -0.28542617939745435,
+   -0.030899097562494073,
+   -0.2896201790412838
+  ]
+ },
+ "in_csi300": [
+  {
+   "year": 2016,
+   "name": "特力A",
+   "member": false
+  },
+  {
+   "year": 2017,
+   "name": "四川双马",
+   "member": false
+  },
+  {
+   "year": 2018,
+   "name": "鸿特科技",
+   "member": false
+  },
+  {
+   "year": 2019,
+   "name": "卫宁健康",
+   "member": false
+  },
+  {
+   "year": 2020,
+   "name": "万集科技",
+   "member": false
+  },
+  {
+   "year": 2021,
+   "name": "英科医疗",
+   "member": false
+  },
+  {
+   "year": 2022,
+   "name": "湖北宜化",
+   "member": false
+  },
+  {
+   "year": 2023,
+   "name": "绿康生化",
+   "member": false
+  },
+  {
+   "year": 2024,
+   "name": "圣龙股份",
+   "member": false
+  },
+  {
+   "year": 2025,
+   "name": "寒武纪",
+   "member": true
+  }
+ ]
+}

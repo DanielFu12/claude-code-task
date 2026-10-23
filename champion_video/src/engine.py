@@ -158,7 +158,7 @@ class Frame:
 
     # ---------------- text
     def text(self, s, x, y, size, fname='sans', col=INK, a=1.0, anchor='m', track=0.0, glow=0.0,
-             grad=None, mode='over', shadow=0.0, scale=1.0, clip=None, wipe=None, shine=None):
+             grad=None, mode='over', shadow=0.0, scale=1.0, clip=None, wipe=None, shine=None, blur=0.0):
         """y 是文字视觉中心（约为 x-height 中部）；anchor: m/l/r。grad=[(pos,col)] 竖向渐变"""
         if a <= 0.002 or not s: return 0
         if scale != 1.0:
@@ -167,6 +167,8 @@ class Frame:
         m, base, pad, w = text_mask(s, fname, size, track)
         x0 = x - w / 2 - pad if anchor == 'm' else (x - pad if anchor == 'l' else x - w - pad)
         y0 = y + size * 0.36 - base
+        if blur > 0.4:         # 由虚到实：标题逐字聚焦
+            m = cv2.GaussianBlur(m, (0, 0), blur)
         if clip is not None:   # clip=(0..1) 从左到右擦除显现
             m = m.copy(); cut = int(pad + w * cl(clip)); m[:, cut:] = 0
         if wipe is not None:   # 柔边擦除（品牌片尾）
@@ -208,7 +210,9 @@ class Frame:
                 q = (self.t - out[0] - i * stag * 0.5) / out[1]
                 ai *= 1 - eio(q); dy -= eio(q) * rise
             if ai > 0.002 and ch.strip():
-                self.text(ch, cx, y + dy, size, fname, col, ai, anchor='l', glow=glow, grad=grad)
+                bl = (1 - eo(p)) * size * 0.16 if blur_in else 0.0
+                sc_ = 1 + (0.18 * (1 - eo(p)) if blur_in else 0.0)
+                self.text(ch, cx - adv * (sc_ - 1) / 2, y + dy, size * sc_, fname, col, ai, anchor='l', glow=glow, grad=grad, blur=bl)
             cx += adv + track * size
 
     def text3d(self, s, x, y, size, fname='num', face=None, side=(0.08, 0.10, 0.16), a=1.0, depth=14,
