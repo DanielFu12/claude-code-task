@@ -808,58 +808,68 @@ def shot_valuation(F, t, u, a):
 
 
 # ---------------------------------------------------------------- 05 差距的真相
-def shot_momentum(F, t, u, a):
+def growth_tag(p):
+    if p['turn']: return '扭亏为盈'
+    g = p['growth']
+    if g is None: return '—'
+    return f'×{1 + g:.1f}' if g >= 1.5 else pct0(g)
+
+
+def shot_us_profit(F, t, u, a):
     d = STORY['why'][4]
-    rich_head(F, SHOT_T0, '追涨龙头，本身【没有错】', a)
-    sub_line(F, SHOT_T0, '上一年涨幅前 10 名，下一年跑赢股票池的幅度（十年平均）', a)
-    zero = 150
-    for j, (lab, v, col) in enumerate([('美股 · 标普500', d['us_top10'], US), ('A股 · 沪深300', d['cn_top10'], CN)]):
-        tk = 0.3 + j * 0.4
-        y = 640 + j * 230
-        q = eo(ramp(u, tk, tk + 0.8)); ba = a * eo(ramp(u, tk, tk + 0.2))
-        L = v * 4200 * q
-        F.text(lab, zero, y - 90, 32, 'sans_black', col, ba, anchor='l')
-        if L > 2:
-            m = np.repeat(np.linspace(0.35, 1, int(L))[None, :], 90, 0).astype(np.float32)
-            F.over(m, zero, y - 45, lerpc(col, WHITE, 0.15), ba * 0.9, glow=0.6)
-            F.line((zero + L, y - 45), (zero + L, y + 45), lerpc(col, WHITE, 0.7), ba, 4, glow=1.5)
-            F.blob((zero + L, y), 80, col, 0.3 * ba)
-        F.text(f'+{v * q * 100:.1f}%', zero + L + 24, y, 64, 'num', a=ba, anchor='l', grad=[(0, lerpc(col, WHITE, 0.5)), (1, col)], glow=0.5)
-    F.text('强者恒强：两个市场都成立', 540, 1110, 36, 'sans_bold', INK, a * eo(ramp(u, 1.4, 1.8)))
-    sa = a * eo(ramp(u, 1.9, 2.3))
-    F.glass(70, 1200, 1010, 1470, 36, sa, tint=GOLD, tint_a=0.10, shadow=0.25, blur=14, spec=ramp(u, 1.9, 3.0))
-    F.text('A股买入前 5 名、各占 1/5：', 540, 1265, 34, 'sans_med', INK, sa)
-    num, unit = fmt_wan(d['cn_top5'])
-    big_stat(F, num, unit, f"是同期沪深300（{fmt_wan(d['cn_bench'])[0]} 万）的 {d['cn_top5'] / d['cn_bench']:.1f} 倍", 1365, GOLD, sa, nsize=100)
+    rich_head(F, SHOT_T0, '美股这只冠军，赢在【利润】', a)
+    sub_line(F, SHOT_T0, f"持有当年的净利润变化：10 年里 {d['us_profit_up']} 年在增长", a)
+    pts = [p for p in STORY['why'][2]['scatter'] if p['mk'] == 'us']
+    for k, p in enumerate(pts):
+        tk = 0.25 + k * 0.18
+        ka = a * eo(ramp(u, tk, tk + 0.3))
+        if ka <= 0: continue
+        col_, row = k // 5, k % 5
+        x0 = 70 + col_ * 480; y = 520 + row * 128
+        up = p['turn'] or (p['growth'] or 0) > 0
+        c = UP if up else DOWN
+        dx = (1 - eo(ramp(u, tk, tk + 0.4))) * 50
+        F.glass(x0 + dx, y - 52, x0 + 460 + dx, y + 52, 30, ka, tint=c, tint_a=0.12, shadow=0.2, blur=10)
+        F.text(str(p['year']), x0 + 28 + dx, y - 16, 22, 'num_reg', DIM, ka, anchor='l')
+        F.text(p['name'], x0 + 28 + dx, y + 18, 32, 'sans_black', INK, ka, anchor='l')
+        tag = growth_tag(p)
+        tw = F.text(tag, x0 + 435 + dx, y, 38, 'num' if not p['turn'] else 'sans_black', lerpc(c, WHITE, 0.2), ka, anchor='r', glow=0.4)
+        if not p['turn']:
+            F.text('利润', x0 + 425 + dx - tw, y + 2, 24, 'sans_med', DIM, ka, anchor='r')
+    fa = a * eo(ramp(u, 2.3, 2.7))
+    F.glass(70, 1190, 1010, 1420, 36, fa, tint=US, tint_a=0.10, shadow=0.25, blur=14, spec=ramp(u, 2.3, 3.4))
+    F.text('也有运气', 540, 1250, 40, 'sans_black', US, fa, glow=0.3)
+    F.text(f"AI 浪潮里 {d['us_big_n']} 笔芯片 / AI 交易，", 540, 1320, 34, 'sans_med', INK, fa)
+    F.text(f"贡献了约 {d['us_big_share'] * 100:.0f}% 的复利", 540, 1372, 34, 'sans_med', INK, fa)
 
 
 def shot_truth(F, t, u, a):
-    d = STORY['why'][4]
-    rich_head(F, SHOT_T0, '真正的差距：只押【一只】', a)
-    sub_line(F, SHOT_T0, '一只股票扛十年，运气和利润缺一不可', a)
-    items = [(US, '美股这只冠军赢了', [f"利润 10 年里 {d['us_profit_up']} 年在增长", f"赶上 AI 浪潮：{d['us_big_n']} 笔芯片 / AI 交易", f"贡献了约 {d['us_big_share'] * 100:.0f}% 的复利"]),
-             (CN, 'A股这只冠军输了', ['四次买在周期顶点或估值高点', '每次腰斩，吃掉几年的盈利', '利润兑现时（中际旭创、寒武纪）同样大涨'])]
-    for j, (col, h, lines) in enumerate(items):
-        tk = 0.3 + j * 0.6
+    rich_head(F, SHOT_T0, '只看涨幅选股，是在【赌】', a)
+    sub_line(F, SHOT_T0, '去年涨了多少，说明不了今年值多少', a)
+    items = [(US, '美股', '同一条规则，赢在利润一路兑现，也赶上了 AI 浪潮'),
+             (CN, 'A股', '同一条规则，四次买在周期顶点或估值高点'),
+             (GOLD, '规则本身', '只看过去的价格，不看企业的价值')]
+    for j, (col, h, ln) in enumerate(items):
+        tk = 0.3 + j * 0.55
         ka = a * eo(ramp(u, tk, tk + 0.35))
-        y0 = 500 + j * 420
-        F.glass(70, y0, 1010, y0 + 360, 36, ka, tint=col, tint_a=0.10, shadow=0.3, blur=14, spec=ramp(u, tk, tk + 1))
-        F.text(h, 120, y0 + 70, 44, 'sans_black', col, ka, anchor='l', glow=0.25)
-        for q, ln in enumerate(lines):
-            la = ka * eo(ramp(u, tk + 0.3 + q * 0.2, tk + 0.6 + q * 0.2))
-            F.circle((136, y0 + 160 + q * 70), 7, col, la, fill=True, glow=1)
-            F.text(ln, 165, y0 + 160 + q * 70, 34, 'sans_med', INK, la, anchor='l')
-    fa = a * eo(ramp(u, 2.4, 2.8))
+        if ka <= 0: continue
+        y0 = 520 + j * 230
+        dx = (1 - eo(ramp(u, tk, tk + 0.45))) * 80
+        F.glass(70 + dx, y0, 1010 + dx, y0 + 190, 36, ka, tint=col, tint_a=0.11, shadow=0.3, blur=14, spec=ramp(u, tk, tk + 1))
+        F.circle((130 + dx, y0 + 62), 9, col, ka, fill=True, glow=1.2)
+        F.text(h, 155 + dx, y0 + 62, 42, 'sans_black', col, ka, anchor='l', glow=0.25)
+        F.text(ln, 130 + dx, y0 + 132, 32, 'sans_med', INK, ka, anchor='l')
+    fa = a * eo(ramp(u, 2.2, 2.6))
     if fa > 0:
-        F.text3d('利润，才是股价长期的发动机', 540, 1450, 60 * pop(F.t, SHOT_T0 + 2.4 * WHY_SLOW, 0.15), 'serif_black', face=GOLD_GRAD, a=fa,
-                 glow=0.5, spec=ramp(u, 2.8, 3.8))
+        F.text3d('利润，才是股价长期的发动机', 540, 1340, 64 * pop(F.t, SHOT_T0 + 2.2 * WHY_SLOW, 0.15), 'serif_black',
+                 face=GOLD_GRAD, a=fa, glow=0.5, spec=ramp(u, 2.6, 3.6))
 
 
 WHY_SHOTS = [(0, lambda F, t, u, a: shot_bars(F, t, u, a, True)), (0, lambda F, t, u, a: shot_bars(F, t, u, a, False)),
              (1, shot_math), (1, shot_ledger),
              (2, shot_formula), (2, shot_scatter),
              (3, shot_cycle), (3, shot_valuation),
-             (4, shot_momentum), (4, shot_truth)]
+             (4, shot_us_profit), (4, shot_truth)]
 CH_NAMES = [w['ch'] for w in STORY['why']]
 
 
