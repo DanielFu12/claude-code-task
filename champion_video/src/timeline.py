@@ -41,10 +41,10 @@ T_BREAK = B(129)                     # 103.32 s 音乐收束 →「为什么差�
 T_WHY = 108.40                       # 全曲最强冲击：原因分析开始
 WHY_T = [T_WHY] + [B(152 + 16 * k) for k in range(5)]     # 六个原因，每个两个乐句（两个 8 拍镜头）
 T_INSIGHT = 185.9                    # 音乐抽空：金色「投资启示」转场
-T_VALUE = 192.40                     # 全曲最强冲击（拼接后）：同一个市场，换一种方法
-T_BUFFETT = B(249)                   # 199.32 巴菲特：价格与价值
-T_MUNGER = B(257)                    # 205.72 芒格：反过来想
-T_PRIN = B(265)                      # 212.12 四个原则
+T_VALUE = 192.40                     # 全曲最强冲击（拼接后）：巴菲特金句直接落在冲击上
+T_BUFFETT = T_VALUE                  # 192.40 巴菲特：价格与价值
+T_MUNGER = B(253)                    # 202.52 芒格：反过来想
+T_PRIN = B(261)                      # 208.92 四个原则
 T_TRUTH = B(272)                     # 217.72 尾段重拍：价值投资的真谛（全片高潮）
 T_END = 228.1                        # 片尾品牌动画
 T_LOGO = B(288)                      # 230.52 logo 清晰浮现（配合 boom）
@@ -96,7 +96,7 @@ _ev(T_VALUE - 4.0, 'riser', d=4.0, strength=0.6)          # 冲向高潮
 _ev(T_VALUE, 'boom', strength=1.0)
 _ev(T_VALUE, 'braam', strength=0.6)
 _ev(T_VALUE, 'subdrop', strength=0.6)
-for t in (T_BUFFETT, T_MUNGER, T_PRIN):
+for t in (T_MUNGER, T_PRIN):
     _ev(t, 'boom', strength=0.65)
 for k in range(4):
     _ev(T_PRIN + 0.8 * k, 'pulse', strength=0.4)           # 四个原则逐拍点亮

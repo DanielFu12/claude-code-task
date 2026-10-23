@@ -952,32 +952,6 @@ def sc_value(F, t):
         F.flash = max(F.flash, 0.45 * math.exp(-u / 0.12))
         if u < 0.6:
             F.zoom = 1 + 0.035 * math.exp(-u / 0.18)
-    # ---- 1) 同一个市场，换一种方法（冲击点）
-    a1 = vwin(t, T_VALUE, T_BUFFETT, 0.15)
-    if a1 > 0:
-        F.text_chars('同一个市场，', 540, 300, 58, 'serif_black', INK, a1, t0=T_VALUE + 0.05, stag=0.04)
-        two_tone(F, [('换一种方法，', INK), ('结果天差地别', GOLD_GRAD)], 540, 385, 58, 'serif_black', T_VALUE + 0.4, a1, stag=0.04, glow=0.25)
-        for j, (lab, col, items) in enumerate(STORY['value_cmp']):
-            y0 = 540 + j * 400
-            F.glass(60, y0 - 50, 1020, y0 + 300, 34, a1 * eo(ramp(t, T_VALUE + 0.5 + j * 0.4, T_VALUE + 0.9 + j * 0.4)), tint=col, tint_a=0.09)
-            F.text(lab, 100, y0 + 5, 40, 'sans_black', col, a1, anchor='l')
-            for k, (name, mult, hl) in enumerate(items):
-                tk = T_VALUE + 0.6 + j * 0.5 + k * 0.2
-                ia = a1 * eo(ramp(t, tk, tk + 0.4))
-                y = y0 + 110 + k * 120
-                F.text(name, 100, y - 36, 28, 'sans_med', INK if hl else GOLD_L, ia, anchor='l')
-                v = math.log10(max(mult, 0.01))
-                zero = 400
-                L = v * 150 * eo(ramp(t, tk, tk + 0.7))
-                cc = (col if hl else GOLD) if v >= 0 else DOWN
-                F.fill([(zero, y - 4), (zero + L, y - 4), (zero + L, y + 34), (zero, y + 34)] if L >= 0 else
-                       [(zero + L, y - 4), (zero, y - 4), (zero, y + 34), (zero + L, y + 34)], cc, ia * 0.85, glow=0.45)
-                F.text(fmt_pct(mult - 1, 0), (zero + L + 18) if L >= 0 else (zero + 18), y + 15, 40, 'num', ret_col(mult - 1), ia, anchor='l', glow=0.3)
-            F.line((400, y0 + 60), (400, y0 + 270), GOLD, a1 * 0.5, 2)
-        ma = a1 * eo(ramp(t, T_VALUE + 2.6, T_VALUE + 3.1))
-        F.text('利润支撑的上涨会延续，情绪推动的上涨终会回落', 540, 1400, 34, 'sans_black', GOLD_L, ma, glow=0.25)
-        F.text('A股同样奖励价值：寒武纪利润兑现的那一年，股价 +107%', 540, 1470, 28, 'sans_reg', INK, ma * eo(ramp(t, T_VALUE + 3.3, T_VALUE + 3.8)))
-        F.text('长期持有沪深300（含分红），十年也有 +56%', 540, 1520, 28, 'sans_reg', INK, ma * eo(ramp(t, T_VALUE + 3.6, T_VALUE + 4.1)))
     # ---- 2) 巴菲特：价格与价值
     a2 = vwin(t, T_BUFFETT, T_MUNGER)
     if a2 > 0:
@@ -1164,7 +1138,7 @@ SCENES = [(0, T_TITLE + 0.1, sc_hook), (T_TITLE - 0.05, T_RULES + 0.1, sc_title)
 # 每段的星云配色（关键帧之间平滑过渡）
 CRIMSON, MAGENTA, TEAL, AMBER = hexc('#C2185B'), hexc('#B5179E'), hexc('#00B3A4'), hexc('#E08A1E')
 PALETTE = [(0, VIOLET, CRIMSON), (T_TITLE, GOLD_D, CRIMSON), (T_RULES, US2, TEAL), (year_t0(0), US2, CN2), (T_BREAK, VIOLET, US2),
-           (T_WHY, GOLD_D, TEAL), (WHY_T[1], VIOLET, TEAL), (WHY_T[2], CRIMSON, MAGENTA), (WHY_T[3], AMBER, CRIMSON), (WHY_T[4], US2, TEAL), (WHY_T[5], MAGENTA, VIOLET), (T_INSIGHT, GOLD_D, AMBER), (T_VALUE, AMBER, US2), (T_BUFFETT, GOLD_D, MAGENTA),
+           (T_WHY, GOLD_D, TEAL), (WHY_T[1], VIOLET, TEAL), (WHY_T[2], CRIMSON, MAGENTA), (WHY_T[3], AMBER, CRIMSON), (WHY_T[4], US2, TEAL), (WHY_T[5], MAGENTA, VIOLET), (T_INSIGHT, GOLD_D, AMBER), (T_VALUE, GOLD_D, MAGENTA),
            (T_MUNGER, AMBER, CRIMSON), (T_PRIN, GOLD_D, TEAL), (T_TRUTH, GOLD, AMBER), (T_END, US2, VIOLET)]
 
 
@@ -1219,7 +1193,7 @@ def scene_fx(F, t):
         BGR.dust(F, t, (0.85, 0.8, 0.6), a=0.6 * (1 - ramp(t, T_FOLLOW, T_FADE)))
     # 转场光晕：章节切换的重拍上扫过一道横向光
     for tb, y, col in [(T_TITLE, 860, GOLD), (T_RULES, 300, GOLD), (year_t0(0), 190, US), (T_FINAL, 250, GOLD), (T_WHY, 305, GOLD), (WHY_T[1], 305, GOLD_L), (WHY_T[2], 305, UP), (WHY_T[3], 305, CN), (WHY_T[4], 305, US), (WHY_T[5], 305, MAGENTA),
-                       (T_VALUE, 900, GOLD), (T_BUFFETT, 900, GOLD), (T_MUNGER, 430, GOLD), (T_PRIN, 1000, GOLD), (T_TRUTH, 545, GOLD)]:
+                       (T_VALUE, 900, GOLD), (T_MUNGER, 430, GOLD), (T_PRIN, 1000, GOLD), (T_TRUTH, 545, GOLD)]:
         u = t - tb
         if -0.05 < u < 0.7:
             BGR.flare(F, y, col, a=math.exp(-max(u, 0) / 0.22) * 0.9, length=0.4 + 0.8 * eo(cl(u / 0.4)))
