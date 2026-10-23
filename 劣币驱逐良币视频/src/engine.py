@@ -168,7 +168,7 @@ class Frame:
     # ------------------------------------------------ text
     def text(self, s, x, y, size, fnt='sans_med', col=WHITE, a=1.0, anchor='m', track=0.0,
              mode='L', glow=0.0, grad=None, t0=None, stag=0.035, dur=0.45, rise=18, out=None,
-             scale_in=0.0, blur_in=False, chars_alpha=None):
+             scale_in=0.0, blur_in=False, chars_alpha=None, kin=False, shine=None):
         """draw a single line. anchor: 'm' centre, 'l' left, 'r' right. y = visual centre.
         mode: 'L' additive crisp, 'E' additive+bloom, 'O' alpha-over (deferred)."""
         if a <= 0.003 or not s: return
@@ -198,7 +198,23 @@ class Frame:
                     colc = grad_color(grad, u)
                 else:
                     colc = col
-                self._blit(m, cx - pad, base - bl + dy, colc, ai, mode, glow)
+                if shine is not None:     # 一道高光扫过（shine = 0..1 的位置）
+                    u = (cx + adv / 2 - xs) / max(tw, 1)
+                    colc = tuple(min(c + 0.55 * math.exp(-((u - shine) / 0.09) ** 2), 1.3) for c in colc)
+                k = 0.0
+                if kin and t0 is not None:
+                    k = 1 - eo((self.t - t0 - i * stag) / dur)
+                if k > 0.01:
+                    # 动态字：放大 → 落定，运动模糊 → 清晰，字距收拢
+                    sc = 1 + 0.6 * k
+                    mm = cv2.resize(m, (0, 0), fx=sc, fy=sc, interpolation=cv2.INTER_LINEAR)
+                    sig = 5.0 * k * size / 80
+                    if sig > 0.4: mm = cv2.GaussianBlur(mm, (0, 0), sig)
+                    xc = cx - pad + m.shape[1] / 2 + (i - (n - 1) / 2) * size * 0.35 * k
+                    yc = base - bl + m.shape[0] / 2 + dy
+                    self._blit(mm, xc - mm.shape[1] / 2, yc - mm.shape[0] / 2, colc, ai, mode, glow * (1 + 2 * k))
+                else:
+                    self._blit(m, cx - pad, base - bl + dy, colc, ai, mode, glow)
             cx += adv + track * size
         return tw
 
@@ -248,7 +264,7 @@ def fbm(w, h, seed, octaves=6, base=4):
     return acc
 
 
-def finish(fr, bg, bloom_k=1.0, vignette=None, grain=None):
+def finish(fr, bg, bloom_k=1.0, vignette=None, grain=None, streak=0.9):
     """compose buffers into uint8 RGB"""
     E = fr.E
     E += fr.U.astype(np.float32) * (1 / 255.0)
@@ -259,7 +275,11 @@ def finish(fr, bg, bloom_k=1.0, vignette=None, grain=None):
     b2 = cv2.GaussianBlur(s16, (0, 0), 3.5)
     bl = cv2.resize(b1 * 0.9 + cv2.resize(b2, (W // 4, H // 4), interpolation=cv2.INTER_LINEAR) * 1.1,
                     (W, H), interpolation=cv2.INTER_LINEAR)
-    out = bg + fr.L + E + bl * bloom_k
+    # 横向变形光斑（电影镜头的 anamorphic streak）
+    st = cv2.resize(np.maximum(src - 0.55, 0), (W // 8, H // 8), interpolation=cv2.INTER_AREA)
+    st = cv2.GaussianBlur(st, (0, 0), sigmaX=22, sigmaY=0.6)
+    st = cv2.resize(st, (W, H), interpolation=cv2.INTER_LINEAR) * np.array([0.55, 0.75, 1.0], np.float32) * streak
+    out = bg + fr.L + E + bl * bloom_k + st
     if fr.flash > 0:
         out += fr.flash
     for (mm, X0, Y0, colv, a) in fr.over:
@@ -350,3 +370,26 @@ def _soft(self, xs, ys, cols, a, sigma=3.0, buf='E', gain=1.0):
     getattr(self, buf)[:] += cv2.resize(S, (W, H), interpolation=cv2.INTER_LINEAR)
 
 Frame.soft = _soft
+
+
+
+# ---------------------------------------------------------------- 透视卡片（PIL 画好的 RGBA 贴图，按四个角做透视变换）
+def warp_sprite(fr, rgba, corners, a=1.0, glow=0.0, glow_col=None):
+    """rgba: h×w×4 float32 (直通色)；corners: 目标四角 [(x,y)×4]，顺序 左上/右上/右下/左下"""
+    if a <= 0.003: return
+    h, w = rgba.shape[:2]
+    dst = np.float32(corners)
+    x0, y0 = np.floor(dst.min(0)).astype(int) - 2
+    x1, y1 = np.ceil(dst.max(0)).astype(int) + 2
+    X0, Y0, X1, Y1 = max(x0, 0), max(y0, 0), min(x1, W), min(y1, H)
+    if X1 <= X0 or Y1 <= Y0: return
+    M = cv2.getPerspectiveTransform(np.float32([[0, 0], [w, 0], [w, h], [0, h]]), dst - np.float32([X0, Y0]))
+    pm = np.dstack([rgba[..., :3] * rgba[..., 3:4], rgba[..., 3:4]])
+    out = cv2.warpPerspective(pm, M, (X1 - X0, Y1 - Y0), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    al = out[..., 3]
+    rgb = np.where(al[..., None] > 1e-4, out[..., :3] / np.maximum(al[..., None], 1e-4), 0)
+    fr.over_rgb.append((rgb.astype(np.float32), al.astype(np.float32), X0, Y0, a))
+    if glow > 0:
+        g = al if glow_col is None else al
+        c = np.array(glow_col if glow_col is not None else (1, 1, 1), np.float32)
+        fr.B[Y0:Y1, X0:X1] += (cv2.GaussianBlur(g, (0, 0), 6) * glow * a)[..., None] * c
