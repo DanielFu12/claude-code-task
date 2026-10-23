@@ -45,7 +45,7 @@ def run(M, topn=1, realistic=True, start=False, years=range(2016, 2026)):
         sel = y - 1
         mem = members(first_trading_day(sel)) if start else members(last_trading_day(sel))
         MM = {s: df for s, df in M.items() if s in mem}
-        rows, n = cn.rank_year(MM, sel, False, exact_top=min(30, len(MM) - 1))
+        rows, n = cn.rank_year(MM, sel, False, exact_top=min(30, len(MM) - 1), exclude_sub=False)   # 沪深300版口径：只剔除当年新股
         picks, hs, i = [], [], 0
         while len(picks) < topn:
             s, r, kind, _ = rows[i]; i += 1
