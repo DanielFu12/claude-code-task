@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 一键重建《追涨十年 · 沪深300版》（1080×1920 · 30fps · 225.8s）
+# 一键重建《追涨十年 · 沪深300版》（1080×1920 · 30fps · 206.6s）
 # 与原版共用：配乐（../champion_video/music）、回测脚本与数据（../champion_video/backtest）、字体（../champion_video/fonts）
 # 依赖: ffmpeg, python3 (numpy opencv-python-headless pillow[raqm] scipy soundfile librosa pandas requests)
 #

@@ -492,15 +492,15 @@ def sc_break(F, t):
     if a <= 0: return
     F.darken(np.ones((H, W), np.float32), 0, 0, 0.75 * a)
     F.text_chars('为什么差距这么大？', 540, 860, 80, 'serif_black', INK, a, t0=T_BREAK + 0.5, stag=0.08, dur=0.6)
-    two_tone(F, [('答案，藏在冠军的「', DIM), ('下一年', GOLD_GRAD), ('」里', DIM)], 540, 1000, 44, 'serif', B(132), a, stag=0.05)
+    two_tone(F, [('答案，藏在冠军的「', DIM), ('第二年', GOLD_GRAD), ('」里', DIM)], 540, 1000, 44, 'serif', B(132), a, stag=0.05)
 
 
 # ================================================================ why：从第一性原理讲清差异（v5：12 个整屏镜头，每 4 拍一个）
 # 每个原因拆成两个镜头；每个镜头只有一个标题 + 一个主视觉 + 一句结论，前一个镜头完全淡出后下一个才出现。
-WHY_SHOT_T = [T_WHY] + [B(k) for k in range(144, 217, 8)]      # 11 个边界 → 10 个镜头，每个 8 拍
+WHY_SHOT_T = [T_WHY] + [B(k) for k in range(144, 193, 8)]      # 8 个边界 → 7 个镜头，每个 8 拍
 WHY_SLOW = 1.4          # 镜头内动画放慢 1.4 倍：约 3 秒搭建完成，其余时间留给阅读
 SHOT_T0 = 0.0
-CH_COL = [GOLD, hexc('#FF5C7A'), GOLD_L, CN, US]
+CH_COL = [US, hexc('#FF5C7A'), GOLD, GOLD_L]
 
 
 def gbar(F, x0, x1, yb, h, col, a, glow=0.5, refl=True):
@@ -547,13 +547,15 @@ def pct0(v):
 
 
 def why_frame(F, t, ch, a):
-    """章节标识：原因 0X / 05 · 章节名 + 五段进度条（同一原因的两个镜头之间保持不动）"""
-    col = CH_COL[ch]
-    F.text(f'原因 {ch + 1:02d} / 05　·　{CH_NAMES[ch]}', 540, 180, 26, 'sans_med', col, a, track=0.1)
-    for j in range(5):
-        x = 540 - 2.5 * 72 + j * 72 + 6
-        F.line((x, 218), (x + 58, 218), col if j == ch else (FAINT if j > ch else mix(col, 0.6)), a * (1 if j <= ch else 0.6),
-               4 if j == ch else 2, glow=0.8 if j == ch else 0)
+    """顶部四步进度：第二年 · 代价 · 利润 · 真相（当前一步高亮）"""
+    for j, nm in enumerate(['第二年', '代价', '利润', '真相']):
+        cx = 540 + (j - 1.5) * 230
+        on = j == ch
+        col = CH_COL[j] if j <= ch else FAINT
+        F.text(nm, cx, 182, 28 if on else 24, 'sans_black' if on else 'sans_med', col, a * (1 if j <= ch else 0.7), glow=0.4 if on else 0)
+        F.line((cx - 60, 218), (cx + 60, 218), col, a * (1 if j <= ch else 0.5), 4 if on else 2, glow=0.9 if on else 0)
+        if j < 3:
+            F.text('›', cx + 115, 182, 26, 'num', FAINT, a * 0.8)
 
 
 def why_head(F, t0, s, a, sub=None, size=62, col=INK):
@@ -598,111 +600,12 @@ def takeaway(F, s, y, a, size=46):
     F.line((540 - lw, y + size * 0.85), (540 + lw, y + size * 0.85), GOLD, a * 0.6, 2, glow=0.8)
 
 
-# ---------------------------------------------------------------- 01 冠军的下一年
-def shot_bars(F, t, u, a, us):
-    lab, col, vals, bench = STORY['why'][0]['groups'][0 if us else 1]
-    st = STORY['stats']
-    rich_head(F, SHOT_T0, '美股冠军：下一年【还在涨】' if us else 'A股冠军：下一年【坐过山车】', a)
-    sub_line(F, SHOT_T0, '柱子 = 买入当年的实际收益（扣成本）　白线 = 同期指数', a)
-    base = 1100 if us else 950
-    K = 300
-    F.line((90, base), (990, base), WHITE, a * 0.35, 1)
-    for k, (v, b) in enumerate(zip(vals, bench)):
-        tk = 0.25 + k * 0.07
-        p = eo(ramp(u, tk, tk + 0.6)); ba = a * eo(ramp(u, tk, tk + 0.25))
-        x = 112 + k * 88
-        h = max(-0.75, min(v, 1.75)) * K * p
-        gbar(F, x, x + 60, base, h, col if v >= 0 else DOWN, ba, refl=us)
-        F.text(pct0(v * p), x + 30, base - max(h, 0) - 30 if (h >= 0 or us) else base - h + 30, 22, 'num_semi',
-               lerpc(col if v >= 0 else DOWN, WHITE, 0.3), ba)
-        F.text(str(2016 + k), x + 30, base + (40 if us else 270), 20, 'num_reg', DIM, ba)
-        bh = max(-0.75, min(b, 1.75)) * K
-        F.line((x - 6, base - bh), (x + 66, base - bh), WHITE, ba * 0.9 * eo(ramp(u, tk + 0.5, tk + 0.8)), 2, glow=0.6)
-    sa = a * eo(ramp(u, 1.5, 1.9))
-    if us:
-        big_stat(F, f"{st['us_beat']}", ' 年跑赢标普500', f"最差的一年，只亏了 {abs(st['us_worst']) * 100:.0f}%", 1450, US, sa, pre='10 年里')
-    else:
-        big_stat(F, f"{st['cn_beat']}", ' 年跑赢沪深300', f"但有 {st['cn_loss_years']} 年，一年就跌掉 34%–56%", 1470, CN, sa, pre='10 年里')
-
-
-# ---------------------------------------------------------------- 02 复利的不对称
-def shot_math(F, t, u, a):
-    rich_head(F, SHOT_T0, '跌 50%，要涨【100%】才回本', a)
-    sub_line(F, SHOT_T0, '复利最残酷的一条数学', a)
-    # 一条资金线：100 → 50 → 100
-    x0, x1, x2 = 160, 540, 920
-    yv = lambda v: 1150 - (v - 40) * 6.0
-    p1 = eio(ramp(u, 0.3, 1.1)); p2 = eio(ramp(u, 1.4, 2.6))
-    F.line((100, yv(100)), (980, yv(100)), GOLD, a * 0.35, 1)
-    F.text('本金', 100, yv(100) + 30, 24, 'sans_reg', GOLD, a, anchor='l')
-    pts = [(x0 + (x1 - x0) * q, yv(100 - 50 * q)) for q in np.linspace(0, p1, 30)]
-    F.glow_line(pts, DOWN, a, 6, glow=1.2)
-    if p1 > 0.98:
-        pts2 = [(x1 + (x2 - x1) * q, yv(50 * (1 + q))) for q in np.linspace(0, p2, 40)]
-        F.glow_line(pts2, UP, a, 6, glow=1.2)
-        F.blob(pts2[-1], 34, UP, a)
-    for (x, v, c, s, sz, tk) in [(x0, 100, GOLD, '100', 64, 0.0), (x1, 50, DOWN, '50', 80, 1.0), (x2, 100, UP, '100', 64, 2.6)]:
-        ka = a * eo(ramp(u, tk, tk + 0.3))
-        F.circle((x, yv(v)), 12, c, ka, fill=True, glow=1.2)
-        F.text(s, x, yv(v) + (80 if v < 100 else -70), sz, 'num', c, ka, glow=0.4)
-    F.text('−50%', (x0 + x1) / 2 - 90, yv(75) + 60, 52, 'num', DOWN, a * eo(ramp(u, 0.7, 1.0)), glow=0.4)
-    F.text('+100%', (x1 + x2) / 2 + 100, yv(75) + 60, 52, 'num', UP, a * eo(ramp(u, 2.0, 2.4)), glow=0.4)
-    fa = a * eo(ramp(u, 2.8, 3.2))
-    F.text('奥飞娱乐跌了 56%，要再涨 127% 才回本', 540, 1330, 34, 'sans_bold', INK, fa)
-    takeaway(F, '亏损的伤害，远大于盈利的帮助', 1440, fa)
-
-
 def pill(F, x, y, s, col, a, w=170):
     F.glass(x - w / 2, y - 34, x + w / 2, y + 34, 34, a, tint=col, tint_a=0.18, shadow=0.2, blur=10)
     F.text(s, x, y, 38, 'num', lerpc(col, WHITE, 0.25), a, glow=0.35)
 
 
-def shot_ledger(F, t, u, a):
-    w = STORY['why'][1]
-    rich_head(F, SHOT_T0, '赢 6 年、输 4 年，十年【原地踏步】', a, size=56)
-    sub_line(F, SHOT_T0, 'A股（沪深300）冠军十年的输赢账本', a)
-    F.text(f'赢的 {len(w["wins"])} 年', 290, 520, 36, 'sans_black', UP, a * eo(ramp(u, 0.2, 0.5)))
-    F.text(f'输的 {len(w["losses"])} 年', 790, 520, 36, 'sans_black', DOWN, a * eo(ramp(u, 0.6, 0.9)))
-    for k, v in enumerate(w['wins']):
-        pill(F, 290, 610 + k * 92, pct0(v), UP, a * eo(ramp(u, 0.3 + k * 0.12, 0.6 + k * 0.12)))
-    for k, v in enumerate(w['losses']):
-        pill(F, 790, 610 + k * 92, pct0(v), DOWN, a * eo(ramp(u, 0.8 + k * 0.15, 1.1 + k * 0.15)))
-    ma = a * eo(ramp(u, 1.8, 2.2))
-    F.text(f"×{w['win_mult']:.1f}", 290, 1215, 84, 'num', a=ma, grad=[(0, lerpc(UP, WHITE, 0.5)), (1, UP)], glow=0.5)
-    F.text(f"×{w['lose_mult']:.2f}", 790, 1215, 84, 'num', a=ma, grad=[(0, lerpc(DOWN, WHITE, 0.5)), (1, DOWN)], glow=0.5)
-    F.text('×', 540, 1215, 60, 'num', DIM, ma)
-    ra = a * eo(ramp(u, 2.5, 2.9))
-    if ra > 0:
-        F.text3d(f"= ×{w['total']:.2f}", 540, 1380, 120 * pop(F.t, SHOT_T0 + 2.5 * WHY_SLOW, 0.25), 'num', face=GOLD_GRAD, a=ra, glow=0.55)
-    takeaway(F, '一次腰斩，就吃掉了几年的盈利', 1530, a * eo(ramp(u, 3.0, 3.4)), size=42)
-
-
 # ---------------------------------------------------------------- 03 第一性原理
-def shot_formula(F, t, u, a):
-    rich_head(F, SHOT_T0, '股价，到底由【什么】决定？', a)
-    tiles = [('股价', INK, 150), ('利润', UP, 540), ('估值', GOLD, 930)]
-    for k, (s, c, x) in enumerate(tiles):
-        tk = 0.2 + k * 0.25
-        ia = a * eo(ramp(u, tk, tk + 0.35))
-        dy = (1 - eback(ramp(u, tk, tk + 0.5))) * -80
-        wob = 1 + (0.05 * math.sin(u * 7.5) * ramp(u, 1.4, 1.8) if s == '估值' else 0)
-        w = 128 * wob
-        F.glass(x - w, 640 - 92 * wob + dy, x + w, 640 + 92 * wob + dy, 34, ia, tint=c, tint_a=0.16, shadow=0.35, blur=16, spec=ramp(u, tk, tk + 1))
-        F.text(s, x, 640 + dy, 84 * wob, 'serif_black', c if s != '股价' else INK, ia, glow=0.45)
-    for s, x, tk in (('=', 345, 0.45), ('×', 735, 0.7)):
-        F.text(s, x, 640, 84, 'num', DIM, a * eo(ramp(u, tk, tk + 0.3)))
-    for k, (c, x, l1, l2) in enumerate([(UP, 540, '企业真实赚到的钱', '长期决定股价的方向'), (GOLD, 930, '市场愿意出的倍数', '短期随情绪剧烈摇摆')]):
-        tk = 1.2 + k * 0.45
-        ka = a * eo(ramp(u, tk, tk + 0.35))
-        x0 = 70 + k * 480; x1 = x0 + 460; cx = (x0 + x1) / 2
-        q = eo(ramp(u, tk - 0.15, tk + 0.25))
-        arrow(F, (x, 800), (x + (cx - x) * q, 800 + (905 - 800) * q), c, ka * 0.85, 3, 14)
-        F.glass(x0, 920, x1, 1120, 34, ka, tint=c, tint_a=0.12, shadow=0.25, blur=12, spec=ramp(u, tk, tk + 1))
-        F.text(l1, cx, 990, 38, 'sans_black', c, ka, glow=0.25)
-        F.text(l2, cx, 1060, 28, 'sans_reg', INK, ka)
-    takeaway(F, '长期看利润，短期看情绪', 1320, a * eo(ramp(u, 2.1, 2.5)), size=56)
-
-
 def shot_scatter(F, t, u, a):
     rich_head(F, SHOT_T0, '冠军的下一年，跟着【利润】走', a)
     sub_line(F, SHOT_T0, '20 只冠军：持有当年的利润变化（横）vs 股价收益（纵）', a)
@@ -747,66 +650,6 @@ def shot_scatter(F, t, u, a):
     takeaway(F, '利润没跟上的，股价都回去了', 1450, a * eo(ramp(u, 2.6, 3.0)), size=46)
 
 
-# ---------------------------------------------------------------- 04 A股冠军为什么会腰斩
-def case_card(F, y, p, note, a, u, tk, col):
-    ka = a * eo(ramp(u, tk, tk + 0.35))
-    if ka <= 0: return
-    dx = (1 - eo(ramp(u, tk, tk + 0.45))) * 90
-    F.glass(70 + dx, y - 120, 1010 + dx, y + 120, 36, ka, tint=col, tint_a=0.10, shadow=0.3, blur=14)
-    F.text(p['name'], 110 + dx, y - 66, 46, 'sans_black', INK, ka, anchor='l')
-    F.text(note, 970 + dx, y - 64, 26, 'sans_med', col, ka, anchor='r')
-    q = eo(ramp(u, tk + 0.3, tk + 0.9))
-    g = p['growth']
-    for j, (lab, v, c) in enumerate([(f"{p['year']} 年利润", g, UP if g >= 0 else DOWN), (f"{p['year']} 年股价", p['ret'], DOWN)]):
-        x = 110 + j * 440 + dx
-        F.text(lab, x, y + 6, 24, 'sans_reg', DIM, ka, anchor='l')
-        F.text(pct0(v * q), x, y + 64, 72, 'num', c, ka * (q if j else 1), anchor='l', glow=0.45)
-
-
-def shot_cycle(F, t, u, a):
-    d = STORY['why'][3]
-    rich_head(F, SHOT_T0, '原因一：买在【周期】的山顶', a)
-    sub_line(F, SHOT_T0, '利润是真的，但来自产品价格的高点，不可持续', a)
-    # 一条周期曲线，光点停在山顶后滑落
-    ca = a * eo(ramp(u, 0.2, 0.6))
-    xs = np.linspace(110, 970, 200)
-    ys = 700 - 150 * np.sin((xs - 110) / 860 * 2 * math.pi * 1.25 - 0.4)
-    m = max(2, int(200 * eio(ramp(u, 0.2, 1.3))))
-    F.glow_line(list(zip(xs[:m], ys[:m])), GOLD, ca, 4, glow=1.0)
-    i_pk = int(np.argmin(ys[:120]))
-    if u > 1.3:
-        k = int(i_pk + (m - 1 - i_pk) * eio(ramp(u, 1.6, 2.4)))
-        F.blob((xs[k], ys[k]), 40, CN, ca)
-        F.circle((xs[k], ys[k]), 12, WHITE, ca, fill=True, glow=1.5)
-        F.text('买入', xs[i_pk], ys[i_pk] - 50, 30, 'sans_black', CN, ca * (1 - ramp(u, 1.6, 1.9)))
-    for k, p in enumerate(d['cyc']):
-        case_card(F, 1020 + k * 280, p, d['cyc_note'][k], a, u, 1.4 + k * 0.5, CN)
-    takeaway(F, '景气见顶，利润和股价一起回落', 1560, a * eo(ramp(u, 2.8, 3.2)), size=44)
-
-
-def shot_valuation(F, t, u, a):
-    d = STORY['why'][3]
-    rich_head(F, SHOT_T0, '原因二：价格提前【透支】了未来', a)
-    sub_line(F, SHOT_T0, '利润还在增长，股价却腰斩 —— 估值从天上掉回地面', a)
-    # 价格线远高于利润线，然后「啪」地回落到利润线附近
-    ca = a * eo(ramp(u, 0.2, 0.6))
-    xs = np.linspace(110, 970, 160)
-    base = 820 - (xs - 110) * 0.08
-    snap = eio(ramp(u, 1.3, 1.9))
-    up = np.clip((xs - 110) / 500, 0, 1) ** 1.6 * 260
-    price = base - up * (1 - snap * np.clip((xs - 610) / 120, 0, 1))
-    m = max(2, int(160 * eio(ramp(u, 0.2, 1.2))))
-    F.glow_line(list(zip(xs[:m], base[:m])), UP, ca, 5, glow=1.0)
-    F.glow_line(list(zip(xs[:m], price[:m])), (0.55, 0.78, 1.0), ca, 3, glow=0.8)
-    F.text('利润', 970, base[-1] + 34, 26, 'sans_bold', UP, ca, anchor='r')
-    F.text('股价', 600, price[110] - 34, 26, 'sans_bold', (0.55, 0.78, 1.0), ca * (1 - snap))
-    if 1.3 < u < 2.2:
-        F.shake = (math.sin(u * 70) * 5 * (1 - ramp(u, 1.3, 2.2)), 0)
-    for k, p in enumerate(d['val']):
-        case_card(F, 1020 + k * 280, p, d['val_note'][k], a, u, 1.4 + k * 0.5, CN)
-    takeaway(F, '涨得太快，只是把未来的涨幅借到了今天', 1560, a * eo(ramp(u, 2.8, 3.2)), size=42)
-
-
 # ---------------------------------------------------------------- 05 差距的真相
 def growth_tag(p):
     if p['turn']: return '扭亏为盈'
@@ -843,46 +686,166 @@ def shot_us_profit(F, t, u, a):
     F.text(f"贡献了约 {d['us_big_share'] * 100:.0f}% 的复利", 540, 1372, 34, 'sans_med', INK, fa)
 
 
-def shot_truth(F, t, u, a):
-    rich_head(F, SHOT_T0, '只看涨幅选股，是在【赌】', a)
-    sub_line(F, SHOT_T0, '去年涨了多少，说明不了今年值多少', a)
-    items = [(US, '美股', '同一条规则，赢在利润一路兑现，也赶上了 AI 浪潮'),
-             (CN, 'A股', '同一条规则，四次买在周期顶点或估值高点'),
-             (GOLD, '规则本身', '只看过去的价格，不看企业的价值')]
-    for j, (col, h, ln) in enumerate(items):
-        tk = 0.3 + j * 0.55
+# ---------------------------------------------------------------- ① 第二年：两地冠军的「第二年」同框对比
+def mini_bars(F, u, a, y0, lab, col, vals, bench, stat, stat_col, t0, hy):
+    K = 130
+    F.text(lab, 80, hy, 36, 'sans_black', col, a, anchor='l', glow=0.2)
+    F.line((80, y0), (1000, y0), WHITE, a * 0.3, 1)
+    for k, (v, b) in enumerate(zip(vals, bench)):
+        tk = t0 + k * 0.06
+        p = eo(ramp(u, tk, tk + 0.5)); ba = a * eo(ramp(u, tk, tk + 0.2))
+        x = 112 + k * 88
+        h = max(-0.6, min(v, 1.75)) * K * p
+        big_loss = v < -0.3
+        gbar(F, x, x + 60, y0, h, DOWN if v < 0 else col, ba, refl=False, glow=0.7 if big_loss else 0.5)
+        F.text(pct0(v * p), x + 30, y0 - max(h, 0) - 24 if v >= 0 else y0 - h + 26, 20, 'num_semi',
+               lerpc(DOWN if v < 0 else col, WHITE, 0.3), ba)
+        if big_loss:                      # 四次腰斩：柱下打上标签
+            F.text('腰斩', x + 30, y0 - h + 62, 22, 'sans_black', DOWN, ba * eo(ramp(u, t0 + 1.0, t0 + 1.3)), glow=0.6)
+        bh = max(-0.6, min(b, 1.75)) * K
+        F.line((x - 6, y0 - bh), (x + 66, y0 - bh), WHITE, ba * 0.8, 2, glow=0.5)
+    F.text(stat, 1000, hy, 36, 'sans_black', stat_col, a * eo(ramp(u, t0 + 1.0, t0 + 1.4)), anchor='r', glow=0.35)
+
+
+def shot_second_year(F, t, u, a):
+    d = STORY['why'][0]
+    st = STORY['stats']
+    rich_head(F, SHOT_T0, '同样是冠军，第二年【天差地别】', a, size=58)
+    sub_line(F, SHOT_T0, '柱子 = 买入那一年的实际收益　白线 = 同期指数', a)
+    (_, uc, uy, ub), (_, cc, cy, cb) = d['groups']
+    mini_bars(F, u, a, 800, '美股冠军', uc, uy, ub, f"10 年 {st['us_beat']} 年跑赢指数", UP, 0.2, 470)
+    mini_bars(F, u, a, 1190, 'A股冠军', cc, cy, cb, f"{st['cn_loss_years']} 次腰斩", DOWN, 0.9, 940)
+    for k in range(10):
+        F.text(str(2016 + k), 142 + k * 88, 1375, 18, 'num_reg', DIM, a)
+    takeaway(F, '美股冠军还在涨，A股冠军四次跌掉一半', 1530, a * eo(ramp(u, 2.4, 2.8)), size=42)
+
+
+# ---------------------------------------------------------------- ② 代价：四次腰斩抹掉六年盈利
+def shot_cost(F, t, u, a):
+    w = STORY['why'][1]
+    rich_head(F, SHOT_T0, '4 次腰斩，【抹掉】6 年的盈利', a)
+    sub_line(F, SHOT_T0, 'A股冠军十年的输赢账本', a)
+    F.text(f'赚钱的 {len(w["wins"])} 年', 290, 520, 34, 'sans_black', UP, a * eo(ramp(u, 0.2, 0.5)))
+    F.text(f'腰斩的 {len(w["losses"])} 年', 790, 520, 34, 'sans_black', DOWN, a * eo(ramp(u, 0.6, 0.9)))
+    for k, v in enumerate(w['wins']):
+        pill(F, 290, 605 + k * 86, pct0(v), UP, a * eo(ramp(u, 0.3 + k * 0.1, 0.6 + k * 0.1)))
+    for k, v in enumerate(w['losses']):
+        pill(F, 790, 605 + k * 86, pct0(v), DOWN, a * eo(ramp(u, 0.8 + k * 0.12, 1.1 + k * 0.12)))
+    ma = a * eo(ramp(u, 1.6, 2.0))
+    F.text(f"×{w['win_mult']:.1f}", 290, 1160, 84, 'num', a=ma, grad=[(0, lerpc(UP, WHITE, 0.5)), (1, UP)], glow=0.5)
+    F.text(f"×{w['lose_mult']:.2f}", 790, 1160, 84, 'num', a=ma, grad=[(0, lerpc(DOWN, WHITE, 0.5)), (1, DOWN)], glow=0.5)
+    F.text('×', 540, 1160, 60, 'num', DIM, ma)
+    ra = a * eo(ramp(u, 2.2, 2.5))
+    if ra > 0:
+        F.text3d(f"= ×{w['total']:.2f}", 540, 1310, 120 * pop(F.t, SHOT_T0 + 2.2 * WHY_SLOW, 0.25), 'num', face=GOLD_GRAD, a=ra, glow=0.55)
+        F.text('十年，回到原点', 540, 1410, 36, 'sans_bold', INK, ra)
+    takeaway(F, '跌 50%，要涨 100% 才能回本', 1530, a * eo(ramp(u, 2.8, 3.2)), size=46)
+
+
+# ---------------------------------------------------------------- ③ 利润：股价 = 利润 × 估值
+def shot_formula(F, t, u, a):
+    rich_head(F, SHOT_T0, '股价，长期只认一件事：【利润】', a, size=58)
+    tiles = [('股价', INK, 150), ('利润', UP, 540), ('估值', GOLD, 930)]
+    for k, (s, c, x) in enumerate(tiles):
+        tk = 0.2 + k * 0.25
+        ia = a * eo(ramp(u, tk, tk + 0.35))
+        dy = (1 - eback(ramp(u, tk, tk + 0.5))) * -80
+        wob = 1 + (0.06 * math.sin(u * 7.5) * ramp(u, 1.3, 1.7) if s == '估值' else 0)
+        grow = 1 + (0.08 * eo(ramp(u, 1.3, 1.9)) if s == '利润' else 0)
+        w = 128 * wob * grow
+        F.glass(x - w, 640 - 92 * wob * grow + dy, x + w, 640 + 92 * wob * grow + dy, 34, ia, tint=c, tint_a=0.16, shadow=0.35, blur=16, spec=ramp(u, tk, tk + 1))
+        F.text(s, x, 640 + dy, 84 * wob * grow, 'serif_black', c if s != '股价' else INK, ia, glow=0.45)
+    for s, x, tk in (('=', 345, 0.45), ('×', 735, 0.7)):
+        F.text(s, x, 640, 84, 'num', DIM, a * eo(ramp(u, tk, tk + 0.3)))
+    for k, (c, x, l1, l2) in enumerate([(UP, 540, '利润：企业真实赚到的钱', '长期决定股价的方向'), (GOLD, 930, '估值：市场愿意出的倍数', '短期随情绪剧烈摇摆')]):
+        tk = 1.2 + k * 0.4
         ka = a * eo(ramp(u, tk, tk + 0.35))
-        if ka <= 0: continue
-        y0 = 520 + j * 230
-        dx = (1 - eo(ramp(u, tk, tk + 0.45))) * 80
-        F.glass(70 + dx, y0, 1010 + dx, y0 + 190, 36, ka, tint=col, tint_a=0.11, shadow=0.3, blur=14, spec=ramp(u, tk, tk + 1))
-        F.circle((130 + dx, y0 + 62), 9, col, ka, fill=True, glow=1.2)
-        F.text(h, 155 + dx, y0 + 62, 42, 'sans_black', col, ka, anchor='l', glow=0.25)
-        F.text(ln, 130 + dx, y0 + 132, 32, 'sans_med', INK, ka, anchor='l')
-    fa = a * eo(ramp(u, 2.2, 2.6))
+        x0 = 70 + k * 480; x1 = x0 + 460; cx = (x0 + x1) / 2
+        q = eo(ramp(u, tk - 0.15, tk + 0.25))
+        arrow(F, (x, 800), (x + (cx - x) * q, 800 + (905 - 800) * q), c, ka * 0.85, 3, 14)
+        F.glass(x0, 920, x1, 1120, 34, ka, tint=c, tint_a=0.12, shadow=0.25, blur=12, spec=ramp(u, tk, tk + 1))
+        F.text(l1, cx, 990, 32, 'sans_black', c, ka, glow=0.25)
+        F.text(l2, cx, 1060, 28, 'sans_reg', INK, ka)
+    takeaway(F, '情绪能把股价推上去，只有利润能托住它', 1320, a * eo(ramp(u, 2.1, 2.5)), size=44)
+
+
+# ---------------------------------------------------------------- ③ 利润：A股冠军为什么腰斩（2×2）
+def halving_card(F, x0, y0, p, tag, col, a, u, tk):
+    ka = a * eo(ramp(u, tk, tk + 0.35))
+    if ka <= 0: return
+    dy = (1 - eo(ramp(u, tk, tk + 0.45))) * 60
+    F.glass(x0, y0 + dy, x0 + 455, y0 + 330 + dy, 36, ka, tint=col, tint_a=0.12, shadow=0.3, blur=14, spec=ramp(u, tk, tk + 1))
+    F.text(p['name'], x0 + 30, y0 + 55 + dy, 42, 'sans_black', INK, ka, anchor='l')
+    F.text(str(p['year']), x0 + 425, y0 + 55 + dy, 24, 'num_reg', DIM, ka, anchor='r')
+    q = eo(ramp(u, tk + 0.3, tk + 0.8))
+    g = p['growth']
+    F.text('利润', x0 + 30, y0 + 135 + dy, 26, 'sans_reg', DIM, ka, anchor='l')
+    F.text(pct0(g * q), x0 + 425, y0 + 135 + dy, 52, 'num', UP if g >= 0 else DOWN, ka, anchor='r', glow=0.4)
+    F.text('股价', x0 + 30, y0 + 215 + dy, 26, 'sans_reg', DIM, ka, anchor='l')
+    F.text(pct0(p['ret'] * q), x0 + 425, y0 + 215 + dy, 64, 'num', DOWN, ka, anchor='r', glow=0.5)
+    F.text(tag, x0 + 227, y0 + 290 + dy, 26, 'sans_bold', col, ka * q)
+
+
+def shot_halving(F, t, u, a):
+    d = STORY['why'][3]
+    rich_head(F, SHOT_T0, 'A股冠军，为什么会【腰斩】？', a)
+    sub_line(F, SHOT_T0, '四次腰斩，两种原因', a)
+    F.text('利润见顶', 297, 500, 40, 'serif_black', a=a * eo(ramp(u, 0.2, 0.5)), grad=GOLD_GRAD, glow=0.3)
+    F.text('估值透支', 783, 500, 40, 'serif_black', a=a * eo(ramp(u, 1.0, 1.3)), grad=GOLD_GRAD, glow=0.3)
+    F.text('景气的高点，利润也会回落', 297, 560, 26, 'sans_reg', INK, a * eo(ramp(u, 0.3, 0.6)))
+    F.text('利润还在涨，股价已跑太远', 783, 560, 26, 'sans_reg', INK, a * eo(ramp(u, 1.1, 1.4)))
+    for k, p in enumerate(d['cyc']):
+        halving_card(F, 70, 620 + k * 370, p, d['cyc_note'][k], CN, a, u, 0.35 + k * 0.35)
+    for k, p in enumerate(d['val']):
+        halving_card(F, 555, 620 + k * 370, p, d['val_note'][k], UP, a, u, 1.15 + k * 0.35)
+    takeaway(F, '去年涨得最多的，往往是利润或情绪的顶点', 1430 + 0 * 0, a * eo(ramp(u, 2.5, 2.9)), size=40)
+
+
+# ---------------------------------------------------------------- ④ 真相：价格 vs 价值（承接巴菲特）
+def shot_bridge(F, t, u, a):
+    rich_head(F, SHOT_T0, '同一条规则，赢的永远是【利润】', a, size=56)
+    sub_line(F, SHOT_T0, '这条规则只看过去的价格，不看企业的价值', a)
+    # 左：「价格」—— 一张褪色的涨幅榜；右：「价值」—— 持续增长的利润柱
+    la = a * eo(ramp(u, 0.3, 0.7))
+    F.glass(70, 500, 520, 1100, 40, la, tint=(0.6, 0.65, 0.8), tint_a=0.06, shadow=0.3, blur=14)
+    F.text('买涨幅', 295, 570, 44, 'serif_black', DIM, la)
+    for k in range(5):
+        fade = 1 - 0.6 * ramp(u, 1.6, 2.4) * (k > 0)
+        y = 680 + k * 80
+        F.text(f'No.{k + 1}', 120, y, 30, 'num', GOLD if k == 0 else DIM, la * fade, anchor='l')
+        F.line((220, y), (220 + (260 - k * 40), y), lerpc(UP, WHITE, 0.2), la * fade * 0.8, 10)
+    F.text('买到的是：价格', 295, 1060, 34, 'sans_black', INK, la)
+    ra = a * eo(ramp(u, 1.0, 1.4))
+    F.glass(560, 500, 1010, 1100, 40, ra, tint=GOLD, tint_a=0.12, shadow=0.3, blur=14, spec=ramp(u, 1.0, 2.2))
+    F.text('看利润', 785, 570, 44, 'serif_black', a=ra, grad=GOLD_GRAD, glow=0.35)
+    for k in range(6):
+        g = eo(ramp(u, 1.2 + k * 0.12, 1.6 + k * 0.12))
+        h = (60 + k * 52) * g
+        x = 610 + k * 64
+        gbar(F, x, x + 44, 980, h, GOLD, ra, refl=False)
+    F.text('买到的才是：价值', 785, 1060, 34, 'sans_black', GOLD_L, ra)
+    fa = a * eo(ramp(u, 2.3, 2.7))
     if fa > 0:
-        F.text3d('利润，才是股价长期的发动机', 540, 1340, 64 * pop(F.t, SHOT_T0 + 2.2 * WHY_SLOW, 0.15), 'serif_black',
-                 face=GOLD_GRAD, a=fa, glow=0.5, spec=ramp(u, 2.6, 3.6))
+        F.text3d('利润，才是股价长期的发动机', 540, 1290, 64 * pop(F.t, SHOT_T0 + 2.3 * WHY_SLOW, 0.15), 'serif_black', face=GOLD_GRAD,
+                 a=fa, glow=0.5, spec=ramp(u, 2.6, 3.6))
+        F.text('那么，怎样才能买到价值？', 540, 1420, 36, 'sans_bold', INK, a * eo(ramp(u, 3.0, 3.4)))
 
 
-WHY_SHOTS = [(0, lambda F, t, u, a: shot_bars(F, t, u, a, True)), (0, lambda F, t, u, a: shot_bars(F, t, u, a, False)),
-             (1, shot_math), (1, shot_ledger),
-             (2, shot_formula), (2, shot_scatter),
-             (3, shot_cycle), (3, shot_valuation),
-             (4, shot_us_profit), (4, shot_truth)]
-CH_NAMES = [w['ch'] for w in STORY['why']]
+STEP_NAMES = ['第二年', '代价', '利润', '真相']
+WHY_SHOTS = [(0, shot_second_year), (1, shot_cost), (2, shot_formula), (2, shot_scatter), (2, shot_halving),
+             (3, shot_us_profit), (3, shot_bridge)]
 
 
 def sc_why(F, t):
+    global SHOT_T0
     if t >= T_WHY:
         F.flash = max(F.flash, 0.6 * math.exp(-(t - T_WHY) / 0.12))
     for k, (ch, fn) in enumerate(WHY_SHOTS):
         t0, t1 = WHY_SHOT_T[k], WHY_SHOT_T[k + 1]
         if not (t0 <= t < t1): continue
         a = env(t, t0, t1 - 0.02, 0.35, 0.4)
-        ch0 = WHY_SHOT_T[2 * ch]; ch1 = WHY_SHOT_T[2 * ch + 2]
-        why_frame(F, t, ch, env(t, ch0, ch1 - 0.02, 0.3, 0.28))
-        global SHOT_T0
+        ks = [i for i, (c, _) in enumerate(WHY_SHOTS) if c == ch]          # 同一步的镜头之间，进度条保持不动
+        why_frame(F, t, ch, env(t, WHY_SHOT_T[ks[0]], WHY_SHOT_T[ks[-1] + 1] - 0.02, 0.3, 0.28))
         SHOT_T0 = t0
         fn(F, t, (t - t0) / WHY_SLOW, a)
 
@@ -967,7 +930,7 @@ def sc_insight(F, t):
         w = 330 * eo(ramp(u, 2.6, 3.6)) * sc
         F.line((540 - w, INS_Y + 150 * sc), (540 + w, INS_Y + 150 * sc), GOLD, la * 0.8, 2, glow=0.8)
         F.blob((540 - w, INS_Y + 150 * sc), 10, GOLD, la); F.blob((540 + w, INS_Y + 150 * sc), 10, GOLD, la)
-        F.text_chars('巴菲特与芒格：价值投资的真谛', 540, INS_Y + 225 * sc, 44 * sc, 'serif_bold', SUBGOLD, A, t0=T_INSIGHT + 3.2, stag=0.06)
+        F.text_chars('巴菲特与芒格：怎样买到真正的价值', 540, INS_Y + 225 * sc, 44 * sc, 'serif_bold', SUBGOLD, A, t0=T_INSIGHT + 3.2, stag=0.06)
     if out > 0:
         F.flash = max(F.flash, 0.5 * out ** 3)
 
@@ -1057,7 +1020,7 @@ def sc_value(F, t):
         lines = STORY['final_msg']
         for q, ln in enumerate(lines):
             F.text_chars(ln, 540, 680 + q * 100, 56, 'serif_black', INK if q < 2 else GOLD_L, a5, t0=T_TRUTH + 0.3 + q * 1.6, stag=0.045, dur=0.5)
-        tk = B(264)                                        # 211.32：最后一句金句
+        tk = B(240)                                        # 192.12：最后一句金句
         ia = a5 * eo(ramp(t, tk, tk + 0.35))
         if ia > 0:
             uu = t - tk
@@ -1174,7 +1137,7 @@ SCENES = [(0, T_TITLE + 0.1, sc_hook), (T_TITLE - 0.05, T_RULES + 0.1, sc_title)
 # 每段的星云配色（关键帧之间平滑过渡）
 CRIMSON, MAGENTA, TEAL, AMBER = hexc('#C2185B'), hexc('#B5179E'), hexc('#00B3A4'), hexc('#E08A1E')
 PALETTE = [(0, VIOLET, CRIMSON), (T_TITLE, GOLD_D, CRIMSON), (T_RULES, US2, TEAL), (year_t0(0), US2, CN2), (T_BREAK, VIOLET, US2),
-           (T_WHY, GOLD_D, TEAL), (WHY_T[1], CRIMSON, VIOLET), (WHY_T[2], AMBER, MAGENTA), (WHY_T[3], CN2, CRIMSON), (WHY_T[4], US2, GOLD_D), (T_INSIGHT, GOLD_D, AMBER), (T_VALUE, GOLD_D, MAGENTA),
+           (T_WHY, US2, TEAL), (WHY_T[1], CRIMSON, VIOLET), (WHY_T[2], AMBER, MAGENTA), (WHY_T[3], GOLD_D, US2), (T_INSIGHT, GOLD_D, AMBER), (T_VALUE, GOLD_D, MAGENTA),
            (T_MUNGER, AMBER, CRIMSON), (T_PRIN, GOLD_D, TEAL), (T_TRUTH, GOLD, AMBER), (T_END, US2, VIOLET)]
 
 
@@ -1228,8 +1191,7 @@ def scene_fx(F, t):
     else:
         BGR.dust(F, t, (0.85, 0.8, 0.6), a=0.6 * (1 - ramp(t, T_FOLLOW, T_FADE)))
     # 转场光晕：章节切换的重拍上扫过一道横向光
-    for tb, y, col in [(T_TITLE, 860, GOLD), (T_RULES, 300, GOLD), (year_t0(0), 190, US), (T_FINAL, 250, GOLD), (T_WHY, 305, GOLD), (WHY_T[1], 305, hexc('#FF5C7A')), (WHY_T[2], 305, GOLD_L), (WHY_T[3], 305, CN), (WHY_T[4], 305, US),
-                       (T_VALUE, 900, GOLD), (T_MUNGER, 430, GOLD), (T_PRIN, 1000, GOLD), (T_TRUTH, 545, GOLD)]:
+    for tb, y, col in [(T_TITLE, 860, GOLD), (T_RULES, 300, GOLD), (year_t0(0), 190, US), (T_FINAL, 250, GOLD), (T_WHY, 305, GOLD), (WHY_T[1], 305, hexc('#FF5C7A')), (WHY_T[2], 305, GOLD), (WHY_T[3], 305, GOLD_L), (T_VALUE, 900, GOLD), (T_MUNGER, 430, GOLD), (T_PRIN, 1000, GOLD), (T_TRUTH, 545, GOLD)]:
         u = t - tb
         if -0.05 < u < 0.7:
             BGR.flare(F, y, col, a=math.exp(-max(u, 0) / 0.22) * 0.9, length=0.4 + 0.8 * eo(cl(u / 0.4)))
