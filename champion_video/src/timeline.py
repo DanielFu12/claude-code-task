@@ -64,15 +64,13 @@ def _ev(t, kind, **kw):
 # 开场：第一帧就是一记低频冲击，随后心跳脉冲推进
 _ev(0.0, 'boom', strength=0.9)
 _ev(0.0, 'braam', strength=0.35, d=2.5)
-_ev(B(2), 'pulse', strength=0.6)              # 连续 10 年
-_ev(B(4), 'boom', strength=0.55)              # 两个账户
-for k in (5, 6, 7):
-    _ev(B(k), 'tick', strength=0.2)
-_ev(B(8), 'boom', strength=0.7)               # 差多少？
-for k in (9, 10, 11):
-    _ev(B(k), 'tick', strength=0.22)
-_ev(B(12), 'boom', strength=0.8)              # 相差超过 1000 倍
-_ev(B(12), 'subdrop', strength=0.5)
+_ev(B(2), 'pulse', strength=0.5)              # 起点线
+_ev(B(3), 'riser', d=1.6, strength=0.35)      # 光柱生长
+_ev(B(5), 'boom', strength=0.65)              # 1,960 万 vs 1.47 万落定
+_ev(B(8), 'boom', strength=0.85)              # 相差 1,332 倍
+_ev(B(8), 'subdrop', strength=0.55)
+_ev(B(12), 'boom', strength=0.6)              # 一个美股，一个 A 股
+_ev(B(13.5), 'pulse', strength=0.45)          # 你猜，哪个是 A 股？
 _ev(T_TITLE, 'riser', d=2.6, strength=0.45)
 _ev(T_TITLE, 'boom', strength=1.0)
 _ev(T_TITLE, 'braam', strength=0.55)

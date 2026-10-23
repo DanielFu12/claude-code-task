@@ -72,7 +72,7 @@ def spin_number(t, seed):
     return f'{v:,.1f}' if v < 100 else f'{v:,.0f}'
 
 
-HOOK = [0.0, B(4), B(8), B(12), T_TITLE]
+HOOK = [0.0, B(8), B(12), T_TITLE]          # 三屏：结果 / 差距 / 悬念（落在小节强拍）
 
 
 def hwin(t, k, fi=0.22, fo=0.2):
@@ -111,77 +111,61 @@ def big_money(F, x, cx, y, size, col, a, glow=0.4):
 
 
 def sc_hook(F, t):
-    """0 – 12.9 s：结果先行的悬念钩子。四屏，每屏只讲一件事，严格前后衔接"""
+    """0 – 12.9 s：结果先行的悬念钩子。三屏，落在音乐的强拍上，每屏只讲一件事并留足停留时间"""
     UT, CT = STORY['us_total'], STORY['cn_total']
     BASE = 1330; K = 300                        # 光柱基线 / 每 10 倍的高度
-    # ① 同样的起点
-    a = hwin(t, 0, fi=0.06)
+    # ① 同样的起点 → 十年后：一个冲上云霄，一个跌穿地板（0 – 6.5 s）
+    a = hwin(t, 0, fi=0.06, fo=0.25)
     if a > 0:
-        F.text_chars('同样的 10 万本金', 540, 380, 72, 'serif_black', INK, a, t0=0.02, stag=0.05)
-        two_tone(F, [('同一个策略，坚持 ', INK), ('10 年', GOLD_GRAD)], 540, 490, 56, 'serif_black', B(1.2), a, glow=0.25)
-        for j in range(2):
-            cx = 300 + j * 480; cy = 930
-            ca = a * eo(ramp(t, B(2) + j * 0.15, B(2) + 0.5 + j * 0.15))
-            if ca <= 0: continue
-            halo(F, (cx, cy), 165 * (0.85 + 0.15 * eo(ramp(t, B(2), B(2) + 0.6))), t + j, ca, GOLD)
-            F.text(f'账户 {"①②"[j]}', cx, cy - 70, 34, 'sans_bold', SUBGOLD, ca)
-            spin = ramp(t, B(3), B(3) + 0.2)
-            if spin <= 0:
-                big_money(F, 1.0, cx, cy + 20, 84, GOLD_L, ca)
-            else:
-                num = spin_number(t, j)
-                F.text(num, cx, cy + 20, 76, 'num', GOLD_L, ca, glow=0.5)
-            F.text('十年后 = ?', cx, cy + 105, 28, 'sans_med', DIM, ca)
-    # ② 十年后：一个冲上云霄，一个跌穿地板
-    a = hwin(t, 1)
-    if a > 0:
-        F.text('十年后', 540, 300, 56, 'serif_black', INK, a)
-        F.line((80, BASE), (1000, BASE), GOLD, a * 0.7, 2, glow=0.6)
-        F.text('起点 10 万', 1000, BASE + 30, 22, 'sans_reg', GOLD, a * 0.8, anchor='r')
-        for j, (tot, col, t0) in enumerate([(UT, US, B(4) + 0.1), (CT, CN, B(5))]):
+        F.text_chars('同样的 10 万本金', 540, 330, 72, 'serif_black', INK, a, t0=0.05, stag=0.06)
+        two_tone(F, [('同一个策略，坚持 ', INK), ('10 年', GOLD_GRAD)], 540, 440, 56, 'serif_black', B(1), a, stag=0.05, glow=0.25)
+        ga = a * eo(ramp(t, B(2), B(2) + 0.5))
+        F.line((80, BASE), (1000, BASE), GOLD, ga * 0.7, 2, glow=0.6)
+        F.text('起点 10 万', 1000, BASE + 30, 22, 'sans_reg', GOLD, ga * 0.8, anchor='r')
+        p = eio(ramp(t, B(3), B(5)))                   # 两根光柱同时生长 1.6 s，在第 5 拍落定
+        for j, (tot, col) in enumerate([(UT, US), (CT, CN)]):
             cx = 300 + j * 480
-            p = eio(ramp(t, t0, t0 + 1.6))
             cur = 10 ** (math.log10(tot) * p)
             h = K * math.log10(cur)
             x0, x1 = cx - 80, cx + 80
             if h >= 0:
-                F.fill([(x0, BASE - h), (x1, BASE - h), (x1, BASE), (x0, BASE)], col, a * 0.55, glow=0.5)
-                F.line((x0, BASE - h), (x1, BASE - h), lerpc(col, WHITE, 0.6), a, 4, glow=1.5)
-                F.blob((cx, BASE - h), 110, col, 0.35 * a)
+                F.fill([(x0, BASE - max(h, 3)), (x1, BASE - max(h, 3)), (x1, BASE), (x0, BASE)], col, ga * 0.55, glow=0.5)
+                F.line((x0, BASE - h), (x1, BASE - h), lerpc(col, WHITE, 0.6), ga, 4, glow=1.5)
+                F.blob((cx, BASE - h), 110, col, 0.35 * ga)
                 ny = BASE - h - 80
             else:
-                F.fill([(x0, BASE), (x1, BASE), (x1, BASE - h), (x0, BASE - h)], mix(CN2, 0.8), a * 0.5, glow=0.4)
-                F.line((x0, BASE - h), (x1, BASE - h), CN2, a, 4, glow=1.2)
+                F.fill([(x0, BASE), (x1, BASE), (x1, BASE - h), (x0, BASE - h)], mix(CN2, 0.8), ga * 0.5, glow=0.4)
+                F.line((x0, BASE - h), (x1, BASE - h), CN2, ga, 4, glow=1.2)
                 ny = BASE - h + 80
-            done = ramp(t, t0 + 1.6, t0 + 1.7)
-            sz = 96 * pop(t, t0 + 1.6, 0.35) if done > 0 else 84
-            big_money(F, cur, cx, ny, sz, lerpc(col, WHITE, 0.35), a, glow=0.5 + 0.4 * done)
-            F.text(f'账户 {"①②"[j]}', cx, BASE + (40 if h >= 0 else -40), 30, 'sans_bold', col, a)
-            if 0 < t - t0 - 1.6 < 0.6:
-                u = (t - t0 - 1.6) / 0.6
-                F.circle((cx, ny), 60 + 260 * eo(u), col, a * (1 - u), 3, glow=1.0)
-    # ③ 相差 1,332 倍
-    a = hwin(t, 2, fi=0.08)
+            done = ramp(t, B(5), B(5) + 0.1)
+            big_money(F, cur, cx, ny, 96 * pop(t, B(5), 0.3) if done > 0 else 84, lerpc(col, WHITE, 0.35), ga, glow=0.5 + 0.4 * done)
+            F.text(f'账户 {"①②"[j]}', cx, BASE + (40 if h >= 0 else -40), 30, 'sans_bold', col, ga)
+            if 0 < t - B(5) < 0.6:
+                u = (t - B(5)) / 0.6
+                F.circle((cx, ny), 60 + 260 * eo(u), col, ga * (1 - u), 3, glow=1.0)
+        F.text('十年后', 540, 1450, 40, 'sans_bold', INK, a * eo(ramp(t, B(3), B(3) + 0.4)))
+    # ② 相差 1,332 倍（6.5 – 9.7 s）
+    a = hwin(t, 1, fi=0.08, fo=0.25)
     if a > 0:
-        u = t - B(8)
+        u = t - HOOK[1]
         F.text('两个账户相差', 540, 700, 52, 'serif_black', INK, a)
-        F.text3d(f"{STORY['gap']:,.0f}", 470, 900, 230 * pop(t, B(8), 0.4), 'num', face=GOLD_GRAD, a=a, glow=0.55, spec=ramp(u, 0.2, 1.4))
+        F.text3d(f"{STORY['gap']:,.0f}", 470, 900, 230 * pop(t, HOOK[1], 0.4), 'num', face=GOLD_GRAD, a=a, glow=0.55, spec=ramp(u, 0.2, 1.4))
         F.text('倍', 470 + text_w(f"{STORY['gap']:,.0f}", 'num', 230) / 2 + 70, 930, 110, 'serif_black', a=a, grad=GOLD_GRAD, glow=0.4)
         if u < 0.8:
             F.circle((540, 900), 100 + 800 * eo(u / 0.8), GOLD, a * (1 - u / 0.8), 5, glow=1.2)
             F.zoom = 1 + 0.03 * math.exp(-u / 0.15)
             F.shake = (math.sin(u * 90) * 10 * math.exp(-u / 0.12), 0.0)
-        F.text('规则只有一条', 540, 1130, 36, 'sans_med', DIM, a * eo(ramp(t, B(10), B(10) + 0.4)))
-        two_tone(F, [('每年买入上一年的', INK), ('涨幅冠军', GOLD_GRAD)], 540, 1215, 58, 'serif_black', B(10) + 0.25, a, glow=0.25)
-    # ④ 一个美股，一个 A 股 —— 你猜？
-    a = hwin(t, 3, fi=0.08, fo=0.12)
+        F.text('规则只有一条', 540, 1130, 36, 'sans_med', DIM, a * eo(ramp(u, 0.8, 1.2)))
+        two_tone(F, [('每年买入上一年的', INK), ('涨幅冠军', GOLD_GRAD)], 540, 1215, 58, 'serif_black', HOOK[1] + 1.0, a, glow=0.25)
+    # ③ 一个美股，一个 A 股 —— 你猜？（9.7 – 12.9 s）
+    a = hwin(t, 2, fi=0.08, fo=0.12)
     if a > 0:
         two_tone(F, [('一个投 ', INK), ('美股', [(0, US), (1, US2)]), ('，一个投 ', INK), ('A 股', [(0, CN), (1, CN2)])],
-                 540, 780, 62, 'serif_black', B(12) + 0.02, a, stag=0.035, glow=0.3)
-        qa = a * eo(ramp(t, B(13.5), B(13.5) + 0.35))
-        F.text3d('你猜，哪个是 A 股？', 540, 960, 88 * pop(t, B(13.5), 0.25), 'serif_black', face=GOLD_GRAD, a=qa, glow=0.45,
-                 spec=ramp(t, B(13.5) + 0.2, B(13.5) + 1.2))
-        F.text('答案和背后的原因，马上揭晓', 540, 1090, 36, 'sans_med', DIM, a * eo(ramp(t, B(14.5), B(14.5) + 0.4)))
+                 540, 800, 64, 'serif_black', HOOK[2] + 0.02, a, stag=0.04, glow=0.3)
+        tq = HOOK[2] + 1.2
+        qa = a * eo(ramp(t, tq, tq + 0.35))
+        F.text3d('你猜，哪个是 A 股？', 540, 990, 92 * pop(t, tq, 0.25), 'serif_black', face=GOLD_GRAD, a=qa, glow=0.45,
+                 spec=ramp(t, tq + 0.2, tq + 1.2))
 
 
 def sc_title(F, t):
@@ -1166,6 +1150,8 @@ def sc_end(F, t):
         F.line((540 - w, 1190), (540 + w, 1190), GOLD, 0.85, 2, glow=0.8)
         parts = [('关注', SUBGOLD), ('「巴芒价值」', GOLD_GRAD), ('，传承大师智慧，领悟投资真谛', SUBGOLD)]
         two_tone(F, parts, 540, 1262, 38, 'serif_med', T_FOLLOW + 0.25, 1.0, stag=0.03, glow=0.15)
+        F.text('内容仅供参考，不构成投资建议。回测基于历史数据，不代表未来收益。', 540, 1345, 24, 'sans_reg', SUBGOLD,
+               0.7 * eo(ramp(t, T_FOLLOW + 1.3, T_FOLLOW + 1.9)))
 
 
 # ================================================================ frame
@@ -1193,9 +1179,8 @@ def bg_colors(t):
 
 def scene_fx(F, t):
     """全片的炫光层：粒子地面 / 体积光 / 金尘 / 转场光晕（各段配色不同）"""
-    H0 = HOOK[1]
     if t < T_TITLE:
-        BGR.field(F, t, GOLD, CN, a=0.9 * (1 - 0.6 * (H0 <= t < HOOK[2])), horizon=1330 if H0 <= t < HOOK[2] else 1420)
+        BGR.field(F, t, GOLD, CN, a=0.4 if t < HOOK[1] else 0.9, horizon=1330 if t < HOOK[1] else 1420)
         BGR.beams(F, t, GOLD_D, a=0.35)
         BGR.dust(F, t, GOLD, a=0.8)
     elif t < T_RULES:
