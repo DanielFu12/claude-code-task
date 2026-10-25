@@ -30,11 +30,11 @@ def since(t, n):
 def ENERGY(t):
     return keys(t, [(0, .35), (B(31.5), .45), (B(32), 1), (B(80), 1), (B(80.3), .55), (B(132), .6), (B(132.3), .9),
                     (B(160), .9), (B(160.3), .6), (B(164), 1), (B(232), 1), (B(232.5), .3), (B(268), .3), (B(268.3), 1),
-                    (B(396), 1), (B(404), .3)])
+                    (B(412), 1), (B(420), .3)])
 
 # 重击：(拍号, 强度, 颜色)
 IMPACTS = [(32, 1.0, GOLD), (80, 0.35, CYAN), (132, 0.6, GOLD), (164, 0.55, CYAN), (196, 0.7, RED),
-           (216, 1.0, RED), (268, 1.0, GOLD), (296, 0.8, GOLD), (384, 0.9, C(110, 175, 255))]
+           (216, 1.0, RED), (268, 1.0, GOLD), (296, 0.8, GOLD), (324, 0.5, GOLD), (400, 0.9, C(110, 175, 255))]
 
 LEMON = C(186, 214, 72)          # 劣质 / 柠檬
 LEMOND = C(120, 140, 60)
@@ -55,8 +55,8 @@ BGK = [
     (B(228), (110, 20, 30), (50, 12, 50), 1.0), (B(232), (25, 18, 30), (18, 14, 34), .45),
     (B(266), (25, 20, 34), (20, 16, 40), .5), (B(268), (150, 105, 30), (40, 60, 120), 1.4),
     (B(276), (80, 65, 30), (25, 55, 110), 1.0), (B(300), (40, 70, 110), (90, 70, 30), 1.0),
-    (B(324), (70, 55, 25), (25, 40, 90), .95), (B(364), (60, 45, 22), (30, 30, 70), .85),
-    (B(380), (20, 30, 70), (25, 20, 50), .7), (DUR, (8, 10, 25), (10, 8, 20), .4)]
+    (B(324), (70, 55, 25), (25, 40, 90), .95), (B(332), (30, 45, 95), (60, 40, 90), .9), (B(380), (60, 45, 22), (30, 30, 70), .85),
+    (B(396), (20, 30, 70), (25, 20, 50), .7), (DUR, (8, 10, 25), (10, 8, 20), .4)]
 
 def bg_at(t):
     a = keys(t, [(k[0], k[1]) for k in BGK]); b = keys(t, [(k[0], k[2]) for k in BGK])
@@ -87,7 +87,7 @@ def star_speed(t):
     for n, k, _ in IMPACTS:
         ti = B(n)
         if t >= ti: v += k * 1.3 * math.exp(-(t - ti) / 0.5)
-    for a, b in [(28, 32), (262, 268), (378, 384)]:
+    for a, b in [(28, 32), (262, 268), (394, 400)]:
         if B(a) <= t <= B(b): v += 0.3 * ei((t - B(a)) / (B(b) - B(a)))
     return v
 
@@ -171,8 +171,8 @@ def draw_hud_post(img, t, a):
     img[:h] = (np.clip(reg, 0, 1) * 255 + 0.5).astype(np.uint8)
     return img
 
-CHAPTERS = [(0, '', ''), (44, '01', '现场'), (80, '02', '线索'), (132, '03', '柠檬市场'), (232, '04', '第一性原理'),
-            (268, '05', '破局'), (324, '06', '投资启示'), (364, '', ''), (999, '', '')]
+CHAPTERS = [(0, '', ''), (44, '01', '格雷欣法则'), (80, '02', '柠檬市场'), (132, '03', '真相'), (232, '04', '劣币会传染'),
+            (268, '05', '破局'), (324, '06', '投资启示'), (380, '', ''), (999, '', '')]
 
 def draw_chrome(f, t):
     for (a, num, zh), (b, *_r) in zip(CHAPTERS, CHAPTERS[1:]):
@@ -322,12 +322,13 @@ def make_card(tag, date, title, fact, src, accent, w=920, h=370):
     im = im.resize((w, h), PImage.LANCZOS)
     return np.asarray(im, np.float32) / 255
 
-CASES = [  # (出场拍, 标签, 日期, 标题, 一句话事实, 来源, 强调色, 「藏在哪」)
-    (2.0, '热议', '2026.8', '甲醛白菜', '收购商用甲醛溶液蘸菜根，只为运输「保鲜」', '河北康保县通报情况属实 · 国务院食安办等三部门督办', RED, '菜根里'),
-    (5.5, '热议', '2026.10', '刹车踏板支架断裂', '媒体测试中，3 辆车的踏板支架接连断裂', '工信部等三部门已成立联合调查组 · 结论尚未公布', ORANGE, '踏板背后'),
-    (9.0, '热议', '2026.4', '幽灵外卖', '250 元的蛋糕层层转包，做的人只拿到不到 80 元', '新华社 · 7 家平台被罚 35.97 亿元', MAGENTA, '看不见的后厨'),
-    (12.5, '3·15', '2026', '漂白鸡爪', '工业双氧水泡出来的「白净」', '央视 3·15 晚会曝光 · 市场监管总局查处', CYAN, '双氧水里'),
-    (16.0, '3·15', '2025', '保水虾仁', '一斤冻虾仁，解冻后只剩三两', '央视 3·15 晚会曝光「泡药」「包冰」增重', GOLD, '冰层里'),
+CASES = [  # (出场拍, 标签, 日期, 标题, 一句话事实, 来源, 强调色, 「看不见的是什么」, 「结果」)
+    (8.3, '热议', '2026.4', '幽灵外卖', '250 元的蛋糕层层转包，做的人只拿到不到 80 元', '新华社 · 7 家平台被罚 35.97 亿元', MAGENTA,
+     '后厨', '有真厨房的店，拼不过没厨房的'),
+    (11.5, '热议', '2026.8', '甲醛白菜', '收购商用甲醛溶液蘸菜根，只为运输「保鲜」', '河北康保县通报情况属实 · 国务院食安办等三部门督办', RED,
+     '菜根里泡了什么', '老实保鲜的，成本反而更高'),
+    (14.7, '热议', '2026.10', '刹车踏板支架断裂', '媒体测试中，3 辆车的踏板支架接连断裂', '工信部等三部门已成立联合调查组 · 结论尚未公布', ORANGE,
+     '零件的安全余量', '多花的安全成本，顾客看不出来'),
 ]
 CARD_IMG = [make_card(c[1], c[2], c[3], c[4], c[5], c[6]) for c in CASES]
 
@@ -358,56 +359,41 @@ def floor_grid(f, t, a, col=CYAN, speed=0.6, hy=1250):
         fade = cl(1 - zz / 14)
         f.line((x[0], y[0]), (x[1], y[1]), col, a * 0.28 * fade, 1)
 
-@SCENE(0, 32)
+@SCENE(8, 32)
 def sc_hook(f, t):
-    floor_grid(f, t, win(t, -1, 22, 0.8, 1.0) * 0.8, col=C(90, 120, 200))
-    # 开场问句：先居中放大，第一张卡片到来时收到顶部
-    mv = eio(cl((t - B(1.4)) / 0.5))
-    qa = win(t, -1, 20, 0.25, 0.4)
-    rich(f, '这一年，你刷到过【这些】吗？', lerp(900, 300, mv), int(lerp(76, 44, mv)), 0.05, qa, col=WHITE if mv < 1 else SOFT,
-         fnt='serif_black' if mv < 0.5 else 'sans_med', stag=0.045, glow=0.4 * (1 - mv))
-    if t < B(2): f.glow((W / 2, 900), 260, C(90, 120, 200), 0.25 * qa * (1 - mv), 'B')
-    # --- 五张卡片：从远处飞入，旧卡片退向后方
-    cam = Cam(dist=3.0, f=1380, cy=960)
-    ac = win(t, 0, 20.5, 0.1, 0.35)
+    floor_grid(f, t, win(t, 7, 24, 0.5, 1.0) * 0.8, col=C(90, 120, 200))
+    rich(f, '最近的热搜', 300, 40, B(8.1), win(t, 7, 18, 0.2, 0.4), col=SOFT, fnt='sans_med')
+    # --- 三张卡片：从远处飞入，旧卡片层层退后
+    cam = Cam(dist=3.0, f=1380, cy=900)
+    ac = win(t, 7, 18.3, 0.05, 0.4)
     for i, c in enumerate(CASES):
-        n0 = c[0]; n1 = CASES[i + 1][0] if i + 1 < len(CASES) else 20.0
+        n0 = c[0]
         if t < B(n0) - 0.05: continue
-        pin = eo((t - B(n0)) / 0.42)
-        pout = eio(cl((t - B(n1)) / 0.5)) if t > B(n1) else 0.0
-        dep = sum(1 for cc in CASES if cc[0] > n0 and t > B(cc[0]))      # 被后来者推后几层
+        pin = eo((t - B(n0)) / 0.4)
+        dep = sum(1 for cc in CASES if cc[0] > n0 and t > B(cc[0]))
         z = 5.5 * (1 - pin) + 0.9 * min(dep, 4)
         y3 = -1.1 * (1 - pin) + 0.36 * min(dep, 4)
         yaw = 0.55 * (1 - pin) * (1 if i % 2 else -1)
-        al = ac * pin * max(0.0, 1 - 0.28 * dep) * (1 - pout * 0.0)
+        al = ac * pin * max(0.0, 1 - 0.3 * dep)
         if al <= 0.01: continue
         corners, zmin = quad(cam, 0, y3, z, yaw, 0.1 * (1 - pin), 0.03 * (1 - pin) * (1 if i % 2 else -1), 1.0, 0.402)
-        warp_sprite(f, CARD_IMG[i], corners, al, glow=0.25 if dep == 0 else 0.0, glow_col=c[6])
+        warp_sprite(f, CARD_IMG[i], corners, al, glow=0.3 if dep == 0 else 0.0, glow_col=c[6])
         if dep == 0 and t - B(n0) < 0.25:
-            f.ca = max(f.ca, 8 * (1 - (t - B(n0)) / 0.25))
-    # --- 共同点：你看不见
-    a2 = win(t, 20, 31, 0.3, 0.5)
+            f.ca = max(f.ca, 9 * (1 - (t - B(n0)) / 0.25))
+    # --- 钩子：为什么越来越差？
+    a2 = win(t, 18, 31.5, 0.2, 0.4)
     if a2 > 0:
-        fg = fog(t * 1.4) * eo((t - B(23.5)) / 1.0)
-        for i, c in enumerate(CASES):
-            p = eo((t - B(20 + i * 0.5)) / 0.4) * (1 - eo((t - B(26.6)) / 0.4))
-            y = 560 + i * 120
-            blur = eo((t - B(24)) / 0.8)
-            cc = lerpc(c[6], FOGC, blur * 0.7)
-            f.text(c[3], W / 2, y, 52, 'serif_black', lerpc(WHITE, FOGC, blur * 0.6), a2 * p * (1 - 0.55 * blur), 'm', mode='O')
-            f.rrect(170, y - 44, 910, y + 44, 44, cc, a2 * p * 0.55 * (1 - 0.4 * blur), 2)
-        f.L += (fg * a2)[..., None] * np.array(FOGC, np.float32) * 0.28
-        rich(f, '它们有一个共同点——', 400, 54, B(22), a2 * (1 - eo((t - B(27)) / 0.4)), col=SOFT, fnt='serif_semi')
-        rich(f, '【你看不见】。', 1250, 120, B(24), a2 * (1 - eo((t - B(27)) / 0.4)), hlcol=FOGC if False else None, glow=0.5, stag=0.09)
-    a3 = win(t, 27, 31.5, 0.3, 0.4)
-    if a3 > 0:
-        headline(f, '当质量看不见——', 760, 78, B(27), a3, col=SOFT)
-        headline(f, '认真做的，会输给', 930, 86, B(28.2), a3)
-        headline(f, '【偷工减料】的？', 1050, 86, B(29.2), a3, hlcol=LEMON)
+        fg = fog(t * 1.2) * eo((t - B(18)) / 1.2)
+        f.L += (fg * a2)[..., None] * np.array(FOGC, np.float32) * 0.16
+        headline(f, '为什么，我们买到的东西', 760, 74, B(18), a2)
+        rich(f, '越来越【差】了？', 930, 132, B(19.5), a2, glow=0.6, stag=0.08, hlcol=RED)
+        body(f, '不是你的错觉，', 1180, 46, B(24), a2, col=SOFT)
+        body(f, '也不只是商家的良心问题。', 1250, 46, B(25.5), a2, col=SOFT)
+        headline(f, '答案，藏在一条古老的经济学定律里——', 1440, 52, B(27.5), a2, col=GOLD2, fnt='serif_semi')
     implode(f, t, B(28), B(32), W / 2, 960, [GOLD, GOLD2, LEMON, WHITE], 0.9)
 
 
-# ============================================================== 1 · 标题
+# ============================================================== 1 · 标题：劣币驱逐良币
 @SCENE(32, 44)
 def sc_title(f, t):
     a = win(t, 32, 44, 0.05, 0.5)
@@ -415,18 +401,17 @@ def sc_title(f, t):
     dt = t - B(32)
     cam = Cam(yaw=0.4 + dt * 0.25, pitch=0.25, dist=3.0, f=1150, cy=960)
     R = 1.0 + 1.4 * math.exp(-dt / 0.5)
-    draw_sphere(f, t, cam, a * 0.55, R=R, glowk=0.6, size=1.5)
+    draw_sphere(f, t, cam, a * 0.45, R=R, glowk=0.6, size=1.5)
     burst(f, t, B(32), W / 2, 960, [GOLD, GOLD2, LEMON, WHITE], seed=1, n=900, speed=1700)
-    sc = 1 + 0.25 * math.exp(-dt / 0.25)
-    headline(f, '谁杀死了', 770, int(118 * sc), B(32), a, stag=0.04)
-    headline(f, '好东西？', 960, int(196 * sc), B(32) + 0.12, a, grad=[GOLD2, GOLD, GOLDD], glow=0.7, stag=0.07)
-    gline(f, 240, 840, 1110, GOLD, a * 0.8, (t - B(34)) / 0.5)
-    body(f, '劣币驱逐良币 · 柠檬市场 · 逆向选择', 1170, 40, B(34), a, col=GOLD2)
-    f.text('WHO KILLED THE GOOD STUFF', W / 2, 1230, 28, 'corm', SOFT, a * 0.9 * eo((t - B(35)) / 0.6), 'm', track=0.32, mode='O')
+    sc = 1 + 0.06 * math.exp(-dt / 0.25)
+    body(f, '为什么我们买到的东西越来越差？', 770, 42, B(32.5), a, col=SOFT)
+    rich(f, '劣币驱逐良币', 930, int(140 * sc), B(32), a, grad=[GOLD2, GOLD, GOLDD], glow=0.7, stag=0.07)
+    gline(f, 200, 880, 1080, GOLD, a * 0.8, (t - B(34)) / 0.5)
+    body(f, '格雷欣法则 · 柠檬市场 · 逆向选择', 1140, 40, B(34), a, col=GOLD2)
+    f.text('BAD MONEY DRIVES OUT GOOD', W / 2, 1200, 28, 'corm', SOFT, a * 0.9 * eo((t - B(35)) / 0.6), 'm', track=0.3, mode='O')
 
 
-
-# ============================================================== 2 · 现场：一斤虾仁的账
+# ============================================================== 道具
 SHRIMP_C = C(255, 128, 92)
 
 def shrimp(f, cx, cy, s, ang, col, a, th=3):
@@ -477,67 +462,6 @@ def bag(f, cx, cy, col, a, scan, contents, t, seed):
         f.dots(xs[ok], ys[ok], C(170, 230, 255), a * 0.8, 1, 'E')
         f.soft(xs[ok], ys[ok], C(170, 230, 255), a * 0.35, 7, 'E')
 
-@SCENE(44, 80)
-def sc_case(f, t):
-    # --- 一斤冻虾仁，解冻后只剩三两
-    a = win(t, 44, 56, 0.35, 0.4)
-    if a > 0:
-        rich(f, '先算一笔账', 300, 40, B(44), a, col=GOLD, fnt='sans_med')
-        headline(f, '一斤冻虾仁', 410, 92, B(44.5), a)
-        melt = eo(cl((t - B(48)) / (3 * P)))
-        cam = Cam(yaw=0.6 + (t - B(44)) * 0.35, pitch=0.42, dist=6.2, f=1150, cy=860)
-        sc = 1.25 * (1 - 0.33 * melt) * eback((t - B(44)) / 0.6)
-        ice_cube(f, cam, sc, C(170, 230, 255), a * (1 - 0.75 * melt), t)
-        for k in range(3):
-            shrimp(f, W / 2 - 110 + k * 110, 860 + 20 * math.sin(t * 1.5 + k), 46, k * 1.3 + t * 0.4, SHRIMP_C, a)
-        if melt > 0:      # 融化的水滴
-            rng = np.random.default_rng(3)
-            n = 160
-            ph = rng.uniform(0, 1, n); xs = rng.uniform(-180, 180, n)
-            u = ((t - B(48)) * 0.8 + ph) % 1.0
-            f.dots(W / 2 + xs, 1000 + u * 380, C(150, 215, 255), a * melt * (1 - u), 1, 'E')
-        headline(f, '解冻后，只剩【三两】', 1250, 86, B(48), a, hlcol=SHRIMP_C)
-        # 7:3 比例条
-        p = eo((t - B(51)) / 0.6)
-        if p > 0:
-            x0, x1, y = 140, 940, 1430
-            xm = x0 + (x1 - x0) * 0.7 * p
-            f.fillpoly([(x0, y - 26), (xm, y - 26), (xm, y + 26), (x0, y + 26)], C(150, 215, 255), a * 0.5, 'E')
-            f.fillpoly([(xm, y - 26), (x1, y - 26), (x1, y + 26), (xm, y + 26)], SHRIMP_C, a * 0.7 * p, 'E')
-            f.text('冰 + 水 ≈ 7 两', x0 + 20, y + 70, 34, 'sans_med', C(170, 230, 255), a * p, 'l', mode='O')
-            f.text('虾仁 ≈ 3 两', x1 - 20, y + 70, 34, 'sans_med', SHRIMP_C, a * p, 'r', mode='O')
-        note(f, '2025 年央视 3·15 晚会曝光：泡保水剂、包冰增重，「70% 都能包」', 1610, B(52), a, 25)
-    # --- 货架上的两袋
-    a = win(t, 56, 68, 0.35, 0.4)
-    if a > 0:
-        headline(f, '货架上，两袋一模一样', 330, 72, B(56), a)
-        scan = 640 + (1180 - 640) * eio(cl((t - B(58.5)) / (2.5 * P)))
-        if t < B(58.5): scan = 0
-        drop = eio(cl((t - B(66)) / 0.6))
-        bag(f, 300, 900 + 200 * drop, GOLD, a * (1 - 0.7 * drop), scan, 'full', t, 1)
-        bag(f, 780, 900, GOLD, a, scan, 'ice', t, 2)
-        if 0 < scan < 1180 and t < B(62):
-            f.L[int(scan) - 2:int(scan) + 2, 120:960] += np.array(CYAN, np.float32) * 0.7 * a
-            f.B[int(scan) - 30:int(scan) + 30, 120:960] += np.array(CYAN, np.float32) * 0.05 * a
-        body(f, '一袋实打实，一袋七成是冰', 1220, 44, B(60), a, col=WHITE)
-        headline(f, '如果你分不出来——', 1380, 66, B(62.5), a, col=SOFT)
-        headline(f, '【便宜那袋】会卖得更好，', 1500, 66, B(64), a, hlcol=LEMON)
-        headline(f, '老实那家，被挤下货架。', 1620, 66, B(66), a)
-    # --- 质量藏在哪
-    a = win(t, 68, 80, 0.3, 0.4)
-    if a > 0:
-        rich(f, '五件事，一个结构', 330, 44, B(68), a, col=GOLD, fnt='sans_med')
-        for i, c in enumerate(CASES):
-            p = eo((t - B(68.5 + i * 0.8)) / 0.4)
-            y = 470 + i * 112
-            f.text(c[3], 150, y, 46, 'serif_black', WHITE, a * p, 'l', mode='O')
-            f.line((560, y), (560 + 60 * p, y), c[6], a * p, 2)
-            f.text('藏在' + c[7], 650, y, 42, 'sans_med', lerpc(c[6], WHITE, 0.25), a * p, 'l', mode='O', glow=0.3)
-        headline(f, '质量，藏在【看不见】的地方。', 1180, 70, B(73.5), a)
-        headline(f, '而看不见的东西，', 1360, 66, B(76), a, col=SOFT)
-        headline(f, '最容易被【悄悄拿走】。', 1470, 66, B(77.2), a, hlcol=RED)
-
-
 # ============================================================== 3 · 线索：嫌疑人 → 格雷欣法则 → 区分
 def coin(f, cx, cy, R, ang, col, a, label, sub=None, dark=False):
     """3D 旋转硬币：正面椭圆（宽度随 cos 变化）+ 厚度边"""
@@ -553,64 +477,57 @@ def coin(f, cx, cy, R, ang, col, a, label, sub=None, dark=False):
     inner = np.stack([cx + w * 0.8 * np.cos(ts), cy + R * 0.8 * np.sin(ts)], 1)
     f.poly(inner, col, a * 0.6, 2, closed=True)
     if abs(c) > 0.35:
-        f.text(label, cx, cy - 8, int(R * 0.62), 'oswald', lerpc(col, WHITE, 0.4), a * cl((abs(c) - 0.35) * 2.5), 'm', mode='O')
+        f.text(label, cx, cy - 8, int(R * 0.62), 'oswald' if label.isdigit() else 'serif_black', lerpc(col, WHITE, 0.4), a * cl((abs(c) - 0.35) * 2.5), 'm', mode='O')
     f.glow((cx, cy), R * 0.8, col, a * 0.25, 'B')
 
 def person(f, cx, cy, s, col, a):
     f.circle((cx, cy - s * 0.35), s * 0.22, col, a, 3)
     f.arc((cx, cy + s * 0.45), s * 0.42, math.pi, 2 * math.pi, col, a, 3)
 
-@SCENE(80, 132)
-def sc_clues(f, t):
-    # --- 嫌疑人
-    a = win(t, 80, 92, 0.3, 0.4)
-    if a > 0:
-        headline(f, '凶手是谁？', 390, 96, B(80), a)
-        sus = [('偷工减料的商家？', LEMON), ('只认低价的顾客？', CYAN), ('缺位的监管？', VIOLET)]
-        for j, (s_, col) in enumerate(sus):
-            n0 = 82 + 2 * j
-            p = eo((t - B(n0)) / 0.35)
-            dim = 1 - 0.55 * eo((t - B(88.5)) / 0.5)
-            y = 690 + j * 210
-            card(f, 120 + 60 * (1 - p), y - 80, 960, y + 80, col, a * p * dim, 0.06)
-            person(f, 220, y + 4, 90, col, a * p * dim)
-            f.text(s_, 320, y, 50, 'sans_med', WHITE, a * p * dim, 'l', mode='O')
-            if t > B(88.5):
-                q = eo((t - B(88.5) - j * 0.1) / 0.3)
-                f.line((300, y), (300 + 600 * q, y), RED, a * 0.8, 3)
-        body(f, '都有份，但都不是根源', 1420, 50, B(89), a, col=GOLD2)
+def stamp(f, t, n0, cx, cy, txt='法定同价', a=1.0):
+    st = cl((t - B(n0)) / 0.22)
+    if st <= 0: return
+    sc = 1 + 1.5 * (1 - eo(st))
+    hit = math.exp(-max(0, t - B(n0) - 0.22) / 0.15) if t > B(n0) + 0.22 else 0
+    w_, h_ = 280 * sc, 116 * sc
+    f.rrect(cx - w_ / 2, cy - h_ / 2, cx + w_ / 2, cy + h_ / 2, 14, RED, a * st, 4)
+    f.text(txt, cx, cy, int(56 * sc), 'serif_black', RED, a * st, 'm', mode='O', glow=0.5 + hit)
+    if hit > 0.05: f.ca = max(f.ca, 6 * hit)
+
+@SCENE(44, 80)
+def sc_gresham(f, t):
     # --- 格雷欣：两枚硬币
-    a = win(t, 92, 112, 0.35, 0.4)
+    a = win(t, 44, 72, 0.35, 0.4)
     if a > 0:
-        body(f, '线索一 · 一枚硬币的选择', 300, 40, B(92), a, col=GOLD)
-        sp = (t - B(92)) * 1.4
-        p = eo((t - B(92)) / 0.5)
-        flow = cl((t - B(104)) / (B(108) - B(104)))
+        body(f, '先看一个两千年前就有的选择', 300, 40, B(44), a, col=GOLD)
+        sp = (t - B(44)) * 1.4
+        p = eo((t - B(44)) / 0.5)
+        flow = 0
         # 硬币上移给流动动画让位
-        cy = 640 if t < B(104) else 640 - 0 * flow
+        cy = 640
         coin(f, 300, cy, 150 * p, sp, GOLD, a * p, '100')
         coin(f, 780, cy, 150 * p, sp + 1.3, C(170, 150, 110), a * p, '80', dark=True)
         f.text('良币 · 含金 100', 300, cy + 210, 38, 'sans_med', GOLD2, a * p, 'm', mode='O')
         f.text('劣币 · 含金 80', 780, cy + 210, 38, 'sans_med', C(200, 185, 150), a * p, 'm', mode='O')
-        ab = win(t, 108, 112, 0.3, 0.4)
-        ap = win(t, 96, 112, 0.3, 0.4) * (1 - ab)
+        ab = win(t, 62, 72, 0.3, 0.4)
+        ap = win(t, 46, 72, 0.3, 0.4) * (1 - ab)
         card(f, 150, 940, 930, 1060, WHITE, ap, 0.05)
-        f.text('法律规定：两枚都当 100 用', W / 2, 1000, 48, 'serif_black', WHITE, ap, 'm', mode='O', t0=B(96), stag=0.03)
-        aq = win(t, 100, 104, 0.3, 0.3)
-        headline(f, '你会先花掉哪一枚？', 1220, 72, B(100), aq, col=GOLD2)
+        f.text('法律规定：两枚都当 100 用', W / 2, 1000, 48, 'serif_black', WHITE, ap, 'm', mode='O', t0=B(46), stag=0.03)
+        aq = win(t, 50, 54, 0.3, 0.3)
+        headline(f, '你会先花掉【哪一枚】？', 1220, 76, B(50), aq)
         # 流动：劣币进入流通（右下），良币被收藏（左下的金库）
-        af = win(t, 104, 112, 0.3, 0.4) * (1 - ab)
+        af = win(t, 54, 72, 0.3, 0.4) * (1 - ab)
         if af > 0.003 or ab > 0:
             rng = np.random.default_rng(9)
             n = 140
             ph = rng.uniform(0, 1, n); lane = rng.uniform(-1, 1, n)
-            u = ((t - B(104)) * 0.45 + ph) % 1.0
+            u = ((t - B(54)) * 0.45 + ph) % 1.0
             # 劣币：从右侧硬币流向底部「流通」并四散
             x = 780 + lane * 60 + u * u * lane * 300; y = cy + 160 + u * 700
             f.dots(x, y, C(190, 175, 130), af * (1 - u) * 0.9, 1, 'E')
             f.soft(x, y, C(190, 175, 130), af * (1 - u) * 0.5, 5, 'E')
             # 良币：落入金库并停住
-            u2 = np.clip((t - B(104)) * 0.5 - ph * 0.8, 0, 1)
+            u2 = np.clip((t - B(54)) * 0.5 - ph * 0.8, 0, 1)
             x2 = 300 + lane * 50; y2 = cy + 160 + (1 - (1 - u2) ** 3) * 560
             f.dots(x2, y2, GOLD, af * (u2 > 0) * 0.9, 1, 'E')
             f.soft(x2, y2, GOLD, af * (u2 > 0) * 0.6, 5, 'E')
@@ -621,49 +538,17 @@ def sc_clues(f, t):
                 card(f, 90, 1040, 990, 1640, GOLD, ab, 0.12)
                 f.text('「奸钱日繁，正钱日亡」', W / 2, 1160, 66, 'serif_black', GOLD2, ab, 'm', mode='O', glow=0.3)
                 f.text('—— 西汉 · 贾谊《新书 · 铸钱》', W / 2, 1260, 34, 'serif_reg', SOFT, ab, 'm', mode='O')
-                f.text('1558 · 格雷欣向英国女王进言', W / 2, 1400, 38, 'sans_med', WHITE, ab * eo((t - B(109)) / 0.3), 'm', mode='O')
-                f.text('1965 · 美国含银硬币迅速退出流通', W / 2, 1490, 38, 'sans_med', WHITE, ab * eo((t - B(110)) / 0.3), 'm', mode='O')
-    # --- 区分：格雷欣（法令）vs 柠檬（信息差）——上下分屏的动态对比
-    a = win(t, 112, 132, 0.35, 0.5)
+                f.text('1558 · 格雷欣向英国女王进言', W / 2, 1400, 38, 'sans_med', WHITE, ab * eo((t - B(65)) / 0.3), 'm', mode='O')
+                f.text('1965 · 美国含银硬币迅速退出流通', W / 2, 1490, 38, 'sans_med', WHITE, ab * eo((t - B(67)) / 0.3), 'm', mode='O')
+        stamp(f, t, 47, W / 2, cy, a=win(t, 47, 54, 0.05, 0.3))
+        headline(f, '劣币在流通，良币被藏起来', 1630, 60, B(57), win(t, 57, 62, 0.3, 0.3))
+    # --- 前提
+    a = win(t, 72, 80, 0.3, 0.4)
     if a > 0:
-        f.line((90, 960), (990, 960), SOFT, a * 0.35, 1)
-        # 上：格雷欣 —— 硬币 + 「法定同价」印章砸下
-        p1 = eo((t - B(112)) / 0.4)
-        f.text('格雷欣法则', 90, 330, 60, 'serif_black', GOLD2, a * p1, 'l', mode='O', glow=0.3)
-        f.text('好坏看得出，法令逼它们同价', 90, 410, 36, 'sans_med', SOFT, a * p1, 'l', mode='O')
-        sp = (t - B(112)) * 1.6
-        coin(f, 330, 680, 120 * p1, sp, GOLD, a * p1, '100')
-        coin(f, 750, 680, 120 * p1, sp + 1.3, C(170, 150, 110), a * p1, '80', dark=True)
-        st = cl((t - B(114)) / 0.22)
-        if st > 0:
-            sc = 1 + 1.5 * (1 - eo(st))
-            hit = math.exp(-max(0, t - B(114) - 0.22) / 0.15) if t > B(114) + 0.22 else 0
-            cx, cy = W / 2, 680
-            w_, h_ = 260 * sc, 110 * sc
-            f.rrect(cx - w_ / 2, cy - h_ / 2, cx + w_ / 2, cy + h_ / 2, 14, RED, a * st, 4)
-            f.text('法定同价', cx, cy, int(54 * sc), 'serif_black', RED, a * st, 'm', mode='O', glow=0.5 + hit)
-            if hit > 0.05: f.ca = max(f.ca, 6 * hit)
-        # 下：柠檬市场 —— 两个盒子被雾吞没
-        p2 = eo((t - B(116)) / 0.4)
-        f.text('柠檬市场', 90, 1050, 60, 'serif_black', LEMON, a * p2, 'l', mode='O', glow=0.3)
-        f.text('好坏看不出，只能卖均价', 90, 1130, 36, 'sans_med', SOFT, a * p2, 'l', mode='O')
-        fogk = eo((t - B(117.5)) / 0.8)
-        for j, (cx, col) in enumerate([(330, GOLD), (750, LEMON)]):
-            c2 = lerpc(col, FOGC, fogk * 0.9)
-            cam = Cam(yaw=0.6 + (t - B(116)) * 0.5 + j, pitch=0.4, dist=7, f=700, cx=cx, cy=1330)
-            ice_cube(f, cam, 0.85 * p2, c2, a * p2, t)
-            f.text('?' if fogk > 0.5 else ('优' if j == 0 else '劣'), cx, 1330, 64, 'serif_black', c2, a * p2, 'm', mode='O')
-        if fogk > 0:
-            fg = fog(t * 1.5)
-            fg[:1000] *= 0.15
-            f.L += (fg * a * fogk)[..., None] * np.array(FOGC, np.float32) * 0.22
-        # 结论
-        ac = win(t, 120, 132, 0.3, 0.5)
-        if ac > 0:
-            f.L *= 1 - 0.55 * ac; f.E *= 1 - 0.55 * ac
-            card(f, 70, 1530, 1010, 1690, GOLD, ac, 0.2)
-            rich(f, '一个靠法令，一个靠【信息差】', 1590, 56, B(120), ac)
-            body(f, '今天的「劣币驱逐良币」，多半是后者', 1660, 34, B(124), ac, col=SOFT)
+        body(f, '但格雷欣法则有个前提：', 520, 44, B(72), a, col=SOFT)
+        headline(f, '法律强制【好坏同价】', 660, 80, B(73), a)
+        headline(f, '今天，没人强制同价——', 900, 66, B(75), a, col=SOFT)
+        rich(f, '为什么【劣币】还能赢？', 1040, 88, B(76.5), a, hlcol=LEMON, glow=0.4)
 
 
 # ============================================================== 4 · 阿克洛夫与二手车
@@ -707,61 +592,119 @@ def draw_car(f, cam, L, col, a, off=(0, 0, 0), th=2):
         x, y, z, s = cam.project(seg + np.array(off))
         f.poly(np.stack([x, y], 1), col, a, th)
 
-@SCENE(132, 164)
+@SCENE(80, 132)
 def sc_lemons(f, t):
     # --- 阿克洛夫
-    a = win(t, 132, 140, 0.2, 0.4)
+    a = win(t, 80, 88, 0.2, 0.4)
     if a > 0:
-        cam = Cam(yaw=(t - B(132)) * 0.6, pitch=0.35, dist=5, f=1000, cy=760)
+        cam = Cam(yaw=(t - B(80)) * 0.6, pitch=0.35, dist=5, f=1000, cy=760)
         rings, mer = lemon_mesh()
-        sc = eback((t - B(132)) / 0.6)
+        sc = eback((t - B(80)) / 0.6)
         for r in rings + mer:
             x, y, z, s_ = cam.project(r * 1.3 * sc)
             f.poly(np.stack([x, y], 1), LEMON, a * 0.7, 2)
         f.glow((W / 2, 760), 200, LEMON, a * 0.18, 'B')
         f.text('1970', W / 2, 330, 60, 'oswald', LEMON, a, 'm', mode='O', glow=0.4)
-        headline(f, '阿克洛夫《柠檬市场》', 1080, 72, B(132.5), a)
-        body(f, 'lemon：美国俚语，买到手才发现的问题车', 1180, 34, B(133.5), a, col=SOFT)
-        body(f, '曾被三家顶级期刊拒稿：「太浅显」', 1330, 44, B(135), a, col=WHITE)
-        headline(f, '31 年后，诺贝尔经济学奖', 1450, 60, B(137), a, grad=[GOLD2, GOLD])
-        note(f, 'Akerlof, G. (1970). Quarterly Journal of Economics；2001 年诺贝尔经济学奖', 1600, B(137.5), a, 24)
+        headline(f, '阿克洛夫《柠檬市场》', 1080, 72, B(80.5), a)
+        body(f, 'lemon：美国俚语，买到手才发现的问题车', 1180, 34, B(81.5), a, col=SOFT)
+        body(f, '曾被三家顶级期刊拒稿：「太浅显」', 1330, 44, B(83), a, col=WHITE)
+        headline(f, '31 年后，诺贝尔经济学奖', 1450, 60, B(85), a, grad=[GOLD2, GOLD])
+        note(f, 'Akerlof, G. (1970). Quarterly Journal of Economics；2001 年诺贝尔经济学奖', 1600, B(85.5), a, 24)
     # --- 两辆车
-    a = win(t, 140, 164, 0.3, 0.4)
+    a = win(t, 88, 112, 0.3, 0.4)
     if a > 0:
-        tt = t - B(140)
-        fogk = eo((t - B(146)) / 0.8)
-        exitp = ei(cl((t - B(152.5)) / 1.4))
-        for j, (yy, col, n0, lab, res) in enumerate([(720, GOLD, 140, '好车 · 车主心理底价 10 万', 10),
-                                                     (1180, LEMON, 142, '问题车 · 车主心理底价 5 万', 5)]):
+        tt = t - B(88)
+        fogk = eo((t - B(94)) / 0.8)
+        exitp = ei(cl((t - B(100.5)) / 1.4))
+        for j, (yy, col, n0, lab, res) in enumerate([(720, GOLD, 88, '好车 · 车主心理底价 10 万', 10),
+                                                     (1180, LEMON, 90, '问题车 · 车主心理底价 5 万', 5)]):
             p = eo((t - B(n0)) / 0.5)
             cam = Cam(yaw=0.55 + 0.12 * math.sin(tt * 0.7 + j), pitch=0.12, dist=6.4, f=1000, cy=yy)
-            c2 = lerpc(col, FOGC, fogk * 0.85 if t < B(152) else fogk * 0.85 * (1 - eo((t - B(152)) / 0.4)))
+            c2 = lerpc(col, FOGC, fogk * 0.85 if t < B(100) else fogk * 0.85 * (1 - eo((t - B(100)) / 0.4)))
             dx = (-8 * exitp if j == 0 else 0)
             aa = a * p * (1 - exitp if j == 0 else 1)
             draw_car(f, cam, CAR, c2, aa * 0.9, (dx, -0.7, 0))
             f.glow((W / 2 + dx * 150, yy), 160, c2, aa * 0.12, 'B')
             ly = yy + 200
             f.text(lab, W / 2, ly, 40, 'sans_med', lerpc(c2, WHITE, 0.35), aa, 'm', mode='O')
-            if j == 1 and t > B(156):     # 问题车复制
+            if j == 1 and t > B(104):     # 问题车复制
                 for k in range(1, 3):
-                    q = eo((t - B(156) - k * 0.3) / 0.5)
+                    q = eo((t - B(104) - k * 0.3) / 0.5)
                     draw_car(f, cam, CAR, LEMON, a * q * 0.4, ((-1) ** k * 3.2 * q, -0.7, 2.5 * k))
         if fogk > 0:
-            fg = fog(t * 1.6) * a * fogk * (1 - eo((t - B(152)) / 0.6))
+            fg = fog(t * 1.6) * a * fogk * (1 - eo((t - B(100)) / 0.6))
             f.L += fg[..., None] * np.array(FOGC, np.float32) * 0.16
-        ab = win(t, 146, 152, 0.3, 0.3)
-        headline(f, '买家：看起来一模一样', 380, 64, B(146), ab)
-        ap = win(t, 148, 152, 0.25, 0.3)
+        ab = win(t, 94, 100, 0.3, 0.3)
+        headline(f, '买家：看起来一模一样', 380, 64, B(94), ab)
+        ap = win(t, 96, 100, 0.25, 0.3)
         if ap > 0:
             card(f, 200, 1490, 880, 1630, GOLD, ap, 0.18)
             f.text('只肯出均价  7.5 万', W / 2, 1560, 58, 'serif_black', GOLD2, ap, 'm', mode='O', glow=0.4)
-        ae = win(t, 152, 160, 0.3, 0.3)
-        body(f, '10 万的车卖 7.5 万？不卖了。', 380, 50, B(152), ae, col=GOLD2)
-        body(f, '5 万的车卖 7.5 万？赚了！', 1560, 50, B(156), ae, col=LEMON)
-        ag = win(t, 160, 164, 0.25, 0.35)
-        headline(f, '好车开始离场', 380, 80, B(160), ag)
-        body(f, '留下来的，问题车越来越多', 1560, 46, B(161), ag, col=LEMON)
+        ae = win(t, 100, 108, 0.3, 0.3)
+        body(f, '10 万的车卖 7.5 万？不卖了。', 380, 50, B(100), ae, col=GOLD2)
+        body(f, '5 万的车卖 7.5 万？赚了！', 1560, 50, B(104), ae, col=LEMON)
+        ag = win(t, 108, 112, 0.25, 0.35)
+        headline(f, '好车开始离场', 380, 80, B(108), ag)
+        body(f, '留下来的，问题车越来越多', 1560, 46, B(109), ag, col=LEMON)
 
+
+
+    # --- 回到那三件事
+    a = win(t, 112, 132, 0.3, 0.45)
+    if a > 0:
+        headline(f, '回到开头那三件事', 330, 66, B(112), a)
+        for i, c in enumerate(CASES):
+            n0 = 113.5 + i * 3
+            p = eo((t - B(n0)) / 0.4)
+            y = 560 + i * 270
+            card(f, 80 + 40 * (1 - p), y - 110, 1000, y + 110, c[6], a * p, 0.07)
+            f.text(c[3], 130, y - 52, 48, 'serif_black', WHITE, a * p, 'l', mode='O')
+            f.text('看不见：' + c[7], 130, y + 12, 36, 'sans_med', lerpc(c[6], WHITE, 0.3), a * p, 'l', mode='O')
+            f.text('结果：' + c[8], 130, y + 68, 34, 'sans_light', SOFT, a * eo((t - B(n0 + 1)) / 0.4), 'l', mode='O')
+        ac = win(t, 124, 132, 0.3, 0.45)
+        if ac > 0:
+            f.L *= 1 - 0.6 * ac; f.E *= 1 - 0.6 * ac
+            card(f, 60, 1330, 1020, 1660, GOLD, ac, 0.22)
+            rich(f, '质量看不见，', 1410, 62, B(124), ac)
+            rich(f, '好东西就【卖不出好价】。', 1510, 62, B(125.5), ac)
+            body(f, '格雷欣靠法令，柠檬市场靠信息差', 1610, 34, B(128), ac, col=SOFT)
+
+
+# ============================================================== 3b · 真相：为什么偷工减料能赢
+@SCENE(132, 164)
+def sc_truth(f, t):
+    # --- 一道算术题
+    a = win(t, 132, 146, 0.35, 0.4)
+    if a > 0:
+        body(f, '一道算术题', 320, 44, B(132), a, col=GOLD)
+        base, k = 1300, 6.0
+        for j, (cx, cost, col, name) in enumerate([(330, 80, GOLD, '认真做'), (750, 40, LEMON, '偷工减料')]):
+            p = eo((t - B(132 + j)) / 0.5)
+            hc = cost * k * p; hp = (100 - cost) * k * eo((t - B(135)) / 0.5)
+            f.fillpoly([(cx - 110, base), (cx + 110, base), (cx + 110, base - hc), (cx - 110, base - hc)], col, a * 0.18, 'L')
+            f.rrect(cx - 110, base - hc, cx + 110, base, 6, col, a * 0.6 * p, 2)
+            f.text('成本 %d' % cost, cx, base - hc / 2, 40, 'sans_med', SOFT, a * p, 'm', mode='O')
+            if hp > 1:
+                f.fillpoly([(cx - 110, base - hc), (cx + 110, base - hc), (cx + 110, base - hc - hp), (cx - 110, base - hc - hp)], col, a * 0.6, 'E')
+                f.text('毛利 %d' % (100 - cost), cx, base - 600 - 60, 60, 'sans_black', col, a * eo((t - B(135.5)) / 0.4), 'm', mode='O', glow=0.5)
+            f.text(name, cx, base + 50, 44, 'serif_black', col, a * p, 'm', mode='O')
+        gy = base - 100 * k
+        f.line((150, gy), (930, gy), WHITE, a * 0.5 * eo((t - B(134)) / 0.4), 2)
+        f.text('同样卖 100', 540, gy - 150, 34, 'sans_med', WHITE, a * eo((t - B(134)) / 0.4), 'm', mode='O')
+        body(f, '多赚的 40 → 广告 · 渠道 · 打价格战', 1480, 42, B(137), a, col=WHITE)
+        headline(f, '越敢牺牲质量，越有钱扩张', 1590, 58, B(139), a, col=LEMON)
+    # --- 幽灵外卖：钱被层层截走
+    a = win(t, 146, 160, 0.3, 0.4)
+    if a > 0:
+        headline(f, '一单 250 元的蛋糕', 400, 76, B(146), a)
+        money_chain(f, t, B(146.5), a)
+        headline(f, '钱被层层截走，', 1400, 66, B(149.5), a, col=SOFT)
+        headline(f, '质量只能被【层层压缩】。', 1510, 66, B(151), a, hlcol=RED)
+        note(f, '来源：新华社，2026 年 4 月「幽灵外卖」案例', 1640, B(150), a, 24)
+    a = win(t, 160, 164, 0.25, 0.3)
+    if a > 0:
+        headline(f, '一个健康的市场，', 820, 76, B(160), a)
+        headline(f, '会怎样一步步【变坏】？', 950, 76, B(161.5), a, hlcol=RED)
 
 
 # ============================================================== 5 · 动态模拟：市场如何滑向柠檬市场
@@ -937,7 +880,7 @@ def money_chain(f, t, t0, a):
 
 @SCENE(232, 268)
 def sc_first(f, t):
-    a = win(t, 232, 240, 0.2, 0.4)
+    a = win(t, 232, 242, 0.2, 0.4)
     if a > 0:
         # 心跳光环
         bp = math.exp(-((t - B(232)) % (2 * P)) / 0.18)
@@ -945,38 +888,10 @@ def sc_first(f, t):
         headline(f, '没有人做错决定。', 760, 84, B(232), a)
         headline(f, '每个人，都很理性。', 900, 84, B(234.5), a)
         headline(f, '合在一起，却杀死了市场。', 1100, 70, B(237), a, grad=[GOLD2, GOLD])
-    # --- 一道算术题
-    a = win(t, 240, 250, 0.35, 0.4)
-    if a > 0:
-        body(f, '一道算术题', 320, 44, B(240), a, col=GOLD)
-        base, k = 1300, 6.0
-        for j, (cx, cost, col, name) in enumerate([(330, 80, GOLD, '认真做'), (750, 40, LEMON, '偷工减料')]):
-            p = eo((t - B(240 + j)) / 0.5)
-            hc = cost * k * p; hp = (100 - cost) * k * eo((t - B(243)) / 0.5)
-            f.fillpoly([(cx - 110, base), (cx + 110, base), (cx + 110, base - hc), (cx - 110, base - hc)], col, a * 0.18, 'L')
-            f.rrect(cx - 110, base - hc, cx + 110, base, 6, col, a * 0.6 * p, 2)
-            f.text('成本 %d' % cost, cx, base - hc / 2, 40, 'sans_med', SOFT, a * p, 'm', mode='O')
-            if hp > 1:
-                f.fillpoly([(cx - 110, base - hc), (cx + 110, base - hc), (cx + 110, base - hc - hp), (cx - 110, base - hc - hp)], col, a * 0.6, 'E')
-                f.text('毛利 %d' % (100 - cost), cx, base - 600 - 60, 60, 'sans_black', col, a * eo((t - B(243.5)) / 0.4), 'm', mode='O', glow=0.5)
-            f.text(name, cx, base + 50, 44, 'serif_black', col, a * p, 'm', mode='O')
-        gy = base - 100 * k
-        f.line((150, gy), (930, gy), WHITE, a * 0.5 * eo((t - B(242)) / 0.4), 2)
-        f.text('同样卖 100', 540, gy - 150, 34, 'sans_med', WHITE, a * eo((t - B(242)) / 0.4), 'm', mode='O')
-        body(f, '多赚的 40 → 广告 · 渠道 · 打价格战', 1480, 42, B(245), a, col=WHITE)
-        headline(f, '越敢牺牲质量，越有钱扩张', 1590, 58, B(247), a, col=LEMON)
-    # --- 幽灵外卖：钱被层层截走
-    a = win(t, 250, 258, 0.3, 0.4)
-    if a > 0:
-        headline(f, '一单 250 元的蛋糕', 400, 76, B(250), a)
-        money_chain(f, t, B(250.5), a)
-        headline(f, '钱被层层截走，', 1400, 66, B(253.5), a, col=SOFT)
-        headline(f, '质量只能被【层层压缩】。', 1510, 66, B(255), a, hlcol=RED)
-        note(f, '来源：新华社，2026 年 4 月「幽灵外卖」案例', 1640, B(254), a, 24)
     # --- 不等式
-    a = win(t, 258, 264, 0.3, 0.12)
+    a = win(t, 242, 254, 0.3, 0.4)
     if a > 0:
-        tilt = 0.32 * eo((t - B(259)) / 0.8)
+        tilt = 0.32 * eo((t - B(243)) / 0.8)
         cx, cy = W / 2, 900
         L = 330
         lx, ly = cx - L * math.cos(tilt), cy + L * math.sin(tilt)
@@ -988,16 +903,27 @@ def sc_first(f, t):
             f.line((px, py), (px - 90, py + 130), c, a * 0.6, 2); f.line((px, py), (px + 90, py + 130), c, a * 0.6, 2)
             f.arc((px, py + 130), 110, 0, math.pi, c, a * 0.9, 3)
             f.text(lab, px, py + 290, 38, 'sans_med', c, a, 'm', mode='O')
-        headline(f, '当作假收益 ＞ 被抓概率 × 代价', 470, 54, B(258), a)
-        headline(f, '坏行为就会自我复制', 1450, 76, B(261), a, col=LEMON)
-    # --- 芒格
-    a = win(t, 264, 268, 0.15, 0.15)
+        headline(f, '当作假收益 ＞ 被抓概率 × 代价', 470, 54, B(242), a)
+        headline(f, '坏行为就会自我复制', 1450, 76, B(245), a, col=LEMON)
+    # --- 劣币会传染
+    a = win(t, 254, 268, 0.3, 0.15)
     if a > 0:
-        headline(f, '「给我看激励，', 820, 82, B(264), a)
-        headline(f, '我就告诉你结果。」', 950, 82, B(265), a)
-        body(f, '—— 查理 · 芒格', 1090, 40, B(266), a, col=GOLD2)
+        nx, ny = 12, 16
+        rng = np.random.default_rng(42)
+        seeds = [(3, 4), (8, 11), (5, 13)]
+        prog = cl((t - B(255)) / (B(265) - B(255))) * 14
+        for ix in range(nx):
+            for iy in range(ny):
+                d = min(math.hypot(ix - sx, iy - sy) for sx, sy in seeds) + rng.uniform(0, 1.5)
+                turn = cl(prog - d)
+                x, y = 160 + ix * 69, 560 + iy * 52
+                col = lerpc(GOLD, LEMON, turn)
+                f.glow((x, y), 5, col, a * (0.8 - 0.3 * turn), 'E')
+                f.glow((x, y), 14, col, a * 0.18, 'B')
+        headline(f, '当诚实吃亏，', 380, 72, B(255), a)
+        headline(f, '诚实的人，也会动摇。', 1460, 72, B(258), a, col=SOFT)
+        rich(f, '劣币，会【传染】。', 1600, 92, B(261), a, hlcol=LEMON, glow=0.5)
     implode(f, t, B(264), B(268), W / 2, 960, [GOLD, GOLD2, WHITE], 0.7, seed=21, n=700)
-
 
 
 # ============================================================== 8 · 破局：改变激励
@@ -1135,84 +1061,115 @@ def castle(f, cx, cy, s, col, a, t):
         f.poly(np.stack([cx + rx * np.cos(ts), cy + 0.05 * s + ry * np.sin(ts) + wob], 1), CYAN, a * (0.7 - 0.2 * k), 2)
     f.glow((cx, cy + 0.05 * s), s * 1.2, CYAN, a * 0.12, 'B')
 
-@SCENE(324, 364)
+QUAD = [  # (象限, 出场拍, 标题, 说明, 举例, 颜色)
+    ((-1, 1), 334, '柠檬陷阱', '价格战，劣币驱逐良币', '如：部分装修、维修、二手交易', LEMON),
+    ((-1, -1), 336, '拼信誉', '品牌、认证就是护城河', '如：餐饮、母婴、医疗服务', CYAN),
+    ((1, 1), 338, '拼效率', '低价来自真实的成本优势', '如：标准化工业品', VIOLET),
+    ((1, -1), 340, '良币行业', '越竞争越优秀，定价权强', '如：高频复购的品牌消费品', GOLD),
+]
+
+@SCENE(324, 380)
 def sc_invest(f, t):
+    # --- 芒格：先看激励
     a = win(t, 324, 332, 0.3, 0.4)
     if a > 0:
-        castle(f, W / 2, 900, 190 * eo((t - B(324)) / 0.6), GOLD, a, t)
-        headline(f, '真正的护城河，', 380, 80, B(324), a)
-        headline(f, '是让顾客认得出你的好，', 1200, 64, B(326), a)
-        headline(f, '并且愿意为它多付钱。', 1310, 64, B(328), a, grad=[GOLD2, GOLD])
-    a = win(t, 332, 342, 0.3, 0.4)
+        god_rays(f, t, W / 2, 900, GOLD, a * 0.35, seed=23)
+        headline(f, '「给我看激励，', 700, 82, B(324), a)
+        headline(f, '我就告诉你结果。」', 830, 82, B(325.5), a)
+        body(f, '—— 查理 · 芒格', 960, 40, B(327), a, col=GOLD2)
+        headline(f, '看行业、看公司，', 1180, 62, B(328.5), a, col=SOFT)
+        headline(f, '先看它在【奖励什么】。', 1290, 70, B(329.5), a)
+    # --- 看行业：两个问题 → 四象限
+    a = win(t, 332, 350, 0.3, 0.45)
     if a > 0:
-        body(f, '案例 · 喜诗糖果', 320, 40, B(332), a, col=GOLD)
-        f.text('1972', 150, 450, 70, 'oswald', GOLD, a * eo((t - B(332)) / 0.4), 'l', mode='O', glow=0.4)
-        f.text('伯克希尔以 2500 万美元买下', 150, 540, 42, 'sans_med', WHITE, a * eo((t - B(332.5)) / 0.4), 'l', mode='O')
-        # 累计利润面积图
-        p = cl((t - B(334)) / (4 * P))
-        xs = np.linspace(150, 930, 60); g = np.linspace(0, 1, 60) ** 2.2
-        m = max(2, int(60 * eo(p)))
-        top = 1180 - 420 * g
-        poly = [(xs[0], 1180)] + list(zip(xs[:m], top[:m])) + [(xs[m - 1], 1180)]
-        f.fillpoly(poly, GOLD, a * 0.18, 'L')
-        f.poly(list(zip(xs[:m], top[:m])), GOLD2, a, 3)
-        f.glow((xs[m - 1], top[m - 1]), 8, GOLD2, a, 'E')
-        f.line((150, 1180), (930, 1180), GREY, a * 0.5, 1)
-        f.text('1972', 150, 1215, 26, 'oswald', GREY, a, 'l', mode='O'); f.text('2007', 930, 1215, 26, 'oswald', GREY, a, 'r', mode='O')
-        v = 13.5 * eo(p)
-        f.text('累计税前利润', 160, 680, 34, 'sans_light', SOFT, a * (p > 0), 'l', mode='O')
-        f.text('%.1f' % v, 160, 770, 96, 'oswald', GOLD2, a * (p > 0), 'l', mode='O', glow=0.5)
-        f.text('亿美元', 180 + text_width('%.1f' % v, 'oswald', 96), 785, 48, 'sans_med', GOLD2, a * (p > 0), 'l', mode='O')
-        f.text('追加资本仅 3200 万', 930, 1290, 36, 'sans_med', CYAN, a * eo((t - B(336)) / 0.4), 'r', mode='O')
-        card(f, 90, 1380, 990, 1600, GOLD, a * eo((t - B(338)) / 0.4), 0.08)
-        f.text('「评估一家企业，最重要的是定价权。」', W / 2, 1460, 44, 'serif_black', GOLD2, a * eo((t - B(338)) / 0.4), 'm', mode='O')
-        f.text('—— 巴菲特（2010）', W / 2, 1540, 32, 'serif_reg', SOFT, a * eo((t - B(339)) / 0.4), 'm', mode='O')
-        note(f, '来源：伯克希尔 2007 年致股东信；美国金融危机调查委员会访谈', 1680, B(336), a, 23)
-    a = win(t, 342, 350, 0.3, 0.4)
-    if a > 0:
-        headline(f, '但是：品牌 ≠ 质量', 380, 76, B(342), a, col=LEMON)
-        p = eo((t - B(344)) / 0.8)
-        top = 760 + 340 * 0.45 * p
-        f.rrect(400, 760, 680, 1100, 6, GOLD, a * 0.3, 1)
-        f.fillpoly([(400, top), (680, top), (680, 1100), (400, 1100)], GOLD, a * 0.2, 'L')
-        f.fillpoly([(400, 760), (680, 760), (680, top), (400, top)], RED, a * 0.25 * (p > 0), 'E')
-        f.text('2019 · 卡夫亨氏', W / 2, 540, 44, 'sans_med', WHITE, a * eo((t - B(344)) / 0.4), 'm', mode='O')
-        f.text('品牌减值 154 亿美元', W / 2, 650, 64, 'serif_black', RED, a * eo((t - B(344.5)) / 0.4), 'm', mode='O', glow=0.4)
-        body(f, '巴菲特：「我们为卡夫付了太高的价格」', 1200, 42, B(346), a, col=WHITE)
-        headline(f, '护城河，必须用事实验证', 1360, 66, B(348), a, grad=[GOLD2, GOLD])
-        note(f, '来源：Kraft Heinz 2019 年 2 月公告；CNBC 访谈', 1680, B(346), a, 23)
+        headline(f, '看行业：先问两个问题', 300, 62, B(332), a)
+        cx, cy, R = W / 2, 900, 400
+        p = eo((t - B(332.5)) / 0.6)
+        f.line((cx - R * p, cy), (cx + R * p, cy), SOFT, a * 0.7, 2)
+        f.line((cx, cy - R * p), (cx, cy + R * p), SOFT, a * 0.7, 2)
+        for (x, y, s_, anc) in [(cx + R, cy + 46, '质量看得见 →', 'r'), (cx - R, cy + 46, '← 看不见', 'l'),
+                                (cx + 16, cy - R + 20, '↑ 顾客会回头', 'l'), (cx + 16, cy + R - 20, '↓ 一锤子买卖', 'l')]:
+            f.text(s_, x, y, 28, 'sans_med', SOFT, a * p, anc, mode='O')
+        for (qx, qy), n0, ttl, dsc, ex, col in QUAD:
+            q = eo((t - B(n0)) / 0.4)
+            if q <= 0: continue
+            x0 = cx + (16 if qx > 0 else -R); x1 = cx + (R if qx > 0 else -16)
+            y0 = cy + (16 if qy > 0 else -R + 70); y1 = cy + (R - 70 if qy > 0 else -16)
+            kick = math.exp(-(t - B(n0)) / 0.2)
+            hi = 0.0
+            if ttl == '良币行业' and t > B(343):          # 结论处：良币行业脉动高亮
+                hi = eo((t - B(343)) / 0.4) * (0.6 + 0.4 * math.sin((t - B(343)) * 6))
+            if ttl == '柠檬陷阱' and t > B(343):
+                q *= 1 - 0.5 * eo((t - B(343)) / 0.4)
+            f.rrect_fill(x0, y0, x1, y1, 20, col, a * q * (0.08 + 0.15 * kick + 0.12 * hi), 'E')
+            f.rrect(x0, y0, x1, y1, 20, col, a * q * (0.8 + 0.2 * hi), 2 + int(2 * hi))
+            if hi > 0: f.glow(((x0 + x1) / 2, (y0 + y1) / 2), 160, col, a * 0.18 * hi, 'B')
+            mx = (x0 + x1) / 2; my = (y0 + y1) / 2
+            f.text(ttl, mx, my - 70, 46, 'serif_black', col, a * q, 'm', mode='O', glow=0.4)
+            f.text(dsc, mx, my + 5, 28, 'sans_med', WHITE, a * q, 'm', mode='O')
+            f.text(ex, mx, my + 62, 24, 'sans_light', SOFT, a * q, 'm', mode='O')
+        headline(f, '好行业：质量看得见，顾客会回头', 1430, 50, B(344), a)
+        body(f, '再看第三点：违规成本高不高、监管是否有效', 1530, 36, B(346.5), a, col=SOFT)
+        note(f, '示意：行业归类仅为举例，具体公司需单独验证', 1660, B(346), a, 23)
+    # --- 看公司：三个问题
     a = win(t, 350, 364, 0.3, 0.45)
     if a > 0:
-        headline(f, '识别「靠牺牲质量」的增长', 380, 62, B(350), a)
-        items = ['降价，来自效率还是偷工？', '份额增长，伴随回报还是失血？', '顾客，会不会主动回头？', '毛利与现金流，经得起检验吗？']
-        for j, s_ in enumerate(items):
-            n0 = 352 + 3 * j
+        headline(f, '看公司：再问三个问题', 300, 62, B(350), a)
+        items = [('钱从哪来？', '靠创造客户价值，还是靠信息差？', GOLD),
+                 ('管理层考核什么？', '只考核规模和份额，就会牺牲质量', CYAN),
+                 ('数据能不能验证？', '复购率 · 毛利率稳定 · 投诉与召回 · 现金流', TEAL)]
+        for j, (q1, q2, col) in enumerate(items):
+            n0 = 351 + 3 * j
             p = eo((t - B(n0)) / 0.4)
-            y = 620 + j * 230
-            card(f, 100, y - 85, 980, y + 85, GOLD, a * p, 0.05)
-            f.rrect(140, y - 30, 200, y + 30, 8, GOLD, a * p, 3)
-            q = cl((t - B(n0) - 0.3) / 0.35)
-            if q > 0:
-                ck = [(152, y), (166, y + 16), (192, y - 20)]
-                m1 = min(q * 2, 1); f.line(ck[0], (ck[0][0] + (ck[1][0] - ck[0][0]) * m1, ck[0][1] + (ck[1][1] - ck[0][1]) * m1), GOLD2, a, 4)
-                if q > 0.5:
-                    m2 = (q - 0.5) * 2; f.line(ck[1], (ck[1][0] + (ck[2][0] - ck[1][0]) * m2, ck[1][1] + (ck[2][1] - ck[1][1]) * m2), GOLD2, a, 4)
-            f.text(s_, 230, y, 44, 'sans_med', WHITE, a * p, 'l', mode='O')
-        body(f, '份额增长 ≠ 股东价值', 1580, 44, B(362), a, col=GOLD2)
+            y = 520 + j * 260
+            card(f, 80 + 40 * (1 - p), y - 100, 1000, y + 100, col, a * p, 0.07)
+            f.text(str(j + 1), 140, y, 96, 'oswald', col, a * p, 'm', mode='O', glow=0.5)
+            f.text(q1, 210, y - 34, 50, 'serif_black', WHITE, a * p, 'l', mode='O')
+            f.text(q2, 210, y + 40, 32, 'sans_med', lerpc(col, WHITE, 0.4), a * eo((t - B(n0 + 0.8)) / 0.4), 'l', mode='O')
+        rich(f, '份额增长 ≠ 【股东价值】', 1400, 70, B(360.5), a)
+        body(f, '用低价和牺牲质量换来的份额，最终会还回去', 1500, 36, B(362), a, col=SOFT)
+    # --- 两个案例：定价权 vs 品牌 ≠ 质量
+    a = win(t, 364, 380, 0.3, 0.45)
+    if a > 0:
+        p1 = eo((t - B(364)) / 0.45)
+        card(f, 70, 300, 1010, 760, GOLD, a * p1, 0.07)
+        f.text('定价权 · 喜诗糖果', 120, 370, 48, 'serif_black', GOLD2, a * p1, 'l', mode='O', glow=0.3)
+        f.text('1972 年，伯克希尔以 2500 万美元买下', 120, 450, 34, 'sans_med', WHITE, a * p1, 'l', mode='O')
+        pv = cl((t - B(365)) / (4 * P))
+        xs = np.linspace(560, 960, 40); g = np.linspace(0, 1, 40) ** 2.2
+        mm = max(2, int(40 * eo(pv)))
+        f.poly(list(zip(xs[:mm], 720 - 200 * g[:mm])), GOLD2, a * p1, 3)
+        f.glow((xs[mm - 1], 720 - 200 * g[mm - 1]), 8, GOLD2, a * p1, 'E')
+        f.text('%.1f' % (13.5 * eo(pv)), 120, 580, 96, 'oswald', GOLD2, a * p1, 'l', mode='O', glow=0.5)
+        f.text('亿美元', 145 + text_width('%.1f' % (13.5 * eo(pv)), 'oswald', 96), 596, 40, 'sans_med', GOLD2, a * p1, 'l', mode='O')
+        f.text('到 2007 年累计税前利润，追加资本仅 3200 万', 120, 700, 28, 'sans_light', SOFT, a * p1, 'l', mode='O')
+        p2 = eo((t - B(368)) / 0.45)
+        card(f, 70, 820, 1010, 1240, LEMON, a * p2, 0.07)
+        f.text('品牌 ≠ 质量 · 卡夫亨氏', 120, 890, 48, 'serif_black', LEMON, a * p2, 'l', mode='O', glow=0.3)
+        f.text('2019 年，品牌减值', 120, 980, 34, 'sans_med', WHITE, a * p2, 'l', mode='O')
+        f.text('154 亿美元', 120, 1080, 84, 'sans_black', RED, a * p2, 'l', mode='O', glow=0.4)
+        f.text('巴菲特：「我们为卡夫付了太高的价格」', 120, 1180, 30, 'sans_light', SOFT, a * p2, 'l', mode='O')
+        drop = eo((t - B(369)) / 0.8)
+        f.rrect(820, 950, 940, 1180, 8, GOLD, a * p2 * 0.3, 1)
+        f.fillpoly([(820, 950 + 230 * 0.45 * drop), (940, 950 + 230 * 0.45 * drop), (940, 1180), (820, 1180)], LEMON, a * p2 * 0.4, 'E')
+        headline(f, '真正的护城河：', 1360, 62, B(372), a, col=SOFT)
+        headline(f, '让顾客认得出你的好，', 1470, 66, B(373.5), a)
+        rich(f, '并且【愿意为它付钱】。', 1580, 66, B(375), a)
+        note(f, '来源：伯克希尔 2007 年致股东信；Kraft Heinz 2019 年公告；CNBC 访谈', 1680, B(370), a, 22)
 
 
 # ============================================================== 10 · 终章
-@SCENE(364, 382)
+@SCENE(380, 398)
 def sc_epilogue(f, t):
-    a = win(t, 364, 378, 0.4, 0.5)
+    a = win(t, 380, 394, 0.4, 0.5)
     if a <= 0: return
-    headline(f, '当好的行为得不到奖励，', 640, 66, B(364), a)
-    headline(f, '坏的行为不必付出代价，', 760, 66, B(366.5), a)
-    headline(f, '问题就不再只是个人的道德，', 920, 62, B(369), a, col=SOFT)
-    headline(f, '而是整个系统的激励。', 1060, 82, B(371.5), a, grad=[GOLD2, GOLD, GOLDD], glow=0.6)
-    gline(f, 300, 780, 1190, GOLD, a * 0.8, (t - B(374)) / 0.6)
-    body(f, '有效的市场，不只需要竞争，', 1280, 42, B(375), a, col=WHITE)
-    body(f, '还需要识别质量、奖励诚实、惩罚欺骗的制度', 1350, 40, B(376), a, col=WHITE)
+    headline(f, '当好的行为得不到奖励，', 640, 66, B(380), a)
+    headline(f, '坏的行为不必付出代价，', 760, 66, B(382.5), a)
+    headline(f, '问题就不再只是个人的道德，', 920, 62, B(385), a, col=SOFT)
+    headline(f, '而是整个系统的激励。', 1060, 82, B(387.5), a, grad=[GOLD2, GOLD, GOLDD], glow=0.6)
+    gline(f, 300, 780, 1190, GOLD, a * 0.8, (t - B(390)) / 0.6)
+    body(f, '有效的市场，不只需要竞争，', 1280, 42, B(391), a, col=WHITE)
+    body(f, '还需要识别质量、奖励诚实、惩罚欺骗的制度', 1350, 40, B(392), a, col=WHITE)
 
 
 # ============================================================== 11 · 片尾品牌动画（官方 logo + 品牌字体/金色/间距均取自 brand/）
@@ -1267,57 +1224,57 @@ def shimmer_rgb(rgb, al, u):
     band = np.exp(-((xs - pos) / (0.07 * w + 10)) ** 2)[..., None]
     return np.clip(rgb + band * 0.6, 0, 1.25)
 
-@SCENE(376, 406)
+@SCENE(392, 422)
 def sc_end(f, t):
-    if t < B(378.3): return
+    if t < B(394.3): return
     # 粒子汇聚成 logo
-    p = cl((t - B(378.3)) / (B(384) - B(378.3)))
+    p = cl((t - B(394.3)) / (B(400) - B(394.3)))
     n = len(LT_X)
     rng = np.random.default_rng(77)
     ang = rng.uniform(0, 2 * np.pi, n); r0 = rng.uniform(380, 1100, n)
     sw = (1 - eio(p)) * 2.2
     ex = W / 2 + np.cos(ang + sw) * r0 * (1 - eio(p)) + LT_X * eio(p)
     ey = END_CY + np.sin(ang + sw) * r0 * (1 - eio(p)) * 1.4 + LT_Y * eio(p)
-    pa = (0.25 + 0.75 * p) * (1 - eo((t - B(384)) / 0.6))
+    pa = (0.25 + 0.75 * p) * (1 - eo((t - B(400)) / 0.6))
     cols = LT_C * eio(p) + np.array(GOLD2, np.float32) * (1 - eio(p))
     if pa > 0.003:
         dens = 1 / (1 + 6 * eio(p) ** 2)          # 汇聚时粒子密集，降低单粒子亮度避免过曝
         f.dots(ex, ey, cols, pa * 0.7 * dens, 1, 'E')
         f.soft(ex, ey, cols, pa * 0.35 * dens, 4, 'E')
     # 官方 logo 清晰浮现（重拍 B384）
-    la = eo((t - B(383.6)) / 0.5)
+    la = eo((t - B(399.6)) / 0.5)
     god_rays(f, t, W / 2, END_CY, C(110, 175, 255), la * 0.7 * (1 - eo((t - (DUR - 3)) / 2)), seed=19, L=1200)
     if la > 0:
         rgb, al = END_LOGO
-        sc = 1 + 0.04 * math.exp(-max(0, t - B(384)) / 0.4)
+        sc = 1 + 0.04 * math.exp(-max(0, t - B(400)) / 0.4)
         f.glow((W / 2, END_CY), 150, np.array(BR.SPEC['glow_rgb']) / 255, la * BR.SPEC['glow_strength'] * 1.2, 'B')
         blit_over(f, rgb, al, int(W / 2 - END_LOGO_PX / 2), int(END_CY - END_LOGO_PX / 2), la)
-        if t >= B(384) and t < B(384) + 0.6:
-            f.glow((W / 2, END_CY), 260, C(110, 175, 255), 0.5 * (1 - (t - B(384)) / 0.6), 'B')
+        if t >= B(400) and t < B(400) + 0.6:
+            f.glow((W / 2, END_CY), 260, C(110, 175, 255), 0.5 * (1 - (t - B(400)) / 0.6), 'B')
     # 金色「巴芒价值」+ BUFFETT · MUNGER（重拍 B386 / B387 出现，B388 流光扫过）
     (r1, a1), (r2, a2), gap = END_T1, END_T2, END_GAP
     ty = END_CY + END_LOGO_PX // 2 + 90
-    p1 = eo((t - B(386)) / 0.6)
+    p1 = eo((t - B(402)) / 0.6)
     if p1 > 0:
-        u = (t - B(388)) / BR.SPEC['shimmer_dur']
+        u = (t - B(404)) / BR.SPEC['shimmer_dur']
         rr = shimmer_rgb(r1, a1, u if 0 <= u <= 1 else None)
         blit_over(f, rr, a1, int(W / 2 - a1.shape[1] / 2), int(ty + 20 * (1 - p1)), p1)
         f.glow((W / 2, ty + a1.shape[0] / 2), 200, GOLD, p1 * 0.08, 'B')
-    p2 = eo((t - B(387)) / 0.6)
+    p2 = eo((t - B(403)) / 0.6)
     if p2 > 0:
-        u = (t - B(388.3)) / BR.SPEC['shimmer_dur']
+        u = (t - B(404.3)) / BR.SPEC['shimmer_dur']
         rr = shimmer_rgb(r2, a2, u if 0 <= u <= 1 else None)
         blit_over(f, rr, a2, int(W / 2 - a2.shape[1] / 2), int(ty + a1.shape[0] + gap), p2)
     # 细金线引出关注语
     ly = ty + a1.shape[0] + gap + a2.shape[0] + 70
-    gline(f, 190, 890, ly, C(214, 178, 112), 0.85, (t - B(390)) / 0.8)
+    gline(f, 190, 890, ly, C(214, 178, 112), 0.85, (t - B(406)) / 0.8)
     f.text('关注「巴芒价值」，传承大师智慧，领悟投资真谛', W / 2, ly + 70, 37, 'serif_reg',
-           lerpc(np.array(BR.SUB_GOLD) / 255, (1, 1, 1), 0.35), 1.0, 'm', mode='O', t0=B(391), stag=0.035, dur=0.5, rise=12)
+           lerpc(np.array(BR.SUB_GOLD) / 255, (1, 1, 1), 0.35), 1.0, 'm', mode='O', t0=B(407), stag=0.035, dur=0.5, rise=12)
 
 
 # ============================================================== 渲染
-CUTS = [0, 8, 14, 22, 32, 44, 52, 60, 68, 74, 80, 92, 112, 132, 140, 164, 196, 200, 204, 216, 232, 240, 250, 258, 264,
-        268, 276, 296, 300, 316, 324, 332, 342, 350, 364, 378, 999]
+CUTS = [0, 8.3, 11.5, 14.7, 18, 32, 44, 54, 62, 72, 80, 88, 94, 100, 104, 112, 124, 132, 146, 160, 164, 196, 200, 204, 216,
+        232, 242, 254, 268, 276, 296, 300, 316, 324, 332, 350, 364, 380, 394, 999]
 
 def camera_move(img, t):
     """镜头呼吸：每个镜头内缓慢推近 + 重击时的冲击缩放（HUD 不受影响，之后再画）"""
@@ -1346,7 +1303,7 @@ def render(i):
     draw_chrome(f, t)
     img = finish(f, bg, bloom_k=1.0 + 0.25 * beat_pulse(t) * ENERGY(t), vignette=VIGNETTE, grain=GRAINS[i % 6])
     img = camera_move(img, t)
-    fade = cl(t / 0.8) * (1 - eio((t - (DUR - 2.4)) / 2.4))
+    fade = cl(t / 0.25) * (1 - eio((t - (DUR - 2.4)) / 2.4))
     draw_hud_post(img, t, 1.0)
     if fade < 1:
         img = (img.astype(np.float32) * fade).astype(np.uint8)

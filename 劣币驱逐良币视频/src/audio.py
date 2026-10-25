@@ -10,7 +10,7 @@ SRC = os.path.join(HERE, '..', 'assets', 'score_lyria_A1.mp3')
 SR = 48000
 P, O = 0.5715714, 0.1080853            # 节拍网格（周期 / 偏移，秒），由 librosa 拟合
 # 拼接表：(源起始拍, 源结束拍)；拍数为整数 -> 新时间轴上节拍网格保持连续
-SEGS = [(0, 60), (44, 96), (80, 292), (240, 256), (240, None)]
+SEGS = [(8, 60), (44, 96), (80, 292), (240, 256), (240, 256), (240, None)]   # 去掉前 8 拍前奏；终段多循环一次给投资启示
 XF = 0.05                               # 等功率交叉淡化（秒）
 
 
@@ -28,12 +28,13 @@ def splice(y):
     out = None
     n = int(XF * SR)
     for a, b in SEGS:
-        s = int(bt(a) * SR) if a else 0
+        s = int(bt(a) * SR)
         e = int(bt(b) * SR) if b is not None else len(y)
-        seg = y[max(s - n // 2, 0):min(e + n // 2, len(y))].copy()
         if out is None:
-            out = seg
+            # 第一段从「第 a 拍之前 O 秒」开始，保证新时间轴上第 a 拍仍落在 O 秒处（与 timeline.B 一致）
+            out = y[int((bt(a) - O) * SR):min(e + n // 2, len(y))].copy()
             continue
+        seg = y[max(s - n // 2, 0):min(e + n // 2, len(y))].copy()
         w = np.linspace(0, 1, n)[:, None]
         mix = out[-n:] * np.cos(w * np.pi / 2) + seg[:n] * np.sin(w * np.pi / 2)
         out = np.concatenate([out[:-n], mix, seg[n:]])
