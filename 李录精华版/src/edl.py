@@ -17,7 +17,7 @@ CHAPTERS = {   # 编号: (中文标题, 英文标题)
     2: ('AI 的本质、边界与红线', 'What AI Is, Where It Stops, and the Red Line'),
     3: ('AI 狂热下的资本市场', 'The Market in an AI Frenzy'),
     4: ('投资中国：看清目标与代价', 'Investing in China: Objective or Cost'),
-    5: ('全球共同市场里的投资机会', 'Opportunity in One Global Common Market'),
+    5: ('全球一体化市场里的投资机会', 'Opportunity in One Integrated Global Market'),
     6: ('中国股市：是目标还是代价', 'China\'s Stock Market: Objective or Cost'),
     7: ('一切聪明的投资都是价值投资', 'All Intelligent Investing Is Value Investing'),
     8: ('业绩落后时，如何坚守价值投资', 'When Value Investing Lags Behind'),

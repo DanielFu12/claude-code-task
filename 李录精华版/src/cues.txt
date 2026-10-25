@@ -1,6 +1,6 @@
 # 双语字幕：每句英文（E）对应中文（Z），用 || 拆成多条字幕，两边条数必须一致。
 # 英文与 script_en.txt 逐句对应（拼起来须一字不差）；中文以哥大官方中文实录为底本，按字幕节奏精简。
-# 中文里的 / 是人工断行位置（不显示）。@Q 之后为主持人塔诺（Tano Santos）的发言，@L 切回李录。方括号内为编者补注，英文字幕不显示。
+# 中文里的 / 是人工断行位置（不显示）。N: 为该句的注释，以小字显示在该句最后一条字幕的英文下方。@Q 之后为主持人塔诺（Tano Santos）的发言，@L 切回李录。方括号内为编者补注，英文字幕不显示。
 ## 1
 E: The discipline of value investing started with Columbia.
 Z: 价值投资这门学问，起源于哥伦比亚大学。
@@ -405,7 +405,7 @@ E: That's what you want.
 Z: 这正是你想要的。
 ## 5
 E: All countries would felt the weight of one single common market || and the cost of withdrawing from it.
-Z: 所有国家都会感受到/这个统一共同市场的分量， || 以及退出它要付出的代价。
+Z: 所有国家都会感受到/这个全球一体化市场的分量， || 以及退出它要付出的代价。
 E: The world, by and large, will continue to progress in that regard.
 Z: 总体而言，世界将继续沿着这个方向发展。
 E: The order we have been familiar with since the end of World War II || is changing and transforming.
@@ -413,7 +413,7 @@ Z: 我们自二战结束以来所熟悉的秩序， || 正在改变和转型。
 E: What will emerge, and in what form, is yet to be seen.
 Z: 最终会形成什么、以什么形式出现，还有待观察。
 E: But the underlying formation of something with a more prominent impact, || the forming of one single global common market, is here to stay.
-Z: 但在它之下，一个影响更为深远的结构已经形成—— || 全球统一的共同市场，它会一直存在下去。
+Z: 但在它之下，一个影响更为深远的结构已经形成—— || 全球一体化的市场，它会一直存在下去。
 E: What is the implication for an investor?
 Z: 这对投资者意味着什么？
 E: We come back to our basic tenets of value investing, the six principles.
@@ -451,7 +451,8 @@ Z: 技术，包括 AI，仍会是工具，而不是人的替代品。
 E: If it has any tendency to replace humans, as I said, || we will all unite to oppose such a creation of a man-made god.
 Z: 正如我所说，如果它出现任何取代人类的趋势， || 我们所有人都会团结起来，反对创造这样一个「人造之神」。
 E: Therefore, in my view, you don't have to participate in a prospectus || that calls it an IPO of a demigod.
-Z: 所以在我看来，你没有必要参与 || 一份自称「半神 IPO」的招股书。
+Z: 因此，在我看来，我们没有必要参与 || 那种被包装成「半神 IPO」的投资。
+N: 注：「半神」指 Anthropic
 ## 6
 E: The Chinese stock market — is that the objective or cost?
 Z: 中国股市究竟是「目标」还是「代价」？

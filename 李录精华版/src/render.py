@@ -309,7 +309,7 @@ def cue_layer(i):
     c = CUES[i]
     zl = wrap_zh(c['zh'], 'sans_med', 50, 960)
     el = wrap_en(c['en'], 'latin_reg', 29, 990)
-    hgt = SUB_BASE0 + len(zl) * 68 + 16 + len(el) * 40 + 30
+    hgt = SUB_BASE0 + len(zl) * 68 + 16 + len(el) * 40 + 30 + (44 if c.get('note') else 0)
     a = np.zeros((hgt, W), np.float32); rgb = np.zeros((hgt, W, 3), np.float32)
     y = SUB_BASE0
     for ln in zl:
@@ -327,6 +327,12 @@ def cue_layer(i):
         a[yy:yy + m.shape[0], x:x + m.shape[1]] = np.maximum(a[yy:yy + m.shape[0], x:x + m.shape[1]], m)
         rgb[yy:yy + m.shape[0], x:x + m.shape[1]] = GREY
         y += 40
+    if c.get('note'):   # 注释：金色小字，在英文下方
+        m, base = text_mask(c['note'], 'sans_reg', 24)
+        x = (W - m.shape[1]) // 2
+        yy = y + 6 - base
+        a[yy:yy + m.shape[0], x:x + m.shape[1]] = np.maximum(a[yy:yy + m.shape[0], x:x + m.shape[1]], m)
+        rgb[yy:yy + m.shape[0], x:x + m.shape[1]] = SUBG
     _sc[i] = (a, rgb)
     if len(_sc) > 40: _sc.pop(next(iter(_sc)))
     return _sc[i]
