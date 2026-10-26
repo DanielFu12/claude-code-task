@@ -22,7 +22,8 @@ for part in ('intro', 'insight', 'summary'):
         items.append((s['t0'], s['t1'], s['text']))
 for s in tl['qa']['subs']:
     items.append((s['t0'], s['t1'], f"{s['zh']}\n{s['en']}"))
-items.append((tl['laugh']['t0'], tl['laugh']['t1'], '（现场笑声）'))
+for lg in tl['laughs']:
+    items.append((lg['t0'], lg['t1'], '（现场笑声）'))
 items.sort()
 with open(os.path.join(out, '字幕_中英.srt'), 'w', encoding='utf-8') as f:
     for i, (a, b, s) in enumerate(items, 1):
