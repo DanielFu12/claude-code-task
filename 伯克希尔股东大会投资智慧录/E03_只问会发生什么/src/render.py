@@ -1232,7 +1232,7 @@ SP_Y = _yr
 _lv = np.log(SP_V)
 SP_L = _lv + (math.log(5288) - _lv[-1]) * (SP_Y - SP_Y[0]) / (SP_Y[-1] - SP_Y[0])   # 按信中终值 5,288 倍做对数平滑校准
 EVENTS_42 = [(1965.5, '越战升级', -95), (1971.6, '工资与物价管制', 85), (1974.3, '石油危机 · 总统辞职', 150), (1980.9, '利率 21%', -110),
-             (1987.8, '道指单日跌 508 点', 95), (2008.7, '金融恐慌', 80)]
+             (1987.8, '道指单日跌 508 点', 150), (2008.7, '金融恐慌', 80)]
 CX0, CX1, CYB, CYT = 170, 900, 1310, 690
 
 
@@ -1307,8 +1307,8 @@ def txt_i5(img, t, subs):
         s = f'${val:,.0f}' if t < tv else '$606,811'
         text(img, s, CX1 - 40, CYT - 30, 46, 'corm_med', a=a * k6, gold=True, glow=0.2, anchor='r')
         text(img, '2019 年 1 月 31 日 · 标普 500 · 股息再投资', CX1 - 10, CYT - 88, 20, 'sans', INK2, a * k6 * ke(t, tv), 'r', track=0.04)
-    fx.slam(img, '5,288 倍', 400, 800, 84, 'corm_med', t, tx - 0.05, a * k6, glow_=0.4)
-    if t > tx: fx.burst(img, t, tx, (400, 800), a * k6 * 0.8, n=50, speed=420, life=1.1, seed=7)
+    fx.slam(img, '5,288 倍', 360, 760, 84, 'corm_med', t, tx - 0.05, a * k6, glow_=0.4)
+    if t > tx: fx.burst(img, t, tx, (360, 760), a * k6 * 0.8, n=50, speed=420, life=1.1, seed=7)
     text(img, '曲线：Shiller 标普综合指数（含股息再投资）；终值取自 2018 年致股东信', W / 2, 1418, 17, 'sans', INK3 * 1.5, a * k6 * 0.9)
 
 
@@ -1383,8 +1383,9 @@ def txt_i8(img, t, subs):
     if kn > 0:
         p = (wx(I_NBER), wy(W_V[I_NBER]))
         circle(img, p, 12, GOLD_HI, a * kn, 2)
-        text(img, 'NBER 宣布衰退结束', p[0] + 6, p[1] - 70, 24, 'sans_med', GOLD_HI, a * kn, 'r')
-        text(img, '2010.09.20 · 1,142.71', p[0] + 6, p[1] - 40, 22, 'corm_med', GOLD_C, a * kn, 'r')
+        text(img, 'NBER 宣布衰退结束', p[0] + 6, WYT + 26, 24, 'sans_med', GOLD_HI, a * kn, 'r')
+        text(img, '2010.09.20 · 1,142.71', p[0] + 6, WYT + 56, 22, 'corm_med', GOLD_C, a * kn, 'r')
+        dashed(img, (p[0], WYT + 72), (p[0], p[1] - 14), GOLD_C, a * kn * 0.6, dash=6, gap=6)
     k69 = ke(t, t69 - 0.1, 0.5)
     if k69 > 0:
         xb = wx(I_NBER) + 34
