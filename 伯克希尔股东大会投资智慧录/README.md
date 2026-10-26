@@ -8,5 +8,6 @@
 |---|---|---|---|
 | 第一集 | 内在价值：先问看不看得清，再问便不便宜 | 1994 下午场 · CNBC 第 22 章「Calculating intrinsic value」 | `E01_内在价值/` |
 | 第二集 | 风险不是波动：真正值得警惕的，是本金永久损失的可能性 | 1994 上午场 · CNBC 第 50 章「Risk is “inextricably wound up” in how long an asset is held」 | `E02_风险不是波动/` |
+| 第三集 | 只问会发生什么，不猜何时发生 | 1994 上午场 · CNBC 第 47 章「Why we have no short-term opinion on stocks」 | `E03_只问会发生什么/` |
 
 每集目录自带 `build.sh`、源码、口播脚本、分镜与时间线、素材来源与质检报告。后续集数可复制 `E01_内在价值/src/` 的流程：改 `script.py`（文本、素材区间、事实出处）和 `render.py` 里的分镜即可。
