@@ -3,23 +3,23 @@
 import math, os, sys
 import numpy as np, cv2
 from engine import *
-from timeline import B, P, O, DUR, SFX
+from timeline import B, P, O, DUR, SFX, grid
 
 NFR = int(DUR * FPS)
 
 # ============================================================== 节拍工具
 def bdt(t):
-    """距离上一拍的秒数"""
-    k = math.floor((t - B(0)) / P)
-    return t - B(k) if k >= 0 else 9.0
+    """距离上一拍的秒数（按成片真实节拍）"""
+    k = math.floor((t - grid(0)) / P)
+    return t - grid(k) if k >= 0 else 9.0
 
 def beat_pulse(t, decay=0.12):
     return math.exp(-bdt(t) / decay)
 
 def bar_pulse(t, decay=0.25):
-    k = math.floor((t - B(0)) / P)
+    k = math.floor((t - grid(0)) / P)
     if k < 0: return 0.0
-    return math.exp(-(t - B(k - k % 4)) / decay)
+    return math.exp(-(t - grid(k - k % 4)) / decay)
 
 def win(t, n0, n1, fi=0.35, fo=0.35):
     return env(t, B(n0), B(n1), fi, fo)
@@ -606,10 +606,8 @@ def sc_lemons(f, t):
         f.glow((W / 2, 760), 200, LEMON, a * 0.18, 'B')
         f.text('1970', W / 2, 330, 60, 'oswald', LEMON, a, 'm', mode='O', glow=0.4)
         headline(f, '阿克洛夫《柠檬市场》', 1080, 72, B(80.5), a)
-        body(f, 'lemon：美国俚语，买到手才发现的问题车', 1180, 34, B(81.5), a, col=SOFT)
-        body(f, '曾被三家顶级期刊拒稿：「太浅显」', 1330, 44, B(83), a, col=WHITE)
-        headline(f, '31 年后，诺贝尔经济学奖', 1450, 60, B(85), a, grad=[GOLD2, GOLD])
-        note(f, 'Akerlof, G. (1970). Quarterly Journal of Economics；2001 年诺贝尔经济学奖', 1600, B(85.5), a, 24)
+        body(f, '「柠檬」：买到手才发现有毛病的二手车', 1190, 40, B(82), a, col=SOFT)
+        headline(f, '2001 年，诺贝尔经济学奖', 1400, 60, B(84.5), a, grad=[GOLD2, GOLD])
     # --- 两辆车
     a = win(t, 88, 112, 0.3, 0.4)
     if a > 0:
@@ -672,8 +670,8 @@ def sc_lemons(f, t):
 
 # ============================================================== 3b · 真相：为什么偷工减料能赢
 COST = [  # (名称, 看得见?, 初始份额, 最终份额, 开始变化的拍) —— 自下而上：底层是看不见的，表面是看得见的
-    ('原料品质', False, 30, 16, 148), ('安全冗余', False, 18, 7, 148.5), ('质量检测', False, 16, 6, 149), ('售后服务', False, 14, 9, 150),
-    ('广告营销', True, 12, 24, 151), ('包装', True, 10, 18, 151.5)]
+    ('原料品质', False, 30, 16, 148), ('安全冗余', False, 18, 7, 149), ('质量检测', False, 16, 6, 150), ('售后服务', False, 14, 9, 151),
+    ('广告营销', True, 12, 24, 152.5), ('包装', True, 10, 18, 153.5)]
 
 def cost_stack(f, t, a):
     """一件商品的成本柱：看不见的部分逐拍被压缩，看得见的部分越做越大"""
@@ -727,8 +725,8 @@ def sc_truth(f, t):
     if a > 0:
         headline(f, '成本从哪里省？', 330, 76, B(146), a)
         cost_stack(f, t, a)
-        rich(f, '看得见的越来越【好】，', 1400, 66, B(155), a)
-        rich(f, '看不见的越来越【差】。', 1510, 66, B(156.5), a, hlcol=RED)
+        rich(f, '看得见的越来越【好】，', 1400, 66, B(155.5), a)
+        rich(f, '看不见的越来越【差】。', 1510, 66, B(157), a, hlcol=RED)
     a = win(t, 160, 164, 0.25, 0.3)
     if a > 0:
         headline(f, '一个健康的市场，', 820, 76, B(160), a)
@@ -1027,15 +1025,14 @@ def sc_mech(f, t):
             f.text(lab, px, py, 34, 'sans_med', WHITE, a * on, 'm', mode='O')
         f.text('让质量', cx, cy - 34, 40, 'serif_black', GOLD2, a * eo((t - B(306)) / 0.4), 'm', mode='O')
         f.text('看得见 · 有回报 · 骗不起', cx, cy + 30, 28, 'sans_med', WHITE, a * eo((t - B(306.5)) / 0.4), 'm', mode='O')
-        ev = [(306, '惩罚追责 · 「幽灵外卖」7 家平台被罚 35.97 亿元', '2026.6 起，平台须实地核验外卖商家资质'),
-              (309, '用户反馈 · Yelp 评分每 +1 星', '独立餐厅营收 +5%～9%（Luca，2011）'),
-              (312, '重复博弈 · 一锤子买卖靠骗', '回头客生意，靠的是信誉')]
+        ev = [(305, '惩罚追责 · 「幽灵外卖」7 家平台被罚 35.97 亿元', '2026.6 起，平台须实地核验外卖商家资质'),
+              (310, '用户反馈 · Yelp 评分每 +1 星', '独立餐厅营收 +5%～9%（Luca，2011）')]
         for j, (n0, l1, l2) in enumerate(ev):
             p = eo((t - B(n0)) / 0.4)
-            y = 1170 + j * 165
-            f.line((110, y - 30), (110, y + 50), GOLD, a * p, 3)
-            f.text(l1, 140, y - 8, 36, 'sans_med', WHITE, a * p, 'l', mode='O')
-            f.text(l2, 140, y + 44, 30, 'sans_light', SOFT, a * p, 'l', mode='O')
+            y = 1200 + j * 210
+            f.line((100, y - 40), (100, y + 60), GOLD, a * p, 4)
+            f.text(l1, 130, y - 8, 38, 'sans_med', WHITE, a * p, 'l', mode='O')
+            f.text(l2, 130, y + 50, 32, 'sans_light', SOFT, a * p, 'l', mode='O')
     # --- 复苏：让质量被看见
     a = win(t, 316, 324, 0.3, 0.4)
     if a > 0:
@@ -1178,42 +1175,46 @@ def sc_invest(f, t):
             f.text(q2, 210, y + 40, 32, 'sans_med', lerpc(col, WHITE, 0.4), a * eo((t - B(n0 + 0.8)) / 0.4), 'l', mode='O')
         rich(f, '份额增长 ≠ 【股东价值】', 1400, 70, B(372.5), a)
         body(f, '用低价和牺牲质量换来的份额，最终会还回去', 1500, 36, B(374), a, col=SOFT)
-    # --- 两个案例：定价权 vs 品牌 ≠ 质量
+    # --- 两个例子：良币行业里的好公司 vs 柠檬行业里的破局者
     a = win(t, 375, 390, 0.3, 0.45)
     if a > 0:
-        p1 = eo((t - B(375)) / 0.45)
-        card(f, 70, 300, 1010, 760, GOLD, a * p1, 0.07)
-        f.text('定价权 · 喜诗糖果', 120, 370, 48, 'serif_black', GOLD2, a * p1, 'l', mode='O', glow=0.3)
-        f.text('1972 年，伯克希尔以 2500 万美元买下', 120, 450, 34, 'sans_med', WHITE, a * p1, 'l', mode='O')
-        pv = cl((t - B(376)) / (4 * P))
-        xs = np.linspace(560, 960, 40); g = np.linspace(0, 1, 40) ** 2.2
-        mm = max(2, int(40 * eo(pv)))
-        f.poly(list(zip(xs[:mm], 720 - 200 * g[:mm])), GOLD2, a * p1, 3)
-        f.glow((xs[mm - 1], 720 - 200 * g[mm - 1]), 8, GOLD2, a * p1, 'E')
-        f.text('%.1f' % (13.5 * eo(pv)), 120, 580, 96, 'oswald', GOLD2, a * p1, 'l', mode='O', glow=0.5)
-        f.text('亿美元', 145 + text_width('%.1f' % (13.5 * eo(pv)), 'oswald', 96), 596, 40, 'sans_med', GOLD2, a * p1, 'l', mode='O')
-        f.text('到 2007 年累计税前利润，追加资本仅 3200 万', 120, 700, 28, 'sans_light', SOFT, a * p1, 'l', mode='O')
-        p2 = eo((t - B(379)) / 0.45)
-        card(f, 70, 820, 1010, 1240, LEMON, a * p2, 0.07)
-        f.text('品牌 ≠ 质量 · 卡夫亨氏', 120, 890, 48, 'serif_black', LEMON, a * p2, 'l', mode='O', glow=0.3)
-        f.text('2019 年，品牌减值', 120, 980, 34, 'sans_med', WHITE, a * p2, 'l', mode='O')
-        f.text('154 亿美元', 120, 1080, 84, 'sans_black', RED, a * p2, 'l', mode='O', glow=0.4)
-        f.text('巴菲特：「我们为卡夫付了太高的价格」', 120, 1180, 30, 'sans_light', SOFT, a * p2, 'l', mode='O')
-        drop = eo((t - B(380)) / 0.8)
-        f.rrect(820, 950, 940, 1180, 8, GOLD, a * p2 * 0.3, 1)
-        f.fillpoly([(820, 950 + 230 * 0.45 * drop), (940, 950 + 230 * 0.45 * drop), (940, 1180), (820, 1180)], LEMON, a * p2 * 0.4, 'E')
-        headline(f, '真正的护城河：', 1360, 62, B(383), a, col=SOFT)
-        headline(f, '让顾客认得出你的好，', 1470, 66, B(384.5), a)
-        rich(f, '并且【愿意为它付钱】。', 1580, 66, B(386), a)
-        note(f, '来源：伯克希尔 2007 年致股东信；Kraft Heinz 2019 年公告；CNBC 访谈', 1680, B(381), a, 22)
+        headline(f, '两个例子，看懂这条原则', 300, 60, B(375), a)
+        # A · 喜诗糖果：质量一尝就知道
+        p1 = eo((t - B(376)) / 0.45)
+        card(f, 70, 380, 1010, 860, GOLD, a * p1, 0.08)
+        f.text('喜诗糖果', 120, 455, 58, 'serif_black', GOLD2, a * p1, 'l', mode='O', glow=0.3)
+        f.rrect_fill(400, 430, 580, 480, 25, GOLD, a * p1 * 0.9, 'L')
+        f.text('良币行业', 490, 455, 28, 'sans_med', (0.08, 0.06, 0.02), a * p1, 'm', mode='O')
+        lines = [(377, '好不好吃，一口就分得出', WHITE, 40), (378, '顾客年年回头，口碑不断积累', WHITE, 40),
+                 (379.5, '所以它敢年年涨价——这就是定价权', GOLD2, 40)]
+        for k, (n0, s_, c, sz) in enumerate(lines):
+            f.text(s_, 120, 550 + k * 70, sz, 'sans_med' if c is WHITE else 'serif_black', c, a * eo((t - B(n0)) / 0.4), 'l', mode='O')
+        f.text('1972 年 2500 万美元买入，到 2007 年累计税前利润 13.5 亿美元', 120, 800, 27, 'sans_light', SOFT,
+               a * eo((t - B(381)) / 0.4), 'l', mode='O')
+        # B · 二手车：柠檬市场里的破局者
+        p2 = eo((t - B(382)) / 0.45)
+        card(f, 70, 920, 1010, 1460, CYAN, a * p2, 0.08)
+        f.text('二手车', 120, 995, 58, 'serif_black', CYAN, a * p2, 'l', mode='O', glow=0.3)
+        f.rrect_fill(330, 970, 510, 1020, 25, LEMON, a * p2 * 0.9, 'L')
+        f.text('柠檬市场', 420, 995, 28, 'sans_med', (0.05, 0.07, 0.02), a * p2, 'm', mode='O')
+        f.text('车况看不出、一锤子买卖，行业口碑差', 120, 1090, 38, 'sans_med', WHITE, a * eo((t - B(383)) / 0.4), 'l', mode='O')
+        f.text('CarMax 做了三件事：', 120, 1165, 38, 'sans_med', WHITE, a * eo((t - B(384.5)) / 0.4), 'l', mode='O')
+        for k, s_ in enumerate(['统一检测整备', '明码标价不议价', '可无理由退车']):
+            q = eo((t - B(385 + k * 0.7)) / 0.35)
+            x = 120 + k * 290
+            f.rrect(x, 1205, x + 270, 1265, 30, CYAN, a * q, 2)
+            f.text(s_, x + 135, 1235, 30, 'sans_med', lerpc(CYAN, WHITE, 0.4), a * q, 'm', mode='O')
+        rich(f, '把看不见的质量，变成【看得见】', 1335, 44, B(387.5), a * p2, hlcol=CYAN, x=120, anchor='l', fnt='serif_black')
+        f.text('1993 年创立，成长为美国最大的二手车零售商', 120, 1410, 27, 'sans_light', SOFT, a * eo((t - B(388.5)) / 0.4), 'l', mode='O')
+        note(f, '来源：伯克希尔 2007 年致股东信；CarMax 公司资料', 1660, B(381), a, 22)
 
 
     # --- 投资结语
     a = win(t, 390, 396, 0.3, 0.4)
     if a > 0:
         god_rays(f, t, W / 2, 960, GOLD, a * 0.5, seed=61)
-        headline(f, '选质量看得见的行业，', 840, 74, B(390), a)
-        rich(f, '投让质量被看见的【公司】。', 980, 74, B(391.5), a, glow=0.5)
+        headline(f, '要么，选质量看得见的行业；', 840, 68, B(390), a)
+        rich(f, '要么，投让质量被看见的【公司】。', 980, 68, B(391.5), a, glow=0.5)
 
 
 # ============================================================== 10 · 终章

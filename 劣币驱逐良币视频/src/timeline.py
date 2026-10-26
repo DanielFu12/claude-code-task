@@ -5,10 +5,24 @@ VIS = -0.02                     # 视觉提前 20ms（实测鼓点略早于拟�
 
 SKIP = 8                        # 配乐从第 8 拍开始（前奏缩短 4.6 秒）
 
-def B(n):
-    return O + P * (n - SKIP) + VIS
+# 放慢：把以下区间（分镜拍号）拉长一倍，并在配乐对应位置无缝重复同样长度的小节（见 audio.REPEATS）
+WARP = [(112, 16), (204, 8), (337, 16), (353, 16), (376, 16)]
 
-DUR = 245.3
+def warp(n):
+    m = n
+    for s, L in WARP:
+        m += min(max(n - s, 0), L)
+    return m
+
+def B(n):
+    """分镜第 n 拍 → 成片时刻（秒）"""
+    return O + P * (warp(n) - SKIP) + VIS
+
+def grid(k):
+    """成片里真实的第 k 拍（不经过 warp），用于节拍脉冲"""
+    return O + P * (k - SKIP) + VIS
+
+DUR = 286.4
 
 # 音乐段落（新时间轴拍号）
 #   0–32   前奏（悬疑，安静）          32  第一次重击（标题）

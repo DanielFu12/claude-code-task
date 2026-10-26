@@ -12,6 +12,9 @@ P, O = 0.5715714, 0.1080853            # 节拍网格（周期 / 偏移，秒）
 # 拼接表：(源起始拍, 源结束拍)；拍数为整数 -> 新时间轴上节拍网格保持连续
 SEGS = [(8, 60), (44, 96), (80, 292), (240, 256), (240, 256), (240, 256), (240, None)]   # 去掉前 8 拍前奏；终段多循环两次给投资启示
 XF = 0.05                               # 等功率交叉淡化（秒）
+# 拼接后再做的「原地重复」：(x, L) 表示播到分镜第 x 拍时，把 [x-L, x) 这 L 拍再播一遍（与 timeline.WARP 一一对应）
+REPEATS = [(128, 16), (212, 8), (352, 16), (368, 16), (384, 16)]
+SKIP = 8
 
 
 def bt(b):
@@ -22,6 +25,31 @@ def load():
     raw = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', SRC, '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'],
                          capture_output=True, check=True).stdout
     return np.frombuffer(raw, np.float32).reshape(-1, 2).astype(np.float64)
+
+
+def bt_new(n):
+    return O + P * (n - SKIP)
+
+
+def xfade_concat(pieces):
+    n = int(XF * SR)
+    out = pieces[0]
+    w = np.linspace(0, 1, n)[:, None]
+    for seg in pieces[1:]:
+        mix = out[-n:] * np.cos(w * np.pi / 2) + seg[:n] * np.sin(w * np.pi / 2)
+        out = np.concatenate([out[:-n], mix, seg[n:]])
+    return out
+
+
+def repeats(y):
+    n = int(XF * SR) // 2
+    pieces, cur = [], 0
+    for x, L in REPEATS:
+        e = int(bt_new(x) * SR)
+        pieces.append(y[cur:e + n])
+        cur = int(bt_new(x - L) * SR) - n
+    pieces.append(y[cur:])
+    return xfade_concat(pieces)
 
 
 def splice(y):
@@ -93,7 +121,7 @@ def sfx_events():
 if __name__ == '__main__':
     work = sys.argv[1]
     os.makedirs(work, exist_ok=True)
-    y = splice(load())
+    y = repeats(splice(load()))
     sf.write(os.path.join(work, 'music_only.wav'), y.astype(np.float32), SR)
     sys.path.insert(0, HERE)
     out = y * 0.92
