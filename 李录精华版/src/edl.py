@@ -21,8 +21,17 @@ CHAPTERS = {   # 编号: (中文标题, 英文标题)
     6: ('中国股市：是目标还是代价', 'China\'s Stock Market: Objective or Cost'),
     7: ('一切聪明的投资都是价值投资', 'All Intelligent Investing Is Value Investing'),
     8: ('业绩落后时，如何坚守价值投资', 'When Value Investing Lags Behind'),
-    9: ('从安全边际到复利人生', 'From Margin of Safety to a Compounding Life'),
+    9: ('下行保护与复利人生', 'Downside Protection and a Compounding Life'),
 }
+# 拆分版专用的章名（覆盖上表；只影响分章视频）：编号: (中文标题, 英文标题, 章节卡副标题)
+SPLIT_TITLES = {
+    9: ('从安全边际到复利人生', 'From Margin of Safety to a Compounding Life', '复利的第一要义，是不要失去你已拥有的。'),
+}
+
+def split_title(ch):
+    """拆分版章名 → (中文, 英文, 副标题或 None)"""
+    if ch in SPLIT_TITLES: return SPLIT_TITLES[ch]
+    return CHAPTERS[ch] + (None,)
 
 def load(src_json3):
     A = json.load(open(os.path.join(WORK, 'align.json')))

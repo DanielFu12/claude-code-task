@@ -180,7 +180,7 @@ def chrome(ch):
     if SPLIT:   # 拆分版：首行与下移后的角标上下对齐（角标文字区 y0+8 … y0+60）
         put_text(img, '李录 · 哥大演讲精华', 'sans_med', 30, 52, SPLIT_TOP + 34, WHITE)
         put_text(img, '第 36 届格雷厄姆-多德年度午餐会 · 2026', 'sans_reg', 20, 52, SPLIT_TOP + 66, GREY, 0.9)
-        zh, en = edl.CHAPTERS[ch]
+        zh, en, _ = edl.split_title(ch)
         put_text(img, zh, 'serif_black', fit_size(zh, 'serif_black', 66, 976), 52, 344, None, gold=True)
         put_text(img, en, 'latin_reg', fit_size(en, 'latin_reg', 27, 976), 52, 394, GREY, 0.9)
         hairline(img, 426, 0.5, 52, 1028)
@@ -469,11 +469,14 @@ def card(img, t, ch, bg):
     cx, cy = W // 2, VY + VS // 2
     put_text(img, f'{ch:02d}', 'serif_semi', 280, cx, cy - 40, SUBG, a * 0.18 * eo(t / 0.5), anchor='m')
     put_text(img, f'CHAPTER {ch:02d}', 'latin_reg', 26, cx, cy - 120, SUBG, a * eo((t - 0.1) / 0.4), track=0.3, anchor='m')
-    zh, en = edl.CHAPTERS[ch]
+    zh, en, sub = edl.split_title(ch) if SPLIT else edl.CHAPTERS[ch] + (None,)
     k = eo((t - 0.24) / 0.55)                       # 0.24s 处是音乐重拍
     sz = fit_size(zh, 'serif_black', 76, 960)
     put_text(img, zh, 'serif_black', sz, cx, cy + 20 + 18 * (1 - k), None, a * k, anchor='m', gold=True)
-    put_text(img, en, 'latin_reg', fit_size(en, 'latin_reg', 30, 960), cx, cy + 80, WHITE, a * 0.85 * eo((t - 0.5) / 0.5), anchor='m')
+    if sub:     # 拆分版章节卡副标题（封面），替代英文章名行；英文章名保留在页眉
+        put_text(img, sub, 'sans_med', fit_size(sub, 'sans_med', 34, 960), cx, cy + 82, WHITE, a * 0.92 * eo((t - 0.5) / 0.5), anchor='m')
+    else:
+        put_text(img, en, 'latin_reg', fit_size(en, 'latin_reg', 30, 960), cx, cy + 80, WHITE, a * 0.85 * eo((t - 0.5) / 0.5), anchor='m')
     w = int(520 * eo((t - 0.4) / 0.7))
     if w > 2: hairline(img, cy + 118, 0.9 * a, cx - w // 2, cx + w // 2)
 
