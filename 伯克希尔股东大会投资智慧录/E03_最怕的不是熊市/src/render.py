@@ -670,35 +670,20 @@ def hook_a(t):
     return 1.0 - eio((t - (T_TITLE - 0.45)) / 0.4)
 
 
-# 钩子：暴跌，还是连年疯涨——哪一个更可怕？（两张示意图，第 0 帧即可读）
+# 钩子：市场低迷、账户缩水——还要不要继续买？（先共情，再给视角；第 0 帧即可读，克制，不做故障与砸入）
 _rh = np.random.default_rng(31)
-HOOK_BEAR = np.r_[np.linspace(0, -0.10, 12), np.linspace(-0.10, -0.62, 26)] + _rh.normal(0, 0.025, 38)
-HOOK_BULL = np.linspace(0, 1, 38) ** 2.6 * 1.0 + _rh.normal(0, 0.018, 38)
-HB_BOX = ((110, 640, 525, 1150), (555, 640, 970, 1150))
-
-
-def hook_chart(img, box, ys, col, a, k, label, sub):
-    x0, y0, x1, y1 = box
-    panel(img, x0, y0, x1, y1, a, col=col, title=label, en=sub, fill=0.78)
-    n = max(2, int(len(ys) * k))
-    xs = np.linspace(x0 + 40, x1 - 40, len(ys))[:n]
-    yb, yt = y1 - 70, y0 + 140
-    yy = yb - (ys[:n] - ys.min()) / (ys.max() - ys.min()) * (yb - yt)
-    area(img, np.c_[xs, yy], yb, col, a * 0.8, top=0.28)
-    gline(img, np.c_[xs, yy], col, a, th=4)
-    glow(img, (xs[-1], yy[-1]), 14, GOLD_HI if col is ICE else col, a)
+HOOK_ACC = np.r_[np.linspace(0, 0.06, 8), np.linspace(0.06, -0.34, 34), np.linspace(-0.34, -0.30, 8)] + _rh.normal(0, 0.012, 50)
+HOOK_BOX = (110, 660, 970, 1140)
 
 
 def dia_s1(L, t):
     a = hook_a(t)
     if a <= 0: return
-    for kw, x in (('暴跌', 300), ('疯涨', 780)):
-        shock(L, (x, 330), t, wt('S1', kw) - 0.05, AMBER if kw == '暴跌' else ICE, a * 0.8, rmax=260, life=0.9, flatten=0.6)
     ta = wt('S1', '巴菲特')
-    shock(L, (W / 2, 1290), t, ta - 0.05, GOLD_H, a, rmax=560, life=1.1, flatten=0.3)
+    shock(L, (W / 2, 1290), t, ta - 0.05, GOLD_H, a * 0.7, rmax=520, life=1.3, flatten=0.3)
     rng = np.random.default_rng(4)                       # 缓缓上升的金色微粒
-    ph = (t * 0.12 + rng.random(160)) % 1.0
-    cloud(L, np.c_[rng.uniform(60, W - 60, 160), 1500 - ph * 1200], GOLD_H, 0.35 * a, w=np.sin(ph * math.pi))
+    ph = (t * 0.10 + rng.random(160)) % 1.0
+    cloud(L, np.c_[rng.uniform(60, W - 60, 160), 1500 - ph * 1200], GOLD_H, 0.3 * a, w=np.sin(ph * math.pi))
 
 
 def txt_s1(img, t, subs):
@@ -710,27 +695,35 @@ def txt_s1(img, t, subs):
         text(img, '1994 · 奥马哈 · 伯克希尔股东大会上午场实况', 72, FOOT_Y - WIN_H / 2 - 30, 22, 'sans', INK2, a * 0.85, 'l', track=0.06, shadow=0.5)
     ap = hook_a(t)
     if ap <= 0: return
-    # 第 0 帧就有的中文大字钩子（不淡入，首帧即可读）；念到关键词时对应的一侧亮起
-    zs = 1.0 + 0.05 * (1 - eo(t / 0.5))
-    tb, tu, tq = wt('S1', '暴跌'), wt('S1', '疯涨'), wt('S1', '哪一个')
-    kb, ku = ke(t, tb - 0.08, 0.3), ke(t, tu - 0.08, 0.3)
-    text(img, '暴跌', 300, 330, int(118 * zs * (1 + 0.1 * math.exp(-max(t - tb, 0) / 0.2) * (t > tb - 0.08))), 'serif_black', AMBER,
-         ap * (0.55 + 0.45 * kb), glow=0.15 + 0.35 * kb, glow_col=AMBER, shadow=0.7)
-    text(img, 'VS', W / 2, 340, 40, 'inter_semi', INK2, ap, track=0.2)
-    text(img, '疯涨', 780, 330, int(118 * zs * (1 + 0.1 * math.exp(-max(t - tu, 0) / 0.2) * (t > tu - 0.08))), 'serif_black', ICE,
-         ap * (0.55 + 0.45 * ku), glow=0.15 + 0.35 * ku, glow_col=ICE, shadow=0.7)
-    kq = ke(t, tq - 0.08, 0.3)
-    text(img, '哪一个更可怕？', W / 2, 515, int(80 * zs * (1 + 0.08 * math.exp(-max(t - tq, 0) / 0.25) * (t > tq - 0.08))), 'serif_black',
-         a=ap, gold=True, glow=0.25 + 0.35 * math.exp(-max(t - tq, 0) / 0.5) * (t > tq), shadow=0.7)
-    hook_chart(img, HB_BOX[0], HOOK_BEAR, AMBER, ap, 0.35 + 0.65 * eio((t - tb + 0.2) / 1.2), '股市暴跌', 'bear market')
-    hook_chart(img, HB_BOX[1], HOOK_BULL, ICE, ap, 0.35 + 0.65 * eio((t - tu + 0.2) / 1.2), '连年疯涨', 'a long, irrational bull run')
-    text(img, '示意', 960, 1135, 18, 'sans', INK3 * 1.5, ap * 0.8, 'r')
+    zs = 1.0 + 0.04 * (1 - eo(t / 0.6))
+    tq = wt('S1', '还要不要')
+    text(img, '市场低迷，账户缩水——', W / 2, 400, int(46 * zs), 'sans_med', INK2, ap, track=0.12, shadow=0.6)
+    text(img, '还要不要继续买？', W / 2, 530, int(92 * zs), 'serif_black', a=ap, gold=True,
+         glow=0.2 + 0.3 * math.exp(-max(t - tq, 0) / 0.8) * (t > tq), shadow=0.7)
+    # 账户曲线：缓慢下滑，末端一个呼吸的光点（示意）
+    x0, y0, x1, y1 = HOOK_BOX
+    panel(img, x0, y0, x1, y1, ap, col=ICE, title='你的账户', en='your portfolio', fill=0.78)
+    k = 0.45 + 0.55 * eio((t - 0.1) / max(tq - 0.1, 1.0))
+    n = max(2, int(len(HOOK_ACC) * k))
+    xs = np.linspace(x0 + 50, x1 - 50, len(HOOK_ACC))[:n]
+    yb, yt = y1 - 70, y0 + 140
+    ys = yt + (HOOK_ACC.max() - HOOK_ACC[:n]) / (HOOK_ACC.max() - HOOK_ACC.min()) * (yb - yt)
+    dashed(img, (x0 + 40, yt + (HOOK_ACC.max() - 0) / (HOOK_ACC.max() - HOOK_ACC.min()) * (yb - yt)), (x1 - 40, yt + (HOOK_ACC.max() - 0) / (HOOK_ACC.max() - HOOK_ACC.min()) * (yb - yt)),
+           INK2, ap * 0.45)
+    text(img, '买入成本', x0 + 50, yt + HOOK_ACC.max() / (HOOK_ACC.max() - HOOK_ACC.min()) * (yb - yt) - 22, 20, 'sans', INK2, ap * 0.8, 'l')
+    area(img, np.c_[xs, ys], yb, ICE, ap * 0.6, top=0.2)
+    gline(img, np.c_[xs, ys], ICE, ap, th=4)
+    pulse = 0.6 + 0.4 * math.sin(t * 3.2)
+    glow(img, (xs[-1], ys[-1]), 22 * pulse + 8, AMBER, ap * 0.7)
+    circle(img, (xs[-1], ys[-1]), 7, GOLD_HI, ap, fill=True)
+    text(img, '示意', x1 - 10, y1 - 16, 18, 'sans', INK3 * 1.5, ap * 0.8, 'r')
     ta = wt('S1', '巴菲特')
-    k = ke(t, ta - 0.1, 0.4)
-    if k > 0:
-        panel(img, 110, 1210, 970, 1370, ap * k, col=GOLD_C, fill=0.8)
-        text(img, '巴菲特的答案——', W / 2, 1250, 30, 'sans_med', INK2, ap * k, track=0.2)
-        fx.slam(img, '可能和你想的正好相反', W / 2, 1315, 56, 'serif_black', t, wt('S1', '正好') - 0.1, ap, glow_=0.35)
+    kb = ke(t, ta - 0.15, 0.6)
+    if kb > 0:
+        panel(img, 110, 1210, 970, 1380, ap * kb, col=GOLD_C, fill=0.8)
+        text(img, '巴菲特看待下跌的方式——', W / 2, 1255, 32, 'sans_med', INK2, ap * kb, track=0.12)
+        kc = ke(t, wt('S1', '换个角度') - 0.2, 0.7)
+        text(img, '也许能帮你换个角度', W / 2, 1325, 56, 'serif_black', a=ap * kc, gold=True, glow=0.25, wipe=kc)
 
 
 # ---------------------------------------------------------------- S2：1994 年春天，美联储两个半月里三次加息，债市重挫
