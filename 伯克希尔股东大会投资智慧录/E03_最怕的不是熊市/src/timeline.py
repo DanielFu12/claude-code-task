@@ -283,15 +283,15 @@ if t_end > T_SUM - 0.6:
     print(f'  ⚠ 启示口播结束 {t_end:.2f} 晚于总结重拍 {T_SUM:.2f}：压缩段落停顿')
     vo, subs, words, t_end = lay_vo(INSIGHT, vo0[0]['t0'], anchors={ENTRY_ID: n5, INSIGHT[-1][0]: T_SUM - 0.8 - (vo0[-1]['t1'] - vo0[-1]['t0'])})
 tl['insight'] = dict(t_card=T_INS, vo=vo, subs=subs, words=words, t0=vo[0]['t0'], t1=round(t_end, 3))
-vo, subs, words, t = lay_vo([SUMMARY], T_SUM + 0.75)
+vo, subs, words, t = lay_vo([SUMMARY], T_SUM + 0.6)
 # 片尾互动问题：总结说完后停一拍，再把问题抛给观众；品牌片尾在问题之后的段落重拍上
-vq, sq, wq, tq = lay_vo([ENDQ], t + 1.0)
+vq, sq, wq, tq = lay_vo([ENDQ], t + 0.7)
 tl['summary'] = dict(t0=T_SUM, vo=vo + vq, subs=subs + sq, words=words + wq)
 tl['endq'] = dict(t0=vq[0]['t0'], t1=round(tq, 3))
 T_BRAND = round(nfilm(N_BRAND), 3)
-if T_BRAND < tq + 1.0 + 3.9:
+if T_BRAND < tq + 3.6:
     print(f'  ⚠ 品牌重拍 {T_BRAND:.2f} 离互动问题结束 {tq:.2f} 太近')
-tl['end'] = dict(t_particles=round(T_BRAND - 3.9, 3), t_logo=round(T_BRAND - 1.1, 3), t_brand=T_BRAND,
+tl['end'] = dict(t_particles=round(T_BRAND - 3.6, 3), t_logo=round(T_BRAND - 1.1, 3), t_brand=T_BRAND,
                  t_shine=round(T_BRAND + 1.6, 3), t_follow=round(T_BRAND + 1.3, 3),
                  t_fade0=round(T_BRAND + 7.0, 3), t_fade1=round(T_BRAND + 9.0, 3))
 DUR = round(T_BRAND + 9.2, 3)

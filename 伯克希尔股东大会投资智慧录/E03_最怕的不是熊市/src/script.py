@@ -1,4 +1,4 @@
-"""《伯克希尔股东大会投资智慧录》第三集 · 只问会发生什么，不猜何时发生 —— 全部文本的唯一来源。
+"""《伯克希尔股东大会投资智慧录》第三集 · 巴菲特：最怕的不是熊市 —— 全部文本的唯一来源。
 
 INTRO      开场口播（第 0 秒的中文钩子 → 1994 年的市场背景 → 那年的提问）
 ORIGINAL   1994 年股东大会上午场原始录像的字幕（英文逐字取自 CNBC 逐字稿 1994-M47，中文为本片翻译）
@@ -17,18 +17,18 @@ GEMINI_STYLE = ('A steady authoritative male narrator for a financial documentar
                 'Measured and deliberate pace, calm confidence, clear enunciation, quiet gravitas.')
 GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/interactions'
 TEMPO = 1.07
-TTS_GROUPS = [('S1', 'S2', 'S3'), ('I1', 'I3', 'I4'), ('I5', 'I6'), ('I8', 'I9'), ('I10',), ('I11',), ('I12',), ('M',),
+TTS_GROUPS = [('S1', 'S2', 'S3'), ('I1', 'I2', 'I3'), ('I5', 'I6'), ('I7', 'I8'), ('I10',), ('I11',), ('I12',), ('M',),
               ('Q',)]
-TAGS = {'S2': '<breath>', 'S3': '<short pause>', 'I3': '<breath>', 'I4': '<short pause>', 'I5': '<breath>',
-        'I6': '<short pause>', 'I9': '<short pause>', 'I10': '<breath>', 'I11': '<breath>', 'I12': '<breath>',
+TAGS = {'S2': '<breath>', 'S3': '<short pause>', 'I2': '<breath>', 'I3': '<short pause>', 'I5': '<breath>',
+        'I6': '<short pause>', 'I7': '<breath>', 'I8': '<short pause>', 'I10': '<breath>', 'I11': '<breath>', 'I12': '<breath>',
         'M': '<breath>', 'Q': '<breath>'}
 
-# ------------------------------------------------------------------ 冷开场（原声）：会发生什么不难，何时发生不可能
-COLD_IDS = ('A22', 'A23')
+# ------------------------------------------------------------------ 冷开场（原声）：本集标题的出处——“我们真正害怕的，是一场长期持续的非理性牛市”
+COLD_IDS = ('A19',)
 
 # ------------------------------------------------------------------ 开场口播（第二集起不再宣布新系列）
 INTRO = [
-    ('S1', 'hook', '战争、加息、股灾……局势不明朗的时候，该买，还是再等等？', 0.35),
+    ('S1', 'hook', '股市暴跌，和连年疯涨，哪一个更可怕？巴菲特的答案，可能和你想的正好相反。', 0.35),
     ('S2', 'rates', '1994年春天，美联储两个半月里三次加息，债券市场遭遇重挫。', 0.45),
     ('S3', 'ask', '那年的伯克希尔股东大会上，一位股东问得很直接：你们看涨，还是看跌？', 0.0),
 ]
@@ -36,7 +36,7 @@ INTRO = [
 # ------------------------------------------------------------------ 原始问答（字幕）
 # 来源：CNBC Warren Buffett Archive 逐字稿 1994 Morning Session 第 47 章「Why we have no short-term opinion on stocks」
 # 场景名为 'omit' 的句子不进成片（节选时省略），只用于和语音识别结果对齐。
-# 英文只省略口头重起的半句（M1 的 "I think the —"、M3 的 "it's just,"、A22 的 "It's fairly,"），其余逐字保留。
+# 英文只省略口头重起的半句（M1 的 "I think the —"、M3 的 "it's just,"），其余逐字保留。
 ORIGINAL = [
     ('Q0', 'omit', 'Diane West (PH) from Corona Del Mar, California.', ''),
     ('Q1', 'ask', 'I know, Mr. Buffett, that you said that you don’t read what other people say about the market or the economy,',
@@ -60,7 +60,7 @@ ORIGINAL = [
     ('A9', 'history', 'Atomic weapons and major wars, presidents resigning, and all kinds of things, massive inflation at certain times.',
      '核武器、几场大战、总统辞职，各种各样的事，有些年份还有严重的通货膨胀。'),
     ('A10', 'history', 'To give up what you’re doing well because of guesses about what’s going to happen in some macro way just doesn’t make any sense to us.',
-     '因为猜测宏观上会发生什么，就放弃自己擅长的事——在我们看来毫无道理。'),
+     '因为对宏观的种种猜测，就放弃自己擅长的事——在我们看来毫无道理。'),
     ('A11', 'buyer', 'The best thing that can happen from Berkshire’s standpoint — we don’t wish this on anybody —',
      '从伯克希尔的角度看，最好的事——我们并不希望任何人遭遇这个——'),
     ('A12', 'buyer', 'but is that over time is to have markets that go down a tremendous amount.', '是市场在一段时间里大幅下跌。'),
@@ -82,12 +82,12 @@ ORIGINAL = [
      '因而把全部时间都用来思考一家家具体的企业、一个个具体的机会，'),
     ('M3', 'munger', 'it’s a way more efficient way to behave, at least with our particular talents and lacks thereof.',
      '那是一种高效得多的做法——至少对我们这种长处和短处来说是这样。'),
-    ('A20', 'what', 'If you’re right about the businesses, you’ll end up doing fine.', '只要你对企业的判断是对的，最后结果就不会差。'),
-    ('A21', 'what', 'We don’t know, and we don’t think about when something will happen. We think about what will happen.',
+    ('A20', 'right', 'If you’re right about the businesses, you’ll end up doing fine.', '只要你对企业的判断是对的，最后结果就不会差。'),
+    ('A21', 'omit', 'We don’t know, and we don’t think about when something will happen. We think about what will happen.',
      '我们不知道、也不去想某件事什么时候发生。我们想的是：会发生什么。'),
-    ('A22', 'what', 'It’s not so difficult to figure out what will happen.', '弄清楚会发生什么，并不那么难；'),
-    ('A23', 'what', 'It’s impossible, in our view, to figure out when it will happen.', '在我们看来，弄清楚它什么时候发生，是不可能的。'),
-    ('A24', 'what', 'So we focus on what will happen.', '所以，我们专注于会发生什么。'),
+    ('A22', 'omit', 'It’s not so difficult to figure out what will happen.', '弄清楚会发生什么，并不那么难；'),
+    ('A23', 'omit', 'It’s impossible, in our view, to figure out when it will happen.', '在我们看来，弄清楚它什么时候发生，是不可能的。'),
+    ('A24', 'omit', 'So we focus on what will happen.', '所以，我们专注于会发生什么。'),
     ('A25', 'coke', 'This company in 1890 or thereabouts, the whole company sold for $2,000.', '就说这家公司（可口可乐）：1890年前后，整个公司只卖2000美元。'),
     ('A26', 'coke', 'It’s got a market value now of about 50-odd-billion, you know?', '如今它的市值大约是500多亿美元。'),
     ('A27', 'coke', 'Somebody could’ve said to the fellow who was buying this in 1890, you know,', '1890年买下它的人，本来可能会听到这样的劝告：'),
@@ -99,43 +99,45 @@ ORIGINAL = [
 LAUGHS = ('A2', 'A7', 'A29')  # 逐字稿在这几句之后标注 "(Laughter)"
 QUOTE_ID = 'A30'             # 问答结束后的金句卡
 
-# 节选：三段原声（按句子 id 首尾），中间两处省略在画面上先暗下去再亮起，并标出“节选”
-QA_SEGMENTS = [('Q1', 'A2'), ('A3', 'A19'), ('B1', 'A30')]
+# 节选：四段原声（按句子 id 首尾），中间三处省略在画面上先暗下去再亮起，并标出“节选”
+QA_SEGMENTS = [('Q1', 'A2'), ('A3', 'A19'), ('B1', 'A20'), ('A25', 'A30')]
 # 剪入点的搜索窗口（相对该句开口，秒）：A3 前面紧接着被省略的半句 "...difference to us."，两句之间只有约 60ms 的低谷
 QA_IN_WINDOW = {'A3': (-0.2, -0.02)}
 QA_OMITTED = [
     '提问者的自我介绍（约 3 秒）',
     '回答开头关于“不能拿知道的去换不知道的”的展开（约 33 秒；同一论点在 1942 年那段之后再次出现，保留）',
     '对伯克希尔股东的补充：除非借钱持股或短期内要卖出，股价更便宜对股东更有利；以及“我们根本不在乎别人怎么看”（约 26 秒；解读中引用）',
+    '“不去想某件事何时发生，只想会发生什么”的几句（约 15 秒）：中文直译容易被理解成“未来必然发生”，与本片要讲的概率思维不符，故从节选中省略；其后的可口可乐例子完整保留',
 ]
 
 # ------------------------------------------------------------------ 投资启示（本片解读，旁白）
+# 逻辑链：概括原观点 → 第一性原理（买入价决定回报）→ 正例（1942，坏消息里买入）→ 反例（1995–2000 的疯狂牛市与科网泡沫）
+#        → 前提与局限 → 今天 → 收尾
 INSIGHT = [
-    ('I1', 'recap', '归结起来：会发生什么，可以研究；什么时候发生，无法预测。', 0.5),
-    ('I3', 'burger', '他在1997年的信里出过一道题：如果你一辈子都要吃汉堡，又不养牛，你希望牛肉涨价，还是降价？', 0.35),
-    ('I4', 'burger', '股票也一样：同样的钱，价格越低，买到的企业就越多。', 0.6),
+    ('I1', 'recap', '巴菲特的逻辑是：伯克希尔是长年的买家，所以下跌等于打折；真正让他害怕的，是长期持续的非理性牛市。', 0.5),
+    ('I2', 'price', '道理藏在价格里：一门每年赚10块的生意，花100块买，回报是10%；花200块买，就只剩5%。', 0.35),
+    ('I3', 'price', '价格涨得越疯，留给买家的回报就越薄。', 0.6),
     ('I5', 'y1942', '1942年3月，美国刚卷入二战，坏消息天天传来。11岁的巴菲特，用攒下的114.75美元，买了三股股票。', 0.35),
-    ('I6', 'y1942', '这笔钱如果投进标普500指数、股息再投资，到2019年初是60.7万美元——5288倍。', 0.45),
-    ('I8', 'wait', '反过来，等局势明朗往往就太晚了。2009年3月，标普500见底；', 0.3),
-    ('I9', 'wait', '官方直到2010年9月才宣布衰退结束——这时，指数已从底部涨了69%。', 0.6),
+    ('I6', 'y1942', '这笔钱如果投进标普500指数、股息再投资，到2019年初是60.7万美元——5288倍。', 0.6),
+    ('I7', 'bubble', '再看另一头。说完这番话之后，标普500连续五年涨幅超过20%；1999年，伯克希尔股价反而跌了约两成，《巴伦周刊》发文质疑：巴菲特怎么了？', 0.35),
+    ('I8', 'bubble', '他没有去追科技股。2000年3月泡沫见顶，纳斯达克随后跌去78%，整整15年才回到高点。', 0.6),
     ('I10', 'cond', '不过，前提是你真正看懂企业，而且不借钱、不急着卖；否则下跌不是机会，而是灾难。', 0.6),
-    ('I11', 'today', '每年都有新的理由让人“再等等”。与其猜涨跌，不如问：十年后，这门生意会是什么样？', 0.6),
-    ('I12', 'close', '会发生什么，靠研究；什么时候发生，交给时间。', 0.0),
+    ('I11', 'today', '所以，下一次市场大跌，先别急着害怕。问问自己：是这门生意变了，还是只是价格打了折？', 0.6),
+    ('I12', 'close', '熊市，是长期买家的打折季；长期持续的疯狂，才是真正的危险。', 0.0),
 ]
-SUMMARY = ('M', 'motto', '只问会发生什么，不猜何时发生。', 0.0)
+SUMMARY = ('M', 'motto', '最怕的不是熊市，而是长期的疯狂。', 0.0)
 # 片尾互动：留给观众的一个问题（在品牌片尾之前）
-ENDQ = ('Q', 'ask', '你有没有因为“再等等”，错过过一次好机会？', 0.0)
+ENDQ = ('Q', 'ask', '如果明天市场大跌三成，你会害怕，还是高兴？', 0.0)
 
 SAY = {
-    'S1': '战争、加息、股灾，局势不明朗的时候，该买，还是再等等？',
+    'S1': '股市暴跌，和连年疯涨，哪一个更可怕？巴菲特的答案，可能和你想的正好相反。',
     'S2': '一九九四年春天，美联储两个半月里三次加息，债券市场遭遇重挫。',
-    'I3': '他在一九九七年的信里出过一道题：如果你一辈子都要吃汉堡，又不养牛，你希望牛肉涨价，还是降价？',
+    'I2': '道理藏在价格里：一门每年赚十块的生意，花一百块买，回报是百分之十；花两百块买，就只剩百分之五。',
     'I5': '一九四二年三月，美国刚卷入二战，坏消息天天传来。十一岁的巴菲特，用攒下的一百一十四点七五美元，买了三股股票。',
     'I6': '这笔钱如果投进标普五百指数、股息再投资，到二零一九年初是六十点七万美元，五千二百八十八倍。',
-    'I8': '反过来，等局势明朗往往就太晚了。二零零九年三月，标普五百见底；',
-    'I9': '官方直到二零一零年九月才宣布衰退结束，这时，指数已从底部涨了百分之六十九。',
-    'I11': '每年都有新的理由让人再等等。与其猜涨跌，不如问：十年后，这门生意会是什么样？',
-    'Q': '你有没有因为再等等，错过过一次好机会？',
+    'I7': '再看另一头。说完这番话之后，标普五百连续五年涨幅超过百分之二十；一九九九年，伯克希尔股价反而跌了约两成，巴伦周刊发文质疑：巴菲特怎么了？',
+    'I8': '他没有去追科技股。二零零零年三月泡沫见顶，纳斯达克随后跌去百分之七十八，整整十五年才回到高点。',
+    'Q': '如果明天市场大跌三成，你会害怕，还是高兴？',
 }
 
 # ------------------------------------------------------------------ 来源（原始录像 + 事实核查）
@@ -150,7 +152,11 @@ MEETING_DATE = '1994-04-25'
 
 # 解读图表的数据（data/ 下的文件由 data_prep.py 从公开数据生成）
 SP_1942 = 'sp_tr_1942.json'      # Shiller 标普综合指数月度数据（含股息再投资），1942.03–2019.01
-SP_0810 = 'sp_2008_2010.json'    # 标普 500 每日收盘，2008-09 – 2010-11（Yahoo Finance ^GSPC）
+IXIC = 'ixic_1994_2015.json'     # 纳斯达克综合指数每日收盘，1994-01 – 2015-12（Yahoo Finance ^IXIC）
+
+# 伯克希尔年度业绩表（2018 年致股东信附表）：年份 → (伯克希尔股价年度涨跌 %, 标普 500 含股息年度回报 %)
+BRK_TABLE = {1995: (57.4, 37.6), 1996: (6.2, 23.0), 1997: (34.9, 33.4), 1998: (52.2, 28.6), 1999: (-19.9, 21.0),
+             2000: (26.6, -9.1), 2001: (6.5, -11.9), 2002: (-3.8, -22.1)}
 
 FACTS = [
     # (用在哪, 事实, 出处)
@@ -161,8 +167,10 @@ FACTS = [
      'CNBC Warren Buffett Archive；原始录像 archive.org youtube-A2J-_BNkqm8（全场 1:39:28 起）'),
     ('A25', '“This company” 指可口可乐：巴菲特说 1890 年前后整个公司只卖 2000 美元，如今市值 500 多亿美元',
      'CNBC 逐字稿 1994-M47（逐字稿中文译文即作“可口可乐”）'),
-    ('I1', '“We don’t know, and we don’t think about when something will happen. We think about what will happen.”', 'CNBC 逐字稿 1994-M47'),
-    ('I3、I4', '汉堡测验：“If you plan to eat hamburgers throughout your life and are not a cattle producer, should you wish for higher or lower prices for beef?” 以及 “Prospective purchasers should much prefer sinking prices.”',
+    ('冷开场、A19', '“What we fear is an irrational bull market that’s sustained for some long period of time.”（我们真正害怕的，是一场长期持续的非理性牛市）', 'CNBC 逐字稿 1994-M47'),
+    ('I1', '“we are going to be buyers of things over time”；“The best thing that can happen from Berkshire’s standpoint … is to have markets that go down a tremendous amount.”', 'CNBC 逐字稿 1994-M47'),
+    ('I2、I3', '“每年赚 10 块，花 100 块买回报 10%，花 200 块买回报 5%”是说明买入价与回报关系的算术示意（盈利收益率 = 盈利 ÷ 价格），画面标注“示意”', '—'),
+    ('I3（画面）', '汉堡测验：“If you plan to eat hamburgers throughout your life and are not a cattle producer, should you wish for higher or lower prices for beef?” 以及 “Prospective purchasers should much prefer sinking prices.”',
      'Berkshire 1997 年致股东信「How We Think About Market Fluctuations」'),
     ('I5', '1942 年 3 月 11 日，11 岁，用从 6 岁开始攒下的 114.75 美元买了 3 股 Cities Service 优先股；当时美国参战仅三个月，“Bad news arrived daily”',
      'Berkshire 2018 年致股东信「The American Tailwind」'),
@@ -171,15 +179,17 @@ FACTS = [
      'Berkshire 2018 年致股东信'),
     ('I6', '图表曲线形状取自 Shiller 标普综合指数月度数据（月均价，含股息再投资；1942.03–2019.01 约 4,469 倍），按信中终值 5,288 倍做了对数平滑校准；图中标注的事件（越战升级、工资与物价管制、两次石油危机、总统辞职、道指单日下跌 508 点、苏联解体、21% 的优惠利率、金融恐慌）均取自 1994 年与 2018 年致股东信列举的事件',
      'Shiller ie_data.xls；Berkshire 1994 年、2018 年致股东信'),
-    ('I8', '标普 500 在 2009 年 3 月 9 日收于 676.53 点，为这轮熊市的收盘最低点', 'Yahoo Finance ^GSPC 每日收盘'),
-    ('I9', 'NBER 商业周期测定委员会于 2010 年 9 月 20 日宣布：经济活动的谷底出现在 2009 年 6 月，即衰退在 2009 年 6 月结束',
-     'NBER Business Cycle Dating Committee Announcement, September 20, 2010'),
-    ('I9', '画面字幕“官方宣布时，衰退已结束 15 个月”：谷底在 2009 年 6 月，宣布于 2010 年 9 月 20 日', 'NBER Business Cycle Dating Committee Announcement, September 20, 2010'),
-    ('I9', '标普 500 在 2010 年 9 月 20 日收于 1142.71 点，比 2009 年 3 月 9 日的 676.53 点上涨 68.9%；2009 年 6 月 30 日收于 919.32 点',
-     'Yahoo Finance ^GSPC 每日收盘'),
+    ('I7', '1994 年大会之后，标普 500（含股息）1995–1999 年的年度回报：37.6%、23.0%、33.4%、28.6%、21.0%，连续五年超过 20%',
+     'Berkshire 2018 年致股东信附表「Berkshire’s Performance vs. the S&P 500」'),
+    ('I7', '1999 年伯克希尔股价下跌 19.9%（同年标普 500 上涨 21.0%）；旁白“跌了约两成”', 'Berkshire 2018 年致股东信附表'),
+    ('I7', '《巴伦周刊》1999 年 12 月 27 日刊出 Andrew Bary 的文章「What’s Wrong, Warren?」，质疑巴菲特是否失去了手感', 'Barron’s, 1999-12-27；另见 hedgefundalpha.com/news/whats-wrong-warren/'),
+    ('I8', '纳斯达克综合指数：1994 年 4 月 25 日收于 730.80 点；2000 年 3 月 10 日收于 5,048.62 点的高点；2002 年 10 月 9 日收于 1,114.11 点（较高点下跌 77.9%）；直到 2015 年 4 月 23 日（5,056.06 点）才首次收在 2000 年的高点之上',
+     'Yahoo Finance ^IXIC 每日收盘'),
+    ('I8（画面）', '2000–2002 年：标普 500（含股息）−9.1%、−11.9%、−22.1%，累计约 −37.6%；伯克希尔股价 +26.6%、+6.5%、−3.8%，累计约 +29.7%（累计值由年度数据连乘计算）',
+     'Berkshire 2018 年致股东信附表'),
+    ('I8', '“他没有去追科技股”：“This explains, by the way, why we don’t own stocks of tech companies…”；“we have no insights into which participants in the tech field possess a truly durable competitive advantage.” 同一封信承认 1999 年是“the worst absolute performance of my tenure and, compared to the S&P, the worst relative performance as well”', 'Berkshire 1999 年致股东信'),
     ('I10', '巴菲特在同一段回答里补充：除非借钱持股，或短期内就要卖出，股价更便宜对伯克希尔股东更有利（成片中节选省略，见 qa.omitted）',
      'CNBC 逐字稿 1994-M47'),
     ('I10', '“Only those who will be sellers of equities in the near future should be happy at seeing stocks rise.”', 'Berkshire 1997 年致股东信'),
-    ('I11', '“每年都有新的理由让人再等等”是本片解读；巴菲特在 1994 年的信里写道：“A different set of major shocks is sure to occur in the next 30 years. We will neither try to predict these nor to profit from them.”',
-     'Berkshire 1994 年致股东信'),
+    ('I11', '“是这门生意变了，还是只是价格打了折？”是本片解读，对应巴菲特本段回答的买菜 / 买车比喻与 1997 年信的汉堡测验', '—'),
 ]

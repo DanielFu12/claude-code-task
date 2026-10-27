@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 一键重建《伯克希尔股东大会投资智慧录》第三集 · 只问会发生什么，不猜何时发生（1080×1920 竖屏）
+# 一键重建《伯克希尔股东大会投资智慧录》第三集 · 巴菲特：最怕的不是熊市（1080×1920 竖屏）
 # 依赖：ffmpeg、python3（numpy scipy opencv-python-headless pillow soundfile librosa faster-whisper）
 #       画面与第二集同一套风格：深色数据图表面板 + 发光的点线与 3D 星图，全部 2D 合成（src/render.py），不需要 GPU。
 # 网络：archive.org（原始录音与影像）、Google Fonts、incompetech.com（CC BY 音乐）、generativelanguage.googleapis.com（Gemini TTS）、Hugging Face（faster-whisper 模型）
@@ -9,8 +9,8 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 ROOT=$(pwd); WORK="$ROOT/work"; mkdir -p "$WORK/music" fonts
-OUT="$ROOT/E03_只问会发生什么_1080x1920.mp4"
-PREVIEW="$ROOT/E03_只问会发生什么_预览版.mp4"
+OUT="$ROOT/E03_最怕的不是熊市_1080x1920.mp4"
+PREVIEW="$ROOT/E03_最怕的不是熊市_预览版.mp4"
 
 # 1) 字体（Google Fonts，SIL OFL）；品牌字体由 brand.py 下载到 brand/fonts/
 python3 -c "import sys; sys.path.insert(0, '../../brand'); import brand; brand._font('serif_black', 10); brand._font('corm', 10)"

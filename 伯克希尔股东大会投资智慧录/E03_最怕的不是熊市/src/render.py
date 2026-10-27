@@ -1,4 +1,4 @@
-"""《伯克希尔股东大会投资智慧录》第三集 · 只问会发生什么，不猜何时发生 —— 逐帧渲染（1080×1920，30fps）。
+"""《伯克希尔股东大会投资智慧录》第三集 · 巴菲特：最怕的不是熊市 —— 逐帧渲染（1080×1920，30fps）。
 
 画面风格：与第二集相同，以“暗夜星图编年”为底（近乎纯黑的宇宙、发光的点与细线），
 叠加与第一集一致的系列语言：片头用 1994 年大会原始录像 + 金色系列片名，“投资启示”标题转场、砸入 / 爆开 / HUD 圆环 / 光柱火花 / 故障，
@@ -21,7 +21,7 @@ from gfx import *                      # noqa: F401,F403
 import gfx
 import fx
 import brand as B
-from script import BROLL, CLIP_LEN, QUOTE_ID, SP_1942, SP_0810
+from script import BROLL, CLIP_LEN, QUOTE_ID, SP_1942, IXIC, BRK_TABLE
 
 WORK = sys.argv[-1] if len(sys.argv) > 2 else os.path.join(HERE, '..', 'work')
 TL = json.load(open(os.path.join(WORK, 'timeline.json')))
@@ -120,7 +120,7 @@ def qa_src(t):
     return QA['segs'][-1]['src_out'] if t > T_QE else QA['segs'][0]['src_in']
 
 
-I = {k: V(k) for k in ('I1', 'I3', 'I4', 'I5', 'I6', 'I8', 'I9', 'I10', 'I11', 'I12')}
+I = {k: V(k) for k in ('I1', 'I2', 'I3', 'I5', 'I6', 'I7', 'I8', 'I10', 'I11', 'I12')}
 HOOK = TL['hook']; ENDQ_T = TL['endq']
 
 
@@ -340,7 +340,7 @@ PANEL_BG = C(8, 10, 17)
 def chapter_tag(img, t, title, a=1.0):
     """左上章节标签（与第一集一致）"""
     if a <= 0.003: return
-    text(img, '第三集 · 只问会发生什么', 72, 66, 26, 'sans_med', SUB_GOLD, a * 0.95, 'l', track=0.12, shadow=0.3)
+    text(img, '第三集 · 最怕的不是熊市', 72, 66, 26, 'sans_med', SUB_GOLD, a * 0.95, 'l', track=0.12, shadow=0.3)
     line(img, (72, 92), (72 + 64, 92), SUB_GOLD, a * 0.7, 1)
     text(img, title, 72, 116, 22, 'sans', INK2, a * 0.85, 'l', track=0.08, shadow=0.3)
 
@@ -652,9 +652,9 @@ def txt_title(img, t, subs):
     text(img, 'BERKSHIRE HATHAWAY · ANNUAL MEETING WISDOM', W / 2, 1100, 26, 'corm', SUB_GOLD * 0.9, a * eo((k - 0.5) / 0.8), track=0.2, shadow=0.3)
     ea = a * eo((k - 0.9) / 0.6)
     if ea > 0:
-        hw = text_w('第三集 · 只问会发生什么', 'sans_med', 38, 0.14) / 2 + 40
+        hw = text_w('第三集 · 最怕的不是熊市', 'sans_med', 38, 0.14) / 2 + 40
         rrect(img, W / 2 - hw, 1196, W / 2 + hw, 1268, 6, SUB_GOLD, ea * 0.55, 1)
-        text(img, '第三集 · 只问会发生什么', W / 2, 1232, 38, 'sans_med', INK, ea, track=0.14)
+        text(img, '第三集 · 最怕的不是熊市', W / 2, 1232, 38, 'sans_med', INK, ea, track=0.14)
     fx.burst(img, t, T_TITLE, (W / 2, 900), a * 0.8, n=70, speed=640, life=1.4, seed=2)
 
 
@@ -670,24 +670,32 @@ def hook_a(t):
     return 1.0 - eio((t - (T_TITLE - 0.45)) / 0.4)
 
 
-# 每一个“再等等”的理由（事件取自 1994 年与 2018 年致股东信）
-HOOK_ROWS = [('1942', '美国参战仅三个月，坏消息天天传来'), ('1974', '石油危机 · 总统辞职'), ('1987', '道指单日下跌 508 点'),
-             ('2008', '金融恐慌'), ('今天', '？')]
+# 钩子：暴跌，还是连年疯涨——哪一个更可怕？（两张示意图，第 0 帧即可读）
+_rh = np.random.default_rng(31)
+HOOK_BEAR = np.r_[np.linspace(0, -0.10, 12), np.linspace(-0.10, -0.62, 26)] + _rh.normal(0, 0.025, 38)
+HOOK_BULL = np.linspace(0, 1, 38) ** 2.6 * 1.0 + _rh.normal(0, 0.018, 38)
+HB_BOX = ((110, 640, 525, 1150), (555, 640, 970, 1150))
 
 
-def hook_row_t(i):
-    t0 = V('S1')['t0']
-    tg = wt('S1', '该买')
-    return -0.4 if i == 0 else t0 + 0.15 + i * (tg - t0 - 0.2) / len(HOOK_ROWS)
+def hook_chart(img, box, ys, col, a, k, label, sub):
+    x0, y0, x1, y1 = box
+    panel(img, x0, y0, x1, y1, a, col=col, title=label, en=sub, fill=0.78)
+    n = max(2, int(len(ys) * k))
+    xs = np.linspace(x0 + 40, x1 - 40, len(ys))[:n]
+    yb, yt = y1 - 70, y0 + 140
+    yy = yb - (ys[:n] - ys.min()) / (ys.max() - ys.min()) * (yb - yt)
+    area(img, np.c_[xs, yy], yb, col, a * 0.8, top=0.28)
+    gline(img, np.c_[xs, yy], col, a, th=4)
+    glow(img, (xs[-1], yy[-1]), 14, GOLD_HI if col is ICE else col, a)
 
 
 def dia_s1(L, t):
     a = hook_a(t)
     if a <= 0: return
-    for kw, x in (('战争', 270), ('加息', 540), ('股灾', 810)):
-        shock(L, (x, 330), t, wt('S1', kw) - 0.05, AMBER, a * 0.8, rmax=200, life=0.8, flatten=0.6)
-    tg = wt('S1', '该买')
-    shock(L, (W / 2, 600), t, tg - 0.05, GOLD_H, a, rmax=560, life=1.1, flatten=0.35)
+    for kw, x in (('暴跌', 300), ('疯涨', 780)):
+        shock(L, (x, 330), t, wt('S1', kw) - 0.05, AMBER if kw == '暴跌' else ICE, a * 0.8, rmax=260, life=0.9, flatten=0.6)
+    ta = wt('S1', '巴菲特')
+    shock(L, (W / 2, 1290), t, ta - 0.05, GOLD_H, a, rmax=560, life=1.1, flatten=0.3)
     rng = np.random.default_rng(4)                       # 缓缓上升的金色微粒
     ph = (t * 0.12 + rng.random(160)) % 1.0
     cloud(L, np.c_[rng.uniform(60, W - 60, 160), 1500 - ph * 1200], GOLD_H, 0.35 * a, w=np.sin(ph * math.pi))
@@ -702,31 +710,27 @@ def txt_s1(img, t, subs):
         text(img, '1994 · 奥马哈 · 伯克希尔股东大会上午场实况', 72, FOOT_Y - WIN_H / 2 - 30, 22, 'sans', INK2, a * 0.85, 'l', track=0.06, shadow=0.5)
     ap = hook_a(t)
     if ap <= 0: return
-    # 第 0 秒就有的中文大字钩子（不淡入，首帧即可读）
-    for kw, s, x, col in (('战争', '战争', 270, AMBER), ('加息', '加息', 540, ICE), ('股灾', '股灾', 810, AMBER)):
-        tk = wt('S1', kw)
-        kk = ke(t, tk - 0.08, 0.3)
-        rrect(img, x - 120, 290, x + 120, 370, 8, col, ap * (0.25 + 0.6 * kk), 1)
-        text(img, s, x, 330, 52, 'serif_black', col, ap * (0.35 + 0.65 * kk), glow=0.25 * kk, glow_col=col)
+    # 第 0 帧就有的中文大字钩子（不淡入，首帧即可读）；念到关键词时对应的一侧亮起
     zs = 1.0 + 0.05 * (1 - eo(t / 0.5))
-    text(img, '局势不明朗的时候——', W / 2, 470, int(40 * zs), 'sans_med', INK2, ap, track=0.12, shadow=0.6)
-    tg = wt('S1', '该买')
-    kq = ke(t, tg - 0.08, 0.35)
-    text(img, '该买，还是再等等？', W / 2, 590, int(86 * zs * (1 + 0.08 * math.exp(-max(t - tg, 0) / 0.25) * (t > tg - 0.08))), 'serif_black',
-         a=ap, gold=True, glow=0.25 + 0.4 * math.exp(-max(t - tg, 0) / 0.5) * (t > tg), shadow=0.7)
-    panel(img, 110, 760, 970, 1330, ap, col=GOLD_C, title='每一个“再等等”的理由', en='reasons to wait')
-    for i, (yr, s) in enumerate(HOOK_ROWS):
-        ti = hook_row_t(i)
-        k = ke(t, ti, 0.35)
-        if k <= 0: continue
-        y = 900 + i * 92
-        last = i == len(HOOK_ROWS) - 1
-        col = GOLD_HI if last else AMBER
-        text(img, yr, 250, y, 46 if not last else 44, 'corm_med' if not last else 'serif_black', col, ap * k, 'm', glow=0.15)
-        line(img, (320, y), (320 + 40 * k, y), INK2, ap * k * 0.6, 1)
-        text(img, s, 380 - 20 * (1 - k), y, 34 if not last else 56, 'sans_med' if not last else 'serif_black', INK if not last else GOLD_HI, ap * k, 'l',
-             glow=0.3 if last else 0.0)
-        if 0 < t - ti < 0.25 and not last: fx.glitch(img, (140, y - 36, 940, y + 36), t, 0.6 * (1 - (t - ti) / 0.25), seed=i)
+    tb, tu, tq = wt('S1', '暴跌'), wt('S1', '疯涨'), wt('S1', '哪一个')
+    kb, ku = ke(t, tb - 0.08, 0.3), ke(t, tu - 0.08, 0.3)
+    text(img, '暴跌', 300, 330, int(118 * zs * (1 + 0.1 * math.exp(-max(t - tb, 0) / 0.2) * (t > tb - 0.08))), 'serif_black', AMBER,
+         ap * (0.55 + 0.45 * kb), glow=0.15 + 0.35 * kb, glow_col=AMBER, shadow=0.7)
+    text(img, 'VS', W / 2, 340, 40, 'inter_semi', INK2, ap, track=0.2)
+    text(img, '疯涨', 780, 330, int(118 * zs * (1 + 0.1 * math.exp(-max(t - tu, 0) / 0.2) * (t > tu - 0.08))), 'serif_black', ICE,
+         ap * (0.55 + 0.45 * ku), glow=0.15 + 0.35 * ku, glow_col=ICE, shadow=0.7)
+    kq = ke(t, tq - 0.08, 0.3)
+    text(img, '哪一个更可怕？', W / 2, 515, int(80 * zs * (1 + 0.08 * math.exp(-max(t - tq, 0) / 0.25) * (t > tq - 0.08))), 'serif_black',
+         a=ap, gold=True, glow=0.25 + 0.35 * math.exp(-max(t - tq, 0) / 0.5) * (t > tq), shadow=0.7)
+    hook_chart(img, HB_BOX[0], HOOK_BEAR, AMBER, ap, 0.35 + 0.65 * eio((t - tb + 0.2) / 1.2), '股市暴跌', 'bear market')
+    hook_chart(img, HB_BOX[1], HOOK_BULL, ICE, ap, 0.35 + 0.65 * eio((t - tu + 0.2) / 1.2), '连年疯涨', 'a long, irrational bull run')
+    text(img, '示意', 960, 1135, 18, 'sans', INK3 * 1.5, ap * 0.8, 'r')
+    ta = wt('S1', '巴菲特')
+    k = ke(t, ta - 0.1, 0.4)
+    if k > 0:
+        panel(img, 110, 1210, 970, 1370, ap * k, col=GOLD_C, fill=0.8)
+        text(img, '巴菲特的答案——', W / 2, 1250, 30, 'sans_med', INK2, ap * k, track=0.2)
+        fx.slam(img, '可能和你想的正好相反', W / 2, 1315, 56, 'serif_black', t, wt('S1', '正好') - 0.1, ap, glow_=0.35)
 
 
 # ---------------------------------------------------------------- S2：1994 年春天，美联储两个半月里三次加息，债市重挫
@@ -858,8 +862,8 @@ def dia_qa(L, t):
     if a <= 0: return
     s = qa_env(t, 'never') * a
     if s > 0: shock(L, (W / 2, 1080), t, qs('A1', 1.2), GOLD_H, s, rmax=420, life=1.1, flatten=0.3)
-    s = qa_env(t, 'what') * a
-    if s > 0: shock(L, (W / 2, 1290), t, qs('A24'), GOLD_H, s, rmax=380, life=1.0, flatten=0.3)
+    s = qa_env(t, 'fear') * a                                          # 本集标题的出处：“我们真正害怕的，是长期持续的非理性牛市”
+    if s > 0: shock(L, (W / 2, 1305), t, qs('A19', 1.4), AMBER, s, rmax=420, life=1.1, flatten=0.3)
 
 
 def munger_zoom(t):
@@ -1016,20 +1020,13 @@ def qa_panels(img, t, a):
         text(img, '把全部时间用在', W / 2, 1150, 30, 'sans_med', INK2, ka * k2, track=0.1)
         text(img, '具体的企业 · 具体的机会', W / 2, 1210, 50, 'serif_black', a=ka * ke(t, qs('M2', 2.5), 0.6), gold=True, glow=0.2)
         fx.slam(img, '高效得多', W / 2, 1292, 48, 'serif_black', t, qs('M3', 0.6), ka, gold=False, col=ICE, glow_=0.25)
-    # WHAT vs WHEN
-    ka = qa_env(t, 'what') * a
+    # 回到企业本身：对企业的判断对了，结果就不会差
+    ka = qa_env(t, 'right') * a
     if ka > 0:
-        panel(img, PX0, PY0, PX1, PY1, ka, title='巴菲特：对企业判断对了，结果就不会差', en='what vs. when')
-        for x, en, zh, sid, val, col, kw in ((330, 'WHAT', '会发生什么', 'A22', '不难', GOLD_C, 1.4), (750, 'WHEN', '何时发生', 'A23', '不可能', AMBER, 1.6)):
-            k = ke(t, qs('A21', 0.3 if en == 'WHAT' else 1.6), 0.5)
-            if k <= 0: continue
-            panel(img, x - 190, 970, x + 190, 1230, ka * k, col=col, fill=0.55)
-            text(img, en, x, 1015, 30, 'inter_semi', col, ka * k, track=0.3)
-            text(img, zh, x, 1070, 42, 'serif_bold', INK, ka * k)
-            fx.slam(img, val, x, 1165, 76, 'serif_black', t, qs(sid, kw), ka, gold=en == 'WHAT', col=None if en == 'WHAT' else AMBER, glow_=0.35)
-        tg = qs('A23', 1.6)
-        if tg < t < tg + 0.4: fx.glitch(img, (560, 1110, 940, 1220), t, 0.6 * (1 - (t - tg) / 0.4), seed=12)
-        fx.slam(img, '所以：专注于会发生什么', W / 2, 1290, 44, 'serif_black', t, qs('A24'), ka, glow_=0.3)
+        panel(img, PX0, PY0, PX1, PY1, ka, title='巴菲特：回到企业本身', en='if you’re right about the businesses')
+        fx.slam(img, '对企业的判断对了，', W / 2, 1040, 60, 'serif_black', t, qs('A20', 0.2), ka, gold=False, col=INK, glow_=0.2)
+        fx.slam(img, '最后的结果就不会差', W / 2, 1150, 60, 'serif_black', t, qs('A20', 1.8), ka, glow_=0.35)
+        text(img, '“If you’re right about the businesses, you’ll end up doing fine.”', W / 2, 1250, 26, 'ebg_i', INK2, ka * ke(t, qs('A20', 2.6)))
     # 可口可乐：1890 年 2000 美元 → 1994 年 500 多亿美元
     ka = qa_env(t, 'coke') * a * (1 - ke(t, T_QUOTE - 0.4, 0.3))
     if ka > 0:
@@ -1122,106 +1119,104 @@ def header(img, s, a, y=330):
 
 
 B_I1 = I['I1']['t0'] - 0.45
-B_I3 = b_before(I['I3']['t0'])
+B_PRICE = b_before(I['I2']['t0'])
 B_1942 = NV['entry'] - 0.4                  # 配乐大段落回归的重拍上亮起
-B_WAIT = b_before(I['I8']['t0'])
-B_COND = I['I10']['t0'] + 0.5                # “+69%” 落在 I9 的最后一个词上：图表多停半秒，再换到“前提”
+B_BUB = b_before(I['I7']['t0'])
+B_COND = I['I10']['t0'] + 1.2                # 泡沫图多停一拍（“前提”的第一个关键词约在 2 秒后），让 2000–2002 的对比看得清
 B_TODAY = b_before(I['I11']['t0'])
 B_CLOSE = b_before(I['I12']['t0'])
 
-# ---------------------------------------------------------------- I1：WHAT 可以研究 / WHEN 无法预测
-_r1 = np.random.default_rng(21)
-I1_WALK = np.cumsum(_r1.normal(0, 1, 90))
-I1_VAL = np.linspace(0, 1, 90) ** 1.6
+# ---------------------------------------------------------------- I1：对一直在买的人，下跌是打折；真正可怕的是长期的非理性牛市
+_r1 = np.random.default_rng(23)
+I1_DOWN = np.r_[np.linspace(0, -0.55, 40)] + _r1.normal(0, 0.03, 40)
+I1_UP = np.linspace(0, 1, 60) ** 3.0 + _r1.normal(0, 0.012, 60)
 
 
-def i1_a(t): return sc(t, B_I1 if t > I['I1']['t0'] - 1 else 0, B_I3) * env(t, I['I1']['t0'] - 0.3, 1e9, 0.4, 0.1)
+def i1_a(t): return sc(t, B_I1 if t > I['I1']['t0'] - 1 else 0, B_PRICE) * env(t, I['I1']['t0'] - 0.3, 1e9, 0.4, 0.1)
 
 
 def dia_i1(L, t):
     a = i1_a(t)
     if a <= 0: return
-    shock(L, (W / 2, 690), t, wt('I1', '可以研究') - 0.05, GOLD_H, a, rmax=420, life=1.0, flatten=0.3)
-    shock(L, (W / 2, 1330), t, wt('I1', '无法预测') - 0.05, AMBER, a, rmax=420, life=1.0, flatten=0.3)
+    shock(L, (W / 2, 690), t, wt('I1', '打折') - 0.05, GOLD_H, a, rmax=420, life=1.0, flatten=0.3)
+    shock(L, (W / 2, 1335), t, wt('I1', '非理性') - 0.05, AMBER, a, rmax=420, life=1.0, flatten=0.3)
 
 
 def txt_i1(img, t, subs):
     a = i1_a(t)
     if a <= 0: return
-    kw, kn = ke(t, wt('I1', '会发生什么') - 0.3), ke(t, wt('I1', '什么时候') - 0.3)
-    panel(img, 90, 280, 990, 760, a * max(kw, 0.55), col=GOLD_C, title='会发生什么', en='what will happen')
-    if kw > 0:
-        n = max(2, int(90 * eio((t - wt('I1', '会发生什么') + 0.2) / 1.6)))
-        xs = np.linspace(150, 930, 90)[:n]
-        ys = 640 - I1_VAL[:n] * 240 - 6 * np.sin(np.arange(n) * 0.5)
-        area(img, np.c_[xs, ys], 650, GOLD_C, a * kw * 0.8, top=0.25)
-        gline(img, np.c_[xs, ys], GOLD_C, a * kw, th=4)
-        glow(img, (xs[-1], ys[-1]), 14, GOLD_HI, a * kw)
-        text(img, '企业的价值', 160, 420, 28, 'sans_med', GOLD_C, a * kw, 'l', track=0.1)
-        fx.slam(img, '可以研究', W / 2, 700, 56, 'serif_black', t, wt('I1', '可以研究') - 0.05, a * kw, glow_=0.35)
-    panel(img, 90, 820, 990, 1400, a * max(kn, 0.55), col=ICE, title='什么时候发生', en='when it will happen')
-    if kn > 0:
-        n = max(2, int(90 * eio((t - wt('I1', '什么时候') + 0.2) / 1.6)))
-        xs = np.linspace(150, 930, 90)[:n]
-        ys = 1120 - I1_WALK[:n] * 16 + 10 * np.sin(np.arange(n) * 1.7 + t * 4)
-        gline(img, np.c_[xs, ys], ICE, a * kn, th=3)
-        fx.hud_ring(img, t, (W / 2, 1110), 120, a * kn * 0.6, col=ICE)
-        text(img, '?', W / 2, 1110, 170, 'corm_med', ICE, a * kn * 0.85, glow=0.3, glow_col=ICE)
-        tn = wt('I1', '无法预测')
-        fx.slam(img, '无法预测', W / 2, 1335, 56, 'serif_black', t, tn - 0.05, a * kn, gold=False, col=AMBER, glow_=0.35)
-        if tn - 0.05 < t < tn + 0.45: fx.glitch(img, (90, 950, 990, 1280), t, 0.7 * (1 - (t - tn + 0.05) / 0.5), seed=21)
+    tb, td, tf = wt('I1', '买家'), wt('I1', '打折'), wt('I1', '害怕')
+    kd = ke(t, I['I1']['t0'] + 0.2)
+    panel(img, 90, 280, 990, 760, a * max(kd, 0.55), col=GOLD_C, title='对一直在买的人', en='for a buyer over time')
+    if kd > 0:
+        n = max(2, int(40 * eio((t - I['I1']['t0'] - 0.2) / (tb - I['I1']['t0'] + 1.0))))
+        xs = np.linspace(150, 930, 40)[:n]
+        ys = 470 - I1_DOWN[:n] * 330
+        gline(img, np.c_[xs, ys], ICE, a * kd, th=3)
+        for i in range(0, n, 6):                        # 每一段都在买：价格越低，同样的钱买到的越多（金点越大）
+            r = 9 + 20 * (-I1_DOWN[i] / 0.55)
+            glow(img, (xs[i], ys[i]), r * 1.6, GOLD * 0.6, a * kd * 0.6)
+            circle(img, (xs[i], ys[i]), r * 0.55, GOLD_HI, a * kd, fill=True)
+        text(img, '价格', 160, 440, 24, 'sans_med', ICE, a * kd, 'l', track=0.1)
+        text(img, '● 持续买入', 930, 420, 24, 'sans_med', GOLD_C, a * kd, 'r', track=0.06)
+        fx.slam(img, '下跌 ＝ 打折', W / 2, 705, 60, 'serif_black', t, td - 0.05, a * kd, glow_=0.4)
+    kf = ke(t, tf - 0.3)
+    panel(img, 90, 820, 990, 1400, a * max(kf, 0.55), col=AMBER, title='真正让他害怕的', en='what he really fears')
+    if kf > 0:
+        n = max(2, int(60 * eio((t - tf + 0.2) / 2.2)))
+        xs = np.linspace(150, 930, 60)[:n]
+        ys = 1240 - I1_UP[:n] * 300
+        area(img, np.c_[xs, ys], 1250, AMBER, a * kf * 0.8, top=0.25)
+        gline(img, np.c_[xs, ys], AMBER, a * kf, th=4)
+        glow(img, (xs[-1], ys[-1]), 16, GOLD_HI, a * kf)
+        tn = wt('I1', '非理性')
+        fx.slam(img, '长期持续的非理性牛市', W / 2, 1335, 56, 'serif_black', t, tn - 0.05, a * kf, gold=False, col=AMBER, glow_=0.4)
+        if tn - 0.05 < t < tn + 0.45: fx.glitch(img, (90, 950, 990, 1280), t, 0.6 * (1 - (t - tn + 0.05) / 0.5), seed=21)
 
 
-# ---------------------------------------------------------------- I3–I4：汉堡测验（1997 年致股东信）+ 同样的钱，价格越低，买到的越多
-def i3_a(t): return sc(t, B_I3, B_1942)
+# ---------------------------------------------------------------- I2–I3：买入价决定回报——同一门每年赚 10 块的生意，100 块买 10%，200 块买 5%（示意）
+def price_a(t): return sc(t, B_PRICE, B_1942)
 
 
-def dia_i3(L, t):
-    a = i3_a(t)
+def dia_price(L, t):
+    a = price_a(t)
     if a <= 0: return
-    shock(L, (750, 690), t, wt('I3', '降价') - 0.05, GOLD_H, a, rmax=360, life=1.0, flatten=0.4)
+    shock(L, (330, 760), t, wt('I2', '百分之十') - 0.05, GOLD_H, a, rmax=360, life=1.0, flatten=0.5)
+    shock(L, (750, 760), t, wt('I2', '百分之五') - 0.05, AMBER, a, rmax=360, life=1.0, flatten=0.5)
 
 
-def txt_i3(img, t, subs):
-    a = i3_a(t)
+def txt_price(img, t, subs):
+    a = price_a(t)
     if a <= 0: return
-    header(img, '1997 · 致股东信', a)
-    panel(img, 90, 380, 990, 900, a, col=GOLD_C, title='汉堡测验', en='the hamburger quiz')
-    k0 = ke(t, wt('I3', '如果') - 0.2)
-    text(img, '一辈子都要吃汉堡，又不养牛——', W / 2, 520, 42, 'serif_bold', INK, a * k0)
-    td = wt('I3', '降价')
-    for x, s, col, tk, dn in ((330, '牛肉涨价', ICE, wt('I3', '涨价'), False), (750, '牛肉降价', GOLD_C, td, True)):
-        k = ke(t, tk - 0.1, 0.4)
+    header(img, '第一性原理 · 买入价决定回报', a)
+    panel(img, 90, 380, 990, 1200, a, col=GOLD_C, title='同一门生意', en='same business, different price')
+    k0 = ke(t, wt('I2', '一门') - 0.2)
+    rrect(img, 300, 455, 780, 525, 10, GOLD_C, a * k0 * 0.9, 1)
+    text(img, '每年赚  10  块', W / 2, 490, 40, 'serif_black', a=a * k0, gold=True)
+    yb = 1090
+    t3 = I['I3']['t0']
+    climb = eio((t - t3 - 0.2) / max(wt('I3', '越薄') - t3, 1.0))      # I3：价格继续往上涨，回报越来越薄
+    for x, kw, rk, p, col in ((330, '一百', '百分之十', 100.0, GOLD_C), (750, '两百', '百分之五', 200.0, AMBER)):
+        k = ke(t, wt('I2', kw) - 0.15, 0.5)
         if k <= 0: continue
-        win = dn and t > td + 0.5
-        lose = (not dn) and t > td + 0.5
-        panel(img, x - 180, 610, x + 180, 760, a * k * (0.45 if lose else 1.0), col=col, fill=0.55)
-        arrow_v(img, x - 110, 685, 56, col, a * k * (0.45 if lose else 1.0), down=dn)
-        text(img, s, x + 30, 685, 50, 'serif_black', col if not dn else GOLD_HI, a * k * (0.45 if lose else 1.0), glow=0.3 * win)
-        if win:
-            circle(img, (x + 150, 625), 26, GOLD_HI, a * ke(t, td + 0.5), 2)
-            tick(img, (x + 150, 625), 22, GOLD_HI, a * ke(t, td + 0.5))
-    fx.typewriter(img, '“Prospective purchasers should much prefer sinking prices.”', W / 2, 835, 28, 'ebg_i', INK2, a, t, td + 0.6, cps=34)
-    # 下：同样的钱，价格越低，买到的份额越多（示意）
-    t4 = I['I4']['t0']
-    k4 = ke(t, t4 - 0.2)
-    panel(img, 90, 960, 990, 1440, a * k4, col=ICE, title='同样的钱', en='same money, lower price')
-    if k4 > 0:
-        prices = [100, 80, 64, 50]
-        yb = 1330
-        for i, p in enumerate(prices):
-            x = 245 + i * 195
-            ki = eio((t - t4 - 0.3 - i * 0.5) / 0.7)
-            if ki <= 0: continue
-            bar(img, x - 38, yb, 56, p * 2.0 * ki, ICE, a * k4)
-            bar(img, x + 38, yb, 56, (1000 / p) * 11.0 * ki, GOLD_C, a * k4)
-            text(img, f'{p}', x - 38, yb - p * 2.0 * ki - 22, 24, 'corm_med', ICE, a * k4 * ki)
-            text(img, f'{1000 / p:.0f}', x + 38, yb - (1000 / p) * 11.0 * ki - 22, 24, 'corm_med', GOLD_HI, a * k4 * ki)
-        line(img, (150, yb), (930, yb), INK2, a * k4 * 0.6, 1)
-        text(img, '■ 价格', 160, 1060, 22, 'sans_med', ICE, a * k4, 'l', track=0.06)
-        text(img, '■ 每 1000 元买到的股数', 160, 1092, 22, 'sans_med', GOLD_C, a * k4, 'l', track=0.06)
-        text(img, '示意', 930, 1420, 18, 'sans', INK3 * 1.5, a * k4 * 0.8, 'r')
-        fx.slam(img, '价格越低 → 买到的企业越多', W / 2, 1390, 40, 'serif_black', t, wt('I4', '越多') - 0.1, a * k4, glow_=0.3)
+        if p == 200.0: p = 200.0 * (1 + 3 * climb)
+        hp = min(p * 1.6, 480) * k
+        dim = (1 - 0.55 * climb) if x == 330 else 1.0
+        bar(img, x - 70, yb, 90, hp, ICE, a * dim)
+        text(img, f'买入价 {p:,.0f}', x - 70, yb + 34, 24, 'sans_med', ICE, a * k * dim)
+        r = 10.0 / p * 100
+        kr = ke(t, wt('I2', rk) - 0.1, 0.4)
+        hr = r * 11 * kr
+        bar(img, x + 70, yb, 90, hr, col if x == 330 else (AMBER if climb < 0.5 else BRICK * 1.3), a * dim)
+        text(img, '回报', x + 70, yb + 34, 24, 'sans_med', col, a * kr * dim)
+        if kr > 0:
+            text(img, f'{r:.1f}%'.replace('.0%', '%'), x + 70, yb - hr - 40, 52, 'corm_med', GOLD_HI if x == 330 else AMBER, a * kr * dim, glow=0.2)
+    line(img, (140, yb), (940, yb), INK2, a * 0.6, 1)
+    text(img, '示意', 960, 1180, 18, 'sans', INK3 * 1.5, a * 0.8, 'r')
+    fx.slam(img, '价格越疯  →  回报越薄', W / 2, 1275, 56, 'serif_black', t, wt('I3', '越疯') - 0.05, a, glow_=0.35)
+    fx.typewriter(img, '“Prospective purchasers should much prefer sinking prices.”', W / 2, 1352, 26, 'ebg_i', INK2, a, t,
+                  wt('I3', '越薄') + 0.2, cps=40)
+    text(img, '—— 巴菲特 1997 年致股东信', W / 2, 1400, 22, 'sans', INK2, a * ke(t, wt('I3', '越薄') + 1.4), track=0.06)
 
 
 # ---------------------------------------------------------------- I5–I6：1942 年 3 月，114.75 美元 → 2019 年 1 月 606,811 美元（5,288 倍）
@@ -1244,7 +1239,7 @@ def c42(yv):
 def c42y(l): return CYB - l / math.log(5288) * (CYB - CYT)
 
 
-def i5_a(t): return sc(t, B_1942, B_WAIT)
+def i5_a(t): return sc(t, B_1942, B_BUB)
 
 
 def dia_i5(L, t):
@@ -1312,89 +1307,155 @@ def txt_i5(img, t, subs):
     text(img, '曲线：Shiller 标普综合指数（含股息再投资）；终值取自 2018 年致股东信', W / 2, 1418, 17, 'sans', INK3 * 1.5, a * k6 * 0.9)
 
 
-# ---------------------------------------------------------------- I8–I9：2008–2010，等“明朗”的代价（标普 500 每日收盘）
-_SPW = json.load(open(os.path.join(HERE, '..', 'data', SP_0810)))
-W_D = _SPW['date']; W_V = np.array(_SPW['close'], float)
-W_I = {d: i for i, d in enumerate(W_D)}
-I_LOW, I_JUN, I_NBER = W_I['2009-03-09'], W_I['2009-06-30'], W_I['2010-09-20']
-WX0, WX1, WYB, WYT = 160, 920, 1110, 520
+# ---------------------------------------------------------------- I7–I8：长期持续的非理性牛市——1995–1999 连续五年 >20%，1999 伯克希尔 −19.9%，纳斯达克泡沫
+_NQ = json.load(open(os.path.join(HERE, '..', 'data', IXIC)))
+NQ_D = _NQ['date']; NQ_V = np.array(_NQ['close'], float)
+NQ_I = {d: i for i, d in enumerate(NQ_D)}
+NQ_Y = np.array([int(d[:4]) + (int(d[5:7]) - 1) / 12 + (int(d[8:]) - 1) / 365 for d in NQ_D])
+I_MEET, I_PEAK, I_LOW, I_REC = NQ_I['1994-04-25'], NQ_I['2000-03-10'], NQ_I['2002-10-09'], NQ_I['2015-04-23']
+NX0, NX1, NYB, NYT = 170, 930, 1110, 560
 
 
-def wx(i): return WX0 + i / (len(W_V) - 1) * (WX1 - WX0)
-def wy(v): return WYB - (v - 600) / (1300 - 600) * (WYB - WYT)
+def nx(y): return NX0 + (y - 1994.0) / (2016.0 - 1994.0) * (NX1 - NX0)
+def ny(v): return NYB - v / 5500.0 * (NYB - NYT)
 
 
-def i8_a(t): return sc(t, B_WAIT, B_COND)
+def bub_a(t): return sc(t, B_BUB, B_COND)
 
 
-def wait_n(t):
-    """画到第几个交易日：到“见底”画到谷底，到“宣布”画到 NBER 宣布日，之后画完"""
-    tl_, tn = wt('I8', '见底'), wt('I9', '宣布')
-    if t < tl_: return 1 + (I_LOW - 1) * eio((t - B_WAIT - 0.5) / max(tl_ - B_WAIT - 0.5, 0.5))
-    if t < tn: return I_LOW + (I_NBER - I_LOW) * eio((t - tl_ - 0.4) / max(tn - tl_ - 0.4, 0.5))
-    return I_NBER + (len(W_V) - 1 - I_NBER) * eio((t - tn - 1.5) / 1.0)
+def nq_n(t):
+    """纳斯达克曲线画到第几个交易日：开口时画到 1999 年底；“见顶”到高点；“跌去”到低点；“十五年”画到 2015 年收复"""
+    t8 = I['I8']['t0']; tp, td, tr = wt('I8', '见顶'), wt('I8', '跌去'), wt('I8', '十五年')
+    i99 = NQ_I['1999-12-31']
+    if t < tp: return I_MEET + (i99 - I_MEET) * eio((t - t8 + 0.1) / max(tp - t8 - 0.3, 0.6))
+    if t < td: return i99 + (I_PEAK - i99) * eio((t - tp + 0.2) / 0.6)
+    if t < tr: return I_PEAK + (I_LOW - I_PEAK) * eio((t - td + 0.1) / 0.9)
+    return I_LOW + (len(NQ_V) - 1 - I_LOW) * eio((t - tr + 0.2) / 1.4)
 
 
-def dia_i8(L, t):
-    a = i8_a(t)
+def dia_bub(L, t):
+    a = bub_a(t)
     if a <= 0: return
-    tl_ = wt('I8', '见底')
-    shock(L, (wx(I_LOW), wy(W_V[I_LOW])), t, tl_, AMBER, a, rmax=380, life=1.0, flatten=0.6)
-    tn = wt('I9', '宣布')
-    shock(L, (wx(I_NBER), wy(W_V[I_NBER])), t, tn, GOLD_H, a, rmax=380, life=1.0, flatten=0.6)
+    if t > I['I8']['t0'] - 0.3:
+        tp, td = wt('I8', '见顶'), wt('I8', '跌去')
+        shock(L, (nx(NQ_Y[I_PEAK]), ny(NQ_V[I_PEAK])), t, tp + 0.4, GOLD_H, a, rmax=380, life=1.0, flatten=0.7)
+        shock(L, (nx(NQ_Y[I_LOW]), ny(NQ_V[I_LOW])), t, td + 0.8, AMBER, a, rmax=420, life=1.1, flatten=0.6)
+        if td + 0.2 < t < td + 2.5:                             # 崩塌时的碎屑
+            dt = t - td - 0.2
+            rng = np.random.default_rng(19)
+            n = 360
+            ang = rng.uniform(-math.pi, 0, n); sp = rng.uniform(80, 520, n)
+            cx, cy = nx(NQ_Y[I_PEAK]), ny(NQ_V[I_PEAK])
+            x = cx + np.cos(ang) * sp * dt; y = cy - np.sin(ang) * sp * dt * 0.4 + 420 * dt * dt
+            cloud(L, np.c_[x, y], AMBER, 0.7 * a * (1 - dt / 2.3) ** 1.5)
+    else:
+        t5 = wt('I7', '连续五年')
+        for i in range(5):
+            shock(L, (230 + i * 150, 700), t, t5 + i * 0.22, GOLD_H, a * 0.5, rmax=140, life=0.6, flatten=0.5)
 
 
-def txt_i8(img, t, subs):
-    a = i8_a(t)
+def txt_bub(img, t, subs):
+    a = bub_a(t)
     if a <= 0: return
-    header(img, 'S&P 500 · 2008–2010 · 每日收盘', a)
-    panel(img, 90, 380, 990, 1200, a, col=ICE, title='等局势明朗？', en='waiting for clarity')
-    for v in (700, 900, 1100, 1300):
-        y = wy(v)
-        dashed(img, (WX0, y), (WX1, y), INK3, a * 0.45, dash=6, gap=8)
-        text(img, f'{v:,}', WX0 - 10, y, 18, 'inter', INK2, a, 'r')
-    for d, lab in (('2008-10-01', '2008.10'), ('2009-06-01', '2009.06'), ('2010-01-04', '2010.01'), ('2010-09-01', '2010.09')):
-        i = W_I.get(d) or min(range(len(W_D)), key=lambda k: abs((int(W_D[k][:4]) * 12 + int(W_D[k][5:7])) - (int(d[:4]) * 12 + int(d[5:7]))))
-        text(img, lab, wx(i), WYB + 30, 20, 'corm_med', INK2, a)
-    n = int(wait_n(t))
-    xs = wx(np.arange(n + 1)); ys = wy(W_V[:n + 1])
-    tl_, tn, t69 = wt('I8', '见底'), wt('I9', '宣布'), wt('I9', '六十九')
-    # 等待“明朗”的这段时间：衰退其实已在 2009 年 6 月结束，官方 2010 年 9 月才宣布
-    kw = ke(t, tn - 0.2, 0.6)
-    if kw > 0:
-        x0, x1 = wx(I_JUN), wx(I_NBER)
-        rect(img, x0, WYT - 10, x0 + (x1 - x0) * kw, WYB, AMBER, a * 0.12)
-        text(img, '等待“明朗”', (x0 + x1) / 2, WYB - 28, 26, 'sans_med', AMBER, a * kw, track=0.1)
-    gline(img, np.c_[xs, ys], ICE, a, th=3)
-    glow(img, (xs[-1], ys[-1]), 12, GOLD_HI, a)
-    kl = ke(t, tl_, 0.4)
+    t8 = I['I8']['t0']
+    k7 = 1 - ke(t, t8 - 0.35, 0.45)
+    if k7 > 0:
+        header(img, '1994 年之后 · 长期持续的牛市', a * k7)
+        # 上：标普 500 连续五年 >20%（伯克希尔年度业绩表）
+        panel(img, 90, 380, 990, 860, a * k7, col=ICE, title='标普 500 年度回报（含股息）', en='s&p 500, total return')
+        t5 = wt('I7', '连续五年')
+        yb = 790
+        line(img, (150, yb), (930, yb), INK2, a * k7 * 0.6, 1)
+        y20 = yb - 20 * 7.5
+        dashed(img, (150, y20), (930, y20), AMBER, a * k7 * 0.6)
+        text(img, '20%', 935, y20, 22, 'inter_semi', AMBER, a * k7, 'l')
+        for i, yr in enumerate(range(1995, 2000)):
+            k = ke(t, t5 - 1.2 + i * 0.22, 0.5)
+            if k <= 0: continue
+            v = BRK_TABLE[yr][1]
+            x = 230 + i * 150
+            bar(img, x, yb, 86, v * 7.5 * k, GOLD_C, a * k7)
+            text(img, f'+{v:.1f}%', x, yb - v * 7.5 * k - 26, 30, 'corm_med', GOLD_HI, a * k7 * k)
+            text(img, str(yr), x, yb + 28, 24, 'corm_med', INK2, a * k7 * k)
+        # 下：1999 年，伯克希尔股价 −19.9%，《巴伦周刊》：What's Wrong, Warren?
+        t99 = wt('I7', '一九九九')
+        k9 = ke(t, t99 - 0.2, 0.5)
+        if k9 > 0:
+            panel(img, 90, 920, 990, 1420, a * k7 * k9, col=AMBER, title='1999 年', en='berkshire vs. the s&p 500')
+            for x, lab, v, col in ((300, '标普 500', BRK_TABLE[1999][1], ICE), (780, '伯克希尔股价', BRK_TABLE[1999][0], AMBER)):
+                kk = ke(t, t99 + (0.2 if x == 300 else wt('I7', '股价') - t99), 0.5)
+                if kk <= 0: continue
+                text(img, lab, x, 1050, 30, 'sans_med', INK2, a * k7 * kk, track=0.06)
+                fx.slam(img, f'{v:+.1f}%', x, 1130, 80, 'corm_med', t, t99 + (0.2 if x == 300 else wt('I7', '股价') - t99), a * k7,
+                        gold=False, col=col, glow_=0.3)
+            tb = wt('I7', '巴伦')
+            kb = ke(t, tb - 0.1, 0.4)
+            if kb > 0:
+                line(img, (180, 1200), (900, 1200), INK3, a * k7 * kb, 1)
+                text(img, '《巴伦周刊》1999.12.27', W / 2, 1240, 26, 'sans_med', INK2, a * k7 * kb, track=0.08)
+                fx.typewriter(img, '“What’s Wrong, Warren?”', W / 2, 1305, 46, 'ebg_i', INK, a * k7, t, tb + 0.2, cps=18)
+                text(img, '巴菲特怎么了？', W / 2, 1370, 34, 'serif_bold', AMBER, a * k7 * ke(t, wt('I7', '怎么了') - 0.1, 0.4))
+    k8 = ke(t, t8 - 0.3, 0.5)
+    if k8 <= 0: return
+    # 纳斯达克：1994.04.25 → 2000.03.10 高点 → 2002.10.09 低点（−78%）→ 2015.04.23 才收复
+    header(img, 'NASDAQ COMPOSITE · 1994–2015 · 每日收盘', a * k8)
+    panel(img, 90, 380, 990, 1200, a * k8, col=ICE, title='他没有去追科技股', en='the bubble he stayed out of')
+    for v in (1000, 2000, 3000, 4000, 5000):
+        y = ny(v)
+        dashed(img, (NX0, y), (NX1, y), INK3, a * k8 * 0.45, dash=6, gap=8)
+        text(img, f'{v:,}', NX0 - 10, y, 18, 'inter', INK2, a * k8, 'r')
+    for yr in (1995, 2000, 2005, 2010, 2015):
+        text(img, str(yr), nx(yr), NYB + 28, 22, 'corm_med', INK2, a * k8)
+    n = int(nq_n(t))
+    xs = nx(NQ_Y[I_MEET:n + 1]); ys = ny(NQ_V[I_MEET:n + 1])
+    if len(xs) >= 2:
+        hot = NQ_Y[I_MEET:n + 1] < 2000.25
+        area(img, np.c_[xs, ys], NYB, ICE, a * k8 * 0.7, top=0.22)
+        gline(img, np.c_[xs[hot], ys[hot]] if hot.sum() > 1 else np.c_[xs[:2], ys[:2]], ICE, a * k8, th=3)
+        if (~hot).sum() > 1: gline(img, np.c_[xs[~hot], ys[~hot]], AMBER, a * k8, th=3)
+        glow(img, (xs[-1], ys[-1]), 12, GOLD_HI, a * k8)
+    p0 = (nx(NQ_Y[I_MEET]), ny(NQ_V[I_MEET]))
+    circle(img, p0, 9, GOLD_HI, a * k8, 2)
+    for j, ln in enumerate(('1994.04.25 · 730.80', '巴菲特：“我们害怕的，', '是长期持续的非理性牛市”')):
+        text(img, ln, NX0 + 12, ny(3900) + j * 32, 22, 'corm_med' if j == 0 else 'sans_med', GOLD_C, a * k8, 'l')
+    dashed(img, (p0[0], ny(3900) + 82), (p0[0], p0[1] - 12), GOLD_C, a * k8 * 0.6, dash=6, gap=6)
+    tp, td, tr = wt('I8', '见顶'), wt('I8', '跌去'), wt('I8', '十五年')
+    kp = ke(t, tp + 0.3, 0.4)
+    if kp > 0:
+        p = (nx(NQ_Y[I_PEAK]), ny(NQ_V[I_PEAK]))
+        circle(img, p, 11, GOLD_HI, a * k8 * kp, 2)
+        text(img, '2000.03.10 · 5,048.62', p[0] + 18, p[1] - 6, 24, 'corm_med', GOLD_HI, a * k8 * kp, 'l')
+        text(img, '泡沫见顶', p[0] + 18, p[1] + 26, 24, 'sans_med', GOLD_C, a * k8 * kp, 'l')
+    kl = ke(t, td + 0.8, 0.4)
     if kl > 0:
-        p = (wx(I_LOW), wy(W_V[I_LOW]))
-        circle(img, p, 12, AMBER, a * kl, 2)
-        text(img, '2009.03.09 · 676.53', p[0] + 22, p[1] + 34, 22, 'corm_med', AMBER, a * kl, 'l')
-        fx.slam(img, '见底', p[0] + 70, p[1] - 4, 40, 'serif_black', t, tl_, a, gold=False, col=AMBER, glow_=0.3)
-    kj = ke(t, wt('I9', '衰退') - 0.2, 0.5)
-    if kj > 0 and n >= I_JUN:
-        x = wx(I_JUN)
-        dashed(img, (x, WYT + 50), (x, WYB), ICE, a * kj * 0.8)
-        text(img, '衰退实际结束', x - 8, WYT + 70, 22, 'sans_med', ICE, a * kj, 'r')
-        text(img, '2009.06', x - 8, WYT + 98, 20, 'corm_med', ICE, a * kj, 'r')
-    kn = ke(t, tn, 0.4)
-    if kn > 0:
-        p = (wx(I_NBER), wy(W_V[I_NBER]))
-        circle(img, p, 12, GOLD_HI, a * kn, 2)
-        text(img, 'NBER 宣布衰退结束', p[0] + 6, WYT + 26, 24, 'sans_med', GOLD_HI, a * kn, 'r')
-        text(img, '2010.09.20 · 1,142.71', p[0] + 6, WYT + 56, 22, 'corm_med', GOLD_C, a * kn, 'r')
-        dashed(img, (p[0], WYT + 72), (p[0], p[1] - 14), GOLD_C, a * kn * 0.6, dash=6, gap=6)
-    k69 = ke(t, t69 - 0.1, 0.5)
-    if k69 > 0:
-        xb = wx(I_NBER) + 34
-        y0, y1 = wy(W_V[I_LOW]), wy(W_V[I_NBER])
-        line(img, (xb, y0), (xb, y0 + (y1 - y0) * k69), GOLD_HI, a, 2)
-        line(img, (xb - 10, y0), (xb + 10, y0), GOLD_HI, a * k69, 2); line(img, (xb - 10, y1), (xb + 10, y1), GOLD_HI, a * k69, 2)
-        dashed(img, (wx(I_LOW), y0), (xb, y0), GOLD_C, a * k69 * 0.6)
-        fx.slam(img, '+69%', xb + 6, (y0 + y1) / 2, 60, 'corm_med', t, t69 - 0.1, a, glow_=0.4)
-    fx.slam(img, '官方宣布时，衰退已结束 15 个月', W / 2, 1290, 46, 'serif_black', t, tn + 0.5, a, glow_=0.3)
+        p = (nx(NQ_Y[I_LOW]), ny(NQ_V[I_LOW]))
+        circle(img, p, 11, AMBER, a * k8 * kl, 2)
+        text(img, '2002.10.09 · 1,114.11', p[0] + 16, p[1] + 34, 22, 'corm_med', AMBER, a * k8 * kl, 'l')
+        xb = nx(NQ_Y[I_LOW]) + 36
+        y0, y1 = ny(NQ_V[I_PEAK]), ny(NQ_V[I_LOW])
+        line(img, (xb, y0), (xb, y0 + (y1 - y0) * kl), AMBER, a * k8, 2)
+        dashed(img, (nx(NQ_Y[I_PEAK]) + 12, y0), (xb, y0), AMBER, a * k8 * kl * 0.6, dash=5, gap=6)
+        text(img, '−78%', xb + 14, (y0 + y1) / 2, int(60 * (1 + 0.4 * math.exp(-max(t - td - 0.8, 0) / 0.15))), 'corm_med', AMBER,
+             a * k8 * kl, 'l', glow=0.35)
+    kr = ke(t, tr + 1.0, 0.5)
+    if kr > 0:
+        yp = ny(NQ_V[I_PEAK])
+        x0, x1 = nx(NQ_Y[I_PEAK]), nx(NQ_Y[I_REC])
+        dashed(img, (x0, yp), (x0 + (x1 - x0) * kr, yp), GOLD_C, a * k8 * 0.8)
+        if kr > 0.95:
+            circle(img, (x1, ny(NQ_V[I_REC])), 10, GOLD_HI, a * k8, 2)
+            text(img, '2015.04.23 · 重回高点', x1 + 8, yp - 30, 22, 'sans_med', GOLD_HI, a * k8, 'r')
+        fx.slam(img, '15 年', (x0 + x1) / 2 + 60, yp + 40, 48, 'serif_black', t, tr + 1.0, a * k8, glow_=0.35)
+    # 同一时期：2000–2002 年累计（伯克希尔年度业绩表连乘）
+    kc = ke(t, tr + 1.3, 0.5)
+    if kc > 0:
+        sp = np.prod([1 + BRK_TABLE[y][1] / 100 for y in (2000, 2001, 2002)]) - 1
+        bk = np.prod([1 + BRK_TABLE[y][0] / 100 for y in (2000, 2001, 2002)]) - 1
+        text(img, '2000–2002 年累计', W / 2, 1255, 26, 'sans_med', INK2, a * k8 * kc, track=0.2)
+        for x, lab, v, col in ((310, '标普 500', sp, AMBER), (770, '伯克希尔股价', bk, GOLD_C)):
+            rrect(img, x - 200, 1285, x + 200, 1385, 10, col, a * k8 * kc * 0.8, 1)
+            text(img, lab, x - 70, 1335, 30, 'sans_med', INK2, a * k8 * kc)
+            text(img, f'{v * 100:+.1f}%', x + 90, 1335, 46, 'corm_med', col if col is AMBER else GOLD_HI, a * k8 * kc, glow=0.2)
 
 
 # ---------------------------------------------------------------- I10：前提——看懂企业；不借钱；不急着卖。否则下跌是灾难
@@ -1434,8 +1495,9 @@ def txt_i10(img, t, subs):
         if tz - 0.05 < t < tz + 0.5: fx.glitch(img, (110, 1080, 970, 1300), t, 0.8 * (1 - (t - tz + 0.05) / 0.55), seed=31)
 
 
-# ---------------------------------------------------------------- I11：每年都有“再等等”的理由；与其猜涨跌，不如问十年后
-TODAY_WORDS = ['加息', '降息', '战争', '大选', '衰退', '泡沫', '通胀', '关税', '疫情', '股灾', '债务', '地缘']
+# ---------------------------------------------------------------- I11：下一次市场大跌，先问——是这门生意变了，还是只是价格打了折？
+_rt = np.random.default_rng(37)
+TODAY_DROP = np.r_[np.linspace(0, 0.05, 10), np.linspace(0.05, -0.30, 22)] + _rt.normal(0, 0.012, 32)
 
 
 def i11_a(t): return sc(t, B_TODAY, B_CLOSE)
@@ -1444,41 +1506,34 @@ def i11_a(t): return sc(t, B_TODAY, B_CLOSE)
 def dia_i11(L, t):
     a = i11_a(t)
     if a <= 0: return
-    ts = wt('I11', '十年后')
-    shock(L, (W / 2, 1180), t, ts - 0.05, GOLD_H, a, rmax=560, life=1.1, flatten=0.3)
+    for kw, y in (('生意变了', 1000), ('打了折', 1210)):
+        shock(L, (W / 2, y), t, wt('I11', kw) - 0.05, AMBER if kw == '生意变了' else GOLD_H, a, rmax=520, life=0.9, flatten=0.22)
 
 
 def txt_i11(img, t, subs):
     a = i11_a(t)
     if a <= 0: return
-    header(img, 'TODAY · 今天', a)
-    panel(img, 90, 380, 990, 860, a, col=AMBER, title='每年都有“再等等”的理由', en='there is always a reason to wait')
-    r = np.random.default_rng(41)
-    P = r.random((len(TODAY_WORDS), 3))
-    dt = t - B_TODAY
-    for i, w in enumerate(TODAY_WORDS):
-        t0 = 0.25 + i * 0.32
-        if dt < t0: continue
-        u = (dt - t0)
-        x = 190 + (i % 4) * 233 + 30 * (P[i, 0] - 0.5)
-        y = 540 + (i // 4) * 105 - 70 * math.exp(-u * 5)
-        k = eo(u / 0.35)
-        col = AMBER if P[i, 1] > 0.45 else ICE
-        rrect(img, x - 90, y - 34, x + 90, y + 34, 8, col, a * k * 0.7, 1)
-        text(img, w, x, y, 38, 'serif_bold', col, a * k)
-    tc = wt('I11', '与其')
-    kc = ke(t, tc - 0.1, 0.4)
-    if kc > 0:
-        text(img, '下个月：涨还是跌？', W / 2, 960, 48, 'serif_bold', INK2, a * kc)
-        ks = ke(t, wt('I11', '不如') - 0.1, 0.4)
-        ww = text_w('下个月：涨还是跌？', 'serif_bold', 48)
-        line(img, (W / 2 - ww / 2 - 12, 960), (W / 2 - ww / 2 - 12 + (ww + 24) * ks, 960), AMBER, a, 4)
-    ts = wt('I11', '十年后')
-    k10 = ke(t, ts - 0.1, 0.4)
-    if k10 > 0:
-        panel(img, 110, 1060, 970, 1320, a * k10, col=GOLD_C, fill=0.6)
-        fx.slam(img, '十年后，', W / 2, 1140, 64, 'serif_black', t, ts - 0.05, a, glow_=0.35)
-        fx.slam(img, '这门生意会是什么样？', W / 2, 1240, 64, 'serif_black', t, wt('I11', '这门') - 0.05, a, glow_=0.4)
+    header(img, 'TODAY · 下一次大跌', a)
+    panel(img, 90, 380, 990, 760, a, col=AMBER, title='下一次市场大跌', en='the next big decline')
+    xs = np.linspace(150, 930, 32)
+    ys = 520 - TODAY_DROP * 600
+    k = eio((t - B_TODAY - 0.2) / 1.6)
+    n = max(2, int(32 * k))
+    area(img, np.c_[xs[:n], ys[:n]], 740, AMBER, a * 0.6, top=0.18)
+    gline(img, np.c_[xs[:n], ys[:n]], ICE, a, th=4)
+    fx.slam(img, '−30%', 850, 570, 60, 'corm_med', t, B_TODAY + 1.7, a, gold=False, col=AMBER, glow_=0.3)
+    text(img, '示意', 960, 745, 18, 'sans', INK3 * 1.5, a * 0.8, 'r')
+    tf = wt('I11', '先别')
+    text(img, '先别急着害怕，问问自己', W / 2, 840, 36, 'sans_med', INK2, a * ke(t, tf - 0.1), track=0.2)
+    for i, (kw, s_, sub, col, y) in enumerate((('生意变了', '是这门生意变了？', '护城河、利润、管理层还在不在', AMBER, 1000),
+                                               ('打了折', '还是只是价格打了折？', '生意没变——同样的钱买到更多', GOLD_C, 1210))):
+        kk = ke(t, wt('I11', kw) - 0.35, 0.4)
+        if kk <= 0: continue
+        panel(img, 110, y - 85, 970, y + 85, a * kk, col=col, fill=0.6)
+        text(img, f'0{i + 1}', 175, y - 10, 44, 'corm_med', SUB_GOLD, a * kk)
+        fx.slam(img, s_, W / 2 + 40, y - 18, 60, 'serif_black', t, wt('I11', kw) - 0.35, a, gold=col is GOLD_C, col=None if col is GOLD_C else AMBER,
+                glow_=0.35)
+        text(img, sub, W / 2 + 40, y + 46, 26, 'sans', INK2, a * ke(t, wt('I11', kw) + 0.6), track=0.06)
 
 
 # ---------------------------------------------------------------- 收尾：在星图里向前飞行，越来越快；高潮重拍上全部亮起
@@ -1518,7 +1573,7 @@ def dia_close(L, t):
 def txt_close(img, t, subs):
     a = env(t, I['I12']['t0'] - 0.3, I['I12']['t1'] + 1.2, 0.5, 0.6)
     if a <= 0: return
-    for kw, s_, y, gold_, sz in (('会发生', '会发生什么，靠研究；', 820, False, 60), ('什么时候', '什么时候发生，交给时间。', 940, True, 68)):
+    for kw, s_, y, gold_, sz in (('熊市', '熊市，是长期买家的打折季；', 820, False, 54), ('长期持续', '长期持续的疯狂，才是真正的危险。', 940, True, 56)):
         k = eio((t - wt('I12', kw) + 0.15) / 0.9)
         if gold_: gold_title(img, s_, W / 2, y, sz, a * k, wipe=k, glow_=0.2, track=0.06)
         else: text(img, s_, W / 2, y, sz, 'serif_bold', INK, a * k, track=0.08, wipe=k, shadow=0.8)
@@ -1539,7 +1594,7 @@ def dia_sum(L, t):
 
 
 # ================================================================ 一句话总结 + 品牌片尾（系列固定片尾）
-SUM_LINES = (('只问会发生什么，', 880), ('不猜何时发生。', 1010))
+SUM_LINES = (('最怕的不是熊市，', 880), ('而是长期的疯狂。', 1010))
 
 
 def summary_masks():
@@ -1597,7 +1652,7 @@ def txt_sum(img, t, subs):
     text(img, '一句话总结', W / 2, 740, 28, 'sans_med', SUB_GOLD, a * eo(k / 0.6), track=0.4)
     for sg in (-1, 1):
         line(img, (W / 2 + sg * 110, 740), (W / 2 + sg * (110 + 90 * eo(k / 1.0)), 740), SUB_GOLD, a * 0.6, 1)
-    w1 = eo((t - VOD['M']['t0'] + 0.1) / 1.0); w2 = eo((t - wt('M', '不猜') + 0.05) / 1.0)
+    w1 = eo((t - VOD['M']['t0'] + 0.1) / 1.0); w2 = eo((t - wt('M', '而是') + 0.05) / 1.0)
     sh = cl((t - VOD['M']['t1'] - 0.2) / 1.4) if VOD['M']['t1'] + 0.2 < t < VOD['M']['t1'] + 1.6 else None
     for (s, y), w in zip(SUM_LINES, (w1, w2)):
         gold_title(img, s, W / 2, y, 96, a, wipe=w, shine=sh, track=0.04)
@@ -1666,15 +1721,15 @@ def txt_endq(img, t, subs):
     a = env(t, ENDQ_T['t0'] - 0.3, END['t_particles'] + 0.2, 0.4, 0.5)
     if a <= 0: return
     panel(img, 90, 1220, 990, 1470, a, col=GOLD_C, fill=0.85)
-    fx.slam(img, '你有没有因为“再等等”，', W / 2, 1290, 46, 'serif_bold', t, ENDQ_T['t0'] - 0.05, a, gold=False, col=INK, glow_=0.15)
-    fx.slam(img, '错过过一次好机会？', W / 2, 1368, 52, 'serif_black', t, wt('Q', '错过') - 0.05, a, glow_=0.3)
-    text(img, '在评论区说说你的经历', W / 2, 1430, 24, 'sans', INK2, a * ke(t, ENDQ_T['t0'] + 3.0), track=0.2)
+    fx.slam(img, '如果明天市场大跌三成，', W / 2, 1290, 46, 'serif_bold', t, ENDQ_T['t0'] - 0.05, a, gold=False, col=INK, glow_=0.15)
+    fx.slam(img, '你会害怕，还是高兴？', W / 2, 1368, 56, 'serif_black', t, wt('Q', '你会') - 0.05, a, glow_=0.3)
+    text(img, '在评论区说说你的答案', W / 2, 1430, 24, 'sans', INK2, a * ke(t, ENDQ_T['t0'] + 3.0), track=0.2)
 
 
 # ================================================================ 合成一帧
-DIAS = [dia_cold, dia_title, dia_s1, dia_s2, dia_s3, dia_ctx, dia_qa, dia_quote, dia_i1, dia_i3, dia_i5, dia_i8, dia_i10, dia_i11,
+DIAS = [dia_cold, dia_title, dia_s1, dia_s2, dia_s3, dia_ctx, dia_qa, dia_quote, dia_i1, dia_price, dia_i5, dia_bub, dia_i10, dia_i11,
         dia_close, dia_sum]
-TXTS = [txt_cold, txt_title, txt_s1, txt_s2, txt_s3, txt_ctx, txt_qa, txt_quote, txt_card, txt_i1, txt_i3, txt_i5, txt_i8, txt_i10,
+TXTS = [txt_cold, txt_title, txt_s1, txt_s2, txt_s3, txt_ctx, txt_qa, txt_quote, txt_card, txt_i1, txt_price, txt_i5, txt_bub, txt_i10,
         txt_i11, txt_close, txt_sum, txt_endq]
 
 
