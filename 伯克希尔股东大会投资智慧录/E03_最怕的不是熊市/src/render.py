@@ -21,7 +21,7 @@ from gfx import *                      # noqa: F401,F403
 import gfx
 import fx
 import brand as B
-from script import BROLL, CLIP_LEN, QUOTE_ID, SP_1942, IXIC, BRK_TABLE
+from script import BROLL, CLIP_LEN, QUOTE_ID, SP_1942, NQBK, BRK_TABLE
 
 WORK = sys.argv[-1] if len(sys.argv) > 2 else os.path.join(HERE, '..', 'work')
 TL = json.load(open(os.path.join(WORK, 'timeline.json')))
@@ -120,7 +120,7 @@ def qa_src(t):
     return QA['segs'][-1]['src_out'] if t > T_QE else QA['segs'][0]['src_in']
 
 
-I = {k: V(k) for k in ('I1', 'I2', 'I3', 'I5', 'I6', 'I7', 'I8', 'I10', 'I11', 'I12')}
+I = {k: V(k) for k in ('I1', 'I2', 'I3', 'I5', 'I6', 'I7', 'I7B', 'I8', 'I10', 'I11', 'I12')}
 HOOK = TL['hook']; ENDQ_T = TL['endq']
 
 
@@ -1264,7 +1264,7 @@ def txt_i5(img, t, subs):
         text(img, '买下 3 股 Cities Service 优先股', W / 2, 1230, 36, 'serif_bold', GOLD_C, a * k5 * k3)
     k6 = ke(t, t6 - 0.2, 0.6)
     if k6 <= 0: return
-    tx = wt('I6', '五千二百'); tv = wt('I6', '六十')
+    tx = wt('I6', '五千二百'); tv = wt('I6', '当初')
     span = max(tv + 0.3 - t6, 2.5)
     u = eio((t - t6 + 0.1) / span)
     n = max(2, int(len(SP_Y) * u))
@@ -1300,155 +1300,157 @@ def txt_i5(img, t, subs):
     text(img, '曲线：Shiller 标普综合指数（含股息再投资）；终值取自 2018 年致股东信', W / 2, 1418, 17, 'sans', INK3 * 1.5, a * k6 * 0.9)
 
 
-# ---------------------------------------------------------------- I7–I8：长期持续的非理性牛市——1995–1999 连续五年 >20%，1999 伯克希尔 −19.9%，纳斯达克泡沫
-_NQ = json.load(open(os.path.join(HERE, '..', 'data', IXIC)))
-NQ_D = _NQ['date']; NQ_V = np.array(_NQ['close'], float)
-NQ_I = {d: i for i, d in enumerate(NQ_D)}
-NQ_Y = np.array([int(d[:4]) + (int(d[5:7]) - 1) / 12 + (int(d[8:]) - 1) / 365 for d in NQ_D])
-I_MEET, I_PEAK, I_LOW, I_REC = NQ_I['1994-04-25'], NQ_I['2000-03-10'], NQ_I['2002-10-09'], NQ_I['2015-04-23']
-NX0, NX1, NYB, NYT = 170, 930, 1110, 560
+# ---------------------------------------------------------------- I7–I8：两条路——纳斯达克（科技股）与伯克希尔股价，1994.04.25 = 1
+# 一张图讲完因果：连涨五年、科技股最疯 → 巴菲特一股科技股都没买 → 1999 年伯克希尔 −19.9%、被质疑落伍 → 泡沫破裂、纳指 −78%、15 年才回到原位 → 同期伯克希尔不跌反涨
+_NB = json.load(open(os.path.join(HERE, '..', 'data', NQBK)))
+NB_D = _NB['date']; NB_Q = np.array(_NB['ixic'], float); NB_B = np.array(_NB['brka'], float)
+NB_I = {d: i for i, d in enumerate(NB_D)}
+NB_Y = np.array([int(d[:4]) + (int(d[5:7]) - 1) / 12 + (int(d[8:]) - 1) / 365 for d in NB_D])
+I_MEET, I_PEAK, I_LOW, I_REC = NB_I['1994-04-25'], NB_I['2000-03-10'], NB_I['2002-10-09'], NB_I['2015-04-23']
+NQ1 = NB_Q / NB_Q[I_MEET]; BK1 = NB_B / NB_B[I_MEET]                   # 都以 1994 年 4 月 25 日为 1
+NX0, NX1, NYB, NYT = 175, 925, 1110, 540
 
 
-def nx(y): return NX0 + (y - 1994.0) / (2016.0 - 1994.0) * (NX1 - NX0)
-def ny(v): return NYB - v / 5500.0 * (NYB - NYT)
+_VMAX = [7.5]
+
+
+def nx(y): return NX0 + (y - 1994.3) / (2016.0 - 1994.3) * (NX1 - NX0)
+def ny(v): return NYB - v / _VMAX[0] * (NYB - NYT)
+
+
+def bub_vmax(t):
+    """纵轴上限：先 7.5（看清 1995–2000 的狂飙），画到 2003 年之后再平滑放大到 15（容下伯克希尔后来的上涨）"""
+    tr = wt('I8', '原位')
+    return lerp(7.5, 15.0, eio((t - tr) / 1.6))
 
 
 def bub_a(t): return sc(t, B_BUB, B_COND)
 
 
-def nq_n(t):
-    """纳斯达克曲线画到第几个交易日：开口时画到 1999 年底；“见顶”到高点；“跌去”到低点；“十五年”画到 2015 年收复"""
-    t8 = I['I8']['t0']; tp, td, tr = wt('I8', '见顶'), wt('I8', '跌去'), wt('I8', '十五年')
-    i99 = NQ_I['1999-12-31']
-    if t < tp: return I_MEET + (i99 - I_MEET) * eio((t - t8 + 0.1) / max(tp - t8 - 0.3, 0.6))
-    if t < td: return i99 + (I_PEAK - i99) * eio((t - tp + 0.2) / 0.6)
-    if t < tr: return I_PEAK + (I_LOW - I_PEAK) * eio((t - td + 0.1) / 0.9)
-    return I_LOW + (len(NQ_V) - 1 - I_LOW) * eio((t - tr + 0.2) / 1.4)
+def bub_year(t):
+    """两条线画到哪一年：I7 画到 1999 年底，I7B 停住（聚焦 1999），I8 画过高点、崩塌、一直画到 2015"""
+    t7 = I['I7']['t0']; t1 = wt('I7', '一股')
+    tb, t78, tr = wt('I8', '破'), wt('I8', '七十八'), wt('I8', '原位')
+    if t < tb: return 1994.31 + (2000.0 - 1994.31) * eio((t - t7 - 0.3) / max(t1 - t7 - 0.3, 0.8))
+    if t < t78: return 2000.0 + 0.2 * eio((t - tb + 0.2) / 0.5)
+    if t < tr: return 2000.2 + (2002.8 - 2000.2) * eio((t - t78 + 0.3) / 0.8)
+    return 2002.8 + (2015.9 - 2002.8) * eio((t - tr + 0.1) / 1.8)
 
 
 def dia_bub(L, t):
     a = bub_a(t)
     if a <= 0: return
-    if t > I['I8']['t0'] - 0.3:
-        tp, td = wt('I8', '见顶'), wt('I8', '跌去')
-        shock(L, (nx(NQ_Y[I_PEAK]), ny(NQ_V[I_PEAK])), t, tp + 0.4, GOLD_H, a, rmax=380, life=1.0, flatten=0.7)
-        shock(L, (nx(NQ_Y[I_LOW]), ny(NQ_V[I_LOW])), t, td + 0.8, AMBER, a, rmax=420, life=1.1, flatten=0.6)
-        if td + 0.2 < t < td + 2.5:                             # 崩塌时的碎屑
-            dt = t - td - 0.2
-            rng = np.random.default_rng(19)
-            n = 360
-            ang = rng.uniform(-math.pi, 0, n); sp = rng.uniform(80, 520, n)
-            cx, cy = nx(NQ_Y[I_PEAK]), ny(NQ_V[I_PEAK])
-            x = cx + np.cos(ang) * sp * dt; y = cy - np.sin(ang) * sp * dt * 0.4 + 420 * dt * dt
-            cloud(L, np.c_[x, y], AMBER, 0.7 * a * (1 - dt / 2.3) ** 1.5)
-    else:
-        t5 = wt('I7', '连续五年')
-        for i in range(5):
-            shock(L, (230 + i * 150, 700), t, t5 + i * 0.22, GOLD_H, a * 0.5, rmax=140, life=0.6, flatten=0.5)
+    _VMAX[0] = bub_vmax(t)
+    t78 = wt('I8', '七十八')
+    if t78 - 0.6 < t < t78 + 2.2:                                   # 崩塌时从高点洒落的碎屑
+        dt = t - t78 + 0.6
+        rng = np.random.default_rng(19)
+        n = 320
+        ang = rng.uniform(-math.pi, 0, n); sp = rng.uniform(60, 260, n)
+        cx, cy = nx(NB_Y[I_PEAK]), ny(NQ1[I_PEAK])
+        x = cx + np.cos(ang) * sp * dt; y = cy - np.sin(ang) * sp * dt * 0.4 + 160 * dt * dt
+        ok = y < NYB
+        cloud(L, np.c_[x[ok], y[ok]], AMBER, 0.6 * a * max(0.0, 1 - dt / 2.6) ** 1.5)
+    shock(L, (nx(NB_Y[I_LOW]), ny(NQ1[I_LOW])), t, t78 + 0.3, AMBER, a, rmax=200, life=0.9, flatten=0.6)
+    tu = wt('I8', '不跌反涨')
+    shock(L, (nx(2015.5), ny(BK1[-1])), t, tu, GOLD_H, a, rmax=200, life=0.9, flatten=0.7)
 
 
 def txt_bub(img, t, subs):
     a = bub_a(t)
     if a <= 0: return
-    t8 = I['I8']['t0']
-    k7 = 1 - ke(t, t8 - 0.35, 0.45)
-    if k7 > 0:
-        header(img, '1994 年之后 · 长期持续的牛市', a * k7)
-        # 上：标普 500 连续五年 >20%（伯克希尔年度业绩表）
-        panel(img, 90, 380, 990, 860, a * k7, col=ICE, title='标普 500 年度回报（含股息）', en='s&p 500, total return')
-        t5 = wt('I7', '连续五年')
-        yb = 790
-        line(img, (150, yb), (930, yb), INK2, a * k7 * 0.6, 1)
-        y20 = yb - 20 * 7.5
-        dashed(img, (150, y20), (930, y20), AMBER, a * k7 * 0.6)
-        text(img, '20%', 935, y20, 22, 'inter_semi', AMBER, a * k7, 'l')
-        for i, yr in enumerate(range(1995, 2000)):
-            k = ke(t, t5 - 1.2 + i * 0.22, 0.5)
-            if k <= 0: continue
-            v = BRK_TABLE[yr][1]
-            x = 230 + i * 150
-            bar(img, x, yb, 86, v * 7.5 * k, GOLD_C, a * k7)
-            text(img, f'+{v:.1f}%', x, yb - v * 7.5 * k - 26, 30, 'corm_med', GOLD_HI, a * k7 * k)
-            text(img, str(yr), x, yb + 28, 24, 'corm_med', INK2, a * k7 * k)
-        # 下：1999 年，伯克希尔股价 −19.9%，《巴伦周刊》：What's Wrong, Warren?
-        t99 = wt('I7', '一九九九')
-        k9 = ke(t, t99 - 0.2, 0.5)
-        if k9 > 0:
-            panel(img, 90, 920, 990, 1420, a * k7 * k9, col=AMBER, title='1999 年', en='berkshire vs. the s&p 500')
-            for x, lab, v, col in ((300, '标普 500', BRK_TABLE[1999][1], ICE), (780, '伯克希尔股价', BRK_TABLE[1999][0], AMBER)):
-                kk = ke(t, t99 + (0.2 if x == 300 else wt('I7', '股价') - t99), 0.5)
-                if kk <= 0: continue
-                text(img, lab, x, 1050, 30, 'sans_med', INK2, a * k7 * kk, track=0.06)
-                fx.slam(img, f'{v:+.1f}%', x, 1130, 80, 'corm_med', t, t99 + (0.2 if x == 300 else wt('I7', '股价') - t99), a * k7,
-                        gold=False, col=col, glow_=0.3)
-            tb = wt('I7', '巴伦')
-            kb = ke(t, tb - 0.1, 0.4)
-            if kb > 0:
-                line(img, (180, 1200), (900, 1200), INK3, a * k7 * kb, 1)
-                text(img, '《巴伦周刊》1999.12.27', W / 2, 1240, 26, 'sans_med', INK2, a * k7 * kb, track=0.08)
-                fx.typewriter(img, '“What’s Wrong, Warren?”', W / 2, 1305, 46, 'ebg_i', INK, a * k7, t, tb + 0.2, cps=18)
-                text(img, '巴菲特怎么了？', W / 2, 1370, 34, 'serif_bold', AMBER, a * k7 * ke(t, wt('I7', '怎么了') - 0.1, 0.4))
-    k8 = ke(t, t8 - 0.3, 0.5)
-    if k8 <= 0: return
-    # 纳斯达克：1994.04.25 → 2000.03.10 高点 → 2002.10.09 低点（−78%）→ 2015.04.23 才收复
-    header(img, 'NASDAQ COMPOSITE · 1994–2015 · 每日收盘', a * k8)
-    panel(img, 90, 380, 990, 1200, a * k8, col=ICE, title='他没有去追科技股', en='the bubble he stayed out of')
-    for v in (1000, 2000, 3000, 4000, 5000):
-        y = ny(v)
-        dashed(img, (NX0, y), (NX1, y), INK3, a * k8 * 0.45, dash=6, gap=8)
-        text(img, f'{v:,}', NX0 - 10, y, 18, 'inter', INK2, a * k8, 'r')
+    _VMAX[0] = bub_vmax(t)
+    header(img, '1994–2015 · 每日收盘 · 1994 年 4 月 25 日 ＝ 1', a)
+    panel(img, 90, 380, 990, 1180, a, col=GOLD_C, title='两条路', en='nasdaq (tech) vs. berkshire')
+    zoom = (_VMAX[0] - 7.5) / 7.5
+    for vals, ka in (((1, 2, 3, 4, 5, 6, 7), 1 - zoom), ((1, 5, 10, 15), zoom)):
+        if ka <= 0.02: continue
+        for v in vals:
+            y = ny(v)
+            if y < NYT - 5: continue
+            dashed(img, (NX0, y), (NX1, y), INK3, a * 0.45 * ka, dash=6, gap=8)
+            text(img, f'{v}', NX0 - 10, y, 20, 'inter', INK2, a * ka, 'r')
     for yr in (1995, 2000, 2005, 2010, 2015):
-        text(img, str(yr), nx(yr), NYB + 28, 22, 'corm_med', INK2, a * k8)
-    n = int(nq_n(t))
-    xs = nx(NQ_Y[I_MEET:n + 1]); ys = ny(NQ_V[I_MEET:n + 1])
-    if len(xs) >= 2:
-        hot = NQ_Y[I_MEET:n + 1] < 2000.25
-        area(img, np.c_[xs, ys], NYB, ICE, a * k8 * 0.7, top=0.22)
-        gline(img, np.c_[xs[hot], ys[hot]] if hot.sum() > 1 else np.c_[xs[:2], ys[:2]], ICE, a * k8, th=3)
-        if (~hot).sum() > 1: gline(img, np.c_[xs[~hot], ys[~hot]], AMBER, a * k8, th=3)
-        glow(img, (xs[-1], ys[-1]), 12, GOLD_HI, a * k8)
-    p0 = (nx(NQ_Y[I_MEET]), ny(NQ_V[I_MEET]))
-    circle(img, p0, 9, GOLD_HI, a * k8, 2)
-    for j, ln in enumerate(('1994.04.25 · 730.80', '巴菲特：“我们害怕的，', '是长期持续的非理性牛市”')):
-        text(img, ln, NX0 + 12, ny(3900) + j * 32, 22, 'corm_med' if j == 0 else 'sans_med', GOLD_C, a * k8, 'l')
-    dashed(img, (p0[0], ny(3900) + 82), (p0[0], p0[1] - 12), GOLD_C, a * k8 * 0.6, dash=6, gap=6)
-    tp, td, tr = wt('I8', '见顶'), wt('I8', '跌去'), wt('I8', '十五年')
-    kp = ke(t, tp + 0.3, 0.4)
-    if kp > 0:
-        p = (nx(NQ_Y[I_PEAK]), ny(NQ_V[I_PEAK]))
-        circle(img, p, 11, GOLD_HI, a * k8 * kp, 2)
-        text(img, '2000.03.10 · 5,048.62', p[0] + 18, p[1] - 6, 24, 'corm_med', GOLD_HI, a * k8 * kp, 'l')
-        text(img, '泡沫见顶', p[0] + 18, p[1] + 26, 24, 'sans_med', GOLD_C, a * k8 * kp, 'l')
-    kl = ke(t, td + 0.8, 0.4)
+        text(img, str(yr), nx(yr), NYB + 28, 22, 'corm_med', INK2, a)
+    yv = bub_year(t)
+    n = int(np.searchsorted(NB_Y, yv))
+    sl = slice(I_MEET, max(n, I_MEET + 2))
+    xs = nx(NB_Y[sl])
+    # 纳斯达克：冰青细线（崩塌只用 −78% 的琥珀标注）；伯克希尔：金色粗线
+    hot = NB_Y[sl] <= NB_Y[I_PEAK]
+    q = ny(NQ1[sl])
+    gline(img, np.c_[xs, q], ICE, a, th=3)
+    # 伯克希尔：金色；1999 年这一段在 I7B 里标成琥珀
+    b = ny(BK1[sl])
+    gline(img, np.c_[xs, b], GOLD_HI, a, th=5, halo=9.0)
+    glow(img, (xs[-1], q[-1]), 12, ICE, a)
+    glow(img, (xs[-1], b[-1]), 14, GOLD_HI, a)
+    t7 = I['I7']['t0']
+    ktag = a * ke(t, t7 + 0.4, 0.4) * (1 - ke(t, wt('I8', '破') - 0.2, 0.3))
+    if ktag > 0:
+        lq, lb = q[-1], b[-1]
+        if abs(lq - lb) < 34: lq, lb = (min(lq, lb) - 18, max(lq, lb) + 18) if lq < lb else (max(lq, lb) + 18, min(lq, lb) - 18)
+        text(img, '纳斯达克（科技股）', xs[-1] + 16, lq, 24, 'sans_med', ICE, ktag, 'l')
+        text(img, '伯克希尔股价', xs[-1] + 16, lb, 24, 'sans_med', GOLD_HI, ktag, 'l')
+    k0 = ke(t, wt('I7', '一股') - 0.1, 0.4)
+    if k0 > 0 and t < wt('I8', '破'):
+        bx, by = nx(2003.6), NYT + 60
+        rrect(img, bx - 14, by - 30, bx + 420, by + 30, 8, GOLD_C, a * k0 * 0.8, 1)
+        text(img, '巴菲特：看不懂科技公司，一股也不碰', bx + 6, by, 26, 'sans_med', GOLD_HI, a * k0, 'l')
+    # I7–I7B：1999 年——纳斯达克 +85.6%，伯克希尔股价 −19.9%，被质疑落伍
+    t99 = wt('I7', '一九九九')
+    k9 = env(t, t99 - 0.2, wt('I8', '破') + 0.6, 0.4, 0.5)
+    if k9 > 0:
+        x0, x1 = nx(1999.0), nx(2000.0)
+        rect(img, x0, NYT, x1, NYB, AMBER, a * k9 * 0.10)
+        i0, i1 = NB_I['1998-12-31'], min(NB_I['1999-12-31'], n)        # 只高亮已经画出来的那一段
+        if i1 - i0 > 1: gline(img, np.c_[nx(NB_Y[i0:i1 + 1]), ny(BK1[i0:i1 + 1])], AMBER, a * k9, th=5)
+        text(img, '1999', (x0 + x1) / 2, NYB - 24, 24, 'corm_med', AMBER, a * k9)
+    nq99 = (NB_Q[NB_I['1999-12-31']] / NB_Q[NB_I['1998-12-31']] - 1) * 100
+    for (sid, kw), x, lab, v, col in ((('I7', '八十六'), 300, '1999 年 · 纳斯达克', nq99, ICE),
+                                     (('I7B', '股价'), 780, '1999 年 · 伯克希尔股价', BRK_TABLE[1999][0], AMBER)):
+        kk = env(t, wt(sid, kw) - 0.15, wt('I8', '破') - 0.1, 0.35, 0.4)
+        if kk <= 0: continue
+        rrect(img, x - 205, 1215, x + 205, 1320, 10, col, a * kk * 0.85, 1)
+        text(img, lab, x, 1245, 24, 'sans_med', INK2, a * kk, track=0.04)
+        text(img, f'{v:+.1f}%', x, 1290, 46, 'corm_med', col if col is AMBER else ICE, a * kk, glow=0.2)
+    kl = env(t, wt('I7B', '落伍') - 0.2, wt('I8', '破') - 0.1, 0.35, 0.4)
     if kl > 0:
-        p = (nx(NQ_Y[I_LOW]), ny(NQ_V[I_LOW]))
-        circle(img, p, 11, AMBER, a * k8 * kl, 2)
-        text(img, '2002.10.09 · 1,114.11', p[0] + 16, p[1] + 34, 22, 'corm_med', AMBER, a * k8 * kl, 'l')
-        xb = nx(NQ_Y[I_LOW]) + 36
-        y0, y1 = ny(NQ_V[I_PEAK]), ny(NQ_V[I_LOW])
-        line(img, (xb, y0), (xb, y0 + (y1 - y0) * kl), AMBER, a * k8, 2)
-        dashed(img, (nx(NQ_Y[I_PEAK]) + 12, y0), (xb, y0), AMBER, a * k8 * kl * 0.6, dash=5, gap=6)
-        text(img, '−78%', xb + 14, (y0 + y1) / 2, int(60 * (1 + 0.4 * math.exp(-max(t - td - 0.8, 0) / 0.15))), 'corm_med', AMBER,
-             a * k8 * kl, 'l', glow=0.35)
-    kr = ke(t, tr + 1.0, 0.5)
+        text(img, '《巴伦周刊》1999.12.27', W / 2, 1352, 22, 'sans_med', INK2, a * kl, track=0.06)
+        fx.typewriter(img, '“What’s Wrong, Warren?”', W / 2, 1398, 36, 'ebg_i', INK, a * kl, t, wt('I7B', '落伍') - 0.1, cps=22)
+    # I8：泡沫破裂——高点、−78%、15 年才回到原位；同一时期伯克希尔不跌反涨
+    tb, t78, tr, tu = wt('I8', '破'), wt('I8', '七十八'), wt('I8', '原位'), wt('I8', '不跌反涨')
+    kp = ke(t, tb + 0.2, 0.4)
+    if kp > 0:
+        p = (nx(NB_Y[I_PEAK]), ny(NQ1[I_PEAK]))
+        circle(img, p, 10, GOLD_HI, a * kp, 2)
+        text(img, '2000.03 泡沫见顶', p[0] + 16, p[1] - 6, 24, 'sans_med', GOLD_HI, a * kp, 'l')
+    kl8 = ke(t, t78 + 0.2, 0.4)
+    if kl8 > 0:
+        y0, y1 = ny(NQ1[I_PEAK]), ny(NQ1[I_LOW])
+        xb = nx(NB_Y[I_LOW]) + 34
+        dashed(img, (nx(NB_Y[I_PEAK]) + 12, y0), (xb, y0), AMBER, a * kl8 * 0.6, dash=5, gap=6)
+        line(img, (xb, y0), (xb, y0 + (y1 - y0) * kl8), AMBER, a, 2)
+        text(img, '−78%', xb + 12, (y0 + y1) / 2, int(56 * (1 + 0.4 * math.exp(-max(t - t78 - 0.2, 0) / 0.15))), 'corm_med', AMBER,
+             a * kl8, 'l', glow=0.35)
+    kr = ke(t, tr + 0.4, 0.6)
     if kr > 0:
-        yp = ny(NQ_V[I_PEAK])
-        x0, x1 = nx(NQ_Y[I_PEAK]), nx(NQ_Y[I_REC])
-        dashed(img, (x0, yp), (x0 + (x1 - x0) * kr, yp), GOLD_C, a * k8 * 0.8)
-        if kr > 0.95:
-            circle(img, (x1, ny(NQ_V[I_REC])), 10, GOLD_HI, a * k8, 2)
-            text(img, '2015.04.23 · 重回高点', x1 + 8, yp - 30, 22, 'sans_med', GOLD_HI, a * k8, 'r')
-        fx.slam(img, '15 年', (x0 + x1) / 2 + 60, yp + 40, 48, 'serif_black', t, tr + 1.0, a * k8, glow_=0.35)
-    # 同一时期：2000–2002 年累计（伯克希尔年度业绩表连乘）
-    kc = ke(t, tr + 1.3, 0.5)
-    if kc > 0:
+        yp = ny(NQ1[I_PEAK]); x0, x1 = nx(NB_Y[I_PEAK]), nx(NB_Y[I_REC])
+        dashed(img, (x0, yp), (x0 + (x1 - x0) * kr, yp), AMBER, a * 0.7)
+        text(img, '15 年才回到原位', (x0 + x1) / 2 + 80, yp - 26, 26, 'serif_bold', AMBER, a * kr)
+    ku = ke(t, tu - 0.1, 0.4)
+    if ku > 0:
+        text(img, '纳斯达克', nx(2015.6) + 6, ny(NQ1[-1]) + 30, 24, 'sans_med', ICE, a * ku, 'r')
+        text(img, '伯克希尔股价', nx(2015.6) + 6, ny(BK1[-1]) - 30, 24, 'sans_med', GOLD_HI, a * ku, 'r')
         sp = np.prod([1 + BRK_TABLE[y][1] / 100 for y in (2000, 2001, 2002)]) - 1
         bk = np.prod([1 + BRK_TABLE[y][0] / 100 for y in (2000, 2001, 2002)]) - 1
-        text(img, '2000–2002 年累计', W / 2, 1255, 26, 'sans_med', INK2, a * k8 * kc, track=0.2)
+        text(img, '泡沫破裂的三年（2000–2002）', W / 2, 1238, 26, 'sans_med', INK2, a * ku, track=0.12)
         for x, lab, v, col in ((310, '标普 500', sp, AMBER), (770, '伯克希尔股价', bk, GOLD_C)):
-            rrect(img, x - 200, 1285, x + 200, 1385, 10, col, a * k8 * kc * 0.8, 1)
-            text(img, lab, x - 70, 1335, 30, 'sans_med', INK2, a * k8 * kc)
-            text(img, f'{v * 100:+.1f}%', x + 90, 1335, 46, 'corm_med', col if col is AMBER else GOLD_HI, a * k8 * kc, glow=0.2)
+            rrect(img, x - 205, 1268, x + 205, 1368, 10, col, a * ku * 0.85, 1)
+            text(img, lab, x - 70, 1318, 30, 'sans_med', INK2, a * ku)
+            text(img, f'{v * 100:+.1f}%', x + 95, 1318, 46, 'corm_med', col if col is AMBER else GOLD_HI, a * ku, glow=0.2)
+    text(img, '数据：Yahoo Finance 每日收盘（价格，不含股息）；年度涨跌取自伯克希尔 2018 年致股东信附表', W / 2, 1160, 16, 'sans',
+         INK3 * 1.5, a * 0.9)
 
 
 # ---------------------------------------------------------------- I10：前提——看懂企业；不借钱；不急着卖。否则下跌是灾难
@@ -1516,7 +1518,7 @@ def txt_i11(img, t, subs):
     gline(img, np.c_[xs[:n], ys[:n]], ICE, a, th=4)
     fx.slam(img, '−30%', 850, 570, 60, 'corm_med', t, B_TODAY + 1.7, a, gold=False, col=AMBER, glow_=0.3)
     text(img, '示意', 960, 745, 18, 'sans', INK3 * 1.5, a * 0.8, 'r')
-    tf = wt('I11', '先别')
+    tf = wt('I11', '先问')
     text(img, '先别急着害怕，问问自己', W / 2, 840, 36, 'sans_med', INK2, a * ke(t, tf - 0.1), track=0.2)
     for i, (kw, s_, sub, col, y) in enumerate((('生意变了', '是这门生意变了？', '护城河、利润、管理层还在不在', AMBER, 1000),
                                                ('打了折', '还是只是价格打了折？', '生意没变——同样的钱买到更多', GOLD_C, 1210))):

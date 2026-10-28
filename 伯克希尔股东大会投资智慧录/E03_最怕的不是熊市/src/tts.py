@@ -6,7 +6,7 @@
 只用 Gemini，不设备用引擎。出错时停止并报告（退出码 2），由人工介入：
   - 429 限流按 Retry-After / 指数退避重试（每次封顶 2 分钟），网络错误与 5xx 同样重试，8 次后仍失败即停止；
   - 认证、额度、参数等其他接口错误（4xx）立即停止；
-  - 同一段重合成 3 次后稿子覆盖率仍 < 0.88，或仍把停顿标签念了出来，停止。
+  - 同一段重合成 3 次后稿子覆盖率仍 < 0.88，或仍把停顿标签念了出来，或仍多念了稿子以外的内容（识别字数超过稿子 1.2 倍），停止。
   不换引擎、不跳过该段、不用旧音频顶替。
 
 用法：python3 src/tts.py WORK
@@ -184,13 +184,16 @@ def gemini_group(ids):
             num = set('0123456789零一二三四五六七八九十百千万亿两点')     # 数字写法（2500万 / 两千五百万）不算错
             sim = coverage([c for c in content(plain) if c not in num], [c for c in rtxt if c not in num])
             tag_read = bool(re.search(r'pause|breath|停顿|呼吸', rtxt, re.I))
-            print(f'  {gname} try {attempt + 1}: {len(x) / SR:.1f}s  稿子覆盖率 {sim:.2f}{"  [念出了标签]" if tag_read else ""}')
-            score = sim - (0.5 if tag_read else 0)
+            extra = len([c for c in rtxt if c not in num]) / max(len([c for c in content(plain) if c not in num]), 1)   # 多念：重复或念出稿子以外的句子
+            over = extra > 1.2
+            print(f'  {gname} try {attempt + 1}: {len(x) / SR:.1f}s  稿子覆盖率 {sim:.2f}  识别字数/稿子字数 {extra:.2f}'
+                  f'{"  [念出了标签]" if tag_read else ""}{"  [多念了内容]" if over else ""}')
+            score = sim - (0.5 if tag_read else 0) - (0.5 if over else 0)
             if best is None or score > best[0]:
                 best = (score, raw, mime, rec)
-            if sim >= 0.88 and not tag_read: break
+            if sim >= 0.88 and not tag_read and not over: break
         else:
-            stop(gname, text, f'重合成 3 次后仍不达标（最好一次的稿子覆盖率得分 {best[0]:.2f}，要求 ≥ 0.88 且不念出停顿标签）')
+            stop(gname, text, f'重合成 3 次后仍不达标（最好一次的得分 {best[0]:.2f}，要求稿子覆盖率 ≥ 0.88、不念出停顿标签、不多念稿子以外的内容）')
         _, raw, mime, rec = best
         x = to_wav48(raw, mime, base)
         meta = dict(key=key, text=text, rec=rec, dur=len(x) / SR)
