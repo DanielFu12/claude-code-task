@@ -181,8 +181,27 @@ for i in range(len(lev)):
     if not ok and st is not None: runs.append((st, i)); st = None
 r0, r1 = max(runs, key=lambda r: r[1] - r[0])
 tone = np.resize(orig[r0 * f:r1 * f], int(2.0 * SR))
+def ride_level(x):
+    """段内慢速电平跟随：现场麦克风距离、说话轻重不同，同一段里前后可差 7–10dB（如 A19 句尾很轻、紧接着 O4A 很响；
+    笑声之后的 A30）。用 1 秒窗的人声电平向 -20dBFS 修正 85%（±6dB），停顿里保持增益，再做 0.5 秒平滑。
+    只是缓慢的电平统一，不改变音节内部的动态，不降噪。"""
+    f = SR // 20
+    n = len(x) // f
+    r = 20 * np.log10(np.sqrt((x[:n * f].reshape(-1, f) ** 2).mean(1)) + 1e-9)
+    e = 10 * np.log10(np.convolve(10 ** (r / 10), np.ones(20) / 20, 'same') + 1e-12)
+    g = np.zeros(n); last = 0.0
+    for i in range(n):
+        if e[i] > -45: last = float(np.clip(0.85 * (TARGET - e[i]), -6.0, 6.0))
+        g[i] = last
+    g = np.convolve(np.pad(g, 10, mode='edge'), np.ones(10) / 10, 'same')[10:-10]
+    gs = np.interp(np.arange(len(x)), (np.arange(n) + 0.5) * f, g)
+    return x * db(gs)
+
+
 for k, sg in enumerate(qa['segs']):
     x = orig[int(sg['src_in'] * SR):int(sg['src_out'] * SR)]
+    x = x * db(TARGET - voiced_rms_db(x))
+    x = ride_level(x)
     x = x * db(TARGET - voiced_rms_db(x))
     put(ostem, fade(x, 0.06, 0.12 if k < len(qa['segs']) - 1 else 0.35), sg['t0'])
     if k < len(qa['segs']) - 1:
