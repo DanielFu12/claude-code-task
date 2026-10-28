@@ -33,7 +33,7 @@ def quiet(t, lo, hi):
 H_TRACK, H_HIT = 'Five Armies', 14.547                # 低沉的定音鼓脉动 → 14.55s 大鼓与铜管整体进入：片名
 N_TRACK = 'Movement Proposition'
 N_ENTRY, N_BREAK, N_CLIMAX, N_BRAND = 47.177, 93.013, 115.984, 127.176
-# N_ENTRY：低谷之后的大段落回归（正例 1942 开口）；N_BREAK：留白（只剩弦乐铺底）；
+# N_ENTRY：低谷之后的大段落回归（第一性原理 I2 开口）；N_BREAK：留白（只剩弦乐铺底）；
 # N_CLIMAX：留白之后的全奏激增（一句话总结）；N_BRAND：高潮段里的下一次段落重拍（「巴芒价值」）
 BEATS = {k: np.load(os.path.join(DATA, f'beats_{k.replace(" ", "_")}.npy')) for k in (H_TRACK, N_TRACK)}
 
@@ -250,18 +250,18 @@ tl['qa']['scenes'] = sc
 
 # ------------------------------------------------------------------ 投资启示（Movement Proposition：结构与论证同步）
 T_INS = round(T_QEND + 1.1, 3)
-ENTRY_ID = 'I5'                                          # 正例（1942）开口 = 配乐大段落回归
+ENTRY_ID = 'I2'                                          # 第一性原理（I2）开口 = 配乐大段落回归；其后一路推到 1999 年的泡沫
 vo0, *_ = lay_vo(INSIGHT, T_INS + 2.4)
 n5 = next(v['t0'] for v in vo0 if v['id'] == ENTRY_ID)
 N_OFF = n5 - N_ENTRY
 NB = BEATS[N_TRACK]
-BAR4 = float(np.median(np.diff(NB))) * 16               # 4 小节
-# 解读口播（正例 → 收尾句）比“大段落回归 → 激增”这段音乐长：在留白之前把稳定段落里的 4 小节乐句重复若干次（剪点在小节线上），
-# 这样 1942 仍对准大段落回归、总结仍对准激增
+BAR2 = float(np.median(np.diff(NB))) * 8                # 2 小节
+# 解读口播（I2 → 收尾句）比“大段落回归 → 激增”这段音乐长：在留白之前把稳定段落里的 2 小节乐句重复若干次（剪点在小节线上），
+# 这样 I2 仍对准大段落回归、总结仍对准激增
 need = (vo0[-1]['t1'] - n5) + 0.9 - (N_CLIMAX - N_ENTRY)
-NLOOP = max(0, int(math.ceil(need / BAR4 - 0.15)))
+NLOOP = max(0, int(math.ceil(need / BAR2 - 0.15)))
 _iL = int(np.argmin(np.abs(NB - N_BREAK)))
-L_END = float(NB[_iL]); LOOP = float(NB[_iL] - NB[_iL - 16 * NLOOP]) if NLOOP else 0.0
+L_END = float(NB[_iL]); LOOP = float(NB[_iL] - NB[_iL - 8 * NLOOP]) if NLOOP else 0.0
 # 高潮段里再重复一个 2 小节乐句（N_BRAND 前的 2 小节），给互动问题留出时间，品牌字仍落在段落重拍上
 _iB = int(np.argmin(np.abs(NB - N_BRAND)))
 B_END = float(NB[_iB]); BLOOP = float(NB[_iB] - NB[_iB - 8])
@@ -332,7 +332,7 @@ tl['sfx'] = [
     dict(kind='subdrop', t=T_CTX, gain=-10),
     dict(kind='impact', t=T_INS, gain=-11),
     dict(kind='impact', t=round(nfilm(N_ENTRY), 3), gain=-12),
-    dict(kind='subdrop', t=round(next(v['t0'] for v in tl['insight']['vo'] if v['id'] == 'I8') + 0.05, 3), gain=-11),   # 2009 年的谷底
+    dict(kind='subdrop', t=round(next(v['t0'] for v in tl['insight']['vo'] if v['id'] == 'I8') + 0.05, 3), gain=-11),   # 泡沫破裂
     dict(kind='swell', t=round(T_SUM - 4.2, 3), dur=4.2, gain=-11),            # 留白里的低频蓄力，推向激增
     dict(kind='subdrop', t=T_SUM, gain=-10),
     dict(kind='impact', t=T_BRAND, gain=-9),

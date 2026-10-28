@@ -1,12 +1,12 @@
 """解读图表用的公开数据 → data/*.json（已随仓库提交；只有想重新生成时才需要运行）。
 
 用法：python3 src/data_prep.py
-  sp_tr_1942.json    Shiller ie_data.xls（标普综合指数月均价 P、年化股息 D）→ 1942.03 起含股息再投资的累计倍数
+  cape_1881_2013.json  Shiller ie_data.xls：每月 CAPE 与此后十年年化实际回报（1881.01–2013.09），以及按 CAPE 五等份的平均回报
   nq_brk_1994_2015.json  Yahoo Finance ^IXIC（纳斯达克综合指数）与 BRK-A（伯克希尔 A 股）每日收盘，1994-01-03 – 2015-12-31
 依赖：pandas、xlrd
 """
 import datetime as dt, io, json, os, ssl, urllib.request
-import pandas as pd
+import numpy as np, pandas as pd
 
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data')
 CA = '/root/.ccr/ca-bundle.crt'
@@ -20,15 +20,20 @@ def get(url):
 
 
 x = pd.read_excel(io.BytesIO(get('http://www.econ.yale.edu/~shiller/data/ie_data.xls')), sheet_name='Data', header=7)
-x = x[pd.to_numeric(x['Date'], errors='coerce').notna()]
-x = x[(x['Date'].astype(float) >= 1942.025) & (x['Date'].astype(float) <= 2019.015)]
-P, D, T = x['P'].astype(float).tolist(), x['D'].astype(float).tolist(), x['Date'].astype(float).tolist()
-tr = [1.0]
-for i in range(1, len(P)):
-    tr.append(tr[-1] * (P[i] + D[i] / 12) / P[i - 1])
-json.dump(dict(source='Shiller ie_data.xls, S&P Composite monthly average price + dividends reinvested',
-               date=[round(t, 2) for t in T], tr=[round(v, 4) for v in tr]), open(os.path.join(DATA, 'sp_tr_1942.json'), 'w'))
-print('1942.03 → 2019.01 累计', round(tr[-1], 1), '倍')
+x = x[pd.to_numeric(x['Date'], errors='coerce').notna()].reset_index(drop=True)
+D = x['Date'].astype(float).values
+cape = pd.to_numeric(x['CAPE'], errors='coerce').values
+fwd = pd.to_numeric(x['Real Return'], errors='coerce').values      # “10 Year Annualized Stock Real Return”（此后十年年化实际总回报）
+m = ~np.isnan(cape) & ~np.isnan(fwd)
+q = np.quantile(cape[m], [0.2, 0.8])
+lo, hi = fwd[m][cape[m] <= q[0]].mean(), fwd[m][cape[m] >= q[1]].mean()
+json.dump(dict(source='Shiller ie_data.xls：CAPE 与 10 Year Annualized Stock Real Return（含股息、扣除通胀）',
+               date=[f'{d_:.2f}' for d_ in D[m]], cape=[round(float(v), 2) for v in cape[m]], fwd=[round(float(v), 4) for v in fwd[m]],
+               q20=round(float(q[0]), 2), q80=round(float(q[1]), 2), mean_lo=round(float(lo), 4), mean_hi=round(float(hi), 4),
+               corr=round(float(np.corrcoef(cape[m], fwd[m])[0, 1]), 3)),
+          open(os.path.join(DATA, 'cape_1881_2013.json'), 'w'))
+print(f'{D[m][0]:.2f}–{D[m][-1]:.2f}，{m.sum()} 个月；CAPE 最低五分之一（≤{q[0]:.1f}）此后十年年化 {lo:.1%}，最高五分之一（≥{q[1]:.1f}）{hi:.1%}')
+
 
 def daily(sym):
     r = json.loads(get(f'https://query1.finance.yahoo.com/v8/finance/chart/{sym}?period1=757382400&period2=1451606400&interval=1d'))
