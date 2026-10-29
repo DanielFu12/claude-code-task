@@ -1,0 +1,385 @@
+1
+00:00:00,008 --> 00:00:01,614
+选股的时候
+
+2
+00:00:01,634 --> 00:00:02,567
+你是不是也觉得
+
+3
+00:00:02,587 --> 00:00:05,446
+研究得越复杂、模型越精密
+
+4
+00:00:05,466 --> 00:00:06,602
+就越能赚钱？
+
+5
+00:00:07,148 --> 00:00:08,250
+巴菲特的回答
+
+6
+00:00:08,270 --> 00:00:10,677
+也许会让你松一口气
+
+7
+00:00:14,074 --> 00:00:17,374
+你不需要做非凡的事，也能取得非凡的结果。
+but you don’t have to do exceptional things to get exceptional results.
+
+8
+00:00:18,313 --> 00:00:20,024
+1994年春天
+
+9
+00:00:20,044 --> 00:00:22,136
+宝洁公司因为两笔复杂的
+
+10
+00:00:22,156 --> 00:00:23,426
+利率掉期合约
+
+11
+00:00:23,446 --> 00:00:26,208
+一个季度就亏掉了1.57亿美元
+
+12
+00:00:26,841 --> 00:00:28,896
+几周后的伯克希尔股东大会上
+
+13
+00:00:28,916 --> 00:00:30,017
+一位股东问
+
+14
+00:00:30,037 --> 00:00:32,503
+耐克、锐步这样的全球品牌
+
+15
+00:00:32,523 --> 00:00:34,407
+前景有哪些不确定性？
+
+16
+00:00:39,010 --> 00:00:47,840
+伯克希尔似乎偏爱全球领先的品牌，比如可口可乐和吉列。它们有哪些不确定性？
+What are the uncertainties of the global brand leaders that Berkshire seems to like? They like Coke and Gillette.
+
+17
+00:00:48,450 --> 00:00:52,710
+在制鞋业，全球领先的品牌是耐克和锐步。
+The global brand leaders in the shoe business being Nike and Reebok.
+
+18
+00:00:52,730 --> 00:00:59,890
+它们有哪些不确定性？从长期竞争优势、生意的经济特性、消费者行为，
+What are their uncertainties, in terms of long-term competitive advantage, business economics, consumer behavior,
+
+19
+00:00:59,910 --> 00:01:05,760
+以及您今年年报里提到的其他风险来看。谢谢。
+and the other risk factors that you mentioned in the annual report this year? Thank you.
+
+20
+00:01:06,450 --> 00:01:19,520
+我不理解它们的竞争地位，也看不清这种地位在 10 年、20 年里能不能持续——
+I don’t understand their competitive position and the likelihood of permanence of their competitive position over a 10 or 20 year period
+
+21
+00:01:19,540 --> 00:01:24,760
+不像我自认为理解布朗鞋业和德克斯特鞋业那样。
+as well as I think I understand the position of Brown and Dexter.
+
+22
+00:01:25,540 --> 00:01:30,780
+坦白说，我觉得它们比我们这类企业更难理解，也更难拿准。
+I think they are harder to understand, frankly, and to develop a fix on, than our kinds.
+
+23
+00:01:30,800 --> 00:01:35,660
+不过，对更懂那一行的人来说，它们也许更容易。
+But, they may be easier for other people who just have a better insight into that kind of business.
+
+24
+00:01:35,680 --> 00:01:43,140
+有些企业比别的企业容易理解得多。查理和我不喜欢难题。
+Some businesses are a lot easier to understand than others. And Charlie and I don’t like difficult problems.
+
+25
+00:01:43,160 --> 00:01:52,390
+要是一件事很难算，我们宁可乘以 3，也不乘以 π。对我们来说就是更容易。
+I mean, we — if something is hard to figure, you know, we’d rather multiply by three than by pi. I mean it’s just easier for us.
+
+26
+00:01:52,190 --> 00:01:55,860
+（现场笑声）
+
+27
+00:01:55,960 --> 00:01:59,180
+查理，你有什么要说的？
+Charlie, you have any —?
+
+28
+00:01:59,200 --> 00:02:02,750
+这是再明显不过的道理。
+Well, that is such an obvious point.
+
+29
+00:02:03,420 --> 00:02:11,980
+可还是有很多人以为，只要雇一个头衔合适的人，就能做成非常难的事。
+And yet so many people think if they just hire somebody with the appropriate labels they can do something very difficult.
+
+30
+00:02:12,000 --> 00:02:15,770
+这是一个人所能有的最危险的想法之一。
+That is one of the most dangerous ideas a human being can have.
+
+31
+00:02:17,030 --> 00:02:20,740
+只要保持简单，你就不必把思考外包出去。
+You don’t have to hire out your thinking if you keep it simple.
+
+32
+00:02:21,950 --> 00:02:24,250
+你不需要——这话我们以前说过——
+You don’t have to do — we’ve said this before —
+
+33
+00:02:24,270 --> 00:02:27,600
+你不需要做非凡的事，也能取得非凡的结果。
+but you don’t have to do exceptional things to get exceptional results.
+
+34
+00:02:28,410 --> 00:02:37,290
+有人以为，跳过七英尺高的横杆，别在身上的绶带会比跨过一英尺高的横杆更值钱。
+And some people think that if you jump over a seven-foot bar that the ribbon they pin on you is going to be worth more money than if you step over a one-foot bar.
+
+35
+00:02:37,310 --> 00:02:41,040
+在投资的世界里，完全不是这样。
+And it just isn’t true in the investment world, at all.
+
+36
+00:02:41,750 --> 00:02:47,880
+所以，你可以做很平常的事。这个（可口可乐）有什么复杂的？
+So, you can do very ordinary things. I mean, what is complicated about this?
+
+37
+00:02:48,710 --> 00:02:54,310
+可就因为它，我们比几年前多了 30 亿美元的税前收益。
+But, you know, we’re $3 billion pretax better off than we were a few years ago because of it.
+
+38
+00:02:54,330 --> 00:03:01,890
+关于这个产品、它的分销体系、它的财务，我知道的任何东西，
+There’s nothing that I know about that product, or its distribution system, its finances, or anything,
+
+39
+00:03:01,910 --> 00:03:09,450
+几十万、几百万人都能懂，他们其实早就知道。
+that, really, hundreds of thousands — or millions — of people aren’t capable of, that they don’t already know.
+
+40
+00:03:09,470 --> 00:03:12,650
+他们只是什么也没做。
+They just don’t do anything about it.
+
+41
+00:03:12,670 --> 00:03:23,383
+同样，如果你碰上一门复杂的生意，你可以拿到一份一千页厚的报告，
+And similarly, if you get into some complicated business, you can get a report that’s a thousand pages thick
+
+42
+00:03:23,403 --> 00:03:26,650
+有一群博士在研究，可那说明不了什么。
+and you got Ph.D.s working on it, but it doesn’t mean anything.
+
+43
+00:03:26,670 --> 00:03:35,550
+你拿到的只是一份报告，你还是不懂那门生意，不知道它 10 年、15 年后会是什么样子。
+You know, what you’ve got is a report but you won’t understand that business, what it’s going to look like in 10 or 15 years.
+
+44
+00:03:35,570 --> 00:03:37,700
+最重要的，是避免犯错。
+The big thing to do is avoid being wrong.
+
+45
+00:03:37,500 --> 00:03:38,610
+（现场笑声）
+
+46
+00:03:41,869 --> 00:03:43,662
+巴菲特的意思是
+
+47
+00:03:43,682 --> 00:03:46,167
+投资不按难度给分
+
+48
+00:03:46,187 --> 00:03:47,326
+跨过一尺高的栏
+
+49
+00:03:47,346 --> 00:03:49,382
+和跳过七尺高的栏
+
+50
+00:03:49,402 --> 00:03:51,190
+拿到的回报一样
+
+51
+00:03:51,210 --> 00:03:52,255
+道理在于
+
+52
+00:03:52,275 --> 00:03:54,423
+市场只为结果付钱
+
+53
+00:03:54,443 --> 00:03:57,134
+回报取决于企业将来赚多少
+
+54
+00:03:57,154 --> 00:03:58,648
+你当初付多少
+
+55
+00:03:58,668 --> 00:04:01,033
+里面没有一项叫难度
+
+56
+00:04:01,053 --> 00:04:02,192
+判断越复杂
+
+57
+00:04:02,212 --> 00:04:04,360
+要同时猜对的环节就越多
+
+58
+00:04:04,380 --> 00:04:07,276
+就算每一环都有九成把握
+
+59
+00:04:07,296 --> 00:04:10,675
+十环全对的机会也只剩三成五
+
+60
+00:04:12,999 --> 00:04:16,073
+2008年 巴菲特打了一个十年的赌
+
+61
+00:04:16,093 --> 00:04:19,446
+他押最简单的标普500指数基金
+
+62
+00:04:19,466 --> 00:04:21,633
+对手挑了五只母基金
+
+63
+00:04:21,653 --> 00:04:24,546
+背后是两百多家对冲基金
+
+64
+00:04:24,936 --> 00:04:29,844
+十年后 指数基金累计涨了125.8%
+
+65
+00:04:29,864 --> 00:04:30,935
+五只母基金
+
+66
+00:04:30,955 --> 00:04:33,551
+最好的87.7%
+
+67
+00:04:33,571 --> 00:04:34,913
+最差的只有2.8%
+
+68
+00:04:36,881 --> 00:04:38,599
+可最难的
+
+69
+00:04:38,619 --> 00:04:42,973
+恰恰是分辨哪是一尺、哪是七尺
+
+70
+00:04:42,993 --> 00:04:44,711
+就在这次大会上
+
+71
+00:04:44,731 --> 00:04:48,412
+巴菲特说自己看得懂的德克斯特鞋厂
+
+72
+00:04:48,432 --> 00:04:51,325
+没几年就被海外竞争击垮
+
+73
+00:04:51,699 --> 00:04:53,754
+他为它付出的伯克希尔股票
+
+74
+00:04:53,774 --> 00:04:57,302
+到2014年价值约57亿美元
+
+75
+00:04:57,755 --> 00:05:00,498
+他称之为最惨痛的错误
+
+76
+00:05:00,936 --> 00:05:03,215
+所以面对一只股票
+
+77
+00:05:03,235 --> 00:05:04,577
+先问三个问题
+
+78
+00:05:05,011 --> 00:05:07,346
+这门生意我看得懂吗？
+
+79
+00:05:07,366 --> 00:05:09,664
+十年后它大概什么样？
+
+80
+00:05:09,684 --> 00:05:12,165
+要猜对几件事才能赚钱？
+
+81
+00:05:12,562 --> 00:05:14,037
+只要有一个答不上来
+
+82
+00:05:14,057 --> 00:05:17,186
+就把它放进“太难”的篮子
+
+83
+00:05:17,206 --> 00:05:18,831
+巴菲特宁愿把自己看得懂的
+
+84
+00:05:18,851 --> 00:05:20,606
+范围想得小一点
+
+85
+00:05:20,626 --> 00:05:22,120
+也不愿想大
+
+86
+00:05:22,140 --> 00:05:23,410
+因为在投资里
+
+87
+00:05:23,430 --> 00:05:26,547
+少犯错 比做难事重要得多
+
+88
+00:05:33,531 --> 00:05:36,483
+投资没有难度系数
+
+89
+00:05:36,503 --> 00:05:39,059
+跨过一尺的栏 就够了
+
