@@ -4,12 +4,14 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from engine import *  # noqa
-from timeline import BAR, BEAT, DURATION, HITS, QSCHED, BREAK, b, load_stats
+from timeline import BAR, BEAT, DURATION, HITS, QSCHED, YTD_BREAK, PRE_DROP, TICKER, b, load_stats
 
 S = load_stats()
-QL = S["quarters"]; HJ = S["huijin"]; ZJ = S["zhengjin"]; UN = S["union"]; NQ = len(QL)
-ENT = S["entities"]
-PRES = S["presence"]
+# 本期主线：两个主体直接对比——中央汇金资产管理有限责任公司 vs 中国证券金融股份有限公司
+QL = S["quarters"]; NQ = len(QL)
+HJ = S["duo"]["huijin_am"]; ZJ = S["duo"]["csf"]; UN = S["duo"]["union"]
+PRES = S["duo"]["presence"]
+NA, NB = "中央汇金资管", "中国证金"
 import csv
 IDX = {}
 with open(os.path.join(HERE, "..", "data", "index_quarter_end.csv"), encoding="utf-8-sig") as f:
@@ -132,8 +134,8 @@ GRID = np.stack([_gx.ravel(), _gy.ravel()], 1)[:UNIVERSE_LAST].astype(np.float32
 M_STEP = 12.0
 M_X0, M_Y0 = W / 2 - (COLS_M - 1) * M_STEP / 2, 330
 _perm = rng0.permutation(UNIVERSE_LAST)
-EVER_SLOT = _perm[:len(PRES)]                      # 379 家曾出现公司在矩阵中的位置
-EVER_P = np.array([p["p"] for p in PRES])           # (379, 19)
+EVER_SLOT = _perm[:len(PRES)]                      # 19 季里曾出现的公司在矩阵中的位置
+EVER_P = np.array([p["p"] for p in PRES])           # (公司数, 19)
 ALWAYS = np.all(EVER_P > 0, 1)
 SER_COL = {1: GOLD, 2: ICE, 3: VIO}
 
@@ -157,55 +159,49 @@ def matrix_xy(scale=1.0, cx=W / 2, cy=None, t=0.0, wob=0.0):
     return x, y
 
 
-# ================================================================ 场景 1：开场（0 – 12.5）
+# ================================================================ 场景 1：钩子（0 – 10）
 def sc_open(F, t):
-    nebula(F, t, amt=0.5 * eo(t / 3))
+    nebula(F, t, amt=0.5 * eo(t / 2))
     x, y = matrix_xy()
-    a_all = 0.18 * eo((t - 0.3) / 2.2) * (1 - 0.6 * eo((t - 10) / 1.5))
-    # 波纹出现
+    a_all = 0.18 * eo((t - 0.1) / 1.4) * (1 - 0.6 * eo((t - 8) / 1.2))
     d = np.hypot(x - W / 2, y - 1000) / 900
-    appear = np.clip((t - 0.2) * 1.2 - d, 0, 1)
+    appear = np.clip((t - 0.05) * 1.8 - d, 0, 1)
     F.dots(x, y, INK2 * 0.8, a_all * appear * 1.4, sigma=1.1, buf="C")
-    # 文案 1
-    F.text_reveal("5565 家 A 股公司", W / 2, 1380, 64, 1.0, "bold", INK, win(t, 1.0, 4.4, 0.3, 0.4), stag=0.05)
-    F.text_reveal("每个季度，都要公布「十大股东」名单", W / 2, 1465, 40, 1.6, "reg", INK2, win(t, 1.6, 4.4, 0.3, 0.4), stag=0.03)
-    # 2022Q1 点亮
+    F.text_reveal(f"{UNIVERSE_LAST} 家 A 股公司", W / 2, 1380, 64, 0.3, "bold", INK, win(t, 0.3, 2.05, 0.25, 0.3), stag=0.04)
+    F.text_reveal("每季度都要公布「十大股东」名单", W / 2, 1465, 40, 0.7, "reg", INK2, win(t, 0.7, 2.05, 0.25, 0.3), stag=0.025)
     exs, eys = x[EVER_SLOT], y[EVER_SLOT]
     col0, on0 = pres_cols(0)
     col1, on1 = pres_cols(NQ - 1)
-    lit = eo((t - 4.6) / 1.0)
-    # 熄灭：按随机顺序在 7.6–9.8 内熄灭（保留 35 家）
-    order = rng0.permutation(len(PRES)) if False else _ORDER
-    die = np.clip((t - 7.4 - order * 2.3) / 0.25, 0, 1)
+    lit = eo((t - 2.0) / 0.5)
+    die = np.clip((t - 6.0 - _ORDER * 1.6) / 0.22, 0, 1)
     die = np.where(on1, 0, die)
     al = lit * on0 * (1 - die)
-    al = np.where(on1 & (t > 9.8), np.maximum(al, 1.0), al)
-    pulse = 1 + 0.5 * beat_pulse(t) * (t > 4.6)
+    al = np.where(on1 & (t > 7.6), np.maximum(al, 1.0), al)
+    pulse = 1 + 0.5 * beat_pulse(t) * (t > 2.0)
     F.dots(exs, eys, col0 * 1.3, al * pulse, sigma=2.2, buf="G")
     F.dots(exs, eys, col0 * 0.9, al * 0.8, sigma=1.4, buf="C")
-    # 掉落的点：熄灭时下坠
     falling = (die > 0) & (die < 1) & on0
     if falling.any():
         F.dots(exs[falling], eys[falling] + die[falling] * 60, col0[falling], (1 - die[falling]) * 0.9, sigma=2.0)
-    # 计数
-    n0 = UN[0]
-    if t < 7.4:
-        n = n0
-    else:
-        n = int(on1.sum() + ((on0 & ~on1) & (die < 1)).sum())
-    ca = win(t, 4.6, 10.0, 0.4, 0.4)
-    glass_num(F, str(n), W / 2, 1440, 180, VIO if t < 9.8 else VIO, ca)
-    F.text("2022 年一季度  国家队出现在", W / 2, 1300, 40, "reg", INK2, win(t, 4.8, 7.3, 0.4, 0.3))
-    F.text("家公司的名单里", W / 2, 1580, 40, "reg", INK2, win(t, 4.8, 7.3, 0.4, 0.3))
-    F.text("到 2026 年三季度  只剩", W / 2, 1300, 40, "reg", INK2, win(t, 7.6, 10.0, 0.4, 0.3))
-    F.text("家", W / 2, 1580, 40, "reg", INK2, win(t, 8.0, 10.0, 0.4, 0.3))
-    # 问题
-    qa = win(t, 10.0, 12.8, 0.35, 0.15)
-    F.text_reveal("国家队，去哪了？", W / 2, 1440, 96, 10.0, "black", INK, qa, stag=0.07, glow=0.25)
-    F.bloom = 1.0 + 0.4 * eo((t - 10) / 2.5)
+    n = UN[0] if t < 6.0 else int(on1.sum() + ((on0 & ~on1) & (die < 1)).sum())
+    ca = win(t, 2.0, 8.0, 0.3, 0.3)
+    glass_num(F, str(n), W / 2, 1450, 180, VIO, ca)
+    # 两个名字（金 / 冰蓝）
+    na = win(t, 2.0, 5.9, 0.3, 0.3)
+    F.text(NA, W / 2 - 18, 1250, 46, "black", GOLD, na, anchor="r", glow=0.2)
+    F.text("×", W / 2, 1250, 40, "numl", INK2, na)
+    F.text(NB, W / 2 + 18, 1250, 46, "black", ICE, na, anchor="l", glow=0.2)
+    F.text("2022 年一季度，出现在", W / 2, 1325, 36, "reg", INK2, na)
+    F.text("家公司的十大股东名单里", W / 2, 1585, 38, "reg", INK2, na)
+    nb = win(t, 6.0, 8.0, 0.3, 0.25)
+    F.text("2026 年三季度，只剩", W / 2, 1300, 40, "reg", INK2, nb)
+    F.text("家", W / 2, 1585, 40, "reg", INK2, nb)
+    qa = win(t, 8.0, 10.25, 0.25, 0.12)
+    F.text_reveal("国家队，去哪了？", W / 2, 1450, 96, 8.0, "black", INK, qa, stag=0.06, dur=0.35, glow=0.25)
+    F.bloom = 1.0 + 0.5 * eo((t - 8) / 2.0)
 
 
-_ORDER = np.random.default_rng(3).random(379)
+_ORDER = np.random.default_rng(3).random(len(PRES))
 
 
 # ================================================================ 场景 2：标题（12.5 – 20）
@@ -247,8 +243,8 @@ def sc_title(F, t):
     F.flash = 0.45 * math.exp(-lt / 0.15)
     F.ca = 5 * math.exp(-lt / 0.3)
     F.zoom = 1 + 0.035 * math.exp(-lt / 0.4)
-    a = win(t, t0 + 0.05, b(8) + 0.2, 0.3, 0.45)
-    F.text("MastersTao · 大师持仓洞察 · EP01", W / 2, 640, 30, "med", INK2, a * eo((lt - 0.4) / 0.6), track=0.06)
+    a = win(t, t0 + 0.05, b(7) + 0.15, 0.2, 0.35)
+    F.text("MastersTao · EP01", W / 2, 640, 30, "med", INK2, a * eo((lt - 0.4) / 0.6), track=0.06)
     s = 1.0 + 0.06 * math.exp(-lt / 0.35)
     F.text("国家队", W / 2, 830, int(190 * s) // 2 * 2, "black", INK, a, grad=(INK, BA * 0.4 + INK * 0.6), glow=0.25, shadow=0.5)
     F.text("去哪了？", W / 2, 1050, int(190 * s) // 2 * 2, "black", INK, a, grad=(BB * 0.35 + INK * 0.65, BB * 0.8 + 0.2),
@@ -256,12 +252,12 @@ def sc_title(F, t):
     # 分割线 + 副标题
     w = 380 * eo((lt - 0.5) / 0.8)
     F.fill([(W / 2 - w, 1203), (W / 2 + w, 1203), (W / 2 + w, 1206), (W / 2 - w, 1206)], VIO, a * 0.8, buf="G", mode="add")
-    F.text_reveal("汇金 vs 证金", W / 2, 1282, 60, t0 + 0.8, "bold", INK, a, stag=0.05)
-    F.text_reveal("19 个季度的持仓足迹", W / 2, 1370, 48, t0 + 1.2, "med", INK2, a, stag=0.04)
-    F.text("2022 Q1  ——  2026 Q3", W / 2, 1480, 38, "numm", INK3 + 0.25, a * eo((lt - 1.8) / 0.6), track=0.08)
-    F.text("346", W / 2 - 170, 1610, 64, "numb", VIO, a * eo((lt - 2.4) / 0.5), tab=True, glow=0.4)
-    F.text("→", W / 2, 1606, 56, "numm", INK2, a * eo((lt - 2.7) / 0.5))
-    F.text("35", W / 2 + 170, 1610, 64, "numb", RED * 0.6 + INK * 0.4, a * eo((lt - 3.0) / 0.5), tab=True, glow=0.4)
+    F.text_reveal("汇金资管 vs 中国证金", W / 2, 1282, 60, t0 + 0.5, "bold", INK, a, stag=0.04)
+    F.text_reveal("19 个季度的持仓足迹", W / 2, 1370, 48, t0 + 0.9, "med", INK2, a, stag=0.03)
+    F.text("2022 Q1  ——  2026 Q3", W / 2, 1480, 38, "numm", INK3 + 0.25, a * eo((lt - 1.3) / 0.5), track=0.08)
+    F.text(str(UN[0]), W / 2 - 170, 1610, 64, "numb", VIO, a * eo((lt - 1.5) / 0.4), tab=True, glow=0.4)
+    F.text("→", W / 2, 1606, 56, "numm", INK2, a * eo((lt - 1.75) / 0.4))
+    F.text(str(UN[-1]), W / 2 + 170, 1610, 64, "numb", RED * 0.6 + INK * 0.4, a * eo((lt - 2.0) / 0.4), tab=True, glow=0.4)
 
 
 # ================================================================ 场景 3/4：两支国家队
@@ -311,96 +307,100 @@ def entity_tree(F, t, t0, root, kids, col, y=1530, a=1.0):
 
 
 def sc_huijin(F, t):
-    t0 = b(8)
+    t0 = b(40)
     lt = t - t0
-    a = win(t, t0, b(12) + 0.15, 0.12, 0.3)
+    a = win(t, t0, b(46) + 0.15, 0.12, 0.3)
     F.zoom = 1 + 0.03 * math.exp(-lt / 0.3)
     F.flash = 0.12 * math.exp(-lt / 0.1)
     nebula(F, t, cols=(GOLD * 0.6, BB), amt=0.8)
     stars(F, t, amt=0.6, drift=t * 0.6)
-    chapter(F, t, "01", "认识国家队", t0, b(18))
-    F.text("第一支", 120, 310, 34, "med", INK2, a, anchor="l")
+    chapter(F, t, "03", "它们是谁", t0, b(54))
+    F.text("这两家，到底是谁？", 120, 310, 34, "med", INK2, a, anchor="l")
     orb(F, t, 830, 430, GOLD, 150, seed=2, a=a)
-    F.text_reveal("中央汇金", 112, 420, 112, t0, "black", GOLD, a, anchor="l", stag=0.04, dur=0.3, glow=0.25)
-    F.text("CENTRAL HUIJIN", 120, 520, 30, "numm", GOLD * 0.7, a * eo((lt - 0.6) / 0.6), anchor="l", track=0.2)
+    F.text_reveal("中央汇金资管", 112, 420, 100, t0, "black", GOLD, a, anchor="l", stag=0.04, dur=0.3, glow=0.25)
+    F.text("CENTRAL HUIJIN ASSET MANAGEMENT", 120, 520, 26, "numm", GOLD * 0.7, a * eo((lt - 0.4) / 0.5), anchor="l", track=0.12)
     card_lines(F, t, [
-        ("中国投资有限责任公司全资子公司", None),
-        ("代表国家持有工、农、中、建等金融机构股权", None),
-        ("市场剧烈波动时，增持 ETF 与蓝筹", "fact"),
-        ("2025 年 4 月：明确「类平准基金」作用", "fact"),
-    ], 100, 700, t0 + BEAT, gap=100, size=40, alpha=a)
-    entity_tree(F, t, t0 + BAR * 2.4, "汇金系", [("中央汇金投资", "本体"), ("中央汇金资产管理", "全资子公司"),
-                                            ("汇金资管单一资产管理计划", "2 个")], GOLD, y=1250, a=a)
-    F.text("统计时不计入：建银投资等子公司持有的遗留股权（单列为扩展口径）", W / 2, 1580, 26, "reg", INK3 + 0.25,
-           a * eo((lt - BAR * 3) / 0.6))
+        ("中央汇金投资的全资子公司，2015 年设立", None),
+        ("母公司汇金：代表国家持有工、农、中、建等大行股权", None),
+        ("市场剧烈波动时，汇金增持 ETF 与蓝筹股", "fact"),
+        ("2025 年 4 月，汇金明确「类平准基金」作用", "fact"),
+    ], 100, 700, t0 + BEAT * 2, gap=100, size=38, alpha=a)
+    entity_tree(F, t, t0 + BAR * 2.2, "本片统计：中央汇金资管 一个账户", [
+        ("中央汇金投资（本体）", "常年 8 家大行 / 券商，未计入"),
+        ("汇金资管委托的资管计划", "2 个，未计入")], GOLD, y=1250, a=a)
 
 
 def sc_zhengjin(F, t):
-    t0 = b(12)
+    t0 = b(46)
     lt = t - t0
-    t1 = b(15)
-    ca = win(t, t1, b(16) + 0.1, 0.35, 0.3)
-    a = win(t, t0, b(15) + 0.4, 0.12, 0.4) * (1 - ca)
+    a = win(t, t0, b(52) + 0.15, 0.12, 0.3)
     F.zoom = 1 + 0.03 * math.exp(-lt / 0.3)
     F.flash = 0.12 * math.exp(-lt / 0.1)
     nebula(F, t, cols=(ICE * 0.6, BA), amt=0.8)
     stars(F, t, amt=0.6, drift=t * 0.6)
-    chapter(F, t, "01", "认识国家队", b(8), b(18))
-    F.text("第二支", 120, 310, 34, "med", INK2, a, anchor="l")
+    chapter(F, t, "03", "它们是谁", b(40), b(54))
+    F.text("另一家", 120, 310, 34, "med", INK2, a, anchor="l")
     orb(F, t, 830, 430, ICE, 150, seed=5, a=a, spin=-0.5)
     F.text_reveal("中国证金", 112, 420, 112, t0, "black", ICE, a, anchor="l", stag=0.04, dur=0.3, glow=0.25)
-    F.text("CHINA SECURITIES FINANCE", 120, 520, 30, "numm", ICE * 0.7, a * eo((lt - 0.6) / 0.6), anchor="l", track=0.14)
+    F.text("CHINA SECURITIES FINANCE", 120, 520, 30, "numm", ICE * 0.7, a * eo((lt - 0.4) / 0.5), anchor="l", track=0.14)
     card_lines(F, t, [
         ("2011 年经国务院同意、证监会批准设立", None),
         ("本职：为券商两融业务提供「转融通」", None),
         ("2015 年股市异常波动时入场维稳", "fact"),
-        ("当年的部分持仓，一直沉淀在名单里", "fact"),
-    ], 100, 700, t0 + BEAT, gap=100, size=40, alpha=a)
-    entity_tree(F, t, t0 + BAR * 2.4, "证金系", [("中国证券金融股份有限公司", "自有账户"),
-                                            ("中证金融资产管理计划", "10 个 · 证金出资")], ICE, y=1250, a=a)
-    F.text("不计入：转融通担保证券账户（券商担保品，非证金自有持仓）", W / 2, 1530, 26, "reg", INK3 + 0.25,
-           a * eo((lt - BAR * 3) / 0.6))
-    # 对比（最后一小节）
-    if ca > 0:
-        F.text("一句话区分", W / 2, 640, 36, "med", INK2, ca)
-        for j, (nm, l1, l2, col) in enumerate((("汇金", "国家金融股东", "危机时的稳定器", GOLD),
-                                                ("证金", "两融「中枢」", "2015 年的维稳仓位", ICE))):
-            x = W / 2 + (-1 if j == 0 else 1) * 230
-            p = eo5((t - t1 - j * 0.25) / 0.6)
-            F.glass(x - 205, 760, x + 205, 1240, 34, ca * p, tint=col, edge=col)
-            F.text(nm, x, 880, 92, "black", col, ca * p, glow=0.2)
-            F.text(l1, x, 1030, 40, "bold", INK, ca * p)
-            F.text(l2, x, 1110, 34, "reg", INK2, ca * p)
-        F.text("vs", W / 2, 1000, 40, "numl", INK3 + 0.3, ca)
+        ("当年的部分持仓，多年沉淀在名单里", "fact"),
+    ], 100, 700, t0 + BEAT * 2, gap=100, size=38, alpha=a)
+    entity_tree(F, t, t0 + BAR * 2.2, "本片统计：中国证金 自有账户", [
+        ("中证金融资产管理计划", "10 个，未计入"),
+        ("转融通担保证券账户", "券商担保品，排除")], ICE, y=1250, a=a)
 
 
-# ================================================================ 场景 5：口径
-def sc_rules(F, t):
-    t0 = b(16)
-    lt = t - t0
-    a = win(t, t0, b(18) + 0.05, 0.12, 0.25)
+def sc_compare(F, t):
+    t1 = b(52)
+    lt = t - t1
+    ca = win(t, t1, b(54) + 0.1, 0.15, 0.3)
     F.zoom = 1 + 0.03 * math.exp(-lt / 0.3)
+    nebula(F, t, amt=0.8)
+    stars(F, t, amt=0.6, drift=t * 0.6)
+    chapter(F, t, "03", "它们是谁", b(40), b(54))
+    F.text_reveal("一句话区分", W / 2, 620, 56, t1, "black", INK, ca, stag=0.05, dur=0.3)
+    for j, (nm, l1, l2, col) in enumerate((("汇金", "国家金融股东", "危机时的稳定器", GOLD),
+                                            ("证金", "两融「中枢」", "2015 年的维稳仓位", ICE))):
+        x = W / 2 + (-1 if j == 0 else 1) * 230
+        p = eo5((t - t1 - 0.15 - j * BEAT) / 0.5)
+        F.glass(x - 205, 760, x + 205, 1240, 34, ca * p, tint=col, edge=col)
+        F.text(nm, x, 880, 92, "black", col, ca * p, glow=0.2)
+        F.text(l1, x, 1030, 40, "bold", INK, ca * p)
+        F.text(l2, x, 1110, 34, "reg", INK2, ca * p)
+    F.text("vs", W / 2, 1000, 40, "numl", INK3 + 0.3, ca)
+
+
+# ================================================================ 场景：怎么看名单
+def sc_rules(F, t):
+    t0 = b(54)
+    lt = t - t0
+    a = win(t, t0, b(57) + 0.05, 0.12, 0.25)
+    F.zoom = 1 + 0.03 * math.exp(-lt / 0.3) + 0.02 * eio(lt / 6)
     F.flash = 0.12 * math.exp(-lt / 0.1)
-    nebula(F, t, amt=0.7)
+    nebula(F, t, amt=0.7 + 0.3 * eio(lt / 6))
     stars(F, t, amt=0.5, drift=t * 0.8)
-    chapter(F, t, "01", "认识国家队", b(8), b(18))
-    F.text_reveal("怎么数？", W / 2, 400, 96, t0, "black", INK, a, stag=0.05, dur=0.3, glow=0.2)
+    chapter(F, t, "04", "怎么看名单", t0, b(57))
+    F.text_reveal("名单能告诉你什么？", W / 2, 400, 80, t0, "black", INK, a, stag=0.04, dur=0.3, glow=0.2)
     F.glass(90, 520, W - 90, 1130, 34, a * eo(lt / 0.4))
-    items = [("1", "看两张表", "前十大股东 + 前十大流通股东"),
-             ("2", "一家公司只算一次", "两张表都在、多个主体都在，也只算 1 家"),
-             ("3", "只认核实过的主体", "排除名字相似的私募、ETF、外汇局平台等")]
+    items = [("1", "只看前十", "前十大股东 + 前十大流通股东，季末一天的快照"),
+             ("2", "看不到 ETF", "汇金增持的 ETF，不会出现在个股名单里"),
+             ("3", "一家只算一次", "两张表都在、多个账户都在，也只算 1 家")]
     for i, (n, h, s) in enumerate(items):
-        ti = t0 + 0.3 + i * BEAT * 1.5
-        p = eo((t - ti) / 0.4)
+        ti = t0 + 0.3 + i * BEAT * 2
+        p = eo((t - ti) / 0.35)
         y = 630 + i * 170
         F.glow_dot(170, y + 10, 30, VIO * 0.5, a * p)
         F.text(n, 170, y + 10, 46, "numb", INK, a * p)
         F.text(h, 230, y - 10, 44, "bold", INK, a * p, anchor="l")
         F.text(s, 230, y + 48, 30, "reg", INK2, a * p, anchor="l")
-    p = eo((t - t0 - BAR) / 0.4)
+    p = eo((t - t0 - 3.0) / 0.35)
     F.glass(90, 1210, W - 90, 1420, 34, a * p, tint=RED, edge=RED * 0.8)
     F.text("进名单  ≠  全部持仓", W / 2, 1275, 50, "bold", INK, a * p)
-    F.text("出名单  ≠  清仓", W / 2, 1360, 50, "bold", RED * 0.55 + INK * 0.45, a * eo((t - t0 - BAR - 0.4) / 0.4))
+    F.text("出名单  ≠  清仓", W / 2, 1360, 50, "bold", RED * 0.55 + INK * 0.45, a * eo((t - t0 - 3.5) / 0.35))
 
 
 # ================================================================ 场景 6：时间隧道（45 – 125）
@@ -408,7 +408,7 @@ QSTART = {i: b(s) for i, s, d, n in QSCHED}
 QEND = {i: b(s + d) for i, s, d, n in QSCHED}
 QNOTE = {i: n for i, s, d, n in QSCHED}
 ZS = 5.2          # 每个季度在 z 方向的间距
-HMAX = 5.4 / 240  # 高度比例
+HMAX = 5.4 / 165  # 高度比例
 
 
 def cur_q(t):
@@ -524,7 +524,7 @@ def data_panel(F, t, k, a=1.0):
         F.text(qtxt(QL[k - 1]), W / 2, 300 - 60 * p, 76, "numb", INK, a * (1 - p), tab=True)
     glass_num(F, qtxt(QL[k]), W / 2, 300 + 60 * (1 - p), 76, INK * 0.9 + VIO * 0.1, a * p, glow=0.25)
     # 两列
-    for which, (cx, nm, col, arr) in enumerate(((290, "汇金系", GOLD, HJ), (W - 290, "证金系", ICE, ZJ))):
+    for which, (cx, nm, col, arr) in enumerate(((290, NA, GOLD, HJ), (W - 290, NB, ICE, ZJ))):
         v0 = arr[k - 1] if k > 0 else arr[0]
         v = roll(v0, arr[k], t, t0 + 0.05 + which * 0.08, 0.5 if k != 17 else 0.35)
         F.text(nm, cx, 400, 32, "bold", col, a)
@@ -532,7 +532,7 @@ def data_panel(F, t, k, a=1.0):
         if k > 0:
             dv = arr[k] - arr[k - 1]
             dc = RED if dv > 0 else GRN if dv < 0 else INK3 + 0.2
-            big = abs(dv) >= 25
+            big = abs(dv) >= 15
             F.text(fmt_d(dv), cx, 585, 36 if not big else 44, "numb", dc,
                    a * eo((t - t0 - 0.3) / 0.4), tab=True, glow=0.35 if big else 0)
         else:
@@ -552,7 +552,7 @@ def scrubber(F, t, k, a=1.0):
     F.line((x0, y), (x1, y), INK3, a * 0.6, 1.5)
     xs = [x0 + (x1 - x0) * i / (NQ - 1) for i in range(NQ)]
     # 迷你曲线（已走过的部分）
-    pts = [(xs[i], y - 22 - UN[i] / 346 * 80) for i in range(k + 1)]
+    pts = [(xs[i], y - 22 - UN[i] / UN[0] * 80) for i in range(k + 1)]
     if len(pts) > 1:
         F.poly(pts, VIO, a * 0.8, 2.5)
     for i, x in enumerate(xs):
@@ -562,7 +562,7 @@ def scrubber(F, t, k, a=1.0):
             F.text(QL[i][:4], x, y + 38, 24, "numm", INK2 if done else INK3, a, tab=True)
     if k >= 0:
         F.glow_dot(xs[k], y, 14, INK, a * (0.6 + 0.4 * beat_pulse(t)), buf="G")
-        F.glow_dot(xs[k], y - 22 - UN[k] / 346 * 80, 6, VIO * 1.5, a, buf="G")
+        F.glow_dot(xs[k], y - 22 - UN[k] / UN[0] * 80, 6, VIO * 1.5, a, buf="G")
 
 
 def note_card(F, t, t0, t1, rows, y=760, a=1.0, h=None):
@@ -581,74 +581,71 @@ def note_card(F, t, t0, t1, rows, y=760, a=1.0, h=None):
         F.text(s, xx, yy, size, "med", INK, aa * pj, anchor="l")
 
 
+def ticker(F, t, a=1.0):
+    """背景字幕条：不打断节奏，随季度流动"""
+    for s0, s1, kind, txt in TICKER:
+        aa = win(t, b(s0), b(s1), 0.25, 0.3) * a
+        if aa <= 0: continue
+        dx = (1 - eo5((t - b(s0)) / 0.5)) * 60
+        F.glass(70 + dx, 680, W - 70 + dx, 790, 26, aa, tint=ICE)
+        tw = tag(F, kind, 105 + dx, 735, aa, 24)
+        F.text(txt, 105 + dx + tw + 18, 735, 32, "med", INK, aa, anchor="l")
+
+
 def sc_tunnel(F, t):
-    t0 = b(18)
+    t0 = b(7)
     k = cur_q(t)
     cam = cam_for(t)
     note = QNOTE[k]
-    a = eo((t - t0) / 0.6)
-    inbreak = b(BREAK[0]) <= t < b(BREAK[1])
+    a = eo((t - t0) / 0.4)
+    in_ytd = b(YTD_BREAK[0]) <= t < b(YTD_BREAK[1])
+    in_pre = b(PRE_DROP[0]) <= t < b(PRE_DROP[1])
     dark = 0.0
-    if inbreak:
-        dark = eio((t - b(BREAK[0])) / 1.2)
+    if in_ytd:
+        dark = eio((t - b(YTD_BREAK[0])) / 0.6) * (1 - eio((t - b(YTD_BREAK[1]) + 0.35) / 0.35))
+    if in_pre:
+        dark = eio((t - b(PRE_DROP[0])) / 0.5)
     nebula(F, t, amt=0.6 * (1 - dark))
     stars(F, t, cam, amt=0.7 * (1 - 0.5 * dark))
-    chapter(F, t, "02", "19 个季度", t0, b(50))
+    chapter(F, t, "02", "19 个季度对决", t0, b(36))
     tunnel_world(F, t, cam, k, amt=1 - 0.75 * dark)
     data_panel(F, t, k, a * (1 - 0.8 * dark))
     scrubber(F, t, k, a * (1 - 0.6 * dark))
     footnote(F, t, a * (1 - dark))
-    he = hit_env(t, 0.35)
+    ticker(F, t, 1 - dark)
     if t - t0 < 0.4:
         F.flash = 0.3 * math.exp(-(t - t0) / 0.12)
-    # 每季度切换：轻微冲击
     lt = t - QSTART[k]
-    F.zoom = 1 + 0.012 * math.exp(-lt / 0.25)
+    F.zoom = 1 + 0.014 * math.exp(-lt / 0.22)
     if note == "start":
-        note_card(F, t, QSTART[k] + 0.9, QEND[k] - 0.1, [(None, "柱高 = 当季出现在名单里的公司数", 36)], y=760, h=140)
-    elif note == "zj2023q2":
-        note_card(F, t, QSTART[k] + 0.4, QEND[k] - 0.05, [("fact", "证金系单季 −30 家", 38)], y=760, h=140)
-    elif note == "ctx2023":
-        note_card(F, t, QSTART[k] + 0.5, QEND[k] - 0.1, [
-            ("ctx", "2023.10  汇金增持四大行、买入 ETF", 34),
-            ("warn", "买的 ETF，不会出现在个股名单里", 34)], y=760)
-    elif note == "ctx924":
-        note_card(F, t, QSTART[k] + 0.5, QEND[k] - 0.1, [
-            ("ctx", "2024.9.24  一揽子金融支持政策", 34),
-            ("fact", "名单数几乎没动：161 · 183", 34)], y=760)
-    elif note == "ctx2025":
-        note_card(F, t, QSTART[k] + 0.5, QEND[k] - 0.1, [
-            ("ctx", "2025.4  关税冲击，汇金增持 ETF", 34),
-            ("fact", "汇金：发挥「类平准基金」作用", 34)], y=760)
-    elif note == "turn2025q3":
-        lt = t - QSTART[k]
-        F.ca = 3 * math.exp(-lt / 0.3)
-        F.flash = 0.2 * math.exp(-lt / 0.12)
-        note_card(F, t, QSTART[k] + 0.6, QEND[k] - 0.1, [
-            ("fact", "证金系 180 → 121，单季 −59", 34),
-            ("fact", "其中证金资管计划：68 → 19 家", 34),
-            ("corr", "同季上证指数 3444 → 3883", 34),
-            ("warn", "原因未见官方说明", 34)], y=760)
-    elif note == "turn2026q1":
-        note_card(F, t, QSTART[k] + 0.5, QEND[k] - 0.1, [
-            ("fact", "证金系再降 39 家：117 → 78", 34),
-            ("fact", "证金公司本体 111 → 76 家", 34)], y=760)
-    if inbreak:
-        lb = t - b(BREAK[0])
-        F.text_reveal("下一个季度", W / 2, 900, 66, b(BREAK[0]) + 1.0, "bold", INK, win(t, b(BREAK[0]) + 1, b(BREAK[1]) - 0.05, 0.3, 0.1),
-                      stag=0.08)
-        F.text("2026 Q2", W / 2, 1040, 120, "numb", INK, eo((lb - 3.0) / 0.4) * (1 - eo((lb - 4.8) / 0.15)), tab=True,
-               glow=0.3)
-        hb = beat_pulse(t)
-        F.glow_dot(W / 2, 1000, 380, RED * 0.12 * hb * eo(lb / 2), 1.0, buf="C")
+        note_card(F, t, QSTART[k] + 0.5, QEND[k] - 0.1, [(None, "柱高 = 出现在十大股东名单中的公司数", 34),
+                                                         (None, "两张表合并，同一公司只计 1 次", 30)], y=680, h=210)
+    elif note == "cross":
+        note_card(F, t, QSTART[k] + 0.4, QEND[k] - 0.05, [("fact", f"{NB}单季 −19，被{NA}拉开差距", 34)], y=680, h=140)
+    elif note == "q1":
+        note_card(F, t, QSTART[k] + 0.4, QEND[k] - 0.05, [
+            ("fact", f"{NB} 111 → 76，单季 −35", 34),
+            ("fact", f"{NA} 140 → 139，几乎没动", 34)], y=680)
+    if in_ytd:
+        lb = t - b(YTD_BREAK[0])
+        ya = win(t, b(YTD_BREAK[0]) + 0.1, b(YTD_BREAK[1]), 0.3, 0.2)
+        F.text("过去四年，两条线只是缓慢下滑", W / 2, 820, 40, "med", INK2, ya * eo((lb - 0.2) / 0.4))
+        glass_num(F, "2026", W / 2, 1000, 200, INK, ya * eo((lb - 1.0) / 0.4), fnt="numk", glow=0.35)
+        F.text_reveal("今年以来", W / 2, 1180, 80, b(YTD_BREAK[0]) + 1.5, "black", RED * 0.5 + INK * 0.5, ya, stag=0.08, dur=0.3,
+                      glow=0.25)
+    if in_pre:
+        lb = t - b(PRE_DROP[0])
+        F.text_reveal("二季度", W / 2, 950, 90, b(PRE_DROP[0]) + 0.1, "black", INK, win(t, b(PRE_DROP[0]), b(PRE_DROP[1]), 0.2, 0.05),
+                      stag=0.12, dur=0.25)
+        hb = beat_pulse(t * 2)
+        F.glow_dot(W / 2, 1000, 380, RED * 0.14 * hb * eo(lb / 1.0), 1.0, buf="C")
     if note == "collapse":
         sc_collapse(F, t, cam)
     if note == "latest":
-        lt = t - QSTART[k]
-        note_card(F, t, QSTART[k] + 0.4, QEND[k] + 0.3, [
-            ("fact", "2026 Q3：35 家，与上季持平", 34),
-            (None, f"数据截至 2026-10-30 · 已披露 {COVER_LAST:.1f}%", 32),
-            ("fact", "这 35 家，19 个季度从未离开", 34)], y=760)
+        note_card(F, t, QSTART[k] + 0.3, QEND[k] + 0.2, [
+            ("fact", "三季度：17 · 23，与上季持平", 34),
+            (None, f"数据截至 2026-10-31 · 已披露 {COVER_LAST:.1f}%", 30),
+            ("fact", f"留下的 {UN[-1]} 家，19 个季度从未离开", 34)], y=680)
 
 
 def sc_collapse(F, t, cam):
@@ -658,7 +655,6 @@ def sc_collapse(F, t, cam):
     F.ca = 7 * math.exp(-lt / 0.35)
     F.shake = (14 * math.exp(-lt / 0.3) * math.sin(lt * 70), 10 * math.exp(-lt / 0.3) * math.cos(lt * 53))
     F.zoom = 1 + 0.05 * math.exp(-lt / 0.5)
-    # 碎片粒子：从坠落柱顶迸出
     rg = np.random.default_rng(17)
     n = 1600
     for which, x, col, v0 in ((0, 1.5, GOLD, HJ[16]), (1, -1.5, ICE, ZJ[16])):
@@ -671,16 +667,58 @@ def sc_collapse(F, t, cam):
         px, py, pz = cam.project(P)
         ok = pz > 0.5
         F.splat(px[ok], py[ok], col * 1.5, np.exp(-tt / 1.4) * 0.9, size=2)
-    # 大字
     a = win(t, t0 + 0.15, QEND[17] - 0.05, 0.25, 0.4)
     F.C[:] *= 1 - 0.35 * a
-    note_card(F, t, t0 + 0.2, t0 + 4.7, [
-        ("fact", "合并去重 195 → 35", 40),
-        ("fact", "单季 −160 家，−82%", 40)], y=760, h=230)
-    note_card(F, t, t0 + 4.9, QEND[17] - 0.1, [
-        ("fact", "退出名单：贵州茅台 · 平安银行 · 万科A", 32),
+    note_card(F, t, t0 + 0.2, t0 + 3.9, [
+        ("fact", f"{NA}  139 → 17", 40),
+        ("fact", f"{NB}  76 → 23", 40)], y=680, h=230)
+    note_card(F, t, t0 + 4.0, QEND[17] - 0.1, [
+        ("fact", "退出名单：贵州茅台 · 万科A · 平安银行", 32),
         ("corr", "同季末上证指数 4094，五年季末最高", 32),
-        ("warn", "退出前十 ≠ 清仓，只是低于门槛", 32)], y=760)
+        ("warn", "退出前十 ≠ 清仓，只是低于门槛", 32)], y=680)
+
+
+# ================================================================ 场景：今年以来（总结）
+def sc_ytd(F, t):
+    t0 = b(36)
+    lt = t - t0
+    a = win(t, t0, b(40) + 0.1, 0.15, 0.3)
+    cam = cam_for(b(35.9))
+    nebula(F, t, amt=0.7)
+    tunnel_world(F, t, cam, NQ - 1, amt=0.22)
+    F.C *= 0.55; F.G *= 0.5
+    F.flash = 0.3 * math.exp(-lt / 0.12)
+    F.zoom = 1 + 0.04 * math.exp(-lt / 0.35) + 0.02 * eio(lt / 8)
+    chapter(F, t, "02", "19 个季度对决", b(7), b(40))
+    F.text_reveal("今年以来", W / 2, 300, 96, t0, "black", INK, a, stag=0.06, dur=0.3, glow=0.3)
+    F.text("2025 年末  →  2026 年三季度", W / 2, 395, 32, "med", INK2, a * eo((lt - 0.4) / 0.4))
+    rows = ((NA, GOLD, HJ[15], HJ[-1], 0.6), (NB, ICE, ZJ[15], ZJ[-1], 2.6))
+    for j, (nm, col, v0, v1, tj) in enumerate(rows):
+        p = eo5((lt - tj) / 0.5)
+        if p <= 0: continue
+        y0 = 480 + j * 430
+        F.glass(70, y0, W - 70, y0 + 390, 34, a * p, tint=col, edge=col * 0.8)
+        F.text(nm, 120, y0 + 70, 44, "black", col, a * p, anchor="l", glow=0.15)
+        v = roll(v0, v1, t, t0 + tj + 0.5, 1.0)
+        glass_num(F, str(v), 120, y0 + 190, 150, col, a * p, anchor="l", fnt="numk")
+        F.text(f"/ {v0}", 120 + text_width(str(v), "numk", 150, tab=True) + 24, y0 + 215, 52, "numm", INK2, a * p,
+               anchor="l", tab=True)
+        pct = round((v1 - v0) / v0 * 100)
+        pe = eo((lt - tj - 1.5) / 0.3)
+        glass_num(F, f"−{abs(pct)}%", W - 120, y0 + 190, 120, GRN, a * pe, anchor="r", fnt="numk", glow=0.5)
+        # 剩余比例条
+        bx0, bx1, by = 120, W - 120, y0 + 320
+        frac = v / v0
+        F.fill([(bx0, by - 8), (bx1, by - 8), (bx1, by + 8), (bx0, by + 8)], INK3 * 0.6, a * p, buf="C")
+        F.fill([(bx0, by - 8), (bx0 + (bx1 - bx0) * frac, by - 8), (bx0 + (bx1 - bx0) * frac, by + 8), (bx0, by + 8)],
+               col, a * p, buf="G", mode="add")
+    pt = eo5((lt - 5.0) / 0.5)
+    if pt > 0:
+        F.glass(70, 1360, W - 70, 1600, 34, a * pt, tint=VIO, edge=VIO)
+        F.text("两家合计（去重）", W / 2, 1420, 34, "med", INK2, a * pt)
+        pct = round((UN[-1] - UN[15]) / UN[15] * 100)
+        glass_num(F, f"{UN[15]} → {UN[-1]}   −{abs(pct)}%", W / 2, 1520, 84, VIO, a * pt, fnt="numb", glow=0.4)
+    footnote(F, t, a)
 
 
 # ================================================================ 场景 7：全景趋势图（125 – 150）
@@ -692,7 +730,7 @@ def chx(i):
 
 
 def chy(v):
-    return CH_Y1 - (CH_Y1 - CH_Y0) * v / 360
+    return CH_Y1 - (CH_Y1 - CH_Y0) * v / 280
 
 
 _al = [(PRES[i]["name"], int(EVER_P[i, -1])) for i in range(len(PRES)) if ALWAYS[i]]
@@ -700,18 +738,25 @@ ALWAYS_NAMES = sorted(_al, key=lambda x: ({3: 0, 1: 1, 2: 2}[x[1]], x[0]))
 
 
 def sc_trend(F, t):
-    t0 = b(50)
+    t0 = b(57)
     lt = t - t0
     nebula(F, t, amt=0.9)
     stars(F, t, amt=0.5, drift=t)
-    chapter(F, t, "03", "全景", t0, b(60))
+    chapter(F, t, "05", "全景", t0, b(68))
     F.flash = 0.4 * math.exp(-lt / 0.15)
     F.ca = 4 * math.exp(-lt / 0.3)
-    a = win(t, t0, b(60) + 0.05, 0.3, 0.3)
-    F.text_reveal("五年足迹，一张图", W / 2, 300, 72, t0 + 0.1, "black", INK, a, stag=0.05, glow=0.2)
-    F.text("A 股前十大股东名单中，出现汇金 / 证金的公司数", W / 2, 390, 30, "reg", INK2, a * eo((lt - 0.6) / 0.5))
+    a = win(t, t0, b(68) + 0.05, 0.2, 0.3)
+    F.text_reveal("五年足迹，一张图", W / 2, 300, 72, t0, "black", INK, a, stag=0.04, dur=0.3, glow=0.2)
+    F.text(f"十大股东名单中出现{NA} / {NB}的 A 股公司数", W / 2, 390, 30, "reg", INK2, a * eo((lt - 0.4) / 0.4))
+    # 「今年」高亮带
+    ya = eo((lt - 6.4) / 0.5) * a
+    if ya > 0:
+        xa, xb = (chx(15) + chx(16)) / 2, CH_X1 + 20
+        F.fill([(xa, CH_Y0 - 30), (xb, CH_Y0 - 30), (xb, CH_Y1), (xa, CH_Y1)], RED, ya * 0.6, buf="G", mode="add",
+               grad=(RED * 0.0, RED * 0.12, CH_Y0, CH_Y1))
+        F.text("今年", (xa + xb) / 2, CH_Y0 - 5, 30, "black", RED * 0.6 + INK * 0.4, ya)
     # 网格
-    for v in (0, 100, 200, 300):
+    for v in (0, 100, 200):
         y = chy(v)
         F.line((CH_X0, y), (CH_X1, y), INK3, a * 0.35, 1.2)
         F.text(str(v), CH_X0 - 18, y, 24, "numm", INK3 + 0.2, a, anchor="r", tab=True)
@@ -743,26 +788,26 @@ def sc_trend(F, t):
             F.poly(pp, col, a, 4)
             F.glow_dot(pp[-1][0], pp[-1][1], 7, col * 2, a)
     # 图例
-    for j, (nm, col) in enumerate((("合并去重", VIO), ("证金系", ICE), ("汇金系", GOLD))):
-        x = 150 + j * 290
+    for j, (nm, col) in enumerate((("合并去重", VIO), (NA, GOLD), (NB, ICE))):
+        x = 130 + j * 290
         F.fill([(x, 476), (x + 44, 476), (x + 44, 481), (x, 481)], col, a, buf="G", mode="add")
         F.text(nm, x + 58, 478, 28, "med", INK, a, anchor="l")
     # 端点数值
     if p >= NQ - 1.01:
         e = eo((lt - 6.8) / 0.5)
-        for arr, col, dy in ((UN, VIO, -30), (ZJ, ICE, -10), (HJ, GOLD, 28)):
-            F.text(str(arr[0]), chx(0) + 8, chy(arr[0]) + dy * 0.0 - 26, 30, "numb", col, a * e, anchor="l", tab=True)
-        F.text("35", chx(NQ - 1) - 10, chy(35) - 40, 40, "numb", VIO, a * e, anchor="r", tab=True, glow=0.3)
-        F.text("21 · 25", chx(NQ - 1) - 10, chy(23) + 34, 26, "numb", INK2, a * e, anchor="r", tab=True)
+        for arr, col, dy in ((UN, VIO, -26), (ZJ, ICE, -26), (HJ, GOLD, 30)):
+            F.text(str(arr[0]), chx(0) + 8, chy(arr[0]) + dy, 30, "numb", col, a * e, anchor="l", tab=True)
+        F.text(str(UN[-1]), chx(NQ - 1) - 10, chy(UN[-1]) - 40, 40, "numb", VIO, a * e, anchor="r", tab=True, glow=0.3)
+        F.text(f"{HJ[-1]} · {ZJ[-1]}", chx(NQ - 1) - 10, chy(20) + 34, 26, "numb", INK2, a * e, anchor="r", tab=True)
     # 关键标注（拐点）
-    marks = [(14, ZJ, "证金 −59", 7.2, 615), (16, ZJ, "证金 −39", 7.6, 680), (17, UN, "合并 −160", 8.0, 745)]
+    marks = [(5, ZJ, "证金 −19", 7.2, 640), (16, ZJ, "证金 −35", 7.6, 700), (17, UN, f"合并 {UN[17] - UN[16]}", 8.0, 770)]
     for i, arr, s, tm, ly in marks:
-        e = eo((lt - tm) / 0.4) * win(t, t0, b(60), 0.3, 0.3)
+        e = eo((lt - tm) / 0.4) * win(t, t0, b(68), 0.3, 0.3)
         if e <= 0: continue
         x, y = chx(i), chy(arr[i])
         F.glow_dot(x, y, 9, RED * 2, e)
         F.line((x, ly + 22), (x, y - 12), RED, e * 0.6, 1.5)
-        F.text(s, x + 8, ly, 30, "bold", RED * 0.6 + INK * 0.4, e, anchor="r", shadow=0.8)
+        F.text(s, x + (14 if i == 5 else 8), ly, 30, "bold", RED * 0.6 + INK * 0.4, e, anchor="l" if i == 5 else "r", shadow=0.8)
     # 上证指数（背景，相关 ≠ 因果）：独立迷你图，与上方共用季度横轴
     ia = win(t, t0 + 9.0, t0 + 15.0, 0.5, 0.4)
     if ia > 0:
@@ -772,17 +817,17 @@ def sc_trend(F, t):
         F.text(f"{int(round(lo))} – {int(round(hi))}", CH_X1, 1405, 26, "numm", INK3 + 0.25, ia, anchor="r", tab=True)
         pts = [(chx(i), y1m - (y1m - y0m) * (SH[i] - lo) / (hi - lo)) for i in range(NQ)]
         F.poly(pts, INK2, ia * 0.8, 2.5)
-        for i in (14, 17):
+        for i in (17,):
             F.line((chx(i), y0m - 10), (chx(i), y1m + 10), RED, ia * 0.5, 1.5)
             F.glow_dot(pts[i][0], pts[i][1], 6, RED * 1.6, ia)
-        note_card(F, t, t0 + 10.0, t0 + 15.0, [("corr", "两次大降，都发生在指数上涨的季度", 32),
+        note_card(F, t, t0 + 10.0, t0 + 15.0, [("corr", "最大的一次下降，发生在指数五年季末新高", 32),
                                                 ("warn", "相关 ≠ 因果，动机无法从名单推断", 32)], y=1625, h=200)
-    # 379 → 35：19 个季度从未离开的 35 家（真实名单，十六分音符逐个点亮）
-    sa = win(t, t0 + 15.0, b(60) + 0.1, 0.4, 0.35)
+    # 曾出现 → 从未离开（真实名单，十六分音符逐个点亮）
+    sa = win(t, t0 + 15.0, b(68) + 0.1, 0.3, 0.35)
     if sa > 0:
         F.glass(70, 1372, W - 70, 1845, 30, sa)
         pj = eo5((t - t0 - 15.0) / 0.5)
-        glass_num(F, "379", 250, 1440, 64, INK, sa * pj)
+        glass_num(F, str(len(PRES)), 250, 1440, 64, INK, sa * pj)
         F.text("家曾出现", 250, 1496, 26, "med", INK2, sa * pj)
         F.text("→", W / 2 - 40, 1443, 50, "numl", INK2, sa * eo((t - t0 - 15.3) / 0.4))
         n_on = sum(1 for k in range(len(ALWAYS_NAMES)) if t >= t0 + 15.6 + k * BEAT / 4)
@@ -796,11 +841,11 @@ def sc_trend(F, t):
             col = SER_COL[v]
             F.text(nm, cx, cy + (1 - p) * 10, 25, "med", col * 0.55 + INK * 0.45, sa * p)
             F.glow_dot(cx, cy, 30, col * 0.25 * math.exp(-(t - tk) / 0.3), sa)
-        for j, (lab, col) in enumerate((("汇金系 + 证金系", VIO), ("仅汇金系", GOLD), ("仅证金系", ICE))):
+        for j, (lab, col) in enumerate((("两家都在", VIO), ("仅汇金资管", GOLD), ("仅中国证金", ICE))):
             x = 300 + j * 250
             F.glow_dot(x - 18, 1812, 5, col * 1.5, sa * eo((t - t0 - 21) / 0.5))
             F.text(lab, x, 1812, 22, "reg", INK2, sa * eo((t - t0 - 21) / 0.5), anchor="l")
-    F.zoom = F.zoom * (1 + 0.025 * eio(lt / 25.0))
+    F.zoom = F.zoom * (1 + 0.03 * eio(lt / 22.0))
     footnote(F, t, a * (1 - eo((t - t0 - 14.6) / 0.4)))
 
 
@@ -840,17 +885,17 @@ def lesson_icon(F, t, i, cx, cy, a, ti):
 
 
 def sc_lessons(F, t):
-    t0 = b(60)
+    t0 = b(68)
     lt = t - t0
     nebula(F, t, cols=(BA, BB), amt=0.8)
     stars(F, t, amt=0.6, drift=t * 0.5)
-    chapter(F, t, "04", "给普通投资者", t0, b(67))
-    F.text_reveal("看懂国家队，记住三件事", W / 2, 330, 62, t0, "black", INK, win(t, t0, b(67), 0.12, 0.4), stag=0.035, dur=0.3)
+    chapter(F, t, "06", "给普通投资者", t0, b(78))
+    F.text_reveal("看懂国家队，记住三件事", W / 2, 330, 62, t0, "black", INK, win(t, t0, b(78), 0.12, 0.4), stag=0.035, dur=0.3)
     F.zoom = 1 + 0.03 * math.exp(-lt / 0.3)
-    dur = (b(67) - t0 - 0.4) / 3
+    dur = (b(78) - t0 - 0.4) / 3
     for i, (n, h1, h2, s) in enumerate(LESSONS):
         ti = t0 + 0.5 + i * dur * 0.95
-        a = eo((t - ti) / 0.5) * win(t, t0, b(67), 0.3, 0.4)
+        a = eo((t - ti) / 0.5) * win(t, t0, b(78), 0.3, 0.4)
         if a <= 0: continue
         y = 480 + i * 400
         act = 1.0 if ti <= t < ti + dur else 0.55
@@ -861,7 +906,7 @@ def sc_lessons(F, t):
         F.text(h2, 240 + dx, y + 162, 44, "bold", VIO * 0.4 + INK * 0.6, a * (0.6 + 0.4 * act), anchor="l")
         F.text(s, 110 + dx, y + 268, 31, "reg", INK2, a * (0.5 + 0.5 * act), anchor="l")
         lesson_icon(F, t, i, 905 + dx, y + 120, a * (0.45 + 0.55 * act), ti)
-    F.text("本视频仅为数据解读，不构成任何投资建议", W / 2, 1745, 26, "reg", INK3 + 0.15, win(t, t0 + 2, b(67), 0.5, 0.4))
+    F.text("本视频仅为数据解读，不构成任何投资建议", W / 2, 1745, 26, "reg", INK3 + 0.15, win(t, t0 + 2, b(78), 0.5, 0.4))
 
 
 # ================================================================ 场景 9：片尾（167.5 – 177.5）
@@ -870,7 +915,7 @@ MARK = load_logo("blue", "mark", 300)
 
 
 def sc_end(F, t):
-    t0 = b(67)
+    t0 = b(78)
     lt = t - t0
     nebula(F, t, amt=1.0, cy=0.42)
     stars(F, t, amt=0.8, drift=t * 0.4)
@@ -895,21 +940,20 @@ def sc_end(F, t):
         edge[:, lo:cut] = al[:, lo:cut] * np.linspace(0, 1, cut - lo)[None, :]
     F.blit(m, x0, y0, (1, 1, 1), a, colimg=rgb)
     F.blit(edge, x0, y0, (1, 1, 1), a * 1.5, buf="G", mode="add")
-    F.text_reveal("大师持仓洞察", W / 2, y0 + h + 90, 50, t0 + 1.2, "bold", INK2, a, stag=0.06, rise=16)
-    w2 = 260 * eo((lt - 1.5) / 0.8)
-    F.fill([(W / 2 - w2, y0 + h + 150), (W / 2 + w2, y0 + h + 150), (W / 2 + w2, y0 + h + 152.5), (W / 2 - w2, y0 + h + 152.5)],
+    w2 = 300 * eo((lt - 1.2) / 0.8)
+    F.fill([(W / 2 - w2, y0 + h + 90), (W / 2 + w2, y0 + h + 90), (W / 2 + w2, y0 + h + 92.5), (W / 2 - w2, y0 + h + 92.5)],
            VIO, a * 0.8, buf="G", mode="add")
-    F.text_reveal("关注 MastersTao", W / 2, 1180, 64, t0 + 2.4, "black", INK, a, stag=0.05, glow=0.2)
-    F.text_reveal("看懂机构持仓背后的投资逻辑。", W / 2, 1275, 46, t0 + 3.0, "med", INK2, a, stag=0.04)
-    F.text("EP01  国家队去哪了？", W / 2, 1460, 30, "med", INK3 + 0.25, a * eo((lt - 4.2) / 0.6), track=0.05)
-    F.text("masterstao.com", W / 2, 1520, 28, "numm", INK3 + 0.2, a * eo((lt - 4.5) / 0.6), track=0.08)
+    F.text_reveal("关注 MastersTao", W / 2, 1110, 68, t0 + 1.5, "black", INK, a, stag=0.05, glow=0.2)
+    F.text_reveal("看懂机构持仓背后的投资逻辑。", W / 2, 1210, 46, t0 + 2.0, "med", INK2, a, stag=0.04)
+    F.text("EP01  国家队去哪了？", W / 2, 1420, 30, "med", INK3 + 0.25, a * eo((lt - 3.2) / 0.6), track=0.05)
+    F.text("masterstao.com", W / 2, 1480, 28, "numm", INK3 + 0.2, a * eo((lt - 3.5) / 0.6), track=0.08)
 
 
 # ================================================================ 调度
 SCENE_FUN = [
-    (b(0), b(5), sc_open), (b(5), b(8), sc_title), (b(8), b(12), sc_huijin), (b(12), b(16), sc_zhengjin),
-    (b(16), b(18), sc_rules), (b(18), b(50), sc_tunnel), (b(50), b(60), sc_trend), (b(60), b(67), sc_lessons),
-    (b(67), DURATION + 1, sc_end),
+    (b(0), b(5), sc_open), (b(5), b(7), sc_title), (b(7), b(36), sc_tunnel), (b(36), b(40), sc_ytd),
+    (b(40), b(46), sc_huijin), (b(46), b(52), sc_zhengjin), (b(52), b(54), sc_compare), (b(54), b(57), sc_rules),
+    (b(57), b(68), sc_trend), (b(68), b(78), sc_lessons), (b(78), DURATION + 1, sc_end),
 ]
 HUD = Hud(width=W)
 
@@ -921,10 +965,10 @@ def render(t):
             fn(F, t)
             break
     # 全局节拍辉光呼吸
-    F.bloom *= 1.0 + 0.12 * beat_pulse(t) * (b(18) <= t < b(42) or b(50) <= t < b(60))
+    F.bloom *= 1.0 + 0.14 * beat_pulse(t) * (b(7) <= t < b(25) or b(36) <= t < b(40) or b(57) <= t < b(68))
     # 片头片尾淡入淡出
     F.fade = eo(t / 0.6) * (1 - eio((t - (DURATION - 0.6)) / 0.6))
-    hud_a = eo((t - 1.0) / 1.0) * (1 - eo((t - b(67)) / 0.6))
+    hud_a = eo((t - 0.8) / 0.8) * (1 - eo((t - b(78)) / 0.6))
     return F.finish(hud=(lambda img: HUD.draw(img, t, hud_a)) if hud_a > 0 else None, grain_seed=int(t * FPS))
 
 

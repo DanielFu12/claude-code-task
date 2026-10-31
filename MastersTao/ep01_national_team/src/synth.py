@@ -241,3 +241,88 @@ def sidechain(times, n, depth=0.45, rel=0.28):
         seg = tt[i0:i1] - t0
         env[i0:i1] = np.minimum(env[i0:i1], 1 - depth * np.exp(-seg / rel))
     return env
+
+
+# ---------------------------------------------------------------- v2 新增：律动与情绪层
+def clap(dur=0.35, seed=4):
+    """有「身体」的拍手：中频带通噪声 3 次微爆 + 200Hz 音体；限制在 0.6–3.2kHz，不刺耳"""
+    from scipy.signal import butter, sosfilt
+    t = t_axis(dur)
+    rng = np.random.default_rng(seed)
+    nz = rng.standard_normal(len(t))
+    sos = butter(2, [600 / (SR / 2), 3200 / (SR / 2)], "band", output="sos")
+    nz = sosfilt(sos, nz)
+    env = np.zeros_like(t)
+    for d in (0.0, 0.011, 0.023):
+        env += np.where(t >= d, np.exp(-(t - d) / 0.012), 0) * 0.6
+    env += np.where(t >= 0.03, np.exp(-(t - 0.03) / 0.09), 0)
+    body = np.sin(2 * np.pi * 190 * t) * np.exp(-t / 0.04) * 0.6
+    s = np.tanh((nz * env * 1.6 + body) * 1.4)
+    return np.stack([s * 0.95, s * 1.05], 1)
+
+
+def supersaw(note, dur, att=0.02, rel=0.25, cutoff=3200, voices=5, det=0.16, seed=0):
+    """主旋律：多声部失谐锯齿 + 低通，带轻微颤音"""
+    t = t_axis(dur)
+    rng = np.random.default_rng(seed)
+    f = midi(note)
+    L = np.zeros_like(t); R = np.zeros_like(t)
+    for v in range(voices):
+        dt = (v - (voices - 1) / 2) / ((voices - 1) / 2) * det
+        ff = f * 2 ** (dt / 12)
+        vib = 1 + 0.003 * np.sin(2 * np.pi * 5.2 * t) * np.minimum(t / 0.4, 1)
+        ph = 2 * np.pi * np.cumsum(ff * vib) / SR + rng.random() * 6
+        s = np.zeros_like(t)
+        for h in range(1, 30):
+            if ff * h > 9000: break
+            s += np.sin(ph * h) / h
+        pan = (v - (voices - 1) / 2) / voices
+        L += s * (0.5 - pan); R += s * (0.5 + pan)
+    env = adsr(len(t), att, 0.15, 0.75, rel)
+    out = np.stack([L, R], 1) * env[:, None] / voices
+    return lp(out, cutoff, 2)
+
+
+def riser(dur, notes=(50, 57, 62, 69), oct_up=12, seed=2):
+    """音高上扬的和声渐强（替代噪声 Whoosh）：铺底整体滑升 + 包络指数增长，末端截断"""
+    t = t_axis(dur)
+    rng = np.random.default_rng(seed)
+    L = np.zeros_like(t); R = np.zeros_like(t)
+    bend = 2 ** ((t / dur) ** 2 * oct_up / 12)
+    for k, n in enumerate(notes):
+        f = midi(n) * bend
+        ph = 2 * np.pi * np.cumsum(f) / SR
+        s = sum(np.sin(ph * h + rng.random() * 6) / h * np.exp(-(h - 1) / 4) for h in range(1, 10))
+        L += s * (0.6 if k % 2 else 0.4); R += s * (0.4 if k % 2 else 0.6)
+    env = (t / dur) ** 2.6
+    out = np.stack([L, R], 1) * env[:, None] / len(notes)
+    return lp(out, 4500, 2)
+
+
+def tom_roll(dur, start_rate=4, end_rate=16):
+    """加速的低音鼓滚奏：每拍 4 → 16 下，力度递增"""
+    out = np.zeros((int(dur * SR) + SR, 2))
+    t = 0.0
+    while t < dur:
+        p = t / dur
+        rate = start_rate + (end_rate - start_rate) * p * p   # 次/秒
+        hit = taiko(0.6) * (0.35 + 0.65 * p)
+        i = int(t * SR)
+        out[i:i + len(hit)] += hit[:len(out) - i]
+        t += 1 / rate
+    return out[:int(dur * SR) + SR // 2]
+
+
+def tick_hat(dur=0.08, vel=1.0):
+    """音调化的「镲」：6 个非谐和高频正弦，30ms 衰减，非噪声"""
+    t = t_axis(dur)
+    s = sum(np.sin(2 * np.pi * f * t + k) for k, f in enumerate((3150, 4270, 5110, 6030, 7340, 8190)))
+    s = s / 6 * np.exp(-t / 0.018) * vel
+    return np.stack([s * 0.9, s * 1.1], 1)
+
+
+def pluck_lead(note, dur=0.22, cutoff=5200):
+    """明亮短拨弦（琶音用）"""
+    out = supersaw(note, dur, att=0.003, rel=0.12, cutoff=cutoff, voices=3, det=0.08)
+    t = t_axis(len(out) / SR)
+    return out * np.exp(-t / 0.09)[:, None]

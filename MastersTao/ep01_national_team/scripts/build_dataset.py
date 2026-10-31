@@ -170,6 +170,18 @@ def main():
         presence.append({"code": c, "name": names_[c], "p": row})
     always = [x["name"] for x in presence if all(v > 0 for v in x["p"])]
 
+    # 主体级对比：中央汇金资产管理有限责任公司 vs 中国证券金融股份有限公司（本期视频主线）
+    duo_rows, duo_pres = [], []
+    for L in labels:
+        a_, b_ = sets[L]["e:汇金资管"], sets[L]["e:证金公司"]
+        duo_rows.append({"quarter": L, "huijin_am": len(a_), "csf": len(b_), "union": len(a_ | b_), "both": len(a_ & b_)})
+    pd.DataFrame(duo_rows).to_csv(os.path.join(OUT, "duo_counts.csv"), index=False, encoding="utf-8-sig")
+    duo_comp = sorted(set().union(*[sets[L]["e:汇金资管"] | sets[L]["e:证金公司"] for L in labels]))
+    duo_names = dict(zip(pdf.secucode, pdf.name))
+    for c in duo_comp:
+        duo_pres.append({"code": c, "name": duo_names[c],
+                         "p": [(1 if c in sets[L]["e:汇金资管"] else 0) + (2 if c in sets[L]["e:证金公司"] else 0) for L in labels]})
+
     # 视频用精简数据
     last = rows[-1]["quarter"]
     stats = {"quarters": [r["quarter"] for r in rows],
@@ -182,6 +194,9 @@ def main():
              "ever": len(comp), "always": always,
              "universe_like": [r.get("coverage_vs_prev_pct") for r in rows],
              "presence": presence,
+             "duo": {"huijin_am": [r["huijin_am"] for r in duo_rows], "csf": [r["csf"] for r in duo_rows],
+                     "union": [r["union"] for r in duo_rows], "both": [r["both"] for r in duo_rows],
+                     "presence": duo_pres},
              "last": last}
     with open(os.path.join(OUT, "stats.json"), "w", encoding="utf-8") as f:
         json.dump(stats, f, ensure_ascii=False, indent=1)

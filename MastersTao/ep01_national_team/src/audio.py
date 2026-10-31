@@ -1,196 +1,257 @@
-"""按 timeline 合成全片原创配乐（D 小调，96 BPM），输出 work/score.wav。
+"""按 timeline 合成全片原创配乐（D 小调，120 BPM），输出 work/score.wav。
 
-段落：低频心跳开场 → 标题重拍 → 身份介绍（八分音型）→ 时间隧道（十六分固定音型 + 底鼓）
-→ 抽空蓄力 → Sub Drop 断崖 → 悬停 → 全景高潮 → 钢琴启示 → 片尾大三和弦。
+情绪线（与画面一一对应）：
+  钩子：钢琴动机 + 心跳，倒数式渐强          → 标题：重拍爆开
+  对决：底鼓四拍 + 十六分低音，逐段加入拍手、琶音、高弦 → 今年以来：鼓点抽空，钢琴动机回归
+  一季度：半速紧张律动 → 二季度前：心跳 + 上扬 → 断崖：Sub Drop + 低频冲击 + 重型半速
+  今年总结：主旋律第一次完整出现（情绪抬升）→ 科普：轻律动保持注意力 → 鼓滚 + 上扬蓄力
+  全景：全曲高潮（满编鼓组 + 和弦 + 主旋律）→ 启示：钢琴 + 弦乐 → 片尾：D 大三和弦落定
+所有转场冲击都是低频（boom / sub drop / 脉冲），不使用高频 Whoosh 与白噪声。
 """
 import os, sys
 import numpy as np
 import soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from synth import SR, Bus, mallet, pad, sub, pluck_bass, kick, thump, boom, subdrop, swell, bell, piano, taiko, \
-    reverb, sidechain, lp, hp
-from timeline import BAR, BEAT, DURATION, HITS, QSCHED, b
+from synth import SR, Bus, mallet, pad, sub, pluck_bass, kick, thump, boom, subdrop, bell, piano, taiko, \
+    clap, supersaw, riser, tom_roll, tick_hat, pluck_lead, reverb, sidechain, lp, hp
+from timeline import BAR, BEAT, DURATION, HITS, QSCHED, b, section
 
 CH = {  # 和弦：(低音根音 midi, 铺底音符)
     "Dm": (38, [50, 53, 57, 62]), "Bb": (34, [46, 50, 53, 58]), "F": (41, [48, 53, 57, 60]),
     "C": (36, [48, 52, 55, 60]), "Gm": (43, [46, 50, 55, 58]), "A": (45, [49, 52, 57, 61]),
-    "Dsus": (38, [50, 55, 57, 62]), "D": (38, [50, 54, 57, 62]), "Bbm7": (34, [46, 53, 57, 62]),
+    "Dsus": (38, [50, 55, 57, 62]), "D": (38, [50, 54, 57, 62]),
 }
 PROG = {}
 def setp(bar0, seq):
     for i, c in enumerate(seq):
         PROG[bar0 + i] = c
 
-setp(0, ["Dm"] * 5)
-setp(5, ["Dm", "Bb", "Dm"])
-setp(8, ["Dm", "Bb", "F", "C", "Dm", "Bb", "F", "C", "Gm", "A"])
-setp(18, (["Dm", "Bb", "F", "C"] * 6))
-setp(42, ["Bbm7", "A"])
-setp(44, ["Dm", "Bb", "Gm", "A"])
-setp(48, ["Bb", "A"])
-setp(50, ["Dm", "Bb", "F", "C", "Dm", "Bb", "F", "C", "Gm", "A"])
-setp(60, ["Bb", "F", "C", "Dm", "Bb", "F", "A"])
-setp(67, ["Bb", "F", "Dsus", "D"])
+setp(0, ["Dm", "Dm", "Bb", "Bb", "A"])
+setp(5, ["Dm", "Bb"])
+setp(7, ["Dm", "Bb", "F", "C"] * 5)              # 7..26（25、26 下面覆盖）
+setp(25, ["Bb", "A"])
+setp(27, ["Dm", "Bb", "A"])
+setp(30, ["Dm", "Bb", "Gm", "A"])
+setp(34, ["Bb", "A"])
+setp(36, ["F", "C", "Dm", "Bb"])
+setp(40, ["Dm", "Bb", "F", "C"] * 3)
+setp(52, ["Gm", "A", "Bb", "C", "A"])
+setp(57, ["Dm", "Bb", "F", "C", "Dm", "Bb", "F", "C", "Gm", "Bb", "A"])
+setp(68, ["Bb", "F", "C", "Dm", "Bb", "F", "Gm", "A", "Bb", "A"])
+setp(78, ["Bb", "F", "Dsus", "D", "D"])
+
+# 主题动机（2 小节 = 8 拍）：(拍, 音, 时值拍)
+MOTIF_A = [(0, 69, 1), (1, 74, 1), (2, 77, 1.5), (3.5, 76, 0.5), (4, 74, 1), (5, 72, 1), (6, 69, 2)]
+MOTIF_B = [(0, 69, 1), (1, 74, 1), (2, 77, 1), (3, 79, 1), (4, 81, 1.5), (5.5, 79, 0.5), (6, 77, 2)]
+MOTIF_C = [(0, 81, 1), (1, 79, 1), (2, 77, 1), (3, 76, 1), (4, 74, 2), (6, 74, 2)]
 
 
-def section(bar):
-    if bar < 5: return "open"
-    if bar < 8: return "title"
-    if bar < 18: return "ident"
-    if bar < 42: return "tunnel"
-    if bar < 44: return "break"
-    if bar < 48: return "collapse"
-    if bar < 50: return "latest"
-    if bar < 60: return "trend"
-    if bar < 67: return "lessons"
-    return "end"
+def energy(bar):
+    """0..1 能量曲线，决定鼓组编制"""
+    sec = section(bar)
+    return {"hook": 0.15, "title": 0.6, "duel": 0.55 if bar < 15 else (0.75 if bar < 25 else 0.0),
+            "ytd": 0.65, "huijin": 0.45, "zhengjin": 0.5, "compare": 0.3, "rules": 0.35, "trend": 1.0,
+            "lessons": 0.3, "end": 0.0}[sec]
 
 
 def main(out):
     N = DURATION + 4.0
-    pads, bass, drums, fx, lead = Bus(N), Bus(N), Bus(N), Bus(N), Bus(N)
+    pads, bass, drums, fx, lead, keys, hits = Bus(N), Bus(N), Bus(N), Bus(N), Bus(N), Bus(N), Bus(N)
     kicks = []
 
+    def play_motif(bus, motif, bar, inst="piano", gain=0.25, oct=0):
+        for bt, n, d in motif:
+            tt = b(bar) + bt * BEAT
+            if inst == "piano":
+                bus.add(piano(n + oct, 2.8 + d * BEAT), tt, gain)
+                bus.add(piano(n + oct - 12, 2.8, 0.55), tt, gain * 0.45)
+            else:
+                bus.add(supersaw(n + oct, d * BEAT + 0.15, cutoff=3600), tt, gain)
+                bus.add(supersaw(n + oct - 12, d * BEAT + 0.15, cutoff=2200, seed=3), tt, gain * 0.5)
+
     # ---------------- 铺底 + Sub
-    for bar in range(71):
+    for bar in range(83):
         sec = section(bar)
         root, notes = CH[PROG[bar]]
         t0 = b(bar)
-        gain = {"open": 0.32, "title": 0.8, "ident": 0.6, "tunnel": 0.62 + (bar - 18) * 0.008, "break": 0.5,
-                "collapse": 0.72, "latest": 0.45, "trend": 1.05, "lessons": 0.6, "end": 0.9}[sec]
-        bright = {"open": 3.0, "trend": 11.0, "end": 9.0, "collapse": 4.0, "latest": 3.5, "lessons": 6.0,
-                  "tunnel": 8.0 + (bar - 18) * 0.1}.get(sec, 7.0)
-        if sec == "open" and bar < 2:
-            gain *= (bar + 0.5) / 2
-        dur = BAR + (6.0 if bar == 70 else 0.9)
-        pads.add(pad(notes, dur, bright=bright, att=0.5 if sec != "open" else 2.0, rel=0.9 if bar < 70 else 4.5,
-                     seed=bar), t0 - 0.05, gain)
-        # 高八度弦乐线（高潮 / 片尾）
-        if sec in ("trend", "end") or (sec == "tunnel" and bar >= 30):
+        in_ytd_break = 25 <= bar < 27
+        pre = bar == 29
+        gain = {"hook": 0.3 + 0.08 * bar, "title": 0.85, "duel": 0.55 if bar < 25 else 0.6, "ytd": 0.85,
+                "huijin": 0.55, "zhengjin": 0.55, "compare": 0.6, "rules": 0.65, "trend": 1.0, "lessons": 0.6,
+                "end": 0.9}[sec]
+        if in_ytd_break: gain = 0.5
+        if pre: gain = 0.25
+        if 30 <= bar < 34: gain = 0.8
+        bright = {"hook": 4.0, "trend": 11.0, "end": 9.0, "ytd": 9.0, "lessons": 6.5}.get(sec, 7.0)
+        if 30 <= bar < 36: bright = 4.0
+        dur = BAR + (6.0 if bar == 82 else 0.8)
+        pads.add(pad(notes, dur, bright=bright, att=0.25 if sec != "hook" else 1.0, rel=0.8 if bar < 82 else 4.5,
+                     seed=bar), t0 - 0.03, gain)
+        if sec in ("trend", "end", "ytd") or (sec == "duel" and 15 <= bar < 25):
             top = [n + 12 for n in notes[1:]]
-            pads.add(pad(top, dur, bright=3.0, att=0.6, rel=1.0, seed=bar + 100), t0, 0.32 if sec != "tunnel" else 0.18)
-        # Sub 持续低音
-        if sec not in ("lessons",) or bar >= 63:
-            sg = {"open": 0.5, "break": 0.35, "latest": 0.35, "lessons": 0.3}.get(sec, 0.55)
-            bass.add(sub(root - 12 if root > 40 else root, BAR + 0.3, att=0.08, rel=0.35), t0, sg)
+            pads.add(pad(top, dur, bright=3.5, att=0.4, rel=0.9, seed=bar + 100), t0,
+                     0.34 if sec in ("trend", "end", "ytd") else 0.2)
+        if not pre:
+            sg = {"hook": 0.4, "lessons": 0.3, "end": 0.5}.get(sec, 0.5)
+            if in_ytd_break: sg = 0.3
+            bass.add(sub(root - 12 if root > 40 else root, BAR + 0.25, att=0.05, rel=0.3), t0, sg)
 
-    # ---------------- 固定音型
+    # ---------------- 低音固定音型
     pat8 = [0, 0, 12, 0, 7, 0, 12, 10]
     pat16 = [0, 0, 12, 0, 0, 7, 0, 12, 0, 0, 12, 0, 10, 7, 12, 0]
-    for bar in range(8, 60):
+    for bar in range(83):
         sec = section(bar)
-        if sec in ("break", "latest"):
-            continue
         root = CH[PROG[bar]][0]
         t0 = b(bar)
-        if sec == "ident" or (sec == "tunnel" and bar < 22) or sec == "collapse":
+        if sec in ("hook", "compare", "lessons", "end") or 25 <= bar < 27 or bar == 29 or 34 <= bar < 36:
+            continue
+        if sec in ("title",) or (sec == "duel" and bar < 11) or sec in ("huijin", "zhengjin", "rules") or 27 <= bar < 34:
             for k, iv in enumerate(pat8):
-                g = 0.30 if sec != "collapse" else 0.22
-                bass.add(pluck_bass(root + iv, 0.36, cutoff=700 if sec == "ident" else 900), t0 + k * BEAT / 2, g)
+                bass.add(pluck_bass(root + iv, 0.3, cutoff=800), t0 + k * BEAT / 2, 0.28)
         else:
-            cut = 900 + (bar - 22) * 40 if sec == "tunnel" else 1700
             for k, iv in enumerate(pat16):
-                acc = 1.0 if k % 4 == 0 else 0.72
-                bass.add(pluck_bass(root + iv, 0.22, cutoff=min(cut, 1900)), t0 + k * BEAT / 4,
-                         0.27 * acc if sec == "tunnel" else 0.32 * acc)
+                acc = 1.0 if k % 4 == 0 else 0.7
+                bass.add(pluck_bass(root + iv, 0.2, cutoff=1500 if sec == "trend" else 1100), t0 + k * BEAT / 4,
+                         0.28 * acc)
 
-    # ---------------- 「时钟」音型：和弦分解十六分音符（隧道后半与高潮）
-    arp_oct = [0, 12, 7, 12, 3, 12, 7, 15]
-    for bar in list(range(26, 42)) + list(range(50, 60)):
-        root, notes = CH[PROG[bar]]
-        t0 = b(bar)
-        tones = sorted(set(n % 12 for n in notes))
-        for k in range(16):
-            n = notes[k % len(notes)] + 12 + (12 if k % 8 >= 4 else 0)
-            v = (1.0 if k % 4 == 0 else 0.6) * (0.75 if bar < 50 else 1.0)
-            lead.add(mallet(n, 0.45, v), t0 + k * BEAT / 4, 0.085)
-
-    # ---------------- 鼓
-    for bar in range(71):
+    # ---------------- 鼓组
+    for bar in range(83):
         sec = section(bar)
         t0 = b(bar)
-        beats = []
-        if sec == "open" and bar >= 2:
-            beats = [0, 2.5] if bar < 4 else [0, 1, 2, 2.5, 3, 3.5]   # 心跳 → 加速
-        elif sec == "ident":
-            beats = [0, 2]
-        elif sec == "tunnel":
-            beats = [0, 2] if bar < 26 else [0, 1, 2, 3]
-        elif sec == "collapse":
-            beats = [0] if bar > 44 else []
+        hk = []   # kick 拍位
+        cp = []   # clap 拍位
+        if sec == "hook":
+            if bar >= 1:
+                hk = [0, 1.5] if bar < 3 else [0, 1, 2, 2.5, 3, 3.5]
+        elif sec == "title":
+            hk = [0, 2]; cp = [1, 3] if bar == 6 else []
+        elif sec == "duel":
+            if bar < 15: hk = [0, 1, 2, 3]
+            elif bar < 25: hk = [0, 1, 2, 3]; cp = [1, 3]
+            elif 27 <= bar < 29: hk = [0, 2.5]; cp = [2]
+            elif 30 <= bar < 34: hk = [0, 2.5]; cp = [2] if bar > 30 else []
+        elif sec == "ytd":
+            hk = [0, 1, 2, 3]; cp = [1, 3]
+        elif sec in ("huijin", "zhengjin"):
+            hk = [0, 2]; cp = [1, 3]
+        elif sec == "rules":
+            hk = [0, 1, 2, 3]
         elif sec == "trend":
-            beats = [0, 1, 2, 3]
-        elif sec == "lessons" and bar >= 63:
-            beats = [0, 2]
-        for bt in beats:
+            hk = [0, 1, 2, 3]; cp = [1, 3]
+        elif sec == "lessons" and 70 <= bar < 76:
+            hk = [0, 2]
+        for bt in hk:
             tt = t0 + bt * BEAT
-            if sec == "open":
-                drums.add(thump(0.4, 95, 45), tt, 0.55)
+            if sec == "hook":
+                drums.add(thump(0.45, 95, 42), tt, 0.6)
             else:
-                drums.add(kick(), tt, 0.62 if sec != "lessons" else 0.4)
+                drums.add(kick(0.55, 160, 46, 0.28), tt, 0.6 if sec != "lessons" else 0.4)
                 kicks.append(tt)
-        # 太鼓：每 4 小节一次过门
-        if sec in ("tunnel", "trend") and bar % 4 == 3:
-            for k, bt in enumerate([2.5, 3.0, 3.5]):
-                drums.add(taiko(), t0 + bt * BEAT, 0.28 + 0.1 * k)
-        if sec == "collapse":
-            drums.add(taiko(1.8), t0 + 2 * BEAT, 0.35)
+        for bt in cp:
+            drums.add(clap(), t0 + bt * BEAT, 0.20 if sec != "trend" else 0.26)
+        # 段落尾过门：太鼓三连
+        if (sec in ("duel", "trend") and bar % 4 == 2 and bar not in (24, 26, 28, 29, 33)) or bar in (39,):
+            for k, bt in enumerate([3.0, 3.25, 3.5, 3.75]):
+                drums.add(taiko(), t0 + bt * BEAT, 0.22 + 0.08 * k)
+        if 30 <= bar < 34:
+            drums.add(taiko(1.8), t0 + 2 * BEAT, 0.45)
 
-    # ---------------- 季度切换：低频脉冲 + 玻璃钟音（和弦内音，中低音区）
+    # ---------------- 琶音「时钟」（对决后半、科普、高潮）
+    for bar in list(range(15, 25)) + list(range(40, 52)) + list(range(57, 68)):
+        root, notes = CH[PROG[bar]]
+        for k in range(16):
+            n = notes[k % len(notes)] + 12 + (12 if k % 8 >= 4 else 0)
+            v = (1.0 if k % 4 == 0 else 0.6) * (0.7 if bar < 57 else 1.0)
+            keys.add(mallet(n, 0.4, v), b(bar) + k * BEAT / 4, 0.075)
+
+    # ---------------- 推进层：音调化镲（八分 / 十六分）+ 明亮拨弦琶音
+    for bar in range(83):
+        sec = section(bar)
+        drive = (sec == "duel" and 11 <= bar < 25) or sec in ("ytd", "trend") or (sec in ("huijin", "zhengjin") and bar % 2 == 1)
+        if not drive: continue
+        sub16 = sec == "trend" or (sec == "duel" and bar >= 15)
+        for k in range(16 if sub16 else 8):
+            step = BEAT / 4 if sub16 else BEAT / 2
+            v = 1.0 if (k % 2 == 1 if not sub16 else k % 4 == 2) else 0.45
+            drums.add(tick_hat(0.08, v), b(bar) + k * step, 0.06)
+    for bar in list(range(15, 25)) + list(range(36, 40)) + list(range(57, 68)):
+        root, notes = CH[PROG[bar]]
+        seq = [notes[0] + 24, notes[2] + 12, notes[1] + 24, notes[3] + 12]
+        for k in range(8):
+            keys.add(pluck_lead(seq[k % 4], 0.22), b(bar) + k * BEAT / 2, 0.07 if bar < 57 else 0.09)
+
+    # ---------------- 主题动机：钢琴 → 主旋律
+    for bar in (1, 3):
+        play_motif(keys, MOTIF_A if bar == 1 else MOTIF_B, bar, "piano", 0.24 + 0.04 * (bar == 3))
+    play_motif(keys, MOTIF_A, 25, "piano", 0.26)
+    play_motif(lead, MOTIF_A, 36, "saw", 0.12)
+    play_motif(lead, MOTIF_B, 38, "saw", 0.13)
+    for bar, m in ((59, MOTIF_A), (61, MOTIF_B), (63, MOTIF_A), (65, MOTIF_C)):
+        play_motif(lead, m, bar, "saw", 0.15, oct=0)
+        play_motif(lead, m, bar, "saw", 0.06, oct=12)
+    for bar, m in ((70, MOTIF_A), (72, MOTIF_B), (74, MOTIF_A), (76, MOTIF_C)):
+        play_motif(keys, m, bar, "piano", 0.24)
+    play_motif(keys, MOTIF_A, 79, "piano", 0.26)
+
+    # ---------------- 季度切换：低频脉冲 + 钟音
     hit_times = {round(h[0], 3) for h in HITS}
     for i, s, d, note in QSCHED:
         tt = b(s)
         if round(tt, 3) not in hit_times:
-            fx.add(thump(), tt, 0.5)
+            fx.add(thump(0.3, 120, 55), tt, 0.45)
         notes = CH[PROG[s]][1]
-        lead.add(bell(notes[(i * 2) % len(notes)] + 12, 2.2), tt, 0.13)
+        keys.add(bell(notes[(i * 2) % len(notes)] + 12, 1.8), tt, 0.10)
 
-    # ---------------- 重拍 / Sub Drop / 渐强
+    # ---------------- 蓄力：上扬和声 + 鼓滚
+    fx.add(riser(b(5) - b(3), notes=(45, 52, 57, 64)), b(3), 0.55)               # 钩子 → 标题
+    fx.add(riser(BAR * 2, notes=(46, 53, 58, 65)), b(25), 0.35)                  # 今年以来
+    fx.add(riser(BAR, notes=(45, 52, 57, 61), oct_up=7), b(29), 0.6)             # 二季度前
+    for k in range(8):
+        fx.add(thump(0.45, 90, 40), b(29) + k * BEAT / 2, 0.25 + 0.06 * k)       # 心跳加速
+    fx.add(riser(b(57) - b(54), notes=(43, 50, 55, 62)), b(54), 0.5)             # 怎么看 → 全景
+    drums.add(tom_roll(BAR * 2, 4, 18), b(55), 0.55)
+    fx.add(riser(BAR * 2, notes=(46, 53, 58, 65)), b(76), 0.4)                   # 启示 → 片尾
+
+    # ---------------- 重拍 / Sub Drop
     for tt, strength, kind in HITS:
         if kind in ("boom", "drop"):
-            fx.add(boom(4.5), tt, 0.85 * strength)
-            fx.add(swell(2.4 if kind == "boom" else 4.8, notes=(38, 45, 50, 57)), tt - (2.4 if kind == "boom" else 4.8),
-                   0.5 * strength)
+            hits.add(boom(4.0), tt, 0.9 * strength)
+            hits.add(taiko(1.6), tt, 0.55 * strength)
+            hits.add(kick(0.6, 170, 40, 0.35), tt, 0.7 * strength)
         if kind == "drop":
-            fx.add(subdrop(3.2, 92, 22), tt, 1.0)
-            fx.add(taiko(2.0), tt, 0.6)
+            hits.add(subdrop(3.0, 92, 22), tt, 1.0)
         if kind == "pulse":
-            fx.add(thump(0.6, 110, 40), tt, 1.0 * strength + 0.3)
-            fx.add(subdrop(1.4, 70, 30), tt, 0.5 * strength)
-            drums.add(taiko(1.6), tt, 0.45 * strength + 0.1)
-    # 抽空：心跳 + 渐强
-    for k in range(8):
-        fx.add(thump(0.5, 90, 42), b(42) + k * BEAT, 0.35 + 0.05 * k)
-
-    # ---------------- 钢琴（启示段与片尾）
-    mel = [(60, 0, 74), (60, 1.5, 72), (60, 2, 69), (61, 0, 72), (61, 2, 69), (61, 3, 65),
-           (62, 0, 67), (62, 2, 64), (63, 0, 65), (63, 1, 69), (63, 2, 74),
-           (64, 0, 74), (64, 2, 77), (65, 0, 72), (65, 2, 69), (66, 0, 73), (66, 2, 76),
-           (67, 0, 74), (68, 0, 72), (69, 0, 74), (69, 2, 78), (70, 0, 81)]
-    for bar, bt, n in mel:
-        lead.add(piano(n, 3.5), b(bar) + bt * BEAT, 0.22)
-        lead.add(piano(n - 12, 3.5, 0.6), b(bar) + bt * BEAT, 0.12)
+            hits.add(thump(0.6, 110, 40), tt, 0.9 * strength + 0.3)
+            hits.add(subdrop(1.2, 70, 30), tt, 0.45 * strength)
+            hits.add(taiko(1.4), tt, 0.35 * strength)
 
     # ---------------- 混音
     n = len(pads.x)
-    sc = sidechain(kicks, n, depth=0.4, rel=0.22)[:, None]
-    P = reverb(pads.x * sc, 3.2, 0.35)
-    Bs = bass.x * (0.55 + 0.45 * sc)
-    Bs = reverb(Bs, 1.4, 0.12, lpf=2000, seed=11)
-    D = reverb(drums.x, 1.8, 0.14, lpf=2500, seed=5)
-    F = reverb(fx.x, 3.8, 0.3, lpf=1800, seed=9)
-    L = reverb(lead.x, 3.6, 0.42, lpf=5000, seed=13)
-    mix = P * 1.45 + Bs * 0.55 + D * 0.8 + F * 0.8 + L * 1.25
-    mix = hp(mix, 22, 2)
-    # 整体包络：首尾淡入淡出
+    sc = sidechain(kicks, n, depth=0.45, rel=0.18)[:, None]
+    P = reverb(pads.x * sc, 3.0, 0.32)
+    Bs = reverb(bass.x * (0.55 + 0.45 * sc), 1.2, 0.1, lpf=2000, seed=11)
+    D = reverb(drums.x, 1.4, 0.12, lpf=3000, seed=5)
+    F = reverb(fx.x, 3.5, 0.28, lpf=1800, seed=9)
+    K = reverb(keys.x, 3.2, 0.38, lpf=5000, seed=13)
+    Ld = reverb(lead.x * (0.7 + 0.3 * sc), 2.8, 0.3, lpf=6000, seed=17)
+    Hh = reverb(hits.x, 3.0, 0.22, lpf=1600, seed=19)
+    mix = P * 1.5 + Bs * 0.42 + D * 0.8 + F * 0.8 + K * 1.45 + Ld * 1.35
+    # 大重拍前「吸一口气」：0.2 秒内压低全部乐器，重拍本身不受影响
+    duck = np.ones(n)
+    for ht, st, kd in HITS:
+        if st < 0.8: continue
+        i1 = int(ht * SR); i0 = max(i1 - int(0.22 * SR), 0)
+        duck[i0:i1] = np.minimum(duck[i0:i1], np.linspace(1.0, 0.12, i1 - i0) ** 1.5)
+    mix = mix * duck[:, None] + Hh * 1.0
+    mix = hp(mix, 24, 2)
+    mix = mix - 0.3 * lp(mix, 90, 2)          # 低频搁架约 −3dB：手机外放时中频更突出
     tt = np.arange(n) / SR
-    mix *= np.clip(tt / 0.4, 0, 1)[:, None]
+    mix *= np.clip(tt / 0.3, 0, 1)[:, None]
     fade0 = DURATION - 2.5
     mix *= np.clip(1 - (tt - fade0) / 2.5, 0, 1)[:, None] ** 1.5
     mix = mix[:int(DURATION * SR)]
-    # 母带：RMS 归一 + 软限幅
     rms = np.sqrt((mix ** 2).mean())
-    mix *= 0.16 / rms
+    mix *= 0.17 / rms
     mix = np.tanh(mix * 1.15) / 1.15
     mix *= 0.93 / np.abs(mix).max()
     sf.write(out, mix.astype(np.float32), SR, subtype="PCM_24")

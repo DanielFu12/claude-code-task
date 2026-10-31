@@ -51,6 +51,10 @@ for q in Q:
                     s["zjplan"].add(sc)
                 if hc == "10196008":
                     s["zjself"].add(sc)
+                if hc == "10506881":
+                    s["hjam"].add(sc)
+                if hc == "10061230":
+                    s["hjinv"].add(sc)
             rows_n[(t, q)] = n
     sets[L[q]] = s
     uni[L[q]] = u
@@ -91,49 +95,63 @@ for code, nm, q1, q2 in [("600519.SH", "贵州茅台", {"汇金资管", "证金�
     check(f"{nm} 2026Q1 → 2026Q2", (sorted(P.get(("2026Q1", code), set())), sorted(P.get(("2026Q2", code), set()))),
           (sorted(q1), sorted(q2)))
 
-# 4) 视频中出现的每个数字
+# 4) 视频中出现的每个数字（本期主线：中央汇金资管 10506881 vs 中国证金自有账户 10196008）
 S = json.load(open(os.path.join(D, "stats.json"), encoding="utf-8"))
 idx = {}
 with open(os.path.join(D, "index_quarter_end.csv"), encoding="utf-8-sig") as f:
     for r in csv.DictReader(f):
         idx[r["quarter"]] = float(r["上证指数"])
-U = lambda k: len(sets[k]["hj"] | sets[k]["zj"])
-H = lambda k: len(sets[k]["hj"]); Z = lambda k: len(sets[k]["zj"])
-lines += ["", "## 4. 画面数字核对", "", "| | 画面文字 | 数据 | 画面 |", "|---|---|---|---|"]
-check("开场：5565 家 A 股公司（2026Q3 有名单的 A 股公司）", len(uni["2026Q3"]), 5565)
-check("开场：2022Q1 合并 346", U("2022Q1"), 346)
-check("开场 / 标题：2026Q3 合并 35", U("2026Q3"), 35)
-check("2023Q2 证金系单季 −30", Z("2023Q2") - Z("2023Q1"), -30)
-check("2024Q3 名单数 161 · 183", (H("2024Q3"), Z("2024Q3")), (161, 183))
-check("2025Q3 证金系 180 → 121（−59）", (Z("2025Q2"), Z("2025Q3")), (180, 121))
-check("2025Q3 证金资管计划 68 → 19", (len(sets["2025Q2"]["zjplan"]), len(sets["2025Q3"]["zjplan"])), (68, 19))
-check("2025Q3 上证指数 3444 → 3883", (round(idx["2025Q2"]), round(idx["2025Q3"])), (3444, 3883))
-check("2026Q1 证金系 117 → 78", (Z("2025Q4"), Z("2026Q1")), (117, 78))
-check("2026Q1 证金公司本体 111 → 76", (len(sets["2025Q4"]["zjself"]), len(sets["2026Q1"]["zjself"])), (111, 76))
-check("2026Q2 合并 195 → 35", (U("2026Q1"), U("2026Q2")), (195, 35))
-check("2026Q2 单季 −160", U("2026Q2") - U("2026Q1"), -160)
-check("2026Q2 −82%", round((U("2026Q2") - U("2026Q1")) / U("2026Q1") * 100), -82)
-check("2026Q2 汇金 −126 / 证金 −53", (H("2026Q2") - H("2026Q1"), Z("2026Q2") - Z("2026Q1")), (-126, -53))
+A = lambda k: len(sets[k]["hjam"]); B = lambda k: len(sets[k]["zjself"])
+AB = lambda k: sets[k]["hjam"] | sets[k]["zjself"]
+with open(os.path.join(D, "duo_counts.csv"), encoding="utf-8-sig") as f:
+    duo = {r["quarter"]: r for r in csv.DictReader(f)}
+lines += ["", "## 4. 主体对比：独立重算 vs duo_counts.csv", "", "| | 项目 | 独立重算 | 统计表 |", "|---|---|---|---|"]
+for q in Q:
+    k = L[q]
+    check(f"{k} 汇金资管 / 证金 / 合并", (A(k), B(k), len(AB(k))),
+          (int(duo[k]["huijin_am"]), int(duo[k]["csf"]), int(duo[k]["union"])))
+check("stats.json 与独立重算一致", (S["duo"]["huijin_am"], S["duo"]["csf"], S["duo"]["union"]),
+      ([A(L[q]) for q in Q], [B(L[q]) for q in Q], [len(AB(L[q])) for q in Q]))
+lines += ["", "## 5. 画面数字核对", "", "| | 画面文字 | 数据 | 画面 |", "|---|---|---|---|"]
+check("钩子：A 股公司数（2026Q3 已有名单）", len(uni["2026Q3"]), S["universe"][-1])
+check("钩子 / 标题：2022Q1 两家合并 259", len(AB("2022Q1")), 259)
+check("钩子 / 标题：2026Q3 只剩 32", len(AB("2026Q3")), 32)
+check("对决起点 2022Q1：155 · 157", (A("2022Q1"), B("2022Q1")), (155, 157))
+check("2023Q2 中国证金单季 −19", B("2023Q2") - B("2023Q1"), -19)
+check("2026Q1 中国证金 111 → 76（−35）", (B("2025Q4"), B("2026Q1")), (111, 76))
+check("2026Q1 汇金资管 140 → 139", (A("2025Q4"), A("2026Q1")), (140, 139))
+check("2026Q2 汇金资管 139 → 17（−122）", (A("2026Q1"), A("2026Q2")), (139, 17))
+check("2026Q2 中国证金 76 → 23（−53）", (B("2026Q1"), B("2026Q2")), (76, 23))
+check("2026Q2 合并 188 → 32（趋势图标注 −156）", (len(AB("2026Q1")), len(AB("2026Q2"))), (188, 32))
+for code, nm in (("600519.SH", "贵州茅台"), ("000002.SZ", "万科A"), ("000001.SZ", "平安银行")):
+    check(f"2026Q2 退出名单：{nm}（Q1 在、Q2 不在）", (code in AB("2026Q1"), code in AB("2026Q2")), (True, False))
 check("2026Q2 上证季末 4094 为 19 季最高", (round(idx["2026Q2"]), max(idx.values()) == idx["2026Q2"]), (4094, True))
-check("2026Q3 与上季持平（同一批 35 家）", (sets["2026Q3"]["hj"] | sets["2026Q3"]["zj"]) == (sets["2026Q2"]["hj"] | sets["2026Q2"]["zj"]), True)
-ever = set().union(*[sets[L[q]]["hj"] | sets[L[q]]["zj"] for q in Q])
-always = set.intersection(*[sets[L[q]]["hj"] | sets[L[q]]["zj"] for q in Q])
-check("19 个季度里出现过 379 家", len(ever), 379)
-check("从未离开 35 家，且正是 2026Q3 的 35 家", (len(always), always == (sets["2026Q3"]["hj"] | sets["2026Q3"]["zj"])), (35, True))
+check("2026Q3：17 · 23，与上季持平（同一批公司）", (A("2026Q3"), B("2026Q3"), AB("2026Q3") == AB("2026Q2")), (17, 23, True))
 cov = len(uni["2026Q3"] & uni["2026Q2"]) / len(uni["2026Q2"]) * 100
-check("2026Q3 已披露 99.6%（相对 2026Q2 有名单的公司）", round(cov, 1), 99.6)
-check("2026Q2 的 35 家在 2026Q3 全部已披露", len((sets["2026Q2"]["hj"] | sets["2026Q2"]["zj"]) - uni["2026Q3"]), 0)
-check("证金资管计划数量 10 个（股东代码）", len(ZJ_PLAN), 10)
+check("2026Q3 已披露比例（画面保留 1 位小数）", round(cov, 1), round(S["universe_like"][-1], 1))
+check("2026Q2 汇金系 / 证金系名单内公司在 2026Q3 全部已披露",
+      len((sets["2026Q2"]["hj"] | sets["2026Q2"]["zj"]) - uni["2026Q3"]), 0)
+check("2026Q2 两家名单内公司在 2026Q3 全部已披露", len(AB("2026Q2") - uni["2026Q3"]), 0)
+check("今年以来 汇金资管 140 → 17，−88%", (A("2025Q4"), A("2026Q3"), round((A("2026Q3") - A("2025Q4")) / A("2025Q4") * 100)), (140, 17, -88))
+check("今年以来 中国证金 111 → 23，−79%", (B("2025Q4"), B("2026Q3"), round((B("2026Q3") - B("2025Q4")) / B("2025Q4") * 100)), (111, 23, -79))
+u0, u1 = len(AB("2025Q4")), len(AB("2026Q3"))
+check("今年以来 两家合计 212 → 32，−85%", (u0, u1, round((u1 - u0) / u0 * 100)), (212, 32, -85))
+check("科普：汇金投资本体每季均为 8 家", sorted({len(sets[L[q]]["hjinv"]) for q in Q}), [8])
+check("科普：汇金资管委托计划 2 个（股东代码）", len({"70415366", "70415393"}), 2)
+check("科普：中证金融资产管理计划 10 个（股东代码）", len(ZJ_PLAN), 10)
+ever = set().union(*[AB(L[q]) for q in Q]); always = set.intersection(*[AB(L[q]) for q in Q])
+check("全景：19 季里出现过 265 家", len(ever), 265)
+check("全景：从未离开 32 家，且正是 2026Q3 的 32 家", (len(always), always == AB("2026Q3")), (32, True))
 
 # 5) 主体名称变体
-lines += ["", "## 5. 纳入统计的主体与其在原始数据中出现过的全部名称", ""]
+lines += ["", "## 6. 纳入统计的主体与其在原始数据中出现过的全部名称", ""]
 for c in sorted(names_by_code):
     lines.append(f"- `{c}`：" + "；".join(sorted(names_by_code[c])))
 
 missing = sorted(uni["2026Q2"] - uni["2026Q3"])
-lines += ["", "## 6. 2026Q3 尚未取得名单的公司（相对 2026Q2）", "",
+lines += ["", "## 7. 2026Q3 尚未取得名单的公司（相对 2026Q2）", "",
           f"共 {len(missing)} 家：" + "、".join(missing), "",
-          "这些公司 2026Q2 均不在汇金系 / 证金系名单中，因此不影响 2026Q3 的统计；若其三季报后续披露并出现汇金或证金，"
+          "这些公司 2026Q2 均不在汇金系 / 证金系名单中，因此不影响 2026Q3 的统计（主体口径同理）；若其三季报后续披露并出现汇金或证金，"
           "重新运行 `./build.sh --refetch` 即可更新。"]
 
 head = ["# 数据复核报告（自动生成）", "", f"结果：{'全部通过' if not bad else '有 ' + str(len(bad)) + ' 项不符：' + '、'.join(bad)}", ""]
