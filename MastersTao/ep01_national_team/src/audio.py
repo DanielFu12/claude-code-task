@@ -28,7 +28,8 @@ def setp(bar0, seq):
 
 setp(0, ["Dm", "Dm", "Bb", "Bb", "A"])
 setp(5, ["Dm", "Bb"])
-setp(7, ["Dm", "Bb", "F", "C"] * 5)              # 7..26（25、26 下面覆盖）
+setp(7, ["Dm", "Bb", "F", "C"] * 5)              # 7..26（23 起与 25、26 下面覆盖）
+setp(23, ["Gm", "A"])                              # 2025Q3 起名单开始明显下滑：和声转暗
 setp(25, ["Bb", "A"])
 setp(27, ["Dm", "Bb", "A"])
 setp(30, ["Dm", "Bb", "Gm", "A"])
@@ -193,14 +194,32 @@ def main(out):
         play_motif(keys, m, bar, "piano", 0.24)
     play_motif(keys, MOTIF_A, 79, "piano", 0.26)
 
-    # ---------------- 季度切换：低频脉冲 + 钟音
+    # ---------------- 季度切换：重音强度由「这一季变化有多大」决定
+    #   持平 → 只有轻钟音；小变化 → 低频脉冲；中变化（≥5）→ 太鼓 + 低音和弦重击；
+    #   大变化（≥12）→ 低频冲击 + Sub Drop + 下行和弦，并在重拍前「吸气」
+    import json
+    st = json.load(open(os.path.join(os.path.dirname(__file__), "..", "data", "stats.json"), encoding="utf-8"))
+    A_, B_ = st["duo"]["huijin_am"], st["duo"]["csf"]
     hit_times = {round(h[0], 3) for h in HITS}
+    data_hits = []
     for i, s, d, note in QSCHED:
         tt = b(s)
-        if round(tt, 3) not in hit_times:
-            fx.add(thump(0.3, 120, 55), tt, 0.45)
-        notes = CH[PROG[s]][1]
-        keys.add(bell(notes[(i * 2) % len(notes)] + 12, 1.8), tt, 0.10)
+        m = 0 if i == 0 else max(abs(A_[i] - A_[i - 1]), abs(B_[i] - B_[i - 1]))
+        sev = min(m / 40.0, 1.0)
+        root, notes = CH[PROG[s]]
+        keys.add(bell(notes[(i * 2) % len(notes)] + 12, 1.8), tt, 0.10 * (1 - 0.5 * sev))
+        if round(tt, 3) in hit_times:
+            continue
+        hits.add(thump(0.35, 120, 50), tt, 0.35 + 0.6 * sev)
+        if m >= 5:
+            hits.add(taiko(1.4), tt, 0.3 + 0.5 * sev)
+            stab = [n - 12 for n in notes[:3]]
+            for n in stab:
+                lead.add(supersaw(n, 0.9, att=0.005, rel=0.5, cutoff=1400 + 2000 * sev, voices=5), tt, 0.10 + 0.12 * sev)
+        if m >= 12:
+            hits.add(boom(3.0), tt, 0.45 + 0.4 * sev)
+            hits.add(subdrop(1.8, 80, 26), tt, 0.4 + 0.4 * sev)
+            data_hits.append(tt)
 
     # ---------------- 蓄力：上扬和声 + 鼓滚
     fx.add(riser(b(5) - b(3), notes=(45, 52, 57, 64)), b(3), 0.55)               # 钩子 → 标题
@@ -238,8 +257,8 @@ def main(out):
     mix = P * 1.5 + Bs * 0.42 + D * 0.8 + F * 0.8 + K * 1.45 + Ld * 1.35
     # 大重拍前「吸一口气」：0.2 秒内压低全部乐器，重拍本身不受影响
     duck = np.ones(n)
-    for ht, st, kd in HITS:
-        if st < 0.8: continue
+    for ht, st_, kd in HITS + [(x, 0.8, "data") for x in data_hits]:
+        if st_ < 0.8: continue
         i1 = int(ht * SR); i0 = max(i1 - int(0.22 * SR), 0)
         duck[i0:i1] = np.minimum(duck[i0:i1], np.linspace(1.0, 0.12, i1 - i0) ** 1.5)
     mix = mix * duck[:, None] + Hh * 1.0

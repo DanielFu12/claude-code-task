@@ -403,113 +403,133 @@ def sc_rules(F, t):
     F.text("出名单  ≠  清仓", W / 2, 1360, 50, "bold", RED * 0.55 + INK * 0.45, a * eo((t - t0 - 3.5) / 0.35))
 
 
-# ================================================================ 场景 6：时间隧道（45 – 125）
+# ================================================================ 对决：逐季生长的折线图（14 – 72）
 QSTART = {i: b(s) for i, s, d, n in QSCHED}
 QEND = {i: b(s + d) for i, s, d, n in QSCHED}
 QNOTE = {i: n for i, s, d, n in QSCHED}
-ZS = 5.2          # 每个季度在 z 方向的间距
-HMAX = 5.4 / 165  # 高度比例
+DX0, DX1, DY0, DY1 = 130, 990, 730, 1440        # 折线图区域（y 向下）
+DYMAX = 170
+NOTE_Y = 1525
+# 每季变化幅度（两家中较大者）——驱动画面冲击力；音频端用同一公式
+MAG = [0] + [max(abs(HJ[i] - HJ[i - 1]), abs(ZJ[i] - ZJ[i - 1])) for i in range(1, NQ)]
 
 
 def cur_q(t):
     k = 0
     for i, s, d, n in QSCHED:
-        if t >= b(s): k = i
+        if t >= b(s) - (0.3 if i == 17 else 0): k = i   # 断崖季提前 0.3 秒开始下坠，重拍时落地
     return k
 
 
-def bar_h(i, which, t):
-    """季度 i 的柱高（随出场动画升起；断崖季度从上季高度坠落）"""
-    v = (HJ if which == 0 else ZJ)[i]
-    t0 = QSTART[i]
-    if i == 17:   # 断崖：先停在上季高度，重拍时坠落
-        v0 = (HJ if which == 0 else ZJ)[16]
-        p = eo5((t - t0) / 0.35)
-        if t < t0: return 0.0
-        return (v0 + (v - v0) * p) * HMAX
-    p = eback((t - t0 - which * 0.08) / 0.55, 1.2)
-    return max(v * HMAX * p, 0.0)
+def focus_w(t):
+    """进入「今年以来」后横轴放大 2026：旧季度压缩到左侧"""
+    return eio((t - b(25)) / 1.6)
 
 
-def cam_for(t):
-    k = cur_q(t)
-    t0 = QSTART[k]
-    zc = lambda i: i * ZS + 9.5
-    if k == 0:
-        z = zc(0) + 22 * (1 - eio5((t - t0) / 2.2))
+def dxq(i, w):
+    lin = DX0 + (DX1 - DX0) * i / (NQ - 1)
+    if i <= 15:
+        foc = DX0 + (DX1 - DX0) * 0.42 * i / 15
     else:
-        z = zc(k - 1) + (zc(k) - zc(k - 1)) * eio5((t - t0) / 0.7)
-    sway = 1.6 * math.sin(t * 0.21) + 0.6 * math.sin(t * 0.53)
-    y = 3.9 + 0.3 * math.sin(t * 0.3)
-    pitch = -0.27
-    if k >= 17:      # 断崖后镜头下压，看清残留
-        lt = t - QSTART[17]
-        y -= 0.8 * eio(lt / 2.0)
-        pitch += 0.05 * eio(lt / 2.0)
-    yaw = math.pi + 0.08 * math.sin(t * 0.21 + 0.6)
-    return Cam(pos=(sway, y, z), yaw=yaw, pitch=pitch, f=1050, cy=1250)
+        foc = DX0 + (DX1 - DX0) * (0.42 + 0.58 * (i - 15) / 3)
+    return lin * (1 - w) + foc * w
 
 
-def tunnel_world(F, t, cam, k, amt=1.0):
-    # 地面网格：两条泳道 + 季度横线
-    zmin, zmax = -3, cam.pos[2] + 3
-    for x in (-3.2, -0.15, 0.15, 3.2):
-        pts = np.array([[x, 0, z] for z in np.linspace(zmin, zmax, 24)])
-        px, py, pz = cam.project(pts)
-        ok = pz > 0.5
-        if ok.sum() > 1:
-            F.poly(list(zip(px[ok], py[ok])), INK3, 0.35 * amt, 1.3)
-    # 地面数据流粒子（流向镜头）
-    rg = np.random.default_rng(11)
-    n = 700
-    lane = rg.choice([-1.5, 1.5], n) + rg.normal(0, 0.45, n)
-    z0 = rg.uniform(-3, 110, n)
-    z = (z0 + t * 4.0) % 110 - 3
-    P = np.stack([lane, np.full(n, 0.02), z], 1)
-    px, py, pz = cam.project(P)
-    ok = (pz > 0.6) & (z < cam.pos[2] - 0.5)
-    cc = np.where(lane[:, None] > 0, GOLD, ICE)
-    F.splat(px[ok], py[ok], cc[ok] * 0.8, (0.35 * np.clip(1 - pz[ok] / 70, 0, 1)) * amt, size=1)
-    # 每个季度：门环 + 柱
-    order = sorted(range(k + 1), key=lambda i: -i)   # 远（旧）→近（新）
-    order = list(range(0, k + 1))
-    for i in order:
-        z = i * ZS
-        dist = cam.pos[2] - z
-        if dist < 0.8: continue
-        fog = np.clip(1.25 - dist / 85, 0.0, 1) * amt
-        appear = eo((t - QSTART[i]) / 0.5)
-        # 门环（拱形）
-        r = 3.6
-        arc = np.array([[r * math.cos(a), 0.0 + r * 1.25 * math.sin(a), z] for a in np.linspace(0, math.pi, 40)])
-        px, py, pz = cam.project(arc)
-        if (pz > 0.5).all():
-            cur = 1.0 if i == k else 0.0
-            col = VIO * (0.5 + 0.5 * cur) + INK * 0.15 * cur
-            F.poly(list(zip(px, py)), col, fog * appear * (0.35 + 0.6 * cur), 2.0 + 1.5 * cur)
-        # 季度标签（地面）
-        lx, ly, lz = cam.project(np.array([[0.0, 0.0, z - 0.9]]))
-        if lz[0] > 0.8 and k - i <= 4:
-            size = int(np.clip(34 * 9 / lz[0], 18, 40)) // 2 * 2
-            F.text(QL[i].replace("Q", " Q"), lx[0], ly[0], size, "numm", INK2 if i != k else INK,
-                   fog * appear * (0.55 if i != k else 1.0))
-        # 柱
-        for which, x, col in ((0, 1.5, GOLD), (1, -1.5, ICE)):
-            h = bar_h(i, which, t)
-            if h <= 0.001: continue
-            hl = 1.0 if i == k else 0.5
-            age = k - i
-            F.bar3d(cam, x, z, 1.3, 1.3, h, col * (0.55 + 0.45 * hl), fog * (0.95 if age == 0 else 0.6 * 0.93 ** age), glow=hl)
-            # 顶部数字（当前与上一季度）
-            if i >= k - 1:
-                tx, ty, tz = cam.project(np.array([[x, h + 0.35, z]]))
-                if tz[0] > 1:
-                    v = (HJ if which == 0 else ZJ)[i]
-                    if i == 17:
-                        v = roll((HJ if which == 0 else ZJ)[16], v, t, QSTART[17], 0.4)
-                    size = int(np.clip(56 * 9 / tz[0], 18, 72)) // 2 * 2
-                    F.text(str(v), tx[0], ty[0], size, "numb", col * 0.4 + 0.6, fog * (1.0 if i == k else 0.5),
-                           tab=True, glow=0.3 if i == k else 0)
+def dyv(v):
+    return DY1 - (DY1 - DY0) * v / DYMAX
+
+
+def head_progress(k, t):
+    """当前季度线头的推进比例（0→1）。断崖季：重拍前 0.3 秒开始加速下坠，正好在重拍落地"""
+    t0 = QSTART[k]
+    if k == 17:
+        return ei(cl((t - (t0 - 0.3)) / 0.3)) if t < t0 else 1.0
+    if k == 0:
+        return 1.0
+    return eo5((t - t0) / 0.42)
+
+
+def series_pts(arr, k, p, w):
+    pts = [(dxq(i, w), dyv(arr[i])) for i in range(k)]
+    if k == 0:
+        return [(dxq(0, w), dyv(arr[0]))]
+    x = dxq(k - 1, w) + (dxq(k, w) - dxq(k - 1, w)) * p
+    y = dyv(arr[k - 1] + (arr[k] - arr[k - 1]) * p)
+    return pts + [(x, y)]
+
+
+def duel_chart(F, t, k=None, amt=1.0, tt=None):
+    """画折线对决图。tt 用于冻结时间（总结页背景）"""
+    tt = t if tt is None else tt
+    k = cur_q(tt) if k is None else k
+    w = focus_w(tt)
+    p = head_progress(k, tt)
+    # 网格与刻度
+    for v in (0, 50, 100, 150):
+        y = dyv(v)
+        F.line((DX0, y), (DX1, y), INK3, amt * (0.45 if v == 0 else 0.22), 1.3 if v == 0 else 1.0)
+        F.text(str(v), DX0 - 16, y, 24, "numm", INK3 + 0.2, amt * 0.9, anchor="r", tab=True)
+    for i, q in enumerate(QL):
+        x = dxq(i, w)
+        if q.endswith("Q1"):
+            F.text(q[:4], x, DY1 + 38, 26, "numm", INK2, amt, tab=True)
+        F.line((x, DY1), (x, DY1 + (9 if q.endswith("Q1") else 5)), INK3, amt * 0.6, 1.2)
+    # 「今年」高亮带
+    ya = eo((tt - b(25) - 1.0) / 0.6) * amt
+    if ya > 0:
+        xa = (dxq(15, w) + dxq(16, w)) / 2
+        F.fill([(xa, DY0 - 40), (DX1 + 25, DY0 - 40), (DX1 + 25, DY1), (xa, DY1)], RED, ya * 0.7, buf="G", mode="add",
+               grad=(RED * 0.0, RED * 0.10, DY0, DY1))
+        F.text("今年", (xa + DX1 + 25) / 2, DY0 + 8, 30, "black", RED * 0.6 + INK * 0.4, ya)
+    # 当前季度游标
+    xk = dxq(k - 1, w) + (dxq(k, w) - dxq(k - 1, w)) * p if k > 0 else dxq(0, w)
+    F.line((xk, DY0 - 20), (xk, DY1), INK, amt * 0.18, 1.2)
+    F.text(QL[k].replace("Q", " Q"), xk, DY1 + 78, 28, "numb", INK, amt * eo((tt - QSTART[k]) / 0.3), tab=True)
+    # 两条线：宽辉光 + 细亮线 + 面积
+    heads = []
+    for arr, col in ((HJ, GOLD), (ZJ, ICE)):
+        pts = series_pts(arr, k, p, w)
+        if len(pts) > 1:
+            area = pts + [(pts[-1][0], DY1), (pts[0][0], DY1)]
+            F.fill(area, col, amt * 0.55, buf="G", mode="add", grad=(col * 0.16, col * 0.0, DY0, DY1))
+            F.poly(pts, col, amt * 0.22, 12)
+            F.poly(pts, col, amt, 4.5)
+        for i in range(k):
+            F.glow_dot(dxq(i, w), dyv(arr[i]), 4.5, col * 1.6, amt * 0.9)
+        hx, hy = pts[-1]
+        heads.append((hx, hy, col, arr))
+    # 线头：光点 + 到达脉冲环 + 数值
+    arrive = (tt - QSTART[k]) if k != 17 else (tt - QSTART[k])
+    ring = eo(arrive / 0.6) if arrive >= 0 else 0
+    hy_a, hy_b = heads[0][1], heads[1][1]
+    for j, (hx, hy, col, arr) in enumerate(heads):
+        F.glow_dot(hx, hy, 9 + 4 * beat_pulse(tt), col * 2.2, amt)
+        F.glow_dot(hx, hy, 26, col * 0.5, amt)
+        if 0 < ring < 1 and MAG[k] >= 3:
+            r = 12 + (40 + MAG[k] * 1.2) * ring
+            F.poly([(hx + r * math.cos(u), hy + r * math.sin(u)) for u in np.linspace(0, 6.3, 48)], col, amt * (1 - ring), 2.5)
+        v = int(round(arr[k - 1] + (arr[k] - arr[k - 1]) * p)) if k > 0 else arr[0]   # 与线头同步
+        above = (hy <= (hy_b if j == 0 else hy_a))
+        ly = hy - 50 if above else hy + 52
+        lx = min(hx + 18, DX1 - 10) if hx < DX1 - 120 else hx - 18
+        anc = "l" if hx < DX1 - 120 else "r"
+        glass_num(F, str(v), lx, ly, 52, col, amt, anchor=anc, glow=0.35)
+    return heads, w
+
+
+def burst(F, t, k, heads):
+    """到达新季度时，从线头迸出粒子：数量与速度随变化幅度增长"""
+    m = MAG[k]
+    lt = t - QSTART[k]
+    if m < 3 or lt < 0 or lt > 1.6: return
+    rg = np.random.default_rng(100 + k)
+    n = int(40 + m * 16)
+    for hx, hy, col, arr in heads:
+        ang = rg.uniform(0, 2 * math.pi, n)
+        sp = rg.uniform(80, 220 + m * 8, n)
+        x = hx + np.cos(ang) * sp * lt
+        y = hy + np.sin(ang) * sp * lt + 260 * lt * lt
+        F.splat(x, y, col * 1.6, np.exp(-lt / 0.45) * 0.9, size=2)
 
 
 def data_panel(F, t, k, a=1.0):
@@ -518,26 +538,23 @@ def data_panel(F, t, k, a=1.0):
     y0, y1 = 210, 640
     F.glass(60, y0, W - 60, y1, 36, a)
     t0 = QSTART[k]
-    # 季度大字（切换时上滑）
     p = eo5((t - t0) / 0.45)
     if k > 0 and p < 1:
         F.text(qtxt(QL[k - 1]), W / 2, 300 - 60 * p, 76, "numb", INK, a * (1 - p), tab=True)
     glass_num(F, qtxt(QL[k]), W / 2, 300 + 60 * (1 - p), 76, INK * 0.9 + VIO * 0.1, a * p, glow=0.25)
-    # 两列
     for which, (cx, nm, col, arr) in enumerate(((290, NA, GOLD, HJ), (W - 290, NB, ICE, ZJ))):
         v0 = arr[k - 1] if k > 0 else arr[0]
-        v = roll(v0, arr[k], t, t0 + 0.05 + which * 0.08, 0.5 if k != 17 else 0.35)
+        v = int(round(v0 + (arr[k] - v0) * head_progress(k, t))) if k == 17 else roll(v0, arr[k], t, t0 + 0.05 + which * 0.08, 0.5)
         F.text(nm, cx, 400, 32, "bold", col, a)
         glass_num(F, str(v), cx, 495, 104, col, a)
         if k > 0:
             dv = arr[k] - arr[k - 1]
             dc = RED if dv > 0 else GRN if dv < 0 else INK3 + 0.2
-            big = abs(dv) >= 15
-            F.text(fmt_d(dv), cx, 585, 36 if not big else 44, "numb", dc,
-                   a * eo((t - t0 - 0.3) / 0.4), tab=True, glow=0.35 if big else 0)
+            big = abs(dv) >= 10
+            sz = 36 if not big else int(min(44 + abs(dv) * 0.2, 64)) // 2 * 2
+            F.text(fmt_d(dv), cx, 585, sz, "numb", dc, a * eo((t - t0 - 0.2) / 0.3), tab=True, glow=0.4 if big else 0)
         else:
             F.text("起点", cx, 585, 30, "med", INK3 + 0.2, a)
-    # 中间：合并去重
     v0 = UN[k - 1] if k > 0 else UN[0]
     v = roll(v0, UN[k], t, t0 + 0.1, 0.5)
     F.text("合并去重", W / 2, 452, 26, "med", INK2, a)
@@ -545,36 +562,16 @@ def data_panel(F, t, k, a=1.0):
     F.text("家", W / 2, 572, 26, "med", INK2, a)
 
 
-def scrubber(F, t, k, a=1.0):
-    """底部 19 季度时间轴 + 合并数迷你曲线"""
-    if a <= 0.003: return
-    x0, x1, y = 90, W - 90, 1735
-    F.line((x0, y), (x1, y), INK3, a * 0.6, 1.5)
-    xs = [x0 + (x1 - x0) * i / (NQ - 1) for i in range(NQ)]
-    # 迷你曲线（已走过的部分）
-    pts = [(xs[i], y - 22 - UN[i] / UN[0] * 80) for i in range(k + 1)]
-    if len(pts) > 1:
-        F.poly(pts, VIO, a * 0.8, 2.5)
-    for i, x in enumerate(xs):
-        done = i <= k
-        F.glow_dot(x, y, 3.5 if not done else 5, VIO if done else INK3, a * (1.0 if done else 0.5), buf="G")
-        if QL[i].endswith("Q1"):
-            F.text(QL[i][:4], x, y + 38, 24, "numm", INK2 if done else INK3, a, tab=True)
-    if k >= 0:
-        F.glow_dot(xs[k], y, 14, INK, a * (0.6 + 0.4 * beat_pulse(t)), buf="G")
-        F.glow_dot(xs[k], y - 22 - UN[k] / UN[0] * 80, 6, VIO * 1.5, a, buf="G")
-
-
-def note_card(F, t, t0, t1, rows, y=760, a=1.0, h=None):
+def note_card(F, t, t0, t1, rows, y=NOTE_Y, a=1.0, h=None):
     """注释卡片：rows = [(tag, 文字, 字号)]"""
-    aa = win(t, t0, t1, 0.35, 0.35) * a
+    aa = win(t, t0, t1, 0.3, 0.3) * a
     if aa <= 0: return
-    hh = h or (70 + 70 * len(rows))
-    dy = (1 - eo5((t - t0) / 0.5)) * 30
+    hh = h or (60 + 66 * len(rows))
+    dy = (1 - eo5((t - t0) / 0.45)) * 30
     F.glass(70, y + dy, W - 70, y + hh + dy, 30, aa)
     for j, (kind, s, size) in enumerate(rows):
-        pj = eo((t - t0 - 0.15 - j * 0.3) / 0.4)
-        yy = y + dy + 70 + j * 70
+        pj = eo((t - t0 - 0.1 - j * 0.25) / 0.35)
+        yy = y + dy + 62 + j * 66
         xx = 110
         if kind:
             xx += tag(F, kind, xx, yy, aa * pj, 24) + 18
@@ -582,100 +579,95 @@ def note_card(F, t, t0, t1, rows, y=760, a=1.0, h=None):
 
 
 def ticker(F, t, a=1.0):
-    """背景字幕条：不打断节奏，随季度流动"""
     for s0, s1, kind, txt in TICKER:
         aa = win(t, b(s0), b(s1), 0.25, 0.3) * a
         if aa <= 0: continue
         dx = (1 - eo5((t - b(s0)) / 0.5)) * 60
-        F.glass(70 + dx, 680, W - 70 + dx, 790, 26, aa, tint=ICE)
-        tw = tag(F, kind, 105 + dx, 735, aa, 24)
-        F.text(txt, 105 + dx + tw + 18, 735, 32, "med", INK, aa, anchor="l")
+        F.glass(70 + dx, NOTE_Y, W - 70 + dx, NOTE_Y + 110, 26, aa, tint=ICE)
+        tw = tag(F, kind, 105 + dx, NOTE_Y + 55, aa, 24)
+        F.text(txt, 105 + dx + tw + 18, NOTE_Y + 55, 32, "med", INK, aa, anchor="l")
+
+
+def impact(F, t, k):
+    """季度切换冲击：幅度越大，推镜、闪光、色差、震动越强"""
+    m = MAG[k]
+    lt = t - QSTART[k]
+    if lt < 0: return
+    s = cl(m / 40.0)
+    F.zoom = 1 + (0.008 + 0.05 * s) * math.exp(-lt / (0.22 + 0.25 * s))
+    if m >= 8:
+        F.flash = max(F.flash, (0.08 + 0.4 * s) * math.exp(-lt / 0.12))
+        F.ca = max(F.ca, (1 + 7 * s) * math.exp(-lt / 0.3))
+    if m >= 15:
+        A = 18 * s * math.exp(-lt / 0.3)
+        F.shake = (A * math.sin(lt * 70), A * 0.7 * math.cos(lt * 53))
 
 
 def sc_tunnel(F, t):
     t0 = b(7)
     k = cur_q(t)
-    cam = cam_for(t)
     note = QNOTE[k]
     a = eo((t - t0) / 0.4)
     in_ytd = b(YTD_BREAK[0]) <= t < b(YTD_BREAK[1])
     in_pre = b(PRE_DROP[0]) <= t < b(PRE_DROP[1])
     dark = 0.0
     if in_ytd:
-        dark = eio((t - b(YTD_BREAK[0])) / 0.6) * (1 - eio((t - b(YTD_BREAK[1]) + 0.35) / 0.35))
+        dark = eio((t - b(YTD_BREAK[0])) / 0.6) * (1 - eio((t - b(YTD_BREAK[1]) + 0.35) / 0.35)) * 0.8
     if in_pre:
-        dark = eio((t - b(PRE_DROP[0])) / 0.5)
+        dark = eio((t - b(PRE_DROP[0])) / 0.5) * 0.55
     nebula(F, t, amt=0.6 * (1 - dark))
-    stars(F, t, cam, amt=0.7 * (1 - 0.5 * dark))
+    stars(F, t, amt=0.5 * (1 - 0.5 * dark), drift=t * 0.8)
     chapter(F, t, "02", "19 个季度对决", t0, b(36))
-    tunnel_world(F, t, cam, k, amt=1 - 0.75 * dark)
     data_panel(F, t, k, a * (1 - 0.8 * dark))
-    scrubber(F, t, k, a * (1 - 0.6 * dark))
+    heads, w = duel_chart(F, t, k, amt=a * (1 - (0.95 if in_ytd else 0.7) * dark))
+    burst(F, t, k, heads)
+    impact(F, t, k)
+    # 图例
+    for j, (nm, col) in enumerate(((NA, GOLD), (NB, ICE))):
+        x = 150 + j * 330
+        F.fill([(x, 682), (x + 44, 682), (x + 44, 687), (x, 687)], col, a * (1 - dark), buf="G", mode="add")
+        F.text(nm, x + 58, 684, 28, "med", INK, a * (1 - dark), anchor="l")
+    F.text("十大股东名单中出现的公司数", W - 70, 684, 24, "reg", INK2, a * (1 - dark), anchor="r")
     footnote(F, t, a * (1 - dark))
     ticker(F, t, 1 - dark)
     if t - t0 < 0.4:
-        F.flash = 0.3 * math.exp(-(t - t0) / 0.12)
-    lt = t - QSTART[k]
-    F.zoom = 1 + 0.014 * math.exp(-lt / 0.22)
+        F.flash = max(F.flash, 0.3 * math.exp(-(t - t0) / 0.12))
     if note == "start":
-        note_card(F, t, QSTART[k] + 0.5, QEND[k] - 0.1, [(None, "柱高 = 出现在十大股东名单中的公司数", 34),
-                                                         (None, "两张表合并，同一公司只计 1 次", 30)], y=680, h=210)
+        note_card(F, t, QSTART[k] + 0.4, QEND[k] - 0.1, [(None, "两条线 = 每季出现在十大股东名单中的公司数", 32),
+                                                         (None, "两张表合并，同一公司只计 1 次", 30)])
     elif note == "cross":
-        note_card(F, t, QSTART[k] + 0.4, QEND[k] - 0.05, [("fact", f"{NB}单季 −19，被{NA}拉开差距", 34)], y=680, h=140)
+        note_card(F, t, QSTART[k] + 0.3, QEND[k] - 0.05, [("fact", f"{NB}单季 −19，被{NA}拉开差距", 34)], h=130)
     elif note == "q1":
-        note_card(F, t, QSTART[k] + 0.4, QEND[k] - 0.05, [
+        note_card(F, t, QSTART[k] + 0.3, QEND[k] - 0.05, [
             ("fact", f"{NB} 111 → 76，单季 −35", 34),
-            ("fact", f"{NA} 140 → 139，几乎没动", 34)], y=680)
+            ("fact", f"{NA} 140 → 139，几乎没动", 34)])
     if in_ytd:
         lb = t - b(YTD_BREAK[0])
         ya = win(t, b(YTD_BREAK[0]) + 0.1, b(YTD_BREAK[1]), 0.3, 0.2)
-        F.text("过去四年，两条线只是缓慢下滑", W / 2, 820, 40, "med", INK2, ya * eo((lb - 0.2) / 0.4))
-        glass_num(F, "2026", W / 2, 1000, 200, INK, ya * eo((lb - 1.0) / 0.4), fnt="numk", glow=0.35)
-        F.text_reveal("今年以来", W / 2, 1180, 80, b(YTD_BREAK[0]) + 1.5, "black", RED * 0.5 + INK * 0.5, ya, stag=0.08, dur=0.3,
+        F.text("过去四年，两条线只是缓慢下滑", W / 2, 860, 40, "med", INK2, ya * eo((lb - 0.2) / 0.4))
+        glass_num(F, "2026", W / 2, 1040, 200, INK, ya * eo((lb - 1.0) / 0.4), fnt="numk", glow=0.35)
+        F.text_reveal("今年以来", W / 2, 1220, 80, b(YTD_BREAK[0]) + 1.5, "black", RED * 0.5 + INK * 0.5, ya, stag=0.08, dur=0.3,
                       glow=0.25)
     if in_pre:
         lb = t - b(PRE_DROP[0])
-        F.text_reveal("二季度", W / 2, 950, 90, b(PRE_DROP[0]) + 0.1, "black", INK, win(t, b(PRE_DROP[0]), b(PRE_DROP[1]), 0.2, 0.05),
+        F.text_reveal("二季度", W / 2, 1000, 90, b(PRE_DROP[0]) + 0.1, "black", INK, win(t, b(PRE_DROP[0]), b(PRE_DROP[1]) - 0.3, 0.2, 0.1),
                       stag=0.12, dur=0.25)
         hb = beat_pulse(t * 2)
-        F.glow_dot(W / 2, 1000, 380, RED * 0.14 * hb * eo(lb / 1.0), 1.0, buf="C")
+        F.glow_dot(W / 2, 1050, 380, RED * 0.14 * hb * eo(lb / 1.0), 1.0, buf="C")
     if note == "collapse":
-        sc_collapse(F, t, cam)
+        lt = t - QSTART[17]
+        note_card(F, t, QSTART[17] + 0.3, QSTART[17] + 3.9, [
+            ("fact", f"{NA}  139 → 17", 40),
+            ("fact", f"{NB}  76 → 23", 40)], h=200)
+        note_card(F, t, QSTART[17] + 4.0, QEND[17] - 0.1, [
+            ("fact", "退出名单：贵州茅台 · 万科A · 平安银行", 30),
+            ("corr", "同季末上证指数 4094，五年季末最高", 30),
+            ("warn", "退出前十 ≠ 清仓，只是低于门槛", 30)])
     if note == "latest":
         note_card(F, t, QSTART[k] + 0.3, QEND[k] + 0.2, [
-            ("fact", "三季度：17 · 23，与上季持平", 34),
-            (None, f"数据截至 2026-10-31 · 已披露 {COVER_LAST:.1f}%", 30),
-            ("fact", f"留下的 {UN[-1]} 家，19 个季度从未离开", 34)], y=680)
-
-
-def sc_collapse(F, t, cam):
-    t0 = QSTART[17]
-    lt = t - t0
-    F.flash = 0.5 * math.exp(-lt / 0.12)
-    F.ca = 7 * math.exp(-lt / 0.35)
-    F.shake = (14 * math.exp(-lt / 0.3) * math.sin(lt * 70), 10 * math.exp(-lt / 0.3) * math.cos(lt * 53))
-    F.zoom = 1 + 0.05 * math.exp(-lt / 0.5)
-    rg = np.random.default_rng(17)
-    n = 1600
-    for which, x, col, v0 in ((0, 1.5, GOLD, HJ[16]), (1, -1.5, ICE, ZJ[16])):
-        h0 = v0 * HMAX
-        P0 = np.stack([x + rg.uniform(-0.6, 0.6, n), rg.uniform(0.3, h0, n), 16 * ZS + rg.uniform(-0.6, 0.6, n)], 1)
-        V = np.stack([rg.normal(0, 2.2, n), rg.uniform(-1, 3.5, n), rg.normal(0, 2.2, n)], 1)
-        tt = max(lt, 0)
-        P = P0 + V * tt + np.array([0, -4.9, 0]) * tt * tt
-        P[:, 1] = np.abs(P[:, 1])
-        px, py, pz = cam.project(P)
-        ok = pz > 0.5
-        F.splat(px[ok], py[ok], col * 1.5, np.exp(-tt / 1.4) * 0.9, size=2)
-    a = win(t, t0 + 0.15, QEND[17] - 0.05, 0.25, 0.4)
-    F.C[:] *= 1 - 0.35 * a
-    note_card(F, t, t0 + 0.2, t0 + 3.9, [
-        ("fact", f"{NA}  139 → 17", 40),
-        ("fact", f"{NB}  76 → 23", 40)], y=680, h=230)
-    note_card(F, t, t0 + 4.0, QEND[17] - 0.1, [
-        ("fact", "退出名单：贵州茅台 · 万科A · 平安银行", 32),
-        ("corr", "同季末上证指数 4094，五年季末最高", 32),
-        ("warn", "退出前十 ≠ 清仓，只是低于门槛", 32)], y=680)
+            ("fact", "三季度：17 · 23，与上季持平", 32),
+            (None, f"数据截至 2026-10-31 · 已披露 {COVER_LAST:.1f}%", 28),
+            ("fact", f"留下的 {UN[-1]} 家，19 个季度从未离开", 32)])
 
 
 # ================================================================ 场景：今年以来（总结）
@@ -683,10 +675,9 @@ def sc_ytd(F, t):
     t0 = b(36)
     lt = t - t0
     a = win(t, t0, b(40) + 0.1, 0.15, 0.3)
-    cam = cam_for(b(35.9))
     nebula(F, t, amt=0.7)
-    tunnel_world(F, t, cam, NQ - 1, amt=0.22)
-    F.C *= 0.55; F.G *= 0.5
+    duel_chart(F, t, NQ - 1, amt=0.2, tt=b(35.9))
+    F.C *= 0.6; F.G *= 0.55
     F.flash = 0.3 * math.exp(-lt / 0.12)
     F.zoom = 1 + 0.04 * math.exp(-lt / 0.35) + 0.02 * eio(lt / 8)
     chapter(F, t, "02", "19 个季度对决", b(7), b(40))
@@ -706,7 +697,6 @@ def sc_ytd(F, t):
         pct = round((v1 - v0) / v0 * 100)
         pe = eo((lt - tj - 1.5) / 0.3)
         glass_num(F, f"−{abs(pct)}%", W - 120, y0 + 190, 120, GRN, a * pe, anchor="r", fnt="numk", glow=0.5)
-        # 剩余比例条
         bx0, bx1, by = 120, W - 120, y0 + 320
         frac = v / v0
         F.fill([(bx0, by - 8), (bx1, by - 8), (bx1, by + 8), (bx0, by + 8)], INK3 * 0.6, a * p, buf="C")
