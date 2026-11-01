@@ -86,12 +86,12 @@ class Hud:
     """右上角品牌角标：官方 logo（mark + 大师之道 + MastersTao）+ 系列名。
 
     - 以 1080 宽竖屏为基准：logo 高 64px，距右 44px、距上 64px（避开平台状态栏）。
-    - logo 下方居右一行小字「大师持仓洞察」，品牌蓝紫渐变细线分隔。
+    - 可选：logo 下方居右一行小字（series 参数），品牌蓝紫渐变细线分隔；默认不显示，画面中不体现系列名。
     - logo 后有一层很淡的蓝紫光晕；底下垫淡暗阴影，亮画面上也能看清。
     - 流光：每 8 秒一次、持续 1.2 秒，只扫过 mark 图形。
     """
 
-    def __init__(self, width=1080, series="大师持仓洞察", font_path=None):
+    def __init__(self, width=1080, series=None, font_path=None):
         s = width / 1080.0
         self.s = s
         self.h = int(round(64 * s))

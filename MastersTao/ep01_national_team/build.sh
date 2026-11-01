@@ -48,7 +48,7 @@ printf "file '%s'\n" "$WORK"/seg{0,1,2,3}.mp4 > "$WORK/list.txt"
 ffmpeg -loglevel error -y -f concat -safe 0 -i "$WORK/list.txt" -c copy "$WORK/video.mp4"
 
 # 5) 正式版：1080×1920，两遍编码 8 Mbps（H.264 High）+ AAC 256k
-M="$OUT/国家队去哪了_EP01_1080x1920.mp4"; PV="$OUT/国家队去哪了_EP01_预览版.mp4"
+M="$OUT/国家队去哪了_1080x1920.mp4"; PV="$OUT/国家队去哪了_预览版.mp4"
 ffmpeg -loglevel error -y -i "$WORK/video.mp4" -c:v libx264 -preset slow -b:v 8000k -pass 1 -passlogfile "$WORK/pm" -an -f mp4 /dev/null
 ffmpeg -loglevel error -y -i "$WORK/video.mp4" -i "$WORK/score.wav" -map 0:v -map 1:a -c:v libx264 -preset slow -b:v 8000k \
   -maxrate 16000k -bufsize 16000k -pass 2 -passlogfile "$WORK/pm" -pix_fmt yuv420p -profile:v high -level 4.2 \

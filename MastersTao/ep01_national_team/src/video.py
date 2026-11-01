@@ -244,7 +244,6 @@ def sc_title(F, t):
     F.ca = 5 * math.exp(-lt / 0.3)
     F.zoom = 1 + 0.035 * math.exp(-lt / 0.4)
     a = win(t, t0 + 0.05, b(7) + 0.15, 0.2, 0.35)
-    F.text("MastersTao · EP01", W / 2, 640, 30, "med", INK2, a * eo((lt - 0.4) / 0.6), track=0.06)
     s = 1.0 + 0.06 * math.exp(-lt / 0.35)
     F.text("国家队", W / 2, 830, int(190 * s) // 2 * 2, "black", INK, a, grad=(INK, BA * 0.4 + INK * 0.6), glow=0.25, shadow=0.5)
     F.text("去哪了？", W / 2, 1050, int(190 * s) // 2 * 2, "black", INK, a, grad=(BB * 0.35 + INK * 0.65, BB * 0.8 + 0.2),
@@ -867,7 +866,7 @@ SCENE_FUN = [
     (b(40), b(45), sc_who_hj), (b(45), b(49), sc_who_zj), (b(49), b(51), sc_compare),
     (b(51), b(61), sc_lessons), (b(61), DURATION + 1, sc_end),
 ]
-HUD = Hud(width=W)
+HUD = Hud(width=W, series=None)          # 只用官方 logo，不显示系列名
 
 
 def render(t):
