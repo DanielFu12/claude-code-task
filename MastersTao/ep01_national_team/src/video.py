@@ -163,42 +163,42 @@ def matrix_xy(scale=1.0, cx=W / 2, cy=None, t=0.0, wob=0.0):
 def sc_open(F, t):
     nebula(F, t, amt=0.5 * eo(t / 2))
     x, y = matrix_xy()
-    a_all = 0.18 * eo((t - 0.1) / 1.4) * (1 - 0.6 * eo((t - 8) / 1.2))
+    a_all = 0.18 * eo((t - 0.1) / 1.4) * (1 - 0.6 * eo((t - b(4)) / 1.2))
     d = np.hypot(x - W / 2, y - 1000) / 900
     appear = np.clip((t - 0.05) * 1.8 - d, 0, 1)
     F.dots(x, y, INK2 * 0.8, a_all * appear * 1.4, sigma=1.1, buf="C")
-    F.text_reveal(f"{UNIVERSE_LAST} 家 A 股公司", W / 2, 1380, 64, 0.3, "bold", INK, win(t, 0.3, 2.05, 0.25, 0.3), stag=0.04)
-    F.text_reveal("每季度都要公布「十大股东」名单", W / 2, 1465, 40, 0.7, "reg", INK2, win(t, 0.7, 2.05, 0.25, 0.3), stag=0.025)
+    F.text_reveal(f"{UNIVERSE_LAST} 家 A 股公司", W / 2, 1380, 64, 0.3, "bold", INK, win(t, 0.3, b(1) + 0.05, 0.25, 0.3), stag=0.04)
+    F.text_reveal("每季度都要公布「十大股东」名单", W / 2, 1465, 40, 0.7, "reg", INK2, win(t, 0.7, b(1) + 0.05, 0.25, 0.3), stag=0.025)
     exs, eys = x[EVER_SLOT], y[EVER_SLOT]
     col0, on0 = pres_cols(0)
     col1, on1 = pres_cols(NQ - 1)
-    lit = eo((t - 2.0) / 0.5)
-    die = np.clip((t - 6.0 - _ORDER * 1.6) / 0.22, 0, 1)
+    lit = eo((t - b(1)) / 0.5)
+    die = np.clip((t - b(3) - _ORDER * 1.5) / 0.22, 0, 1)
     die = np.where(on1, 0, die)
     al = lit * on0 * (1 - die)
-    al = np.where(on1 & (t > 7.6), np.maximum(al, 1.0), al)
-    pulse = 1 + 0.5 * beat_pulse(t) * (t > 2.0)
+    al = np.where(on1 & (t > b(3) + 1.6), np.maximum(al, 1.0), al)
+    pulse = 1 + 0.5 * beat_pulse(t) * (t > b(1))
     F.dots(exs, eys, col0 * 1.3, al * pulse, sigma=2.2, buf="G")
     F.dots(exs, eys, col0 * 0.9, al * 0.8, sigma=1.4, buf="C")
     falling = (die > 0) & (die < 1) & on0
     if falling.any():
         F.dots(exs[falling], eys[falling] + die[falling] * 60, col0[falling], (1 - die[falling]) * 0.9, sigma=2.0)
-    n = UN[0] if t < 6.0 else int(on1.sum() + ((on0 & ~on1) & (die < 1)).sum())
-    ca = win(t, 2.0, 8.0, 0.3, 0.3)
+    n = UN[0] if t < b(3) else int(on1.sum() + ((on0 & ~on1) & (die < 1)).sum())
+    ca = win(t, b(1), b(4), 0.3, 0.3)
     glass_num(F, str(n), W / 2, 1450, 180, VIO, ca)
     # 两个名字（金 / 冰蓝）
-    na = win(t, 2.0, 5.9, 0.3, 0.3)
+    na = win(t, b(1), b(3) - 0.1, 0.3, 0.3)
     F.text(NA, W / 2 - 18, 1250, 46, "black", GOLD, na, anchor="r", glow=0.2)
     F.text("×", W / 2, 1250, 40, "numl", INK2, na)
     F.text(NB, W / 2 + 18, 1250, 46, "black", ICE, na, anchor="l", glow=0.2)
     F.text("2022 年一季度，出现在", W / 2, 1325, 36, "reg", INK2, na)
     F.text("家公司的十大股东名单里", W / 2, 1585, 38, "reg", INK2, na)
-    nb = win(t, 6.0, 8.0, 0.3, 0.25)
+    nb = win(t, b(3), b(4), 0.3, 0.25)
     F.text("2026 年三季度，只剩", W / 2, 1300, 40, "reg", INK2, nb)
     F.text("家", W / 2, 1585, 40, "reg", INK2, nb)
-    qa = win(t, 8.0, 10.25, 0.25, 0.12)
-    F.text_reveal("国家队，去哪了？", W / 2, 1450, 96, 8.0, "black", INK, qa, stag=0.06, dur=0.35, glow=0.25)
-    F.bloom = 1.0 + 0.5 * eo((t - 8) / 2.0)
+    qa = win(t, b(4), b(5) + 0.25, 0.25, 0.12)
+    F.text_reveal("国家队，去哪了？", W / 2, 1450, 96, b(4), "black", INK, qa, stag=0.06, dur=0.35, glow=0.25)
+    F.bloom = 1.0 + 0.5 * eo((t - b(4)) / 2.0)
 
 
 _ORDER = np.random.default_rng(3).random(len(PRES))
@@ -336,7 +336,7 @@ def sc_who_hj(F, t):
     vals = np.array([v for d, v in IDX_D]); lo, hi = vals.min() * 0.97, vals.max() * 1.02
     n = len(IDX_D)
     ev = [_idx_pos(d) for d, _, _ in HJ_EVENTS]
-    anchors_t = [0.4, 1.5, 2.5, 3.5, 4.3]          # 起点 → 三次出手（第 3、5、7 拍）→ 终点
+    anchors_t = [0.4, BEAT * 3, BEAT * 5, BEAT * 7, BEAT * 8.6]   # 起点 → 三次出手（第 3、5、7 拍）→ 终点
     anchors_i = [0, ev[0], ev[1], ev[2], n - 1]
     head = np.interp(lt, anchors_t, anchors_i)
     xs = X0 + (X1 - X0) * np.arange(n) / (n - 1)
@@ -442,9 +442,9 @@ def sc_compare(F, t):
 QSTART = {i: b(s) for i, s, d, n in QSCHED}
 QEND = {i: b(s + d) for i, s, d, n in QSCHED}
 QNOTE = {i: n for i, s, d, n in QSCHED}
-DX0, DX1, DY0, DY1 = 130, 990, 730, 1440        # 折线图区域（y 向下）
+DX0, DX1, DY0, DY1 = 130, 990, 730, 1400        # 折线图区域（y 向下）
 DYMAX = 170
-NOTE_Y = 1525
+NOTE_Y = 1560                                   # 注释卡顶边：在季度标签（DY1+74）下方留出间距
 # 每季变化幅度（两家中较大者）——驱动画面冲击力；音频端用同一公式
 MAG = [0] + [max(abs(HJ[i] - HJ[i - 1]), abs(ZJ[i] - ZJ[i - 1])) for i in range(1, NQ)]
 
@@ -519,7 +519,7 @@ def duel_chart(F, t, k=None, amt=1.0, tt=None):
     # 当前季度游标
     xk = dxq(k - 1, w) + (dxq(k, w) - dxq(k - 1, w)) * p if k > 0 else dxq(0, w)
     F.line((xk, DY0 - 20), (xk, DY1), INK, amt * 0.18, 1.2)
-    F.text(QL[k].replace("Q", " Q"), xk, DY1 + 78, 28, "numb", INK, amt * eo((tt - QSTART[k]) / 0.3), tab=True)
+    F.text(QL[k].replace("Q", " Q"), xk, DY1 + 74, 28, "numb", INK, amt * eo((tt - QSTART[k]) / 0.3), tab=True)
     # 两条线：宽辉光 + 细亮线 + 面积
     heads = []
     for arr, col in ((HJ, GOLD), (ZJ, ICE)):
@@ -601,12 +601,12 @@ def note_card(F, t, t0, t1, rows, y=NOTE_Y, a=1.0, h=None):
     """注释卡片：rows = [(tag, 文字, 字号)]"""
     aa = win(t, t0, t1, 0.3, 0.3) * a
     if aa <= 0: return
-    hh = h or (60 + 66 * len(rows))
+    hh = h or (54 + 62 * len(rows))
     dy = (1 - eo5((t - t0) / 0.45)) * 30
     F.glass(70, y + dy, W - 70, y + hh + dy, 30, aa)
     for j, (kind, s, size) in enumerate(rows):
         pj = eo((t - t0 - 0.1 - j * 0.25) / 0.35)
-        yy = y + dy + 62 + j * 66
+        yy = y + dy + 58 + j * 62
         xx = 110
         if kind:
             xx += tag(F, kind, xx, yy, aa * pj, 24) + 18
@@ -858,8 +858,10 @@ def sc_end(F, t):
            VIO, a * 0.8, buf="G", mode="add")
     F.text_reveal("关注 MastersTao", W / 2, 1110, 68, t0 + 1.5, "black", INK, a, stag=0.05, glow=0.2)
     F.text_reveal("看懂机构持仓背后的投资逻辑。", W / 2, 1210, 46, t0 + 2.0, "med", INK2, a, stag=0.04)
-    F.text("EP01  国家队去哪了？", W / 2, 1420, 30, "med", INK3 + 0.25, a * eo((lt - 3.2) / 0.6), track=0.05)
-    F.text("masterstao.com", W / 2, 1480, 28, "numm", INK3 + 0.2, a * eo((lt - 3.5) / 0.6), track=0.08)
+    F.text("EP01  国家队去哪了？", W / 2, 1420, 30, "med", INK3 + 0.25, a * eo((lt - 2.6) / 0.5), track=0.05)
+    F.text("masterstao.com", W / 2, 1480, 28, "numm", INK3 + 0.2, a * eo((lt - 2.9) / 0.5), track=0.08)
+    F.text("Music: “Movement Proposition” Kevin MacLeod (incompetech.com) · CC BY 4.0", W / 2, 1780, 22, "reg",
+           INK3 + 0.15, a * eo((lt - 1.0) / 0.6))
 
 
 # ================================================================ 调度
@@ -881,7 +883,7 @@ def render(t):
     F.bloom *= 1.0 + 0.14 * beat_pulse(t) * (b(7) <= t < b(25) or b(36) <= t < b(40) or b(51) <= t < b(61)) \
         + 0.06 * beat_pulse(t) * (b(40) <= t < b(51))
     # 片头片尾淡入淡出
-    F.fade = eo(t / 0.6) * (1 - eio((t - (DURATION - 0.6)) / 0.6))
+    F.fade = eo(t / 0.6) * (1 - eio((t - (DURATION - 1.25)) / 1.25))     # 与原曲尾音同步淡出
     hud_a = eo((t - 0.8) / 0.8) * (1 - eo((t - b(61)) / 0.6))
     return F.finish(hud=(lambda img: HUD.draw(img, t, hud_a)) if hud_a > 0 else None, grain_seed=int(t * FPS))
 

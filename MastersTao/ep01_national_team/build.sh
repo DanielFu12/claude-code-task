@@ -29,8 +29,10 @@ python3 scripts/fetch_index.py
 python3 scripts/build_dataset.py
 python3 scripts/verify.py
 
-# 3) 配乐
-python3 src/audio.py "$WORK/score.wav"
+# 3) 配乐：授权曲目《Movement Proposition》（CC BY 4.0，见 music/LICENSE.md）按小节重剪 + 数据驱动低频冲击
+#    （src/audio.py 为早期的纯合成配乐，保留备用：python3 src/audio.py "$WORK/score.wav"）
+[ -f music/Movement_Proposition.mp3 ] || curl -sSfL -o music/Movement_Proposition.mp3 "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Movement%20Proposition.mp3"
+python3 src/audio_track.py "$WORK/score.wav"
 
 # 4) 逐帧渲染（4 进程并行，每进程单线程，避免线程争用）
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
