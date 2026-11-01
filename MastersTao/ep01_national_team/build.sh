@@ -29,19 +29,21 @@ python3 scripts/fetch_index.py
 python3 scripts/build_dataset.py
 python3 scripts/verify.py
 
-# 3) 配乐：授权曲目《Movement Proposition》（CC BY 4.0，见 music/LICENSE.md）按小节重剪 + 数据驱动低频冲击
-#    （src/audio.py 为早期的纯合成配乐，保留备用：python3 src/audio.py "$WORK/score.wav"）
-[ -f music/Movement_Proposition.mp3 ] || curl -sSfL -o music/Movement_Proposition.mp3 "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Movement%20Proposition.mp3"
+# 3) 配乐：原创素材（Google Lyria 3.5 生成，music/score_lyria_A.mp3，见 music/README.md）按小节重剪 + 数据驱动低频冲击
+#    （src/audio.py 为纯合成配乐，保留备用：python3 src/audio.py "$WORK/score.wav"）
 python3 src/audio_track.py "$WORK/score.wav"
 
 # 4) 逐帧渲染（4 进程并行，每进程单线程，避免线程争用）
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 N=$(python3 -c "import sys; sys.path.insert(0,'src'); from timeline import DURATION; print(int(round(DURATION*30)))")
 P=4; STEP=$(( (N + P - 1) / P ))
+rm -f "$WORK"/seg*.mp4
+pids=()
 for k in $(seq 0 $((P-1))); do
   s=$((k*STEP)); e=$(( (k+1)*STEP < N ? (k+1)*STEP : N ))
-  python3 src/video.py chunk $s $e "$WORK/seg$k.mp4" &
-done; wait
+  python3 src/video.py chunk $s $e "$WORK/seg$k.mp4" & pids+=($!)
+done
+for p in "${pids[@]}"; do wait "$p" || { echo "渲染进程失败" >&2; exit 1; }; done
 printf "file '%s'\n" "$WORK"/seg{0,1,2,3}.mp4 > "$WORK/list.txt"
 ffmpeg -loglevel error -y -f concat -safe 0 -i "$WORK/list.txt" -c copy "$WORK/video.mp4"
 

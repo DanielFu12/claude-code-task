@@ -68,7 +68,7 @@ hud.draw(frame, t)            # frame: float32 RGB 0..1
 
 ## 6. 声音
 
-- 配乐优先使用可商用授权曲（如 incompetech 的 CC BY 4.0 曲目，片尾与简介署名），按原曲小节重新剪辑，画面时间轴直接采用原曲 BPM；也可用 `ep01_national_team/src/audio.py` 的合成方案。
+- 配乐：按本期需求用 Google Lyria（`scripts/gen_music.py`）生成原创器乐素材，测出节拍网格后按小节重新剪辑，画面时间轴直接采用素材 BPM，所有切换踩在鼓点上；备选为 `src/audio.py` 的纯合成方案或可商用授权曲（需署名）。
 - 数据驱动的冲击：每个数据切换叠加低频脉冲 / 太鼓 / boom / sub drop，强度随数据变化幅度增长；不叠加有音高的元素，避免与原曲调性冲突。
 - 转场只用低频脉冲、Sub Drop、深沉轰鸣；**不用高频 Whoosh 与白噪声**。
 - 全片无配音，靠音乐与文字叙事。
@@ -79,6 +79,6 @@ hud.draw(frame, t)            # frame: float32 RGB 0..1
 2. 官方 logo（高 230px）从左向右扫光揭示，mark 后有蓝紫光晕；
 3. 品牌渐变细线（片尾不再出现系列名，只保留官方 logo）；
 4. 关注语（本期）：**关注 MastersTao，看懂机构持仓背后的投资逻辑。**
-5. 期号与标题、`masterstao.com`。
+5. `masterstao.com`（不显示期号与标题）。
 
 实现见 `ep01_national_team/src/video.py` 的 `sc_end`，新一期复制后改期号与标题即可。

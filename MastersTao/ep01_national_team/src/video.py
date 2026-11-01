@@ -858,10 +858,7 @@ def sc_end(F, t):
            VIO, a * 0.8, buf="G", mode="add")
     F.text_reveal("关注 MastersTao", W / 2, 1110, 68, t0 + 1.5, "black", INK, a, stag=0.05, glow=0.2)
     F.text_reveal("看懂机构持仓背后的投资逻辑。", W / 2, 1210, 46, t0 + 2.0, "med", INK2, a, stag=0.04)
-    F.text("EP01  国家队去哪了？", W / 2, 1420, 30, "med", INK3 + 0.25, a * eo((lt - 2.6) / 0.5), track=0.05)
-    F.text("masterstao.com", W / 2, 1480, 28, "numm", INK3 + 0.2, a * eo((lt - 2.9) / 0.5), track=0.08)
-    F.text("Music: “Movement Proposition” Kevin MacLeod (incompetech.com) · CC BY 4.0", W / 2, 1780, 22, "reg",
-           INK3 + 0.15, a * eo((lt - 1.0) / 0.6))
+    F.text("masterstao.com", W / 2, 1420, 28, "numm", INK3 + 0.2, a * eo((lt - 2.6) / 0.5), track=0.08)
 
 
 # ================================================================ 调度
