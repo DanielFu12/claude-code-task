@@ -122,7 +122,7 @@ check("2026Q1 中国证金 111 → 76（−35）", (B("2025Q4"), B("2026Q1")), (
 check("2026Q1 汇金资管 140 → 139", (A("2025Q4"), A("2026Q1")), (140, 139))
 check("2026Q2 汇金资管 139 → 17（−122）", (A("2026Q1"), A("2026Q2")), (139, 17))
 check("2026Q2 中国证金 76 → 23（−53）", (B("2026Q1"), B("2026Q2")), (76, 23))
-check("2026Q2 合并 188 → 32（趋势图标注 −156）", (len(AB("2026Q1")), len(AB("2026Q2"))), (188, 32))
+check("2026Q2 合并 188 → 32", (len(AB("2026Q1")), len(AB("2026Q2"))), (188, 32))
 for code, nm in (("600519.SH", "贵州茅台"), ("000002.SZ", "万科A"), ("000001.SZ", "平安银行")):
     check(f"2026Q2 退出名单：{nm}（Q1 在、Q2 不在）", (code in AB("2026Q1"), code in AB("2026Q2")), (True, False))
 check("2026Q2 上证季末 4094 为 19 季最高", (round(idx["2026Q2"]), max(idx.values()) == idx["2026Q2"]), (4094, True))
@@ -139,9 +139,14 @@ check("今年以来 两家合计 212 → 32，−85%", (u0, u1, round((u1 - u0) 
 check("科普：汇金投资本体每季均为 8 家", sorted({len(sets[L[q]]["hjinv"]) for q in Q}), [8])
 check("科普：汇金资管委托计划 2 个（股东代码）", len({"70415366", "70415393"}), 2)
 check("科普：中证金融资产管理计划 10 个（股东代码）", len(ZJ_PLAN), 10)
+check("科普：证金蓝线 157 → 23", (B("2022Q1"), B("2026Q3")), (157, 23))
+_ix = json.load(open(os.path.join(RAW, "idx_sh000001.json"), encoding="utf-8"))
+_days = {r["day"] for r in _ix}
+for d in ("2023-10-23", "2024-02-06", "2025-04-07"):
+    check(f"科普：汇金出手日 {d} 为交易日（标注落在指数日线上）", d in _days, True)
 ever = set().union(*[AB(L[q]) for q in Q]); always = set.intersection(*[AB(L[q]) for q in Q])
-check("全景：19 季里出现过 265 家", len(ever), 265)
-check("全景：从未离开 32 家，且正是 2026Q3 的 32 家", (len(always), always == AB("2026Q3")), (32, True))
+check("（数据）19 季里两家合计出现过 265 家", len(ever), 265)
+check("「留下的 32 家，19 个季度从未离开」", (len(always), always == AB("2026Q3")), (32, True))
 
 # 5) 主体名称变体
 lines += ["", "## 6. 纳入统计的主体与其在原始数据中出现过的全部名称", ""]

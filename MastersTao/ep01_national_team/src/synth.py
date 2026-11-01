@@ -326,3 +326,52 @@ def pluck_lead(note, dur=0.22, cutoff=5200):
     out = supersaw(note, dur, att=0.003, rel=0.12, cutoff=cutoff, voices=3, det=0.08)
     t = t_axis(len(out) / SR)
     return out * np.exp(-t / 0.09)[:, None]
+
+
+# ---------------------------------------------------------------- v4：冲击力层
+def snare(dur=0.32, vel=1.0, seed=6):
+    """军鼓：双音体（185/330Hz）+ 1.2–6kHz 带通噪声尾，低通 7kHz 去刺"""
+    from scipy.signal import butter, sosfilt
+    t = t_axis(dur)
+    rng = np.random.default_rng(seed)
+    body = (np.sin(2 * np.pi * 185 * t) * 0.9 + np.sin(2 * np.pi * 330 * t) * 0.45) * np.exp(-t / 0.05)
+    nz = sosfilt(butter(2, [1200 / (SR / 2), 6000 / (SR / 2)], "band", output="sos"), rng.standard_normal(len(t)))
+    nz *= np.exp(-t / 0.11)
+    s = np.tanh((body + nz * 1.1) * 1.6) * vel
+    s *= np.minimum(t / 0.0015, 1)
+    return np.stack([s * 0.97, s * 1.03], 1)
+
+
+def snare_roll(dur, r0=2.0, r1=16.0, v0=0.25, v1=1.0, seed=8):
+    """加速军鼓滚奏（每秒 r0 → r1 下，力度递增）——经典预告片蓄力"""
+    out = np.zeros((int(dur * SR) + SR, 2))
+    t = 0.0; k = 0
+    while t < dur:
+        p = t / dur
+        hit = snare(0.22, v0 + (v1 - v0) * p * p, seed=seed + k % 5)
+        i = int(t * SR)
+        out[i:i + len(hit)] += hit[:len(out) - i]
+        t += 1.0 / (r0 + (r1 - r0) * p ** 1.6); k += 1
+    return out[:int(dur * SR)]
+
+
+def growl(note, dur, rate=4.0, drive=3.0):
+    """低音咆哮：锯齿 + 方波，低通截止被 LFO 调制（重型断崖段用）"""
+    t = t_axis(dur)
+    f = midi(note)
+    s = saw_soft(f, t, nh=30, bright=12) + 0.5 * np.sign(np.sin(2 * np.pi * f * t))
+    lfo = 0.5 + 0.5 * np.sin(2 * np.pi * rate * t - np.pi / 2)
+    fc = 180 + 1400 * lfo
+    s = onepole_lp(onepole_lp(s, fc), fc)
+    s = np.tanh(s * drive) * adsr(len(t), 0.01, 0.1, 0.9, 0.15)
+    return np.stack([s, s], 1)
+
+
+def chord_stab(notes, dur=0.24, cutoff=4200, voices=5):
+    """反拍和弦「抽吸」：多声部 supersaw，短促（EDM 式推进感）"""
+    out = None
+    for k, n in enumerate(notes):
+        x = supersaw(n, dur, att=0.003, rel=0.08, cutoff=cutoff, voices=voices, det=0.2, seed=k)
+        out = x if out is None else out + x
+    t = t_axis(len(out) / SR)
+    return out * np.exp(-t / (dur * 0.6))[:, None] / len(notes)
