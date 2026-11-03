@@ -6,9 +6,10 @@ API key 由运行环境的代理注入（generativelanguage.googleapis.com）。
 """
 import sys, os, json, base64, time, urllib.request, concurrent.futures as cf, re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import LINES, TEASE
 
-ALL = LINES + [('tease', 'end', TEASE[0], TEASE[1], '温和而有悬念，像在讲下一个故事的开头', TEASE[2])]
+def _all():
+    from script import LINES, TEASE
+    return LINES + [('tease', 'end', TEASE[0], TEASE[1], '温和而有悬念，像在讲下一个故事的开头', TEASE[2])]
 
 MODEL = 'gemini-3.8-flash-tts'
 VOICE = 'Charon'
@@ -66,14 +67,14 @@ if __name__ == '__main__':
     if args and args[0] == '--check':
         res = {}
         with cf.ThreadPoolExecutor(4) as ex:
-            futs = {ex.submit(transcribe, os.path.join(d, l[0] + '.wav')): l for l in ALL}
+            futs = {ex.submit(transcribe, os.path.join(d, l[0] + '.wav')): l for l in _all()}
             for f in cf.as_completed(futs):
                 l = futs[f]; tr = f.result(); res[l[0]] = tr
                 ok = norm(tr) == norm(l[2])
                 print(('OK  ' if ok else 'DIFF'), l[0], '|', l[2], '|', tr, flush=True)
         json.dump(res, open(os.path.join(d, 'transcripts.json'), 'w'), ensure_ascii=False, indent=1)
         sys.exit()
-    todo = [l for l in ALL if (l[0] in args) or (not args and not os.path.exists(os.path.join(d, l[0] + '.wav')))]
+    todo = [l for l in _all() if (l[0] in args) or (not args and not os.path.exists(os.path.join(d, l[0] + '.wav')))]
     with cf.ThreadPoolExecutor(4) as ex:
         for out in ex.map(lambda l: gen(l, os.path.join(d, l[0] + '.wav')), todo):
             print('done', out, flush=True)
