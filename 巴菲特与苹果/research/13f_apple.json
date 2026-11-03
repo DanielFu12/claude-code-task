@@ -1,0 +1,3903 @@
+{
+ "meta": {
+  "generated": "2026-11-03",
+  "sources": [
+   "https://data.sec.gov/submissions/CIK0001067983.json",
+   "https://data.sec.gov/submissions/CIK0001067983-submissions-001.json",
+   "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+   "https://data.sec.gov/submissions/CIK0000320193.json"
+  ],
+  "notes": [
+   "Shares = sum of all Apple (CUSIP 037833100) infoTable entries across Berkshire filing managers / other-manager combinations in each 13F-HR.",
+   "Apple 4-for-1 split effective 2020-08-31 (trading split-adjusted from 2020-08-31); periods before 2020-09-30 multiplied by 4 for split_adjusted_shares. 13F for 2020-09-30 already reports post-split shares.",
+   "Apple 7-for-1 split 2014-06-09 predates the data here (FY2014 10-K figures are already post-7:1).",
+   "13F <value> was reported in USD thousands through period 2022-09-30; from period 2022-12-31 (filed 2023-02-14) EDGAR required whole dollars. value_usd normalises to dollars.",
+   "implied_price = value_usd / shares (13F values are at quarter-end market price).",
+   "No Apple holding in the 2015Q4 13F-HR (0000950123-16-015025); first appears in 2016Q1.",
+   "Apple fundamentals: as originally reported in each fiscal-year 10-K (earliest filed XBRL fact for that fiscal-year period). EPS/share counts before FY2020 adjusted x4 / /4 for the 2020 split."
+  ]
+ },
+ "berkshire_13f_aapl": [
+  {
+   "quarter": "2016Q1",
+   "period": "2016-03-31",
+   "filing_date": "2016-05-16",
+   "accession": "0000950123-16-017295",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012316017295/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012316017295/0000950123-16-017295-index.htm",
+   "shares_reported": 9811747,
+   "split_adjusted_shares": 39246988,
+   "value_reported": 1069382,
+   "value_unit": "USD thousands",
+   "value_usd": 1069382000,
+   "implied_price_reported": 108.99,
+   "implied_price_split_adjusted": 27.25,
+   "n_entries": 1,
+   "entries": [
+    {
+     "shares": 9811747,
+     "value": 1069382,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    }
+   ],
+   "change_split_adjusted": 39246988,
+   "change_pct": null,
+   "action": "INITIAL BUY"
+  },
+  {
+   "quarter": "2016Q2",
+   "period": "2016-06-30",
+   "filing_date": "2016-08-15",
+   "accession": "0000950123-16-020120",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012316020120/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012316020120/0000950123-16-020120-index.htm",
+   "shares_reported": 15227702,
+   "split_adjusted_shares": 60910808,
+   "value_reported": 1455768,
+   "value_unit": "USD thousands",
+   "value_usd": 1455768000,
+   "implied_price_reported": 95.6,
+   "implied_price_split_adjusted": 23.9,
+   "n_entries": 4,
+   "entries": [
+    {
+     "shares": 82500,
+     "value": 7887,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 10193747,
+     "value": 974522,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 4644105,
+     "value": 443976,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 307350,
+     "value": 29383,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    }
+   ],
+   "change_split_adjusted": 21663820,
+   "change_pct": 55.2,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2016Q3",
+   "period": "2016-09-30",
+   "filing_date": "2016-11-14",
+   "accession": "0000950123-16-022377",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012316022377/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012316022377/0000950123-16-022377-index.htm",
+   "shares_reported": 15227702,
+   "split_adjusted_shares": 60910808,
+   "value_reported": 1721492,
+   "value_unit": "USD thousands",
+   "value_usd": 1721492000,
+   "implied_price_reported": 113.05,
+   "implied_price_split_adjusted": 28.26,
+   "n_entries": 4,
+   "entries": [
+    {
+     "shares": 1084300,
+     "value": 122580,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 10193747,
+     "value": 1152403,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3642305,
+     "value": 411763,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 307350,
+     "value": 34746,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2016Q4",
+   "period": "2016-12-31",
+   "filing_date": "2017-02-14",
+   "accession": "0000950123-17-002417",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012317002417/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012317002417/0000950123-17-002417-index.htm",
+   "shares_reported": 57359652,
+   "split_adjusted_shares": 229438608,
+   "value_reported": 6643394,
+   "value_unit": "USD thousands",
+   "value_usd": 6643394000,
+   "implied_price_reported": 115.82,
+   "implied_price_split_adjusted": 28.95,
+   "n_entries": 10,
+   "entries": [
+    {
+     "shares": 710000,
+     "value": 82232,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 111187,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 8818000,
+     "value": 1021301,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 78873,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 1781977,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 1801000,
+     "value": 208592,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 3618000,
+     "value": 419037,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 23763905,
+     "value": 2752335,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 78526,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 109334,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 168527800,
+   "change_pct": 276.68,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2017Q1",
+   "period": "2017-03-31",
+   "filing_date": "2017-05-15",
+   "accession": "0000950123-17-005259",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012317005259/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012317005259/0000950123-17-005259-index.htm",
+   "shares_reported": 129357106,
+   "split_adjusted_shares": 517428424,
+   "value_reported": 18583441,
+   "value_unit": "USD thousands",
+   "value_usd": 18583441000,
+   "implied_price_reported": 143.66,
+   "implied_price_split_adjusted": 35.91,
+   "n_entries": 10,
+   "entries": [
+    {
+     "shares": 710000,
+     "value": 101999,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 137914,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 13951000,
+     "value": 2004201,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 97832,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 2210316,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 436439,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 11958000,
+     "value": 1717886,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 81051359,
+     "value": 11643838,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 97401,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 135615,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 287989816,
+   "change_pct": 125.52,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2017Q2",
+   "period": "2017-06-30",
+   "filing_date": "2017-08-14",
+   "accession": "0000950123-17-007953",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012317007953/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012317007953/0000950123-17-007953-index.htm",
+   "shares_reported": 130191960,
+   "split_adjusted_shares": 520767840,
+   "value_reported": 18750246,
+   "value_unit": "USD thousands",
+   "value_usd": 18750246000,
+   "implied_price_reported": 144.02,
+   "implied_price_split_adjusted": 36.0,
+   "n_entries": 10,
+   "entries": [
+    {
+     "shares": 710000,
+     "value": 102254,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 138259,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 13951000,
+     "value": 2009223,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 98078,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 2215855,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 437533,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 11958000,
+     "value": 1722191,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 81886213,
+     "value": 11793252,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 97646,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 135955,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 3339416,
+   "change_pct": 0.65,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2017Q3",
+   "period": "2017-09-30",
+   "filing_date": "2017-11-14",
+   "accession": "0000950123-17-010896",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012317010896/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012317010896/0000950123-17-010896-index.htm",
+   "shares_reported": 134092782,
+   "split_adjusted_shares": 536371128,
+   "value_reported": 20666379,
+   "value_unit": "USD thousands",
+   "value_usd": 20666379000,
+   "implied_price_reported": 154.12,
+   "implied_price_split_adjusted": 38.53,
+   "n_entries": 10,
+   "entries": [
+    {
+     "shares": 710000,
+     "value": 109425,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 147955,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 13951000,
+     "value": 2150128,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 104956,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 2371251,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 468217,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 11958000,
+     "value": 1842967,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 85787035,
+     "value": 13221498,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 104493,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 145489,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 15603288,
+   "change_pct": 3.0,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2017Q4",
+   "period": "2017-12-31",
+   "filing_date": "2018-02-14",
+   "accession": "0000950123-18-002390",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012318002390/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012318002390/0000950123-18-002390-index.htm",
+   "shares_reported": 165333962,
+   "split_adjusted_shares": 661335848,
+   "value_reported": 27979467,
+   "value_unit": "USD thousands",
+   "value_usd": 27979467000,
+   "implied_price_reported": 169.23,
+   "implied_price_split_adjusted": 42.31,
+   "n_entries": 10,
+   "entries": [
+    {
+     "shares": 3547753,
+     "value": 600386,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 162461,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 13951000,
+     "value": 2360928,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 115246,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 2603730,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 514121,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 11958000,
+     "value": 2023652,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 114190462,
+     "value": 19324452,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 114738,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 159753,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 124964720,
+   "change_pct": 23.3,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2018Q1",
+   "period": "2018-03-31",
+   "filing_date": "2018-05-15",
+   "accession": "0000950123-18-005732",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012318005732/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012318005732/0000950123-18-005732-index.htm",
+   "shares_reported": 239567633,
+   "split_adjusted_shares": 958270532,
+   "value_reported": 40194658,
+   "value_unit": "USD thousands",
+   "value_usd": 40194658000,
+   "implied_price_reported": 167.78,
+   "implied_price_split_adjusted": 41.95,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 3547753,
+     "value": 595242,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 161069,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 6065000,
+     "value": 1017586,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 17657000,
+     "value": 2962491,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 114258,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 2581421,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 509716,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 13640000,
+     "value": 2288519,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 176971133,
+     "value": 29692217,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 113755,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 158384,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 296934684,
+   "change_pct": 44.9,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2018Q2",
+   "period": "2018-06-30",
+   "filing_date": "2018-08-14",
+   "accession": "0000950123-18-008866",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012318008866/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012318008866/0000950123-18-008866-index.htm",
+   "shares_reported": 251955877,
+   "split_adjusted_shares": 1007823508,
+   "value_reported": 46639553,
+   "value_unit": "USD thousands",
+   "value_usd": 46639553000,
+   "implied_price_reported": 185.11,
+   "implied_price_split_adjusted": 46.28,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 3547753,
+     "value": 656725,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 177706,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 6065000,
+     "value": 1122692,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 17657000,
+     "value": 3268487,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 126060,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 2848056,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 562364,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 13640000,
+     "value": 2524900,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 189359377,
+     "value": 35052314,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 125505,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 174744,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 49552976,
+   "change_pct": 5.17,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2018Q3",
+   "period": "2018-09-30",
+   "filing_date": "2018-11-14",
+   "accession": "0000950123-18-011885",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012318011885/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012318011885/0000950123-18-011885-index.htm",
+   "shares_reported": 252478779,
+   "split_adjusted_shares": 1009915116,
+   "value_reported": 56994561,
+   "value_unit": "USD thousands",
+   "value_usd": 56994561000,
+   "implied_price_reported": 225.74,
+   "implied_price_split_adjusted": 56.44,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 3547753,
+     "value": 800870,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 216710,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 6065000,
+     "value": 1369113,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 17657000,
+     "value": 3985891,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 153729,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 3473179,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 685798,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 13640000,
+     "value": 3079094,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 189882279,
+     "value": 42864026,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 153052,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 213099,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 2091608,
+   "change_pct": 0.21,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2018Q4",
+   "period": "2018-12-31",
+   "filing_date": "2019-02-14",
+   "accession": "0000950123-19-002221",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012319002221/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012319002221/0000950123-19-002221-index.htm",
+   "shares_reported": 249589329,
+   "split_adjusted_shares": 998357316,
+   "value_reported": 39370221,
+   "value_unit": "USD thousands",
+   "value_usd": 39370221000,
+   "implied_price_reported": 157.74,
+   "implied_price_split_adjusted": 39.44,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 710000,
+     "value": 111995,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 151430,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 6065000,
+     "value": 956693,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 17657000,
+     "value": 2785215,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 107421,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 2426948,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 479214,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 13640000,
+     "value": 2151574,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 189830582,
+     "value": 29943876,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 106948,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 148907,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -11557800,
+   "change_pct": -1.14,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2019Q1",
+   "period": "2019-03-31",
+   "filing_date": "2019-05-15",
+   "accession": "0000950123-19-005436",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012319005436/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012319005436/0000950123-19-005436-index.htm",
+   "shares_reported": 249589329,
+   "split_adjusted_shares": 998357316,
+   "value_reported": 47409494,
+   "value_unit": "USD thousands",
+   "value_usd": 47409494000,
+   "implied_price_reported": 189.95,
+   "implied_price_split_adjusted": 47.49,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 710000,
+     "value": 134865,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 182352,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 6065000,
+     "value": 1152047,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 17657000,
+     "value": 3353947,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 129356,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 2922523,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 577068,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 13640000,
+     "value": 2590918,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 189830582,
+     "value": 36058319,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 128786,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 179313,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2019Q2",
+   "period": "2019-06-30",
+   "filing_date": "2019-08-14",
+   "accession": "0000950123-19-008356",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012319008356/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012319008356/0000950123-19-008356-index.htm",
+   "shares_reported": 249589329,
+   "split_adjusted_shares": 998357316,
+   "value_reported": 49398720,
+   "value_unit": "USD thousands",
+   "value_usd": 49398720000,
+   "implied_price_reported": 197.92,
+   "implied_price_split_adjusted": 49.48,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 710000,
+     "value": 140523,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 190003,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 6065000,
+     "value": 1200385,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 17657000,
+     "value": 3494673,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 134784,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 3045147,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 601281,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 13640000,
+     "value": 2699629,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 189830582,
+     "value": 37571269,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 134190,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 186836,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2019Q3",
+   "period": "2019-09-30",
+   "filing_date": "2019-11-14",
+   "accession": "0000950123-19-011362",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012319011362/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012319011362/0000950123-19-011362-index.htm",
+   "shares_reported": 248838679,
+   "split_adjusted_shares": 995354716,
+   "value_reported": 55732400,
+   "value_unit": "USD thousands",
+   "value_usd": 55732400000,
+   "implied_price_reported": 223.97,
+   "implied_price_split_adjusted": 55.99,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 710000,
+     "value": 159019,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 215011,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 6065000,
+     "value": 1358378,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 17657000,
+     "value": 3954638,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 152524,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 3445946,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 680421,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 13640000,
+     "value": 3054951,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 189079932,
+     "value": 42348232,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 151852,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 211428,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -3002600,
+   "change_pct": -0.3,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2019Q4",
+   "period": "2019-12-31",
+   "filing_date": "2020-02-14",
+   "accession": "0000950123-20-002466",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012320002466/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012320002466/0000950123-20-002466-index.htm",
+   "shares_reported": 245155566,
+   "split_adjusted_shares": 980622264,
+   "value_reported": 71989933,
+   "value_unit": "USD thousands",
+   "value_usd": 71989933000,
+   "implied_price_reported": 293.65,
+   "implied_price_split_adjusted": 73.41,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 173000,
+     "value": 50801,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 281904,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 6065000,
+     "value": 1780987,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 17174807,
+     "value": 5043382,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 199976,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 4518025,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 892109,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 11958000,
+     "value": 3511467,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 188098012,
+     "value": 55234981,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 199095,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 277206,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -14732452,
+   "change_pct": -1.48,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2020Q1",
+   "period": "2020-03-31",
+   "filing_date": "2020-05-15",
+   "accession": "0000950123-20-005345",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012320005345/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012320005345/0000950123-20-005345-index.htm",
+   "shares_reported": 245155566,
+   "split_adjusted_shares": 980622264,
+   "value_reported": 62340609,
+   "value_unit": "USD thousands",
+   "value_usd": 62340609000,
+   "implied_price_reported": 254.29,
+   "implied_price_split_adjusted": 63.57,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 173000,
+     "value": 43992,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 244118,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 6065000,
+     "value": 1542269,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 17174807,
+     "value": 4367382,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 173171,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 3912442,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 772533,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 11958000,
+     "value": 3040800,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 188098012,
+     "value": 47831443,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 172409,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 240050,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2020Q2",
+   "period": "2020-06-30",
+   "filing_date": "2020-08-14",
+   "accession": "0000950123-20-009058",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012320009058/960.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012320009058/0000950123-20-009058-index.htm",
+   "shares_reported": 245155566,
+   "split_adjusted_shares": 980622264,
+   "value_reported": 89432750,
+   "value_unit": "USD thousands",
+   "value_usd": 89432750000,
+   "implied_price_reported": 364.8,
+   "implied_price_split_adjusted": 91.2,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 173000,
+     "value": 63110,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 960000,
+     "value": 350208,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 6065000,
+     "value": 2212512,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 17174807,
+     "value": 6265370,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 681000,
+     "value": 248429,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15385747,
+     "value": 5612721,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 3038000,
+     "value": 1108262,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 11958000,
+     "value": 4362278,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 188098012,
+     "value": 68618155,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 678000,
+     "value": 247334,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 944000,
+     "value": 344371,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2020Q3",
+   "period": "2020-09-30",
+   "filing_date": "2020-11-16",
+   "accession": "0000950123-20-012127",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012320012127/0000950123-20-012127-1653.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012320012127/0000950123-20-012127-index.htm",
+   "shares_reported": 944295554,
+   "split_adjusted_shares": 944295554,
+   "value_reported": 109358868,
+   "value_unit": "USD thousands",
+   "value_usd": 109358868000,
+   "implied_price_reported": 115.81,
+   "implied_price_split_adjusted": 115.81,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 80141,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 444710,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24260000,
+     "value": 2809551,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 58175400,
+     "value": 6737293,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 315466,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 61542988,
+     "value": 7127293,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 1407323,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 5539424,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 726589166,
+     "value": 84146291,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 314077,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 437299,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -36326710,
+   "change_pct": -3.7,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2020Q4",
+   "period": "2020-12-31",
+   "filing_date": "2021-02-16",
+   "accession": "0000950123-21-002786",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012321002786/0000950123-21-002786-3286.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012321002786/0000950123-21-002786-index.htm",
+   "shares_reported": 887135554,
+   "split_adjusted_shares": 887135554,
+   "value_reported": 117714016,
+   "value_unit": "USD thousands",
+   "value_usd": 117714016000,
+   "implied_price_reported": 132.69,
+   "implied_price_split_adjusted": 132.69,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 91821,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 509530,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24260000,
+     "value": 3219059,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 58175400,
+     "value": 7719294,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 361448,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 61542988,
+     "value": 8166139,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 1612449,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 6346828,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 669429166,
+     "value": 88826556,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 359855,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 501037,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -57160000,
+   "change_pct": -6.05,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2021Q1",
+   "period": "2021-03-31",
+   "filing_date": "2021-05-17",
+   "accession": "0000950123-21-007024",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012321007024/0000950123-21-007024-4471.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012321007024/0000950123-21-007024-index.htm",
+   "shares_reported": 887135554,
+   "split_adjusted_shares": 887135554,
+   "value_reported": 108363609,
+   "value_unit": "USD thousands",
+   "value_usd": 108363609000,
+   "implied_price_reported": 122.15,
+   "implied_price_split_adjusted": 122.15,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 84528,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 469056,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24260000,
+     "value": 2963359,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 58175400,
+     "value": 7106125,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 332737,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 61542988,
+     "value": 7517476,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 1484367,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 5842679,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 669429166,
+     "value": 81770773,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 331271,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 461238,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2021Q2",
+   "period": "2021-06-30",
+   "filing_date": "2021-08-16",
+   "accession": "0000950123-21-011396",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012321011396/0000950123-21-011396-5309.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012321011396/0000950123-21-011396-index.htm",
+   "shares_reported": 887135554,
+   "split_adjusted_shares": 887135554,
+   "value_reported": 121502087,
+   "value_unit": "USD thousands",
+   "value_usd": 121502087000,
+   "implied_price_reported": 136.96,
+   "implied_price_split_adjusted": 136.96,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 94776,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 525926,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24260000,
+     "value": 3322650,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 58175400,
+     "value": 7967703,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 373079,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 61542988,
+     "value": 8428928,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 1664338,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 6551071,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 669429166,
+     "value": 91685019,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 371436,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 517161,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2021Q3",
+   "period": "2021-09-30",
+   "filing_date": "2021-11-15",
+   "accession": "0000950123-21-015518",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012321015518/0000950123-21-015518-6820.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012321015518/0000950123-21-015518-index.htm",
+   "shares_reported": 887135554,
+   "split_adjusted_shares": 887135554,
+   "value_reported": 125529681,
+   "value_unit": "USD thousands",
+   "value_usd": 125529681000,
+   "implied_price_reported": 141.5,
+   "implied_price_split_adjusted": 141.5,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 97918,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 543360,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24260000,
+     "value": 3432790,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 58175400,
+     "value": 8231819,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 385446,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 61542988,
+     "value": 8708333,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 1719508,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 6768228,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 669429166,
+     "value": 94724227,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 383748,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 534304,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2021Q4",
+   "period": "2021-12-31",
+   "filing_date": "2022-02-14",
+   "accession": "0000950123-22-002973",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012322002973/0000950123-22-002973-9815.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012322002973/0000950123-22-002973-index.htm",
+   "shares_reported": 887135554,
+   "split_adjusted_shares": 887135554,
+   "value_reported": 157528660,
+   "value_unit": "USD thousands",
+   "value_usd": 157528660000,
+   "implied_price_reported": 177.57,
+   "implied_price_split_adjusted": 177.57,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 122878,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 681869,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24260000,
+     "value": 4307848,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 58175400,
+     "value": 10330206,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 483701,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 61542988,
+     "value": 10928188,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 2157831,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 8493528,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 669429166,
+     "value": 118870537,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 481570,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 670504,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2022Q1",
+   "period": "2022-03-31",
+   "filing_date": "2022-05-16",
+   "accession": "0000950123-22-006442",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012322006442/13095.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012322006442/0000950123-22-006442-index.htm",
+   "shares_reported": 890923410,
+   "split_adjusted_shares": 890923410,
+   "value_reported": 155564138,
+   "value_unit": "USD thousands",
+   "value_usd": 155564138000,
+   "implied_price_reported": 174.61,
+   "implied_price_split_adjusted": 174.61,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 120830,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 670502,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24260000,
+     "value": 4236039,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 58327625,
+     "value": 10184587,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 475638,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 65178619,
+     "value": 11380839,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 2121861,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 8351946,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 669429166,
+     "value": 116889027,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 473542,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 659327,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 3787856,
+   "change_pct": 0.43,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2022Q2",
+   "period": "2022-06-30",
+   "filing_date": "2022-08-15",
+   "accession": "0000950123-22-009450",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012322009450/15796.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012322009450/0000950123-22-009450-index.htm",
+   "shares_reported": 894802319,
+   "split_adjusted_shares": 894802319,
+   "value_reported": 122337373,
+   "value_unit": "USD thousands",
+   "value_usd": 122337373000,
+   "implied_price_reported": 136.72,
+   "implied_price_split_adjusted": 136.72,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 94610,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 525005,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24260000,
+     "value": 3316827,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 62206534,
+     "value": 8504877,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 372425,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 65178619,
+     "value": 8911221,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 1661421,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 6539591,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 669429166,
+     "value": 91524356,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 370785,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 516255,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 3878909,
+   "change_pct": 0.44,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2022Q3",
+   "period": "2022-09-30",
+   "filing_date": "2022-11-14",
+   "accession": "0000950123-22-012275",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012322012275/18337.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012322012275/0000950123-22-012275-index.htm",
+   "shares_reported": 894802319,
+   "split_adjusted_shares": 894802319,
+   "value_reported": 123661679,
+   "value_unit": "USD thousands",
+   "value_usd": 123661679000,
+   "implied_price_reported": 138.2,
+   "implied_price_split_adjusted": 138.2,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 95634,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 530688,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24260000,
+     "value": 3352732,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 62206534,
+     "value": 8596943,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 376457,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 65178619,
+     "value": 9007685,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 1679406,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 6610382,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 669429166,
+     "value": 92515111,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 374798,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 521843,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2022Q4",
+   "period": "2022-12-31",
+   "filing_date": "2023-02-14",
+   "accession": "0000950123-23-002585",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012323002585/20651.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012323002585/0000950123-23-002585-index.htm",
+   "shares_reported": 895136175,
+   "split_adjusted_shares": 895136175,
+   "value_reported": 116305043218,
+   "value_unit": "USD",
+   "value_usd": 116305043218,
+   "implied_price_reported": 129.93,
+   "implied_price_split_adjusted": 129.93,
+   "n_entries": 11,
+   "entries": [
+    {
+     "shares": 1025856,
+     "value": 133289470,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 498931200,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24260000,
+     "value": 3156519420,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 62206534,
+     "value": 8215023563,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 353929320,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 65178619,
+     "value": 8468657967,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 1578909360,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 6214811760,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 669429166,
+     "value": 86841985318,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 352370160,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 490615680,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 333856,
+   "change_pct": 0.04,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2023Q1",
+   "period": "2023-03-31",
+   "filing_date": "2023-05-15",
+   "accession": "0000950123-23-005270",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012323005270/22815.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012323005270/0000950123-23-005270-index.htm",
+   "shares_reported": 915560382,
+   "split_adjusted_shares": 915560382,
+   "value_reported": 150975906991,
+   "value_unit": "USD",
+   "value_usd": 150975906991,
+   "implied_price_reported": 164.9,
+   "implied_price_split_adjusted": 164.9,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 1025856,
+     "value": 169163654,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 633216000,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24294000,
+     "value": 4006080600,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 63226534,
+     "value": 10426055457,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 449187600,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 65178619,
+     "value": 10747954273,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 2003864800,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 7887496800,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 668375166,
+     "value": 110215064873,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 447208800,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 622662400,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    },
+    {
+     "shares": 20424207,
+     "value": 3367951734,
+     "disc": "DFND",
+     "mgrs": "4,15"
+    }
+   ],
+   "change_split_adjusted": 20424207,
+   "change_pct": 2.28,
+   "action": "BUY"
+  },
+  {
+   "quarter": "2023Q2",
+   "period": "2023-06-30",
+   "filing_date": "2023-08-14",
+   "accession": "0000950123-23-008074",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012323008074/25376.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012323008074/0000950123-23-008074-index.htm",
+   "shares_reported": 915560382,
+   "split_adjusted_shares": 915560382,
+   "value_reported": 177591247296,
+   "value_unit": "USD",
+   "value_usd": 177591247296,
+   "implied_price_reported": 193.97,
+   "implied_price_split_adjusted": 193.97,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 1025856,
+     "value": 198985288,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 744844800,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24294000,
+     "value": 4712307180,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 63226534,
+     "value": 12264050800,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 528374280,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 65178619,
+     "value": 12642696727,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 2357123440,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 9277973040,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 668375166,
+     "value": 129644730949,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 526046640,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 732430720,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    },
+    {
+     "shares": 20424207,
+     "value": 3961683432,
+     "disc": "DFND",
+     "mgrs": "4,15"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2023Q3",
+   "period": "2023-09-30",
+   "filing_date": "2023-11-14",
+   "accession": "0000950123-23-010898",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012323010898/27893.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012323010898/0000950123-23-010898-index.htm",
+   "shares_reported": 915560382,
+   "split_adjusted_shares": 915560382,
+   "value_reported": 156753093002,
+   "value_unit": "USD",
+   "value_usd": 156753093002,
+   "implied_price_reported": 171.21,
+   "implied_price_split_adjusted": 171.21,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 1025856,
+     "value": 175636806,
+     "disc": "DFND",
+     "mgrs": ""
+    },
+    {
+     "shares": 3840000,
+     "value": 657446400,
+     "disc": "DFND",
+     "mgrs": ""
+    },
+    {
+     "shares": 24294000,
+     "value": 4159375740,
+     "disc": "DFND",
+     "mgrs": ""
+    },
+    {
+     "shares": 63226534,
+     "value": 10825014886,
+     "disc": "DFND",
+     "mgrs": ""
+    },
+    {
+     "shares": 2724000,
+     "value": 466376040,
+     "disc": "DFND",
+     "mgrs": ""
+    },
+    {
+     "shares": 20424207,
+     "value": 3496828480,
+     "disc": "DFND",
+     "mgrs": ""
+    },
+    {
+     "shares": 65178619,
+     "value": 11159231359,
+     "disc": "DFND",
+     "mgrs": ""
+    },
+    {
+     "shares": 12152000,
+     "value": 2080543920,
+     "disc": "DFND",
+     "mgrs": ""
+    },
+    {
+     "shares": 47832000,
+     "value": 8189316720,
+     "disc": "DFND",
+     "mgrs": ""
+    },
+    {
+     "shares": 668375166,
+     "value": 114432512171,
+     "disc": "DFND",
+     "mgrs": ""
+    },
+    {
+     "shares": 2712000,
+     "value": 464321520,
+     "disc": "DFND",
+     "mgrs": ""
+    },
+    {
+     "shares": 3776000,
+     "value": 646488960,
+     "disc": "DFND",
+     "mgrs": ""
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2023Q4",
+   "period": "2023-12-31",
+   "filing_date": "2024-02-14",
+   "accession": "0000950123-24-002518",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324002518/30197.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324002518/0000950123-24-002518-index.htm",
+   "shares_reported": 905560000,
+   "split_adjusted_shares": 905560000,
+   "value_reported": 174347466800,
+   "value_unit": "USD",
+   "value_usd": 174347466800,
+   "implied_price_reported": 192.53,
+   "implied_price_split_adjusted": 192.53,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 133230760,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 739315200,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 24294000,
+     "value": 4677323820,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 59147916,
+     "value": 11387748267,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 524451720,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 20424207,
+     "value": 3932272574,
+     "disc": "DFND",
+     "mgrs": "4,7"
+    },
+    {
+     "shares": 61542988,
+     "value": 11848871480,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 2339624560,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 9209094960,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 666422889,
+     "value": 128306398819,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 522141360,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 726993280,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -10000382,
+   "change_pct": -1.09,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2024Q1",
+   "period": "2024-03-31",
+   "filing_date": "2024-05-15",
+   "accession": "0000950123-24-005622",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324005622/32398.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324005622/0000950123-24-005622-index.htm",
+   "shares_reported": 789368450,
+   "split_adjusted_shares": 789368450,
+   "value_reported": 135360901805,
+   "value_unit": "USD",
+   "value_usd": 135360901805,
+   "implied_price_reported": 171.48,
+   "implied_price_split_adjusted": 171.48,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 118664160,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 658483200,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 21907676,
+     "value": 3756728280,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 56824000,
+     "value": 9744179520,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 467111520,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15736207,
+     "value": 2698444776,
+     "disc": "DFND",
+     "mgrs": "4,7"
+    },
+    {
+     "shares": 61542988,
+     "value": 10553391582,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 12152000,
+     "value": 2083824960,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 47832000,
+     "value": 8202231360,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 559629579,
+     "value": 95965280207,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 465053760,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 647508480,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -116191550,
+   "change_pct": -12.83,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2024Q2",
+   "period": "2024-06-30",
+   "filing_date": "2024-08-14",
+   "accession": "0000950123-24-008740",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324008740/34725.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324008740/0000950123-24-008740-index.htm",
+   "shares_reported": 400000000,
+   "split_adjusted_shares": 400000000,
+   "value_reported": 84248000000,
+   "value_unit": "USD",
+   "value_usd": 84248000000,
+   "implied_price_reported": 210.62,
+   "implied_price_split_adjusted": 210.62,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 145749040,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 808780800,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 34000,
+     "value": 7161080,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 50448528,
+     "value": 10625468967,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 573728880,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15736207,
+     "value": 3314359918,
+     "disc": "DFND",
+     "mgrs": "4,7"
+    },
+    {
+     "shares": 61542988,
+     "value": 12962184133,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 7204000,
+     "value": 1517306480,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 33346210,
+     "value": 7023378750,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 217944067,
+     "value": 45903379392,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 571201440,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 795301120,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -389368450,
+   "change_pct": -49.33,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2024Q3",
+   "period": "2024-09-30",
+   "filing_date": "2024-11-14",
+   "accession": "0000950123-24-011775",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324011775/36917.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324011775/0000950123-24-011775-index.htm",
+   "shares_reported": 300000000,
+   "split_adjusted_shares": 300000000,
+   "value_reported": 69900000000,
+   "value_unit": "USD",
+   "value_usd": 69900000000,
+   "implied_price_reported": 233.0,
+   "implied_price_split_adjusted": 233.0,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 161236000,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 894720000,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 34000,
+     "value": 7922000,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 34724000,
+     "value": 8090692000,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 634692000,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15532000,
+     "value": 3618956000,
+     "disc": "DFND",
+     "mgrs": "4,7"
+    },
+    {
+     "shares": 61542988,
+     "value": 14339516204,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 7204000,
+     "value": 1678532000,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 14472000,
+     "value": 3371976000,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 152747012,
+     "value": 35590053796,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 631896000,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 879808000,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -100000000,
+   "change_pct": -25.0,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2024Q4",
+   "period": "2024-12-31",
+   "filing_date": "2025-02-14",
+   "accession": "0000950123-25-002701",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012325002701/39042.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012325002701/0000950123-25-002701-index.htm",
+   "shares_reported": 300000000,
+   "split_adjusted_shares": 300000000,
+   "value_reported": 75126000000,
+   "value_unit": "USD",
+   "value_usd": 75126000000,
+   "implied_price_reported": 250.42,
+   "implied_price_split_adjusted": 250.42,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 173290640,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 961612800,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 34000,
+     "value": 8514280,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 34724000,
+     "value": 8695584080,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 682144080,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15532000,
+     "value": 3889523440,
+     "disc": "DFND",
+     "mgrs": "4,7"
+    },
+    {
+     "shares": 61542988,
+     "value": 15411595055,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 7204000,
+     "value": 1804025680,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 14472000,
+     "value": 3624078240,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 152747012,
+     "value": 38250906745,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 679139040,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 945585920,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2025Q1",
+   "period": "2025-03-31",
+   "filing_date": "2025-05-15",
+   "accession": "0000950123-25-005701",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012325005701/form13fInfoTable.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012325005701/0000950123-25-005701-index.htm",
+   "shares_reported": 300000000,
+   "split_adjusted_shares": 300000000,
+   "value_reported": 66639000000,
+   "value_unit": "USD",
+   "value_usd": 66639000000,
+   "implied_price_reported": 222.13,
+   "implied_price_split_adjusted": 222.13,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 153713960,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 852979200,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 34000,
+     "value": 7552420,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 34724000,
+     "value": 7713242120,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 605082120,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15532000,
+     "value": 3450123160,
+     "disc": "DFND",
+     "mgrs": "4,7"
+    },
+    {
+     "shares": 61542988,
+     "value": 13670543924,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 7204000,
+     "value": 1600224520,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 14472000,
+     "value": 3214665360,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 152747012,
+     "value": 33929693776,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 602416560,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 838762880,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2025Q2",
+   "period": "2025-06-30",
+   "filing_date": "2025-08-14",
+   "accession": "0000950123-25-008343",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012325008343/43977.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012325008343/0000950123-25-008343-index.htm",
+   "shares_reported": 280000000,
+   "split_adjusted_shares": 280000000,
+   "value_reported": 57447600000,
+   "value_unit": "USD",
+   "value_usd": 57447600000,
+   "implied_price_reported": 205.17,
+   "implied_price_split_adjusted": 205.17,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 141977640,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 787852800,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 34000,
+     "value": 6975780,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 34724000,
+     "value": 7124323080,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 558883080,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15532000,
+     "value": 3186700440,
+     "disc": "DFND",
+     "mgrs": "4,7"
+    },
+    {
+     "shares": 61542988,
+     "value": 12626774848,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 7204000,
+     "value": 1478044680,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 14472000,
+     "value": 2969220240,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 132747012,
+     "value": 27235704452,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 556421040,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 774721920,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -20000000,
+   "change_pct": -6.67,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2025Q3",
+   "period": "2025-09-30",
+   "filing_date": "2025-11-14",
+   "accession": "0001193125-25-282901",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312525282901/46994.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312525282901/0001193125-25-282901-index.htm",
+   "shares_reported": 238212764,
+   "split_adjusted_shares": 238212764,
+   "value_reported": 60656116097,
+   "value_unit": "USD",
+   "value_usd": 60656116097,
+   "implied_price_reported": 254.63,
+   "implied_price_split_adjusted": 254.63,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 176203960,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 977779200,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 34000,
+     "value": 8657420,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 34724000,
+     "value": 8841772120,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 693612120,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15532000,
+     "value": 3954913160,
+     "disc": "DFND",
+     "mgrs": "4,7"
+    },
+    {
+     "shares": 61542988,
+     "value": 15670691034,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 7204000,
+     "value": 1834354520,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 14472000,
+     "value": 3685005360,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 90959776,
+     "value": 23161087763,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 690556560,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 961482880,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -41787236,
+   "change_pct": -14.92,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2025Q4",
+   "period": "2025-12-31",
+   "filing_date": "2026-02-17",
+   "accession": "0001193125-26-054580",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526054580/50240.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526054580/0001193125-26-054580-index.htm",
+   "shares_reported": 227917808,
+   "split_adjusted_shares": 227917808,
+   "value_reported": 61961735283,
+   "value_unit": "USD",
+   "value_usd": 61961735283,
+   "implied_price_reported": 271.86,
+   "implied_price_split_adjusted": 271.86,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 188127120,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 1043942400,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 34000,
+     "value": 9243240,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 34724000,
+     "value": 9440066640,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 740546640,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15532000,
+     "value": 4222529520,
+     "disc": "DFND",
+     "mgrs": "4,7"
+    },
+    {
+     "shares": 61542988,
+     "value": 16731076718,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 7204000,
+     "value": 1958479440,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 14472000,
+     "value": 3934357920,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 80664820,
+     "value": 21929537965,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 737284320,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 1026543360,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": -10294956,
+   "change_pct": -4.32,
+   "action": "SELL"
+  },
+  {
+   "quarter": "2026Q1",
+   "period": "2026-03-31",
+   "filing_date": "2026-05-15",
+   "accession": "0001193125-26-226661",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526226661/53405.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526226661/0001193125-26-226661-index.htm",
+   "shares_reported": 227917808,
+   "split_adjusted_shares": 227917808,
+   "value_reported": 57843260493,
+   "value_unit": "USD",
+   "value_usd": 57843260493,
+   "implied_price_reported": 253.79,
+   "implied_price_split_adjusted": 253.79,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 175622680,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 974553600,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 34000,
+     "value": 8628860,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 34724000,
+     "value": 8812603960,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 691323960,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15532000,
+     "value": 3941866280,
+     "disc": "DFND",
+     "mgrs": "4,7"
+    },
+    {
+     "shares": 61542988,
+     "value": 15618994925,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 7204000,
+     "value": 1828303160,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 14472000,
+     "value": 3672848880,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 80664820,
+     "value": 20471924668,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 688278480,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 958311040,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  },
+  {
+   "quarter": "2026Q2",
+   "period": "2026-06-30",
+   "filing_date": "2026-08-14",
+   "accession": "0001193125-26-352200",
+   "form": "13F-HR",
+   "info_table_url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526352200/56757.xml",
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526352200/0001193125-26-352200-index.htm",
+   "shares_reported": 227917808,
+   "split_adjusted_shares": 227917808,
+   "value_reported": 65950296923,
+   "value_unit": "USD",
+   "value_usd": 65950296923,
+   "implied_price_reported": 289.36,
+   "implied_price_split_adjusted": 289.36,
+   "n_entries": 12,
+   "entries": [
+    {
+     "shares": 692000,
+     "value": 200237120,
+     "disc": "DFND",
+     "mgrs": "4"
+    },
+    {
+     "shares": 3840000,
+     "value": 1111142400,
+     "disc": "DFND",
+     "mgrs": "1,2,4,11"
+    },
+    {
+     "shares": 34000,
+     "value": 9838240,
+     "disc": "DFND",
+     "mgrs": "2,4,11"
+    },
+    {
+     "shares": 34724000,
+     "value": 10047736640,
+     "disc": "DFND",
+     "mgrs": "4,5"
+    },
+    {
+     "shares": 2724000,
+     "value": 788216640,
+     "disc": "DFND",
+     "mgrs": "4,6"
+    },
+    {
+     "shares": 15532000,
+     "value": 4494339520,
+     "disc": "DFND",
+     "mgrs": "4,7"
+    },
+    {
+     "shares": 61542988,
+     "value": 17808079008,
+     "disc": "DFND",
+     "mgrs": "4,8,11"
+    },
+    {
+     "shares": 7204000,
+     "value": 2084549440,
+     "disc": "DFND",
+     "mgrs": "4,5,9"
+    },
+    {
+     "shares": 14472000,
+     "value": 4187617920,
+     "disc": "DFND",
+     "mgrs": "4,10"
+    },
+    {
+     "shares": 80664820,
+     "value": 23341172315,
+     "disc": "DFND",
+     "mgrs": "4,11"
+    },
+    {
+     "shares": 2712000,
+     "value": 784744320,
+     "disc": "DFND",
+     "mgrs": "4,12"
+    },
+    {
+     "shares": 3776000,
+     "value": 1092623360,
+     "disc": "DFND",
+     "mgrs": "4,14"
+    }
+   ],
+   "change_split_adjusted": 0,
+   "change_pct": 0.0,
+   "action": "unchanged"
+  }
+ ],
+ "berkshire_13f_amendments_checked": [
+  {
+   "accession": "0000950123-21-002781",
+   "form": "13F-HR/A",
+   "amendment_type": "NEW HOLDINGS",
+   "period": "2020-09-30",
+   "quarter": "2020Q3",
+   "filing_date": "2021-02-16",
+   "aapl_rows": 0,
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012321002781/0000950123-21-002781-index.htm"
+  },
+  {
+   "accession": "0000950123-23-011029",
+   "form": "13F-HR/A",
+   "amendment_type": "RESTATEMENT",
+   "period": "2023-09-30",
+   "quarter": "2023Q3",
+   "filing_date": "2023-11-16",
+   "aapl_rows": 12,
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012323011029/0000950123-23-011029-index.htm"
+  },
+  {
+   "accession": "0000950123-24-005653",
+   "form": "13F-HR/A",
+   "amendment_type": "NEW HOLDINGS",
+   "period": "2023-09-30",
+   "quarter": "2023Q3",
+   "filing_date": "2024-05-15",
+   "aapl_rows": 0,
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324005653/0000950123-24-005653-index.htm"
+  },
+  {
+   "accession": "0000950123-24-005664",
+   "form": "13F-HR/A",
+   "amendment_type": "NEW HOLDINGS",
+   "period": "2023-12-31",
+   "quarter": "2023Q4",
+   "filing_date": "2024-05-15",
+   "aapl_rows": 0,
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324005664/0000950123-24-005664-index.htm"
+  },
+  {
+   "accession": "0000950123-25-008361",
+   "form": "13F-HR/A",
+   "amendment_type": "NEW HOLDINGS",
+   "period": "2025-03-31",
+   "quarter": "2025Q1",
+   "filing_date": "2025-08-14",
+   "aapl_rows": 0,
+   "index_url": "https://www.sec.gov/Archives/edgar/data/1067983/000095012325008361/0000950123-25-008361-index.htm"
+  }
+ ],
+ "apple_fundamentals": {
+  "FY2014": {
+   "fiscal_year_end": "2014-09-27",
+   "form10k_accession": "0001193125-14-383437",
+   "filed": "2014-10-27",
+   "revenue_usd": 182795000000,
+   "revenue_concept": "SalesRevenueNet",
+   "net_income_usd": 39510000000,
+   "eps_diluted_reported": 6.45,
+   "eps_diluted_split_adjusted": 1.6125,
+   "diluted_wavg_shares_reported": 6122663000,
+   "diluted_wavg_shares_split_adjusted": 24490652000,
+   "shares_outstanding_period_end_reported": 5866161000,
+   "shares_outstanding_period_end_split_adjusted": 23464644000,
+   "buybacks_usd": 45000000000,
+   "dividends_paid_usd": 11031000000
+  },
+  "FY2015": {
+   "fiscal_year_end": "2015-09-26",
+   "form10k_accession": "0001193125-15-356351",
+   "filed": "2015-10-28",
+   "revenue_usd": 233715000000,
+   "revenue_concept": "SalesRevenueNet",
+   "net_income_usd": 53394000000,
+   "eps_diluted_reported": 9.22,
+   "eps_diluted_split_adjusted": 2.305,
+   "diluted_wavg_shares_reported": 5793069000,
+   "diluted_wavg_shares_split_adjusted": 23172276000,
+   "shares_outstanding_period_end_reported": 5578753000,
+   "shares_outstanding_period_end_split_adjusted": 22315012000,
+   "buybacks_usd": 35253000000,
+   "dividends_paid_usd": 11431000000
+  },
+  "FY2016": {
+   "fiscal_year_end": "2016-09-24",
+   "form10k_accession": "0001628280-16-020309",
+   "filed": "2016-10-26",
+   "revenue_usd": 215639000000,
+   "revenue_concept": "SalesRevenueNet",
+   "net_income_usd": 45687000000,
+   "eps_diluted_reported": 8.31,
+   "eps_diluted_split_adjusted": 2.0775,
+   "diluted_wavg_shares_reported": 5500281000,
+   "diluted_wavg_shares_split_adjusted": 22001124000,
+   "shares_outstanding_period_end_reported": 5336166000,
+   "shares_outstanding_period_end_split_adjusted": 21344664000,
+   "buybacks_usd": 29722000000,
+   "dividends_paid_usd": 11965000000
+  },
+  "FY2017": {
+   "fiscal_year_end": "2017-09-30",
+   "form10k_accession": "0000320193-17-000070",
+   "filed": "2017-11-03",
+   "revenue_usd": 229234000000,
+   "revenue_concept": "SalesRevenueNet",
+   "net_income_usd": 48351000000,
+   "eps_diluted_reported": 9.21,
+   "eps_diluted_split_adjusted": 2.3025,
+   "diluted_wavg_shares_reported": 5251692000,
+   "diluted_wavg_shares_split_adjusted": 21006768000,
+   "shares_outstanding_period_end_reported": 5126201000,
+   "shares_outstanding_period_end_split_adjusted": 20504804000,
+   "buybacks_usd": 32900000000,
+   "dividends_paid_usd": 12769000000
+  },
+  "FY2018": {
+   "fiscal_year_end": "2018-09-29",
+   "form10k_accession": "0000320193-18-000145",
+   "filed": "2018-11-05",
+   "revenue_usd": 265595000000,
+   "revenue_concept": "Revenues",
+   "net_income_usd": 59531000000,
+   "eps_diluted_reported": 11.91,
+   "eps_diluted_split_adjusted": 2.9775,
+   "diluted_wavg_shares_reported": 5000109000,
+   "diluted_wavg_shares_split_adjusted": 20000436000,
+   "shares_outstanding_period_end_reported": 4754986000,
+   "shares_outstanding_period_end_split_adjusted": 19019944000,
+   "buybacks_usd": 72738000000,
+   "dividends_paid_usd": 13712000000
+  },
+  "FY2019": {
+   "fiscal_year_end": "2019-09-28",
+   "form10k_accession": "0000320193-19-000119",
+   "filed": "2019-10-31",
+   "revenue_usd": 260174000000,
+   "revenue_concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "net_income_usd": 55256000000,
+   "eps_diluted_reported": 11.89,
+   "eps_diluted_split_adjusted": 2.9725,
+   "diluted_wavg_shares_reported": 4648913000,
+   "diluted_wavg_shares_split_adjusted": 18595652000,
+   "shares_outstanding_period_end_reported": 4443236000,
+   "shares_outstanding_period_end_split_adjusted": 17772944000,
+   "buybacks_usd": 66897000000,
+   "dividends_paid_usd": 14119000000
+  },
+  "FY2020": {
+   "fiscal_year_end": "2020-09-26",
+   "form10k_accession": "0000320193-20-000096",
+   "filed": "2020-10-30",
+   "revenue_usd": 274515000000,
+   "revenue_concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "net_income_usd": 57411000000,
+   "eps_diluted_reported": 3.28,
+   "eps_diluted_split_adjusted": 3.28,
+   "diluted_wavg_shares_reported": 17528214000,
+   "diluted_wavg_shares_split_adjusted": 17528214000,
+   "shares_outstanding_period_end_reported": 16976763000,
+   "shares_outstanding_period_end_split_adjusted": 16976763000,
+   "buybacks_usd": 72358000000,
+   "dividends_paid_usd": 14081000000
+  },
+  "FY2021": {
+   "fiscal_year_end": "2021-09-25",
+   "form10k_accession": "0000320193-21-000105",
+   "filed": "2021-10-29",
+   "revenue_usd": 365817000000,
+   "revenue_concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "net_income_usd": 94680000000,
+   "eps_diluted_reported": 5.61,
+   "eps_diluted_split_adjusted": 5.61,
+   "diluted_wavg_shares_reported": 16864919000,
+   "diluted_wavg_shares_split_adjusted": 16864919000,
+   "shares_outstanding_period_end_reported": 16426786000,
+   "shares_outstanding_period_end_split_adjusted": 16426786000,
+   "buybacks_usd": 85971000000,
+   "dividends_paid_usd": 14467000000
+  },
+  "FY2022": {
+   "fiscal_year_end": "2022-09-24",
+   "form10k_accession": "0000320193-22-000108",
+   "filed": "2022-10-28",
+   "revenue_usd": 394328000000,
+   "revenue_concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "net_income_usd": 99803000000,
+   "eps_diluted_reported": 6.11,
+   "eps_diluted_split_adjusted": 6.11,
+   "diluted_wavg_shares_reported": 16325819000,
+   "diluted_wavg_shares_split_adjusted": 16325819000,
+   "shares_outstanding_period_end_reported": 15943425000,
+   "shares_outstanding_period_end_split_adjusted": 15943425000,
+   "buybacks_usd": 89402000000,
+   "dividends_paid_usd": 14841000000
+  },
+  "FY2023": {
+   "fiscal_year_end": "2023-09-30",
+   "form10k_accession": "0000320193-23-000106",
+   "filed": "2023-11-03",
+   "revenue_usd": 383285000000,
+   "revenue_concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "net_income_usd": 96995000000,
+   "eps_diluted_reported": 6.13,
+   "eps_diluted_split_adjusted": 6.13,
+   "diluted_wavg_shares_reported": 15812547000,
+   "diluted_wavg_shares_split_adjusted": 15812547000,
+   "shares_outstanding_period_end_reported": 15550061000,
+   "shares_outstanding_period_end_split_adjusted": 15550061000,
+   "buybacks_usd": 77550000000,
+   "dividends_paid_usd": 15025000000
+  },
+  "FY2024": {
+   "fiscal_year_end": "2024-09-28",
+   "form10k_accession": "0000320193-24-000123",
+   "filed": "2024-11-01",
+   "revenue_usd": 391035000000,
+   "revenue_concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "net_income_usd": 93736000000,
+   "eps_diluted_reported": 6.08,
+   "eps_diluted_split_adjusted": 6.08,
+   "diluted_wavg_shares_reported": 15408095000,
+   "diluted_wavg_shares_split_adjusted": 15408095000,
+   "shares_outstanding_period_end_reported": 15116786000,
+   "shares_outstanding_period_end_split_adjusted": 15116786000,
+   "buybacks_usd": 94949000000,
+   "dividends_paid_usd": 15234000000
+  },
+  "FY2025": {
+   "fiscal_year_end": "2025-09-27",
+   "form10k_accession": "0000320193-25-000079",
+   "filed": "2025-10-31",
+   "revenue_usd": 416161000000,
+   "revenue_concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "net_income_usd": 112010000000,
+   "eps_diluted_reported": 7.46,
+   "eps_diluted_split_adjusted": 7.46,
+   "diluted_wavg_shares_reported": 15004697000,
+   "diluted_wavg_shares_split_adjusted": 15004697000,
+   "shares_outstanding_period_end_reported": 14773260000,
+   "shares_outstanding_period_end_split_adjusted": 14773260000,
+   "buybacks_usd": 90711000000,
+   "dividends_paid_usd": 15421000000
+  },
+  "FY2026": {
+   "fiscal_year_end": "2026-09-26",
+   "form10k_accession": "0000320193-26-000026",
+   "filed": "2026-11-03",
+   "revenue_usd": 478834000000,
+   "revenue_concept": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "net_income_usd": 132175000000,
+   "eps_diluted_reported": 8.98,
+   "eps_diluted_split_adjusted": 8.98,
+   "diluted_wavg_shares_reported": 14720306000,
+   "diluted_wavg_shares_split_adjusted": 14720306000,
+   "shares_outstanding_period_end_reported": 14532259000,
+   "shares_outstanding_period_end_split_adjusted": 14532259000,
+   "buybacks_usd": 86390000000,
+   "dividends_paid_usd": 15721000000
+  }
+ },
+ "apple_derived": {
+  "buybacks_cumulative_FY2013_FY2025_usd": 816311000000,
+  "buybacks_cumulative_FY2013_FY2026_usd": 902701000000,
+  "buybacks_cumulative_FY2016_FY2025_usd": 713198000000,
+  "buybacks_cumulative_FY2017_FY2025_usd": 683476000000,
+  "note_buybacks": "Apple repurchase program announced March 2012; XBRL PaymentsForRepurchaseOfCommonStock is 0 for FY2011/FY2012, first cash repurchases in FY2013 (22.86B). FY2013 from 10-K 0001193125-13-416534.",
+  "diluted_shares_decline_FY2016_to_FY2025_pct": 31.8,
+  "diluted_shares_decline_FY2016_to_FY2026_pct": 33.09,
+  "period_end_shares_decline_FY2016_to_FY2025_pct": 30.79,
+  "period_end_shares_decline_FY2016_to_FY2026_pct": 31.92,
+  "net_income_growth_FY2016_to_FY2025_x": 2.452,
+  "eps_growth_FY2016_to_FY2025_x": 3.591
+ }
+}
