@@ -85,6 +85,7 @@ def dl(url, dest):
 
 def transcoded(url, q):
     # https://upload.wikimedia.org/wikipedia/commons/a/ab/Name.webm → .../commons/transcoded/a/ab/Name.webm/Name.webm.1080p.vp9.webm
+    url = url.split('?')[0]
     base, rest = url.split('/wikipedia/commons/')
     name = rest.split('/')[-1]
     return f'{base}/wikipedia/commons/transcoded/{rest}/{name}.{q}.vp9.webm'
@@ -105,14 +106,14 @@ if __name__ == '__main__':
         if os.path.exists(dest) and k in credits: continue
         it = info([title], 1920 if kind == 'img' else None)[0]
         if kind == 'img':
-            ok = dl(it['thumb'] or it['url'], dest)
+            ok = dl((it['thumb'] or it['url']).split('?')[0], dest)
         else:
             ok = False
             for q in ('1080p', '720p'):
                 if (it['h'] or 0) >= int(q[:-1]) or q == '720p':
                     ok = dl(transcoded(it['url'], q), dest)
                     if ok: break
-            if not ok: ok = dl(it['url'], dest)
+            if not ok: ok = dl(it['url'].split('?')[0], dest)
         if not ok: print('下载失败', k); continue
         credits[k] = dict(title=it['title'], page='https://commons.wikimedia.org/wiki/' + urllib.parse.quote(it['title'].replace(' ', '_')),
                           license=it['license'], artist=it['artist'], date=it['date'], desc=it['desc'])
