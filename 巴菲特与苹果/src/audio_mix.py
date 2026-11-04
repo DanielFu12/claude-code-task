@@ -209,11 +209,6 @@ def main(work):
     mus = mus - band * (1 - 10 ** (-4.5 / 20)) * on[:, None]         # 人声频段（700Hz–3.2kHz）再让 4.5dB，避免铜管/弦乐中频压字
     mus *= (10 ** (duck_db / 20))[:, None]
     mg = 10 ** (duck_db / 20)
-    # 1998 泡沫破裂：音乐瞬间压低并低通，随后恢复
-    pop = seg['s35']['start'] + 2.1
-    dip = np.clip(np.minimum((tt - pop) / 0.05, (pop + 1.6 - tt) / 0.8), 0, 1)
-    lowm = signal.sosfiltfilt(sos_lp(1200, 2), mus, axis=0)
-    mus = (mus * (1 - dip[:, None]) + lowm * dip[:, None]) * (10 ** (-4 * dip / 20))[:, None]
     # 片尾整体淡出
     end_t = tl['total']; tail = int(2.5 * SR); e = min(int(end_t * SR), N)
     mus[e - tail:e] *= (np.cos(np.linspace(0, np.pi / 2, tail)) ** 2)[:, None]; mus[e:] = 0
@@ -223,13 +218,10 @@ def main(work):
     for h, w, sid in hits:
         place(sfx, impact(3.2, 0.55 * w, int(h * 10) % 97), h)
         place(sfx, sub_drop(2.4, 70, 26, 0.5 * w), h)
-    place(sfx, impact(2.6, 0.5, 7), pop)                             # 泡沫破裂
     wt = lambda i, sub: score.word_time(seg[i], sub)
-    for t0, a in ((wt('s01', '创历史新高'), 0.4), (wt('s04', '八点四八'), 0.35)):
+    for t0, a in ((wt('h3', '十亿股'), 0.3), (wt('h4', '四分之三'), 0.3), (wt('h5', '三千一百亿'), 0.4),
+                  (wt('c1p', '十亿股'), 0.3), (wt('c4i', '一千亿'), 0.3)):    # 开场与关键数字：极轻的低频心跳托底
         place(sfx, low_pulse(a), t0)
-    span = wt('s27', '4亿股') - seg['s27']['start'] - 0.5
-    for k in range(4):                                                # 拆股 1→2→4→8→16
-        place(sfx, low_pulse(0.22 + 0.05 * k), seg['s27']['start'] + 0.5 + k * span / 4 + 0.05)
     sfx = signal.sosfilt(sos_lp(220, 4), sfx, axis=0)
     sfx = signal.sosfilt(sos_hp(28, 4), sfx, axis=0)
     sl = meter.integrated_loudness(sfx[sfx.any(1)])

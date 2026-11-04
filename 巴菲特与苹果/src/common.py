@@ -54,15 +54,8 @@ def beat_pulse(t, decay=7.0):
 
 
 # ------------------------------------------------------------------ 数据
-def load_ko():
-    d = json.load(open(os.path.join(ROOT, 'data', 'ko_daily.json')))['chart']['result'][0]
-    q = d['indicators']['quote'][0]; adj = d['indicators']['adjclose'][0]['adjclose']
-    rows = [(dt.datetime.fromtimestamp(ts, dt.UTC).date(), c, a) for ts, c, a in zip(d['timestamp'], q['close'], adj) if c]
-    return rows
-
-
-def load_sp():
-    d = json.load(open(os.path.join(ROOT, 'data', 'sp500tr_daily.json')))['chart']['result'][0]
+def _yahoo(name):
+    d = json.load(open(os.path.join(ROOT, 'data', name)))['chart']['result'][0]
     c = d['indicators']['quote'][0]['close']
     return [(dt.datetime.fromtimestamp(ts, dt.UTC).date(), v) for ts, v in zip(d['timestamp'], c) if v]
 
@@ -70,21 +63,25 @@ def load_sp():
 def yearf(d): return d.year + (d.timetuple().tm_yday - 0.5) / 366
 
 
-KO = load_ko()
-KO_Y = np.array([yearf(r[0]) for r in KO]); KO_P = np.array([r[1] for r in KO]); KO_A = np.array([r[2] for r in KO])
-m88 = KO_Y >= 1988.0
-KO_Y, KO_P, KO_A = KO_Y[m88], KO_P[m88], KO_A[m88]
-SP = load_sp()
+AAPL = _yahoo('aapl_daily.json')
+AA_Y = np.array([yearf(r[0]) for r in AAPL]); AA_P = np.array([r[1] for r in AAPL])
+SP = _yahoo('sp500tr_daily.json')
 SP_Y = np.array([yearf(r[0]) for r in SP]); SP_V = np.array([r[1] for r in SP])
-PEAK98 = 1998 + (dt.date(1998, 7, 14).timetuple().tm_yday - 0.5) / 366
+HOLD = [(yearf(dt.date.fromisoformat(d)), sh) for d, sh in CALC['holdings']]      # 伯克希尔逐季持股（13F，拆股调整）
+CLOSE = CALC['close']; ATH = CALC['ath']
+
+
+def aa_at(y):
+    i = int(np.searchsorted(AA_Y, y)); return float(AA_P[min(max(i, 0), len(AA_P) - 1)])
 
 
 # ------------------------------------------------------------------ 资源
 _cache = {}
 def asset(name):
     if name not in _cache:
-        p = os.path.join(ROOT, 'assets', 'archive', name + '.jpg')
-        im = cv2.imread(p)[..., ::-1].astype(np.float32) / 255
+        p = os.path.join(ROOT, 'assets', 'media', name + '.jpg')
+        im = cv2.imread(p)
+        im = np.zeros((10, 10, 3), np.float32) if im is None else im[..., ::-1].astype(np.float32) / 255
         _cache[name] = im
     return _cache[name]
 
@@ -207,7 +204,7 @@ def quote_card(cv, key, t, t0, t1, cy=860, en_size=36, cn_size=42, hl=None, a=1.
     al = env(t, t0, t1, 0.5, 0.5) * a
     if al <= 0.004: return
     en, cn, who = QUOTES[key]
-    en_lines = wrap('“' + en + '”', 'typewriter', en_size, w - 90)
+    en_lines = wrap('“' + en + '”', 'typewriter', en_size, w - 90) if en else []
     cn_lines = wrap_nice(cn, 'serif_semi', cn_size, w - 110)
     lh_en, lh_cn = en_size * 1.42, cn_size * 1.5
     hgt = len(en_lines) * lh_en + len(cn_lines) * lh_cn + 190
@@ -224,7 +221,8 @@ def quote_card(cv, key, t, t0, t1, cy=860, en_size=36, cn_size=42, hl=None, a=1.
     cv.rrect(x0, y0, x1, y0 + hgt, 18, (0.03, 0.026, 0.024), al * 0.94)
     cv.rrect(x0, y0, x1, y0 + hgt, 18, GOLD_D, al * 0.45, fill=False, th=2)
     cv.line((x0 + 50, y0 + 64), (x0 + 50 + 70 * eo((t - t0) / 0.8), y0 + 64), GOLD, al, 3)
-    cv.text(who.upper() if False else who, x0 + 140, y0 + 64, 24, 'corm', col=GOLD, a=al, anchor='l')
+    cjk = any('\u4e00' <= c <= '\u9fff' for c in who)
+    cv.text(who, x0 + 140, y0 + 64, 22 if cjk else 24, 'sans_light' if cjk else 'corm', col=GOLD, a=al, anchor='l')
     total = sum(len(l) for l in en_lines)
     shown = (t - t0 - 0.3) / typing * total
     y = y0 + 130
@@ -237,7 +235,7 @@ def quote_card(cv, key, t, t0, t1, cy=860, en_size=36, cn_size=42, hl=None, a=1.
                 pass
         y += lh_en
     y += 24
-    ca = al * eo((t - t0 - 0.3 - typing * 0.6) / 0.8)
+    ca = al * eo((t - t0 - 0.3 - (typing * 0.6 if en else 0)) / 0.8)
     for l in cn_lines:
         cv.text(l, x0 + 50, y, cn_size, 'serif_semi', col=GOLD_L, a=ca, anchor='l', shadow=0.6)
         y += lh_cn
@@ -404,167 +402,174 @@ def cube(cv, x, y, s, a, col=GOLD, depth=0.45):
     cv.poly(front + [front[0]], GOLD_L, a * 0.7, 1); cv.poly(top, GOLD_L, a * 0.6, 1)
 
 
-# ------------------------------------------------------------------ 镜头：开场
-def ko_chart(cv, t, t0, x0, x1, y0, y1, y_from=1988.0, y_to=2027.0, reveal=1.0, a=1.0, log=True, col=None,
-             lw=3, show_axis=True, tip_label=True, series=None):
-    """KO 股价（拆股调整）曲线；对数坐标"""
+# ------------------------------------------------------------------ 图表：苹果股价（拆股调整，对数坐标）
+def aapl_chart(cv, t, x0, x1, y0, y1, y_from=2016.0, y_to=2026.9, reveal=1.0, a=1.0, col=None, lw=3,
+               show_axis=True, tip=True, lo=18.0, hi=420.0, ticks=(25, 50, 100, 200, 400)):
     if a <= 0.004: return None
-    Y, P = (KO_Y, KO_P) if series is None else series
-    m = (Y >= y_from) & (Y <= y_to)
-    Y, P = Y[m], P[m]
-    vy = np.log(P) if log else P
-    lo, hi = (math.log(2.0), math.log(110)) if log else (0, P.max() * 1.1)
+    m = (AA_Y >= y_from) & (AA_Y <= y_to)
+    Y, P = AA_Y[m], AA_P[m]
     xs = x0 + (Y - y_from) / (y_to - y_from) * (x1 - x0)
-    ys = y1 - (vy - lo) / (hi - lo) * (y1 - y0)
+    ys = y1 - (np.log(P) - math.log(lo)) / (math.log(hi) - math.log(lo)) * (y1 - y0)
     n = max(2, int(len(xs) * cl(reveal)))
     step = max(1, n // 900)
-    pts = np.stack([xs[:n:step], ys[:n:step]], 1)
-    pts = np.vstack([pts, [xs[n - 1], ys[n - 1]]])
+    pts = np.vstack([np.stack([xs[:n:step], ys[:n:step]], 1), [xs[n - 1], ys[n - 1]]])
     if show_axis:
-        for yr in range(1990, 2030, 5):
-            if y_from <= yr <= y_to:
-                xx = x0 + (yr - y_from) / (y_to - y_from) * (x1 - x0)
-                cv.line((xx, y1 + 6), (xx, y1 + 16), DIM, a * 0.8, 1)
-                cv.text(str(yr), xx, y1 + 38, 20, 'oswald', col=DIM, a=a * 0.9)
-        for pv in (5, 10, 20, 50, 100):
-            yy = y1 - ((math.log(pv) if log else pv) - lo) / (hi - lo) * (y1 - y0)
+        for yr in range(int(math.ceil(y_from)), int(y_to) + 1, 2):
+            xx = x0 + (yr - y_from) / (y_to - y_from) * (x1 - x0)
+            cv.line((xx, y1 + 6), (xx, y1 + 16), DIM, a * 0.8, 1)
+            cv.text(str(yr), xx, y1 + 38, 20, 'oswald', col=DIM, a=a * 0.9)
+        for pv in ticks:
+            yy = y1 - (math.log(pv) - math.log(lo)) / (math.log(hi) - math.log(lo)) * (y1 - y0)
             if y0 - 5 <= yy <= y1:
-                cv.line((x0, yy), (x1, yy), (0.18, 0.17, 0.17), a * 0.6, 1)
+                cv.line((x0, yy), (x1, yy), (0.18, 0.18, 0.2), a * 0.6, 1)
                 cv.text(f'${pv}', x0 - 12, yy, 18, 'oswald', col=DIM, a=a * 0.8, anchor='r')
-    colr = RED if col is None else col
-    cv.poly(pts, colr * 0.55, a * 0.5, lw + 6)
+    colr = CREAM if col is None else col
+    cv.poly(pts, colr * 0.5, a * 0.45, lw + 6)
     cv.poly(pts, colr, a, lw)
-    tip = pts[-1]
-    if tip_label:
-        cv.glow_dot(tip, 14 + 8 * beat_pulse(t), GOLD_L, a * 0.9)
-    return tip, (xs, ys)
+    if tip: cv.glow_dot(pts[-1], 12 + 8 * beat_pulse(t), GOLD_L, a * 0.9)
+    return pts[-1], (xs, ys)
 
 
+def ax_y(v, y0, y1, lo=18.0, hi=420.0):
+    return y1 - (math.log(v) - math.log(lo)) / (math.log(hi) - math.log(lo)) * (y1 - y0)
+
+
+def ax_x(yr, x0, x1, y_from=2016.0, y_to=2026.9):
+    return x0 + (yr - y_from) / (y_to - y_from) * (x1 - x0)
+
+
+def holdings_chart(cv, t, x0, x1, y0, y1, reveal=1.0, a=1.0, hl=None, y_from=2016.0, y_to=2026.9, vmax=1.1e9):
+    """伯克希尔逐季持股（亿股）柱状图"""
+    if a <= 0.004: return
+    bw = (x1 - x0) / ((y_to - y_from) * 4) * 0.72
+    n = len(HOLD)
+    for k, (yy, sh_) in enumerate(HOLD):
+        if k / n > reveal: break
+        x = ax_x(yy, x0, x1, y_from, y_to)
+        h = (y1 - y0) * sh_ / vmax
+        col = GOLD * 0.75 if not (hl and hl(yy)) else RED
+        cv.rect(x - bw / 2, y1 - h, x + bw / 2, y1, col, a * 0.9)
+    for v in (2e8, 5e8, 1e9):
+        yy = y1 - (y1 - y0) * v / vmax
+        cv.line((x0, yy), (x1, yy), (0.2, 0.2, 0.22), a * 0.5, 1)
+        cv.text(f'{v / 1e8:.0f}亿股', x0 - 10, yy, 18, 'sans_light', col=DIM, a=a * 0.8, anchor='r')
+    for yr in range(2016, 2027, 2):
+        cv.text(str(yr), ax_x(yr + 0.5, x0, x1, y_from, y_to), y1 + 30, 20, 'oswald', col=DIM, a=a * 0.9)
+
+
+# ------------------------------------------------------------------ 镜头：开场
 def shot_hook(cv, t):
-    # ---- 0 → s01：黑场中的金线心跳
-    a0 = env(t, 0, S('s01') + 0.4, 0.0, 0.4)
+    import media as M
+    # ---- 0 → h1：黑场中的金线心跳
+    a0 = env(t, 0, S('h1') + 0.6, 0.0, 0.5)
     if a0 > 0:
         L = 420 * eo(t / 1.1)
-        hb = sum(math.exp(-max(t - k, 0) * 6) * (t >= k) for k in (0.25,))
+        hb = math.exp(-max(t - 0.25, 0) * 6) * (t >= 0.25)
         cv.line((W / 2 - L, 960), (W / 2 + L, 960), GOLD, a0 * (0.5 + 0.5 * hb), 2)
         cv.glow_dot((W / 2, 960), 30 + 40 * hb, GOLD, a0 * 0.6)
-    # ---- s01：“可口可乐，创历史新高了——93.9 美元。” 股价长线一口气冲上历史新高
-    t0, t1 = S('s01') - 0.25, S('s03') + 0.25
-    a = env(t, t0, t1, 0.35, 0.5)
+    # ---- h1：2026 年秋，股价一再刷新纪录（Apple Park 航拍 + 十年股价曲线）
+    t0, t1 = S('h1') - 0.3, S('h2') + 0.2
+    a = env(t, t0, t1, 0.6, 0.5)
     if a > 0:
-        t_ath = WT('s01', '创历史新高')
-        p = eio5((t - t0) / (t_ath + 0.25 - t0))
-        r = ko_chart(cv, t, t0, 110, 990, 560, 1210, reveal=0.02 + 0.98 * p, a=a, col=RED)
-        cv.text('KO', 120, 300, 40, 'oswald', col=CREAM, a=a, anchor='l', track=0.1)
-        cv.text('THE COCA-COLA COMPANY · NYSE', 205, 302, 22, 'corm', col=GREY, a=a, anchor='l', track=0.12)
-        ath = env(t, t_ath, t1, 0.18, 0.4)
-        flash = math.exp(-max(t - t_ath, 0) * 3.5) * (t >= t_ath)
-        if ath > 0:
-            chip(cv, '历史新高', 230, 400, 40, ath, col=GOLD)
-            if r:
-                cv.glow_dot(r[0], 50 + 70 * flash, GOLD, ath * (0.35 + 0.45 * flash))
-                cv.circle(r[0], 20 + 260 * (1 - math.exp(-max(t - t_ath, 0) * 3)), GOLD_L, ath * flash, 2)
-        kp = eo((t - WT('s01', '九十三点九') + 0.1) / 0.35)
-        if kp > 0:
-            cv.text('$93.90', W / 2 + 120, 470, 150, 'sans_bold', gold=True, a=a * kp, glow=0.35, scale=1.1 - 0.1 * kp)
-            cv.text('2026.10.16 收盘 · 盘中高点 $94.10（10.15）', W / 2 + 120, 570, 24, 'sans_light', col=GREY, a=a * kp)
-        source(cv, '数据：Nasdaq / Yahoo Finance 日线（拆股调整）', a * 0.9)
-    # ---- s03 前半：“有一位股东，已经持有它 38 年”——股东名册中被点亮的一行
-    t_split = WT('s03', '当年')
-    t0, t1 = S('s03') - 0.15, t_split + 0.25
-    a = env(t, t0, t1, 0.3, 0.3)
-    if a > 0:
-        rng = np.random.default_rng(3)
-        p = (t - t0)
-        scroll = 1 - eo(p / 1.6)
-        for i in range(-9, 10):
-            y = 900 + i * 62 + scroll * 260
-            w_ = 300 + rng.random() * 420
-            hl = (i == 0)
-            aa = a * (0.13 if not hl else 1.0) * (1 - min(abs(y - 900) / 700, 1))
-            if not hl:
-                cv.rrect(130, y - 9, 130 + w_, y + 9, 9, (0.32, 0.30, 0.30), aa)
-                cv.rrect(860, y - 9, 950, y + 9, 9, (0.32, 0.30, 0.30), aa)
-            else:
-                k = eo((p - 0.6) / 0.5)
-                cv.rrect(110, y - 40, 970, y + 40, 12, (0.16, 0.10, 0.06), a * k * 0.9, glow=0.0)
-                cv.rrect(110, y - 40, 970, y + 40, 12, GOLD, a * k, fill=False, th=2)
-                cv.text('BERKSHIRE HATHAWAY', 150, y, 40, 'oswald', col=GOLD_L, a=a * (0.25 + 0.75 * k), anchor='l', track=0.06)
-                cv.text('since 1988', 940, y, 30, 'corm', col=GOLD, a=a * k, anchor='r')
-        k38 = eo((t - WT('s03', '38') + 0.1) / 0.4)
-        cv.text('38', W / 2, 420, 230, 'sans_light', col=WHITE, a=a * k38, glow=0.15)
-        cv.text('年', W / 2 + 165, 470, 60, 'sans_med', col=GOLD, a=a * k38)
-        cv.text('股东名册（示意）', W / 2, 1310, 22, 'sans_light', col=DIM, a=a * 0.8)
-    # ---- s03 后半：13亿 → 376亿
-    t0, t1 = t_split - 0.1, S('s04') + 0.15
-    a = env(t, t0, t1, 0.3, 0.4)
-    if a > 0:
-        p = t - t0
-        t376 = WT('s03', '376') - t0
-        base = 1330
-        cube(cv, 200, base - 40, 70, a * eo(p / 0.5))
-        kk = eexp((p - t376 + 0.6) / 1.6)
-        hcol = 760 * kk
-        if hcol > 2:
-            cv.rect(955, base - 75 - hcol, 1015, base - 75, GOLD * 0.7, a, glow=0.25)
-            cv.rect(955, base - 75 - hcol, 963, base - 75, GOLD_L, a * 0.8)
-        cv.text('成本', 200, base + 30, 24, 'sans_light', col=GREY, a=a * eo(p / 0.5))
-        cv.text('市值', 985, base + 30, 24, 'sans_light', col=GREY, a=a * kk)
-        cv.text('1988–1994 买入成本', W / 2, 520, 32, 'sans_light', col=GREY, a=a)
-        cv.text('$13亿', W / 2, 640, 120, 'sans_light', col=CREAM, a=a * (1 - 0.6 * eo((p - t376 + 0.6) / 0.6)))
-        k = eo((p - t376 + 0.6) / 0.5)
+        M.full(cv, 'apple_park_aerial', t, t0, t1, z0=1.25, z1=1.4, focus=(0.5, 0.5), dark=0.55, a=a, cap='Apple Park 航拍')
+        tr = WT('h1', '市值')
+        p = eio5((t - t0) / (tr - t0))
+        r = aapl_chart(cv, t, 130, 990, 520, 1180, reveal=0.02 + 0.98 * p, a=a, col=CREAM)
+        cv.text('AAPL', 130, 330, 44, 'oswald', col=CREAM, a=a, anchor='l', track=0.1)
+        cv.text('APPLE INC. · NASDAQ · 2016–2026', 250, 333, 22, 'corm', col=GREY, a=a, anchor='l', track=0.12)
+        # 2026 年的历次收盘新高：点亮
+        recs = [y for y, pp, prev in zip(AA_Y[1:], AA_P[1:], np.maximum.accumulate(AA_P)[:-1]) if y >= 2026 and pp > prev]
+        if r:
+            xs, ys = r[1]
+            for y in recs:
+                if y <= 2016 + (2026.9 - 2016) * (0.02 + 0.98 * p):
+                    cv.glow_dot((ax_x(y, 130, 990), ax_y(aa_at(y), 520, 1180)), 7, GOLD, a * 0.7)
+        k = eo((t - tr + 0.2) / 0.5)
         if k > 0:
-            v = counter(13, 376, t, t0 + t376 - 0.6, 1.4, lambda v: f'${v:,.0f}亿')
-            cv.text('今日市值', W / 2, 800, 32, 'sans_light', col=GOLD, a=a * k)
-            cv.text(v, W / 2, 960, 210, 'sans_bold', gold=True, a=a * k, glow=0.35, scale=0.94 + 0.06 * k)
-            cv.text('×28.9', W / 2, 1130, 54, 'oswald', col=GOLD_L, a=a * eo((p - t376 - 0.6) / 0.5), track=0.06)
-        source(cv, '成本：伯克希尔1994年报 $12.99亿 · 市值：4亿股 × $93.90', a)
-    # ---- s04：股息 8.48 亿
-    t0, t1 = S('s04') - 0.1, S('s05') + 0.1
+            chip(cv, '2026 年 25 次收盘新高', 330, 440, 30, a * k, col=GOLD)
+            cv.text('$348.91', 760, 440, 64, 'sans_bold', gold=True, a=a * k, glow=0.3)
+            cv.text('2026.10.29 收盘', 760, 492, 20, 'sans_light', col=GREY, a=a * k)
+        k2 = eo((t - WT('h1', '五万亿') + 0.1) / 0.5)
+        if k2 > 0:
+            cv.text('市值 ≈ $5 万亿', W / 2, 1300, 76, 'serif_black', gold=True, a=a * k2, glow=0.3, scale=1.05 - 0.05 * k2)
+        source(cv, '数据：Yahoo Finance 日线（拆股调整）；市值 = 收盘价 × 2026 财年末股数 145.3 亿', a * 0.9, y=1392)
+    # ---- h2：盛宴里最著名的股东（伯克希尔股东大会现场）
+    t0, t1 = S('h2') - 0.2, S('h3') + 0.1
+    a = env(t, t0, t1, 0.5, 0.4)
+    if a > 0:
+        M.full(cv, 'brk_meeting_2025', t, t0, t1, z0=1.3, z1=1.42, focus=(0.5, 0.45), dark=0.15, a=a, cap='伯克希尔股东大会 · 2025')
+        cv.text('BERKSHIRE HATHAWAY', W / 2, 380, 46, 'oswald', col=GOLD_L, a=a * eo((t - t0 - 0.6) / 0.8), track=0.12, shadow=0.8)
+    # ---- h3：10 亿股 → 2.28 亿股
+    t0, t1 = S('h3') - 0.15, S('h4') + 0.1
     a = env(t, t0, t1, 0.35, 0.35)
     if a > 0:
         p = t - t0
-        rng = np.random.default_rng(11)
-        n = 300
-        xs = rng.uniform(80, 1000, n); sp = rng.uniform(420, 900, n); ph = rng.uniform(0, 3, n)
-        ys = ((p + ph) * sp) % 1500 + 150
-        cv.splat(xs, ys, GOLD, a * 0.55 * np.minimum(1, p / 0.8), glow=1.5)
-        cv.splat(xs, ys - 6, GOLD, a * 0.25 * np.minimum(1, p / 0.8), glow=1.0)
-        cv.text('2026 年股息（全年预计）', W / 2, 600, 34, 'sans_light', col=GREY, a=a)
-        k = eo((t - WT('s04', '八点四八') + 0.1) / 0.4)
-        cv.text('$8.48亿', W / 2, 780, 190, 'sans_bold', gold=True, a=a * k, glow=0.3, scale=1.06 - 0.06 * k)
-        cv.text('约为当初成本的 65%', W / 2, 960, 40, 'sans_med', col=CREAM, a=a * eo((t - WT('s04', '八点四八') - 0.9) / 0.5))
-        source(cv, '每股 $0.53 × 4 季 × 4亿股（可口可乐 2025 年报：连续第64年提高股息）', a)
-    # ---- s05：三次危机闪回 → “一股未卖” → 为什么？（之后是整段留白，直到标题重拍）
-    t0, t1 = S('s05') - 0.1, CH['title'][0] + 0.05
-    a = env(t, t0, t1, 0.2, 0.05)
+        base = 1260
+        k1 = eexp(p / 1.2)
+        h1_ = 700 * 1.0099 * k1
+        cv.rect(230, base - h1_, 430, base, GOLD * 0.7, a, glow=0.15)
+        cv.text('10.1亿股', 330, base - h1_ - 50, 46, 'sans_bold', col=CREAM, a=a * k1)
+        cv.text('2018 年峰值', 330, base + 40, 26, 'sans_light', col=GREY, a=a)
+        tk = WT('h3', '如今') - t0
+        k2 = eexp((p - tk) / 0.9)
+        if k2 > 0:
+            h2_ = 700 * 0.2279 * k2
+            cv.rect(650, base - h2_, 850, base, RED, a, glow=0.15)
+            cv.text('2.28亿股', 750, base - h2_ - 50, 46, 'sans_bold', col=CREAM, a=a * k2)
+            cv.text('2026 年 6 月', 750, base + 40, 26, 'sans_light', col=GREY, a=a * k2)
+        cv.text('伯克希尔持有的苹果股票', W / 2, 400, 36, 'sans_med', col=CREAM, a=a)
+        source(cv, '数据：伯克希尔 13F 持仓报告（按 2020 年 1 拆 4 调整）', a, y=1392)
+    # ---- h4：9.16 亿股中卖掉约四分之三，套现约 1340 亿美元
+    t0, t1 = S('h4') - 0.15, S('h5') + 0.1
+    a = env(t, t0, t1, 0.35, 0.35)
     if a > 0:
         p = t - t0
-        items = [('2000', '互联网泡沫', '泡沫'), ('2008', '金融危机', '危机'), ('2020', '全球疫情', '疫情')]
-        for i, (yr, nm, w) in enumerate(items):
-            ti = WT('s05', w) - t0 - 0.1
-            k = env(p, ti, ti + 0.8, 0.08, 0.3)
-            if k > 0:
-                cv.text(yr, W / 2, 760, 200, 'oswald', col=RED, a=a * k * 0.9, glow=0.4)
-                cv.text(nm, W / 2, 920, 56, 'serif_black', col=CREAM, a=a * k)
-        tq = WT('s05', '他一股') - t0
-        k = env(p, tq, 99, 0.25, 0)
+        cv.text('2023 年秋 · 9.16 亿股', W / 2, 360, 40, 'sans_med', col=CREAM, a=a)
+        tq = WT('h4', '四分之三') - t0
+        rng = np.random.default_rng(4)
+        order = rng.permutation(100)
+        for i in range(100):
+            cx = 190 + (i % 10) * 78; cy = 520 + (i // 10) * 78
+            sold = order[i] < 75
+            k = eo((p - tq - order[i] * 0.012) / 0.5) if sold else 0
+            col = GOLD if not sold else lerp(GOLD, RED, min(k * 2, 1))
+            cv.rrect(cx - 28, cy - 28 - 60 * k * 0, cx + 28, cy + 28, 8, col * (0.9 - 0.65 * k), a * (1 - 0.55 * k))
+        k3 = eo((t - WT('h4', '一千三百四十亿') + 0.1) / 0.5)
+        if k3 > 0:
+            cv.text('套现 ≈ $1340亿', W / 2, 1360, 84, 'serif_black', gold=True, a=a * k3, glow=0.3)
+        cv.text('卖出约 3/4', W / 2, 1270, 40, 'sans_med', col=RED, a=a * eo((p - tq) / 0.5))
+        source(cv, '估算：各季度减持股数 × 当季日均收盘价（税前）', a, y=1440)
+    # ---- h5：若一股不卖，今天值约 3100 亿美元
+    t0, t1 = S('h5') - 0.15, S('h6') + 0.1
+    a = env(t, t0, t1, 0.35, 0.35)
+    if a > 0:
+        p = t - t0
+        cv.text('假如一股不卖', W / 2, 560, 44, 'sans_med', col=CREAM, a=a)
+        k = eo((t - WT('h5', '三千一百亿') + 0.1) / 0.4)
         if k > 0:
-            cv.text('一股未卖', W / 2, 840, 150, 'serif_black', gold=True, a=a * k, glow=0.35, scale=1.06 - 0.06 * eo((p - tq) / 0.8))
-        k2 = env(p, WT('s05', '为什么') - t0, 99, 0.3, 0)
+            v = counter(1340, 3100, t, WT('h5', '三千一百亿') - 0.1, 1.0, lambda v: f'${v:,.0f}亿')
+            cv.text(v, W / 2, 800, 200, 'sans_bold', gold=True, a=a * k, glow=0.35, scale=0.94 + 0.06 * k)
+        cv.text('9.16亿股 × $338.32（2026.11.02 收盘）', W / 2, 990, 30, 'sans_light', col=GREY, a=a * eo((p - 1.0) / 0.5))
+    # ---- h6：他是沃伦·巴菲特
+    t0, t1 = S('h6') - 0.2, CH['title'][0] + 0.1
+    a = env(t, t0, t1, 0.6, 0.15)
+    if a > 0:
+        M.full(cv, 'buffett_2015', t, t0, t1, z0=1.12, z1=1.22, focus=(0.55, 0.38), dark=0.1, a=a, warm=0.15, sat=0.6,
+               cap='巴菲特 · 2015 年（美国商务部，公有领域）')
+        k = eo((t - WT('h6', '沃伦') + 0.1) / 0.7)
+        cv.text('WARREN BUFFETT', W / 2, 1180, 64, 'corm', col=GOLD_L, a=a * k, track=0.2, shadow=0.8)
+        k2 = eo((t - WT('h6', '十年前') + 0.1) / 0.6)
         if k2 > 0:
-            cv.text('为什么？', W / 2, 1040, 64, 'serif_semi', col=CREAM, a=a * k2)
-        # “为什么？”之后的空气：画面慢慢沉下去，只剩金字与心跳般的微光
-        sink = eio((t - E('s05') - 0.2) / 1.2)
-        if sink > 0: cv.dim(1 - 0.35 * sink)
+            cv.text('2016', W / 2, 520, 150, 'oswald', col=CREAM, a=a * k2 * 0.9, shadow=0.8, glow=0.1)
+        sink = eio((t - E('h6') - 0.2) / 1.0)
+        if sink > 0: cv.dim(1 - 0.4 * sink)
 
 
-# ------------------------------------------------------------------ 标题
-def bottle_layer(cv, t, a=1.0, rot=0.0, fill=0.8, camd=7.6, camy=1.25, shift=(0.0, 0.0), ex=1.0, bub=1.0,
-                 ripple=0.0, floorr=1.0, gold=1.0):
+# ------------------------------------------------------------------ 标题：玻璃苹果
+def apple_layer(cv, t, a=1.0, rot=0.0, camd=6.2, camy=1.5, shift=(0.0, 0.0), ex=1.0, fillk=0.6):
     if a <= 0.004: return
-    b = sh('BOTTLE')(t=t, rot=rot, camy=camy, camd=camd, fill=fill, glass_a=1.0, key=(1.0, 0.95, 0.9), ex=ex,
-                     bub=bub, shift=shift, tilt=0.0, gold=gold, ripple=ripple, floorr=floorr)
+    b = sh('APPLE')(t=t, rot=rot, camd=camd, camy=camy, shift=shift, ex=ex, tint=(0.85, 0.18, 0.14), glass_a=1.0,
+                    floorr=1.0, fillk=fillk)
     al = b[..., 3:4] * a
     cv.img = cv.img * (1 - al) + b[..., :3] * a
     cv.glow += np.clip(b[..., :3] * a - 0.55, 0, None) * 0.8
@@ -576,22 +581,20 @@ def shot_title(cv, t):
     if a <= 0: return
     p = t - t0
     flash = math.exp(-p * 5.0)
-    bottle_layer(cv, t, a * eo(p / 0.25), rot=0.6 + p * 0.25, fill=0.82, camd=8.2, camy=1.45, shift=(0.0, 0.11),
-                 ex=0.6 + 0.8 * (1 - math.exp(-p * 3)), bub=1.0)
-    # 冲击波光环
+    apple_layer(cv, t, a * eo(p / 0.25), rot=0.6 + p * 0.25, camd=6.2, camy=1.5, shift=(0.0, 0.12),
+                ex=0.6 + 0.8 * (1 - math.exp(-p * 3)), fillk=0.4 + 0.4 * flash)
     R = 60 + p * 900
     cv.circle((W / 2, 760), R, GOLD, a * math.exp(-p * 2.2) * 0.8, 3)
     cv.glow_dot((W / 2, 760), 220, GOLD, a * flash * 0.9)
     k = eo((p - 0.15) / 0.6)
-    cv.text('38年', W / 2, 1230, 190, 'serif_black', gold=True, a=a * k, glow=0.3, scale=1.08 - 0.08 * k)
-    cv.text('一股未卖', W / 2, 1400, 120, 'serif_black', gold=True, a=a * eo((p - 0.45) / 0.6), glow=0.25)
-    cv.text('巴菲特与可口可乐', W / 2, 1290 + 230, 44, 'sans_light', col=CREAM, a=a * eo((p - 0.9) / 0.6), track=0.3)
-    cv.text('38 YEARS · NOT ONE SHARE SOLD', W / 2, 1600, 24, 'corm', col=GOLD, a=a * eo((p - 1.2) / 0.6), track=0.3)
+    cv.text('十年苹果', W / 2, 1260, 170, 'serif_black', gold=True, a=a * k, glow=0.3, scale=1.08 - 0.08 * k)
+    cv.text('巴菲特为什么卖掉了大半', W / 2, 1430, 60, 'serif_semi', col=CREAM, a=a * eo((p - 0.5) / 0.6))
+    cv.text('TEN YEARS OF APPLE', W / 2, 1530, 26, 'corm', col=GOLD, a=a * eo((p - 1.0) / 0.6), track=0.35)
 
 
 # ------------------------------------------------------------------ 片尾：粒子汇聚成官方 logo
 _end = {}
-TEASE_L1, TEASE_L2 = '360亿美元买入苹果', '他为什么又卖掉了大半？'
+TEASE_L1, TEASE_L2 = '日本五大商社', '巴菲特为什么在东京下注？'
 TEASE_Y1, TEASE_Y2 = 735, 845
 
 
@@ -633,11 +636,14 @@ def shot_end(cv, t):
     ts = SEG['tease']['start']
     t_dis = hit - MP.get('dissolve', 1.5)                  # 文字开始化作粒子
     # 0) 下期预告（与旁白同步）
-    ka = env(t, ts - 0.05, t_dis + 0.15, 0.6, 0.45)          # 上一镜头（s48）在 ts 前已淡出，不叠化
+    ka = env(t, ts - 0.05, t_dis + 0.15, 0.6, 0.45)          # 上一镜头在 ts 前已淡出，不叠化
+    if ka > 0.004:                                           # 下期预告的画面：东京丸之内街景
+        import media as M
+        M.full(cv, 'v_tokyo', t, ts - 0.4, t_dis + 0.3, z0=1.0, z1=1.06, dark=0.55, a=ka, src_t0=20.0, cap='东京丸之内')
     if ka > 0.004:
         chip(cv, '下期预告', W / 2, 615, 26, ka, col=GOLD)
         cv.text(TEASE_L1, W / 2, TEASE_Y1, 76, 'serif_black', gold=True, a=ka, shadow=0.6, glow=0.12)
-        k2 = eo((t - WT('tease', '他为什么') + 0.1) / 0.5)
+        k2 = eo((t - WT('tease', '巴菲特为什么') + 0.1) / 0.5)
         cv.text(TEASE_L2, W / 2, TEASE_Y2, 54, 'serif_semi', col=CREAM, a=ka * k2, shadow=0.6)
     # 1) 预告文字化作粒子，汇聚成官方 logo
     tx, ty, sx, sy, col, delay, swirl = end_particles()
@@ -809,3 +815,44 @@ def globe(cv, t, cx, cy, R, rot, tilt=0.35, a=1.0, arcs=0.0, col=GOLD, land_a=1.
                 cv.glow_dot((cx + px[-1] * R, cy - py[-1] * R), 7, GOLD_L, a * city_glow)
         ax, ay, az = proj(a0)
         if az > 0: cv.glow_dot((cx + ax * R, cy - ay * R), 12, RED, a)
+
+
+# ------------------------------------------------------------------ 分镜辅助：按旁白句子取时间窗
+ORDER = [s['id'] for s in TL['segs']]
+def nxt(i): return ORDER[ORDER.index(i) + 1] if ORDER.index(i) + 1 < len(ORDER) else None
+
+
+def win(i, j=None, pre=0.3, post=0.12):
+    """镜头从句子 i 发声前 pre 秒开始，到句子 j（缺省为下一句）发声后 post 秒结束"""
+    j = j or nxt(i)
+    t1 = S(j) + post if j else E(i) + 1.0
+    return S(i) - pre, t1
+
+
+def big_num(cv, t, tw, txt, y, size=170, a=1.0, sub=None, sub_size=32, col=None, dur=0.45):
+    k = eo((t - tw + 0.1) / dur)
+    if k <= 0: return
+    if col is None: cv.text(txt, W / 2, y, size, 'sans_bold', gold=True, a=a * k, glow=0.3, scale=1.06 - 0.06 * k, shadow=0.7)
+    else: cv.text(txt, W / 2, y, size, 'sans_bold', col=col, a=a * k, glow=0.2, scale=1.06 - 0.06 * k, shadow=0.7)
+    if sub: cv.text(sub, W / 2, y + size * 0.62 + 10, sub_size, 'sans_light', col=CREAM, a=a * eo((t - tw - 0.4) / 0.5), shadow=0.7)
+
+
+def headline(cv, txt, y, a, size=64, gold=True, col=None, k=1.0):
+    if a * k <= 0.004: return
+    if gold: cv.text(txt, W / 2, y, size, 'serif_black', gold=True, a=a * k, glow=0.25, shadow=0.8)
+    else: cv.text(txt, W / 2, y, size, 'serif_black', col=col or CREAM, a=a * k, shadow=0.8)
+
+
+def bars(cv, items, t, t0, a, x0=140, x1=940, base=1250, hmax=640, fmt=None, stagger=0.9, dur=1.2, label_size=28):
+    """简单柱状对比：items = [(标签, 数值, 颜色, 出现时刻或 None)]"""
+    vmax = max(v for _, v, _, _ in items)
+    n = len(items); bw = (x1 - x0) / n * 0.55
+    for k, (lab, v, col, tk) in enumerate(items):
+        ts = t0 + k * stagger if tk is None else tk
+        e = eexp((t - ts) / dur)
+        if e <= 0: continue
+        cx = x0 + (x1 - x0) * (k + 0.5) / n
+        h = hmax * v / vmax * e
+        cv.rect(cx - bw / 2, base - h, cx + bw / 2, base, col, a * 0.92, glow=0.12)
+        cv.text(fmt(v * e) if fmt else f'{v * e:,.0f}', cx, base - h - 44, 44, 'sans_bold', col=CREAM, a=a * min(e * 2, 1), shadow=0.6)
+        cv.text(lab, cx, base + 40, label_size, 'sans_light', col=GREY, a=a * min(e * 2, 1))

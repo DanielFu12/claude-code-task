@@ -50,7 +50,6 @@ WANT = {
     'infinite_loop': ('Apple Campus One Infinite Loop Sign.jpg', 'img'),
     'v_omaha_drone': ('Flying over Omaha, NE, USA - HD Photography Drone.webm', 'vid'),
     'v_dundee_drone': ('Memorial Park, Dundee ~AERIAL DRONE 4K Video.webm', 'vid'),
-    'v_medal_2011': ('2011 Presidential Medal of Freedom Ceremony.webm', 'vid'),
     'v_dq_sign': ('Rotating Dairy Queen sign.webm', 'vid'),
     'v_apple_park': ('Apple Park 1 2018-12-23.webm', 'vid'),
     'v_cars_night': ('Cars driving at night.webm', 'vid'),
@@ -96,6 +95,10 @@ if __name__ == '__main__':
     cp = os.path.join(OUT, 'credits.json')
     credits = json.load(open(cp)) if os.path.exists(cp) else {}
     titles = find_titles()
+    PRI = ['v_dq_sign', 'v_omaha_drone', 'iphone11', 'flip_moto', 'ibm_chq', 'dairy_queen', 'nfm_kc', 'cook_2017', 'jobs_2010',
+           'glide', 'v_dundee_drone', 'smith_wollensky', 'oppo_vivo', 'coke_bottles', 'treasury', 'best_buy', 'v_tokyo', 'v_cars_night',
+           'v_apple_park', 'nasdaq', 'munger', 'iphone7_back', 'iphone11_cam', 'jobs_wwdc08', 'flip_keypad', 'infinite_loop']
+    titles = dict(sorted(titles.items(), key=lambda kv: PRI.index(kv[0]) if kv[0] in PRI else -1))
     for k, title in titles.items():
         kind = WANT[k][1]
         dest = os.path.join(OUT, k + ('.jpg' if kind == 'img' else '.webm'))

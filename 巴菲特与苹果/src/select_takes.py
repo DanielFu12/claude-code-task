@@ -23,6 +23,8 @@ def cer(ref, hyp):
     eq = lambda p: 'er' if p == 'liang' else p                       # “两/二”在数字里可互换
     D = '零一二三四五六七八九'
     yr = lambda s: re.sub(r'(?<!\d)(19|20)\d\d(?!\d)', lambda m: ''.join(D[int(c)] for c in m.group(0)), s)   # 年份逐位读
+    fr = lambda s: re.sub(r'(\d+)/(\d+)', lambda m: f'{m.group(2)}分之{m.group(1)}', s)          # 3/4 → 4分之3
+    _y = yr; yr = lambda s: _y(fr(s))
     r = [eq(p) for p in lazy_pinyin(''.join(normalize(yr(ref))[0]))]; h = [eq(p) for p in lazy_pinyin(''.join(normalize(yr(hyp))[0]))]
     d = list(range(len(h) + 1))
     for i in range(1, len(r) + 1):

@@ -145,6 +145,14 @@ if __name__ == '__main__':
             for out in ex.map(lambda j: gen_full(os.path.join(d, f'{j[0]}_{j[1]}.wav'), [P[x] for x in GROUPS[j[0]]]), jobs):
                 print('done', out, flush=True)
         sys.exit()
+    if args and args[0] == 'mini':                       # python3 src/tts_passage.py WORK mini NAME id,id,id --takes N：带上下文补录几句
+        name, ids = args[1], args[2].split(',')
+        jobs = [os.path.join(d, f'{name}_{k}.wav') for k in range(takes)]
+        jobs = [j for j in jobs if not os.path.exists(j)]
+        with cf.ThreadPoolExecutor(2) as ex:
+            for out in ex.map(lambda j: gen_full(j, [(name, ids, '')]), jobs): print('done', out, flush=True)
+        json.dump(ids, open(os.path.join(d, f'{name}.ids.json'), 'w'))
+        sys.exit()
     if args and args[0] == 'gen':
         want = args[1:]
         selp = os.path.join(d, 'select.json')

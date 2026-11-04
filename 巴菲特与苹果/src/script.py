@@ -249,7 +249,7 @@ QUOTES = {
     'qduan2006a': ('I learned a lot from Warren Buffett and his philosophy.', '我从巴菲特和他的理念中学到了很多。', 'Duan Yongping · AP, 2006'),
     'q2024nfm': ("if we didn't have it, people left the store and went to Best Buy or someplace.", '如果我们缺货，顾客就离开，去百思买或者别的店。', 'Warren Buffett · Annual Meeting, May 4, 2024'),
     'q2024greatest': ("it's one of the great products, maybe the greatest product of all time.", '它是伟大的产品之一，也许是有史以来最伟大的产品。', 'Warren Buffett · Annual Meeting, May 4, 2024'),
-    'qduan2018': ('我觉得苹果的生意模式，是比可口可乐要好的。', 'I think Apple’s business model is better than Coca-Cola’s.', '段永平 · 浙江大学，2025-01-05（回忆 2018 年与巴菲特的晚餐）'),
+    'qduan2018': ('', '“我觉得苹果的生意模式，是比可口可乐要好的。”', '段永平 · 浙江大学讲座，2025-01-05（回忆 2018 年与巴菲特的晚餐）'),
     'qduan2006': ('I wanted to find a chance to say thanks to him.', '我只是想找个机会，当面谢谢他。', 'Duan Yongping · AP, 2006'),
 
     'q2017': ('Apple strikes me as having quite a sticky product and an enormously useful product to people that use it, not that I do',

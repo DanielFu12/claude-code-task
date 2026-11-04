@@ -16,15 +16,24 @@ import numpy as np
 SR = 48000
 HERE = os.path.dirname(os.path.abspath(__file__))
 MDIR = 'music3'
+LOGO_CHORD = 97.44        # P3_0 的最后一次全奏（之后自然衰减约 5.6s）
 
 SCORE = [
-    dict(id='P1', cue='P1_2', anchors=[(0.0, 'film0'), (23.53, 'title', 1.0)],
-         out=('fade', 'ch2', 3.0, 0.9)),                                   # 开场 + 第一章
-    dict(id='P2', cue='P2_2', anchors=[(0.10, 'ch2'), (34.00, 'w:s17d:芒格', 0.6), (90.47, 'w:s28:376', 1.0)],
-         loop=(92.0, 115.0), fade_in=1.5, out=('fade', 'ch4', 9.0, 0.9)),                      # 第二、三章；第三章最后一句起高潮慢慢退下，再转入第四章
-    dict(id='P3', cue='P3_2', anchors=[(0.07, 'ch4'), (32.97, 's40', 0.8), (79.85, 's47', 1.0)],
-         fade_in=1.5, out=('bed', 'end', 'logo', -15.0)),                  # 第四、五章；片尾预告时退成远处的低垫
-    dict(id='logo', cue='P3_2', anchors=[(123.88, 'logo', 1.0)], out=('fade', 'total', 2.5, 0.0)),   # 同一首曲子的终和弦
+    dict(id='P1', cue='P1_2', anchors=[(0.0, 'film0'), (27.2, 'title', 1.0)],
+         loop=(36.0, 76.0), out=('fade', 'c1j', 5.0, 2.0)),                   # 开场 + 标题重拍 + 第一章前半（怀旧钢琴）
+    dict(id='S1', cue='S1_0', anchors=[(0.0, 'c1j'), (83.94, 'w:c1n:大行动', 1.0)],
+         fade_in=4.0, out=('fade', 'ch2', 3.0, 0.9)),                       # 第一章后半：故事推进，“大行动”点燃
+    dict(id='S2', cue='S2_1', anchors=[(0.0, 'ch2'), (86.29, 'w:c2i:苹果的回购', 1.0)],
+         fade_in=1.5, out=('fade', 'ch3', 3.0, 0.9)),                      # 第二章：买的是生意，回购那句点燃
+    dict(id='P2', cue='P2_0', anchors=[(0.0, 'ch3'), (73.56, 'w:c3h:五点六倍', 0.8), (97.55, 'w:c3i:两倍', 1.0)],
+         fade_in=1.5, out=('fade', 'ch4', 3.0, 0.9)),                      # 第三章：账本，5.6 倍、年化两倍
+    dict(id='S3', cue='S3_0', anchors=[(0.0, 'ch4'), (94.18, 'c4g', 1.0)],
+         fade_in=1.5, out=('fade', 'c4i', 9.0, 0.0)),                       # 第四章：为什么卖，“仍会是我们最大的投资”
+    dict(id='S2b', cue='S2_0', anchors=[(0.0, 'c4h')], loop=(4.0, 30.0),
+         fade_in=5.0, gain=-3.0, out=('fade', 'ch5', 4.0, 0.9)),            # 第四章末：卖错了吗——安静思考的钢琴琶音
+    dict(id='P3', cue='P3_1', anchors=[(0.0, 'ch5'), (77.37, 'c5f', 0.8), (95.53, 'c5k', 1.0)],
+         fade_in=1.5, out=('bed', 'end', 'logo', -15.0)),                  # 第五章：四条道理、主题句点燃；片尾预告时退成低垫
+    dict(id='logo', cue='P3_0', anchors=[(LOGO_CHORD, 'logo', 1.0)], out=('fade', 'total', 2.5, 0.0)),   # 同一首曲子的终和弦
 ]
 
 
@@ -111,7 +120,9 @@ def _plan(beats, a, b, df, ub):
                 pieces = [(a, e), (beats[j], b)]
             else:                                         # 重复 [e - ub·n 拍, e)
                 j = max(ei - ub * n, 0)
-                pieces = [(a, e), (beats[j], e), (e, b)]
+                L = e - beats[j]
+                m = max(1, int(round((df - ds) / L)))         # 不够长时整段循环多次（仍按拍点下刀）
+                pieces = [(a, e)] + [(beats[j], e)] * m + [(e, b)]
     src_len = sum(p[1] - p[0] for p in pieces)
     return pieces, df / src_len
 
@@ -208,7 +219,7 @@ def analyze(work):
     for cue in sorted({sec['cue'] for sec in SCORE}):
         y, sr = librosa.load(os.path.join(work, MDIR, cue + '.mp3'), sr=22050)
         on = librosa.onset.onset_strength(y=y, sr=sr, hop_length=256)
-        _, bf = librosa.beat.beat_track(onset_envelope=on, sr=sr, hop_length=256, start_bpm=84, tightness=400)
+        _, bf = librosa.beat.beat_track(onset_envelope=on, sr=sr, hop_length=256, start_bpm=88, tightness=400)
         out[cue] = dict(beats=[round(float(b), 3) for b in librosa.frames_to_time(bf, sr=sr, hop_length=256)], dur=len(y) / sr)
     json.dump(out, open(os.path.join(work, MDIR, 'beats.json'), 'w'))
 

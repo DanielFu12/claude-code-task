@@ -13,6 +13,7 @@ from align import align
 
 SR = 48000
 TARGET_RATE = 4.55        # 全片统一语速（音节/秒，不含停顿）：从容、不赶
+PITCH_BASE = 99.0         # 全片统一音高基线（Hz，中位数）：偏离超过 0.7 个半音的大段，保持共振峰微调回基线（最多 ±2 个半音）
 
 
 def articulation_rate(f, text):
@@ -42,6 +43,50 @@ def refine(y, sr, t0, t1, floor_db):
     return a * hop, b * hop
 
 
+def process(pid, ids, f, out, d, meta):
+    """一个大段录音 → 统一语速/音高/响度 → 强制对齐 → 逐句切片写到 out/<id>.wav，元数据写进 meta"""
+    import pyloudnorm as pyln, subprocess
+    meter = pyln.Meter(SR)
+    r = articulation_rate(f, ''.join(spoken(i) for i in ids)) / TARGET_RATE if TARGET_RATE else 1.0
+    pr = 1.0
+    if PITCH_BASE:
+        yy, ss = librosa.load(f, sr=16000)
+        f0, _, _ = librosa.pyin(yy, fmin=60, fmax=300, sr=ss, frame_length=1024, hop_length=320)
+        st = 12 * np.log2(float(np.nanmedian(f0)) / PITCH_BASE)
+        if abs(st) > 0.7: pr = 2 ** (-max(min(st, 2.0), -2.0) / 12)
+    if abs(r - 1) > 0.005 or pr != 1.0:
+        g = os.path.join(d, f'_eq_{os.path.basename(f)}')
+        subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', f, '-af',
+                        f'rubberband=tempo={1 / r:.5f}:pitch={pr:.5f}:pitchq=quality:formant=preserved', '-ar', '24000', g], check=True)
+        print(f'  {pid} {os.path.basename(f)}: 时长 ×{r:.3f}，音高 {12 * np.log2(pr):+.2f} 半音', flush=True)
+        f = g
+    y, sr = librosa.load(f, sr=SR)
+    y = y * 10 ** ((-20.0 - meter.integrated_loudness(y)) / 20)      # 每段统一响度
+    texts = [spoken(i) for i in ids]
+    al = align(f, '\n'.join(texts))
+    db, hop = frame_db(y, SR)
+    floor = np.percentile(db[db > -120], 95) - 38
+    spans, pos = [], 0
+    for i, s_ in zip(ids, texts):
+        us = [x for x in al if pos <= x['i'] < pos + len(s_)]
+        a_, b_ = refine(y, SR, us[0]['s'], us[-1]['e'], floor)
+        spans.append((a_, b_, us, pos)); pos += len(s_) + 1
+    cuts = [max(spans[0][0] - 0.12, 0)]
+    for k in range(len(spans) - 1): cuts.append((spans[k][1] + spans[k + 1][0]) / 2)
+    cuts.append(min(spans[-1][1] + 0.35, len(y) / SR))
+    os.makedirs(out, exist_ok=True)
+    for k, (i, (a_, b_, us, p0)) in enumerate(zip(ids, spans)):
+        c0, c1 = cuts[k], cuts[k + 1]
+        seg = y[int(c0 * SR):int(c1 * SR)].copy()
+        fl = int(0.01 * SR); seg[:fl] *= np.linspace(0, 1, fl); seg[-fl:] *= np.linspace(1, 0, fl)
+        sf.write(os.path.join(out, f'{i}.wav'), seg, SR)
+        meta[i] = dict(passage=pid, lead=round(a_ - c0, 3), dur=round(b_ - a_, 3), tail=round(c1 - b_, 3),
+                       gap=round(spans[k + 1][0] - b_, 3) if k + 1 < len(spans) else None,
+                       ct=[[x['i'] - p0, round(x['s'] - a_, 3)] for x in us],
+                       score=round(float(np.mean([x['score'] for x in us])), 3), take=os.path.basename(f))
+    print(pid, os.path.basename(f), ' '.join(f"{i}:{meta[i]['dur']:.1f}/{meta[i]['gap'] or 0:.2f}" for i in ids), flush=True)
+
+
 def build(work):
     d = os.path.join(work, 'tts_p'); out = os.path.join(work, 'vo'); os.makedirs(out, exist_ok=True)
     sel = json.load(open(os.path.join(d, 'select.json'))) if os.path.exists(os.path.join(d, 'select.json')) else {}
@@ -56,52 +101,33 @@ def build(work):
         if os.path.exists(f): units.append((pid, ids, f))
         else:                                                # 该段还没有整段录音：退回逐句录音（work/tts/<id>.wav）
             units += [(f'{pid}:{i}', [i], os.path.join(work, 'tts', f'{i}.wav')) for i in ids]
-    import pyloudnorm as pyln
-    meter = pyln.Meter(SR)
-    rates = {}
-    if TARGET_RATE:                                       # 各大段语速统一：先测每段“音节/秒”，用保持音高的 rubberband 校准到同一语速
-        for pid, ids, f in units:
-            rates[pid] = articulation_rate(f, ''.join(spoken(i) for i in ids))
     for pid, ids, f in units:
-        if pid in rates:
-            r = rates[pid] / TARGET_RATE                  # >1 表示原来偏快，要放慢
-            if abs(r - 1) > 0.005:
-                g = os.path.join(d, f'_eq_{pid}.wav')
-                import subprocess
-                subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', f, '-af', f'rubberband=tempo={1 / r:.5f}:pitchq=quality:formant=preserved',
-                                '-ar', '24000', g], check=True)
-                print(f'  {pid}: 语速 {rates[pid]:.2f} → {TARGET_RATE} 音节/秒（时长 ×{r:.3f}）', flush=True)
-                f = g
-        y, sr = librosa.load(f, sr=SR)
-        y = y * 10 ** ((-20.0 - meter.integrated_loudness(y)) / 20)      # 每段统一响度，段落之间不忽大忽小
-        texts = [spoken(i) for i in ids]
-        text = '\n'.join(texts)
-        al = align(f, text)
-        db, hop = frame_db(y, SR)
-        floor = np.percentile(db[db > -120], 95) - 38             # 相对整段响度的静音门限
-        spans, pos = [], 0
-        for i, s in zip(ids, texts):
-            us = [x for x in al if pos <= x['i'] < pos + len(s)]
-            a, b = refine(y, SR, us[0]['s'], us[-1]['e'], floor)
-            spans.append((a, b, us, pos)); pos += len(s) + 1
-        # 切点：句间停顿的正中；首句前留 0.12s，末句后留到尾音结束 + 0.35s
-        cuts = [max(spans[0][0] - 0.12, 0)]
-        for k in range(len(spans) - 1):
-            cuts.append((spans[k][1] + spans[k + 1][0]) / 2)
-        cuts.append(min(spans[-1][1] + 0.35, len(y) / SR))
-        for k, (i, (a, b, us, p0)) in enumerate(zip(ids, spans)):
-            c0, c1 = cuts[k], cuts[k + 1]
-            seg = y[int(c0 * SR):int(c1 * SR)].copy()
-            fl = int(0.01 * SR); seg[:fl] *= np.linspace(0, 1, fl); seg[-fl:] *= np.linspace(1, 0, fl)
-            sf.write(os.path.join(out, f'{i}.wav'), seg, SR)
-            meta[i] = dict(passage=pid, lead=round(a - c0, 3), dur=round(b - a, 3), tail=round(c1 - b, 3),
-                           gap=round(spans[k + 1][0] - b, 3) if k + 1 < len(spans) else None,
-                           ct=[[x['i'] - p0, round(x['s'] - a, 3)] for x in us],
-                           score=round(float(np.mean([x['score'] for x in us])), 3))
-        print(pid, os.path.basename(f), ' '.join(f"{i}:{meta[i]['dur']:.1f}/{meta[i]['gap'] or 0:.2f}" for i in ids), flush=True)
+        process(pid, ids, f, out, d, meta)
+    # 逐句替换：某句在主录音里读错时，改用同组另一条候选录音里的同一句（work/tts_p/override.json：{句: 候选文件}）
+    ovp = os.path.join(d, 'override.json')
+    for i, take in (json.load(open(ovp)).items() if os.path.exists(ovp) else []):
+        alt = os.path.join(work, 'vo_alt', take[:-4])
+        am = json.load(open(os.path.join(alt, 'meta.json')))
+        import shutil
+        shutil.copy(os.path.join(alt, f'{i}.wav'), os.path.join(out, f'{i}.wav'))
+        gap = meta[i]['gap']; meta[i] = dict(am[i], gap=gap, passage=meta[i]['passage'])
+        print('  替换', i, '←', take, flush=True)
     json.dump(meta, open(os.path.join(out, 'vo.json'), 'w'), ensure_ascii=False, indent=0)
     return meta
 
 
+def build_alt(work, take):
+    """把某条候选录音也按同样方式切成逐句，存到 work/vo_alt/<take>/（供逐句替换）"""
+    d = os.path.join(work, 'tts_p'); g = take.split('_')[0]
+    P = {p[0]: p for p in PASSAGES + [TEASE_P]}
+    idf = os.path.join(d, g + '.ids.json')                   # 带上下文补录的小段
+    ids = json.load(open(idf)) if os.path.exists(idf) else [i for pp in GROUPS[g] for i in P[pp][1]]
+    out = os.path.join(work, 'vo_alt', take); meta = {}
+    process(g, ids, os.path.join(d, take + '.wav'), out, d, meta)
+    json.dump(meta, open(os.path.join(out, 'meta.json'), 'w'), ensure_ascii=False, indent=0)
+
+
 if __name__ == '__main__':
-    build(sys.argv[1])
+    if sys.argv[2:3] == ['--alt']:
+        for t in sys.argv[3:]: build_alt(sys.argv[1], t)
+    else: build(sys.argv[1])

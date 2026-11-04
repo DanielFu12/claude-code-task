@@ -1,4 +1,4 @@
-"""《38年，一股未卖——巴菲特与可口可乐》渲染入口。
+"""《十年苹果——巴菲特为什么卖掉了大半》渲染入口。
 
 python3 src/film.py WORK frame 12.5s,40s out_#.jpg   # 渲染单帧（调试；# 替换为时间）
 python3 src/film.py WORK chunk 0 900 seg0.mp4         # 渲染帧区间
