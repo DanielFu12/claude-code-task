@@ -134,5 +134,69 @@
   "artist": "Jiří Sedláček",
   "date": "2018-01-02 20:16:55",
   "desc": "Apple iPhone 7 in Apple leather case."
+ },
+ "iphone11": {
+  "title": "File:IPhone 11.jpeg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AIPhone_11.jpeg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Rberchie",
+  "date": "2019-09-27 14:54:31",
+  "desc": "Little Rock, United States, September 2019"
+ },
+ "flip_moto": {
+  "title": "File:Motorola flip phone, closed.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AMotorola_flip_phone%2C_closed.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Jud McCranie",
+  "date": "2017-07-16 16:33:08",
+  "desc": "A Motorola flip phone, closed"
+ },
+ "ibm_chq": {
+  "title": "File:IBM CHQ - Oct 2014.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AIBM_CHQ_-_Oct_2014.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Treesmittenex",
+  "date": "2014-10",
+  "desc": "IBM Corporate Headquarters in Armonk, NY, USA"
+ },
+ "dairy_queen": {
+  "title": "File:Dairy Queen - October 2023 - Sarah Stierch.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3ADairy_Queen_-_October_2023_-_Sarah_Stierch.jpg",
+  "license": "CC BY 4.0",
+  "artist": "Missvain",
+  "date": "Taken on 22 October 2023",
+  "desc": "Dairy Queen in Richmond, Kentucky"
+ },
+ "nfm_kc": {
+  "title": "File:Nebraska Furniture Mart (KC).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3ANebraska_Furniture_Mart_%28KC%29.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Lectrician2",
+  "date": "2021-12-28 15:58:14",
+  "desc": "Nebraska Furniture Mart, in Kansas City, Kansas."
+ },
+ "cook_2017": {
+  "title": "File:Tim Cook (2017, cropped).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3ATim_Cook_%282017%2C_cropped%29.jpg",
+  "license": "CC BY 2.0",
+  "artist": "Austin Community College",
+  "date": "2017-08-25 10:24:39",
+  "desc": "Apple CEO Tim Cook and Austin Community College (ACC) President/CEO Dr. Richard Rhodes join Austin Mayor Steve Adler and State Senator Kirk Watson for an exciting announcement launching a new app deve"
+ },
+ "jobs_2010": {
+  "title": "File:Steve Jobs Headshot 2010-CROP (cropped 2).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3ASteve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Matthew Yohe (talk)",
+  "date": "7 June 2010 (according to Exif data)",
+  "desc": "Steve Jobs shows off the iPhone 4 at the 2010 Worldwide Developers Conference."
+ },
+ "glide": {
+  "title": "File:Glide Memorial.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AGlide_Memorial.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Rob Thomas",
+  "date": "2016-09-22",
+  "desc": "This is an image of a place or building that is listed on the National Register of Historic Places in the United States of America. Its reference number is 08001407 (Wikidata)."
  }
 }

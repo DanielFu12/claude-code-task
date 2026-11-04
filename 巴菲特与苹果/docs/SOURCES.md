@@ -1,6 +1,6 @@
 # 《十年苹果——巴菲特为什么卖掉了大半》资料来源、引语出处与素材授权
 
-成片时长 13:06.8。时间戳为该句旁白在成片中开始的时刻（由 `work/timeline.json` 自动生成）。行情与持仓数据截至 2026-11-02 收盘（AAPL $338.32；历史最高收盘 2026-10-29 $348.91）。
+成片时长 13:06.6。时间戳为该句旁白在成片中开始的时刻（由 `work/timeline.json` 自动生成）。行情与持仓数据截至 2026-11-02 收盘（AAPL $338.32；历史最高收盘 2026-10-29 $348.91）。
 
 ## 1. 数据口径
 
@@ -109,67 +109,67 @@
   出处：13F 2024Q2：789,368,450 → 400,000,000
 - `7:35.0` 到2025年底，只剩约2.28亿股。2026年起，格雷格·阿贝尔接任首席执行官，巴菲特留任董事长；截至2026年6月底的持仓报告显示，苹果没有再卖。  
   出处：13F 2025Q4、2026Q1、2026Q2：均为 227,917,808 股；2025 年致股东信署名 Gregory E. Abel, CEO（巴菲特为董事长）
-- `7:49.2` 算一算总账。按估算，十年间伯克希尔前后累计买入苹果约410亿美元。  
+- `7:49.2` 算算总账。按估算，十年间伯克希尔前后累计买入苹果约410亿美元。  
   出处：data/calc.py（估算）：各季度增持股数 × 季度日均收盘价
-- `7:56.6` 卖出所得约1470亿，股息约60亿，再加上手里剩下的股票约770亿，合计约2300亿美元，约为投入的5.6倍。这些都是税前的数字。  
+- `7:56.5` 卖出所得约1470亿，股息约60亿，再加上手里剩下的股票约770亿，合计约2300亿美元，约为投入的5.6倍。这些都是税前的数字。  
   出处：data/calc.py（估算，税前）：卖出 $146.7B + 股息 $6.0B + 现值 $77.1B = $229.8B；÷ 买入 $41.2B
-- `8:10.9` 把每一笔买入、卖出和股息的时间都算进去，年化回报约29%。如果同样的钱、在同样的时间买入标普500指数，并一直持有到今天，含股息约值1390亿美元，年化约15%。苹果这笔投资的年化回报，差不多是它的两倍。  
+- `8:10.7` 把每一笔买入、卖出和股息的时间都算进去，年化回报约29%。如果同样的钱、在同样的时间买入标普500指数，并一直持有到今天，含股息约值1390亿美元，年化约15%。苹果这笔投资的年化回报，差不多是它的两倍。  
   出处：data/calc.py（估算，税前）：苹果现金流内部收益率 29.2%；同期同额买入 ^SP500TR 并持有至 2026-11-02 价值 $139.4B，IRR 14.8%
 
 ### 他为什么卖
 
-- `8:35.1` 既然这么好，为什么要卖？2024年的股东大会上，他给出了线索。  
+- `8:34.9` 既然这么好，为什么要卖？2024年的股东大会上，他给出了线索。  
   出处：2024 年股东大会
-- `8:41.9` 第一，价格。他开始大举买入时，苹果的市盈率约14倍；2024年大举卖出时，已接近30倍。生意还是那门好生意，可同样一块钱的利润，市场的出价却高了一倍多。  
+- `8:41.6` 第一，价格。他开始大举买入时，苹果的市盈率约14倍；2024年大举卖出时，已接近30倍。生意还是那门好生意，可同样一块钱的利润，市场的出价却高了一倍多。  
   出处：data/calc.py：2016Q4 13.6 倍；2024Q2 30.4 倍（季度均价 ÷ 上一财年摊薄 EPS）
-- `9:00.3` 第二，税。他说，伯克希尔在苹果上实现的收益，要按21%缴联邦税；这个税率，不久前还是35%，过去更曾高达52%。  
+- `9:00.1` 第二，税。他说，伯克希尔在苹果上实现的收益，要按21%缴联邦税；这个税率，不久前还是35%，过去更曾高达52%。  
   出处：2024 年股东大会：“we are paying a 21% federal rate on the gains we’re taking in Apple… that rate was 35% not that long ago, and it’s been 52% in the past”
-- `9:15.8` 他判断，未来税率上调的可能性不小。言下之意：与其将来按更高的税率缴，不如趁现在先卖一部分。  
+- `9:15.6` 他判断，未来税率上调的可能性不小。言下之意：与其将来按更高的税率缴，不如趁现在先卖一部分。  
   出处：2024 年股东大会（CNBC 段落摘要：higher taxes are quite likely）；“言下之意”为本片解读
-- `9:25.9` 第三，现金。他说，在当前情况下，他一点也不介意增加现金。当年段永平想问的那个问题：钱太多，好机会太少，如今也摆在了巴菲特自己面前。  
+- `9:25.7` 第三，现金。他说，在当前情况下，他一点也不介意增加现金。当年段永平想问的那个问题：钱太多，好机会太少，如今也摆在了巴菲特自己面前。  
   出处：2024 年股东大会：“But I don’t mind at all, under current conditions, building the cash position.”；后半句为本片叙述
-- `9:42.0` 还有一点，他没有明说，却摆在桌面上：一只股票，占了伯克希尔股票投资的近一半。再好的生意，这样的集中度，也是风险。  
+- `9:41.7` 还有一点，他没有明说，却摆在桌面上：一只股票，占了伯克希尔股票投资的近一半。再好的生意，这样的集中度，也是风险。  
   出处：2023 年报（49%）；本片解读，非巴菲特原话
-- `9:54.3` 但他同时强调：苹果，仍会是我们最大的投资。到2025年底，它依然是伯克希尔的第一大持仓。  
+- `9:54.1` 但他同时强调：苹果，仍会是我们最大的投资。到2025年底，它依然是伯克希尔的第一大持仓。  
   出处：2024 年股东大会；2025 年致股东信持仓表（苹果 $62.0B，居首）
-- `10:05.2` 那么，卖错了吗？2023年秋天以来卖出的约6.9亿股，估算均价约195美元；今天，苹果的股价是338美元。  
+- `10:05.0` 那么，卖错了吗？2023年秋天以来卖出的约6.9亿股，估算均价约195美元；今天，苹果的股价是338美元。  
   出处：data/calc.py（估算）：687,642,574 股，均价 $195.10；2026-11-02 收盘 $338.32
-- `10:18.9` 如果没卖，这些股票今天会比当初卖出的价钱多值约1000亿美元。不过，这只是税前、只看股价的账面差额，还没算卖出后那笔现金买国债挣到的利息。  
+- `10:18.7` 如果没卖，这些股票今天会比当初卖出的价钱多值约1000亿美元。不过，这只是税前、只看股价的账面差额，还没算卖出后那笔现金买国债挣到的利息。  
   出处：687.6M × ($338.32 − $195.10) ≈ $985 亿（税前）
-- `10:33.8` 卖出之后的这两年多，苹果的每股收益又增长了近一半，市场给它的估值，也从约30倍升到了约38倍。而这两件事，在他卖出的那一刻，谁也无法确知。  
+- `10:33.5` 卖出之后的这两年多，苹果的每股收益又增长了近一半，市场给它的估值，也从约30倍升到了约38倍。而这两件事，在他卖出的那一刻，谁也无法确知。  
   出处：摊薄 EPS：FY2023 $6.13 → FY2026 $8.98（+46%）；P/E：2024Q2 30.4 → 2026-11-02 37.7
-- `10:48.7` 所以，他卖掉的，是对价格、税和仓位的判断，而不是对这门生意的否定。  
+- `10:48.5` 所以，他卖掉的，是对价格、税和仓位的判断，而不是对这门生意的否定。  
   出处：本片观点
 
 ### 卖与不卖
 
-- `10:58.0` 回头看，同样是伟大的企业：可口可乐，他持有38年，一股未卖；苹果，十年之内，卖掉了四分之三。  
+- `10:57.8` 回头看，同样是伟大的企业：可口可乐，他持有38年，一股未卖；苹果，十年之内，卖掉了四分之三。  
   出处：第一期；13F
-- `11:10.1` 1998年，可口可乐的市盈率高达约47倍，他没有卖。后来，他在致股东信里承认：我说了，却没有做。  
+- `11:09.9` 1998年，可口可乐的市盈率高达约47倍，他没有卖。后来，他在致股东信里承认：我说了，却没有做。  
   出处：KO 1998 10-K；2004 年致股东信：“I talked when I should have walked.”
-- `11:20.8` 2024年，苹果的市盈率接近30倍，又占了伯克希尔股票投资的近一半。这一次，他卖了。  
+- `11:20.6` 2024年，苹果的市盈率接近30倍，又占了伯克希尔股票投资的近一半。这一次，他卖了。  
   出处：13F；data/calc.py
-- `11:30.2` 比他更早重仓苹果的段永平，也在减持。外界普遍认为由他管理的那只基金，持仓报告显示：苹果从2024年中的约6400万股，减到了2026年中的约2700万股，少了近六成。  
+- `11:30.0` 比他更早重仓苹果的段永平，也在减持。外界普遍认为由他管理的那只基金，持仓报告显示：苹果从2024年中的约6400万股，减到了2026年中的约2700万股，少了近六成。  
   出处：H&H International 13F：2024-06-30 63,924,255 股 → 2026-06-30 27,098,707 股（−57.6%）；基金归属为媒体报道
-- `11:49.7` 2026年7月，他在网上打了个比方：自己的“水果”，已经比较成熟了。卖出的钱，他也买了美国短期国债。  
+- `11:49.4` 2026年7月，他在网上打了个比方：自己的“水果”，已经比较成熟了。卖出的钱，他也买了美国短期国债。  
   出处：澎湃新闻 2026-07-23（香港01 同日报道相同内容）：“我的水果（苹果公司）已经比较成熟了，刚刚被call走了一些（买了t-bill了）”
-- `12:02.4` 2025年的股东大会上，巴菲特说：说来有点惭愧，蒂姆·库克为伯克希尔赚的钱，比我为伯克希尔赚的还要多得多。  
+- `12:02.2` 2025年的股东大会上，巴菲特说：说来有点惭愧，蒂姆·库克为伯克希尔赚的钱，比我为伯克希尔赚的还要多得多。  
   出处：2025 年股东大会
-- `12:14.1` 这十年，留下了四条朴素的道理。  
+- `12:13.9` 这十年，留下了四条朴素的道理。  
   出处：本片总结
-- `12:18.2` 第一，看得懂，才下重注。  
+- `12:18.0` 第一，看得懂，才下重注。  
   出处：本片总结
-- `12:21.7` 第二，买股票，就是买生意。  
+- `12:21.5` 第二，买股票，就是买生意。  
   出处：本片总结
-- `12:25.2` 第三，再好的生意，也要看价格。  
+- `12:25.0` 第三，再好的生意，也要看价格。  
   出处：本片总结
-- `12:29.2` 第四，仓位和税，都要算进账里。  
+- `12:29.0` 第四，仓位和税，都要算进账里。  
   出处：本片总结
-- `12:33.8` 至于他卖错了没有：比起是否卖在了最高点，更值得学的，是每一个决定在做出的那一刻，是否算得清、讲得通。  
+- `12:33.6` 至于他卖错了没有：比起是否卖在了最高点，更值得学的，是每一个决定在做出的那一刻，是否算得清、讲得通。  
   出处：本片观点
-- `12:45.4` 伟大的企业，值得长期陪伴；但没有任何一只股票，值得不计价格、不计仓位地拥有。  
+- `12:45.2` 伟大的企业，值得长期陪伴；但没有任何一只股票，值得不计价格、不计仓位地拥有。  
   出处：全片主题
-- `12:54.6` 下期：日本五大商社——巴菲特为什么在东京下注？  
+- `12:54.4` 下期：日本五大商社——巴菲特为什么在东京下注？  
   出处：2020 年致股东信：伯克希尔投资日本五家大型商社
 
 ## 3. 屏幕上的原话（只用已核实的文字记录）
@@ -216,8 +216,16 @@
 - `buffett_osu` — [File:Warren Buffett with Fisher College of Business Student - 4395164676.jpg](https://commons.wikimedia.org/wiki/File%3AWarren_Buffett_with_Fisher_College_of_Business_Student_-_4395164676.jpg) · 作者：Aaron Friedman · 授权：CC BY 2.0
 - `buffett_osu2` — [File:Warren Buffett with Fisher College of Business Student - 4394391213.jpg](https://commons.wikimedia.org/wiki/File%3AWarren_Buffett_with_Fisher_College_of_Business_Student_-_4394391213.jpg) · 作者：Aaron Friedman · 授权：CC BY 2.0
 - `buffett_pitch` — [File:Warren Buffett! He caught a ceremonial first pitch tonight.jpg](https://commons.wikimedia.org/wiki/File%3AWarren_Buffett%21_He_caught_a_ceremonial_first_pitch_tonight.jpg) · 作者：Minda Haas Kuhlmann · 授权：CC BY 2.0
+- `cook_2017` — [File:Tim Cook (2017, cropped).jpg](https://commons.wikimedia.org/wiki/File%3ATim_Cook_%282017%2C_cropped%29.jpg) · 作者：Austin Community College · 授权：CC BY 2.0
+- `dairy_queen` — [File:Dairy Queen - October 2023 - Sarah Stierch.jpg](https://commons.wikimedia.org/wiki/File%3ADairy_Queen_-_October_2023_-_Sarah_Stierch.jpg) · 作者：Missvain · 授权：CC BY 4.0
+- `flip_moto` — [File:Motorola flip phone, closed.jpg](https://commons.wikimedia.org/wiki/File%3AMotorola_flip_phone%2C_closed.jpg) · 作者：Jud McCranie · 授权：CC BY-SA 4.0
+- `glide` — [File:Glide Memorial.jpg](https://commons.wikimedia.org/wiki/File%3AGlide_Memorial.jpg) · 作者：Rob Thomas · 授权：CC BY-SA 4.0
+- `ibm_chq` — [File:IBM CHQ - Oct 2014.jpg](https://commons.wikimedia.org/wiki/File%3AIBM_CHQ_-_Oct_2014.jpg) · 作者：Treesmittenex · 授权：CC BY-SA 4.0
+- `iphone11` — [File:IPhone 11.jpeg](https://commons.wikimedia.org/wiki/File%3AIPhone_11.jpeg) · 作者：Rberchie · 授权：CC BY-SA 4.0
 - `iphone7` — [File:Apple iPhone 7 in Apple leather case.jpg](https://commons.wikimedia.org/wiki/File%3AApple_iPhone_7_in_Apple_leather_case.jpg) · 作者：Jiří Sedláček · 授权：CC BY-SA 4.0
+- `jobs_2010` — [File:Steve Jobs Headshot 2010-CROP (cropped 2).jpg](https://commons.wikimedia.org/wiki/File%3ASteve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg) · 作者：Matthew Yohe (talk) · 授权：CC BY-SA 3.0
 - `kiewit` — [File:Kiewit Plaza Omaha.jpg](https://commons.wikimedia.org/wiki/File%3AKiewit_Plaza_Omaha.jpg) · 作者：JonClee86 · 授权：CC BY-SA 3.0
+- `nfm_kc` — [File:Nebraska Furniture Mart (KC).jpg](https://commons.wikimedia.org/wiki/File%3ANebraska_Furniture_Mart_%28KC%29.jpg) · 作者：Lectrician2 · 授权：CC BY-SA 4.0
 - `omaha_2026` — [File:Omaha Skyline viewed from Harrah's, August 2026.jpg](https://commons.wikimedia.org/wiki/File%3AOmaha_Skyline_viewed_from_Harrah%27s%2C_August_2026.jpg) · 作者：Hurstbergn · 授权：CC0
 - `omaha_river` — [File:City of Omaha, Nebraska Skyline on the Missouri River (30899969517) (cropped).jpg](https://commons.wikimedia.org/wiki/File%3ACity_of_Omaha%2C_Nebraska_Skyline_on_the_Missouri_River_%2830899969517%29_%28cropped%29.jpg) · 作者：Tony Webster from Minneapolis, Minnesota, United States · 授权：CC BY 2.0
 
