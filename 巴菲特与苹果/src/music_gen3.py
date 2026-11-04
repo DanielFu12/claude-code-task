@@ -35,6 +35,25 @@ PARTS = {
 1:13 an emotional, uplifting climax: full orchestra and soft wordless choir, the main theme in its fullest form, 1:13-1:26.
 1:26-1:34 suspended, quiet and expectant: soft sustained strings.
 1:34 one final majestic chord (full orchestra, timpani) resolving to D major, ringing and slowly fading out until 1:45.""",
+    'S1': """Structure (total 2:00):
+0:00-0:40 intimate storytelling: solo piano plays the main motif gently with light pizzicato strings, curious and warm, like the start of a true story.
+0:40-1:10 a gentle forward motion: soft string ostinato in eighth notes joins, cello melody answers the piano, slowly gaining warmth.
+1:10-1:40 steadily building conviction: horns enter softly, the low pulse grows, the main theme rises step by step.
+1:40 a bold, warm statement of the main theme (horns and full strings, soft timpani), 1:40-1:52 confident.
+1:52-2:00 settling to a calm sustained chord.""",
+    'S2': """Structure (total 1:50):
+0:00-0:30 clear and thoughtful: piano arpeggios over sustained strings, the main motif stated simply, like explaining an elegant idea.
+0:30-1:05 a patient, steady momentum: light string ostinato, gentle low pulse, the motif passed between piano, cello and horn.
+1:05-1:30 quietly compounding: layers accumulate, a warm crescendo.
+1:30 a broad, satisfying arrival of the main theme (strings and horns), 1:30-1:42.
+1:42-1:50 gently subsiding to a soft pad.""",
+    'S3': """Structure (total 2:00):
+0:00-0:35 serious and questioning: low strings and sparse piano, a slow pulse, the main motif in minor, restrained tension.
+0:35-1:05 deliberate and analytical: a measured string ostinato, piano chords, each phrase like weighing a decision.
+1:05-1:35 tension gradually rising: horns join, the pulse firmer, the motif climbs.
+1:35 a firm, resolute statement of the main theme (horns, strings, timpani), 1:35-1:48.
+1:48-2:00 dissolving into a quiet, reflective sustained chord.""",
+
 }
 
 

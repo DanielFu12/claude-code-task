@@ -21,7 +21,9 @@ def cer(ref, hyp):
     """读音层面的字错误率：都展开成汉字读音单元再比（数字写法、标点不影响）"""
     from pypinyin import lazy_pinyin
     eq = lambda p: 'er' if p == 'liang' else p                       # “两/二”在数字里可互换
-    r = [eq(p) for p in lazy_pinyin(''.join(normalize(ref)[0]))]; h = [eq(p) for p in lazy_pinyin(''.join(normalize(hyp)[0]))]
+    D = '零一二三四五六七八九'
+    yr = lambda s: re.sub(r'(?<!\d)(19|20)\d\d(?!\d)', lambda m: ''.join(D[int(c)] for c in m.group(0)), s)   # 年份逐位读
+    r = [eq(p) for p in lazy_pinyin(''.join(normalize(yr(ref))[0]))]; h = [eq(p) for p in lazy_pinyin(''.join(normalize(yr(hyp))[0]))]
     d = list(range(len(h) + 1))
     for i in range(1, len(r) + 1):
         p, d[0] = d[0], i
