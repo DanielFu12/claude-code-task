@@ -539,6 +539,11 @@ def shot_hook(cv, t):
             cv.text('套现 ≈ $1340亿', W / 2, 1360, 84, 'serif_black', gold=True, a=a * k3, glow=0.3)
         cv.text('卖出约 3/4', W / 2, 1270, 40, 'sans_med', col=RED, a=a * eo((p - tq) / 0.5))
         source(cv, '估算：各季度减持股数 × 当季日均收盘价（税前）', a, y=1440)
+    shot_hook_tail(cv, t)
+
+
+def shot_hook_tail(cv, t):
+    import media as M
     # ---- h5：若一股不卖，今天值约 3100 亿美元
     t0, t1 = S('h5') - 0.15, S('h6') + 0.1
     a = env(t, t0, t1, 0.35, 0.35)

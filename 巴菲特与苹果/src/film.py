@@ -12,6 +12,7 @@ from film_ch2 import shot_ch2
 from film_ch3 import shot_ch3
 from film_ch4 import shot_ch4
 from film_ch5 import shot_ch5
+from hook2 import shot_hook          # 开场 v2（三维镜头与光效）
 
 
 def render(i):

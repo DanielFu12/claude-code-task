@@ -239,3 +239,115 @@ void main(){
   o = vec4(col, alpha);
 }
 """
+
+# ------------------------------------------------------------------ 三维金属柱（反射地面、摄影机环绕）：持股 10.1 亿 → 2.28 亿
+BARS = """
+uniform float cam; uniform float camr; uniform float h1; uniform float h2; uniform float ex; uniform float glow2; uniform float redk;
+float sdBox(vec3 p, vec3 b){ vec3 q=abs(p)-b; return length(max(q,0.))+min(max(q.x,max(q.y,q.z)),0.); }
+vec2 map(vec3 p){
+  float d1 = sdBox(p-vec3( 0.85,h1,0.), vec3(0.42,max(h1,0.001),0.42)) - 0.025;
+  float d2 = sdBox(p-vec3(-0.85,h2,0.), vec3(0.42,max(h2,0.001),0.42)) - 0.025;
+  return d1<d2 ? vec2(d1,1.) : vec2(d2,2.);
+}
+vec3 nrm(vec3 p){ vec2 e=vec2(.002,0.); return normalize(vec3(map(p+e.xyy).x-map(p-e.xyy).x, map(p+e.yxy).x-map(p-e.yxy).x, map(p+e.yyx).x-map(p-e.yyx).x)); }
+vec3 env(vec3 d){
+  float g = smoothstep(-0.2,1.0,d.y);
+  vec3 c = mix(vec3(0.015,0.012,0.012), vec3(0.10,0.07,0.05), g);
+  c += vec3(1.0,0.85,0.6) * pow(max(dot(d, normalize(vec3(-0.6,0.7,0.5))),0.), 40.) * 3.0;     // 主光（暖）
+  c += vec3(0.5,0.65,1.0) * pow(max(dot(d, normalize(vec3(0.8,0.4,-0.6))),0.), 20.) * 0.8;      // 轮廓光（冷）
+  return c;
+}
+vec3 shade(vec3 p, vec3 rd, float id){
+  vec3 n = nrm(p);
+  vec3 base = id < 1.5 ? vec3(1.0,0.74,0.32) : mix(vec3(1.0,0.74,0.32), vec3(0.85,0.12,0.10), redk);
+  float fr = pow(1.-max(dot(n,-rd),0.), 4.);
+  vec3 r = reflect(rd,n);
+  vec3 L = normalize(vec3(-0.6,0.8,0.55)), L2 = normalize(vec3(0.8,0.3,-0.5));
+  float dif = max(dot(n,L),0.), dif2 = max(dot(n,L2),0.);
+  float spec = pow(max(dot(reflect(-L,n),-rd),0.), 48.);
+  vec3 c = base*(0.16 + 0.95*dif) + vec3(0.55,0.7,1.0)*base*dif2*0.35 + spec*vec3(1.0,0.92,0.8)*1.4 + base*env(r)*(0.25+0.6*fr);
+  float stripe = smoothstep(0.96,1.0, fract(p.y*6.0)) * 0.08;
+  c += base * stripe;
+  if (id > 1.5) c += vec3(1.0,0.3,0.2) * glow2 * 0.6 * smoothstep(2.*h2-0.4, 2.*h2, p.y);
+  return c * ex;
+}
+void main(){
+  vec2 q = (uv-.5)*vec2(res.x/res.y,1.)*2.;
+  vec3 ro = vec3(sin(cam)*camr, 2.0, cos(cam)*camr), ta = vec3(0.,1.45,0.);
+  vec3 f = normalize(ta-ro), r = normalize(cross(vec3(0,1,0),f)), u = cross(f,r);
+  vec3 rd = normalize(f*2.4 + q.x*r + q.y*u);
+  vec3 col = vec3(0.); float a = 0.;
+  float t = 0.; vec2 h; bool hit=false;
+  for(int i=0;i<96;i++){ vec3 p=ro+rd*t; h=map(p); if(h.x<.001){hit=true;break;} t+=h.x; if(t>30.) break; }
+  if(hit){ col = shade(ro+rd*t, rd, h.y); a = 1.; }
+  else if (rd.y < 0.){
+    float tf = -ro.y/rd.y; vec3 p = ro+rd*tf;
+    vec3 rr = reflect(rd, vec3(0,1,0));
+    float t2=0.02; vec2 h2v; bool hit2=false;
+    for(int i=0;i<64;i++){ vec3 pp=p+rr*t2; h2v=map(pp); if(h2v.x<.002){hit2=true;break;} t2+=h2v.x; if(t2>12.) break; }
+    float fade = exp(-length(p.xz)*0.18);
+    vec3 refl = hit2 ? shade(p+rr*t2, rr, h2v.y)*0.35*exp(-t2*0.35) : vec3(0.);
+    float grid = (smoothstep(0.985,1.,abs(fract(p.x*1.0)-0.5)*2.) + smoothstep(0.985,1.,abs(fract(p.z*1.0)-0.5)*2.))*0.05;
+    col = (refl + vec3(0.6,0.45,0.25)*grid) * fade;
+    // 柱脚的接触阴影
+    float ao = 1. - 0.6*exp(-length(p.xz-vec2(-0.85,0.))*2.2) - 0.6*exp(-length(p.xz-vec2(0.85,0.))*2.2);
+    col *= ao;
+    a = clamp(fade*1.2,0.,1.);
+  }
+  o = vec4(col, a);
+}
+"""
+
+# ------------------------------------------------------------------ 10×10 立方体阵列：卖出的格子升起、缩小、化作光
+CUBES = """
+uniform float cam; uniform float sold; uniform float lift; uniform float ex; uniform float frac_;
+float sdBox(vec3 p, vec3 b){ vec3 q=abs(p)-b; return length(max(q,0.))+min(max(q.x,max(q.y,q.z)),0.); }
+float h2(vec2 c){ return fract(sin(dot(c,vec2(12.9898,78.233)))*43758.5453); }
+float kk(vec2 c){ return clamp((lift - h2(c)*0.6)/0.4, 0., 1.); }
+bool isSold(vec2 c){ return h2(c+7.13) < frac_; }
+vec2 map(vec3 p){
+  float s = 0.62;
+  vec2 c = clamp(floor(p.xz/s + 5.), 0., 9.);
+  float best = 1e9, id = 0.;
+  for(int dx=-1; dx<=1; dx++) for(int dz=-1; dz<=1; dz++){
+    vec2 cc = clamp(c+vec2(dx,dz), 0., 9.);
+    vec3 ctr = vec3((cc.x-4.5)*s, 0.24, (cc.y-4.5)*s);
+    float sz = 0.24;
+    if (isSold(cc)) { float k = kk(cc)*sold; ctr.y += k*k*6.0; sz *= (1.-k*0.92); }
+    float d = sdBox(p-ctr, vec3(sz)) - 0.02;
+    if (d < best){ best = d; id = isSold(cc) ? 2. : 1.; }
+  }
+  return vec2(best, id);
+}
+vec3 nrm(vec3 p){ vec2 e=vec2(.002,0.); return normalize(vec3(map(p+e.xyy).x-map(p-e.xyy).x, map(p+e.yxy).x-map(p-e.yxy).x, map(p+e.yyx).x-map(p-e.yyx).x)); }
+vec3 env(vec3 d){
+  vec3 c = mix(vec3(0.015,0.012,0.012), vec3(0.09,0.06,0.045), smoothstep(-0.2,1.,d.y));
+  c += vec3(1.0,0.85,0.6) * pow(max(dot(d, normalize(vec3(-0.5,0.8,0.4))),0.), 30.) * 3.0;
+  c += vec3(0.5,0.65,1.0) * pow(max(dot(d, normalize(vec3(0.7,0.5,-0.6))),0.), 16.) * 0.7;
+  return c;
+}
+void main(){
+  vec2 q = (uv-.5)*vec2(res.x/res.y,1.)*2.;
+  vec3 ro = vec3(sin(cam)*14.5, 10.5, cos(cam)*14.5), ta = vec3(0.,0.2,0.);
+  vec3 f = normalize(ta-ro), r = normalize(cross(vec3(0,1,0),f)), u = cross(f,r);
+  vec3 rd = normalize(f*2.9 + q.x*r + q.y*u);
+  float t = 0.; vec2 h; bool hit=false;
+  for(int i=0;i<110;i++){ vec3 p=ro+rd*t; h=map(p); if(h.x<.0015){hit=true;break;} t+=h.x*0.9; if(t>40.) break; }
+  vec3 col = vec3(0.); float a = 0.;
+  if(hit){
+    vec3 p = ro+rd*t, n = nrm(p);
+    vec3 base = h.y < 1.5 ? vec3(1.0,0.76,0.34) : mix(vec3(1.0,0.76,0.34), vec3(0.95,0.18,0.12), clamp(sold*3.,0.,1.));
+    float fr = pow(1.-max(dot(n,-rd),0.),4.);
+    vec3 L = normalize(vec3(-0.5,0.85,0.45)); float dif = max(dot(n,L),0.);
+    float spec = pow(max(dot(reflect(-L,n),-rd),0.), 40.);
+    col = base*(0.18 + 0.9*dif) + spec*vec3(1.0,0.92,0.8)*1.2 + base*env(reflect(rd,n))*(0.25+0.6*fr);
+    if (h.y > 1.5) col += vec3(1.0,0.55,0.25) * sold * smoothstep(0.3,2.5,p.y) * 1.5;      // 升起的格子发光
+    col *= ex; a = 1.;
+  } else if (rd.y < 0.) {
+    vec3 p = ro + rd*(-ro.y/rd.y);
+    float fade = exp(-length(p.xz)*0.12);
+    col = vec3(0.04,0.03,0.025)*fade; a = fade;
+  }
+  o = vec4(col, a);
+}
+"""

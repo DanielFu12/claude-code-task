@@ -2,3 +2,4 @@ work/
 fonts/
 __pycache__/
 work_clips/
+assets/media/*.webm
