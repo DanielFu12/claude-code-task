@@ -243,3 +243,15 @@ Notes:
 7. **2023 · 第二辆车:** "if they had to give up a second car or give up their iPhone, they'd give up their second car." (verified-primary)
 8. **2024-05-04 · Apperceptive mass:** Many observations "crystallize" into "big action in the case of Apple". (verified-primary)
 9. **2024–2026 · 两人的分岔:** Berkshire halves its stake in 2024. Duan says he has no plan to sell ("巴菲特不一样，他是职业投资者", unverified single source). H&H's Apple weight peaks at 81.0% (2024Q2) and falls to 41.1% by 2026Q2, still its largest holding. (13F verified-primary)
+
+## C. IBM (2011–2018): Buffett's tech exception, added for script v3
+
+- Berkshire began buying IBM in 2011. Reported totals vary ($10.7–10.9bn for roughly 64M shares). Bloomberg says "more than $10 billion".
+- Berkshire sold about 35M shares in 2017Q4. Buffett said he was "almost certain" Berkshire held zero IBM after the 2018Q1 sales, and that his thesis had been flawed (Bloomberg, 2018-05-04).
+- Narration only says "投入一百多亿美元……承认判断有误，到2018年全部卖光". **No direct quote** is used, because the "I don't value IBM the same way" wording was not verified.
+- Sources: https://www.bloombergquint.com/business/2018/05/04/buffett-bought-a-further-75-million-apple-shares-cnbc-reports ; https://techcentral.co.za/billionaire-buffett-ditches-ibm-for-apple/199992 ; https://9news.com/article/money/business/warren-buffett-takes-a-big-bite-of-apple-dumps-ibm/73-520592190
+
+## D. Return comparison (data/calc.py flows, recomputed for script v3)
+
+- Money-weighted IRR of Berkshire's Apple cash flows (quarterly 13F changes × quarterly mean close, plus dividends, plus 227.9M shares × $338.32 on 2026-11-02): **≈29.2%**, pre-tax, estimate.
+- The same buy amounts on the same dates invested in ^SP500TR and held to 2026-11-02 are worth **≈$139.4bn**, IRR **≈14.8%**. The Kaplan–Schoar PME is about 2.25.
