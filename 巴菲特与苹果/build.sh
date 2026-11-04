@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# 一键重建《38年，一股未卖——巴菲特与可口可乐》
+# 一键重建《十年苹果——巴菲特为什么卖掉了大半》
 # 依赖：ffmpeg、python3（numpy opencv-python-headless pillow soundfile librosa scipy pyloudnorm moderngl）、
 #       Mesa EGL（libegl1 libegl-mesa0，用于无头 OpenGL）。品牌角标取自仓库根目录 brand/。
 # 生成式素材（旁白 TTS、Lyria 配乐）需要 Gemini API；已生成的文件会被复用（work/tts、work/music）。
 set -euo pipefail
 cd "$(dirname "$0")"
 WORK=work; mkdir -p "$WORK" fonts
-NAME="38年一股未卖_巴菲特与可口可乐"
+NAME="十年苹果_巴菲特为什么卖掉了大半"
 get(){ [ -f "fonts/$3.ttf" ] && return; url=$(curl -sSf "https://fonts.googleapis.com/css2?family=$1:wght@$2" | grep -o 'https://[^)]*\.ttf' | head -1); curl -sSfL -o "fonts/$3.ttf" "$url"; }
 get Noto+Serif+SC 400 serif_reg; get Noto+Serif+SC 600 serif_semi; get Noto+Serif+SC 900 serif_black
 get Noto+Sans+SC 300 sans_light; get Noto+Sans+SC 500 sans_med; get Noto+Sans+SC 700 sans_bold; get Noto+Sans+SC 900 sans_black
@@ -25,8 +25,10 @@ if ! python3 -c "import json,sys;sys.path.insert(0,'src');from tts_passage impor
   python3 src/tts_passage.py "$WORK" full --takes 4
   python3 src/select_takes.py "$WORK" --groups
 fi
-[ -f "$WORK/music3/P3_2.mp3" ] || python3 src/music_gen3.py "$WORK" --n 3   # 生成后按听审结果选用 P1_2/P2_2/P3_2
-python3 src/voice_build.py "$WORK"                      # 强制对齐 → 逐句切分 + 字时间
+[ -f "$WORK/music3/S3_0.mp3" ] || python3 src/music_gen3.py "$WORK" --n 2   # 选用 P1_2/S1_0/S2_1/P2_0/S3_0/S2_0/P3_1/P3_0（见 src/score.py）
+python3 src/fetch_media.py "$WORK" || true              # Wikimedia Commons 影像素材（公有领域 / CC 授权）
+python3 src/prep_media.py                                # 视频素材转码 → work_clips/
+python3 src/voice_build.py "$WORK"                      # 强制对齐 → 逐句切分 + 字时间（含逐句替换 override.json）
 python3 src/timeline.py "$WORK"                         # 时间线（自然停顿 + 章节留白）
 [ -f "$WORK/music3/beats.json" ] || python3 src/score.py "$WORK" --beats
 python3 src/audio_mix.py "$WORK"                        # 配乐逐帧对位 + 冲击 + 旁白 + 闪避
