@@ -48,6 +48,7 @@ def process(pid, ids, f, out, d, meta):
     import pyloudnorm as pyln, subprocess
     meter = pyln.Meter(SR)
     r = articulation_rate(f, ''.join(spoken(i) for i in ids)) / TARGET_RATE if TARGET_RATE else 1.0
+    if not TARGET_RATE: r = 1.0
     pr = 1.0
     if PITCH_BASE:
         yy, ss = librosa.load(f, sr=16000)
@@ -93,7 +94,13 @@ def build(work):
     meta = {}
     units = []
     P = {p[0]: p for p in PASSAGES + [TEASE_P]}
-    if all(g in sel for g in GROUPS):                     # v8：按“大段”一次读完的录音（同一讲述者、同一语速）
+    dbd = os.path.join(work, 'tts_db')
+    if os.environ.get('VO_SRC', 'doubao') == 'doubao' and os.path.isdir(dbd):      # 豆包语音合成 2.0：逐段整读，不变调、不变速
+        global TARGET_RATE, PITCH_BASE
+        TARGET_RATE = None; PITCH_BASE = None
+        for pid, ids, mood in PASSAGES + [TEASE_P]:
+            units.append((pid, ids, os.path.join(dbd, f'{pid}_0.wav')))
+    elif all(g in sel for g in GROUPS):                     # v8：按“大段”一次读完的录音（同一讲述者、同一语速）
         for g, pids in GROUPS.items():
             units.append((g, [i for pp in pids for i in P[pp][1]], os.path.join(d, sel[g])))
     for pid, ids, mood in ([] if units else PASSAGES + [TEASE_P]):
@@ -104,7 +111,7 @@ def build(work):
     for pid, ids, f in units:
         process(pid, ids, f, out, d, meta)
     # 逐句替换：某句在主录音里读错时，改用同组另一条候选录音里的同一句（work/tts_p/override.json：{句: 候选文件}）
-    ovp = os.path.join(d, 'override.json')
+    ovp = os.path.join(d, 'override.json') if os.environ.get('VO_SRC', 'doubao') != 'doubao' else '/nonexistent'
     for i, take in (json.load(open(ovp)).items() if os.path.exists(ovp) else []):
         alt = os.path.join(work, 'vo_alt', take[:-4])
         am = json.load(open(os.path.join(alt, 'meta.json')))
