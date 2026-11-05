@@ -296,7 +296,7 @@ def caption_sprites(i):
         sh = np.roll(np.roll(cv2.GaussianBlur(sp.a, (0, 0), 6) * 0.8, 4, 0), 3, 1)
         a = sp.a + sh * (1 - sp.a)
         big = Sprite(sp.rgb * (sp.a / np.maximum(a, 1e-4))[..., None], a)
-    lines = text_sprite(s["lines"] if s.get("fx") != "compound" else [" "], "sans_black", 48, gap=1.4, max_w=1500)
+    lines = None if s.get("fx") == "compound" else text_sprite(s["lines"], "sans_black", 48, gap=1.4, max_w=1500)
     _cap[i] = (big, lines)
     return _cap[i]
 
@@ -308,6 +308,8 @@ def draw_caption(frame, i, t):
     a = ease(t / 0.35)
     if big:
         blit(frame, big, x - 12 - 50 * (1 - ease(t / 0.4)), ly - 136, a)
+    if lines is None:
+        return
     bar_h = lines.h - 26
     grow = ease((t - 0.1) / 0.35)
     fill_rect(frame, x, ly + 12, x + 9, ly + 12 + bar_h * grow, YELLOW, a)
@@ -354,8 +356,8 @@ def draw_card(frame, i, t, err=False):
         yr = s["year"] + (f"-{s['age']}" if s["age"] else "")
         head = text_sprite([yr], "sans_black", 64, color=(0.87, 0.62, 0.0), shadow=False) if yr else None
         quote = any("「" in l for l in s["lines"])
-        body = text_sprite(s["lines"], "serif_black" if quote else "sans_black", 50 if has_photo else 64,
-                           color=INK, red=(0.85, 0.12, 0.1), gap=1.5, shadow=False, max_w=820 if has_photo else 1200)
+        body = text_sprite(s["lines"], "serif_black" if quote else "sans_black", 46 if has_photo else 64,
+                           color=INK, red=(0.85, 0.12, 0.1), gap=1.5, shadow=False, max_w=880 if has_photo else 1200)
         photo = framed_photo(s["bg"], 640, 430) if has_photo else None
         _cap[k] = (head, body, photo)
     head, body, photo = _cap[k]

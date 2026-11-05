@@ -19,5 +19,6 @@ N=$(python3 -c "import json;print(int(json.load(open('work/timeline.json'))['tot
 for k in 0 1 2 3; do python3 src/render.py chunk $((N*k/4)) $((N*(k+1)/4)) work/seg$k.mp4 & done; wait
 printf "file '%s'\n" "$PWD"/work/seg{0,1,2,3}.mp4 > work/list.txt
 ffmpeg -loglevel error -y -f concat -safe 0 -i work/list.txt -i work/bgm.wav \
-  -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart "沃伦·巴菲特：股神的复利人生.mp4"
+  -map 0:v -map 1:a -c:v libx264 -preset slow -crf 24 -tune grain -pix_fmt yuv420p \
+  -c:a aac -b:a 192k -shortest -movflags +faststart "沃伦·巴菲特：股神的复利人生.mp4"
 echo "done -> 沃伦·巴菲特：股神的复利人生.mp4"
