@@ -10,7 +10,7 @@ from tts_gen import post, MODEL, VOICE
 
 # 段落：一次 TTS 调用读完的若干句（按叙事段落划分，段落之间才是“换场”）
 PASSAGES = [
-    ('hook', ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'], ''),
+    ('hook', ['h1', 'h2', 'h4', 'h6'], ''),
     ('ch1a', ['c1a', 'c1b', 'c1c', 'c1d'], ''),
     ('ch1b', ['c1e', 'c1f', 'c1g', 'c1h', 'c1i', 'c1j'], ''),
     ('ch1c', ['c1o', 'c1k', 'c1l', 'c1m', 'c1n'], ''),

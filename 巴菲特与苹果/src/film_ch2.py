@@ -67,7 +67,7 @@ def shot_ch2(cv, t):
         import fx
         fx.bars3d(cv, t, t0, t1, ('收到的股息', 7.85, '$7.85亿', WT('c2f', '股息是') - 0.1),
                   ('应占的苹果利润', 56.0, '$56亿', WT('c2f', '应占') - 0.1), a=a, title='2021 年 · 苹果之于伯克希尔')
-        source(cv, '巴菲特 2021 年致股东信：“Apple paid us $785 million… our “share” of Apple’s earnings amounted to $5.6 billion”', a, y=1392)
+        source(cv, '巴菲特 2021 年致股东信：“Apple paid us $785 million… our “share” of Apple’s earnings amounted to $5.6 billion”', a, y=1462)
     # ---- c2g：剩下的利润用于回购
     t0, t1 = win('c2g')
     a = env(t, t0, t1, 0.4, 0.4)
@@ -132,7 +132,7 @@ def shot_ch2(cv, t):
         fx.bars3d(cv, t, t0, t1, ('净利润', 2.9, '×2.9', WT('c2k', '净利润') - 0.1), ('每股收益', 4.3, '×4.3', WT('c2k', '每股收益') - 0.1),
                   a=a, title='2016 → 2026 财年')
         k = eo((t - WT('c2k', '四百五十七亿') + 0.1) / 0.4)
-        cv.text('净利润 $457亿 → $1322亿', W / 2, 1290, 32, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
+        cv.text('净利润 $457亿 → $1322亿', W / 2, 420, 30, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
         k2 = eo((t - WT('c2k', '二点零八') + 0.1) / 0.4)
-        cv.text('每股收益 $2.08 → $8.98', W / 2, 1350, 32, 'sans_med', col=GOLD_L, a=a * k2, shadow=0.8)
-        source(cv, '苹果 10-K：2016 财年 vs 2026 财年（每股收益为摊薄、拆股调整）', a, y=1392)
+        cv.text('每股收益 $2.08 → $8.98', W / 2, 470, 30, 'sans_med', col=GOLD_L, a=a * k2, shadow=0.8)
+        source(cv, '苹果 10-K：2016 财年 vs 2026 财年（每股收益为摊薄、拆股调整）', a, y=1462)

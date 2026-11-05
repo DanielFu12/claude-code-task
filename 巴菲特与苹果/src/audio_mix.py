@@ -222,7 +222,7 @@ def main(work):
         if k.startswith('tk_'):
             place(sfx, impact(2.8, 0.5, 13), v[0]); place(sfx, sub_drop(2.2, 66, 26, 0.45), v[0])
     wt = lambda i, sub: score.word_time(seg[i], sub)
-    for t0, a in ((wt('h3', '十亿股'), 0.3), (wt('h4', '四分之三'), 0.3), (wt('h5', '三千一百亿'), 0.4),
+    for t0, a in ((wt('h2', '十亿股'), 0.3), (wt('h4', '四分之三'), 0.3), (wt('h4', '三千一百亿'), 0.4),
                   (wt('c1p', '十亿股'), 0.3), (wt('c4i', '一千亿'), 0.3)):    # 开场与关键数字：极轻的低频心跳托底
         place(sfx, low_pulse(a), t0)
     sfx = signal.sosfilt(sos_lp(220, 4), sfx, axis=0)

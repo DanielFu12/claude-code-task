@@ -39,6 +39,7 @@ def render(i):
     chapter_card(cv, t)
     nav(cv, t)
     takeaway(cv, t)
+    follow_pill(cv, t)
     subtitles(cv, t)
     fade = 1.0
     if t > TOTAL - 1.8: fade = eio((TOTAL - t) / 1.8)          # 整体淡出（含角标）

@@ -37,7 +37,7 @@ def shot_ch4(cv, t):
                 cv.text('大举卖出时 ≈ 30 倍', pts[2][0] - 20, pts[2][1] - 50, 34, 'sans_bold', col=RED, a=a, anchor='r')
         k3 = eo((t - WT('c4b', '同样一块钱') + 0.1) / 0.5)
         cv.text('同样一块钱的利润，出价高了一倍多', W / 2, 1290, 44, 'serif_semi', col=CREAM, a=a * k3)
-        source(cv, '季度日均价 ÷ 上一财年摊薄每股收益：2016Q4 13.6 倍、2024Q2 30.4 倍（data/calc.py）', a, y=1392)
+        source(cv, '季度日均价 ÷ 上一财年摊薄每股收益：2016Q4 13.6 倍、2024Q2 30.4 倍（data/calc.py）', a, y=1462)
     # ---- c4c：第二，税：21% / 35% / 52%
     t0, t1 = win('c4c')
     a = env(t, t0, t1, 0.4, 0.4)
@@ -47,7 +47,7 @@ def shot_ch4(cv, t):
                   ('现在', 21, GOLD, WT('c4c', '百分之二十一') - 0.2)], t, t0, a, x0=160, x1=920, base=1230, hmax=560,
              fmt=lambda v: f'{v:.0f}%', label_size=30)
         cv.text('美国联邦企业所得税率', W / 2, 480, 32, 'sans_light', col=CREAM, a=a, shadow=0.8)
-        source(cv, '巴菲特 2024 年股东大会：“we are paying a 21% federal rate on the gains we’re taking in Apple”', a, y=1392)
+        source(cv, '巴菲特 2024 年股东大会：“we are paying a 21% federal rate on the gains we’re taking in Apple”', a, y=1462)
     # ---- c4d：未来税率可能上调
     t0, t1 = win('c4d')
     a = env(t, t0, t1, 0.4, 0.4)
@@ -95,7 +95,7 @@ def shot_ch4(cv, t):
             cv.rrect(160, 1200, 920, 1360, 16, (0.05, 0.05, 0.06), a * k * 0.9)
             cv.text('2025 年底 · 伯克希尔第一大持仓', W / 2, 1250, 34, 'sans_med', col=CREAM, a=a * k)
             cv.text('苹果 $620亿', W / 2, 1315, 46, 'sans_bold', gold=True, a=a * k)
-        source(cv, '2024 年股东大会；伯克希尔 2025 年致股东信持仓表（苹果市值 $61,962M）', a, y=1420)
+        source(cv, '2024 年股东大会；伯克希尔 2025 年致股东信持仓表（苹果市值 $61,962M）', a, y=1462)
     # ---- c4h–c4i：卖错了吗？卖出均价约 195 vs 今天 338；账面差额约 1000 亿（税前）
     t0, t1 = S('c4h') - 0.3, S('c4j') + 0.1
     a = env(t, t0, t1, 0.4, 0.4)
@@ -132,7 +132,7 @@ def shot_ch4(cv, t):
         cv.text('2024Q2 → 今天', 780, 930, 28, 'sans_light', col=GREY, a=a * k2)
         k3 = eo((t - WT('c4j', '谁也无法确知') + 0.1) / 0.5)
         cv.text('在卖出的那一刻，谁也无法确知', W / 2, 1180, 50, 'serif_semi', col=CREAM, a=a * k3)
-        source(cv, '苹果 10-K：2023 财年 vs 2026 财年摊薄每股收益；data/calc.py', a, y=1392)
+        source(cv, '苹果 10-K：2023 财年 vs 2026 财年摊薄每股收益；data/calc.py', a, y=1462)
     # ---- c4k：卖掉的是判断，不是否定
     t0 = S('c4k') - 0.3; t1 = CH['ch5'][0] + 0.2
     a = env(t, t0, t1, 0.5, 0.5)

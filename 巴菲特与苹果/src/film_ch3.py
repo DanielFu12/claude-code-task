@@ -24,7 +24,7 @@ def shot_ch3(cv, t):
         cv.text('2023 年底 · 伯克希尔股票投资组合', W / 2, 420, 36, 'sans_med', col=CREAM, a=a)
         k2 = eo((t - WT('c3b', '一千七百四十三亿') + 0.1) / 0.5)
         cv.text('苹果 $1743亿 / 全部 $3538亿', W / 2, 1160, 46, 'sans_bold', col=GOLD_L, a=a * k2)
-        source(cv, '伯克希尔 2023 年报 K-84/85', a, y=1392)
+        source(cv, '伯克希尔 2023 年报 K-84/85', a, y=1462)
     # ---- c3c：2020 年小卖 110 亿；“那是个愚蠢的决定”
     t0, t1 = win('c3c')
     a = env(t, t0, t1, 0.4, 0.4)
@@ -53,7 +53,7 @@ def shot_ch3(cv, t):
             cv.rrect(140, 1210, 940, 1360, 16, (0.05, 0.05, 0.06), a * k3 * 0.9)
             cv.text('2026 · 格雷格·阿贝尔 出任 CEO', W / 2, 1255, 38, 'sans_med', col=GOLD_L, a=a * k3)
             cv.text('巴菲特留任董事长 · 2026 年两季持仓未变', W / 2, 1315, 30, 'sans_light', col=CREAM, a=a * k3)
-        source(cv, '伯克希尔 13F（2016Q1–2026Q2）；伯克希尔 2025 年致股东信（署名 Gregory E. Abel, CEO）', a, y=1440)
+        source(cv, '伯克希尔 13F（2016Q1–2026Q2）；伯克希尔 2025 年致股东信（署名 Gregory E. Abel, CEO）', a, y=1462)
     # ---- c3g–c3h：总账：买入 410 亿 → 合计 2300 亿（5.6 倍）
     t0, t1 = S('c3g') - 0.3, S('c3i') + 0.1
     a = env(t, t0, t1, 0.4, 0.4)
@@ -71,13 +71,13 @@ def shot_ch3(cv, t):
             if kk <= 0: continue
             h = v * sc * kk
             cv.rect(x_out - 110, y - h, x_out + 110, y, col, a, glow=0.1)
-            cv.text(f'{lab} ${v}亿', x_out - 130, y - h / 2, 28, 'sans_med', col=CREAM, a=a * kk, anchor='r')
+            cv.text(f'{lab} ${v}亿', x_out - 130, y - h / 2, 30, 'sans_med', col=CREAM, a=a * kk, anchor='r', shadow=0.6)
             y -= h
         k2 = eo((t - WT('c3h', '五点六倍') + 0.1) / 0.5)
         if k2 > 0:
             cv.text('$2300亿', x_out, y - 50, 52, 'sans_bold', gold=True, a=a * k2, glow=0.3)
             cv.text('× 5.6', W / 2 - 60, 600, 120, 'oswald', col=GOLD_L, a=a * k2, glow=0.3)
-        source(cv, 'data/calc.py：各季度持股变动 × 当季日均价；股息按每股股息 × 持股；剩余 2.28 亿股 × $338.32', a, y=1392)
+        source(cv, 'data/calc.py：各季度持股变动 × 当季日均价；股息按每股股息 × 持股；剩余 2.28 亿股 × $338.32', a, y=1462)
     # ---- c3i：年化约 29% vs 标普 500 约 15%
     t0, t1 = win('c3i', post=0.0)
     t1 = CH['ch4'][0] + 0.2
@@ -87,7 +87,7 @@ def shot_ch3(cv, t):
         fx.bars3d(cv, t, t0, t1, ('苹果（资金加权）', 29.2, '29%', WT('c3i', '百分之二十九') - 0.2),
                   ('标普 500（含股息）', 14.8, '15%', WT('c3i', '百分之十五') - 0.2), a=a, title='年化回报 · 同样的钱、同样的时间')
         k = eo((t - WT('c3i', '一千三百九十亿') + 0.1) / 0.5)
-        cv.text('同额买入标普并持有至今 ≈ $1390亿', W / 2, 1270, 32, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
+        cv.text('同额买入标普并持有至今 ≈ $1390亿', W / 2, 470, 28, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
         k2 = eo((t - WT('c3i', '两倍') + 0.1) / 0.4)
-        cv.text('≈ 2 倍', W / 2, 1360, 90, 'serif_black', gold=True, a=a * k2, glow=0.35, shadow=0.8)
-        source(cv, '年化 = 内部收益率（按每季度买卖与股息的实际时间，估算，税前）；标普 500 全收益指数 ^SP500TR', a, y=1392)
+        cv.text('苹果的年化回报 ≈ 标普的 2 倍', W / 2, 410, 44, 'serif_black', gold=True, a=a * k2, glow=0.3, shadow=0.8)
+        source(cv, '年化 = 内部收益率（按每季度买卖与股息的实际时间，估算，税前）；标普 500 全收益指数 ^SP500TR', a, y=1462)

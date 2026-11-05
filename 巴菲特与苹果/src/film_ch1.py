@@ -37,7 +37,7 @@ def shot_ch1(cv, t):
         cv.glow_dot((x1, y), 10, RED, a * k)
         cv.text('2018', x1, y - 50, 40, 'oswald', col=RED, a=a * k)
         cv.text('清仓', x1, y + 50, 26, 'sans_light', col=CREAM, a=a * k, anchor='r')
-        source(cv, '伯克希尔 2011 年起买入 IBM；巴菲特 2018 年 5 月称已全部卖出（Bloomberg）', a, y=1420)
+        source(cv, '伯克希尔 2011 年起买入 IBM；巴菲特 2018 年 5 月称已全部卖出（Bloomberg）', a, y=1462)
     # ---- c1c：他自己用的，一直是翻盖机
     t0, t1 = win('c1c')
     a = env(t, t0, t1, 0.4, 0.5)
@@ -94,7 +94,7 @@ def shot_ch1(cv, t):
         cv.text('钱太多，', W / 2, 820, 72, 'serif_black', col=CREAM, a=a * k, shadow=0.8)
         cv.text('又找不到好的投资对象，', W / 2, 920, 56, 'serif_semi', col=CREAM, a=a * eo((t - WT('c1g', '又找不到') + 0.1) / 0.6), shadow=0.8)
         cv.text('该怎么办？', W / 2, 1030, 72, 'serif_black', gold=True, a=a * eo((t - WT('c1g', '该怎么办') + 0.1) / 0.5), glow=0.25, shadow=0.8)
-        source(cv, '美联社 2006-06-23 报道', a, y=1392)
+        source(cv, '美联社 2006-06-23 报道', a, y=1462)
     # ---- c1h：2011 年初，段永平开始买入苹果
     t0, t1 = win('c1h')
     a = env(t, t0, t1, 0.5, 0.4)
@@ -108,7 +108,7 @@ def shot_ch1(cv, t):
         for j, (w_, s) in enumerate([('用户体验', '用户体验，做到极致'), ('护城河', '生意模式，形成护城河')]):
             kk = eo((t - WT('c1h', w_) + 0.1) / 0.5)
             cv.text(s, W / 2, 1130 + j * 90, 50, 'serif_semi', col=CREAM if j == 0 else GOLD_L, a=a * kk, shadow=0.8)
-        source(cv, '段永平网络问答（2011-01-22、2024-09-12），收录于《大道：段永平投资问答录》', a, y=1392)
+        source(cv, '段永平网络问答（2011-01-22、2024-09-12），收录于《大道：段永平投资问答录》', a, y=1462)
     # ---- c1i：苹果成了他组合里最重的股票（H&H 13F 占比）
     t0, t1 = win('c1i')
     a = env(t, t0, t1, 0.4, 0.4)
@@ -118,7 +118,7 @@ def shot_ch1(cv, t):
         data = [('2018', 50.9), ('2019', 48.5), ('2020', 53.1), ('2021', 65.9), ('2022', 73.4), ('2023', 79.5), ('2024.6', 81.0)]
         bars(cv, [(y, v, GOLD * 0.75, t0 + 0.3 + k * 0.18) for k, (y, v) in enumerate(data)], t, t0, a,
              fmt=lambda v: f'{v:.0f}%', dur=0.8, label_size=24)
-        source(cv, 'SEC 13F（H&H International，外界普遍认为由段永平管理）；占比 = 苹果市值 ÷ 申报总市值', a, y=1392)
+        source(cv, 'SEC 13F（H&H International，外界普遍认为由段永平管理）；占比 = 苹果市值 ÷ 申报总市值', a, y=1462)
     # ---- c1j：2016 年一季度，伯克希尔首次买入
     t0, t1 = win('c1j')
     a = env(t, t0, t1, 0.5, 0.4)
@@ -133,7 +133,7 @@ def shot_ch1(cv, t):
                 cv.text(nm, W / 2 + (j * 2 - 1) * 230, 1130, 46, 'serif_semi', col=CREAM, a=a * k2, shadow=0.8)
             cv.text('？', W / 2, 1130, 60, 'serif_black', col=GOLD, a=a * k2, shadow=0.8)
             cv.text('Todd Combs  ·  Ted Weschler', W / 2, 1200, 26, 'corm', col=GOLD, a=a * k2, track=0.1, shadow=0.8)
-        source(cv, '13F 2016Q1：980 万股（拆股前）；CNBC 2017-08-30：巴菲特确认由两位投资经理之一买入、未透露是谁', a, y=1392)
+        source(cv, '13F 2016Q1：980 万股（拆股前）；CNBC 2017-08-30：巴菲特确认由两位投资经理之一买入、未透露是谁', a, y=1462)
     # ---- c1o：当时的苹果被市场看淡
     t0, t1 = win('c1o')
     a = env(t, t0, t1, 0.5, 0.4)
@@ -143,7 +143,7 @@ def shot_ch1(cv, t):
              t, t0, a, x0=140, x1=540, base=1150, hmax=520, fmt=lambda v: f'{v:.0f}M', label_size=22)
         bars(cv, [('FY15 营收', 233.7, GOLD * 0.6, WT('c1o', '全年营收') - 0.2), ('FY16 营收', 215.6, RED, WT('c1o', '首次下降') - 0.2)],
              t, t0, a, x0=560, x1=960, base=1150, hmax=520, fmt=lambda v: f'${v:.0f}B', label_size=22)
-        source(cv, '苹果 2016 财年 10-K：iPhone 销量 2.119 亿部（上年 2.312 亿部）；营收 $2156亿（上年 $2337亿）', a, y=1392)
+        source(cv, '苹果 2016 财年 10-K：iPhone 销量 2.119 亿部（上年 2.312 亿部）；营收 $2156亿（上年 $2337亿）', a, y=1462)
     # ---- c1k：那年年底巴菲特亲自出手；市盈率约 14 倍
     t0, t1 = win('c1k')
     a = env(t, t0, t1, 0.5, 0.4)
@@ -160,7 +160,7 @@ def shot_ch1(cv, t):
         if k2 > 0:
             cv.text('市盈率 ≈ 14 倍', W / 2, 1290, 80, 'serif_black', gold=True, a=a * k2, glow=0.25)
             cv.text('股价 ÷ 每股年利润', W / 2, 1380, 30, 'sans_light', col=GREY, a=a * k2)
-        source(cv, '2016 年四季度日均收盘价 $28.35 ÷ 2016 财年摊薄每股收益 $2.08（拆股调整）≈ 13.6 倍', a, y=1440)
+        source(cv, '2016 年四季度日均收盘价 $28.35 ÷ 2016 财年摊薄每股收益 $2.08（拆股调整）≈ 13.6 倍', a, y=1462)
     # ---- c1l：冰雪皇后的孩子们
     t0, t1 = win('c1l')
     a = env(t, t0, t1, 0.5, 0.4)
@@ -222,7 +222,7 @@ def shot_ch1(cv, t):
         k = eo((t - WT('c1r', '跟我没关系') + 0.1) / 0.5)
         cv.text('“他买苹果，跟我没关系。”', W / 2, 1100, 58, 'serif_semi', col=GOLD_L, a=a * k, shadow=0.6)
         cv.text('—— 段永平', W / 2 + 260, 1185, 30, 'sans_light', col=GREY, a=a * k)
-        source(cv, '段永平 2025-01-05 浙江大学讲座（IT之家、证券之星文字实录）', a, y=1392)
+        source(cv, '段永平 2025-01-05 浙江大学讲座（IT之家、证券之星文字实录）', a, y=1462)
     # ---- c1s：2020 年，换上 iPhone
     t0, t1 = win('c1s', 'ch2' if False else None)
     t1 = CH['ch2'][0] + 0.2

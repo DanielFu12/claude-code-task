@@ -389,6 +389,7 @@ def finish(cv, frame_idx, bloom_k=1.0, grain=0.018, vig=True, hud_alpha=1.0, fad
         img = img + g[..., None] * grain * (0.35 + 0.65 * np.sqrt(np.clip(lum, 0, 1)))
     if post is not None: post(img)
     img *= fade
-    if HUD is None: HUD = Hud(scale=1.0, frame_w=W)
+    if HUD is None:
+        HUD = Hud(scale=1.0, frame_w=W); HUD.y0 += 58            # 角标整体下移，避开手机状态栏
     HUD.draw(img, frame_idx / FPS, alpha=hud_alpha * fade)
     return (np.clip(np.nan_to_num(img), 0, 1) * 255 + 0.5).astype(np.uint8)

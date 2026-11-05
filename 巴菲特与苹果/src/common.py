@@ -309,21 +309,74 @@ def sub_backing(cv, x0, y0, x1, y1, a, target=0.30, feather=30):
     cv.glow[Y0:Y1, X0:X1] *= f
 
 
+import re as _re
+_PUNCT = '，。；：？！'
+_chunks = {}
+
+
+def _split(s):
+    """按标点切成短语（保留语义完整的最小单位），过短的并入下一段"""
+    parts = [x for x in _re.split('([' + _PUNCT + '])', s)]
+    out, cur = [], ''
+    for x in parts:
+        if not x: continue
+        if x in _PUNCT:
+            cur += x if x in '？！' else ''
+            out.append(cur); cur = ''
+        else: cur += x
+    if cur: out.append(cur)
+    merged = []
+    for x in out:
+        if merged and len(merged[-1].strip('“”')) < 5: merged[-1] += x
+        else: merged.append(x)
+    return [m for m in merged if m.strip()]
+
+
+def sub_chunks(seg):
+    """一句旁白 → [(短语, 起, 止)]：用强制对齐的逐字时刻，短语在读到它时出现"""
+    i = seg['id']
+    if i in _chunks: return _chunks[i]
+    txt, say = _TXT[i], _SAY[i]
+    tc, sc = _split(txt), _split(say)
+    t0, dur = seg['start'], seg['dur']
+    ct = seg.get('ct') or []
+    def at(k):
+        for idx, tt in ct:
+            if idx >= k: return t0 + tt
+        return t0 + dur * k / max(len(say), 1)
+    starts = []
+    if len(tc) == len(sc):
+        pos = 0
+        for c in sc:
+            k = say.find(c.rstrip('？！')[:2], pos); k = pos if k < 0 else k
+            starts.append(at(k)); pos = k + len(c)
+    else:
+        n = sum(len(c) for c in tc); acc = 0
+        for c in tc: starts.append(t0 + dur * acc / n); acc += len(c)
+    ends = starts[1:] + [t0 + dur]
+    _chunks[i] = list(zip(tc, starts, ends))
+    return _chunks[i]
+
+
 def subtitles(cv, t):
+    """逐段字幕：同一时刻只显示正在读的那一个短语（淡入 + 轻微上浮），读完换下一段"""
     for s in TL['segs']:
-        if s['id'] == 'tease': continue                 # 预告在片尾卡上单独排版
-        a = env(t, s['start'] - 0.05, s['start'] + s['dur'] + 0.2, 0.12, 0.18)
-        if a <= 0.004: continue
-        txt = s['text'].replace('——', '—')
-        size = 44
-        lines = split_balanced(txt, 'sans_med', size, 920)
-        if len(lines) > 2: size = 40; lines = split_balanced(txt, 'sans_med', size, 960)
-        n = len(lines)
-        tw = max(text_size(l, 'sans_med', size)[0] for l in lines)
-        sub_backing(cv, W / 2 - tw / 2 - 50, 1530 - n * size * 0.71 - 34, W / 2 + tw / 2 + 50, 1530 + n * size * 0.71 + 34, a)
-        for i, l in enumerate(lines):
-            y = 1530 + (i - (n - 1) / 2) * size * 1.42
-            cv.text(l, W / 2, y, size, 'sans_med', col=(0.97, 0.96, 0.93), a=a, shadow=0.85)
+        if s['id'] == 'tease': continue
+        if not (s['start'] - 0.2 <= t <= s['start'] + s['dur'] + 0.4): continue
+        ch = sub_chunks(s)
+        for k, (txt, a0, a1) in enumerate(ch):
+            last = k == len(ch) - 1
+            a = env(t, a0 - 0.08, a1 + (0.35 if last else 0.02), 0.14, 0.12 if not last else 0.25)
+            if a <= 0.004: continue
+            rise = 10 * (1 - eo((t - a0 + 0.08) / 0.25))
+            size = 50
+            lines = split_balanced(txt, 'sans_med', size, 940) if text_size(txt, 'sans_med', size)[0] > 940 else [txt]
+            n = len(lines)
+            tw = max(text_size(l, 'sans_med', size)[0] for l in lines)
+            yc = 1555 + rise
+            sub_backing(cv, W / 2 - tw / 2 - 50, yc - n * size * 0.75 - 30, W / 2 + tw / 2 + 50, yc + n * size * 0.75 + 30, a)
+            for j, l in enumerate(lines):
+                cv.text(l, W / 2, yc + (j - (n - 1) / 2) * size * 1.4, size, 'sans_med', col=(0.98, 0.97, 0.94), a=a, shadow=0.9)
 
 
 def chapter_label(cv, t):
@@ -536,7 +589,7 @@ def shot_hook(cv, t):
         k2 = eo((t - WT('h1', '五万亿') + 0.1) / 0.5)
         if k2 > 0:
             cv.text('市值 ≈ $5 万亿', W / 2, 1300, 76, 'serif_black', gold=True, a=a * k2, glow=0.3, scale=1.05 - 0.05 * k2)
-        source(cv, '数据：Yahoo Finance 日线（拆股调整）；市值 = 收盘价 × 2026 财年末股数 145.3 亿', a * 0.9, y=1392)
+        source(cv, '数据：Yahoo Finance 日线（拆股调整）；市值 = 收盘价 × 2026 财年末股数 145.3 亿', a * 0.9, y=1462)
     # ---- h2：盛宴里最著名的股东（伯克希尔股东大会现场）
     t0, t1 = S('h2') - 0.2, S('h3') + 0.1
     a = env(t, t0, t1, 0.5, 0.4)
@@ -562,7 +615,7 @@ def shot_hook(cv, t):
             cv.text('2.28亿股', 750, base - h2_ - 50, 46, 'sans_bold', col=CREAM, a=a * k2)
             cv.text('2026 年 6 月', 750, base + 40, 26, 'sans_light', col=GREY, a=a * k2)
         cv.text('伯克希尔持有的苹果股票', W / 2, 400, 36, 'sans_med', col=CREAM, a=a)
-        source(cv, '数据：伯克希尔 13F 持仓报告（按 2020 年 1 拆 4 调整）', a, y=1392)
+        source(cv, '数据：伯克希尔 13F 持仓报告（按 2020 年 1 拆 4 调整）', a, y=1462)
     # ---- h4：9.16 亿股中卖掉约四分之三，套现约 1340 亿美元
     t0, t1 = S('h4') - 0.15, S('h5') + 0.1
     a = env(t, t0, t1, 0.35, 0.35)
@@ -582,21 +635,21 @@ def shot_hook(cv, t):
         if k3 > 0:
             cv.text('套现 ≈ $1340亿', W / 2, 1360, 84, 'serif_black', gold=True, a=a * k3, glow=0.3)
         cv.text('卖出约 3/4', W / 2, 1270, 40, 'sans_med', col=RED, a=a * eo((p - tq) / 0.5))
-        source(cv, '估算：各季度减持股数 × 当季日均收盘价（税前）', a, y=1440)
+        source(cv, '估算：各季度减持股数 × 当季日均收盘价（税前）', a, y=1462)
     shot_hook_tail(cv, t)
 
 
 def shot_hook_tail(cv, t):
     import media as M
     # ---- h5：若一股不卖，今天值约 3100 亿美元
-    t0, t1 = S('h5') - 0.15, S('h6') + 0.1
+    t0, t1 = WT('h4', '假如') - 0.15, S('h6') + 0.1
     a = env(t, t0, t1, 0.35, 0.35)
     if a > 0:
         p = t - t0
         cv.text('假如一股不卖', W / 2, 560, 44, 'sans_med', col=CREAM, a=a)
-        k = eo((t - WT('h5', '三千一百亿') + 0.1) / 0.4)
+        k = eo((t - WT('h4', '三千一百亿') + 0.1) / 0.4)
         if k > 0:
-            v = counter(1340, 3100, t, WT('h5', '三千一百亿') - 0.1, 1.0, lambda v: f'${v:,.0f}亿')
+            v = counter(1340, 3100, t, WT('h4', '三千一百亿') - 0.1, 1.0, lambda v: f'${v:,.0f}亿')
             cv.text(v, W / 2, 800, 200, 'sans_bold', gold=True, a=a * k, glow=0.35, scale=0.94 + 0.06 * k)
         cv.text('9.16亿股 × $338.32（2026.11.02 收盘）', W / 2, 990, 30, 'sans_light', col=GREY, a=a * eo((p - 1.0) / 0.5))
     # ---- h6：他是沃伦·巴菲特
@@ -606,9 +659,9 @@ def shot_hook_tail(cv, t):
         M.full(cv, 'x_bwbi_a', t, t0, t1, z0=1.0, z1=1.08, focus=(0.42, 0.45), dark=0.05, a=a)
         k = eo((t - WT('h6', '沃伦') + 0.1) / 0.7)
         cv.text('WARREN BUFFETT', W / 2, 950, 60, 'corm', col=GOLD_L, a=a * k, track=0.2, shadow=0.8)
-        k2 = eo((t - WT('h6', '十年前') + 0.1) / 0.6)
+        k2 = eo((t - WT('h6', '卖错了吗') + 0.1) / 0.6)
         if k2 > 0:
-            cv.text('2016', W / 2, 1150, 130, 'oswald', col=CREAM, a=a * k2 * 0.9, shadow=0.8, glow=0.1)
+            cv.text('他卖错了吗？', W / 2, 1120, 96, 'serif_black', gold=True, a=a * k2, shadow=0.8, glow=0.3)
         sink = eio((t - E('h6') - 0.2) / 1.0)
         if sink > 0: cv.dim(1 - 0.4 * sink)
 
@@ -735,10 +788,6 @@ def shot_end(cv, t):
         fa = eo((t - hit - 1.9) / 0.7)
         if fa > 0:
             gold_line_text(cv, t, '关注「巴芒价值」，传承大师智慧，领悟投资真谛', W / 2, 1300, 36, fa, hit + 2.7)
-            ca = eo((t - hit - 3.2) / 0.6)
-            if ca > 0:
-                for j, s_ in enumerate(['点赞', '转发', '关注']):
-                    chip(cv, s_, W / 2 + (j - 1) * 190, 1400, 30, fa * ca, col=GOLD)
 
 
 _gt = {}
@@ -908,3 +957,46 @@ def bars(cv, items, t, t0, a, x0=140, x1=940, base=1250, hmax=640, fmt=None, sta
         cv.rect(cx - bw / 2, base - h, cx + bw / 2, base, col, a * 0.92, glow=0.12)
         cv.text(fmt(v * e) if fmt else f'{v * e:,.0f}', cx, base - h - 44, 44, 'sans_bold', col=CREAM, a=a * min(e * 2, 1), shadow=0.6)
         cv.text(lab, cx, base + 40, label_size, 'sans_light', col=GREY, a=a * min(e * 2, 1))
+
+
+# ------------------------------------------------------------------ 正片中途关注语胶囊条（参考 claude/festive-brown-49d0no 的做法）
+FOLLOW_DUR, FOLLOW_FADE = 4.5, 0.4
+
+
+def _follow_schedule():
+    """在句子说完的时刻浮出：第一章开播 50s 后开始，约每 150s 一次，最多 4 次；避开本章要点卡与章节卡"""
+    ends = sorted(s['start'] + s['dur'] for s in TL['segs'] if s['id'] != 'tease')
+    b0, b1 = CH['ch1'][0] + 50, CH['end'][0] - 25
+    busy = [(v[0] - 1, v[1] + 1) for k, v in CH.items() if k.startswith('tk_')] + \
+           [(CH[c][0] - 1, CH[c][0] + 3) for c in ('ch2', 'ch3', 'ch4', 'ch5')]
+    ok = lambda e: b0 <= e <= b1 and not any(a <= e <= b or a <= e + FOLLOW_DUR <= b for a, b in busy)
+    out = []
+    for e in ends:
+        if ok(e) and (not out or e - out[-1] >= 150): out.append(e)
+    return out[:4]
+
+
+FOLLOWS = _follow_schedule()
+
+
+def follow_pill(cv, t):
+    for t0 in FOLLOWS:
+        if not (t0 <= t < t0 + FOLLOW_DUR): continue
+        last = t0 == FOLLOWS[-1]
+        a = env(t, t0, t0 + FOLLOW_DUR, FOLLOW_FADE, FOLLOW_FADE)
+        dy = 16 * (1 - eo((t - t0) / FOLLOW_FADE))
+        lg = 52
+        t1, t2 = '关注 @巴芒价值', '传承大师智慧，领悟投资真谛'
+        tw = max(text_size(t1, 'sans_med', 32)[0], text_size(t2, 'sans_light', 22)[0] if last else 0)
+        w, h = 22 + lg + 16 + tw + 34, (100 if last else 78)
+        x1 = W - 40; x0 = x1 - w; yc = 1712 + dy
+        cv.rrect(x0, yc - h / 2, x1, yc + h / 2, h / 2, (0.03, 0.035, 0.06), a * 0.78)
+        cv.rrect(x0, yc - h / 2, x1, yc + h / 2, h / 2, GOLD_D, a * 0.55, fill=False, th=2)
+        rgb, al = logo(lg)
+        cv.over(rgb, al * a, x0 + 22, yc - lg / 2)
+        tx = x0 + 22 + lg + 16
+        if last:
+            cv.text(t1, tx, yc - 16, 32, 'sans_med', col=WHITE, a=a, anchor='l')
+            cv.text(t2, tx, yc + 22, 22, 'sans_light', col=GOLD_L, a=a, anchor='l')
+        else:
+            cv.text(t1, tx, yc, 32, 'sans_med', col=WHITE, a=a, anchor='l')

@@ -102,7 +102,7 @@ def layer_over(cv, rgba, a=1.0, glow_k=0.6):
 
 # ------------------------------------------------------------------ 三维金属柱对比（两根柱子，摄影机缓慢环绕，数值标在柱顶）
 _bs = {}
-def bars3d(cv, t, t0, t1, left, right, a=1.0, title=None, sub=None, right_red=False, hmax=1.65, cam0=-0.55, cam1=-0.2):
+def bars3d(cv, t, t0, t1, left, right, a=1.0, title=None, sub=None, right_red=False, hmax=1.2, cam0=-0.55, cam1=-0.2):
     """left/right = (标签, 数值, 显示文本, 出现时刻)；左柱金色，右柱金色或红色"""
     if a <= 0.004: return
     import shaders
@@ -122,6 +122,6 @@ def bars3d(cv, t, t0, t1, left, right, a=1.0, title=None, sub=None, right_red=Fa
         if col is None: cv.text(txt, x, y, 64, 'sans_bold', gold=True, a=a * k, glow=0.3, shadow=0.8)
         else: cv.text(txt, x, y, 64, 'sans_bold', col=col, a=a * k, glow=0.3, shadow=0.8)
         xb, yb = project((x3, -0.05, 0.6), ro, ta, 2.4)
-        cv.text(lab, xb, yb + 40, 30, 'sans_med', col=CREAM, a=a * min(1, (t - ts) / 0.5 if t > ts else 0), shadow=0.8)
+        cv.text(lab, xb, 1398, 32, 'sans_med', col=CREAM, a=a * min(1, (t - ts) / 0.5 if t > ts else 0), shadow=0.8)
     if title: cv.text(title, W / 2, 330, 42, 'sans_med', col=CREAM, a=a, shadow=0.8)
     if sub: cv.text(sub, W / 2, 395, 26, 'sans_light', col=GREY, a=a, shadow=0.8)

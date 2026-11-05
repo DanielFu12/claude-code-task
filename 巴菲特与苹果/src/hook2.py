@@ -53,7 +53,7 @@ def shot_hook(cv, t):
     fx.sweep(cv, t, S('h2') + 0.5, 0.8)
 
     # ---- h2：股东大会现场（推近 + 轻微横移），字距收拢的标题
-    t0, t1 = S('h2') + 0.55, S('h3') + 0.2
+    t0, t1 = S('h2') + 0.55, WT('h2', '最多时') + 0.2
     a = env(t, t0, t1, 0.45, 0.4)
     if a > 0:
         p = t - t0
@@ -65,11 +65,11 @@ def shot_hook(cv, t):
         fx.dust(cv, t, a * 0.6, seed=2, drift=(6, -10))
 
     # ---- h3：三维金属柱：10.1 亿股（2018 峰值）vs 如今 2.28 亿股（右柱塌落、碎光下坠）
-    t0, t1 = S('h3') - 0.25, S('h4') + 0.25
+    t0, t1 = WT('h2', '最多时') - 0.25, S('h4') + 0.25
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         p = t - t0
-        tk = WT('h3', '如今')
+        tk = WT('h2', '如今')
         up = eexp(p / 1.6)
         H1 = 1.6 * up
         drop = eio5(cl((t - tk) / 1.3))
@@ -95,7 +95,7 @@ def shot_hook(cv, t):
     fx.sweep(cv, t, S('h4') - 0.4, 0.7, a=0.8)
 
     # ---- h4：10×10 立方体（9.16 亿股）：四分之三升起化光 → 套现约 1340 亿美元
-    t0, t1 = S('h4') - 0.25, S('h5') + 0.25
+    t0, t1 = S('h4') - 0.25, WT('h4', '假如') + 0.25
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         p = t - t0
@@ -117,9 +117,9 @@ def shot_hook(cv, t):
             cv.text('套现约', W / 2, 1215, 34, 'sans_med', col=CREAM, a=a * k2, shadow=0.8)
             cv.text(v, W / 2, 1310, 118, 'sans_bold', gold=True, a=a * k2, glow=0.45, shadow=0.8, scale=1.06 - 0.06 * k2)
             fx.flare(cv, W / 2, 1310, a * math.exp(-max(t - tm - 1.0, 0) * 3) * (t > tm + 1.0), length=650)
-        source(cv, '估算：各季度减持股数 × 当季日均收盘价（税前）；伯克希尔 13F', a, y=1400)
+        source(cv, '估算：各季度减持股数 × 当季日均收盘价（税前）；伯克希尔 13F', a, y=1462)
         fx.dust(cv, t, a * 0.5, seed=4)
 
     # ---- h5 之后沿用原版（假如一股不卖 / 他是巴菲特）
     import common
-    if t >= S('h5') - 0.4: common.shot_hook_tail(cv, t)
+    if t >= WT('h4', '假如') - 0.4: common.shot_hook_tail(cv, t)

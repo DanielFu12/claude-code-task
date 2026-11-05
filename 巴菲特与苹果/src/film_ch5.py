@@ -11,9 +11,9 @@ def shot_ch5(cv, t):
         M.frame(cv, 'x_bwb_cherrycoke', t, t0, t1, cy=520, w=1000, h=560, a=a, bg=False, speed=0.45, cap='巴菲特与樱桃可乐')
         M.frame(cv, 'x_iphones_wall', t, t0, t1, cy=1150, w=1000, h=560, a=a, bg=False, cap='iPhone')
         k1 = eo((t - WT('c5a', '三十八年') + 0.1) / 0.5)
-        cv.text('38 年 · 一股未卖', W / 2, 520, 64, 'serif_black', gold=True, a=a * k1, glow=0.25, shadow=0.9)
+        cv.text('38 年 · 一股未卖', W / 2, 730, 56, 'serif_black', gold=True, a=a * k1, glow=0.25, shadow=0.9)
         k2 = eo((t - WT('c5a', '四分之三') + 0.1) / 0.5)
-        cv.text('10 年 · 卖掉 3/4', W / 2, 1150, 64, 'serif_black', col=CREAM, a=a * k2, shadow=0.9)
+        cv.text('10 年 · 卖掉 3/4', W / 2, 1360, 56, 'serif_black', col=CREAM, a=a * k2, shadow=0.9)
     # ---- c5b：1998 年可口可乐 47 倍没卖；“我说了，却没有做”
     t0, t1 = win('c5b')
     a = env(t, t0, t1, 0.4, 0.4)
@@ -43,8 +43,8 @@ def shot_ch5(cv, t):
         fx.bars3d(cv, t, t0, t1, ('2024 年中', 6392, '6392万股', WT('c5d', '六千四百万') - 0.2),
                   ('2026 年中', 2710, '2710万股', WT('c5d', '两千七百万') - 0.2), a=a, right_red=True, title='段永平基金（H&H）持有的苹果')
         k = eo((t - WT('c5d', '近六成') + 0.1) / 0.5)
-        cv.text('−58%', W / 2, 1320, 100, 'sans_bold', col=(1.0, 0.45, 0.4), a=a * k, glow=0.25, shadow=0.8)
-        source(cv, 'SEC 13F（H&H International，外界普遍认为由段永平管理）：2024-06-30 63,924,255 股 → 2026-06-30 27,098,707 股', a, y=1392)
+        cv.text('−58%', W / 2, 420, 64, 'sans_bold', col=(1.0, 0.45, 0.4), a=a * k, glow=0.25, shadow=0.8)
+        source(cv, 'SEC 13F（H&H International，外界普遍认为由段永平管理）：2024-06-30 63,924,255 股 → 2026-06-30 27,098,707 股', a, y=1462)
     # ---- c5d2：“水果已经比较成熟了”；卖出的钱买了短期国债
     t0, t1 = win('c5d2')
     a = env(t, t0, t1, 0.4, 0.4)
@@ -54,7 +54,7 @@ def shot_ch5(cv, t):
         cv.text('已经比较成熟了', W / 2, 860, 56, 'serif_semi', col=CREAM, a=a * k, shadow=0.8)
         k2 = eo((t - WT('c5d2', '短期国债') + 0.1) / 0.5)
         chip(cv, '卖出所得 → 美国短期国债', W / 2, 1060, 34, a * k2, col=GOLD)
-        source(cv, '澎湃新闻 2026-07-23（香港01 同日报道相同内容）', a, y=1392)
+        source(cv, '澎湃新闻 2026-07-23（香港01 同日报道相同内容）', a, y=1462)
     # ---- c5e：库克为伯克希尔赚的钱，比我为伯克希尔赚的还多
     t0, t1 = win('c5e')
     a = env(t, t0, t1, 0.5, 0.4)

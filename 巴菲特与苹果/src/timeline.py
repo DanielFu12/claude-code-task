@@ -10,8 +10,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from script import LINES, TEASE
 
 HOOK_START = 1.2           # 开场心跳后第一句
-AFTER_HOOK = 1.2           # “为什么？”之后的空气（随后标题重拍）
-TITLE_HOLD = 4.2           # 标题段落（含重拍）
+AFTER_HOOK = 0.6           # “为什么？”之后的空气（随后标题重拍）
+TITLE_HOLD = 3.0           # 标题段落（含重拍）
 PRE_CARD = 0.7             # 章节最后一句之后、下一章节卡之前
 CHAPTER_CARD = 2.0         # 章节卡
 CARD_EXTRA = {'ch4': 0.3}  # 章节卡之后再多留的空气
