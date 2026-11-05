@@ -47,6 +47,12 @@ w('## 4. 影像素材授权（Wikimedia Commons）\n')
 w('片中照片与视频均为公有领域或知识共享授权素材，已按授权要求署名；画面中另有小字署名。“示意”标注的画面仅表现时代或场景，并非事件现场。\n')
 for k, c in sorted(CR.items()):
     w(f'- `{k}` — [{c["title"]}]({c["page"]}) · 作者：{(c.get("artist") or "—").strip()} · 授权：{c.get("license") or "—"}')
+IAP = os.path.join(ROOT, 'assets', 'media', 'ia_clips.json')
+if os.path.exists(IAP):
+    w('\n### 视频片段（Internet Archive 公开存档；按用户要求选用高清现代影像，版权归原权利人）\n')
+    seen = set()
+    for k, v in json.load(open(IAP)).items():
+        w(f'- `{k}` — {v["source"]}（{v["ia"]}，原片 {v["start"]}s 起 {v["dur"]}s）')
 w('\n## 5. 配乐与品牌\n')
 w('- 配乐：Lyria（lyria-3-pro-preview）为本片生成的原创配乐，同一调性与主题动机，经节拍对位剪辑（`src/score.py`）。')
 w('- 品牌角标与片尾 logo：仓库 `brand/` 目录官方资产。')

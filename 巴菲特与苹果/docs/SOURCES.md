@@ -209,6 +209,7 @@
 - `apple_campus2_2016` — [File:Apple Campus 2 1 2016-09-19.jpg](https://commons.wikimedia.org/wiki/File%3AApple_Campus_2_1_2016-09-19.jpg) · 作者：FASTILY · 授权：CC BY-SA 4.0
 - `apple_park_aerial` — [File:Apple Park aerial view, June 2024.jpg](https://commons.wikimedia.org/wiki/File%3AApple_Park_aerial_view%2C_June_2024.jpg) · 作者：Nils Huenerfuerst · 授权：CC0
 - `apple_park_dusk` — [File:Apple Park dusk aerial.jpg](https://commons.wikimedia.org/wiki/File%3AApple_Park_dusk_aerial.jpg) · 作者：Dicklyon · 授权：CC BY-SA 4.0
+- `best_buy` — [File:Best Buy Store (13919887146).jpg](https://commons.wikimedia.org/wiki/File%3ABest_Buy_Store_%2813919887146%29.jpg) · 作者：Mike Mozart from Funny YouTube, USA · 授权：CC BY 2.0
 - `brk_meeting_2025` — [File:Berkshire Hathaway Annual Meeting 2025.jpg](https://commons.wikimedia.org/wiki/File%3ABerkshire_Hathaway_Annual_Meeting_2025.jpg) · 作者：Good-investing · 授权：CC0
 - `buffett_2010` — [File:Warren Buffett Wall Street Money Never Sleeps Premiere, New York City, 2010 (55363166973)-corp.jpg](https://commons.wikimedia.org/wiki/File%3AWarren_Buffett_Wall_Street_Money_Never_Sleeps_Premiere%2C_New_York_City%2C_2010_%2855363166973%29-corp.jpg) · 作者：Anthony Quintano · 授权：CC BY 4.0
 - `buffett_2015` — [File:Warren Buffett at the 2015 SelectUSA Investment Summit.jpg](https://commons.wikimedia.org/wiki/File%3AWarren_Buffett_at_the_2015_SelectUSA_Investment_Summit.jpg) · 作者：USA International Trade Administration · 授权：Public domain
@@ -216,6 +217,7 @@
 - `buffett_osu` — [File:Warren Buffett with Fisher College of Business Student - 4395164676.jpg](https://commons.wikimedia.org/wiki/File%3AWarren_Buffett_with_Fisher_College_of_Business_Student_-_4395164676.jpg) · 作者：Aaron Friedman · 授权：CC BY 2.0
 - `buffett_osu2` — [File:Warren Buffett with Fisher College of Business Student - 4394391213.jpg](https://commons.wikimedia.org/wiki/File%3AWarren_Buffett_with_Fisher_College_of_Business_Student_-_4394391213.jpg) · 作者：Aaron Friedman · 授权：CC BY 2.0
 - `buffett_pitch` — [File:Warren Buffett! He caught a ceremonial first pitch tonight.jpg](https://commons.wikimedia.org/wiki/File%3AWarren_Buffett%21_He_caught_a_ceremonial_first_pitch_tonight.jpg) · 作者：Minda Haas Kuhlmann · 授权：CC BY 2.0
+- `coke_bottles` — [File:Coca-Cola Bottles Alaska 2010.jpg](https://commons.wikimedia.org/wiki/File%3ACoca-Cola_Bottles_Alaska_2010.jpg) · 作者：Rowanswiki · 授权：CC0
 - `cook_2017` — [File:Tim Cook (2017, cropped).jpg](https://commons.wikimedia.org/wiki/File%3ATim_Cook_%282017%2C_cropped%29.jpg) · 作者：Austin Community College · 授权：CC BY 2.0
 - `dairy_queen` — [File:Dairy Queen - October 2023 - Sarah Stierch.jpg](https://commons.wikimedia.org/wiki/File%3ADairy_Queen_-_October_2023_-_Sarah_Stierch.jpg) · 作者：Missvain · 授权：CC BY 4.0
 - `flip_moto` — [File:Motorola flip phone, closed.jpg](https://commons.wikimedia.org/wiki/File%3AMotorola_flip_phone%2C_closed.jpg) · 作者：Jud McCranie · 授权：CC BY-SA 4.0
@@ -228,6 +230,43 @@
 - `nfm_kc` — [File:Nebraska Furniture Mart (KC).jpg](https://commons.wikimedia.org/wiki/File%3ANebraska_Furniture_Mart_%28KC%29.jpg) · 作者：Lectrician2 · 授权：CC BY-SA 4.0
 - `omaha_2026` — [File:Omaha Skyline viewed from Harrah's, August 2026.jpg](https://commons.wikimedia.org/wiki/File%3AOmaha_Skyline_viewed_from_Harrah%27s%2C_August_2026.jpg) · 作者：Hurstbergn · 授权：CC0
 - `omaha_river` — [File:City of Omaha, Nebraska Skyline on the Missouri River (30899969517) (cropped).jpg](https://commons.wikimedia.org/wiki/File%3ACity_of_Omaha%2C_Nebraska_Skyline_on_the_Missouri_River_%2830899969517%29_%28cropped%29.jpg) · 作者：Tony Webster from Minneapolis, Minnesota, United States · 授权：CC BY 2.0
+- `oppo_vivo` — [File:Dabri Oppo-Vivo shop.jpg](https://commons.wikimedia.org/wiki/File%3ADabri_Oppo-Vivo_shop.jpg) · 作者：VartamanVarta · 授权：CC BY 4.0
+- `smith_wollensky` — [File:Smith & Wollensky steakhouse (Manhattan, New York) 001.jpg](https://commons.wikimedia.org/wiki/File%3ASmith_%26_Wollensky_steakhouse_%28Manhattan%2C_New_York%29_001.jpg) · 作者：Leonard J. DeFrancisci · 授权：CC BY-SA 3.0
+- `treasury` — [File:U.S. Treasury Building and Albert Gallatin Statue.jpg](https://commons.wikimedia.org/wiki/File%3AU.S._Treasury_Building_and_Albert_Gallatin_Statue.jpg) · 作者：Sealy j · 授权：CC BY-SA 4.0
+- `v_cars_night` — [File:Cars driving at night.webm](https://commons.wikimedia.org/wiki/File%3ACars_driving_at_night.webm) · 作者：https://www.youtube.com/user/Editor · 授权：CC BY 3.0
+- `v_dq_sign` — [File:Rotating Dairy Queen sign.webm](https://commons.wikimedia.org/wiki/File%3ARotating_Dairy_Queen_sign.webm) · 作者：[1] · 授权：CC BY 2.0
+- `v_dundee_drone` — [File:Nebraska OMAHA, Memorial Park, Dundee ~AERIAL DRONE 4K Video.webm](https://commons.wikimedia.org/wiki/File%3ANebraska_OMAHA%2C_Memorial_Park%2C_Dundee_~AERIAL_DRONE_4K_Video.webm) · 作者：Everything SP · 授权：CC BY 3.0
+- `v_omaha_drone` — [File:Flying over Omaha, NE, USA - HD Photography Drone.webm](https://commons.wikimedia.org/wiki/File%3AFlying_over_Omaha%2C_NE%2C_USA_-_HD_Photography_Drone.webm) · 作者：OmahaTom · 授权：CC BY 3.0
+- `v_tokyo` — [File:Marunouchi,Tokyo shoot by iPhone 5s.webm](https://commons.wikimedia.org/wiki/File%3AMarunouchi%2CTokyo_shoot_by_iPhone_5s.webm) · 作者：Kentaro · 授权：CC BY 3.0
+
+### 视频片段（Internet Archive 公开存档；按用户要求选用高清现代影像，版权归原权利人）
+
+- `x_park_top` — Apple WWDC24 Keynote（Apple, 2024）（https://archive.org/details/wwdc24，原片 78s 起 12s）
+- `x_cook_roof` — Apple WWDC24 Keynote（Apple, 2024）（https://archive.org/details/wwdc24，原片 98s 起 14s）
+- `x_park_green` — Apple WWDC24 Keynote（Apple, 2024）（https://archive.org/details/wwdc24，原片 858s 起 10s）
+- `x_iphones_wall` — Apple WWDC24 Keynote（Apple, 2024）（https://archive.org/details/wwdc24，原片 898s 起 10s）
+- `x_iphone_hand` — Apple WWDC24 Keynote（Apple, 2024）（https://archive.org/details/wwdc24，原片 938s 起 10s）
+- `x_park_ring1` — The Genius Design of Apple Park（Polyphonic / Nebula, 2023）（https://archive.org/details/youtube-VbeM8Lf7s5A，原片 432s 起 14s）
+- `x_park_ring2` — The Genius Design of Apple Park（Polyphonic / Nebula, 2023）（https://archive.org/details/youtube-VbeM8Lf7s5A，原片 612s 起 16s）
+- `x_park_ring3` — The Genius Design of Apple Park（Polyphonic / Nebula, 2023）（https://archive.org/details/youtube-VbeM8Lf7s5A，原片 703s 起 18s）
+- `x_park_ring4` — The Genius Design of Apple Park（Polyphonic / Nebula, 2023）（https://archive.org/details/youtube-VbeM8Lf7s5A，原片 958s 起 12s）
+- `x_park_theater` — The Genius Design of Apple Park（Polyphonic / Nebula, 2023）（https://archive.org/details/youtube-VbeM8Lf7s5A，原片 733s 起 10s）
+- `x_jobs_council` — The Genius Design of Apple Park（Polyphonic / Nebula, 2023）（https://archive.org/details/youtube-VbeM8Lf7s5A，原片 148s 起 18s）
+- `x_bwb_cherrycoke` — Becoming Warren Buffett（HBO, 2017）片段（https://archive.org/details/youtube-pKWN0YFf_14，原片 166s 起 7s）
+- `x_bwb_cokestore` — Becoming Warren Buffett（HBO, 2017）片段（https://archive.org/details/youtube-pKWN0YFf_14，原片 190s 起 6s）
+- `x_bwb_walk` — Becoming Warren Buffett（HBO, 2017）片段（https://archive.org/details/youtube-pKWN0YFf_14，原片 184s 起 6s）
+- `x_bwb_desk` — Becoming Warren Buffett（HBO, 2017）片段（https://archive.org/details/youtube-pKWN0YFf_14，原片 262s 起 12s）
+- `x_bwb_office` — Becoming Warren Buffett（HBO, 2017）片段（https://archive.org/details/youtube-pKWN0YFf_14，原片 310s 起 12s）
+- `x_bwb_meeting` — Becoming Warren Buffett（HBO, 2017）片段（https://archive.org/details/youtube-pKWN0YFf_14，原片 346s 起 30s）
+- `x_bwb_arena` — Becoming Warren Buffett（HBO, 2017）片段（https://archive.org/details/youtube-pKWN0YFf_14，原片 424s 起 6s）
+- `x_bwbi_a` — Becoming Warren Buffett 访谈（HBO, 2017）（https://archive.org/details/youtube-cd-w9H0G6nQ，原片 598s 起 20s）
+- `x_bwbi_b` — Becoming Warren Buffett 访谈（HBO, 2017）（https://archive.org/details/youtube-cd-w9H0G6nQ，原片 1618s 起 20s）
+- `x_bwbi_c` — Becoming Warren Buffett 访谈（HBO, 2017）（https://archive.org/details/youtube-cd-w9H0G6nQ，原片 2338s 起 20s）
+- `x_i6s_store` — iPhone 6S Launch & Unboxing（Gear Live, 2015）（https://archive.org/details/IPhone6SLaunchUnboxing4k，原片 110s 起 36s）
+- `x_i6s_unbox` — iPhone 6S Launch & Unboxing（Gear Live, 2015）（https://archive.org/details/IPhone6SLaunchUnboxing4k，原片 168s 起 32s）
+- `x_jobs07_stage` — Macworld 2007 Keynote（Apple, 2007；4K AI 修复版）（https://archive.org/details/macworld-san-francisco-2007-keynote-address-steve-jobs-introduces-i-phone-4-k-ai-upscale，原片 1398s 起 14s）
+- `x_jobs07_wave` — Macworld 2007 Keynote（Apple, 2007；4K AI 修复版）（https://archive.org/details/macworld-san-francisco-2007-keynote-address-steve-jobs-introduces-i-phone-4-k-ai-upscale，原片 2196s 起 10s）
+- `x_jobs07_hand` — Macworld 2007 Keynote（Apple, 2007；4K AI 修复版）（https://archive.org/details/macworld-san-francisco-2007-keynote-address-steve-jobs-introduces-i-phone-4-k-ai-upscale，原片 1518s 起 10s）
 
 ## 5. 配乐与品牌
 
