@@ -11,10 +11,9 @@ from tts_passage import PASSAGES, TEASE_P, spoken
 
 URL = 'https://openspeech.bytedance.com/api/v3/tts/unidirectional'
 RESOURCE = 'volc.seedtts.default'                 # 账号开通的豆包语音合成 2.0 资源
-SPEAKER = 'zh_male_cixingjieshuonan_uranus_bigtts'
-CONTEXT = ('像一位资深财经纪录片的讲述者，面对面给朋友讲一个真实的投资故事：自然、口语化、有轻重缓急，'
-           '该快的地方带过，关键数字和转折稍作强调；不要一字一顿，不要播音腔、朗诵腔，也不要每句都同样的下沉收尾。')
-SPEECH_RATE = 20
+SPEAKER = 'zh_male_liufei_uranus_bigtts'      # 刘飞 2.0（用户试听后选定）
+CONTEXT = '像在给朋友讲一个真实的投资故事，自然、口语化。'
+SPEECH_RATE = 5
 SILENCE = 150
 
 
