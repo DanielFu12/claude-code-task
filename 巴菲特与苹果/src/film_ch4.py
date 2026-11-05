@@ -42,7 +42,6 @@ def shot_ch4(cv, t):
     t0, t1 = win('c4c')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        M.full(cv, 'treasury', t, t0, t1, z0=1.1, z1=1.2, dark=0.6, a=a, sat=0.5, cap='美国财政部大楼 · 华盛顿')
         cv.text('第二 · 税', 140, 380, 56, 'serif_black', gold=True, a=a, anchor='l', shadow=0.8)
         bars(cv, [('过去最高', 52, GREY * 0.7, WT('c4c', '百分之五十二') - 0.2), ('不久前', 35, GREY * 0.85, WT('c4c', '百分之三十五') - 0.2),
                   ('现在', 21, GOLD, WT('c4c', '百分之二十一') - 0.2)], t, t0, a, x0=160, x1=920, base=1230, hmax=560,
@@ -66,7 +65,6 @@ def shot_ch4(cv, t):
     t0, t1 = win('c4e')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        M.full(cv, 'omaha_2026', t, t0, t1, z0=1.1, z1=1.18, dark=0.55, a=a, cap='奥马哈 · 2026 年 8 月')
         cv.text('第三 · 现金', 140, 380, 56, 'serif_black', gold=True, a=a, anchor='l', shadow=0.8)
         quote_card(cv, 'q2024b', t, t0 + 0.2, WT('c4e', '当年') + 0.2, cy=800, en_size=34, cn_size=40, a=a)
         k = env(t, WT('c4e', '当年') - 0.1, t1, 0.5, 0.3)
@@ -91,13 +89,13 @@ def shot_ch4(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         M.full(cv, 'x_park_ring4', t, t0, t1, z0=1.0, z1=1.06, dark=0.45, a=a, speed=0.55, cap='Apple Park 航拍')
-        quote_card(cv, 'q2024c', t, t0 + 0.1, t1, cy=720, en_size=40, cn_size=46, a=a)
+        quote_card(cv, 'q2024c', t, t0 + 0.1, t1, cy=1020, en_size=36, cn_size=42, a=a)
         k = eo((t - WT('c4g', '二零二五年底') + 0.1) / 0.5)
         if k > 0:
-            cv.rrect(160, 1060, 920, 1220, 16, (0.05, 0.05, 0.06), a * k * 0.9)
-            cv.text('2025 年底 · 伯克希尔第一大持仓', W / 2, 1110, 34, 'sans_med', col=CREAM, a=a * k)
-            cv.text('苹果 $620亿', W / 2, 1175, 46, 'sans_bold', gold=True, a=a * k)
-        source(cv, '2024 年股东大会；伯克希尔 2025 年致股东信持仓表（苹果市值 $61,962M）', a, y=1392)
+            cv.rrect(160, 1200, 920, 1360, 16, (0.05, 0.05, 0.06), a * k * 0.9)
+            cv.text('2025 年底 · 伯克希尔第一大持仓', W / 2, 1250, 34, 'sans_med', col=CREAM, a=a * k)
+            cv.text('苹果 $620亿', W / 2, 1315, 46, 'sans_bold', gold=True, a=a * k)
+        source(cv, '2024 年股东大会；伯克希尔 2025 年致股东信持仓表（苹果市值 $61,962M）', a, y=1420)
     # ---- c4h–c4i：卖错了吗？卖出均价约 195 vs 今天 338；账面差额约 1000 亿（税前）
     t0, t1 = S('c4h') - 0.3, S('c4j') + 0.1
     a = env(t, t0, t1, 0.4, 0.4)

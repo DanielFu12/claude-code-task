@@ -338,6 +338,50 @@ def chapter_label(cv, t):
             cv.text(title, 110, 64, 26, 'sans_med', col=CREAM, a=a * 0.85, anchor='l')
 
 
+NAV = ['看懂苹果', '买的是生意', '十年账本', '为什么卖', '卖与不卖']
+TAKE = {'tk_ch1': ('01', '能力圈', '看得懂，才下重注', '巴菲特等了几十年，直到从身边的消费者身上看懂了苹果'),
+        'tk_ch2': ('02', '买的是生意', '回购与透视盈余', '没发下来的利润，也在替股东赚钱；每股收益比净利润涨得更快'),
+        'tk_ch3': ('03', '时间与复利', '十年，约 5.6 倍', '同样的钱买标普 500 年化约 15%，苹果年化约 29%'),
+        'tk_ch4': ('04', '价格、税与仓位', '好生意，也有不划算的价格', '卖出的是对价格和仓位的判断，不是对生意的否定')}
+
+
+def nav(cv, t):
+    """顶部章节导航：五段进度条，当前章节高亮并随时间填充"""
+    if t < CH['ch1'][0] + 0.3 or t > CH['end'][0]: return
+    a = env(t, CH['ch1'][0] + 0.3, CH['end'][0], 0.6, 0.6)
+    x0, x1, y = 70, 1010, 196
+    sw = (x1 - x0) / 5; gap = 12
+    for i, nm in enumerate(NAV):
+        cid = f'ch{i + 1}'; a0, a1 = CH[cid]
+        xa = x0 + i * sw + gap / 2; xb = x0 + (i + 1) * sw - gap / 2
+        cv.rect(xa, y - 2, xb, y + 2, (0.3, 0.3, 0.33), a * 0.8)
+        f = cl((t - a0) / max(a1 - a0, 1)) if t >= a0 else 0
+        if f > 0: cv.rect(xa, y - 2, xa + (xb - xa) * f, y + 2, GOLD if a0 <= t < a1 else GOLD_D, a, glow=0.3 if a0 <= t < a1 else 0)
+        cur = a0 <= t < a1
+        cv.text(f'0{i + 1} {nm}', (xa + xb) / 2, y + 30, 22 if cur else 20, 'sans_med' if cur else 'sans_light',
+                col=CREAM if cur else (0.55, 0.55, 0.58), a=a)
+
+
+def takeaway(cv, t):
+    """每章结尾的“本章要点”：巴菲特理念卡"""
+    for k, (num, title, key, desc) in TAKE.items():
+        if k not in CH: continue
+        t0, t1 = CH[k]
+        a = env(t, t0 - 0.15, t1 + 0.1, 0.35, 0.4)
+        if a <= 0.004: continue
+        p = t - t0
+        cv.dim(1 - 0.95 * a); cv.glow *= (1 - 0.95 * a); cv.U = (cv.U * (1 - 0.95 * a)).astype(np.uint8)
+        cv.rrect(90, 640, 990, 1260, 28, (0.05, 0.045, 0.04), a)
+        cv.rrect(90, 640, 990, 1260, 28, GOLD, a * 0.7, fill=False, th=2, glow=0.2)
+        chip(cv, '本章要点 · 巴菲特理念 ' + num, W / 2, 720, 28, a, col=GOLD)
+        cv.text(title, W / 2, 850, 84, 'serif_black', gold=True, a=a * eo(p / 0.5), glow=0.3, scale=1.06 - 0.06 * eo(p / 0.5))
+        L = 260 * eo((p - 0.3) / 0.6)
+        cv.line((W / 2 - L, 940), (W / 2 + L, 940), GOLD_D, a, 2)
+        cv.text(key, W / 2, 1020, 50, 'serif_semi', col=CREAM, a=a * eo((p - 0.5) / 0.5))
+        for j, ln in enumerate(split_balanced(desc, 'sans_light', 30, 780)):
+            cv.text(ln, W / 2, 1120 + j * 46, 30, 'sans_light', col=(0.75, 0.74, 0.72), a=a * eo((p - 0.9) / 0.5))
+
+
 def chapter_card(cv, t):
     for cid, title, en in CHAPTERS:
         if title is None: continue
@@ -561,10 +605,10 @@ def shot_hook_tail(cv, t):
     if a > 0:
         M.full(cv, 'x_bwbi_a', t, t0, t1, z0=1.0, z1=1.08, focus=(0.42, 0.45), dark=0.05, a=a)
         k = eo((t - WT('h6', '沃伦') + 0.1) / 0.7)
-        cv.text('WARREN BUFFETT', W / 2, 1180, 64, 'corm', col=GOLD_L, a=a * k, track=0.2, shadow=0.8)
+        cv.text('WARREN BUFFETT', W / 2, 950, 60, 'corm', col=GOLD_L, a=a * k, track=0.2, shadow=0.8)
         k2 = eo((t - WT('h6', '十年前') + 0.1) / 0.6)
         if k2 > 0:
-            cv.text('2016', W / 2, 340, 130, 'oswald', col=CREAM, a=a * k2 * 0.9, shadow=0.8, glow=0.1)
+            cv.text('2016', W / 2, 1150, 130, 'oswald', col=CREAM, a=a * k2 * 0.9, shadow=0.8, glow=0.1)
         sink = eio((t - E('h6') - 0.2) / 1.0)
         if sink > 0: cv.dim(1 - 0.4 * sink)
 
@@ -643,7 +687,7 @@ def shot_end(cv, t):
     ka = env(t, ts - 0.05, t_dis + 0.15, 0.6, 0.45)          # 上一镜头在 ts 前已淡出，不叠化
     if ka > 0.004:                                           # 下期预告的画面：东京丸之内街景
         import media as M
-        M.full(cv, 'v_tokyo', t, ts - 0.4, t_dis + 0.3, z0=1.0, z1=1.06, dark=0.55, a=ka, src_t0=20.0, cap='东京丸之内')
+        pass
     if ka > 0.004:
         chip(cv, '下期预告', W / 2, 615, 26, ka, col=GOLD)
         cv.text(TEASE_L1, W / 2, TEASE_Y1, 76, 'serif_black', gold=True, a=ka, shadow=0.6, glow=0.12)
@@ -691,6 +735,10 @@ def shot_end(cv, t):
         fa = eo((t - hit - 1.9) / 0.7)
         if fa > 0:
             gold_line_text(cv, t, '关注「巴芒价值」，传承大师智慧，领悟投资真谛', W / 2, 1300, 36, fa, hit + 2.7)
+            ca = eo((t - hit - 3.2) / 0.6)
+            if ca > 0:
+                for j, s_ in enumerate(['点赞', '转发', '关注']):
+                    chip(cv, s_, W / 2 + (j - 1) * 190, 1400, 30, fa * ca, col=GOLD)
 
 
 _gt = {}

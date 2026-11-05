@@ -20,7 +20,7 @@ def shot_ch5(cv, t):
     if a > 0:
         M.full(cv, 'x_bwb_cokestore', t, t0, t1, z0=1.0, z1=1.06, focus=(0.6, 0.45), dark=0.55, a=a, speed=0.3)
         k = eo((t - WT('c5b', '一九九八') + 0.1) / 0.5)
-        cv.text('1998 · 可口可乐', W / 2, 390, 50, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
+        cv.text('1998 · 可口可乐', W / 2, 920, 46, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
         kq = 1 - eo((t - WT('c5b', '后来') + 0.3) / 0.4)
         cv.text('市盈率 ≈ 47 倍', W / 2, 1150, 76, 'serif_black', col=(1.0, 0.42, 0.38), a=a * kq * eo((t - WT('c5b', '四十七倍') + 0.1) / 0.5), shadow=0.8)
         cv.text('没有卖', W / 2, 1255, 50, 'serif_semi', col=CREAM, a=a * kq * eo((t - WT('c5b', '没有卖') + 0.1) / 0.5), shadow=0.8)
@@ -30,7 +30,7 @@ def shot_ch5(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         M.full(cv, 'x_i6s_unbox', t, t0, t1, z0=1.0, z1=1.06, dark=0.55, a=a, src_t0=7.0, speed=0.5)
-        cv.text('2024 · 苹果', W / 2, 390, 50, 'sans_med', col=CREAM, a=a, shadow=0.8)
+        cv.text('2024 · 苹果', W / 2, 920, 46, 'sans_med', col=CREAM, a=a, shadow=0.8)
         cv.text('市盈率 ≈ 30 倍', W / 2, 1120, 70, 'serif_black', col=CREAM, a=a * eo((t - WT('c5c', '三十倍') + 0.1) / 0.5), shadow=0.8)
         cv.text('占股票投资近一半', W / 2, 1205, 46, 'serif_semi', col=CREAM, a=a * eo((t - WT('c5c', '近一半') + 0.1) / 0.5), shadow=0.8)
         k = eo((t - WT('c5c', '他卖了') + 0.05) / 0.4)
@@ -49,7 +49,6 @@ def shot_ch5(cv, t):
     t0, t1 = win('c5d2')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        M.full(cv, 'treasury', t, t0, t1, z0=1.2, z1=1.3, dark=0.6, a=a, sat=0.45, credit=False)
         k = eo((t - WT('c5d2', '水果') + 0.1) / 0.5)
         cv.text('“水果”', W / 2, 720, 130, 'serif_black', gold=True, a=a * k, glow=0.3, shadow=0.8)
         cv.text('已经比较成熟了', W / 2, 860, 56, 'serif_semi', col=CREAM, a=a * k, shadow=0.8)
@@ -66,7 +65,6 @@ def shot_ch5(cv, t):
     t0, t1 = S('c5f') - 0.3, S('c5k') + 0.1
     a = env(t, t0, t1, 0.5, 0.5)
     if a > 0:
-        M.full(cv, 'x_park_green', t, t0, t1, z0=1.0, z1=1.06, dark=0.6, a=a, speed=0.45, credit=False)
         cv.text('这十年，留下了四条朴素的道理', W / 2, 400, 44, 'sans_med', col=CREAM, a=a * eo((t - t0) / 0.6), shadow=0.8)
         rules = [('c5g', '看得懂，才下重注'), ('c5h', '买股票，就是买生意'), ('c5i', '再好的生意，也要看价格'), ('c5j', '仓位和税，都要算进账里')]
         for k, (lid, txt) in enumerate(rules):
@@ -83,9 +81,9 @@ def shot_ch5(cv, t):
     if a > 0:
         M.full(cv, 'v_dundee_drone', t, t0, t1, z0=1.0, z1=1.06, dark=0.4, a=a, src_t0=30.0, cap='奥马哈 Dundee 街区航拍（巴菲特住了几十年的街区）')
         k = eo((t - WT('c5k', '更值得学的') + 0.1) / 0.6)
-        cv.text('不是卖在最高点', W / 2, 720, 60, 'serif_semi', col=GREY, a=a * eo((t - WT('c5k', '最高点') + 0.1) / 0.5), shadow=0.8)
-        cv.text('而是每一个决定', W / 2, 860, 70, 'serif_black', col=CREAM, a=a * k, shadow=0.8)
-        cv.text('算得清 · 讲得通', W / 2, 990, 90, 'serif_black', gold=True, a=a * eo((t - WT('c5k', '算得清') + 0.1) / 0.5), glow=0.3, shadow=0.8)
+        cv.text('不是卖在最高点', W / 2, 960, 54, 'serif_semi', col=GREY, a=a * eo((t - WT('c5k', '最高点') + 0.1) / 0.5), shadow=0.8)
+        cv.text('而是每一个决定', W / 2, 1080, 64, 'serif_black', col=CREAM, a=a * k, shadow=0.8)
+        cv.text('算得清 · 讲得通', W / 2, 1220, 86, 'serif_black', gold=True, a=a * eo((t - WT('c5k', '算得清') + 0.1) / 0.5), glow=0.3, shadow=0.8)
     # ---- c5l：主题句
     t0, t1 = S('c5l') - 0.3, CH['end'][0] + 0.3
     a = env(t, t0, t1, 0.6, 0.6)

@@ -26,30 +26,29 @@ def shot_hook(cv, t):
         M.full(cv, 'x_park_top', t, t0, t1, z0=1.0, z1=1.12, focus=(0.5, 0.5), dark=0.45, a=a, src_t0=8.3, speed=0.33, cap='Apple Park 航拍', sweep=False)
         tr = WT('h1', '市值')
         rv = eio5(cl((t - t0) / (tr - t0)))
-        lay = Canvas(t)
-        r = aapl_chart(lay, t, 90, 990, 560, 1250, reveal=0.02 + 0.98 * rv, a=1.0, col=GOLD_L, lw=4, show_axis=True)
+        lay = cv
+        r = aapl_chart(lay, t, 110, 980, 960, 1390, reveal=0.02 + 0.98 * rv, a=a, col=GOLD_L, lw=4, show_axis=True)
         recs = [y for y, pp, prev in zip(AA_Y[1:], AA_P[1:], np.maximum.accumulate(AA_P)[:-1]) if y >= 2026 and pp > prev]
         reveal_y = 2016 + (2026.9 - 2016) * (0.02 + 0.98 * rv)
         for y in recs:
             if y <= reveal_y:
                 age = (reveal_y - y) * 30
-                lay.glow_dot((ax_x(y, 90, 990), ax_y(aa_at(y), 560, 1250)), 8 + 22 * math.exp(-age), GOLD, 0.9)
-        if r: lay.glow_dot(r[0], 26 + 10 * beat_pulse(t), WHITE, 0.9)
-        tilt = lerp(0.62, 0.32, eio(p / 6.0)); yaw = lerp(-0.22, 0.08, eio(p / 9.0))
-        fx.plane_warp(cv, lay, tilt=tilt, yaw=yaw, cy=1010, scale=1.05, a=a, reflect=0.22, z=1.0 + 0.15 * (1 - eio(p / 5)))
-        cv.text('AAPL', 110, 300, 64, 'oswald', col=CREAM, a=a * eo((p - 0.5) / 0.6), anchor='l', track=0.12, shadow=0.8)
-        cv.text('APPLE INC. · 2016 — 2026', 116, 370, 24, 'corm', col=GOLD, a=a * eo((p - 0.8) / 0.6), anchor='l', track=0.2)
+                lay.glow_dot((ax_x(y, 110, 980), ax_y(aa_at(y), 960, 1390)), 8 + 22 * math.exp(-age), GOLD, 0.9 * a)
+        if r: lay.glow_dot(r[0], 26 + 10 * beat_pulse(t), WHITE, 0.9 * a)
+        cv.text('AAPL', 110, 900, 54, 'oswald', col=CREAM, a=a * eo((p - 0.5) / 0.6), anchor='l', track=0.12, shadow=0.8)
+        cv.text('APPLE · 2016—2026', 270, 905, 22, 'corm', col=GOLD, a=a * eo((p - 0.8) / 0.6), anchor='l', track=0.2)
         k = eo((t - tr + 0.3) / 0.45)
         if k > 0:
-            chip(cv, '2026 年 · 25 次收盘新高', 300, 480, 28, a * k, col=GOLD)
-            cv.text('$348.91', 800, 480, 70, 'sans_bold', gold=True, a=a * k, glow=0.35, shadow=0.7)
+            chip(cv, '2026 年 25 次收盘新高', 300, 990, 26, a * k, col=GOLD)
+            cv.text('$348.91', 830, 900, 64, 'sans_bold', gold=True, a=a * k, glow=0.35, shadow=0.7)
         tm = WT('h1', '五万亿')
         k2 = eo((t - tm + 0.1) / 0.4)
         if k2 > 0:
             v = counter(1.0, 5.0, t, tm - 0.15, 0.9, lambda v: f'${v:.1f} 万亿' if v < 4.99 else '$5 万亿')
-            cv.text('市值', W / 2, 1250, 38, 'sans_med', col=CREAM, a=a * k2, shadow=0.8)
-            cv.text(v, W / 2, 1345, 112, 'sans_bold', gold=True, a=a * k2, glow=0.45, scale=1.08 - 0.08 * k2, shadow=0.8)
-            fx.flare(cv, W / 2, 1345, a * math.exp(-max(t - tm - 0.75, 0) * 3) * (t > tm + 0.75), length=700)
+            cv.rrect(160, 690, 920, 820, 18, (0.03, 0.03, 0.04), a * k2 * 0.75)
+            cv.text('市值', 260, 755, 38, 'sans_med', col=CREAM, a=a * k2, shadow=0.8)
+            cv.text(v, W / 2 + 60, 755, 100, 'sans_bold', gold=True, a=a * k2, glow=0.45, scale=1.08 - 0.08 * k2, shadow=0.8)
+            fx.flare(cv, W / 2 + 60, 755, a * math.exp(-max(t - tm - 0.75, 0) * 3) * (t > tm + 0.75), length=700)
         fx.dust(cv, t, a * 0.8, seed=1)
     fx.sweep(cv, t, S('h2') + 0.5, 0.8)
 
@@ -60,8 +59,9 @@ def shot_hook(cv, t):
         p = t - t0
         M.full(cv, 'x_bwb_meeting', t, t0, t1, z0=1.0, z1=1.1, focus=(0.55, 0.45), dark=0.15, a=a, src_t0=17.5, speed=0.8, cap='伯克希尔股东大会现场', sweep=False)
         k = eo((p - 0.4) / 1.4)
-        cv.text('BERKSHIRE HATHAWAY', W / 2, 420, 50, 'oswald', col=GOLD_L, a=a * k, track=0.6 - 0.45 * k, shadow=0.9, glow=0.15)
-        cv.line((W / 2 - 300 * k, 470), (W / 2 + 300 * k, 470), GOLD_D, a * k, 2)
+        cv.text('BERKSHIRE HATHAWAY', W / 2, 960, 50, 'oswald', col=GOLD_L, a=a * k, track=0.6 - 0.45 * k, shadow=0.9, glow=0.15)
+        cv.line((W / 2 - 300 * k, 1010), (W / 2 + 300 * k, 1010), GOLD_D, a * k, 2)
+        cv.text('伯克希尔·哈撒韦 · 巴菲特执掌 60 年', W / 2, 1065, 30, 'sans_med', col=CREAM, a=a * eo((p - 1.0) / 0.6), shadow=0.8)
         fx.dust(cv, t, a * 0.6, seed=2, drift=(6, -10))
 
     # ---- h3：三维金属柱：10.1 亿股（2018 峰值）vs 如今 2.28 亿股（右柱塌落、碎光下坠）

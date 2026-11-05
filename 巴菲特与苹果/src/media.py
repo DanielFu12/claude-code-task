@@ -140,15 +140,16 @@ def source_frame(name, t, t0, src_t0=0.0, speed=1.0):
 
 
 # 有人物的横版镜头：保留完整 16:9 画面放在中部（背后虚化铺底），不裁成竖屏满幅——否则人脸会被放大到占满画面
-WIN_CY = 760
+WIN_CY = 560          # 统一画窗：上方 1000×562（y 279–841），下方留给动画解读与字幕
 PEOPLE = ('x_bwb', 'x_jobs', 'x_cook', 'x_i6s_store', 'x_i6s_unbox', 'x_iphones_wall')
 
 
 def full(cv, name, t, t0, t1, z0=1.04, z1=1.14, focus=(0.5, 0.5), pan=(0, 0, 0, 0), a=1.0, fi=0.6, fo=0.6,
          shade=(0.45, 0.62), dark=0.0, warm=0.0, sat=1.0, src_t0=0.0, speed=1.0, credit=True, cap=None, bw=False, sweep=True):
     """满幅照片/视频，带缓慢推拉；shade=(顶部压暗, 底部压暗)；dark 额外整体压暗（叠图表时用）"""
-    if name.startswith(PEOPLE):
-        return frame(cv, name, t, t0, t1, cy=WIN_CY, w=1000, h=562, z0=1.0, z1=1.05, focus=(0.5, 0.5), a=a, fi=fi, fo=fo,
+    if True:                                     # v5：所有影像一律放进上方画窗（不再整屏铺满或虚化铺底）
+        fc = (0.5, 0.5) if name.startswith(PEOPLE) else focus
+        return frame(cv, name, t, t0, t1, cy=WIN_CY, w=1000, h=562, z0=1.0, z1=1.05, focus=fc, a=a, fi=fi, fo=fo,
                      src_t0=src_t0, speed=speed, credit=credit, cap=cap)
     al = env(t, t0, t1, fi, fo) * a
     if al <= 0.004: return 0.0
@@ -171,7 +172,7 @@ def full(cv, name, t, t0, t1, z0=1.04, z1=1.14, focus=(0.5, 0.5), pan=(0, 0, 0, 
 
 
 def frame(cv, name, t, t0, t1, cy=820, w=1000, h=680, z0=1.02, z1=1.10, focus=(0.5, 0.5), pan=(0, 0, 0, 0), a=1.0,
-          fi=0.6, fo=0.6, warm=0.25, sat=0.85, src_t0=0.0, speed=1.0, bg=True, credit=True, cap=None, border=True, bw=False):
+          fi=0.6, fo=0.6, warm=0.25, sat=0.85, src_t0=0.0, speed=1.0, bg=False, credit=True, cap=None, border=True, bw=False):
     """窗口构图：清晰的画面放在中部，背后同一画面虚化放大并压暗"""
     al = env(t, t0, t1, fi, fo) * a
     if al <= 0.004: return 0.0

@@ -12,18 +12,20 @@ from tts_passage import PASSAGES, TEASE_P, spoken
 URL = 'https://openspeech.bytedance.com/api/v3/tts/unidirectional'
 RESOURCE = 'volc.seedtts.default'                 # 账号开通的豆包语音合成 2.0 资源
 SPEAKER = 'zh_male_cixingjieshuonan_uranus_bigtts'
-CONTEXT = ('请用沉稳、克制、自然的纪录片旁白语气朗读。声音醇厚，但不要刻意压低；节奏舒缓，句尾收稳，重点词轻微强调。'
-           '避免广告腔、朗诵腔和过度煽情。全片是同一个讲述者，语气和音色前后一致。')
-SPEECH_RATE = -8
+CONTEXT = ('像一位资深财经纪录片的讲述者，面对面给朋友讲一个真实的投资故事：自然、口语化、有轻重缓急，'
+           '该快的地方带过，关键数字和转折稍作强调；不要一字一顿，不要播音腔、朗诵腔，也不要每句都同样的下沉收尾。')
+SPEECH_RATE = 20
+SILENCE = 150
 
 
-def synth(text, out_mp3, speech_rate=SPEECH_RATE):
+def synth(text, out_mp3, speech_rate=None):
+    speech_rate = SPEECH_RATE if speech_rate is None else speech_rate
     body = {'user': {'uid': 'bamang-value'},
             'req_params': {'text': text, 'speaker': SPEAKER,
                            'audio_params': {'format': 'mp3', 'sample_rate': 48000, 'bit_rate': 160000, 'speech_rate': speech_rate,
                                             'loudness_rate': 0, 'enable_subtitle': True},
                            'context_texts': [CONTEXT], 'post_process': {'pitch': 0},
-                           'additions': json.dumps({'silence_duration': 400, 'disable_markdown_filter': True,
+                           'additions': json.dumps({'silence_duration': SILENCE, 'disable_markdown_filter': True,
                                                     'disable_emoji_filter': True, 'explicit_language': 'zh-cn'})}}
     for attempt in range(6):
         try:

@@ -197,14 +197,14 @@ def main(work):
         act[max(a, 0):b] = 1
     k = int(0.6 * SR); win = np.hanning(2 * k + 1); win /= win.sum()
     on = np.convolve(act, win, 'same').clip(0, 1)
-    duck_db = -7.0 * on
+    duck_db = -5.5 * on
     tt = np.arange(N) / SR
     for h, w, _ in hits:
         if w >= 1.0:
             m = np.clip(np.minimum((tt - h + 0.3) / 0.3, (h + 2.5 - tt) / 1.5), 0, 1)
             duck_db = duck_db * (1 - 0.3 * m)
     ml = meter.integrated_loudness(mus[mus.any(1)])
-    mus *= 10 ** ((-19.0 - ml) / 20)
+    mus *= 10 ** ((-17.5 - ml) / 20)
     band = signal.sosfiltfilt(signal.butter(2, [700, 3200], 'band', fs=SR, output='sos'), mus, axis=0)
     mus = mus - band * (1 - 10 ** (-4.5 / 20)) * on[:, None]         # 人声频段（700Hz–3.2kHz）再让 4.5dB，避免铜管/弦乐中频压字
     mus *= (10 ** (duck_db / 20))[:, None]
@@ -218,6 +218,9 @@ def main(work):
     for h, w, sid in hits:
         place(sfx, impact(3.2, 0.55 * w, int(h * 10) % 97), h)
         place(sfx, sub_drop(2.4, 70, 26, 0.5 * w), h)
+    for k, v in tl['chapters'].items():
+        if k.startswith('tk_'):
+            place(sfx, impact(2.8, 0.5, 13), v[0]); place(sfx, sub_drop(2.2, 66, 26, 0.45), v[0])
     wt = lambda i, sub: score.word_time(seg[i], sub)
     for t0, a in ((wt('h3', '十亿股'), 0.3), (wt('h4', '四分之三'), 0.3), (wt('h5', '三千一百亿'), 0.4),
                   (wt('c1p', '十亿股'), 0.3), (wt('c4i', '一千亿'), 0.3)):    # 开场与关键数字：极轻的低频心跳托底
@@ -225,7 +228,7 @@ def main(work):
     sfx = signal.sosfilt(sos_lp(220, 4), sfx, axis=0)
     sfx = signal.sosfilt(sos_hp(28, 4), sfx, axis=0)
     sl = meter.integrated_loudness(sfx[sfx.any(1)])
-    sfx *= 10 ** ((-25.0 - sl) / 20)
+    sfx *= 10 ** ((-22.0 - sl) / 20)
 
     mix = mus + vo + sfx
     L = meter.integrated_loudness(mix)

@@ -18,7 +18,6 @@ def shot_ch2(cv, t):
     t0, t1 = win('c2b')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        M.full(cv, 'x_park_ring1', t, t0 - 1.0, t1, z0=1.0, z1=1.06, dark=0.6, a=a, src_t0=3.0, speed=0.7, credit=False)
         items = [('保险', 'INSURANCE', '保险'), ('铁路', 'BNSF', '铁路'), ('苹果', 'APPLE', '第三大生意')]
         for k, (nm, en, w_) in enumerate(items):
             kk = eback((t - WT('c2b', w_) + 0.1) / 0.5)
@@ -41,7 +40,6 @@ def shot_ch2(cv, t):
     t0, t1 = win('c2d')
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
-        M.full(cv, 'v_cars_night', t, t0, t1, z0=1.0, z1=1.05, dark=0.45, a=a, src_t0=10.0, cap='夜间公路车流')
         k1 = eo((t - WT('c2d', '第二辆车') + 0.1) / 0.5); k2 = eo((t - WT('c2d', 'iPhone') + 0.1) / 0.5)
         cv.text('第二辆车', W / 2 - 230, 620, 66, 'serif_black', col=CREAM, a=a * k1, shadow=0.8)
         cv.text('vs', W / 2, 620, 40, 'corm', col=GREY, a=a * k2, shadow=0.8)

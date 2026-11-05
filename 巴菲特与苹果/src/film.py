@@ -37,7 +37,8 @@ def render(i):
     cv.glow = cv2.warpAffine(cv.glow, M, (W, H), flags=cv2.INTER_LINEAR)
     if cv.U.any(): cv.U = cv2.warpAffine(cv.U, M, (W, H), flags=cv2.INTER_LINEAR)
     chapter_card(cv, t)
-    chapter_label(cv, t)
+    nav(cv, t)
+    takeaway(cv, t)
     subtitles(cv, t)
     fade = 1.0
     if t > TOTAL - 1.8: fade = eio((TOTAL - t) / 1.8)          # 整体淡出（含角标）
