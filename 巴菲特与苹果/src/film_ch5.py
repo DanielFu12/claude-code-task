@@ -8,8 +8,8 @@ def shot_ch5(cv, t):
     t0, t1 = win('c5a')
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
-        M.frame(cv, 'coke_bottles', t, t0, t1, cy=520, w=1000, h=520, a=a, bg=False, cap='可口可乐')
-        M.frame(cv, 'iphone11_cam', t, t0, t1, cy=1150, w=1000, h=520, a=a, bg=False, cap='iPhone')
+        M.frame(cv, 'x_bwb_cherrycoke', t, t0, t1, cy=520, w=1000, h=560, a=a, bg=False, speed=0.45, cap='巴菲特与樱桃可乐')
+        M.frame(cv, 'x_iphones_wall', t, t0, t1, cy=1150, w=1000, h=560, a=a, bg=False, cap='iPhone')
         k1 = eo((t - WT('c5a', '三十八年') + 0.1) / 0.5)
         cv.text('38 年 · 一股未卖', W / 2, 520, 64, 'serif_black', gold=True, a=a * k1, glow=0.25, shadow=0.9)
         k2 = eo((t - WT('c5a', '四分之三') + 0.1) / 0.5)
@@ -18,7 +18,7 @@ def shot_ch5(cv, t):
     t0, t1 = win('c5b')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        M.full(cv, 'coke_bottles', t, t0, t1, z0=1.2, z1=1.3, dark=0.6, a=a, sat=0.4, credit=False)
+        M.full(cv, 'x_bwb_cokestore', t, t0, t1, z0=1.0, z1=1.06, focus=(0.6, 0.45), dark=0.55, a=a, speed=0.3)
         k = eo((t - WT('c5b', '一九九八') + 0.1) / 0.5)
         cv.text('1998 · 可口可乐', W / 2, 460, 52, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
         cv.text('市盈率 ≈ 47 倍', W / 2, 580, 80, 'serif_black', col=RED, a=a * eo((t - WT('c5b', '四十七倍') + 0.1) / 0.5), shadow=0.8)
@@ -28,7 +28,7 @@ def shot_ch5(cv, t):
     t0, t1 = win('c5c')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        M.full(cv, 'apple_5th_displays', t, t0, t1, z0=1.1, z1=1.2, dark=0.6, a=a, sat=0.5, cap='苹果店内')
+        M.full(cv, 'x_i6s_unbox', t, t0, t1, z0=1.0, z1=1.06, dark=0.55, a=a, src_t0=7.0, speed=0.5)
         cv.text('2024 · 苹果', W / 2, 460, 52, 'sans_med', col=CREAM, a=a, shadow=0.8)
         cv.text('市盈率 ≈ 30 倍', W / 2, 580, 80, 'serif_black', col=CREAM, a=a * eo((t - WT('c5c', '三十倍') + 0.1) / 0.5), shadow=0.8)
         cv.text('占股票投资近一半', W / 2, 690, 50, 'serif_semi', col=CREAM, a=a * eo((t - WT('c5c', '近一半') + 0.1) / 0.5), shadow=0.8)
@@ -38,11 +38,11 @@ def shot_ch5(cv, t):
     t0, t1 = win('c5d')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        cv.text('段永平基金（H&H）持有的苹果', W / 2, 420, 36, 'sans_med', col=CREAM, a=a)
-        bars(cv, [('2024 年中', 6392, GOLD * 0.75, WT('c5d', '六千四百万') - 0.2), ('2026 年中', 2710, RED, WT('c5d', '两千七百万') - 0.2)],
-             t, t0, a, x0=200, x1=880, base=1220, hmax=620, fmt=lambda v: f'{v:,.0f}万股', label_size=30)
+        import fx
+        fx.bars3d(cv, t, t0, t1, ('2024 年中', 6392, '6392万股', WT('c5d', '六千四百万') - 0.2),
+                  ('2026 年中', 2710, '2710万股', WT('c5d', '两千七百万') - 0.2), a=a, right_red=True, title='段永平基金（H&H）持有的苹果')
         k = eo((t - WT('c5d', '近六成') + 0.1) / 0.5)
-        cv.text('−58%', W / 2, 640, 100, 'sans_bold', col=RED, a=a * k, glow=0.2)
+        cv.text('−58%', W / 2, 1320, 100, 'sans_bold', col=(1.0, 0.45, 0.4), a=a * k, glow=0.25, shadow=0.8)
         source(cv, 'SEC 13F（H&H International，外界普遍认为由段永平管理）：2024-06-30 63,924,255 股 → 2026-06-30 27,098,707 股', a, y=1392)
     # ---- c5d2：“水果已经比较成熟了”；卖出的钱买了短期国债
     t0, t1 = win('c5d2')
@@ -59,13 +59,13 @@ def shot_ch5(cv, t):
     t0, t1 = win('c5e')
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
-        M.full(cv, 'cook_2017', t, t0, t1, z0=1.05, z1=1.14, focus=(0.5, 0.35), dark=0.4, a=a, sat=0.6, cap='蒂姆·库克 · 2017')
+        M.full(cv, 'x_cook_roof', t, t0, t1, z0=1.0, z1=1.06, focus=(0.55, 0.45), dark=0.35, a=a, src_t0=1.0, speed=0.6, cap='蒂姆·库克 · Apple Park')
         quote_card(cv, 'q2025', t, WT('c5e', '说来') - 0.4, t1, cy=1060, en_size=30, cn_size=36, a=a)
     # ---- c5f–c5j：四条道理
     t0, t1 = S('c5f') - 0.3, S('c5k') + 0.1
     a = env(t, t0, t1, 0.5, 0.5)
     if a > 0:
-        M.full(cv, 'apple_park_aerial', t, t0, t1, z0=1.5, z1=1.65, dark=0.7, a=a, sat=0.4, credit=False)
+        M.full(cv, 'x_park_green', t, t0, t1, z0=1.0, z1=1.06, dark=0.6, a=a, speed=0.45, credit=False)
         cv.text('这十年，留下了四条朴素的道理', W / 2, 400, 44, 'sans_med', col=CREAM, a=a * eo((t - t0) / 0.6), shadow=0.8)
         rules = [('c5g', '看得懂，才下重注'), ('c5h', '买股票，就是买生意'), ('c5i', '再好的生意，也要看价格'), ('c5j', '仓位和税，都要算进账里')]
         for k, (lid, txt) in enumerate(rules):
@@ -89,7 +89,7 @@ def shot_ch5(cv, t):
     t0, t1 = S('c5l') - 0.3, CH['end'][0] + 0.3
     a = env(t, t0, t1, 0.6, 0.6)
     if a > 0:
-        M.full(cv, 'buffett_2015', t, t0, t1, z0=1.18, z1=1.28, focus=(0.55, 0.38), dark=0.35, a=a, sat=0.5, credit=False)
+        M.full(cv, 'x_bwbi_a', t, t0, t1, z0=1.04, z1=1.12, focus=(0.42, 0.42), dark=0.3, a=a, src_t0=8.0, credit=False)
         k = eo((t - WT('c5l', '伟大的企业') + 0.1) / 0.7)
         cv.text('伟大的企业，值得长期陪伴', W / 2, 1060, 58, 'serif_black', col=CREAM, a=a * k, shadow=0.9)
         k2 = eo((t - WT('c5l', '但没有') + 0.1) / 0.7)

@@ -14,7 +14,7 @@ def shot_ch3(cv, t):
     t0, t1 = win('c3a')
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
-        M.full(cv, 'omaha_river', t, t0, t1, z0=1.1, z1=1.18, dark=0.4, a=a, cap='奥马哈天际线与密苏里河')
+        M.full(cv, 'v_omaha_drone', t, t0, t1, z0=1.0, z1=1.06, dark=0.35, a=a, src_t0=200.0, cap='奥马哈航拍')
         headline(cv, '好生意 + 好价格', 860, a, 80, k=eo((t - t0 - 0.3) / 0.6))
     # ---- c3b：2023 年底市值约 1743 亿，几乎占股票投资的一半
     t0, t1 = win('c3b')
@@ -30,7 +30,7 @@ def shot_ch3(cv, t):
     t0, t1 = win('c3c')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        M.full(cv, 'buffett_osu2', t, t0, t1, z0=1.08, z1=1.16, focus=(0.5, 0.35), dark=0.5, a=a, sat=0.55, cap='巴菲特与学生交流')
+        M.full(cv, 'x_bwbi_c', t, t0, t1, z0=1.0, z1=1.08, focus=(0.42, 0.42), dark=0.45, a=a)
         k = eo((t - WT('c3c', '一百一十亿') + 0.1) / 0.5)
         cv.text('2020 · 卖出一小部分 · 落袋 $110亿', W / 2, 480, 40, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
         quote_card(cv, 'q2023c', t, WT('c3c', '三年后') - 0.3, t1, cy=900, en_size=36, cn_size=42, a=a)
@@ -84,12 +84,11 @@ def shot_ch3(cv, t):
     t1 = CH['ch4'][0] + 0.2
     a = env(t, t0, t1, 0.4, 0.5)
     if a > 0:
-        cv.text('同样的钱 · 同样的时间', W / 2, 400, 40, 'sans_med', col=CREAM, a=a)
-        bars(cv, [('苹果（资金加权）', 29.2, GOLD, WT('c3i', '百分之二十九') - 0.2),
-                  ('标普 500（含股息）', 14.8, GREY * 0.8, WT('c3i', '百分之十五') - 0.2)], t, t0, a, x0=180, x1=900, base=1180, hmax=620,
-             fmt=lambda v: f'{v:.0f}%', label_size=30)
+        import fx
+        fx.bars3d(cv, t, t0, t1, ('苹果（资金加权）', 29.2, '29%', WT('c3i', '百分之二十九') - 0.2),
+                  ('标普 500（含股息）', 14.8, '15%', WT('c3i', '百分之十五') - 0.2), a=a, title='年化回报 · 同样的钱、同样的时间')
         k = eo((t - WT('c3i', '一千三百九十亿') + 0.1) / 0.5)
-        cv.text('同额买入标普并持有至今 ≈ $1390亿', W / 2, 1290, 34, 'sans_light', col=CREAM, a=a * k)
+        cv.text('同额买入标普并持有至今 ≈ $1390亿', W / 2, 1270, 32, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
         k2 = eo((t - WT('c3i', '两倍') + 0.1) / 0.4)
-        cv.text('≈ 2 倍', W / 2, 640, 110, 'serif_black', gold=True, a=a * k2, glow=0.35)
+        cv.text('≈ 2 倍', W / 2, 1360, 90, 'serif_black', gold=True, a=a * k2, glow=0.35, shadow=0.8)
         source(cv, '年化 = 内部收益率（按每季度买卖与股息的实际时间，估算，税前）；标普 500 全收益指数 ^SP500TR', a, y=1392)

@@ -9,7 +9,7 @@ def shot_ch1(cv, t):
     a = env(t, t0, t1, 0.6, 0.4)
     if a > 0:
         p = t - t0
-        M.full(cv, 'buffett_ku', t, t0, t1, z0=1.05, z1=1.15, focus=(0.5, 0.35), dark=0.35, a=a, sat=0.6, cap='巴菲特在堪萨斯大学')
+        M.full(cv, 'x_bwb_desk', t, t0, t1, z0=1.0, z1=1.08, focus=(0.55, 0.45), dark=0.35, a=a, speed=0.8, cap='巴菲特在奥马哈的办公室')
         R = 300 * eo((p - 0.8) / 1.2)
         if R > 1:
             cv.circle((W / 2, 900), R, GOLD, a * 0.9, 3)
@@ -47,8 +47,7 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1d', pre=0.2)
     a = env(t, t0, t1, 0.4, 0.5)
     if a > 0:
-        M.full(cv, 'apple_5th_2006', t, t0, t1, z0=1.15, z1=1.25, focus=(0.5, 0.5), dark=0.55, a=a, sat=0.5,
-               cap='纽约第五大道苹果店 · 2006')
+        M.full(cv, 'x_jobs07_stage', t, t0, t1, z0=1.0, z1=1.1, focus=(0.42, 0.45), dark=0.35, a=a, speed=0.7, cap='Macworld 2007 · 乔布斯发布第一代 iPhone')
         headline(cv, '另一个人', 860, a, 110, k=eo((t - WT('c1d', '另一个人') + 0.1) / 0.6))
     # ---- c1e：2006 年慈善午餐拍卖
     t0, t1 = win('c1e')
@@ -91,7 +90,7 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1h')
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
-        M.frame(cv, 'jobs_2010', t, t0, t1, cy=640, w=760, h=760, focus=(0.5, 0.42), a=a, cap='史蒂夫·乔布斯 · 2010')
+        M.full(cv, 'x_jobs_council', t, t0, t1, z0=1.0, z1=1.08, focus=(0.45, 0.4), dark=0.4, a=a, speed=0.22, cap='2011 年 · 乔布斯在库比蒂诺市议会介绍新园区')
         k = eo((t - WT('c1h', '二零一一') + 0.1) / 0.5)
         cv.text('2011', 140, 330, 80, 'oswald', col=GOLD, a=a * k, anchor='l', shadow=0.8)
         for j, (w_, s) in enumerate([('用户体验', '用户体验，做到极致'), ('护城河', '生意模式，形成护城河')]):
@@ -112,7 +111,7 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1j')
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
-        M.full(cv, 'kiewit', t, t0, t1, z0=1.08, z1=1.2, focus=(0.5, 0.4), dark=0.45, a=a, sat=0.6, cap='基威特广场 · 奥马哈（伯克希尔总部所在）')
+        M.full(cv, 'x_bwb_office', t, t0, t1, z0=1.0, z1=1.08, focus=(0.6, 0.45), dark=0.45, a=a, src_t0=2.0, speed=0.45, cap='伯克希尔总部 · 奥马哈')
         k = eo((t - WT('c1j', '二零一六') + 0.1) / 0.5)
         cv.text('2016 Q1', W / 2, 420, 96, 'oswald', col=GOLD, a=a * k, shadow=0.8, glow=0.15)
         cv.text('首次买入苹果 · 约 $10亿', W / 2, 530, 44, 'sans_med', col=CREAM, a=a * eo((t - WT('c1j', '投入') + 0.1) / 0.5), shadow=0.8)
@@ -170,7 +169,7 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1n')
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
-        M.full(cv, 'buffett_osu', t, t0, t1, z0=1.08, z1=1.2, focus=(0.5, 0.42), dark=0.45, a=a, sat=0.6, cap='巴菲特与俄亥俄州立大学学生')
+        M.full(cv, 'x_bwbi_b', t, t0, t1, z0=1.0, z1=1.08, focus=(0.42, 0.42), dark=0.4, a=a)
         quote_card(cv, 'q2024am', t, t0 + 0.2, WT('c1n', '大行动') - 0.2, cy=760, en_size=32, cn_size=38, a=a)
         k = eo((t - WT('c1n', '大行动') + 0.05) / 0.35)
         if k > 0:
@@ -221,6 +220,6 @@ def shot_ch1(cv, t):
     if a > 0:
         tsw = WT('c1s', 'iPhone')
         M.full(cv, 'flip_keypad', t, t0, tsw + 0.6, z0=1.1, z1=1.15, dark=0.35, a=a, fo=0.6, cap='翻盖手机键盘（示意）')
-        M.full(cv, 'iphone11', t, tsw, t1, z0=1.05, z1=1.15, dark=0.3, a=a, fi=0.6, cap='iPhone 11 · 2019')
+        M.full(cv, 'x_iphone_hand', t, tsw, t1, z0=1.0, z1=1.08, dark=0.3, a=a, fi=0.6, speed=0.3, cap='iPhone')
         cv.text('2020', W / 2, 400, 110, 'oswald', col=GOLD, a=a * eo((t - t0) / 0.6), shadow=0.8)
         quote_card(cv, 'q2020flip', t, WT('c1s', '我的翻盖') - 0.4, t1, cy=1080, en_size=40, cn_size=44, a=a)

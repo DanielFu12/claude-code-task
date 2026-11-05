@@ -26,6 +26,9 @@ def render(i):
     if CH['ch4'][0] <= t < CH['ch5'][0] + 0.8: shot_ch4(cv, t)
     if CH['ch5'][0] <= t < CH['end'][0] + 0.8: shot_ch5(cv, t)
     if t >= CH['end'][0] - 0.6: shot_end(cv, t)
+    if CH['ch1'][0] <= t < CH['end'][0]:
+        import fx
+        fx.dust(cv, t, 0.35, seed=9)
     # 镜头呼吸：极缓的推拉与漂移，让静态排版也有摄影机的生命感（字幕/角标不受影响）
     z = 1.012 + 0.012 * math.sin(t * 0.37)
     dx, dy = 6 * math.sin(t * 0.23), 8 * math.sin(t * 0.29 + 1)

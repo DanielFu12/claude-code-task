@@ -1,0 +1,158 @@
+{
+ "x_park_top": {
+  "source": "Apple WWDC24 Keynote（Apple, 2024）",
+  "ia": "https://archive.org/details/wwdc24",
+  "start": 78,
+  "dur": 12
+ },
+ "x_cook_roof": {
+  "source": "Apple WWDC24 Keynote（Apple, 2024）",
+  "ia": "https://archive.org/details/wwdc24",
+  "start": 98,
+  "dur": 14
+ },
+ "x_park_green": {
+  "source": "Apple WWDC24 Keynote（Apple, 2024）",
+  "ia": "https://archive.org/details/wwdc24",
+  "start": 858,
+  "dur": 10
+ },
+ "x_iphones_wall": {
+  "source": "Apple WWDC24 Keynote（Apple, 2024）",
+  "ia": "https://archive.org/details/wwdc24",
+  "start": 898,
+  "dur": 10
+ },
+ "x_iphone_hand": {
+  "source": "Apple WWDC24 Keynote（Apple, 2024）",
+  "ia": "https://archive.org/details/wwdc24",
+  "start": 938,
+  "dur": 10
+ },
+ "x_park_ring1": {
+  "source": "The Genius Design of Apple Park（Polyphonic / Nebula, 2023）",
+  "ia": "https://archive.org/details/youtube-VbeM8Lf7s5A",
+  "start": 432,
+  "dur": 14
+ },
+ "x_park_ring2": {
+  "source": "The Genius Design of Apple Park（Polyphonic / Nebula, 2023）",
+  "ia": "https://archive.org/details/youtube-VbeM8Lf7s5A",
+  "start": 612,
+  "dur": 16
+ },
+ "x_park_ring3": {
+  "source": "The Genius Design of Apple Park（Polyphonic / Nebula, 2023）",
+  "ia": "https://archive.org/details/youtube-VbeM8Lf7s5A",
+  "start": 703,
+  "dur": 18
+ },
+ "x_park_ring4": {
+  "source": "The Genius Design of Apple Park（Polyphonic / Nebula, 2023）",
+  "ia": "https://archive.org/details/youtube-VbeM8Lf7s5A",
+  "start": 958,
+  "dur": 12
+ },
+ "x_park_theater": {
+  "source": "The Genius Design of Apple Park（Polyphonic / Nebula, 2023）",
+  "ia": "https://archive.org/details/youtube-VbeM8Lf7s5A",
+  "start": 733,
+  "dur": 10
+ },
+ "x_jobs_council": {
+  "source": "The Genius Design of Apple Park（Polyphonic / Nebula, 2023）",
+  "ia": "https://archive.org/details/youtube-VbeM8Lf7s5A",
+  "start": 148,
+  "dur": 18
+ },
+ "x_bwb_cherrycoke": {
+  "source": "Becoming Warren Buffett（HBO, 2017）片段",
+  "ia": "https://archive.org/details/youtube-pKWN0YFf_14",
+  "start": 166,
+  "dur": 7
+ },
+ "x_bwb_cokestore": {
+  "source": "Becoming Warren Buffett（HBO, 2017）片段",
+  "ia": "https://archive.org/details/youtube-pKWN0YFf_14",
+  "start": 190,
+  "dur": 6
+ },
+ "x_bwb_walk": {
+  "source": "Becoming Warren Buffett（HBO, 2017）片段",
+  "ia": "https://archive.org/details/youtube-pKWN0YFf_14",
+  "start": 184,
+  "dur": 6
+ },
+ "x_bwb_desk": {
+  "source": "Becoming Warren Buffett（HBO, 2017）片段",
+  "ia": "https://archive.org/details/youtube-pKWN0YFf_14",
+  "start": 262,
+  "dur": 12
+ },
+ "x_bwb_office": {
+  "source": "Becoming Warren Buffett（HBO, 2017）片段",
+  "ia": "https://archive.org/details/youtube-pKWN0YFf_14",
+  "start": 310,
+  "dur": 12
+ },
+ "x_bwb_meeting": {
+  "source": "Becoming Warren Buffett（HBO, 2017）片段",
+  "ia": "https://archive.org/details/youtube-pKWN0YFf_14",
+  "start": 346,
+  "dur": 30
+ },
+ "x_bwb_arena": {
+  "source": "Becoming Warren Buffett（HBO, 2017）片段",
+  "ia": "https://archive.org/details/youtube-pKWN0YFf_14",
+  "start": 424,
+  "dur": 6
+ },
+ "x_bwbi_a": {
+  "source": "Becoming Warren Buffett 访谈（HBO, 2017）",
+  "ia": "https://archive.org/details/youtube-cd-w9H0G6nQ",
+  "start": 598,
+  "dur": 20
+ },
+ "x_bwbi_b": {
+  "source": "Becoming Warren Buffett 访谈（HBO, 2017）",
+  "ia": "https://archive.org/details/youtube-cd-w9H0G6nQ",
+  "start": 1618,
+  "dur": 20
+ },
+ "x_bwbi_c": {
+  "source": "Becoming Warren Buffett 访谈（HBO, 2017）",
+  "ia": "https://archive.org/details/youtube-cd-w9H0G6nQ",
+  "start": 2338,
+  "dur": 20
+ },
+ "x_i6s_store": {
+  "source": "iPhone 6S Launch & Unboxing（Gear Live, 2015）",
+  "ia": "https://archive.org/details/IPhone6SLaunchUnboxing4k",
+  "start": 110,
+  "dur": 36
+ },
+ "x_i6s_unbox": {
+  "source": "iPhone 6S Launch & Unboxing（Gear Live, 2015）",
+  "ia": "https://archive.org/details/IPhone6SLaunchUnboxing4k",
+  "start": 168,
+  "dur": 32
+ },
+ "x_jobs07_stage": {
+  "source": "Macworld 2007 Keynote（Apple, 2007；4K AI 修复版）",
+  "ia": "https://archive.org/details/macworld-san-francisco-2007-keynote-address-steve-jobs-introduces-i-phone-4-k-ai-upscale",
+  "start": 1398,
+  "dur": 14
+ },
+ "x_jobs07_wave": {
+  "source": "Macworld 2007 Keynote（Apple, 2007；4K AI 修复版）",
+  "ia": "https://archive.org/details/macworld-san-francisco-2007-keynote-address-steve-jobs-introduces-i-phone-4-k-ai-upscale",
+  "start": 2196,
+  "dur": 10
+ },
+ "x_jobs07_hand": {
+  "source": "Macworld 2007 Keynote（Apple, 2007；4K AI 修复版）",
+  "ia": "https://archive.org/details/macworld-san-francisco-2007-keynote-address-steve-jobs-introduces-i-phone-4-k-ai-upscale",
+  "start": 1518,
+  "dur": 10
+ }
+}

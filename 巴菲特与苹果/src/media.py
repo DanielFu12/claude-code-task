@@ -54,10 +54,20 @@ def vframe(name, sec):
     v = _vid[name]
     if v is None: return None
     fr = v.get(round(sec * v.fps))
-    return None if fr is None else fr[..., ::-1].astype(np.float32) / 255
+    if fr is None: return None
+    if name.startswith('x_bwb'):                      # 纪录片素材里烧录的时间码（右上）与水印（下方居中）：局部重度模糊抹去
+        fr = fr.copy(); h, w = fr.shape[:2]
+        for x0, y0, x1, y1 in ((0.74, 0.0, 1.0, 0.14), (0.22, 0.84, 0.78, 0.97)):
+            X0, Y0, X1, Y1 = int(x0 * w), int(y0 * h), int(x1 * w), int(y1 * h)
+            fr[Y0:Y1, X0:X1] = cv2.GaussianBlur(fr[Y0:Y1, X0:X1], (0, 0), 25)
+    return fr[..., ::-1].astype(np.float32) / 255
+
+
+IA = json.load(open(os.path.join(MDIR, 'ia_clips.json'))) if os.path.exists(os.path.join(MDIR, 'ia_clips.json')) else {}
 
 
 def credit_text(name):
+    if name in IA: return '影像：' + IA[name]['source']
     c = CREDITS.get(name.split('#')[0])
     if not c: return ''
     art = (c.get('artist') or '').replace('\n', ' ').strip()
@@ -68,11 +78,11 @@ def credit_text(name):
     return f'{art} · {lic} · Wikimedia Commons' if art else f'{lic} · Wikimedia Commons'
 
 
-def grade(im, warm=0.0, sat=0.9, lift=0.0, gain=1.0):
-    """统一调色：略降饱和、轻微暖调，让来源各异的素材属于同一部片子"""
+def grade(im, warm=0.0, sat=1.0, lift=0.0, gain=1.0):
+    """现代、通透的统一调色：保留原色彩（不做怀旧的暖黄或去饱和），略提饱和与对比，让高清素材更鲜明"""
     g = im @ np.array([0.3, 0.59, 0.11], np.float32)
-    out = g[..., None] + (im - g[..., None]) * sat
-    if warm: out = out * np.array([1 + 0.06 * warm, 1.0, 1 - 0.08 * warm], np.float32)
+    out = g[..., None] + (im - g[..., None]) * 1.08
+    out = (out - 0.5) * 1.06 + 0.5
     return np.clip(out * gain + lift, 0, 1)
 
 
@@ -86,7 +96,7 @@ def _crop(src, w, h, z, fx, fy, px=0.0, py=0.0):
 
 
 _grad = {}
-def _shade(h, top=0.55, bottom=0.75, mid=0.0):
+def _shade(h, top=0.45, bottom=0.62, mid=0.0):
     k = (h, top, bottom, mid)
     if k not in _grad:
         y = np.linspace(0, 1, h, dtype=np.float32)
@@ -106,6 +116,22 @@ def resolve(name, depth=0):
     return resolve(FALLBACK.get(name, name), depth + 1) if name in FALLBACK else name
 
 
+# 每个视频片段里真正可用的时段（之后会切到别的画面）；镜头时长超出时自动放慢，保证不越界、不定格
+USABLE = {'x_bwb_arena': (0, 3), 'x_bwb_cherrycoke': (0, 4.5), 'x_bwb_cokestore': (0, 3.2), 'x_bwb_desk': (0, 10.5),
+          'x_bwb_meeting': (17, 30), 'x_bwb_office': (2, 10.5), 'x_bwb_walk': (0, 4), 'x_bwbi_a': (0, 20), 'x_bwbi_b': (0, 20),
+          'x_bwbi_c': (0, 20), 'x_cook_roof': (0, 9.3), 'x_i6s_store': (0, 8), 'x_i6s_unbox': (7, 12.5), 'x_iphone_hand': (0, 3.2),
+          'x_iphones_wall': (1.5, 10), 'x_jobs07_stage': (0, 7.5), 'x_jobs07_wave': (0, 8.5), 'x_jobs_council': (0, 3.2),
+          'x_park_green': (0, 10), 'x_park_ring1': (2.5, 12.5), 'x_park_ring2': (3, 16), 'x_park_ring3': (0, 3), 'x_park_ring4': (0, 6.3),
+          'x_park_theater': (0, 5.2), 'x_park_top': (8.3, 12)}
+
+
+def fit_speed(name, src_t0, speed, dur):
+    if name in USABLE:
+        a, b = USABLE[name]; src_t0 = max(src_t0, a)
+        speed = min(speed, max(b - src_t0 - 0.05, 0.1) / max(dur, 0.1))
+    return src_t0, speed
+
+
 def source_frame(name, t, t0, src_t0=0.0, speed=1.0):
     """name 为照片或视频；视频按 (t - t0) * speed + src_t0 取帧"""
     if os.path.exists(os.path.join(CLIPDIR, name + '.mp4')):
@@ -114,20 +140,24 @@ def source_frame(name, t, t0, src_t0=0.0, speed=1.0):
 
 
 def full(cv, name, t, t0, t1, z0=1.04, z1=1.14, focus=(0.5, 0.5), pan=(0, 0, 0, 0), a=1.0, fi=0.6, fo=0.6,
-         shade=(0.55, 0.75), dark=0.0, warm=0.25, sat=0.85, src_t0=0.0, speed=1.0, credit=True, cap=None, bw=False):
+         shade=(0.45, 0.62), dark=0.0, warm=0.0, sat=1.0, src_t0=0.0, speed=1.0, credit=True, cap=None, bw=False, sweep=True):
     """满幅照片/视频，带缓慢推拉；shade=(顶部压暗, 底部压暗)；dark 额外整体压暗（叠图表时用）"""
     al = env(t, t0, t1, fi, fo) * a
     if al <= 0.004: return 0.0
     r = resolve(name)
     if r != name: name, cap = r, None
+    src_t0, speed = fit_speed(name, src_t0, speed, t1 - t0)
     src, isv = source_frame(name, t, t0, src_t0, speed)
     if src is None: return 0.0
     p = eio((t - t0) / max(t1 - t0, 1e-3))
     z = lerp(z0, z1, p)
     fr = _crop(src, W, H, z, focus[0], focus[1], lerp(pan[0], pan[2], p), lerp(pan[1], pan[3], p))
     if bw: g = fr @ np.array([0.3, 0.59, 0.11], np.float32); fr = np.repeat(g[..., None], 3, 2)
-    fr = grade(fr, warm, sat) * _shade(H, shade[0], shade[1], dark)
+    fr = grade(fr, warm, sat) * _shade(H, shade[0], shade[1], dark * 0.75)
     cv.over(fr, np.full((H, W), al, np.float32), 0, 0)
+    if sweep:
+        import fx
+        fx.sweep(cv, t, t0 - 0.05, 0.75, a=0.45 * a)
     if credit: credit_line(cv, name, al, cap)
     return al
 
@@ -139,13 +169,14 @@ def frame(cv, name, t, t0, t1, cy=820, w=1000, h=680, z0=1.02, z1=1.10, focus=(0
     if al <= 0.004: return 0.0
     r = resolve(name)
     if r != name: name, cap = r, None
+    src_t0, speed = fit_speed(name, src_t0, speed, t1 - t0)
     src, isv = source_frame(name, t, t0, src_t0, speed)
     if src is None: return 0.0
     p = eio((t - t0) / max(t1 - t0, 1e-3))
     if bg:
         small = _crop(src, W // 8, H // 8, 1.15, focus[0], focus[1])
         b = cv2.resize(cv2.GaussianBlur(small, (0, 0), 3.0), (W, H), interpolation=cv2.INTER_LINEAR)
-        b = grade(b, warm, 0.6) * 0.32
+        b = grade(b, warm, 1.0) * 0.38
         cv.over(b, np.full((H, W), al, np.float32), 0, 0)
     z = lerp(z0, z1, p)
     fr = _crop(src, w, h, z, focus[0], focus[1], lerp(pan[0], pan[2], p), lerp(pan[1], pan[3], p))

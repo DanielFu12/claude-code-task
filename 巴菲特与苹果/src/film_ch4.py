@@ -10,7 +10,7 @@ def shot_ch4(cv, t):
     t0, t1 = win('c4a')
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
-        M.full(cv, 'brk_meeting_2025', t, t0, t1, z0=1.18, z1=1.3, focus=(0.5, 0.45), dark=0.4, a=a, cap='伯克希尔股东大会现场（2025 年）')
+        M.full(cv, 'x_bwb_meeting', t, t0, t1, z0=1.0, z1=1.08, focus=(0.5, 0.45), dark=0.4, a=a, src_t0=18.0, speed=0.9, cap='伯克希尔股东大会现场')
         headline(cv, '为什么卖？', 820, a, 110, k=eo((t - t0 - 0.2) / 0.5))
     # ---- c4b：第一，价格：14 倍 → 30 倍
     t0, t1 = win('c4b')
@@ -90,7 +90,7 @@ def shot_ch4(cv, t):
     t0, t1 = win('c4g')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        M.full(cv, 'apple_park_aerial', t, t0, t1, z0=1.3, z1=1.45, dark=0.45, a=a, credit=False)
+        M.full(cv, 'x_park_ring4', t, t0, t1, z0=1.0, z1=1.06, dark=0.45, a=a, speed=0.55, cap='Apple Park 航拍')
         quote_card(cv, 'q2024c', t, t0 + 0.1, t1, cy=720, en_size=40, cn_size=46, a=a)
         k = eo((t - WT('c4g', '二零二五年底') + 0.1) / 0.5)
         if k > 0:
@@ -139,7 +139,7 @@ def shot_ch4(cv, t):
     t0 = S('c4k') - 0.3; t1 = CH['ch5'][0] + 0.2
     a = env(t, t0, t1, 0.5, 0.5)
     if a > 0:
-        M.full(cv, 'buffett_pitch', t, t0, t1, z0=1.06, z1=1.14, focus=(0.5, 0.4), dark=0.5, a=a, sat=0.5, cap='巴菲特在奥马哈的棒球赛上开球')
+        M.full(cv, 'x_bwb_walk', t, t0, t1, z0=1.0, z1=1.06, focus=(0.55, 0.45), dark=0.5, a=a, speed=0.4)
         k = eo((t - WT('c4k', '对价格') + 0.1) / 0.6)
         cv.text('卖掉的，是判断', W / 2, 760, 78, 'serif_black', gold=True, a=a * k, glow=0.25, shadow=0.8)
         cv.text('不是对生意的否定', W / 2, 880, 64, 'serif_black', col=CREAM, a=a * eo((t - WT('c4k', '而不是') + 0.1) / 0.6), shadow=0.8)

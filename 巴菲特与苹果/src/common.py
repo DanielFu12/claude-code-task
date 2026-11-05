@@ -559,8 +559,7 @@ def shot_hook_tail(cv, t):
     t0, t1 = S('h6') - 0.2, CH['title'][0] + 0.1
     a = env(t, t0, t1, 0.6, 0.15)
     if a > 0:
-        M.full(cv, 'buffett_2015', t, t0, t1, z0=1.12, z1=1.22, focus=(0.55, 0.38), dark=0.1, a=a, warm=0.15, sat=0.6,
-               cap='巴菲特 · 2015 年（美国商务部，公有领域）')
+        M.full(cv, 'x_bwbi_a', t, t0, t1, z0=1.0, z1=1.08, focus=(0.42, 0.45), dark=0.05, a=a)
         k = eo((t - WT('h6', '沃伦') + 0.1) / 0.7)
         cv.text('WARREN BUFFETT', W / 2, 1180, 64, 'corm', col=GOLD_L, a=a * k, track=0.2, shadow=0.8)
         k2 = eo((t - WT('h6', '十年前') + 0.1) / 0.6)

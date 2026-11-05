@@ -23,8 +23,7 @@ def shot_hook(cv, t):
     a = env(t, t0, t1, 0.6, 0.5)
     if a > 0:
         p = t - t0
-        M.full(cv, 'apple_park_aerial', t, t0, t1, z0=1.18, z1=1.55, focus=(0.5, 0.5), pan=(-0.02, 0.0, 0.03, 0.02),
-               dark=0.5, a=a, warm=0.35, cap='Apple Park 航拍')
+        M.full(cv, 'x_park_top', t, t0, t1, z0=1.0, z1=1.12, focus=(0.5, 0.5), dark=0.45, a=a, src_t0=8.3, speed=0.33, cap='Apple Park 航拍', sweep=False)
         tr = WT('h1', '市值')
         rv = eio5(cl((t - t0) / (tr - t0)))
         lay = Canvas(t)
@@ -59,8 +58,7 @@ def shot_hook(cv, t):
     a = env(t, t0, t1, 0.45, 0.4)
     if a > 0:
         p = t - t0
-        M.full(cv, 'brk_meeting_2025', t, t0, t1, z0=1.25, z1=1.5, focus=(0.5, 0.45), pan=(0.04, 0.0, -0.03, 0.0),
-               dark=0.2, a=a, warm=0.3, cap='伯克希尔股东大会 · 2025')
+        M.full(cv, 'x_bwb_meeting', t, t0, t1, z0=1.0, z1=1.1, focus=(0.55, 0.45), dark=0.15, a=a, src_t0=17.5, speed=0.8, cap='伯克希尔股东大会现场', sweep=False)
         k = eo((p - 0.4) / 1.4)
         cv.text('BERKSHIRE HATHAWAY', W / 2, 420, 50, 'oswald', col=GOLD_L, a=a * k, track=0.6 - 0.45 * k, shadow=0.9, glow=0.15)
         cv.line((W / 2 - 300 * k, 470), (W / 2 + 300 * k, 470), GOLD_D, a * k, 2)
@@ -111,15 +109,15 @@ def shot_hook(cv, t):
         cv.text('9.16 亿股', W / 2, 420, 84, 'sans_bold', gold=True, a=a * eo((p - 0.3) / 0.5), glow=0.25, shadow=0.8)
         cv.text('每格 ≈ 916 万股', W / 2, 490, 24, 'sans_light', col=GREY, a=a * eo((p - 0.6) / 0.5), shadow=0.8)
         k = eo((t - tq + 0.1) / 0.5)
-        cv.text('卖出约 3/4', W / 2, 1180, 64, 'serif_black', col=(1.0, 0.5, 0.42), a=a * k, glow=0.25, shadow=0.9)
+        cv.text('卖出约 3/4', W / 2, 575, 56, 'serif_black', col=(1.0, 0.5, 0.42), a=a * k, glow=0.25, shadow=0.9)
         tm = WT('h4', '一千三百四十亿')
         k2 = eo((t - tm + 0.1) / 0.4)
         if k2 > 0:
             v = counter(0, 1340, t, tm - 0.1, 1.0, lambda v: f'${v:,.0f}亿')
-            cv.text('套现约', W / 2, 1290, 36, 'sans_med', col=CREAM, a=a * k2, shadow=0.8)
-            cv.text(v, W / 2, 1390, 140, 'sans_bold', gold=True, a=a * k2, glow=0.45, shadow=0.8, scale=1.06 - 0.06 * k2)
-            fx.flare(cv, W / 2, 1390, a * math.exp(-max(t - tm - 1.0, 0) * 3) * (t > tm + 1.0), length=650)
-        source(cv, '估算：各季度减持股数 × 当季日均收盘价（税前）；伯克希尔 13F', a, y=1475)
+            cv.text('套现约', W / 2, 1215, 34, 'sans_med', col=CREAM, a=a * k2, shadow=0.8)
+            cv.text(v, W / 2, 1310, 118, 'sans_bold', gold=True, a=a * k2, glow=0.45, shadow=0.8, scale=1.06 - 0.06 * k2)
+            fx.flare(cv, W / 2, 1310, a * math.exp(-max(t - tm - 1.0, 0) * 3) * (t > tm + 1.0), length=650)
+        source(cv, '估算：各季度减持股数 × 当季日均收盘价（税前）；伯克希尔 13F', a, y=1400)
         fx.dust(cv, t, a * 0.5, seed=4)
 
     # ---- h5 之后沿用原版（假如一股不卖 / 他是巴菲特）

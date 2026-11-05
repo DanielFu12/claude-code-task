@@ -98,3 +98,30 @@ def layer_over(cv, rgba, a=1.0, glow_k=0.6):
     al = rgba[..., 3:4] * a
     cv.img = cv.img * (1 - al) + rgba[..., :3] * a
     cv.glow += np.clip(rgba[..., :3] * a - 0.6, 0, None) * glow_k
+
+
+# ------------------------------------------------------------------ 三维金属柱对比（两根柱子，摄影机缓慢环绕，数值标在柱顶）
+_bs = {}
+def bars3d(cv, t, t0, t1, left, right, a=1.0, title=None, sub=None, right_red=False, hmax=1.65, cam0=-0.55, cam1=-0.2):
+    """left/right = (标签, 数值, 显示文本, 出现时刻)；左柱金色，右柱金色或红色"""
+    if a <= 0.004: return
+    import shaders
+    if 'B' not in _bs: _bs['B'] = Shader(shaders.BARS)
+    vmax = max(left[1], right[1])
+    kl = eexp((t - left[3]) / 1.3); kr = eexp((t - right[3]) / 1.3)
+    hl = max(hmax * left[1] / vmax * kl, 0.001); hr = max(hmax * right[1] / vmax * kr, 0.001)
+    p = cl((t - t0) / max(t1 - t0, 1e-3))
+    cam = lerp(cam0, cam1, eio(p)); camr = lerp(10.8, 9.2, eio(p))
+    img = _bs['B'](t=t, cam=cam, camr=camr, h1=hl, h2=hr, ex=1.0, glow2=0.0, redk=1.0 if right_red else 0.0)
+    layer_over(cv, img, a)
+    ro = (math.sin(cam) * camr, 2.0, math.cos(cam) * camr); ta = (0, 1.45, 0)
+    for (lab, v, txt, ts), x3, h, col in ((left, 0.85, hl, None), (right, -0.85, hr, (1.0, 0.45, 0.4) if right_red else None)):
+        k = eo((t - ts - 0.6) / 0.5)
+        if k <= 0: continue
+        x, y = project((x3, 2 * h + 0.32, 0), ro, ta, 2.4)
+        if col is None: cv.text(txt, x, y, 64, 'sans_bold', gold=True, a=a * k, glow=0.3, shadow=0.8)
+        else: cv.text(txt, x, y, 64, 'sans_bold', col=col, a=a * k, glow=0.3, shadow=0.8)
+        xb, yb = project((x3, -0.05, 0.6), ro, ta, 2.4)
+        cv.text(lab, xb, yb + 40, 30, 'sans_med', col=CREAM, a=a * min(1, (t - ts) / 0.5 if t > ts else 0), shadow=0.8)
+    if title: cv.text(title, W / 2, 330, 42, 'sans_med', col=CREAM, a=a, shadow=0.8)
+    if sub: cv.text(sub, W / 2, 395, 26, 'sans_light', col=GREY, a=a, shadow=0.8)

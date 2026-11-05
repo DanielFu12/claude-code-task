@@ -13,12 +13,12 @@ def shot_ch2(cv, t):
     t0, t1 = win('c2a')
     a = env(t, t0, t1, 0.6, 0.4)
     if a > 0:
-        M.full(cv, 'apple_park_dusk', t, t0, t1, z0=1.1, z1=1.2, dark=0.25, a=a, cap='Apple Park 黄昏航拍')
+        M.full(cv, 'x_park_ring2', t, t0, t1, z0=1.0, z1=1.06, dark=0.2, a=a, src_t0=3.0, cap='Apple Park 航拍')
     # ---- c2b：伯克希尔的第三大生意（仅次于保险和铁路）
     t0, t1 = win('c2b')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        M.full(cv, 'apple_park_dusk', t, t0 - 1.0, t1, z0=1.2, z1=1.26, dark=0.65, a=a, credit=False)
+        M.full(cv, 'x_park_ring1', t, t0 - 1.0, t1, z0=1.0, z1=1.06, dark=0.6, a=a, src_t0=3.0, speed=0.7, credit=False)
         items = [('保险', 'INSURANCE', '保险'), ('铁路', 'BNSF', '铁路'), ('苹果', 'APPLE', '第三大生意')]
         for k, (nm, en, w_) in enumerate(items):
             kk = eback((t - WT('c2b', w_) + 0.1) / 0.5)
@@ -35,7 +35,7 @@ def shot_ch2(cv, t):
     t0, t1 = win('c2c')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        M.full(cv, 'apple_5th', t, t0, t1, z0=1.1, z1=1.2, dark=0.45, a=a, cap='纽约第五大道苹果店')
+        M.full(cv, 'x_i6s_store', t, t0, t1, z0=1.0, z1=1.06, dark=0.45, a=a, src_t0=0.0, speed=0.8, cap='苹果店 · 新 iPhone 首发日')
         quote_card(cv, 'q2020best', t, t0 + 0.1, t1, cy=860, en_size=40, cn_size=46, a=a)
     # ---- c2d：第二辆车 vs iPhone
     t0, t1 = win('c2d')
@@ -54,7 +54,7 @@ def shot_ch2(cv, t):
     t0, t1 = win('c2e')
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
-        M.full(cv, 'buffett_2010', t, t0, t1, z0=1.08, z1=1.18, focus=(0.5, 0.35), dark=0.45, a=a, sat=0.55, cap='巴菲特 · 2010')
+        M.full(cv, 'x_bwb_desk', t, t0, t1, z0=1.0, z1=1.08, focus=(0.55, 0.45), dark=0.45, a=a, src_t0=1.0, speed=0.75)
         k = eo((t - WT('c2e', '买股票') + 0.1) / 0.6)
         cv.text('买股票，', W / 2, 760, 90, 'serif_black', col=CREAM, a=a * k, shadow=0.8)
         cv.text('就是买下一门生意的一部分', W / 2, 880, 60, 'serif_black', gold=True, a=a * eo((t - WT('c2e', '就是') + 0.1) / 0.6), glow=0.2, shadow=0.8)
@@ -66,10 +66,9 @@ def shot_ch2(cv, t):
     t0, t1 = win('c2f')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        cv.text('2021 年 · 苹果之于伯克希尔', W / 2, 420, 38, 'sans_med', col=CREAM, a=a)
-        bars(cv, [('收到的股息', 7.85, GREY * 0.8, WT('c2f', '股息是') - 0.1),
-                  ('应占的苹果利润', 56.0, GOLD * 0.8, WT('c2f', '应占') - 0.1)], t, t0, a, x0=180, x1=900, base=1250, hmax=650,
-             fmt=lambda v: f'${v:.1f}亿' if v < 10 else f'${v:.0f}亿', label_size=30)
+        import fx
+        fx.bars3d(cv, t, t0, t1, ('收到的股息', 7.85, '$7.85亿', WT('c2f', '股息是') - 0.1),
+                  ('应占的苹果利润', 56.0, '$56亿', WT('c2f', '应占') - 0.1), a=a, title='2021 年 · 苹果之于伯克希尔')
         source(cv, '巴菲特 2021 年致股东信：“Apple paid us $785 million… our “share” of Apple’s earnings amounted to $5.6 billion”', a, y=1392)
     # ---- c2g：剩下的利润用于回购
     t0, t1 = win('c2g')
@@ -131,11 +130,11 @@ def shot_ch2(cv, t):
     t1 = CH['ch3'][0] + 0.2
     a = env(t, t0, t1, 0.4, 0.5)
     if a > 0:
-        cv.text('2016 → 2026 财年', W / 2, 420, 40, 'sans_med', col=CREAM, a=a)
-        bars(cv, [('净利润', 2.9, GOLD * 0.65, WT('c2k', '净利润') - 0.1), ('每股收益', 4.3, GOLD, WT('c2k', '每股收益') - 0.1)],
-             t, t0, a, x0=200, x1=880, base=1180, hmax=600, fmt=lambda v: f'×{v:.1f}', label_size=34)
+        import fx
+        fx.bars3d(cv, t, t0, t1, ('净利润', 2.9, '×2.9', WT('c2k', '净利润') - 0.1), ('每股收益', 4.3, '×4.3', WT('c2k', '每股收益') - 0.1),
+                  a=a, title='2016 → 2026 财年')
         k = eo((t - WT('c2k', '四百五十七亿') + 0.1) / 0.4)
-        cv.text('$457亿 → $1322亿', 200 + 170, 1260, 30, 'sans_light', col=GREY, a=a * k)
+        cv.text('净利润 $457亿 → $1322亿', W / 2, 1290, 32, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
         k2 = eo((t - WT('c2k', '二点零八') + 0.1) / 0.4)
-        cv.text('$2.08 → $8.98', 880 - 170, 1260, 30, 'sans_light', col=GREY, a=a * k2)
+        cv.text('每股收益 $2.08 → $8.98', W / 2, 1350, 32, 'sans_med', col=GOLD_L, a=a * k2, shadow=0.8)
         source(cv, '苹果 10-K：2016 财年 vs 2026 财年（每股收益为摊薄、拆股调整）', a, y=1392)
