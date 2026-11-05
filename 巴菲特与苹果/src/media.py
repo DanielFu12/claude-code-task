@@ -120,7 +120,7 @@ def resolve(name, depth=0):
 USABLE = {'x_bwb_arena': (0, 3), 'x_bwb_cherrycoke': (0, 4.5), 'x_bwb_cokestore': (0, 3.2), 'x_bwb_desk': (0, 10.5),
           'x_bwb_meeting': (17, 30), 'x_bwb_office': (2, 10.5), 'x_bwb_walk': (0, 4), 'x_bwbi_a': (0, 20), 'x_bwbi_b': (0, 20),
           'x_bwbi_c': (0, 20), 'x_cook_roof': (0, 9.3), 'x_i6s_store': (0, 8), 'x_i6s_unbox': (7, 12.5), 'x_iphone_hand': (0, 3.2),
-          'x_iphones_wall': (1.5, 10), 'x_jobs07_stage': (0, 7.5), 'x_jobs07_wave': (0, 8.5), 'x_jobs_council': (0, 3.2),
+          'x_iphones_wall': (1.5, 10), 'x_jobs07_stage': (0, 7.5), 'x_jobs07_wave': (0, 8.5), 'x_jobs_council': (0, 2.2),
           'x_park_green': (0, 10), 'x_park_ring1': (2.5, 12.5), 'x_park_ring2': (3, 16), 'x_park_ring3': (0, 3), 'x_park_ring4': (0, 6.3),
           'x_park_theater': (0, 5.2), 'x_park_top': (8.3, 12)}
 

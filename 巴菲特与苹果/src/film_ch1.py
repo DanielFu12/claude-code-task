@@ -90,7 +90,10 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1h')
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
-        M.full(cv, 'x_jobs_council', t, t0, t1, z0=1.0, z1=1.08, focus=(0.45, 0.4), dark=0.4, a=a, speed=0.22, cap='2011 年 · 乔布斯在库比蒂诺市议会介绍新园区')
+        tsw = WT('c1h', '用户体验') - 0.6
+        M.full(cv, 'x_jobs_council', t, t0, tsw + 0.6, z0=1.0, z1=1.08, focus=(0.45, 0.4), dark=0.4, a=a, fo=0.6, speed=0.3,
+               cap='2011 年 · 乔布斯在库比蒂诺市议会介绍新园区')
+        M.full(cv, 'x_jobs07_wave', t, tsw, t1, z0=1.0, z1=1.08, focus=(0.45, 0.42), dark=0.4, a=a, fi=0.6, cap='乔布斯 · Macworld 2007')
         k = eo((t - WT('c1h', '二零一一') + 0.1) / 0.5)
         cv.text('2011', 140, 330, 80, 'oswald', col=GOLD, a=a * k, anchor='l', shadow=0.8)
         for j, (w_, s) in enumerate([('用户体验', '用户体验，做到极致'), ('护城河', '生意模式，形成护城河')]):
