@@ -36,7 +36,7 @@ def shot_ch2(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         M.full(cv, 'x_i6s_store', t, t0, t1, z0=1.0, z1=1.06, dark=0.45, a=a, src_t0=0.0, speed=0.8, cap='苹果店 · 新 iPhone 首发日')
-        quote_card(cv, 'q2020best', t, t0 + 0.1, t1, cy=860, en_size=40, cn_size=46, a=a)
+        quote_card(cv, 'q2020best', t, t0 + 0.1, t1, cy=1250, en_size=36, cn_size=42, a=a)
     # ---- c2d：第二辆车 vs iPhone
     t0, t1 = win('c2d')
     a = env(t, t0, t1, 0.5, 0.4)
@@ -56,12 +56,12 @@ def shot_ch2(cv, t):
     if a > 0:
         M.full(cv, 'x_bwb_desk', t, t0, t1, z0=1.0, z1=1.08, focus=(0.55, 0.45), dark=0.45, a=a, src_t0=1.0, speed=0.75)
         k = eo((t - WT('c2e', '买股票') + 0.1) / 0.6)
-        cv.text('买股票，', W / 2, 760, 90, 'serif_black', col=CREAM, a=a * k, shadow=0.8)
-        cv.text('就是买下一门生意的一部分', W / 2, 880, 60, 'serif_black', gold=True, a=a * eo((t - WT('c2e', '就是') + 0.1) / 0.6), glow=0.2, shadow=0.8)
+        cv.text('买股票，', W / 2, 1130, 76, 'serif_black', col=CREAM, a=a * k, shadow=0.8)
+        cv.text('就是买下一门生意的一部分', W / 2, 1235, 56, 'serif_black', gold=True, a=a * eo((t - WT('c2e', '就是') + 0.1) / 0.6), glow=0.2, shadow=0.8)
         k2 = eo((t - WT('c2e', '股价每天') + 0.1) / 0.6)
-        cv.text('股价每天在变', W / 2 - 220, 1120, 38, 'sans_light', col=GREY, a=a * k2, shadow=0.8)
-        cv.text('→', W / 2, 1120, 38, 'sans_light', col=GREY, a=a * k2)
-        cv.text('价值取决于未来能赚多少', W / 2 + 250, 1120, 38, 'sans_med', col=GOLD_L, a=a * eo((t - WT('c2e', '取决于') + 0.1) / 0.6), shadow=0.8)
+        cv.text('股价每天在变', W / 2 - 220, 1345, 34, 'sans_light', col=GREY, a=a * k2, shadow=0.8)
+        cv.text('→', W / 2, 1345, 34, 'sans_light', col=GREY, a=a * k2)
+        cv.text('价值取决于未来能赚多少', W / 2 + 250, 1345, 34, 'sans_med', col=GOLD_L, a=a * eo((t - WT('c2e', '取决于') + 0.1) / 0.6), shadow=0.8)
     # ---- c2f：2021 年：股息 7.85 亿 vs 应占利润 56 亿
     t0, t1 = win('c2f')
     a = env(t, t0, t1, 0.4, 0.4)

@@ -139,9 +139,17 @@ def source_frame(name, t, t0, src_t0=0.0, speed=1.0):
     return img(name), False
 
 
+# 有人物的横版镜头：保留完整 16:9 画面放在中部（背后虚化铺底），不裁成竖屏满幅——否则人脸会被放大到占满画面
+WIN_CY = 760
+PEOPLE = ('x_bwb', 'x_jobs', 'x_cook', 'x_i6s_store', 'x_i6s_unbox', 'x_iphones_wall')
+
+
 def full(cv, name, t, t0, t1, z0=1.04, z1=1.14, focus=(0.5, 0.5), pan=(0, 0, 0, 0), a=1.0, fi=0.6, fo=0.6,
          shade=(0.45, 0.62), dark=0.0, warm=0.0, sat=1.0, src_t0=0.0, speed=1.0, credit=True, cap=None, bw=False, sweep=True):
     """满幅照片/视频，带缓慢推拉；shade=(顶部压暗, 底部压暗)；dark 额外整体压暗（叠图表时用）"""
+    if name.startswith(PEOPLE):
+        return frame(cv, name, t, t0, t1, cy=WIN_CY, w=1000, h=562, z0=1.0, z1=1.05, focus=(0.5, 0.5), a=a, fi=fi, fo=fo,
+                     src_t0=src_t0, speed=speed, credit=credit, cap=cap)
     al = env(t, t0, t1, fi, fo) * a
     if al <= 0.004: return 0.0
     r = resolve(name)

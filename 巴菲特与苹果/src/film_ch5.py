@@ -20,20 +20,21 @@ def shot_ch5(cv, t):
     if a > 0:
         M.full(cv, 'x_bwb_cokestore', t, t0, t1, z0=1.0, z1=1.06, focus=(0.6, 0.45), dark=0.55, a=a, speed=0.3)
         k = eo((t - WT('c5b', '一九九八') + 0.1) / 0.5)
-        cv.text('1998 · 可口可乐', W / 2, 460, 52, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
-        cv.text('市盈率 ≈ 47 倍', W / 2, 580, 80, 'serif_black', col=RED, a=a * eo((t - WT('c5b', '四十七倍') + 0.1) / 0.5), shadow=0.8)
-        cv.text('没有卖', W / 2, 690, 50, 'serif_semi', col=CREAM, a=a * eo((t - WT('c5b', '没有卖') + 0.1) / 0.5), shadow=0.8)
-        quote_card(cv, 'q2004', t, WT('c5b', '后来') - 0.3, t1, cy=1050, en_size=40, cn_size=46, a=a)
+        cv.text('1998 · 可口可乐', W / 2, 390, 50, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
+        kq = 1 - eo((t - WT('c5b', '后来') + 0.3) / 0.4)
+        cv.text('市盈率 ≈ 47 倍', W / 2, 1150, 76, 'serif_black', col=(1.0, 0.42, 0.38), a=a * kq * eo((t - WT('c5b', '四十七倍') + 0.1) / 0.5), shadow=0.8)
+        cv.text('没有卖', W / 2, 1255, 50, 'serif_semi', col=CREAM, a=a * kq * eo((t - WT('c5b', '没有卖') + 0.1) / 0.5), shadow=0.8)
+        quote_card(cv, 'q2004', t, WT('c5b', '后来') - 0.3, t1, cy=1230, en_size=38, cn_size=44, a=a)
     # ---- c5c：2024 年苹果：近 30 倍、近一半仓位 → 这一次，他卖了
     t0, t1 = win('c5c')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         M.full(cv, 'x_i6s_unbox', t, t0, t1, z0=1.0, z1=1.06, dark=0.55, a=a, src_t0=7.0, speed=0.5)
-        cv.text('2024 · 苹果', W / 2, 460, 52, 'sans_med', col=CREAM, a=a, shadow=0.8)
-        cv.text('市盈率 ≈ 30 倍', W / 2, 580, 80, 'serif_black', col=CREAM, a=a * eo((t - WT('c5c', '三十倍') + 0.1) / 0.5), shadow=0.8)
-        cv.text('占股票投资近一半', W / 2, 690, 50, 'serif_semi', col=CREAM, a=a * eo((t - WT('c5c', '近一半') + 0.1) / 0.5), shadow=0.8)
+        cv.text('2024 · 苹果', W / 2, 390, 50, 'sans_med', col=CREAM, a=a, shadow=0.8)
+        cv.text('市盈率 ≈ 30 倍', W / 2, 1120, 70, 'serif_black', col=CREAM, a=a * eo((t - WT('c5c', '三十倍') + 0.1) / 0.5), shadow=0.8)
+        cv.text('占股票投资近一半', W / 2, 1205, 46, 'serif_semi', col=CREAM, a=a * eo((t - WT('c5c', '近一半') + 0.1) / 0.5), shadow=0.8)
         k = eo((t - WT('c5c', '他卖了') + 0.05) / 0.4)
-        cv.text('这一次，他卖了', W / 2, 960, 96, 'serif_black', gold=True, a=a * k, glow=0.35, shadow=0.8, scale=1.08 - 0.08 * k)
+        cv.text('这一次，他卖了', W / 2, 1320, 84, 'serif_black', gold=True, a=a * k, glow=0.35, shadow=0.8, scale=1.08 - 0.08 * k)
     # ---- c5d：段永平也在减持（H&H：6400 万股 → 2700 万股）
     t0, t1 = win('c5d')
     a = env(t, t0, t1, 0.4, 0.4)
@@ -60,7 +61,7 @@ def shot_ch5(cv, t):
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
         M.full(cv, 'x_cook_roof', t, t0, t1, z0=1.0, z1=1.06, focus=(0.55, 0.45), dark=0.35, a=a, src_t0=1.0, speed=0.6, cap='蒂姆·库克 · Apple Park')
-        quote_card(cv, 'q2025', t, WT('c5e', '说来') - 0.4, t1, cy=1060, en_size=30, cn_size=36, a=a)
+        quote_card(cv, 'q2025', t, WT('c5e', '说来') - 0.4, t1, cy=1250, en_size=28, cn_size=34, a=a)
     # ---- c5f–c5j：四条道理
     t0, t1 = S('c5f') - 0.3, S('c5k') + 0.1
     a = env(t, t0, t1, 0.5, 0.5)
@@ -91,7 +92,7 @@ def shot_ch5(cv, t):
     if a > 0:
         M.full(cv, 'x_bwbi_a', t, t0, t1, z0=1.04, z1=1.12, focus=(0.42, 0.42), dark=0.3, a=a, src_t0=8.0, credit=False)
         k = eo((t - WT('c5l', '伟大的企业') + 0.1) / 0.7)
-        cv.text('伟大的企业，值得长期陪伴', W / 2, 1060, 58, 'serif_black', col=CREAM, a=a * k, shadow=0.9)
+        cv.text('伟大的企业，值得长期陪伴', W / 2, 1130, 56, 'serif_black', col=CREAM, a=a * k, shadow=0.9)
         k2 = eo((t - WT('c5l', '但没有') + 0.1) / 0.7)
-        cv.text('但没有任何一只股票', W / 2, 1180, 58, 'serif_black', gold=True, a=a * k2, glow=0.25, shadow=0.9)
-        cv.text('值得不计价格、不计仓位地拥有', W / 2, 1280, 52, 'serif_black', gold=True, a=a * eo((t - WT('c5l', '不计价格') + 0.1) / 0.7), glow=0.25, shadow=0.9)
+        cv.text('但没有任何一只股票', W / 2, 1230, 56, 'serif_black', gold=True, a=a * k2, glow=0.25, shadow=0.9)
+        cv.text('值得不计价格、不计仓位地拥有', W / 2, 1320, 50, 'serif_black', gold=True, a=a * eo((t - WT('c5l', '不计价格') + 0.1) / 0.7), glow=0.25, shadow=0.9)

@@ -32,8 +32,8 @@ def shot_ch3(cv, t):
     if a > 0:
         M.full(cv, 'x_bwbi_c', t, t0, t1, z0=1.0, z1=1.08, focus=(0.42, 0.42), dark=0.45, a=a)
         k = eo((t - WT('c3c', '一百一十亿') + 0.1) / 0.5)
-        cv.text('2020 · 卖出一小部分 · 落袋 $110亿', W / 2, 480, 40, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
-        quote_card(cv, 'q2023c', t, WT('c3c', '三年后') - 0.3, t1, cy=900, en_size=36, cn_size=42, a=a)
+        cv.text('2020 · 卖出一小部分 · 落袋 $110亿', W / 2, 400, 40, 'sans_med', col=CREAM, a=a * k, shadow=0.8)
+        quote_card(cv, 'q2023c', t, WT('c3c', '三年后') - 0.3, t1, cy=1250, en_size=34, cn_size=40, a=a)
     # ---- c3d–c3f：持股曲线（真正的减持 → 2024Q2 → 只剩 2.28 亿股 → 交棒）
     t0, t1 = S('c3d') - 0.3, S('c3g') + 0.1
     a = env(t, t0, t1, 0.5, 0.4)

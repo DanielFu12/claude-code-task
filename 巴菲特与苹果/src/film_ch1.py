@@ -48,7 +48,7 @@ def shot_ch1(cv, t):
     a = env(t, t0, t1, 0.4, 0.5)
     if a > 0:
         M.full(cv, 'x_jobs07_stage', t, t0, t1, z0=1.0, z1=1.1, focus=(0.42, 0.45), dark=0.35, a=a, speed=0.7, cap='Macworld 2007 · 乔布斯发布第一代 iPhone')
-        headline(cv, '另一个人', 860, a, 110, k=eo((t - WT('c1d', '另一个人') + 0.1) / 0.6))
+        headline(cv, '另一个人', 1190, a, 100, k=eo((t - WT('c1d', '另一个人') + 0.1) / 0.6))
     # ---- c1e：2006 年慈善午餐拍卖
     t0, t1 = win('c1e')
     a = env(t, t0, t1, 0.5, 0.4)
@@ -117,13 +117,13 @@ def shot_ch1(cv, t):
         M.full(cv, 'x_bwb_office', t, t0, t1, z0=1.0, z1=1.08, focus=(0.6, 0.45), dark=0.45, a=a, src_t0=2.0, speed=0.45, cap='伯克希尔总部 · 奥马哈')
         k = eo((t - WT('c1j', '二零一六') + 0.1) / 0.5)
         cv.text('2016 Q1', W / 2, 420, 96, 'oswald', col=GOLD, a=a * k, shadow=0.8, glow=0.15)
-        cv.text('首次买入苹果 · 约 $10亿', W / 2, 530, 44, 'sans_med', col=CREAM, a=a * eo((t - WT('c1j', '投入') + 0.1) / 0.5), shadow=0.8)
+        cv.text('首次买入苹果 · 约 $10亿', W / 2, 1110, 44, 'sans_med', col=CREAM, a=a * eo((t - WT('c1j', '投入') + 0.1) / 0.5), shadow=0.8)
         k2 = eo((t - WT('c1j', '投资经理之一') + 0.1) / 0.6)
         if k2 > 0:
             for j, nm in enumerate(['托德·库姆斯', '特德·韦施勒']):
-                cv.text(nm, W / 2 + (j * 2 - 1) * 230, 1060, 46, 'serif_semi', col=CREAM, a=a * k2, shadow=0.8)
-            cv.text('？', W / 2, 1060, 60, 'serif_black', col=GOLD, a=a * k2, shadow=0.8)
-            cv.text('Todd Combs  ·  Ted Weschler', W / 2, 1140, 26, 'corm', col=GOLD, a=a * k2, track=0.1, shadow=0.8)
+                cv.text(nm, W / 2 + (j * 2 - 1) * 230, 1210, 46, 'serif_semi', col=CREAM, a=a * k2, shadow=0.8)
+            cv.text('？', W / 2, 1210, 60, 'serif_black', col=GOLD, a=a * k2, shadow=0.8)
+            cv.text('Todd Combs  ·  Ted Weschler', W / 2, 1285, 26, 'corm', col=GOLD, a=a * k2, track=0.1, shadow=0.8)
         source(cv, '13F 2016Q1：980 万股（拆股前）；CNBC 2017-08-30：巴菲特确认由两位投资经理之一买入、未透露是谁', a, y=1392)
     # ---- c1o：当时的苹果被市场看淡
     t0, t1 = win('c1o')
@@ -173,11 +173,11 @@ def shot_ch1(cv, t):
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
         M.full(cv, 'x_bwbi_b', t, t0, t1, z0=1.0, z1=1.08, focus=(0.42, 0.42), dark=0.4, a=a)
-        quote_card(cv, 'q2024am', t, t0 + 0.2, WT('c1n', '大行动') - 0.2, cy=760, en_size=32, cn_size=38, a=a)
+        quote_card(cv, 'q2024am', t, t0 + 0.2, WT('c1n', '大行动') - 0.2, cy=1250, en_size=30, cn_size=36, a=a)
         k = eo((t - WT('c1n', '大行动') + 0.05) / 0.35)
         if k > 0:
-            cv.text('大行动', W / 2, 860, 180, 'serif_black', gold=True, a=a * k, glow=0.4, scale=1.12 - 0.12 * k, shadow=0.8)
-            cv.text('BIG ACTION', W / 2, 1010, 34, 'corm', col=GOLD, a=a * k, track=0.4, shadow=0.8)
+            cv.text('大行动', W / 2, 1210, 150, 'serif_black', gold=True, a=a * k, glow=0.4, scale=1.12 - 0.12 * k, shadow=0.8)
+            cv.text('BIG ACTION', W / 2, 1335, 32, 'corm', col=GOLD, a=a * k, track=0.4, shadow=0.8)
     # ---- c1p：2018 年 7 月：10 亿股、成本 360 亿、第一大持仓
     t0, t1 = win('c1p')
     a = env(t, t0, t1, 0.5, 0.4)

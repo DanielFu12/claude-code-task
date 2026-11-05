@@ -564,7 +564,7 @@ def shot_hook_tail(cv, t):
         cv.text('WARREN BUFFETT', W / 2, 1180, 64, 'corm', col=GOLD_L, a=a * k, track=0.2, shadow=0.8)
         k2 = eo((t - WT('h6', '十年前') + 0.1) / 0.6)
         if k2 > 0:
-            cv.text('2016', W / 2, 520, 150, 'oswald', col=CREAM, a=a * k2 * 0.9, shadow=0.8, glow=0.1)
+            cv.text('2016', W / 2, 340, 130, 'oswald', col=CREAM, a=a * k2 * 0.9, shadow=0.8, glow=0.1)
         sink = eio((t - E('h6') - 0.2) / 1.0)
         if sink > 0: cv.dim(1 - 0.4 * sink)
 
