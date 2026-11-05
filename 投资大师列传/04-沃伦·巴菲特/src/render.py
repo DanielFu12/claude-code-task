@@ -703,8 +703,8 @@ def end_frame(t, dur):
     if "logo" not in _cap:
         lg = Image.open(os.path.join(REPO, "brand", "logo_baman.png")).convert("RGBA").resize((300, 300), Image.LANCZOS)
         _cap["logo"] = pil_sprite(lg)
-        glow = cv2.GaussianBlur(_cap["logo"].a, (0, 0), 30)
-        _cap["logo_glow"] = glow
+        PADG = 120  # 光晕要在加了边距的画布上模糊，否则会被裁出方框
+        _cap["logo_glow"] = cv2.GaussianBlur(np.pad(_cap["logo"].a, PADG), (0, 0), 30)
         _cap["e1"] = text_sprite(["巴芒价值"], "serif_black", 120, gold=True)
         _cap["e2"] = text_sprite(["B U F F E T T  ·  M U N G E R"], "corm", 40, color=(0.84, 0.7, 0.44), shadow=False)
         _cap["e3"] = text_sprite(["投资大师列传 · 04 沃伦·巴菲特：股神的复利人生"], "sans_bold", 30, color=(0.7, 0.7, 0.72))
@@ -712,7 +712,8 @@ def end_frame(t, dur):
     lg = _cap["logo"]
     x, y = (W - 300) / 2, 170
     g = _cap["logo_glow"]
-    f[int(y):int(y) + 300, int(x):int(x) + 300] += g[..., None] * np.array([0.43, 0.69, 1.0], np.float32) * 0.35 * a
+    gy, gx = int(y) - 120, int(x) - 120
+    f[gy:gy + g.shape[0], gx:gx + g.shape[1]] += g[..., None] * np.array([0.43, 0.69, 1.0], np.float32) * 0.35 * a
     blit(f, lg, x, y - 20 * (1 - a), a)
     e1 = _cap["e1"]
     blit(f, e1, (W - e1.w) / 2, 500, ease((t - 0.5) / 0.6))
