@@ -24,10 +24,12 @@ from shots import SHOTS
 from brand import Hud
 
 W, H, FPS = 1080, 1920, 30
-TL = json.load(open(os.path.join(ROOT, "work", "timeline_v.json")))
+# TL=r 时使用参照片配乐的时间线（src/music_r.py），默认用 Lyria 配乐的时间线（src/music_v.py）
+TL = json.load(open(os.path.join(ROOT, "work", "timeline_r.json" if os.environ.get("TL") == "r" else "timeline_v.json")))
 T0 = [s["t0"] for s in TL["shots"]]
 T1 = [s["t1"] for s in TL["shots"]]
 CHN = [s["ch"] for s in TL["shots"]]
+HITCUT = {s["i"] for s in TL["shots"] if s.get("hit")}
 ENERGY = TL["energy"]
 BEATS = np.array(TL["beats"])
 DOWNS = np.array(TL["downbeats"])
@@ -1079,6 +1081,8 @@ def trans_type(i):
         return "fade"
     if ch == "股神的错误清单":
         return "glitch"
+    if i in HITCUT:
+        return "hit"
     if ENERGY.get(ch, 0.5) < 0.55:
         return "fade"
     return "push"
@@ -1102,6 +1106,14 @@ def frame_at(t):
         f = g * (1 - k) + f * k
     elif tr == "glitch" and lt < 0.16:
         f = glitch(f, 1 - lt / 0.16, int(t * 1000))
+    elif tr == "hit" and lt < 0.32:      # 踩在重拍上的切镜
+        z = 1 + 0.07 * (1 - ease(lt / 0.3))
+        M = cv2.getRotationMatrix2D((W / 2, H / 2), 0, z)
+        sh = (1 - lt / 0.32) * 7
+        M[0, 2] += math.sin(lt * 90) * sh
+        M[1, 2] += math.cos(lt * 77) * sh
+        f = cv2.warpAffine(f, M, (W, H), borderMode=cv2.BORDER_REFLECT)
+        f = f + (1 - ease(lt / 0.2)) * 0.45
     elif tr == "impact" and lt < 0.5:
         z = 1 + 0.12 * (1 - ease(lt / 0.45))
         if z > 1.001:
