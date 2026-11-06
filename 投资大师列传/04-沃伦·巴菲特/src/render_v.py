@@ -6,7 +6,7 @@
   python3 src/render_v.py chunk <起始帧> <结束帧> out.mp4
 依赖 work/timeline_v.json（先跑 src/music_v.py）。帧为 float32 RGB 0..1。
 
-版式：顶部系列名 + 章节名（右上品牌角标）；中部 16:9 清晰画面带，背景为同图放大模糊；
+版式：顶部系列名 + 章节名（右上品牌角标，整体下移避开手机状态栏）；中部 16:9 清晰画面带，背景为同图放大模糊；
 下部黄色大字年份 + 白色字幕（左侧黄条、关键词红色）。
 卡点：章节开头闪白 + 放大回弹 + 抖动 + 中央章节大字；普通切镜纵向推移 + 运动模糊；
 错误清单故障转场；序章、落幕柔和淡化；强拍上画面轻微脉冲。
@@ -259,7 +259,8 @@ VIGNETTE = (1 - 0.40 * (((xx - W / 2) / (W * 0.75)) ** 2 + ((yy - H / 2) / (H * 
 # 下部字幕区和顶部标题区压暗
 SCRIM = (1 - 0.70 * np.clip((yy - 1080) / 500, 0, 1) ** 1.2 - 0.45 * np.clip((300 - yy) / 300, 0, 1))[..., None]
 HUD = Hud(scale=1.0, frame_w=W)
-DISCLAIM = text_sprite(["画面为 AI 生成示意 · 数据以公开资料为准"], "sans_reg", 22, color=(0.8, 0.8, 0.8))
+HUD.y0 = 112          # 竖屏：角标下移，避开手机状态栏，和左侧章节名对齐
+HUD.x0 = W - HUD.w - 48
 
 
 def paper_bg():
@@ -389,9 +390,9 @@ def header(frame, i, t):
         _cap[k] = (text_sprite(["投资大师列传 · 沃伦·巴菲特"], "sans_bold", 30, color=(0.85, 0.72, 0.45)),
                    text_sprite([f"第{CN[n]}章  {ch}"], "sans_black", 42, color=WHITE))
     a, b = _cap[k]
-    blit(frame, a, 50, 40)
-    fill_rect(frame, 60, 100, 65, 150, YELLOW if not ERR[i] else RED, 1.0)
-    blit(frame, b, 68, 88)
+    blit(frame, a, 50, 102)
+    fill_rect(frame, 60, 162, 65, 212, YELLOW if not ERR[i] else RED, 1.0)
+    blit(frame, b, 68, 150)
 
 
 def caption_sprites(i):
@@ -449,7 +450,7 @@ def draw_tag(frame, i, t):
         _cap[k] = text_sprite([f"错误清单 {tag}"], "sans_black", 40, color=WHITE, shadow=False)
     sp = _cap[k]
     a = ease(t / 0.2)
-    x, y = 60, 230
+    x, y = 60, 290
     s = 1 + 0.4 * (1 - back(t / 0.3))
     fill_rect(frame, x, y, x + (sp.w + 18) * s, y + (sp.h - 6) * s, (0.82, 0.1, 0.08), 0.95 * a)
     blit(frame, scaled(sp, s), x + 9, y - 3, a)
@@ -472,10 +473,56 @@ def chapter_title(frame, i, t):
     s = 1 + 0.25 * (1 - back(t / 0.35))
     cy = BAND_Y + BAND_H / 2
     if SHOTS[i]["kind"] == "data" and not SHOTS[i].get("bg"):   # 纯数据镜头：放到图表上方，免得压住数字
-        cy = 270
+        cy = 340
     fill_rect(frame, 0, cy - 120, W, cy + 120, (0, 0, 0), 0.45 * al)
     blit_c(frame, a_, W / 2, cy - 62, al)
     blit_c(frame, b_, W / 2, cy + 22, al, s)
+
+
+# ------------------------------------------------------------------ 正片中途关注语（参照 claude/festive-brown-49d0no 的胶囊条）
+FOLLOWS = TL.get("follows", [])
+FOLLOW_DUR, FOLLOW_FADE = 4.5, 0.4
+
+
+def pill_sprite(tagged):
+    k = ("pill", tagged)
+    if k in _cap:
+        return _cap[k]
+    m1 = text_sprite(["关注 @巴芒价值"], "sans_bold", 38, color=WHITE, shadow=False)
+    m2 = text_sprite(["更多投资大师 · 主页合集"], "sans_bold", 26, color=(0.95, 0.8, 0.45), shadow=False) if tagged else None
+    lg = 60
+    logo = pil_sprite(Image.open(os.path.join(REPO, "brand", "logo_baman.png")).convert("RGBA").resize((lg, lg), Image.LANCZOS))
+    tw = max(m1.w, m2.w if m2 else 0)
+    h = 116 if tagged else 88
+    w = 20 + lg + 10 + tw + 18
+    a = np.zeros((h, w), np.float32)
+    r = h // 2
+    box = np.zeros((h, w), np.uint8)
+    cv2.rectangle(box, (r, 0), (w - r, h - 1), 255, -1)
+    cv2.circle(box, (r, r), r, 255, -1, cv2.LINE_AA)
+    cv2.circle(box, (w - r - 1, r), r, 255, -1, cv2.LINE_AA)
+    a[:] = box / 255 * 0.62
+    sp = Sprite(np.zeros((h, w, 3), np.float32) + np.array([0.03, 0.035, 0.06], np.float32), a)
+    for src, x, y in [(logo, 20, (h - lg) // 2)] + ([(m1, 20 + lg + 4, (h - m1.h - m2.h + 22) // 2), (m2, 20 + lg + 4, (h - m1.h - m2.h + 22) // 2 + m1.h - 22)] if m2 else [(m1, 20 + lg + 4, (h - m1.h) // 2)]):
+        al = src.a[..., None]
+        reg = sp.rgb[y:y + src.h, x:x + src.w]
+        hh, ww = reg.shape[:2]
+        reg[:] = reg * (1 - al[:hh, :ww]) + src.rgb[:hh, :ww] * al[:hh, :ww]
+        sp.a[y:y + hh, x:x + ww] = np.maximum(sp.a[y:y + hh, x:x + ww], src.a[:hh, :ww])
+    _cap[k] = sp
+    return sp
+
+
+def follow_pill(frame, t):
+    for fo in FOLLOWS:
+        t0 = fo["t"]
+        if not (t0 <= t < t0 + FOLLOW_DUR):
+            continue
+        sp = pill_sprite(fo["tagged"])
+        q = t - t0
+        a = min(1.0, q / FOLLOW_FADE, (FOLLOW_DUR - q) / FOLLOW_FADE)
+        dy = 14 * (1 - ease(q / FOLLOW_FADE))
+        blit(frame, sp, W - 36 - sp.w, 206 + dy, a)
 
 
 # ------------------------------------------------------------------ 纸卡
@@ -504,14 +551,14 @@ def draw_card(frame, i, t, err=False):
     dy = 40 * (1 - back(t / 0.45))
     accent = (0.95, 0.75, 0.0) if not err else (0.82, 0.1, 0.08)
     if photo:
-        px, py = (W - photo.w) / 2, 330
+        px, py = (W - photo.w) / 2, 390
         shadow_under(frame, px, py - dy, px + photo.w, py + photo.h - dy, 0.4 * a)
         blit(frame, photo, px, py - dy, a)
     cw = 960
     hh = head.h if head else 0
     ch = body.h + hh + 80
     cx = (W - cw) / 2
-    cy = 930 if photo else (H - ch) / 2 - 40
+    cy = 990 if photo else (H - ch) / 2 - 20
     shadow_under(frame, cx, cy + dy, cx + cw, cy + ch + dy, 0.3 * a)
     fill_rect(frame, cx, cy + dy, cx + cw, cy + ch + dy, (0.95, 0.94, 0.91), a)
     fill_rect(frame, cx, cy + dy, cx + 12, cy + ch + dy, accent, a)
@@ -811,7 +858,6 @@ def title_frame(t, dur):
     if "title" not in _cap:
         _cap["title"] = text_sprite(["沃伦·巴菲特"], "serif_black", 150, gold=True)
         _cap["sub"] = text_sprite(["股神的复利人生"], "serif_semi", 76, color=(0.92, 0.88, 0.8))
-        _cap["ser"] = text_sprite(["投资大师列传 · 04"], "sans_bold", 36, color=(0.75, 0.7, 0.6), track=6)
         sp = _cap["title"]
         ys, xs = np.nonzero(sp.a > 0.5)
         rng = np.random.default_rng(1)
@@ -836,9 +882,7 @@ def title_frame(t, dur):
     f += cv2.GaussianBlur(snow, (0, 0), 1.8)[..., None] * np.array([0.8, 0.85, 1.0], np.float32) * 2.5
     a = ease((t - T * 0.6) / 0.6)
     blit(f, sp, (W - sp.w) / 2, 700, a)
-    fill_rect(f, W / 2 - 300 * ease((t - T * 0.7) / 0.6), 912, W / 2 + 300 * ease((t - T * 0.7) / 0.6), 915, (0.9, 0.7, 0.3), 0.8)
     blit(f, _cap["sub"], (W - _cap["sub"].w) / 2, 935, ease((t - T * 0.75) / 0.5), wipe=ease((t - T * 0.75) / 0.8))
-    blit(f, _cap["ser"], (W - _cap["ser"].w) / 2, 1080, ease((t - T * 0.85) / 0.5))
     return f
 
 
@@ -880,7 +924,7 @@ def finale_setup():
     glow = cv2.GaussianBlur(np.pad(logo.a, 160), (0, 0), 40)
     e1 = text_sprite(["巴芒价值"], "serif_black", 150, gold=True)
     e2 = text_sprite(["BUFFETT · MUNGER"], "corm", 50, color=(0.84, 0.7, 0.44), shadow=False, track=10)
-    e3 = text_sprite(["投资大师列传 · 04  沃伦·巴菲特：股神的复利人生"], "sans_bold", 32, color=(0.72, 0.72, 0.74))
+    e3 = text_sprite(["关注「巴芒价值」，传承大师智慧，领悟投资真谛"], "sans_bold", 40, gold=True)
     _cap["fin"] = dict(logo=logo, mosaic=mosaic, gx=gx, gy=gy, gcol=gcol, sx=sx, sy=sy, scol=scol,
                        delay=delay, spin=spin, glow=glow, e1=e1, e2=e2, e3=e3)
     return _cap["fin"]
@@ -941,7 +985,11 @@ def finale_frame(t, dur):
         s = 1 + 0.5 * (1 - back(q / 0.35, 2.2))
         blit_c(f, e1, W / 2, 1180, ease(q / 0.1), s)
         blit_c(f, e2, W / 2, 1300, ease((q - 0.25) / 0.4))
-        blit_c(f, e3, W / 2, 1420, ease((q - 0.7) / 0.6))
+        lw = int(620 * ease_io((q - 1.6) / 0.8))          # 细金线引出关注语
+        if lw > 2:
+            fill_rect(f, W / 2 - lw / 2, 1376, W / 2 + lw / 2, 1378, (0.95, 0.78, 0.42), 0.9)
+        kf = ease((q - 2.1) / 0.7)
+        blit_c(f, e3, W / 2, 1440 + 12 * (1 - kf), kf)
         f += max(0.0, 1 - q / 0.2) * 0.12
         # 流光：文字上扫两遍
         for st in (0.45, 2.6):
@@ -996,7 +1044,7 @@ def render_shot(i, t):
         if inset and u > 0.62:
             ins = framed_photo(inset, 520, 292)
             q = ease((u - 0.62) / 0.15)
-            yy0 = 300 + 30 * (1 - q)
+            yy0 = 340 + 30 * (1 - q)
             shadow_under(f, W - 60 - ins.w, yy0, W - 60, yy0 + ins.h, 0.5 * q)
             blit(f, ins, W - 60 - ins.w, yy0, q)
         f *= SCRIM ** 0.7
@@ -1130,7 +1178,7 @@ def frame_at(t):
         a = 1.0 if SHOTS[i]["kind"] != "title" else ease((lt - 1.0) / 0.8)
         HUD.draw(f, t, alpha=a)
     if SHOTS[i]["kind"] not in ("title", "end"):
-        blit(f, DISCLAIM, (W - DISCLAIM.w) / 2, H - 70, 0.7)
+        follow_pill(f, t)
     return np.clip(f, 0, 1)
 
 
