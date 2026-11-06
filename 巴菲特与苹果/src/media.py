@@ -70,6 +70,7 @@ def credit_text(name):
     if name in IA: return '影像：' + IA[name]['source']
     c = CREDITS.get(name.split('#')[0])
     if not c: return ''
+    if c.get('via'): return '图片：' + c['via']                 # 新闻图片：注明刊发媒体
     art = (c.get('artist') or '').replace('\n', ' ').strip()
     if art.startswith('http') or 'flickr.com' in art: art = (c.get('credit') or '').strip() if not (c.get('credit') or '').startswith('http') else ''
     if art.lower() in ('own work', '') or art.startswith('http'): art = ''

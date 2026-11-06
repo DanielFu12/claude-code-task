@@ -1027,3 +1027,36 @@ def follow_pill(cv, t):
             cv.text(t2, tx, yc + 22, 22, 'sans_light', col=GOLD_L, a=a, anchor='l')
         else:
             cv.text(t1, tx, yc, 32, 'sans_med', col=WHITE, a=a, anchor='l')
+
+
+# ------------------------------------------------------------------ 冲印照片：小尺寸的新闻老照片不硬撑满画窗，做成带白边的相片（轻微倾斜、缓慢推近、投影）
+_prints = {}
+def print_photo(cv, name, t, t0, t1, cx, cy, h, a=1.0, tilt=0.0, cap=None):
+    import media as M
+    al = env(t, t0, t1, 0.5, 0.4) * a
+    if al <= 0.004: return
+    if name not in _prints:
+        src = M.img(name)
+        if src is None: _prints[name] = None; return
+        w = int(round(src.shape[1] * h / src.shape[0]))
+        im = cv2.resize(src, (w, h), interpolation=cv2.INTER_LANCZOS4)
+        im = np.clip(im + 0.55 * (im - cv2.GaussianBlur(im, (0, 0), 1.6)), 0, 1)          # 放大后轻度锐化
+        im = np.clip((im - 0.5) * 1.05 + 0.5, 0, 1)
+        b = 16
+        card = np.ones((h + 2 * b, w + 2 * b, 3), np.float32) * np.float32([0.94, 0.92, 0.87])
+        card[b:b + h, b:b + w] = im
+        _prints[name] = card
+    card = _prints[name]
+    if card is None: return
+    p = eio((t - t0) / max(t1 - t0, 1e-3))
+    s = lerp(1.0, 1.04, p) * (0.97 + 0.03 * eo((t - t0) / 0.6))
+    ch, cw = card.shape[:2]; D = int(math.hypot(ch, cw) * 1.1) + 40
+    Mx = cv2.getRotationMatrix2D((cw / 2, ch / 2), tilt, s); Mx[0, 2] += D / 2 - cw / 2; Mx[1, 2] += D / 2 - ch / 2
+    rgb = cv2.warpAffine(card, Mx, (D, D), flags=cv2.INTER_LINEAR)
+    alp = cv2.warpAffine(np.ones((ch, cw), np.float32), Mx, (D, D), flags=cv2.INTER_LINEAR)
+    x0, y0 = cx - D / 2, cy - D / 2
+    sh = cv2.GaussianBlur(alp, (0, 0), 16) * 0.65 * al
+    cv.img_mul(1 - sh, x0 + 8, y0 + 18)
+    cv.over(rgb, alp * al, x0, y0)
+    txt = ((cap + ' · ') if cap else '') + M.credit_text(name)
+    cv.text(txt, cx, cy + ch * s / 2 + 42, 22, 'sans_light', col=(0.66, 0.64, 0.6), a=al * 0.95)

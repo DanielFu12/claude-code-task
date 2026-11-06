@@ -286,5 +286,21 @@
   "artist": "Apple Inc.",
   "date": "",
   "desc": "Apple logo"
+ },
+ "duan_portrait": {
+  "title": "段永平",
+  "page": "https://news.qq.com/rain/a/20250401A09Y5300",
+  "license": "新闻图片",
+  "artist": "",
+  "via": "腾讯新闻",
+  "desc": "段永平"
+ },
+ "duan_buffett_2007": {
+  "title": "巴菲特与段永平，2007-05-09 纽约午餐",
+  "page": "https://finance.ifeng.com/people/200705/0523_188_122564.shtml",
+  "license": "新闻图片",
+  "artist": "",
+  "via": "凤凰网 2007-05-23 报道",
+  "desc": "巴菲特在午餐时与段永平耳语"
  }
 }

@@ -56,12 +56,14 @@ def shot_ch1(cv, t):
                 cv.rrect(cx - 75 + c_ * 55, cy + 50 + r_ * 45, cx - 35 + c_ * 55, cy + 80 + r_ * 45, 6, GREY, a * 0.5)
         cv.text('巴菲特的手机', W / 2, 1120, 52, 'serif_black', col=CREAM, a=a * eo((p - 0.6) / 0.6), shadow=0.6)
         cv.text('一部老式翻盖机，用了很多年', W / 2, 1200, 32, 'sans_light', col=GREY, a=a * eo((p - 0.9) / 0.6))
-    # ---- c1d：而另一个人……
+    # ---- c1d：而另一个人……（画窗里亮出段永平本人，下方时间轴：2011 → 2016，早了 5 年）
     t0, t1 = win('c1d', pre=0.2)
     a = env(t, t0, t1, 0.4, 0.5)
     if a > 0:
-        p = t - t0                                           # 时间轴：2011 段永平买入 → 2016 巴菲特买入，早了 5 年
-        x0, x1, y = 170, 910, 640
+        p = t - t0
+        tp = WT('c1d', '另一个人')
+        M.full(cv, 'duan_portrait', t, tp - 0.35, t1 + 0.3, a=a, fi=0.5, fo=0.5)
+        x0, x1, y = 170, 910, 1010
         L = (x1 - x0) * eio(p / 1.2)
         cv.line((x0, y), (x0 + L, y), GREY, a * 0.8, 3)
         for yr in range(2011, 2017):
@@ -76,9 +78,8 @@ def shot_ch1(cv, t):
         ke = eo((p - 1.6) / 0.5)
         if ke > 0:
             cv.line((x0, y + 90), (x1, y + 90), GOLD_D, a * ke, 2)
-            cv.text('早了 5 年', W / 2, y + 130, 40, 'serif_black', gold=True, a=a * ke, glow=0.2)
-        headline(cv, '另一个人', 1060, a, 100, k=eo((t - WT('c1d', '另一个人') + 0.1) / 0.6))
-        cv.text('比巴菲特更早看懂了苹果', W / 2, 1170, 40, 'sans_med', col=CREAM, a=a * eo((t - WT('c1d', '另一个人') - 0.4) / 0.6))
+            cv.text('早了 5 年', W / 2, y + 140, 44, 'serif_black', gold=True, a=a * ke, glow=0.2)
+        cv.text('段永平', W / 2, 1290, 64, 'serif_black', gold=True, a=a * eo((t - tp - 0.2) / 0.6), glow=0.2, shadow=0.8)
     # ---- c1e：2006 年慈善午餐拍卖
     t0, t1 = win('c1e')
     a = env(t, t0, t1, 0.5, 0.4)
@@ -99,19 +100,22 @@ def shot_ch1(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         k = eo((t - WT('c1f', '段永平') + 0.1) / 0.6)
-        cv.text('段永平', W / 2, 520, 120, 'serif_black', gold=True, a=a * k, glow=0.25, shadow=0.8)
-        cv.text('步步高创始人', W / 2, 640, 40, 'sans_med', col=CREAM, a=a * eo((t - WT('c1f', '步步高') + 0.1) / 0.5), shadow=0.8)
-        quote_card(cv, 'qduan2006a', t, WT('c1f', '学到') - 0.3, t1, cy=1000, a=a * 1.0, en_size=34, cn_size=38)
+        M.frame(cv, 'duan_portrait', t, t0, t1, cy=M.WIN_CY, w=1000, h=562, z0=1.25, z1=1.35, focus=(0.6, 0.42), a=a)
+        cv.text('段永平', W / 2, 950, 100, 'serif_black', gold=True, a=a * k, glow=0.25, shadow=0.8)
+        cv.text('步步高创始人', W / 2, 1050, 40, 'sans_med', col=CREAM, a=a * eo((t - WT('c1f', '步步高') + 0.1) / 0.5), shadow=0.8)
+        quote_card(cv, 'qduan2006a', t, WT('c1f', '学到') - 0.3, t1, cy=1250, a=a * 1.0, en_size=34, cn_size=38)
     # ---- c1g：他还准备了一个问题
     t0, t1 = win('c1g')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        cv.text('段永平准备的问题', W / 2, 640, 34, 'sans_light', col=GREY, a=a, shadow=0.8)
+        print_photo(cv, 'duan_buffett_2007', t, t0, t1, W / 2, 545, 470, a=a, tilt=-2.0,
+                    cap='2007-05-09 · 纽约午餐当天，巴菲特与段永平')
+        cv.text('段永平准备的问题', W / 2, 935, 34, 'sans_light', col=GREY, a=a, shadow=0.8)
         k = eo((t - WT('c1g', '钱太多') + 0.1) / 0.6)
-        cv.text('钱太多，', W / 2, 820, 72, 'serif_black', col=CREAM, a=a * k, shadow=0.8)
-        cv.text('又找不到好的投资对象，', W / 2, 920, 56, 'serif_semi', col=CREAM, a=a * eo((t - WT('c1g', '又找不到') + 0.1) / 0.6), shadow=0.8)
-        cv.text('该怎么办？', W / 2, 1030, 72, 'serif_black', gold=True, a=a * eo((t - WT('c1g', '该怎么办') + 0.1) / 0.5), glow=0.25, shadow=0.8)
-        source(cv, '美联社 2006-06-23 报道', a, y=1462)
+        cv.text('钱太多，', W / 2, 1040, 72, 'serif_black', col=CREAM, a=a * k, shadow=0.8)
+        cv.text('又找不到好的投资对象，', W / 2, 1140, 56, 'serif_semi', col=CREAM, a=a * eo((t - WT('c1g', '又找不到') + 0.1) / 0.6), shadow=0.8)
+        cv.text('该怎么办？', W / 2, 1250, 72, 'serif_black', gold=True, a=a * eo((t - WT('c1g', '该怎么办') + 0.1) / 0.5), glow=0.25, shadow=0.8)
+        source(cv, '问题：美联社 2006-06-23 报道', a, y=1462)
     # ---- c1h：2011 年初，段永平开始买入苹果
     t0, t1 = win('c1h')
     a = env(t, t0, t1, 0.5, 0.4)

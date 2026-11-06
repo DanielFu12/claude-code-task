@@ -218,6 +218,8 @@
 - `coke_bottles` — [File:Coca-Cola Bottles Alaska 2010.jpg](https://commons.wikimedia.org/wiki/File%3ACoca-Cola_Bottles_Alaska_2010.jpg) · 作者：Rowanswiki · 授权：CC0
 - `cook_2017` — [File:Tim Cook (2017, cropped).jpg](https://commons.wikimedia.org/wiki/File%3ATim_Cook_%282017%2C_cropped%29.jpg) · 作者：Austin Community College · 授权：CC BY 2.0
 - `dairy_queen` — [File:Dairy Queen - October 2023 - Sarah Stierch.jpg](https://commons.wikimedia.org/wiki/File%3ADairy_Queen_-_October_2023_-_Sarah_Stierch.jpg) · 作者：Missvain · 授权：CC BY 4.0
+- `duan_buffett_2007` — [巴菲特与段永平，2007-05-09 纽约午餐](https://finance.ifeng.com/people/200705/0523_188_122564.shtml) · 作者：— · 授权：新闻图片
+- `duan_portrait` — [段永平](https://news.qq.com/rain/a/20250401A09Y5300) · 作者：— · 授权：新闻图片
 - `flip_moto` — [File:Motorola flip phone, closed.jpg](https://commons.wikimedia.org/wiki/File%3AMotorola_flip_phone%2C_closed.jpg) · 作者：Jud McCranie · 授权：CC BY-SA 4.0
 - `glide` — [File:Glide Memorial.jpg](https://commons.wikimedia.org/wiki/File%3AGlide_Memorial.jpg) · 作者：Rob Thomas · 授权：CC BY-SA 4.0
 - `ibm_chq` — [File:IBM CHQ - Oct 2014.jpg](https://commons.wikimedia.org/wiki/File%3AIBM_CHQ_-_Oct_2014.jpg) · 作者：Treesmittenex · 授权：CC BY-SA 4.0
