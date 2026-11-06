@@ -469,6 +469,8 @@ def chapter_title(frame, i, t):
     al = ease(t / 0.12) * (1 - ease_io((t - 1.4) / 0.5))
     s = 1 + 0.25 * (1 - back(t / 0.35))
     cy = BAND_Y + BAND_H / 2
+    if SHOTS[i]["kind"] == "data" and not SHOTS[i].get("bg"):   # 纯数据镜头：放到图表上方，免得压住数字
+        cy = 270
     fill_rect(frame, 0, cy - 120, W, cy + 120, (0, 0, 0), 0.45 * al)
     blit_c(frame, a_, W / 2, cy - 62, al)
     blit_c(frame, b_, W / 2, cy + 22, al, s)
