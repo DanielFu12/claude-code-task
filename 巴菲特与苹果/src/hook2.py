@@ -71,9 +71,9 @@ def shot_hook(cv, t):
         p = t - t0
         tk = WT('h2', '如今')
         up = eexp(p / 1.6)
-        H1 = 1.6 * up
+        H1 = 1.3 * up
         drop = eio5(cl((t - tk) / 1.3))
-        H2 = lerp(1.6 * up, 1.6 * 0.2257, drop)
+        H2 = lerp(1.3 * up, 1.3 * 0.2257, drop)
         cam = lerp(-0.55, -0.15, eio(p / max(t1 - t0, 1)))
         camr = lerp(10.5, 8.6, eio(p / 4))
         img = S3('BARS')(t=t, cam=cam, camr=camr, h1=H1, h2=H2, ex=1.0, glow2=drop * (1 - drop) * 4, redk=eo(cl((t - tk) / 0.8)))
@@ -81,11 +81,11 @@ def shot_hook(cv, t):
         ro = (math.sin(cam) * camr, 2.0, math.cos(cam) * camr); ta = (0, 1.45, 0)
         x1, y1 = fx.project((0.85, 2 * H1 + 0.35, 0), ro, ta, 2.4)
         x2, y2 = fx.project((-0.85, 2 * H2 + 0.35, 0), ro, ta, 2.4)
-        cv.text('10.1亿股', x1, y1, 56, 'sans_bold', gold=True, a=a * eo((p - 0.6) / 0.5), glow=0.25, shadow=0.8)
-        cv.text('2018 峰值', x1, y1 + 60, 26, 'sans_light', col=CREAM, a=a * eo((p - 0.8) / 0.5), shadow=0.8)
-        k2 = eo((t - tk - 0.9) / 0.5)
-        cv.text('2.28亿股', x2, y2, 56, 'sans_bold', col=(1.0, 0.45, 0.4), a=a * k2, glow=0.25, shadow=0.8)
-        cv.text('2026 年 6 月', x2, y2 + 60, 26, 'sans_light', col=CREAM, a=a * k2, shadow=0.8)
+        cv.text('2018 峰值', x1, y1 - 70, 26, 'sans_light', col=CREAM, a=a * eo((p - 0.8) / 0.5), shadow=0.8)
+        cv.text('10.1亿股', x1, y1 - 20, 56, 'sans_bold', gold=True, a=a * eo((p - 0.6) / 0.5), glow=0.25, shadow=0.8)
+        k2 = eo((t - tk - 1.35) / 0.4)                       # 柱子落定后才出标签
+        cv.text('2026 年 6 月', x2, y2 - 70, 26, 'sans_light', col=CREAM, a=a * k2, shadow=0.8)
+        cv.text('2.28亿股', x2, y2 - 20, 56, 'sans_bold', col=(1.0, 0.45, 0.4), a=a * k2, glow=0.25, shadow=0.8)
         if 0 < drop < 1:                                     # 塌落时的碎光
             rng = np.random.default_rng(int(t * 30))
             xs = x2 + rng.normal(0, 70, 60); ys = y2 + 40 + rng.uniform(0, 500, 60) * drop
@@ -105,6 +105,7 @@ def shot_hook(cv, t):
         cam = 0.5 + p * 0.045
         img = S3('CUBES')(t=t, cam=cam, sold=sold, lift=lift, ex=1.0, frac_=0.75)
         fx.layer_over(cv, img, a)
+        cv.rrect(170, 280, 910, 620, 24, (0.02, 0.015, 0.015), a * 0.72)      # 文字底板：升起的方块从其后穿过，不与文字叠在一起
         cv.text('2023 年秋', W / 2, 330, 40, 'sans_med', col=CREAM, a=a, shadow=0.8)
         cv.text('9.16 亿股', W / 2, 420, 84, 'sans_bold', gold=True, a=a * eo((p - 0.3) / 0.5), glow=0.25, shadow=0.8)
         cv.text('每格 ≈ 916 万股', W / 2, 490, 24, 'sans_light', col=GREY, a=a * eo((p - 0.6) / 0.5), shadow=0.8)
@@ -114,6 +115,7 @@ def shot_hook(cv, t):
         k2 = eo((t - tm + 0.1) / 0.4)
         if k2 > 0:
             v = counter(0, 1340, t, tm - 0.1, 1.0, lambda v: f'${v:,.0f}亿')
+            cv.rrect(150, 1160, 930, 1380, 24, (0.02, 0.015, 0.015), a * k2 * 0.8)
             cv.text('套现约', W / 2, 1215, 34, 'sans_med', col=CREAM, a=a * k2, shadow=0.8)
             cv.text(v, W / 2, 1310, 118, 'sans_bold', gold=True, a=a * k2, glow=0.45, shadow=0.8, scale=1.06 - 0.06 * k2)
             fx.flare(cv, W / 2, 1310, a * math.exp(-max(t - tm - 1.0, 0) * 3) * (t > tm + 1.0), length=650)

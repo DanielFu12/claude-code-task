@@ -47,7 +47,7 @@ def shot_ch3(cv, t):
         if k > 0:
             cv.text('2024 Q2：一个季度卖出 3.89 亿股', W / 2, 510, 40, 'sans_bold', col=RED, a=a * k, shadow=0.6)
         k2 = eo((t - WT('c3f', '两点二八亿') + 0.1) / 0.5)
-        cv.text('2.28 亿股', W / 2 + 280, 1060, 40, 'sans_bold', col=CREAM, a=a * k2)
+        cv.text('2.28 亿股', 1010, 880, 40, 'sans_bold', col=CREAM, a=a * k2, anchor='r', shadow=0.8)
         k3 = eo((t - WT('c3f', '格雷格') + 0.1) / 0.6)
         if k3 > 0:
             cv.rrect(140, 1210, 940, 1360, 16, (0.05, 0.05, 0.06), a * k3 * 0.9)

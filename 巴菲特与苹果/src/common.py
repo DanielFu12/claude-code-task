@@ -366,14 +366,15 @@ def subtitles(cv, t):
         ch = sub_chunks(s)
         for k, (txt, a0, a1) in enumerate(ch):
             last = k == len(ch) - 1
-            a = env(t, a0 - 0.08, a1 + (0.35 if last else 0.02), 0.14, 0.12 if not last else 0.25)
+            # 前一段完全淡出后，后一段才淡入（不叠影）；句末一段多停 0.25s（句间间隔 ≥0.35s）
+            a = env(t, a0 - (0.06 if k == 0 else 0.0), a1 + (0.25 if last else 0.0), 0.14, 0.25 if last else 0.12)
             if a <= 0.004: continue
-            rise = 10 * (1 - eo((t - a0 + 0.08) / 0.25))
+            rise = 10 * (1 - eo((t - a0) / 0.25))
             size = 50
             lines = split_balanced(txt, 'sans_med', size, 940) if text_size(txt, 'sans_med', size)[0] > 940 else [txt]
             n = len(lines)
             tw = max(text_size(l, 'sans_med', size)[0] for l in lines)
-            yc = 1555 + rise
+            yc = 1555 + 35 * (n - 1) + rise                      # 两行时第一行保持原位、第二行向下，避开上方出处行
             sub_backing(cv, W / 2 - tw / 2 - 50, yc - n * size * 0.75 - 30, W / 2 + tw / 2 + 50, yc + n * size * 0.75 + 30, a)
             for j, l in enumerate(lines):
                 cv.text(l, W / 2, yc + (j - (n - 1) / 2) * size * 1.4, size, 'sans_med', col=(0.98, 0.97, 0.94), a=a, shadow=0.9)
@@ -666,7 +667,34 @@ def shot_hook_tail(cv, t):
         if sink > 0: cv.dim(1 - 0.4 * sink)
 
 
-# ------------------------------------------------------------------ 标题：玻璃苹果
+# ------------------------------------------------------------------ 标题：苹果官方 logo（Wikimedia 公有领域矢量图，商标归 Apple Inc.）
+_alog = {}
+def apple_logo(cv, t, cx, cy, hgt, a, sweep_t0=0.0, scale=1.0):
+    if a <= 0.004: return
+    h = int(hgt * scale)
+    if h not in _alog:
+        m = cv2.imread(os.path.join(ROOT, 'assets', 'media', 'apple_logo_alpha.png'), 0).astype(np.float32) / 255
+        w = int(m.shape[1] * h / m.shape[0]); m = cv2.resize(m, (w, h), interpolation=cv2.INTER_AREA)
+        yy = np.linspace(0, 1, h, dtype=np.float32)[:, None]; xx = np.linspace(0, 1, w, dtype=np.float32)[None, :]
+        base = 0.93 - 0.32 * yy + 0.06 * np.cos((xx - 0.35) * 3.0)              # 银色金属：上亮下暗，带一点横向起伏
+        rgb = np.stack([base * 0.97, base * 0.98, base * 1.02], -1)
+        _alog[h] = (m, np.clip(rgb, 0, 1))
+    m, rgb = _alog[h]
+    hh, ww = m.shape
+    x0, y0 = cx - ww / 2, cy - hh / 2
+    halo = cv2.GaussianBlur(np.pad(m, 80), (0, 0), 40) * 0.55 * a
+    cv.add(np.array([0.85, 0.9, 1.0], np.float32), halo, x0 - 80, y0 - 80, glow=0.6)
+    col = rgb.copy()
+    u = (t - sweep_t0) / 1.2
+    if 0 <= u <= 1:                                                              # 斜向流光扫过
+        xs = np.arange(ww)[None, :] + np.arange(hh)[:, None] * 0.5
+        pos = -200 + u * (ww + 500)
+        col = np.clip(col + np.exp(-((xs - pos) / 60) ** 2)[..., None] * 0.55, 0, 1.3)
+    cv.over(col, m * a, x0, y0)
+    cv._glow(col, m * a * 0.15, x0, y0)
+
+
+# ------------------------------------------------------------------ 标题：玻璃苹果（旧版，已停用）
 def apple_layer(cv, t, a=1.0, rot=0.0, camd=6.2, camy=1.5, shift=(0.0, 0.0), ex=1.0, fillk=0.6):
     if a <= 0.004: return
     b = sh('APPLE')(t=t, rot=rot, camd=camd, camy=camy, shift=shift, ex=ex, tint=(0.85, 0.18, 0.14), glass_a=1.0,
@@ -682,8 +710,7 @@ def shot_title(cv, t):
     if a <= 0: return
     p = t - t0
     flash = math.exp(-p * 5.0)
-    apple_layer(cv, t, a * eo(p / 0.25), rot=0.6 + p * 0.25, camd=6.2, camy=1.5, shift=(0.0, 0.12),
-                ex=0.6 + 0.8 * (1 - math.exp(-p * 3)), fillk=0.4 + 0.4 * flash)
+    apple_logo(cv, t, W / 2, 740, 560, a * eo(p / 0.35), sweep_t0=t0 + 0.45, scale=1.06 - 0.06 * eo(p / 0.8))
     R = 60 + p * 900
     cv.circle((W / 2, 760), R, GOLD, a * math.exp(-p * 2.2) * 0.8, 3)
     cv.glow_dot((W / 2, 760), 220, GOLD, a * flash * 0.9)
@@ -989,7 +1016,7 @@ def follow_pill(cv, t):
         t1, t2 = '关注 @巴芒价值', '传承大师智慧，领悟投资真谛'
         tw = max(text_size(t1, 'sans_med', 32)[0], text_size(t2, 'sans_light', 22)[0] if last else 0)
         w, h = 22 + lg + 16 + tw + 34, (100 if last else 78)
-        x1 = W - 40; x0 = x1 - w; yc = 1712 + dy
+        x1 = W - 40; x0 = x1 - w; yc = 1750 + dy
         cv.rrect(x0, yc - h / 2, x1, yc + h / 2, h / 2, (0.03, 0.035, 0.06), a * 0.78)
         cv.rrect(x0, yc - h / 2, x1, yc + h / 2, h / 2, GOLD_D, a * 0.55, fill=False, th=2)
         rgb, al = logo(lg)

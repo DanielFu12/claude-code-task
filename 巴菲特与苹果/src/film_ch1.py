@@ -60,8 +60,25 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1d', pre=0.2)
     a = env(t, t0, t1, 0.4, 0.5)
     if a > 0:
-        M.full(cv, 'x_jobs07_stage', t, t0, t1, z0=1.0, z1=1.1, focus=(0.42, 0.45), dark=0.35, a=a, speed=0.7, cap='Macworld 2007 · 乔布斯发布第一代 iPhone')
-        headline(cv, '另一个人', 1190, a, 100, k=eo((t - WT('c1d', '另一个人') + 0.1) / 0.6))
+        p = t - t0                                           # 时间轴：2011 段永平买入 → 2016 巴菲特买入，早了 5 年
+        x0, x1, y = 170, 910, 640
+        L = (x1 - x0) * eio(p / 1.2)
+        cv.line((x0, y), (x0 + L, y), GREY, a * 0.8, 3)
+        for yr in range(2011, 2017):
+            xx = x0 + (yr - 2011) / 5 * (x1 - x0)
+            if xx <= x0 + L + 1: cv.text(str(yr), xx, y + 44, 24, 'oswald', col=DIM, a=a)
+        kd = eo((p - 0.4) / 0.5)
+        cv.glow_dot((x0, y), 16, GOLD, a * kd)
+        cv.text('段永平开始买入', x0, y - 60, 32, 'sans_med', col=GOLD_L, a=a * kd)
+        kb = eo((p - 1.1) / 0.5)
+        cv.glow_dot((x1, y), 16, CREAM, a * kb)
+        cv.text('巴菲特首次买入', x1, y - 60, 32, 'sans_med', col=CREAM, a=a * kb)
+        ke = eo((p - 1.6) / 0.5)
+        if ke > 0:
+            cv.line((x0, y + 90), (x1, y + 90), GOLD_D, a * ke, 2)
+            cv.text('早了 5 年', W / 2, y + 130, 40, 'serif_black', gold=True, a=a * ke, glow=0.2)
+        headline(cv, '另一个人', 1060, a, 100, k=eo((t - WT('c1d', '另一个人') + 0.1) / 0.6))
+        cv.text('比巴菲特更早看懂了苹果', W / 2, 1170, 40, 'sans_med', col=CREAM, a=a * eo((t - WT('c1d', '另一个人') - 0.4) / 0.6))
     # ---- c1e：2006 年慈善午餐拍卖
     t0, t1 = win('c1e')
     a = env(t, t0, t1, 0.5, 0.4)
@@ -99,15 +116,18 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1h')
     a = env(t, t0, t1, 0.5, 0.4)
     if a > 0:
-        tsw = WT('c1h', '用户体验') - 0.6
-        M.full(cv, 'x_jobs_council', t, t0, tsw + 0.6, z0=1.0, z1=1.08, focus=(0.45, 0.4), dark=0.4, a=a, fo=0.6, speed=0.3,
-               cap='2011 年 · 乔布斯在库比蒂诺市议会介绍新园区')
-        M.full(cv, 'x_jobs07_wave', t, tsw, t1, z0=1.0, z1=1.08, focus=(0.45, 0.42), dark=0.4, a=a, fi=0.6, cap='乔布斯 · Macworld 2007')
         k = eo((t - WT('c1h', '二零一一') + 0.1) / 0.5)
-        cv.text('2011', 140, 905, 80, 'oswald', col=GOLD, a=a * k, anchor='l', shadow=0.8)
-        for j, (w_, s) in enumerate([('用户体验', '用户体验，做到极致'), ('护城河', '生意模式，形成护城河')]):
-            kk = eo((t - WT('c1h', w_) + 0.1) / 0.5)
-            cv.text(s, W / 2, 1130 + j * 90, 50, 'serif_semi', col=CREAM if j == 0 else GOLD_L, a=a * kk, shadow=0.8)
+        cv.text('2011 年 1 月 · 段永平', W / 2, 330, 46, 'serif_black', gold=True, a=a * k, shadow=0.8)
+        quote_card(cv, 'qduan2024', t, t0 + 0.2, t1, cy=560, cn_size=40, a=a)
+        cv.text('他当年写下的理由', W / 2, 840, 30, 'sans_light', col=GREY, a=a * eo((t - WT('c1h', '用户体验') + 0.4) / 0.5))
+        rs = [('用户体验', '用户体验，做到极致'), ('护城河', '平台与生意模式，形成护城河'), (None, '还处在成长的早期，空间很大')]
+        tl_ = WT('c1h', '护城河')
+        for j, (w_, s_) in enumerate(rs):
+            tj = WT('c1h', w_) if w_ else tl_ + 0.9
+            kk = eo((t - tj + 0.1) / 0.5)
+            y = 930 + j * 100
+            cv.text(f'0{j + 1}', 150, y, 40, 'oswald', col=GOLD, a=a * kk)
+            cv.text(s_, 210, y, 44, 'serif_semi', col=CREAM if j != 1 else GOLD_L, a=a * kk, anchor='l', shadow=0.6)
         source(cv, '段永平网络问答（2011-01-22、2024-09-12），收录于《大道：段永平投资问答录》', a, y=1462)
     # ---- c1i：苹果成了他组合里最重的股票（H&H 13F 占比）
     t0, t1 = win('c1i')
@@ -204,10 +224,10 @@ def shot_ch1(cv, t):
     a = env(t, t0, t1, 0.6, 0.4)
     if a > 0:
         M.full(cv, 'v_omaha_drone', t, t0, t1, z0=1.0, z1=1.06, dark=0.45, a=a, src_t0=40.0, cap='奥马哈航拍（2016）')
-        cv.text('2018', W / 2, 910, 90, 'oswald', col=GOLD, a=a * eo((t - t0 - 0.4) / 0.6), shadow=0.8)
-        quote_card(cv, 'qduan2018', t, WT('c1q', '我觉得') - 0.4, t1, cy=1110, cn_size=42, a=a)
+        cv.text('2018', W / 2, 955, 90, 'oswald', col=GOLD, a=a * eo((t - t0 - 0.4) / 0.6), shadow=0.8)
+        quote_card(cv, 'qduan2018', t, WT('c1q', '我觉得') - 0.4, t1, cy=1175, cn_size=42, a=a)
         k = eo((t - WT('c1q', 'I got it') + 0.05) / 0.4)
-        cv.text('“I got it.”', W / 2, 1340, 70, 'typewriter', col=GOLD_L, a=a * k, glow=0.2, shadow=0.8)
+        cv.text('“I got it.”', W / 2, 1400, 70, 'typewriter', col=GOLD_L, a=a * k, glow=0.2, shadow=0.8)
     # ---- c1r：那时巴菲特已经买了两年
     t0, t1 = win('c1r')
     a = env(t, t0, t1, 0.4, 0.4)
@@ -230,5 +250,5 @@ def shot_ch1(cv, t):
     if a > 0:
         tsw = WT('c1s', 'iPhone')
         M.full(cv, 'x_iphone_hand', t, t0, t1, z0=1.0, z1=1.08, dark=0.3, a=a, speed=0.3, cap='iPhone')
-        cv.text('2020', W / 2, 910, 90, 'oswald', col=GOLD, a=a * eo((t - t0) / 0.6), shadow=0.8)
-        quote_card(cv, 'q2020flip', t, WT('c1s', '我的翻盖') - 0.4, t1, cy=1150, en_size=38, cn_size=42, a=a)
+        cv.text('2020', W / 2, 955, 90, 'oswald', col=GOLD, a=a * eo((t - t0) / 0.6), shadow=0.8)
+        quote_card(cv, 'q2020flip', t, WT('c1s', '我的翻盖') - 0.4, t1, cy=1190, en_size=38, cn_size=42, a=a)

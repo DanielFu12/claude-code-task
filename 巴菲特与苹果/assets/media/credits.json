@@ -278,5 +278,13 @@
   "artist": "https://www.youtube.com/user/Editor",
   "date": "2011-05-28",
   "desc": "Cars on a highway driving around a bend at night"
+ },
+ "apple_logo": {
+  "title": "File:Apple logo black.svg",
+  "page": "https://commons.wikimedia.org/wiki/File:Apple_logo_black.svg",
+  "license": "Public domain（商标归 Apple Inc. 所有）",
+  "artist": "Apple Inc.",
+  "date": "",
+  "desc": "Apple logo"
  }
 }

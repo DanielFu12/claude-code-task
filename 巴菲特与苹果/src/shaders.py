@@ -313,7 +313,7 @@ vec2 map(vec3 p){
     vec2 cc = clamp(c+vec2(dx,dz), 0., 9.);
     vec3 ctr = vec3((cc.x-4.5)*s, 0.24, (cc.y-4.5)*s);
     float sz = 0.24;
-    if (isSold(cc)) { float k = kk(cc)*sold; ctr.y += k*k*6.0; sz *= (1.-k*0.92); }
+    if (isSold(cc)) { float k = kk(cc)*sold; ctr.y += k*k*2.6; sz *= clamp(1.-k*1.35, 0., 1.); }   // 升起不越过上方文字区，途中化光消失
     float d = sdBox(p-ctr, vec3(sz)) - 0.02;
     if (d < best){ best = d; id = isSold(cc) ? 2. : 1.; }
   }

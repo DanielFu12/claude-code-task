@@ -103,18 +103,29 @@ def shot_ch2(cv, t):
         cv.text('股数 −31.8%', W / 2, 1390, 44, 'sans_bold', col=RED, a=a * k2)
         cv.text('苹果各财年回购（十亿美元）与摊薄股数', W / 2, 420, 30, 'sans_med', col=CREAM, a=a)
         source(cv, '苹果 10-K（2016–2025 财年）现金流量表与摊薄加权股数（拆股调整）', a, y=1470)
-    # ---- c2i：5.39% → 5.55%，“苹果的回购替我们做到了”
+    # ---- c2i：仅 2021 年一年：苹果股数约 −3% → 伯克希尔持股比例 5.39% → 5.55%（+3%）；十年视角：同样股数占比 ≈ 1.45 倍
     t0, t1 = win('c2i')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         p = t - t0
-        k = eio((t - WT('c2i', '持股比例') + 0.2) / 1.6)
-        v = lerp(5.39, 5.55, k)
-        cv.arc((W / 2, 720), 230, -math.pi / 2, 3 * math.pi / 2, (0.2, 0.2, 0.22), a, 18)
-        cv.arc((W / 2, 720), 230, -math.pi / 2, -math.pi / 2 + 2 * math.pi * v / 100 * 6, GOLD, a, 18)
-        cv.text(f'{v:.2f}%', W / 2, 720, 110, 'sans_bold', gold=True, a=a, glow=0.25)
-        cv.text('伯克希尔在苹果的持股比例 · 2020 → 2021（示意放大）', W / 2, 1000, 26, 'sans_light', col=GREY, a=a)
-        quote_card(cv, 'q2021', t, WT('c2i', '巴菲特写道') - 0.4, t1, cy=1220, en_size=30, cn_size=36, a=a)
+        cv.text('仅 2021 年一年', W / 2, 330, 44, 'serif_black', gold=True, a=a, shadow=0.6)
+        x0, x1 = 170, 910
+        def row(y, lab, v0, v1, f, col, tk):
+            k = eio((t - tk) / 1.2)
+            cv.text(lab, x0, y - 50, 30, 'sans_med', col=CREAM, a=a, anchor='l')
+            cv.rect(x0, y - 16, x1, y + 16, (0.22, 0.22, 0.25), a * 0.8)
+            v = lerp(v0, v1, k)
+            cv.rect(x0, y - 16, x0 + (x1 - x0) * v / max(v0, v1) * 0.92, y + 16, col, a, glow=0.15)
+            cv.text(f(v), x1, y - 50, 34, 'sans_bold', col=col, a=a, anchor='r')
+        row(500, '苹果流通股数', 17.0, 16.5, lambda v: f'约 {v:.1f}0 亿股' if False else f'约 {v * 10:.0f} 亿股', GREY, WT('c2i', '股数') - 0.2)
+        cv.text('约 −3%', W / 2, 560, 30, 'sans_bold', col=(1.0, 0.5, 0.42), a=a * eo((t - WT('c2i', '百分之三')) / 0.4))
+        row(680, '伯克希尔的持股比例（股数不变）', 5.39, 5.55, lambda v: f'{v:.2f}%', GOLD, WT('c2i', '持股比例') - 0.2)
+        cv.text('+3%', W / 2, 740, 30, 'sans_bold', col=GOLD_L, a=a * eo((t - WT('c2i', '五点五五')) / 0.4))
+        k3 = eo((t - WT('c2i', '巴菲特写道') + 1.2) / 0.6)
+        cv.rrect(140, 800, 940, 880, 16, (0.06, 0.06, 0.07), a * k3 * 0.9)
+        cv.text('十年视角：股数减少约三成 → 同样的股数，占比约为原来的 1.45 倍', W / 2, 840, 26, 'sans_med', col=CREAM, a=a * k3)
+        quote_card(cv, 'q2021', t, WT('c2i', '巴菲特写道') - 0.4, t1, cy=1180, en_size=30, cn_size=36, a=a)
+        source(cv, '巴菲特 2021 年致股东信（5.39% → 5.55%）；苹果 10-K 期末股数：2016 财年 213.4 亿股 → 2025 财年 147.7 亿股', a, y=1462)
     # ---- c2j：透视盈余
     t0, t1 = win('c2j')
     a = env(t, t0, t1, 0.4, 0.4)

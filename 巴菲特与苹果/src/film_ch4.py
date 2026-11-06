@@ -107,7 +107,7 @@ def shot_ch4(cv, t):
         k = eo((t - WT('c4h', '一百九十五') + 0.1) / 0.5)
         yy = ax_y(195.10, y0, y1, 120, 400)
         cv.line((ax_x(2023.75, x0, x1, 2023.5, 2026.9), yy), (ax_x(2025.99, x0, x1, 2023.5, 2026.9), yy), GOLD, a * k, 3)
-        cv.text('卖出均价 ≈ $195', ax_x(2023.75, x0, x1, 2023.5, 2026.9), yy + 40, 30, 'sans_bold', col=GOLD, a=a * k, anchor='l')
+        cv.text('卖出均价 ≈ $195', ax_x(2025.99, x0, x1, 2023.5, 2026.9) + 14, yy, 30, 'sans_bold', col=GOLD, a=a * k, anchor='l')
         k2 = eo((t - WT('c4h', '三百三十八') + 0.1) / 0.5)
         yn = ax_y(CLOSE, y0, y1, 120, 400)
         cv.text('今天 $338', x1, yn - 44, 34, 'sans_bold', col=CREAM, a=a * k2, anchor='r')
