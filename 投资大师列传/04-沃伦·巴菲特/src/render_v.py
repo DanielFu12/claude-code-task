@@ -1,4 +1,4 @@
-"""《沃伦·巴菲特：股神的复利人生》竖屏版（1080×1920）逐帧渲染。
+"""《沃伦·巴菲特：股神的复利人生》竖屏版（1080×1920）逐帧渲染。品牌为 MastersTao（`MastersTao/brand`）。
 
 用法：
   python3 src/render_v.py still <镜头号> <镜头内秒数> out.png
@@ -19,9 +19,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
 REPO = os.path.join(ROOT, "..", "..")
 sys.path.insert(0, HERE)
-sys.path.insert(0, os.path.join(REPO, "brand"))  # brand/brand.py
+sys.path.insert(0, os.path.join(REPO, "MastersTao", "brand"))  # MastersTao 官方品牌（取自 claude/masters-tao-holdings-video-q3crid）
 from shots import SHOTS
-from brand import Hud
+from mt_brand import Hud, load_logo as mt_logo, PALETTE
 
 W, H, FPS = 1080, 1920, 30
 # TL=r 时使用参照片配乐的时间线（src/music_r.py），默认用 Lyria 配乐的时间线（src/music_v.py）
@@ -258,9 +258,10 @@ GRAIN = [_rng.standard_normal((H // 2, W // 2)).astype(np.float32) for _ in rang
 VIGNETTE = (1 - 0.40 * (((xx - W / 2) / (W * 0.75)) ** 2 + ((yy - H / 2) / (H * 0.62)) ** 2) ** 1.3).clip(0.35, 1)[..., None]
 # 下部字幕区和顶部标题区压暗
 SCRIM = (1 - 0.70 * np.clip((yy - 1080) / 500, 0, 1) ** 1.2 - 0.45 * np.clip((300 - yy) / 300, 0, 1))[..., None]
-HUD = Hud(scale=1.0, frame_w=W)
-HUD.y0 = 112          # 竖屏：角标下移，避开手机状态栏，和左侧章节名对齐
-HUD.x0 = W - HUD.w - 48
+HUD = Hud(width=W)    # MastersTao 官方 logo 角标（右上角，logo 高 64px，距右 44px）
+HUD.my = 116          # 竖屏：下移避开手机状态栏，和左侧章节名对齐
+BA, BB = np.array(PALETTE["brand_a"], np.float32), np.array(PALETTE["brand_b"], np.float32)
+INK2, INK3 = np.array(PALETTE["ink2"], np.float32), np.array(PALETTE["ink3"], np.float32)
 
 
 def paper_bg():
@@ -482,16 +483,17 @@ def chapter_title(frame, i, t):
 # ------------------------------------------------------------------ 正片中途关注语（参照 claude/festive-brown-49d0no 的胶囊条）
 FOLLOWS = TL.get("follows", [])
 FOLLOW_DUR, FOLLOW_FADE = 4.5, 0.4
+FOLLOW_Y = 1800       # 胶囊底边：字幕最低约 1680，平台底部文案区之上
 
 
 def pill_sprite(tagged):
     k = ("pill", tagged)
     if k in _cap:
         return _cap[k]
-    m1 = text_sprite(["关注 @巴芒价值"], "sans_bold", 38, color=WHITE, shadow=False)
-    m2 = text_sprite(["更多投资大师 · 主页合集"], "sans_bold", 26, color=(0.95, 0.8, 0.45), shadow=False) if tagged else None
+    m1 = text_sprite(["关注 MastersTao"], "sans_bold", 38, color=WHITE, shadow=False)
+    m2 = text_sprite(["更多投资大师 · 主页合集"], "sans_bold", 26, color=tuple(PALETTE["series_ab"]), shadow=False) if tagged else None
     lg = 60
-    logo = pil_sprite(Image.open(os.path.join(REPO, "brand", "logo_baman.png")).convert("RGBA").resize((lg, lg), Image.LANCZOS))
+    logo = Sprite(*mt_logo("blue", "mark", lg))           # MastersTao 官方图形
     tw = max(m1.w, m2.w if m2 else 0)
     h = 116 if tagged else 88
     w = 20 + lg + 10 + tw + 18
@@ -522,7 +524,7 @@ def follow_pill(frame, t):
         q = t - t0
         a = min(1.0, q / FOLLOW_FADE, (FOLLOW_DUR - q) / FOLLOW_FADE)
         dy = 14 * (1 - ease(q / FOLLOW_FADE))
-        blit(frame, sp, W - 36 - sp.w, 206 + dy, a)
+        blit(frame, sp, (W - sp.w) / 2, FOLLOW_Y - sp.h + dy, a)   # 底部居中：字幕下方，避开平台右侧按钮
 
 
 # ------------------------------------------------------------------ 纸卡
@@ -886,19 +888,19 @@ def title_frame(t, dur):
     return f
 
 
-# ------------------------------------------------------------------ 片尾 logo 动画
-LOGO_PX = 520
-LOGO_CY = 760
+# ------------------------------------------------------------------ 片尾：MastersTao 品牌片尾（参照 claude/masters-tao-holdings-video-q3crid 的 sc_end）
+LOGO_H = 230          # 官方 logo 高 230px
+LOGO_Y = 600          # logo 顶边
 
 
 def finale_setup():
     if "fin" in _cap:
         return _cap["fin"]
-    lg = Image.open(os.path.join(REPO, "brand", "logo_baman.png")).convert("RGBA").resize((LOGO_PX, LOGO_PX), Image.LANCZOS)
-    logo = pil_sprite(lg)
+    logo = Sprite(*mt_logo("blue", "logo-dark", LOGO_H))
+    lw = logo.w
+    lx = (W - lw) / 2
     # 马赛克：片中画面的缩略图拼成满屏
-    keys = [s["bg"] for s in SHOTS if s.get("bg") and s["bg"] != "map"]
-    keys = list(dict.fromkeys(keys))
+    keys = list(dict.fromkeys(s["bg"] for s in SHOTS if s.get("bg") and s["bg"] != "map"))
     tw, th = 270, 152
     cols, rows = W // tw, int(math.ceil(H / th))
     mosaic = np.zeros((rows * th, cols * tw, 3), np.float32)
@@ -906,27 +908,31 @@ def finale_setup():
     for r in range(rows):
         for c in range(cols):
             k = keys[(r * cols + c) * 7 % len(keys)]
-            im = cv2.resize(asset_raw(k), (tw, th), interpolation=cv2.INTER_AREA).astype(np.float32) / 255
-            mosaic[r * th:(r + 1) * th, c * tw:(c + 1) * tw] = im
+            mosaic[r * th:(r + 1) * th, c * tw:(c + 1) * tw] = cv2.resize(asset_raw(k), (tw, th), interpolation=cv2.INTER_AREA).astype(np.float32) / 255
     mosaic = mosaic[:H, :W]
-    # 粒子：起点取自马赛克，终点取自 logo
+    # 粒子：起点取自马赛克，终点取自官方 logo 轮廓
     N = 18000
     ys, xs = np.nonzero(logo.a > 0.5)
     sel = rng.choice(len(xs), N, replace=len(xs) < N)
-    gx = xs[sel] + W / 2 - LOGO_PX / 2
-    gy = ys[sel] + LOGO_CY - LOGO_PX / 2
+    gx, gy = xs[sel] + lx, ys[sel] + LOGO_Y
     gcol = logo.rgb[ys[sel], xs[sel]]
-    sx = rng.random(N) * (W - 1)
-    sy = rng.random(N) * (H - 1)
-    scol = np.clip(mosaic[sy.astype(int), sx.astype(int)] * 1.7 + np.array([0.12, 0.09, 0.03], np.float32), 0, 1)
-    delay = rng.random(N) * 0.35
-    spin = (rng.random(N) - 0.5) * 2
-    glow = cv2.GaussianBlur(np.pad(logo.a, 160), (0, 0), 40)
-    e1 = text_sprite(["巴芒价值"], "serif_black", 150, gold=True)
-    e2 = text_sprite(["BUFFETT · MUNGER"], "corm", 50, color=(0.84, 0.7, 0.44), shadow=False, track=10)
-    e3 = text_sprite(["关注「巴芒价值」，传承大师智慧，领悟投资真谛"], "sans_bold", 40, gold=True)
-    _cap["fin"] = dict(logo=logo, mosaic=mosaic, gx=gx, gy=gy, gcol=gcol, sx=sx, sy=sy, scol=scol,
-                       delay=delay, spin=spin, glow=glow, e1=e1, e2=e2, e3=e3)
+    sx, sy = rng.random(N) * (W - 1), rng.random(N) * (H - 1)
+    scol = np.clip(mosaic[sy.astype(int), sx.astype(int)] * 1.7 + np.array([0.05, 0.07, 0.14], np.float32), 0, 1)
+    # 星云与星空（低速品牌光环背景）
+    neb = np.zeros((H // 4, W // 4, 3), np.float32)
+    for (cx, cy, r, col) in [(0.3, 0.38, 0.55, BA), (0.72, 0.5, 0.6, BB), (0.5, 0.75, 0.5, BA * 0.5 + BB * 0.5)]:
+        g = np.exp(-(((np.arange(W // 4)[None, :] / (W / 4) - cx) ** 2 + (np.arange(H // 4)[:, None] / (H / 4) - cy) ** 2 * 0.35) / (2 * (r * 0.35) ** 2)))
+        neb += g[..., None] * col * 0.16
+    noise = cv2.GaussianBlur(rng.random((H // 4, W // 4)).astype(np.float32), (0, 0), 6)
+    neb *= (0.7 + 0.6 * (noise - noise.mean()) / (noise.std() * 3 + 1e-6))[..., None]
+    stars = (rng.random((900, 2)) * [W, H], rng.random(900))
+    mark_cx = lx + LOGO_H * 0.55          # logo 左侧图形中心
+    _cap["fin"] = dict(logo=logo, lx=lx, mosaic=mosaic, gx=gx, gy=gy, gcol=gcol, sx=sx, sy=sy, scol=scol,
+                       delay=rng.random(N) * 0.35, spin=(rng.random(N) - 0.5) * 2, neb=neb, stars=stars, mark_cx=mark_cx,
+                       ask=text_sprite(["巴菲特的哪一条投资原则，对你影响最大？评论区聊聊"], "sans_bold", 38, color=(1.0, 0.86, 0.5)),
+                       f1=text_sprite(["关注 MastersTao"], "sans_black", 68, color=WHITE),
+                       f2=text_sprite(["传承大师智慧，领悟投资真谛。"], "sans_bold", 46, color=tuple(INK2)),
+                       f3=text_sprite(["masterstao.com"], "sans_bold", 30, color=tuple(INK3 + 0.2), track=3))
     return _cap["fin"]
 
 
@@ -934,7 +940,7 @@ def particles(F, t, tl, acc, wgt):
     p = np.clip((t - 0.3 - F["delay"]) / (tl - 1.1), 0, 1)   # logo 形状提前约 0.6s 成形
     e = p * p * (3 - 2 * p)
     ang = (1 - e) * 3.2 * F["spin"]
-    cx, cy = W / 2, LOGO_CY
+    cx, cy = W / 2, LOGO_Y + LOGO_H / 2
     rx, ry = F["sx"] - cx, F["sy"] - cy
     r = 1 - e
     px = cx + (rx * np.cos(ang) - ry * np.sin(ang)) * r + (F["gx"] - cx) * e
@@ -945,63 +951,79 @@ def particles(F, t, tl, acc, wgt):
         np.add.at(acc[..., c], (py[ok].astype(int), px[ok].astype(int)), col[ok, c])
 
 
+def glow_dot(f, cx, cy, r, col, a):
+    x0, x1 = int(max(0, cx - 3 * r)), int(min(W, cx + 3 * r))
+    y0, y1 = int(max(0, cy - 3 * r)), int(min(H, cy + 3 * r))
+    g = np.exp(-((xx[y0:y1, x0:x1] - cx) ** 2 + (yy[y0:y1, x0:x1] - cy) ** 2) / (2 * r * r))
+    f[y0:y1, x0:x1] += g[..., None] * col * a
+
+
 def finale_frame(t, dur):
     F = finale_setup()
-    tl = FIN["logo"] - FIN["start"]     # logo 浮现
-    tt = FIN["text"] - FIN["start"]     # 文字重拍
+    tl = FIN["logo"] - FIN["start"]     # 最后一个大重拍：logo 揭示
+    tt = FIN["text"] - FIN["start"]     # 4 拍后：关注语
     f = np.zeros((H, W, 3), np.float32)
-    f[:] = (0.015, 0.02, 0.04)
-    # 0–0.5s：马赛克闪现（全片画面的回忆）
-    if t < 1.1:   # 马赛克闪现后碎裂成粒子
+    f[:] = PALETTE["bg0"]
+    cyl = LOGO_Y + LOGO_H / 2
+    # 星云 + 星空（随时间缓慢漂移）
+    nb = cv2.resize(F["neb"], (W, H), interpolation=cv2.INTER_LINEAR)
+    f += np.roll(nb, int(t * 6), 1) * (0.4 + 0.6 * ease(t / 1.5))
+    (sp_, tw_) = F["stars"]
+    acc = np.zeros((H, W), np.float32)
+    dot_add(acc, (sp_[:, 0] + t * 4) % W, sp_[:, 1], 0.4 + 0.6 * (0.5 + 0.5 * np.sin(t * 3 + tw_ * 20)))
+    f += cv2.GaussianBlur(acc, (0, 0), 1.0)[..., None] * np.array([0.8, 0.85, 1.0], np.float32) * 1.6
+    # 马赛克闪现 → 碎裂成粒子
+    if t < 1.1:
         f += F["mosaic"] * 0.85 * ease(t / 0.15) * (1 - ease((t - 0.3) / 0.6))
-    # 粒子汇聚
     if t < tl + 0.25:
         acc = np.zeros((H, W, 3), np.float32)
         for lag, wgt in ((0.0, 1.0), (0.05, 0.55), (0.1, 0.3), (0.15, 0.15)):   # 运动拖尾
             particles(F, t - lag, tl, acc, wgt)
         acc = cv2.GaussianBlur(acc, (0, 0), 0.9) * 2.4 + cv2.GaussianBlur(acc, (0, 0), 5) * 1.6
         f += acc.clip(0, 2.5) * (1 - ease((t - tl) / 0.25))
-    # logo 浮现：闪白 + 冲击波 + 光芒
     if t >= tl - 0.05:
         q = t - tl
+        # 光环隧道：以 logo 为中心向外扩散的品牌渐变椭圆环
+        amt = 0.35 * ease(q / 1.0)
+        d = np.hypot((xx - W / 2) / 1.0, (yy - cyl) / 0.62)
+        for k in range(10):
+            rad = ((k / 10 + q * 0.12) % 1.0) ** 1.6 * 1500 + 40
+            ring = np.exp(-np.abs(d - rad) / 3.5) * (1 - rad / 1600)
+            col = BA * (1 - k / 10) + BB * (k / 10)
+            f += ring[..., None] * col * amt
+        # 光晕：mark 后
+        a = ease(q / 0.9)
+        glow_dot(f, F["mark_cx"], cyl, 160, BB * 0.22, a)
+        glow_dot(f, F["mark_cx"], cyl, 60, BA * 0.3, a)
+        # 官方 logo：从左向右扫光揭示（亮边）
         lg = F["logo"]
-        s = 1 + 0.18 * (1 - back(q / 0.45))
-        # 背后旋转光芒
-        ang = np.arctan2(yy - LOGO_CY, xx - W / 2) + q * 0.15
-        rays = (0.5 + 0.5 * np.cos(ang * 14)) ** 6 * np.exp(-np.hypot(xx - W / 2, yy - LOGO_CY) / 520)
-        f += rays[..., None] * np.array([0.3, 0.5, 0.9], np.float32) * 0.35 * ease(q / 0.4) * (1 - 0.4 * ease((q - 2) / 2))
-        g = F["glow"]
-        gy0, gx0 = int(LOGO_CY - g.shape[0] / 2), int(W / 2 - g.shape[1] / 2)
-        f[gy0:gy0 + g.shape[0], gx0:gx0 + g.shape[1]] += g[..., None] * np.array([0.43, 0.69, 1.0], np.float32) * 0.5 * ease(q / 0.3)
-        blit_c(f, lg, W / 2, LOGO_CY, ease(q / 0.12), s)
-        if q < 0.9:
-            ring = np.abs(np.hypot(xx - W / 2, yy - LOGO_CY) - (80 + 1100 * ease(q / 0.9)))
-            f += (np.exp(-ring / 10) * (1 - q / 0.9))[..., None] * np.array([0.6, 0.8, 1.0], np.float32) * 0.8
-        f += max(0.0, 1 - q / 0.22) * 0.4
-    # 文字随重拍砸下 + 流光
+        rev = ease((q - 0.0) / 1.4)
+        cut = int(lg.w * rev)
+        if cut > 0:
+            m = lg.a.copy()
+            m[:, cut:] = 0
+            blit(f, Sprite(lg.rgb, m), F["lx"], LOGO_Y, a)
+            lo = max(cut - 36, 0)
+            if cut < lg.w:
+                edge = np.zeros_like(lg.a)
+                edge[:, lo:cut] = lg.a[:, lo:cut] * np.linspace(0, 1, cut - lo)[None, :]
+                y0, x0 = LOGO_Y, int(F["lx"])
+                f[y0:y0 + lg.h, x0:x0 + lg.w] += edge[..., None] * 1.2 * a
+        f += 0.35 * math.exp(-max(q, 0) / 0.15)            # 重拍闪光
     if t >= tt - 0.02:
         q = t - tt
-        e1, e2, e3 = F["e1"], F["e2"], F["e3"]
-        s = 1 + 0.5 * (1 - back(q / 0.35, 2.2))
-        blit_c(f, e1, W / 2, 1180, ease(q / 0.1), s)
-        blit_c(f, e2, W / 2, 1300, ease((q - 0.25) / 0.4))
-        lw = int(620 * ease_io((q - 1.6) / 0.8))          # 细金线引出关注语
-        if lw > 2:
-            fill_rect(f, W / 2 - lw / 2, 1376, W / 2 + lw / 2, 1378, (0.95, 0.78, 0.42), 0.9)
-        kf = ease((q - 2.1) / 0.7)
-        blit_c(f, e3, W / 2, 1440 + 12 * (1 - kf), kf)
-        f += max(0.0, 1 - q / 0.2) * 0.12
-        # 流光：文字上扫两遍
-        for st in (0.45, 2.6):
-            if st < q < st + 1.4:
-                u = (q - st) / 1.4
-                y0 = int(1180 - e1.h / 2)
-                band = np.exp(-(((xx[y0:y0 + e1.h] + (yy[y0:y0 + e1.h] - y0) * 0.6) - (W * 0.15 + W * 0.75 * u)) / 34) ** 2)
-                mask = np.zeros((e1.h, W), np.float32)
-                x0 = int(W / 2 - e1.w / 2)
-                mask[:, max(0, x0):max(0, x0) + e1.w] = e1.a[:, :W - max(0, x0)]
-                f[y0:y0 + e1.h] += (band * mask)[..., None] * 0.7
-    out = clamp01((t - (dur - 2.4)) / 2.4)
+        a = 1.0
+        w2 = 300 * ease_io(q / 0.8)                          # 品牌渐变细线
+        if w2 > 2:
+            ly = int(LOGO_Y + LOGO_H + 90)
+            xs_ = np.arange(int(W / 2 - w2), int(W / 2 + w2))
+            u = ((xs_ - xs_[0]) / max(1, len(xs_) - 1))[:, None]
+            f[ly:ly + 3, xs_] = f[ly:ly + 3, xs_] * 0.2 + ((1 - u) * BA + u * BB)[None, :, :] * 0.95
+        blit_c(f, F["ask"], W / 2, 1040, ease((q - 0.2) / 0.4))
+        blit(f, F["f1"], (W - F["f1"].w) / 2, 1110, ease(q / 0.3), wipe=ease((q - 0.0) / 0.8))
+        blit(f, F["f2"], (W - F["f2"].w) / 2, 1236, ease((q - 0.5) / 0.3), wipe=ease((q - 0.5) / 0.9))
+        blit_c(f, F["f3"], W / 2, 1440, ease((q - 1.1) / 0.5))
+    out = clamp01((t - (dur - 1.6)) / 1.6)
     return f * (1 - ease_io(out))
 
 
