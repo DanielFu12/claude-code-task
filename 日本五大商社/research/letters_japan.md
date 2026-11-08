@@ -103,3 +103,81 @@ Berkshire has borrowed in Japan an amount roughly equivalent to the yen invested
 an average cost of 1.2%, with a weighted-average life of approximately 5.75 years.
 ```
 
+## 1991 年致股东信：经济特许权 vs 普通生意
+
+```
+     The fact is that newspaper, television, and magazine 
+properties have begun to resemble businesses more than franchises 
+in their economic behavior. Let's take a quick look at the 
+characteristics separating these two classes of enterprise, keeping 
+in mind, however, that many operations fall in some middle ground 
+and can best be described as weak franchises or strong businesses.
+
+     An economic franchise arises from a product or service that: 
+(1) is needed or desired; (2) is thought by its customers to have 
+no close substitute and; (3) is not subject to price regulation. 
+The existence of all three conditions will be demonstrated by a 
+company's ability to regularly price its product or service 
+aggressively and thereby to earn high rates of return on capital. 
+Moreover, franchises can tolerate mis-management. Inept managers 
+may diminish a franchise's profitability, but they cannot inflict 
+mortal damage.
+
+     In contrast, "a business" earns exceptional profits only if it 
+is the low-cost operator or if supply of its product or service is 
+tight. Tightness in supply usually does not last long. With 
+superior management, a company may maintain its status as a low-
+cost operator for a much longer time, but even then unceasingly 
+faces the possibility of competitive attack. And a business, unlike 
+a franchise, can be killed by poor management.
+```
+
+## 2007 年致股东信：伟大、好、糟糕的生意（节选）
+
+```
+Businesses – The Great, the Good and the Gruesome
+        Let’s take a look at what kind of businesses turn us on. And while we’re at it, let’s also discuss
+what we wish to avoid.
+         Charlie and I look for companies that have a) a business we understand; b) favorable long-term
+economics; c) able and trustworthy management; and d) a sensible price tag. We like to buy the whole
+business or, if management is our partner, at least 80%. When control-type purchases of quality aren’t
+available, though, we are also happy to simply buy small portions of great businesses by way of stock-
+market purchases. It’s better to have a part interest in the Hope Diamond than to own all of a rhinestone.
+         A truly great business must have an enduring “moat” that protects excellent returns on invested
+capital. The dynamics of capitalism guarantee that competitors will repeatedly assault any business
+“castle” that is earning high returns. Therefore a formidable barrier such as a company’s being the low-
+cost producer (GEICO, Costco) or possessing a powerful world-wide brand (Coca-Cola, Gillette, American
+Express) is essential for sustained success. Business history is filled with “Roman Candles,” companies
+whose moats proved illusory and were soon crossed.
+        Our criterion of “enduring” causes us to rule out companies in industries prone to rapid and
+continuous change. Though capitalism’s “creative destruction” is highly beneficial for society, it precludes
+investment certainty. A moat that must be continuously rebuilt will eventually be no moat at all.
+        Additionally, this criterion eliminates the business whose success depends on having a great
+manager. Of course, a terrific CEO is a huge asset for any enterprise, and at Berkshire we have an
+abundance of these managers. Their abilities have created billions of dollars of value that would never
+have materialized if typical CEOs had been running their businesses.
+         But if a business requires a superstar to produce great results, the business itself cannot be deemed
+great. A medical partnership led by your area’s premier brain surgeon may enjoy outsized and growing
+earnings, but that tells little about its future. The partnership’s moat will go when the surgeon goes. You
+can count, though, on the moat of the Mayo Clinic to endure, even though you can’t name its CEO.
+…
+          A company that needs large increases in capital to engender its growth may well prove to be a
+satisfactory investment. There is, to follow through on our example, nothing shabby about earning $82
+million pre-tax on $400 million of net tangible assets. But that equation for the owner is vastly different
+from the See’s situation. It’s far better to have an ever-increasing stream of earnings with virtually no
+major capital requirements. Ask Microsoft or Google.
+           One example of good, but far from sensational, business economics is our own FlightSafety. This
+company delivers benefits to its customers that are the equal of those delivered by any business that I know
+of. It also possesses a durable competitive advantage: Going to any other flight-training provider than the
+best is like taking the low bid on a surgical procedure.
+                                                       7
+         Nevertheless, this business requires a significant reinvestment of earnings if it is to grow. When
+we purchased FlightSafety in 1996, its pre-tax operating earnings were $111 million, and its net investment
+in fixed assets was $570 million. Since our purchase, depreciation charges have totaled $923 million. But
+capital expenditures have totaled $1.635 billion, most of that for simulators to match the new airplane
+models that are constantly being introduced. (A simulator can cost us more than $12 million, and we have
+273 of them.) Our fixed assets, after depreciation, now amount to $1.079 billion. Pre-tax operating
+earnings in 2007 were $270 million, a gain of $159 million since 1996. That gain gave us a good, but far
+from See’s-like, return on our incremental investment of $509 million.
+```
+
