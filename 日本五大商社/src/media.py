@@ -55,12 +55,19 @@ def vframe(name, sec):
     if v is None: return None
     fr = v.get(round(sec * v.fps))
     if fr is None: return None
+    if name in CROP:                                  # 新闻素材：裁掉底部滚动条与右上角台标
+        h, w = fr.shape[:2]; x0, y0, x1, y1 = CROP[name]
+        fr = fr[int(y0 * h):int(y1 * h), int(x0 * w):int(x1 * w)]
     if name.startswith('x_bwb'):                      # 纪录片素材里烧录的时间码（右上）与水印（下方居中）：局部重度模糊抹去
         fr = fr.copy(); h, w = fr.shape[:2]
         for x0, y0, x1, y1 in ((0.74, 0.0, 1.0, 0.14), (0.22, 0.84, 0.78, 0.97)):
             X0, Y0, X1, Y1 = int(x0 * w), int(y0 * h), int(x1 * w), int(y1 * h)
             fr[Y0:Y1, X0:X1] = cv2.GaussianBlur(fr[Y0:Y1, X0:X1], (0, 0), 25)
     return fr[..., ::-1].astype(np.float32) / 255
+
+
+CROP = {k: (0.04, 0.07, 0.96, 0.925) for k in ('j_tower', 'j_shinkansen', 'j_commuters', 'j_taxi')}
+CROP.update({k: (0.08, 0.08, 1.0, 1.0) for k in ('j_lng_ship', 'j_lng_plant')})
 
 
 IA = json.load(open(os.path.join(MDIR, 'ia_clips.json'))) if os.path.exists(os.path.join(MDIR, 'ia_clips.json')) else {}
@@ -118,8 +125,12 @@ def resolve(name, depth=0):
 
 
 # 每个视频片段里真正可用的时段（之后会切到别的画面）；镜头时长超出时自动放慢，保证不越界、不定格
-USABLE = {'j_bay': (0, 14), 'j_aerial_river': (0, 12), 'j_aerial_city': (0, 12), 'j_crossing': (0, 10), 'j_street': (0, 10),
-          'j_lawson': (0, 6.5), 'j_lng_ship': (0, 4.5), 'j_lng_plant': (0, 5.5), 'v_tokyo': (5, 132),
+USABLE = {'x_bwbm_munger': (0, 20), 'x_bwbm_munger2': (0, 9), 'j_cine_konbini': (0, 7), 'j_cine_city': (0, 3), 'j_cine_osaka': (0, 7),
+          'j_cine_miyajima': (0, 7), 'j_cine_skyline': (0, 7), 'j_night_crossing': (0, 10), 'j_night_towers': (0, 10), 'j_night_street': (0, 10),
+          'j_night_711': (0, 8), 'j_tower': (1.8, 3.5), 'j_shinkansen': (0, 4), 'j_commuters': (0, 5.5), 'j_taxi': (0, 2.5), 'j_market': (0, 10),
+          'j_evening': (0, 10),
+          'j_bay': (0, 14), 'j_aerial_river': (0, 12), 'j_aerial_city': (0, 12), 'j_crossing': (0, 10), 'j_street': (0, 10),
+          'j_lawson': (0, 6.5), 'j_lng_ship': (0, 4.5), 'j_lng_plant': (0, 3.0), 'v_tokyo': (5, 132),
           'x_bwb_arena': (0, 3), 'x_bwb_cherrycoke': (0, 4.5), 'x_bwb_cokestore': (0, 3.2), 'x_bwb_desk': (0, 10.5),
           'x_bwb_meeting': (17, 30), 'x_bwb_office': (2, 10.5), 'x_bwb_walk': (0, 4), 'x_bwbi_a': (0, 20), 'x_bwbi_b': (0, 20),
           'x_bwbi_c': (0, 20), 'x_cook_roof': (0, 9.3), 'x_i6s_store': (0, 8), 'x_i6s_unbox': (7, 12.5), 'x_iphone_hand': (0, 3.2),

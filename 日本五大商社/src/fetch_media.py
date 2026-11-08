@@ -22,6 +22,11 @@ WANT = {
     'pilbara_mine': ('File:BHP Yandi mine seen from the air, June 2022 01.jpg', 'img'),
     'ore_train': ('File:BHPB Iron Ore 4352.JPG', 'img'),
     'tokyo_night': ('File:Minato City, Tokyo, Japan (Night)-denoised.jpg', 'img'),
+    'whaleback_mine': ('File:Mount Whaleback Iron Ore Mine, Australia (ASTER).jpg', 'img'),
+    'hedland_bulk': ('File:Bulk Carrier Maria in Port Hedland Harbour, 2023, 01.jpg', 'img'),
+    'tokyo_sunset': ('File:Tokyo - Sunset Skyline.jpg', 'img'),
+    'marunouchi_plaza': ('File:Marunouchi Central Plaza with blue sky, Tokyo station and Shin-Marunouchi Building, panoramic view from JP Tower, Tokyo, Japan.jpg', 'img'),
+    'v_container': ('File:Aerial views of a container terminal at the Port of Cork, Cork, Ireland.webm', 'video'),
 }
 
 

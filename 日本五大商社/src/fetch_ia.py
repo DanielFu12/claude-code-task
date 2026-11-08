@@ -9,11 +9,21 @@ SRC = {
     't34': ('youtube-bIfPgSQiYtw', 'bIfPgSQiYtw.webm', "Tokyo's All 34 main areas in one complete video【4K】（YouTube 存档）"),
     'law': ('youtube-UXD5Tw4_NkM', 'UXD5Tw4_NkM.webm', 'Lawson Japan / Japanese Convenience Store Food in Asakusa（YouTube 存档）'),
     'lng': ('youtube-9KAUYI_eX24', '9KAUYI_eX24.webm', 'The truth about LNG（DW, YouTube 存档）'),
+    'mung': ('youtube-F6s2HAzMeL0', 'F6s2HAzMeL0.webm', 'Becoming Warren Buffett：Charlie Munger 访谈（HBO, 2017）'),
+    'cine': ('vimeo-160301271', '160301271.mp4', 'In Japan - 2015（Vimeo 存档）'),
+    'tsn': ('youtube-wl-QL6jPZUc', 'wl-QL6jPZUc.webm', 'Tokyo, World’s busiest Station On a Rainy Night【4K】（YouTube 存档）'),
+    'itc': ('youtube-PEogKMKPchs', 'PEogKMKPchs.webm', 'Negocios TV 2022 日本经济报道（YouTube 存档）'),
 }
 CLIPS = {   # 名称: (片源, 起点秒, 时长)
     'j_bay': ('t34', 12688, 14), 'j_aerial_river': ('t34', 16140, 12), 'j_aerial_city': ('t34', 16488, 12),
     'j_crossing': ('t34', 3912, 10), 'j_street': ('t34', 226, 10),
     'j_lawson': ('law', 64, 9), 'j_lng_ship': ('lng', 255, 6), 'j_lng_plant': ('lng', 135, 6),
+    'x_bwbm_munger': ('mung', 566, 20), 'x_bwbm_munger2': ('mung', 1006, 20),
+    'j_cine_aerial': ('cine', 10, 7), 'j_cine_konbini': ('cine', 74, 7), 'j_cine_city': ('cine', 90, 7),
+    'j_cine_osaka': ('cine', 98, 7), 'j_cine_miyajima': ('cine', 161, 7), 'j_cine_skyline': ('cine', 178, 7), 'j_cine_train': ('cine', 18, 6),
+    'j_night_crossing': ('tsn', 948, 10), 'j_night_towers': ('tsn', 1732, 10), 'j_night_street': ('tsn', 1508, 10), 'j_night_711': ('tsn', 1844, 8),
+    'j_tower': ('itc', 47.5, 3.5), 'j_shinkansen': ('itc', 72.5, 4), 'j_commuters': ('itc', 55, 5.5), 'j_taxi': ('itc', 68.5, 3.5),
+    'j_market': ('t34', 1610, 10), 'j_evening': ('t34', 5760, 10),
 }
 
 

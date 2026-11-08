@@ -177,6 +177,25 @@
 - `j_lawson`：Lawson Japan / Japanese Convenience Store Food in Asakusa（YouTube 存档），https://archive.org/details/youtube-UXD5Tw4_NkM（起点 64s，9s）
 - `j_lng_ship`：The truth about LNG（DW, YouTube 存档），https://archive.org/details/youtube-9KAUYI_eX24（起点 255s，6s）
 - `j_lng_plant`：The truth about LNG（DW, YouTube 存档），https://archive.org/details/youtube-9KAUYI_eX24（起点 135s，6s）
+- `x_bwbm_munger`：Becoming Warren Buffett：Charlie Munger 访谈（HBO, 2017），https://archive.org/details/youtube-F6s2HAzMeL0（起点 566s，20s）
+- `x_bwbm_munger2`：Becoming Warren Buffett：Charlie Munger 访谈（HBO, 2017），https://archive.org/details/youtube-F6s2HAzMeL0（起点 1006s，20s）
+- `j_cine_aerial`：In Japan - 2015（Vimeo 存档），https://archive.org/details/vimeo-160301271（起点 10s，7s）
+- `j_cine_konbini`：In Japan - 2015（Vimeo 存档），https://archive.org/details/vimeo-160301271（起点 74s，7s）
+- `j_cine_city`：In Japan - 2015（Vimeo 存档），https://archive.org/details/vimeo-160301271（起点 90s，7s）
+- `j_cine_osaka`：In Japan - 2015（Vimeo 存档），https://archive.org/details/vimeo-160301271（起点 98s，7s）
+- `j_cine_miyajima`：In Japan - 2015（Vimeo 存档），https://archive.org/details/vimeo-160301271（起点 161s，7s）
+- `j_cine_skyline`：In Japan - 2015（Vimeo 存档），https://archive.org/details/vimeo-160301271（起点 178s，7s）
+- `j_cine_train`：In Japan - 2015（Vimeo 存档），https://archive.org/details/vimeo-160301271（起点 18s，6s）
+- `j_night_crossing`：Tokyo, World’s busiest Station On a Rainy Night【4K】（YouTube 存档），https://archive.org/details/youtube-wl-QL6jPZUc（起点 948s，10s）
+- `j_night_towers`：Tokyo, World’s busiest Station On a Rainy Night【4K】（YouTube 存档），https://archive.org/details/youtube-wl-QL6jPZUc（起点 1732s，10s）
+- `j_night_street`：Tokyo, World’s busiest Station On a Rainy Night【4K】（YouTube 存档），https://archive.org/details/youtube-wl-QL6jPZUc（起点 1508s，10s）
+- `j_night_711`：Tokyo, World’s busiest Station On a Rainy Night【4K】（YouTube 存档），https://archive.org/details/youtube-wl-QL6jPZUc（起点 1844s，8s）
+- `j_tower`：Negocios TV 2022 日本经济报道（YouTube 存档），https://archive.org/details/youtube-PEogKMKPchs（起点 47.5s，3.5s）
+- `j_shinkansen`：Negocios TV 2022 日本经济报道（YouTube 存档），https://archive.org/details/youtube-PEogKMKPchs（起点 72.5s，4s）
+- `j_commuters`：Negocios TV 2022 日本经济报道（YouTube 存档），https://archive.org/details/youtube-PEogKMKPchs（起点 55s，5.5s）
+- `j_taxi`：Negocios TV 2022 日本经济报道（YouTube 存档），https://archive.org/details/youtube-PEogKMKPchs（起点 68.5s，3.5s）
+- `j_market`：Tokyo's All 34 main areas in one complete video【4K】（YouTube 存档），https://archive.org/details/youtube-bIfPgSQiYtw（起点 1610s，10s）
+- `j_evening`：Tokyo's All 34 main areas in one complete video【4K】（YouTube 存档），https://archive.org/details/youtube-bIfPgSQiYtw（起点 5760s，10s）
 - `x_bwb_cherrycoke`：Becoming Warren Buffett（HBO, 2017）片段，https://archive.org/details/youtube-pKWN0YFf_14（起点 166s，7s）
 - `x_bwb_cokestore`：Becoming Warren Buffett（HBO, 2017）片段，https://archive.org/details/youtube-pKWN0YFf_14（起点 190s，6s）
 - `x_bwb_walk`：Becoming Warren Buffett（HBO, 2017）片段，https://archive.org/details/youtube-pKWN0YFf_14（起点 184s，6s）
@@ -187,6 +206,5 @@
 - `x_bwbi_a`：Becoming Warren Buffett 访谈（HBO, 2017），https://archive.org/details/youtube-cd-w9H0G6nQ（起点 598s，20s）
 - `x_bwbi_b`：Becoming Warren Buffett 访谈（HBO, 2017），https://archive.org/details/youtube-cd-w9H0G6nQ（起点 1618s，20s）
 - `x_bwbi_c`：Becoming Warren Buffett 访谈（HBO, 2017），https://archive.org/details/youtube-cd-w9H0G6nQ（起点 2338s，20s）
-- `x_i6s_store`：iPhone 6S Launch & Unboxing（Gear Live, 2015），https://archive.org/details/IPhone6SLaunchUnboxing4k（起点 110s，36s）
 
 配乐：本频道第二期原创配乐素材（Lyria 生成）重新剪辑对位。旁白：豆包语音合成 2.0（刘飞音色）。大师原话只以屏幕文字呈现，不模仿任何人的声音。
