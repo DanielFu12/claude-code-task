@@ -929,7 +929,6 @@ def finale_setup():
     mark_cx = lx + LOGO_H * 0.55          # logo 左侧图形中心
     _cap["fin"] = dict(logo=logo, lx=lx, mosaic=mosaic, gx=gx, gy=gy, gcol=gcol, sx=sx, sy=sy, scol=scol,
                        delay=rng.random(N) * 0.35, spin=(rng.random(N) - 0.5) * 2, neb=neb, stars=stars, mark_cx=mark_cx,
-                       ask=text_sprite(["巴菲特的哪一条投资原则，对你影响最大？评论区聊聊"], "sans_bold", 38, color=(1.0, 0.86, 0.5)),
                        f1=text_sprite(["关注 MastersTao"], "sans_black", 68, color=WHITE),
                        f2=text_sprite(["传承大师智慧，领悟投资真谛。"], "sans_bold", 46, color=tuple(INK2)),
                        f3=text_sprite(["masterstao.com"], "sans_bold", 30, color=tuple(INK3 + 0.2), track=3))
@@ -1019,10 +1018,9 @@ def finale_frame(t, dur):
             xs_ = np.arange(int(W / 2 - w2), int(W / 2 + w2))
             u = ((xs_ - xs_[0]) / max(1, len(xs_) - 1))[:, None]
             f[ly:ly + 3, xs_] = f[ly:ly + 3, xs_] * 0.2 + ((1 - u) * BA + u * BB)[None, :, :] * 0.95
-        blit_c(f, F["ask"], W / 2, 1040, ease((q - 0.2) / 0.4))
-        blit(f, F["f1"], (W - F["f1"].w) / 2, 1110, ease(q / 0.3), wipe=ease((q - 0.0) / 0.8))
-        blit(f, F["f2"], (W - F["f2"].w) / 2, 1236, ease((q - 0.5) / 0.3), wipe=ease((q - 0.5) / 0.9))
-        blit_c(f, F["f3"], W / 2, 1440, ease((q - 1.1) / 0.5))
+        blit(f, F["f1"], (W - F["f1"].w) / 2, 1040, ease(q / 0.3), wipe=ease((q - 0.0) / 0.8))
+        blit(f, F["f2"], (W - F["f2"].w) / 2, 1166, ease((q - 0.5) / 0.3), wipe=ease((q - 0.5) / 0.9))
+        blit_c(f, F["f3"], W / 2, 1360, ease((q - 1.1) / 0.5))
     out = clamp01((t - (dur - 1.6)) / 1.6)
     return f * (1 - ease_io(out))
 
