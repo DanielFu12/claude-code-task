@@ -206,5 +206,23 @@
 - `x_bwbi_a`：Becoming Warren Buffett 访谈（HBO, 2017），https://archive.org/details/youtube-cd-w9H0G6nQ（起点 598s，20s）
 - `x_bwbi_b`：Becoming Warren Buffett 访谈（HBO, 2017），https://archive.org/details/youtube-cd-w9H0G6nQ（起点 1618s，20s）
 - `x_bwbi_c`：Becoming Warren Buffett 访谈（HBO, 2017），https://archive.org/details/youtube-cd-w9H0G6nQ（起点 2338s，20s）
+- `e_logos`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 34.5s，3.0s）
+- `e_ticker`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 38.5s，5.0s）
+- `e_brk2026`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 14.0s，5.5s）
+- `e_abel`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 95.0s，9.0s）
+- `e_meeting`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 110.0s，7.0s）
+- `e_lng_port`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 152.5s，5.0s）
+- `e_lng_tank`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 157.0s，3.5s）
+- `e_yen_hands`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 221.0s，4.0s）
+- `e_yen_count`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 225.5s，3.5s）
+- `e_konbini`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 244.5s，3.5s）
+- `e_port`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 257.0s，4.5s）
+- `e_mine_workers`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 261.5s，3.5s）
+- `e_lng_carrier`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 277.0s，4.0s）
+- `e_mitsui_ceo`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 332.0s，5.0s）
+- `e_rhodes`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 353.0s，8.0s）
+- `e_copper`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 391.5s，4.0s）
+- `e_yen_stack`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 472.5s，3.0s）
+- `e_buffett_jp`：财讯《投资IN总经》EP97，https://www.youtube.com/watch?v=GIVExayTQwM（起点 465.0s，3.0s）
 
 配乐：本频道第二期原创配乐素材（Lyria 生成）重新剪辑对位。旁白：豆包语音合成 2.0（刘飞音色）。大师原话只以屏幕文字呈现，不模仿任何人的声音。

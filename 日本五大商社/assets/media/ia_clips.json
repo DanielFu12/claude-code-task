@@ -220,5 +220,113 @@
   "ia": "https://archive.org/details/youtube-cd-w9H0G6nQ",
   "start": 2338,
   "dur": 20
+ },
+ "e_logos": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 34.5,
+  "dur": 3.0
+ },
+ "e_ticker": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 38.5,
+  "dur": 5.0
+ },
+ "e_brk2026": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 14.0,
+  "dur": 5.5
+ },
+ "e_abel": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 95.0,
+  "dur": 9.0
+ },
+ "e_meeting": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 110.0,
+  "dur": 7.0
+ },
+ "e_lng_port": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 152.5,
+  "dur": 5.0
+ },
+ "e_lng_tank": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 157.0,
+  "dur": 3.5
+ },
+ "e_yen_hands": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 221.0,
+  "dur": 4.0
+ },
+ "e_yen_count": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 225.5,
+  "dur": 3.5
+ },
+ "e_konbini": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 244.5,
+  "dur": 3.5
+ },
+ "e_port": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 257.0,
+  "dur": 4.5
+ },
+ "e_mine_workers": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 261.5,
+  "dur": 3.5
+ },
+ "e_lng_carrier": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 277.0,
+  "dur": 4.0
+ },
+ "e_mitsui_ceo": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 332.0,
+  "dur": 5.0
+ },
+ "e_rhodes": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 353.0,
+  "dur": 8.0
+ },
+ "e_copper": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 391.5,
+  "dur": 4.0
+ },
+ "e_yen_stack": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 472.5,
+  "dur": 3.0
+ },
+ "e_buffett_jp": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 465.0,
+  "dur": 3.0
  }
 }

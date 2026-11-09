@@ -214,7 +214,7 @@ def shot_hook(cv, t):
     a = env(t, t0, t1, 0.35, 0.35)
     if a > 0:
         p = t - t0
-        M.full(cv, 'x_bwbi_a', t, t0, t1, a=a, src_t0=2.0, cap='巴菲特')
+        M.full(cv, 'e_yen_hands', t, t0, t1, a=a, cap='日元')
         for j in range(14):                                  # 日元纸币从两侧飘落（不压住中间的数字）
             r = np.random.default_rng(j * 7 + 1)
             side = -1 if j % 2 else 1
@@ -237,7 +237,7 @@ def shot_hook(cv, t):
     a = env(t, t0, t1, 0.35, 0.35)
     if a > 0:
         p = t - t0
-        M.full(cv, 'j_cine_osaka', t, t0, t1, a=a, speed=0.8, cap='日本')
+        M.full(cv, 'e_logos', t, t0, t1, a=a, cap='巴菲特与五大商社')
         ys, vs = SER['n225']
         line_chart(cv, ys, vs, 140, 940, 1190, 1400, 1989.0, 2019.5, 7000, 40000, reveal=eio((t - WT('h3', '日本股市')) / 2.5),
                    a=a * 0.85, col=(0.75, 0.70, 0.68), lw=2, xticks=(1990, 2000, 2010, 2019), glow=0.2)
@@ -382,10 +382,11 @@ def shot_ch1(cv, t):
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
         p = t - t0
-        globe(cv, t, W / 2, 860, 360, rot=-math.radians(139.7) + math.pi + p * 0.05, tilt=0.45, a=a, arcs=eio(p / 4.0))
+        M.full(cv, 'e_port', t, t0, t1, a=a, speed=0.5, cap='集装箱港口')
+        globe(cv, t, W / 2, 1110, 200, rot=-math.radians(139.7) + math.pi + p * 0.05, tilt=0.45, a=a, arcs=eio(p / 4.0))
         for j, (s_, tw) in enumerate((('铁矿', '铁矿'), ('石油', '石油'), ('粮食', '粮食'))):
             k = eo((t - WT('c1f', tw)) / 0.4)
-            chip(cv, s_ + ' → 日本', 260 + j * 280, 1330, 30, a * k, col=GOLD)
+            chip(cv, s_ + ' → 日本', 260 + j * 280, 1385, 30, a * k, col=GOLD)
     # ---- c1g：自己投资矿山、气田……全家、罗森
     t0, t1 = win('c1g')
     a = env(t, t0, t1, 0.4, 0.3)
@@ -615,17 +616,18 @@ def shot_ch3(cv, t):
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
         p = t - t0
-        nodes = [('日本债券市场', 320), ('伯克希尔', 760), ('五大商社', 1200)]
+        M.full(cv, 'e_yen_count', t, t0, t1, a=a, speed=0.5, cap='日元')
+        nodes = [('日本债券市场', 940), ('伯克希尔', 1140), ('五大商社', 1340)]
         for j, (nm, y) in enumerate(nodes):
             k = eo((p - j * 0.6) / 0.5)
-            cv.rrect(260, y - 70, 820, y + 70, 22, (0.06, 0.05, 0.04), a * k)
-            cv.rrect(260, y - 70, 820, y + 70, 22, GOLD_D if j != 1 else GOLD, a * k * 0.8, fill=False, th=2)
-            cv.text(nm, W / 2, y, 50, 'serif_black', gold=j == 1, col=CREAM, a=a * k, glow=0.2 if j == 1 else 0)
+            cv.rrect(330, y - 46, 750, y + 46, 18, (0.06, 0.05, 0.04), a * k)
+            cv.rrect(330, y - 46, 750, y + 46, 18, GOLD_D if j != 1 else GOLD, a * k * 0.8, fill=False, th=2)
+            cv.text(nm, W / 2, y, 40, 'serif_black', gold=j == 1, col=CREAM, a=a * k, glow=0.2 if j == 1 else 0)
         kf1 = eo((t - WT('c3c', '借日元')) / 0.5); kf2 = eo((t - WT('c3c', '再拿借来的')) / 0.5)
-        flow(cv, t, (W / 2, 400), (W / 2, 680), 26, YEN, a * kf1, seed=2)
-        flow(cv, t, (W / 2, 840), (W / 2, 1120), 26, YEN, a * kf2, seed=3)
-        cv.text('发债借 ¥', W / 2 + 230, 540, 32, 'sans_bold', col=YEN, a=a * kf1, anchor='l')
-        cv.text('用 ¥ 买股票', W / 2 + 230, 980, 32, 'sans_bold', col=YEN, a=a * kf2, anchor='l')
+        flow(cv, t, (W / 2, 990), (W / 2, 1090), 20, YEN, a * kf1 * 1.5, dens=0.3, seed=2)
+        flow(cv, t, (W / 2, 1190), (W / 2, 1290), 20, YEN, a * kf2 * 1.5, dens=0.3, seed=3)
+        cv.text('发债借 ¥', 790, 1040, 30, 'sans_bold', col=YEN, a=a * kf1, anchor='l')
+        cv.text('用 ¥ 买股票', 790, 1240, 30, 'sans_bold', col=YEN, a=a * kf2, anchor='l')
     # ---- c3d–c3e：日本买房、日本贷款：一起缩水，抵消
     t0, t1 = S('c3d') - 0.3, S('c3f') + 0.1
     a = env(t, t0, t1, 0.4, 0.3)
@@ -722,7 +724,7 @@ def shot_ch4(cv, t):
     t0, t1 = win('c4d')
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
-        M.full(cv, 'j_lng_ship', t, t0, t1, a=a, speed=0.6, cap='液化天然气运输船')
+        M.full(cv, 'e_lng_carrier', t, t0, t1, a=a, speed=0.5, cap='液化天然气运输船（三菱商事）')
         tt = [S('c4d'), WT('c4d', '钢厂只看'), S('c4d')]
         check_list(cv, t, a, FR_ITEMS, x=180, y0=990, dy=96, size=40, states=[True, False, None], t_states=tt)
         k = eo((t - WT('c4d', '谁也说了不算')) / 0.5)
@@ -732,14 +734,15 @@ def shot_ch4(cv, t):
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
         p = t - t0
-        cv.text('利润跟着商品价格坐过山车', W / 2, 420, 50, 'serif_black', col=CREAM, a=a)
+        M.full(cv, 'e_mine_workers', t, t0, t1, a=a, speed=0.5, cap='矿区')
+        cv.text('利润跟着商品价格坐过山车', W / 2, 920, 44, 'serif_black', col=CREAM, a=a)
         k = eio((t - WT('c4e', '四到五成')) / 1.0)
-        for j, (nm, x) in enumerate((('三菱商事', 300), ('三井物产', 780))):
-            cv.arc((x, 820), 170, -math.pi / 2, 1.5 * math.pi, (0.25, 0.24, 0.26), a, 46)
-            cv.arc((x, 820), 170, -math.pi / 2, -math.pi / 2 + 2 * math.pi * 0.45 * k, GOLD_D, a, 46)
-            cv.text('40–50%' if k > 0.5 else '', x, 800, 50, 'sans_bold', gold=True, a=a * k)
-            cv.text('来自资源', x, 860, 28, 'sans_light', col=CREAM, a=a * k)
-            cv.text(nm, x, 1060, 44, 'serif_black', col=CREAM, a=a)
+        for j, (nm, x) in enumerate((('三菱商事', 320), ('三井物产', 760))):
+            cv.arc((x, 1130), 115, -math.pi / 2, 1.5 * math.pi, (0.25, 0.24, 0.26), a, 34)
+            cv.arc((x, 1130), 115, -math.pi / 2, -math.pi / 2 + 2 * math.pi * 0.45 * k, GOLD_D, a, 34)
+            cv.text('40–50%' if k > 0.5 else '', x, 1115, 40, 'sans_bold', gold=True, a=a * k)
+            cv.text('来自资源', x, 1160, 24, 'sans_light', col=CREAM, a=a * k)
+            cv.text(nm, x, 1310, 38, 'serif_black', col=CREAM, a=a)
         source(cv, '日本信用评级机构 JCR 2025-06：“40 to 50% of net income is accounted for by the resource sector for Mitsubishi and MITSUI”', a, y=1462)
     # ---- c4f：2016：历史上第一次年度亏损
     t0, t1 = win('c4f')
@@ -769,11 +772,12 @@ def shot_ch4(cv, t):
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
         p = t - t0
-        moat_badge(cv, '①', '成本低', a)
+        M.full(cv, 'e_rhodes', t, t0, t1, a=a, speed=0.7, cap='澳大利亚铁矿（三井物产）')
+        moat_badge(cv, '①', '成本低', a, y=915)
         costs = [22, 26, 30, 35, 42, 50, 58, 68, 80, 95]
         drop = eio((t - WT('c4h', '价格跌的时候')) / 2.0)
         price = lerp(100, 45, drop)
-        x0, x1, base, top = 140, 940, 1300, 600
+        x0, x1, base, top = 140, 940, 1370, 1010
         def Y(v): return base - (base - top) * v / 110
         bw = (x1 - x0) / len(costs)
         for j, c in enumerate(costs):
@@ -785,14 +789,13 @@ def shot_ch4(cv, t):
         cv.text(f'商品价格', x1, Y(price) - 26, 28, 'sans_bold', col=RED, a=a, anchor='r')
         cv.text('成本最低', x0 + bw * 1.5, base + 40, 30, 'sans_bold', col=GOLD_L, a=a)
         cv.text('成本最高', x1 - bw, base + 40, 30, 'sans_light', col=GREY, a=a)
-        cv.text('例：澳大利亚皮尔巴拉铁矿', W / 2, 510, 30, 'sans_light', col=CREAM, a=a * eo((t - WT('c4h', '澳大利亚')) / 0.4))
         source(cv, '三井物产持有澳大利亚皮尔巴拉铁矿权益（JCR 2025-06）；示意图，非实际成本数据', a, y=1462)
     # ---- c4i：②收费站
     t0, t1 = win('c4i')
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
         p = t - t0
-        M.full(cv, 'j_lng_plant', t, t0, t1, a=a, speed=0.6, cap='液化天然气接收站')
+        M.full(cv, 'e_lng_port', t, t0, t1, a=a, speed=0.5, cap='液化天然气接收站（住友商事）')
         moat_badge(cv, '②', '像收费站', a, y=920)
         toll(cv, t, a, cy=1210)
         cv.text('长期合同 · 用多少收多少', W / 2, 1400, 36, 'sans_bold', gold=True, a=a * eo((t - WT('c4i', '长期合同')) / 0.5))
@@ -801,7 +804,7 @@ def shot_ch4(cv, t):
     t0, t1 = win('c4j')
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
-        M.full(cv, 'j_crossing', t, t0, t1, a=a, speed=0.7, cap='东京街头')
+        M.full(cv, 'e_konbini', t, t0, t1, a=a, speed=0.4, cap='日本便利店')
         moat_badge(cv, '③', '街角的生意', a, y=1000)
         cv.text('加盟连锁 · 天天有人进门', W / 2, 1180, 44, 'sans_bold', col=CREAM, a=a * eo((t - WT('c4j', '加盟连锁')) / 0.5))
     # ---- c4k：④关系与信用
@@ -914,7 +917,7 @@ def shot_ch5(cv, t):
     t0, t1 = S('c5a') - 0.3, S('c5c') + 0.1
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
-        M.full(cv, 'v_tokyo', t, t0, t1, a=a, src_t0=104.0, speed=0.35, cap='东京站丸之内一侧')
+        M.full(cv, 'e_meeting', t, t0, t1, a=a, speed=0.35, cap='商务会谈')
         k = eo((t - WT('c5a', '二零二三年春天')) / 0.5)
         cv.text('2023 年 4 月 · 东京', W / 2, 980, 60, 'serif_black', gold=True, a=a * k, glow=0.25)
         cv.text('92 岁的巴菲特与阿贝尔，挨个拜访五家公司', W / 2, 1070, 36, 'sans_med', col=CREAM, a=a * eo((t - WT('c5a', '九十二岁')) / 0.5))
@@ -928,7 +931,7 @@ def shot_ch5(cv, t):
         items = [('01', '赚了钱不乱花', '只拿约 1/3 利润分红，其余发展生意、回购', S('c5c')),
                  ('02', '股份越来越值钱', '持续回购，股数减少，不靠增发', S('c5d')),
                  ('03', '老板不贪', '薪酬远没有美国同行夸张', S('c5e'))]
-        M.full(cv, 'v_tokyo', t, t0, t1, a=a, src_t0=58.0, speed=0.45, cap='东京丸之内')
+        M.full(cv, 'e_mitsui_ceo', t, t0, t1, a=a, speed=0.35, cap='三井物产社长 堀健一')
         for j, (n_, h_, d_, tj) in enumerate(items):
             k = eo((t - tj) / 0.5)
             y = 950 + j * 160
@@ -943,7 +946,7 @@ def shot_ch5(cv, t):
     if a > 0:
         k1 = eio((t - WT('c5f', '百分之七点四')) / 0.8); k2 = eio((t - WT('c5f', '百分之八点五')) / 0.8)
         v = 5.1 + 2.3 * k1 + 1.1 * k2
-        M.full(cv, 'j_night_towers', t, t0, t1, a=a, speed=0.6, cap='东京')
+        M.full(cv, 'e_ticker', t, t0, t1, a=a, speed=0.6, cap='CNBC：日本五大商社股价')
         cv.text('价格便宜，人也靠得住', W / 2, 920, 44, 'serif_black', col=CREAM, a=a)
         stake_bars(cv, t, a, {c: v for c in ORDER_ALPHA}, y0=1010, dy=72, vmax=11.0)
         cv.text('2023 年 4 月 7.4% → 6 月超过 8.5%', W / 2, 1400, 30, 'sans_med', col=GOLD_L, a=a * k1)
@@ -1027,24 +1030,17 @@ def shot_ch6(cv, t):
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
         p = t - t0
-        cv.text('阿贝尔的第一封股东信 · 2026 年 2 月', W / 2, 400, 32, 'sans_med', col=GOLD_L, a=a)
-        us = ['苹果', '美国运通', '可口可乐', '穆迪']
-        for j, s_ in enumerate(us):
-            k = eo((p - j * 0.12) / 0.4)
-            cv.rrect(140, 500 + j * 100, 500, 580 + j * 100, 12, (0.06, 0.05, 0.04), a * k)
-            cv.text(s_, 320, 540 + j * 100, 38, 'sans_med', col=CREAM, a=a * k)
+        M.full(cv, 'e_brk2026', t, t0, t1, a=a, speed=0.4, cap='伯克希尔 2026 年股东大会')
+        cv.text('阿贝尔的第一封股东信 · 2026 年 2 月', W / 2, 915, 30, 'sans_med', col=GOLD_L, a=a)
+        cv.text('美国：苹果 · 美国运通 · 可口可乐 · 穆迪', W / 2, 980, 32, 'sans_med', col=CREAM, a=a * eo(p / 0.5))
         kj = eo((t - WT('c6e', '日本这五家')) / 0.5)
-        for j, c in enumerate(ORDER_ALPHA):
-            cv.rrect(580, 470 + j * 85, 940, 540 + j * 85, 12, (0.08, 0.06, 0.04), a * kj)
-            cv.text(CN5[c], 760, 505 + j * 85, 36, 'sans_bold', gold=True, a=a * kj)
-        cv.text('美国核心持仓', 320, 960, 28, 'sans_light', col=GREY, a=a)
-        cv.text('日本五大商社', 760, 960, 28, 'sans_light', col=GOLD, a=a * kj)
-        quote_card(cv, 'qcomparable', t, WT('c6e', '排在了一起') - 0.2, t1, cy=1210, en_size=28, cn_size=36, a=a)
+        cv.text('日本：伊藤忠 · 丸红 · 三菱商事 · 三井物产 · 住友商事', W / 2, 1040, 32, 'sans_bold', gold=True, a=a * kj)
+        quote_card(cv, 'qcomparable', t, WT('c6e', '排在了一起') - 0.2, t1, cy=1250, en_size=28, cn_size=36, a=a)
     # ---- c6f：阿贝尔访东京；考虑提高到 15%
     t0, t1 = win('c6f')
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
-        M.full(cv, 'j_aerial_city', t, t0, t1, a=a, speed=0.6, cap='东京')
+        M.full(cv, 'e_abel', t, t0, t1, a=a, speed=0.9, cap='伯克希尔 CEO 格雷格·阿贝尔（CNBC）')
         cv.text('2026 年 9 月 · 阿贝尔访问东京', W / 2, 960, 40, 'sans_med', col=CREAM, a=a)
         cv.text('“持有几十年”', W / 2, 1050, 50, 'serif_semi', col=GOLD_L, a=a * eo((t - WT('c6f', '几十年')) / 0.5))
         k = eo((t - WT('c6f', '百分之十五')) / 0.5)
