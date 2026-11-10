@@ -723,7 +723,7 @@ def shot_title(cv, t):
 
 # ------------------------------------------------------------------ 片尾：粒子汇聚成官方 logo
 _end = {}
-TEASE_L1, TEASE_L2 = '东京下注', '我们下期再见'
+TEASE_L1, TEASE_L2 = '谷歌', '巴菲特为什么出手？'
 TEASE_Y1, TEASE_Y2 = 735, 845
 
 
@@ -770,9 +770,9 @@ def shot_end(cv, t):
         import media as M
         pass
     if ka > 0.004:
-        chip(cv, '本期完', W / 2, 615, 26, ka, col=GOLD)
+        chip(cv, '下期预告', W / 2, 615, 26, ka, col=GOLD)
         cv.text(TEASE_L1, W / 2, TEASE_Y1, 76, 'serif_black', gold=True, a=ka, shadow=0.6, glow=0.12)
-        k2 = eo((t - ts + 0.1) / 0.5)
+        k2 = eo((t - WT('tease', '巴菲特为什么') + 0.1) / 0.5)
         cv.text(TEASE_L2, W / 2, TEASE_Y2, 54, 'serif_semi', col=CREAM, a=ka * k2, shadow=0.6)
     # 1) 预告文字化作粒子，汇聚成官方 logo
     tx, ty, sx, sy, col, delay, swirl = end_particles()
