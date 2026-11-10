@@ -328,5 +328,53 @@
   "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
   "start": 465.0,
   "dur": 3.0
+ },
+ "e_office_walk": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 422.5,
+  "dur": 3.5
+ },
+ "e_office_hall": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 429.5,
+  "dur": 3.5
+ },
+ "e_meeting2": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 328.5,
+  "dur": 4.0
+ },
+ "e_factory": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 305.0,
+  "dur": 4.0
+ },
+ "e_ana": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 316.5,
+  "dur": 3.5
+ },
+ "e_lisbon": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 321.0,
+  "dur": 4.0
+ },
+ "e_food": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 297.5,
+  "dur": 3.5
+ },
+ "e_cash_man": {
+  "source": "财讯《投资IN总经》EP97",
+  "ia": "https://www.youtube.com/watch?v=GIVExayTQwM",
+  "start": 214.5,
+  "dur": 4.0
  }
 }

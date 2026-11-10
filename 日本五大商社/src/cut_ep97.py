@@ -9,6 +9,8 @@ CLIPS = {   # 名称: (起点秒, 时长)
     'e_yen_count': (225.5, 3.5), 'e_konbini': (244.5, 3.5), 'e_port': (257.0, 4.5), 'e_mine_workers': (261.5, 3.5),
     'e_lng_carrier': (277.0, 4.0), 'e_mitsui_ceo': (332.0, 5.0), 'e_rhodes': (353.0, 8.0), 'e_copper': (391.5, 4.0),
     'e_yen_stack': (472.5, 3.0), 'e_buffett_jp': (465.0, 3.0),
+    'e_office_walk': (422.5, 3.5), 'e_office_hall': (429.5, 3.5), 'e_meeting2': (328.5, 4.0), 'e_factory': (305.0, 4.0),
+    'e_ana': (316.5, 3.5), 'e_lisbon': (321.0, 4.0), 'e_food': (297.5, 3.5), 'e_cash_man': (214.5, 4.0),
 }
 SRC_NAME = '财讯《投资IN总经》EP97'
 if __name__ == '__main__':

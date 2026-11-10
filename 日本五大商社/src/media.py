@@ -68,8 +68,8 @@ def vframe(name, sec):
 
 CROP = {k: (0.04, 0.07, 0.96, 0.925) for k in ('j_tower', 'j_shinkansen', 'j_commuters', 'j_taxi')}
 CROP.update({k: (0.08, 0.08, 1.0, 1.0) for k in ('j_lng_ship', 'j_lng_plant')})
-CROP.update({k: (0.03, 0.05, 0.97, 1.0) for k in ('e_logos', 'e_ticker', 'e_lng_port', 'e_lng_tank', 'e_yen_hands', 'e_yen_count', 'e_yen_stack', 'e_meeting', 'e_buffett_jp')})
-CROP.update({k: (0.16, 0.05, 1.0, 1.0) for k in ('e_port', 'e_konbini', 'e_mine_workers', 'e_lng_carrier', 'e_mitsui_ceo', 'e_rhodes')})
+CROP.update({k: (0.03, 0.05, 0.97, 1.0) for k in ('e_buffett_jp', 'e_logos', 'e_ticker', 'e_lng_port', 'e_lng_tank', 'e_yen_hands', 'e_yen_count', 'e_yen_stack', 'e_meeting')})
+CROP.update({k: (0.16, 0.05, 1.0, 1.0) for k in ('e_office_walk', 'e_office_hall', 'e_meeting2', 'e_factory', 'e_ana', 'e_lisbon', 'e_port', 'e_konbini', 'e_mine_workers', 'e_lng_carrier', 'e_mitsui_ceo', 'e_rhodes')})
 CROP.update({'e_abel': (0.03, 0.05, 0.97, 0.84), 'e_brk2026': (0.03, 0.05, 0.97, 0.84)})
 
 
@@ -128,9 +128,11 @@ def resolve(name, depth=0):
 
 
 # 每个视频片段里真正可用的时段（之后会切到别的画面）；镜头时长超出时自动放慢，保证不越界、不定格
-USABLE = {'e_konbini': (1.8, 3.5), 'e_lng_carrier': (0, 1.0), 'e_port': (0, 2.2), 'e_meeting': (0, 3.5), 'e_lng_port': (0, 2.5),
+USABLE = {'e_office_walk': (0, 3.5), 'e_office_hall': (0, 1.7), 'e_meeting2': (0, 2.2), 'e_factory': (1.2, 4.0), 'e_ana': (0, 1.8),
+          'e_lisbon': (0, 4.0), 'e_buffett_jp': (0, 3.0), 'e_lng_tank': (0, 3.4), 'e_yen_stack': (0, 3.0),
+          'e_konbini': (1.8, 3.5), 'e_lng_carrier': (0, 1.0), 'e_port': (0, 2.2), 'e_meeting': (0, 2.3), 'e_lng_port': (0, 2.5),
           'e_logos': (0, 3), 'e_ticker': (0, 5), 'e_brk2026': (0, 2.6), 'e_abel': (0, 9), 'e_yen_hands': (0, 4), 'e_yen_count': (0, 3.5),
-          'e_mine_workers': (0, 3.5), 'e_mitsui_ceo': (0, 5), 'e_rhodes': (0, 8), 'e_yen_stack': (0, 3),
+          'e_mine_workers': (0, 3.5), 'e_mitsui_ceo': (0, 5), 'e_rhodes': (0, 8), 
           'x_bwbm_munger': (0, 20), 'x_bwbm_munger2': (0, 9), 'j_cine_konbini': (0, 7), 'j_cine_city': (0, 3), 'j_cine_osaka': (0, 7),
           'j_cine_miyajima': (0, 7), 'j_cine_skyline': (0, 7), 'j_night_crossing': (0, 10), 'j_night_towers': (0, 10), 'j_night_street': (0, 10),
           'j_night_711': (0, 8), 'j_tower': (1.8, 3.5), 'j_shinkansen': (0, 4), 'j_commuters': (0, 5.5), 'j_taxi': (0, 2.5), 'j_market': (0, 10),
@@ -149,6 +151,8 @@ def fit_speed(name, src_t0, speed, dur):
     if name in USABLE:
         a, b = USABLE[name]; src_t0 = max(src_t0, a)
         speed = min(speed, max(b - src_t0 - 0.05, 0.1) / max(dur, 0.1))
+    if os.environ.get('SLOWLOG') and speed < 0.62:
+        open(os.environ['SLOWLOG'], 'a').write(f'{name} {speed:.2f} {dur:.1f}\n')
     return src_t0, speed
 
 
