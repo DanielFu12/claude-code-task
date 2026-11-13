@@ -254,14 +254,18 @@ def build():
     section(c['ch5'] + BAR * 0.5, S('m5') - 0.4, ['D', 'A/C#', 'Bm', 'G', 'D/F#', 'G', 'Em', 'A'], {'pad', 'low', 'harp', 'horn'}, 44, 56,
             major=True, motif_every=4, motif_ins='horn', motif_oct=62)
     P = ['D', 'Bm', 'G', 'A']
-    section(S('m5') - 0.4, S('m6') - 0.3, P, {'pad', 'low', 'ostinato', 'perc', 'nomotif'}, 58, 66, major=True)
-    section(S('m6') - 0.3, S('m7') - 0.3, P, {'pad', 'low', 'ostinato', 'perc', 'brass'}, 66, 72, major=True, motif_every=4, motif_ins='horn', motif_oct=62)
-    section(S('m7') - 0.3, S('m8') - 0.5, P, {'pad', 'low', 'ostinato', 'high', 'perc2', 'brass', 'nomotif'}, 72, 82, major=True)
-    riser(S('m8') - 0.25, 2.2, 84)
-    hit(S('m8') - 0.25, 'D', 96, ring=3.0)
-    section(S('m8') - 0.25, S('m9') - 0.35, ['D', 'G', 'A', 'D'], {'pad', 'low', 'ostinato', 'high', 'perc2', 'brass', 'brassmotif', 'choir', 'nomotif'},
-            88, 92, major=True)
-    t9 = S('m9') - 0.35
+    # v4：护城河机器——习惯（起势）→ 花钱买来的默认位置（转暗）→ 广告 → 入口 → 数据（层层加码）→ 算力（全编制重音）
+    #     → “AI 是双刃剑”（转小调、只留颤音与低音）
+    section(S('m5') - 0.4, S('m6') - 0.3, P, {'pad', 'low', 'ostinato', 'perc', 'nomotif'}, 56, 64, major=True)
+    section(S('m6') - 0.3, S('m7') - 0.3, ['Bm', 'G', 'Em', 'F#'], {'pad2', 'low', 'trem', 'nomotif'}, 50, 56)
+    section(S('m7') - 0.3, S('m8') - 0.3, P, {'pad', 'low', 'ostinato', 'perc', 'brass'}, 62, 70, major=True, motif_every=4, motif_ins='horn', motif_oct=62)
+    section(S('m8') - 0.3, S('m9') - 0.3, P, {'pad', 'low', 'ostinato', 'high', 'perc', 'brass', 'nomotif'}, 70, 78, major=True)
+    section(S('m9') - 0.3, S('m9b') - 0.25, P, {'pad', 'low', 'ostinato', 'high', 'perc2', 'brass', 'nomotif'}, 78, 84, major=True)
+    riser(S('m9b') - 0.25, 2.2, 84)
+    hit(S('m9b') - 0.25, 'D', 96, ring=3.0)
+    section(S('m9b') - 0.25, S('m9c') - 0.35, ['D', 'G', 'A', 'D'], {'pad', 'low', 'ostinato', 'high', 'perc2', 'brass', 'brassmotif', 'choir', 'nomotif'},
+            86, 90, major=True)
+    t9 = S('m9c') - 0.35
     note('trombone', 26, t9, t9 + 3.5, 90); drum('kick', t9, 100, 1.0); note('taiko', 26, t9, t9 + 2, 96)
     section(t9, S('m10') - 0.3, ['Dm', 'Bb', 'Gm', 'A'], {'pad2', 'low', 'trem', 'nomotif'}, 54, 50)
     section(S('m10') - 0.3, E('sot_attacks') + 0.3, ['Dm', 'Gm/D', 'Dm', 'Bb', 'Gm', 'A'], {'pad2', 'synth', 'nomotif'}, 36, 40)
@@ -291,7 +295,7 @@ def build():
                               pm.ControlChange(7, {'horn': 92, 'timp': 100, 'choir': 70, 'pad': 70, 'spic': 84, 'brass': 88,
                                                    'trumpet': 84, 'trombone': 88, 'taiko': 110}.get(name, 100), 0.0)]
     beats = [k * BEAT for k in range(int(T / BEAT) + 1)]
-    return beats, [title, t_init, TL['logo']], [S('m8') - 0.25, S('m9') - 0.35, c['ch5']]
+    return beats, [title, t_init, TL['logo']], [S('m9b') - 0.25, S('m9c') - 0.35, c['ch5']]
 
 
 def post(wav):

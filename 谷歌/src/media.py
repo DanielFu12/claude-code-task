@@ -177,7 +177,8 @@ def full(cv, name, t, t0, t1, z0=1.04, z1=1.14, focus=(0.5, 0.5), pan=(0, 0, 0, 
 
 
 def frame(cv, name, t, t0, t1, cy=820, w=1000, h=680, z0=1.02, z1=1.10, focus=(0.5, 0.5), pan=(0, 0, 0, 0), a=1.0,
-          fi=0.6, fo=0.6, warm=0.25, sat=0.85, src_t0=0.0, speed=1.0, bg=False, credit=True, cap=None, border=True, bw=False):
+          fi=0.6, fo=0.6, warm=0.25, sat=0.85, src_t0=0.0, speed=1.0, bg=False, credit=True, cap=None, border=True, bw=False,
+          fit='cover'):
     """窗口构图：清晰的画面放在中部，背后同一画面虚化放大并压暗"""
     al = env(t, t0, t1, fi, fo) * a
     if al <= 0.004: return 0.0
@@ -193,7 +194,18 @@ def frame(cv, name, t, t0, t1, cy=820, w=1000, h=680, z0=1.02, z1=1.10, focus=(0
         b = grade(b, warm, 1.0) * 0.38
         cv.over(b, np.full((H, W), al, np.float32), 0, 0)
     z = lerp(z0, z1, p)
-    fr = _crop(src, w, h, z, focus[0], focus[1], lerp(pan[0], pan[2], p), lerp(pan[1], pan[3], p))
+    if fit == 'contain':                     # 整幅入窗：人物不被放大；两侧/上下用同一画面虚化铺满窗口
+        ih, iw = src.shape[:2]; s_ = min(w / iw, h / ih) * z
+        cw, ch_ = int(iw * s_), int(ih * s_)
+        back = _crop(cv2.resize(src, (iw // 8, ih // 8), interpolation=cv2.INTER_AREA), w // 8, h // 8, 1.1, 0.5, 0.5)
+        fr = cv2.resize(cv2.GaussianBlur(back, (0, 0), 2.5), (int(w), int(h)), interpolation=cv2.INTER_LINEAR) * 0.42
+        fg = cv2.resize(src, (cw, ch_), interpolation=cv2.INTER_AREA)
+        ox = int(cl((w - cw) / 2 + lerp(pan[0], pan[2], p) * w, 0, max(w - cw, 0))); oy = int(cl((h - ch_) / 2, 0, max(h - ch_, 0)))
+        cw2, ch2 = min(cw, int(w)), min(ch_, int(h))
+        fx0 = max(0, (cw - int(w)) // 2); fy0 = int(cl(focus[1] * ch_ - h / 2, 0, max(ch_ - int(h), 0)))
+        fr[oy:oy + ch2, ox:ox + cw2] = fg[fy0:fy0 + ch2, fx0:fx0 + cw2]
+    else:
+        fr = _crop(src, w, h, z, focus[0], focus[1], lerp(pan[0], pan[2], p), lerp(pan[1], pan[3], p))
     if bw: g = fr @ np.array([0.3, 0.59, 0.11], np.float32); fr = np.repeat(g[..., None], 3, 2)
     fr = grade(fr, warm, sat)
     x0, y0 = W / 2 - w / 2, cy - h / 2

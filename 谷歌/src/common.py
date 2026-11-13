@@ -128,6 +128,7 @@ def chip(cv, s, x, y, size=30, a=1.0, col=GOLD, fill=(0.08, 0.06, 0.05), fnt='sa
     tw, th = text_size(s, fnt, size)
     pad = size * 0.6
     if anchor == 'l': x = x + tw / 2 + pad
+    elif anchor == 'r': x = x - tw / 2 - pad
     cv.rrect(x - tw / 2 - pad, y - size * 0.85, x + tw / 2 + pad, y + size * 0.85, size * 0.85, fill, a * 0.85)
     cv.rrect(x - tw / 2 - pad, y - size * 0.85, x + tw / 2 + pad, y + size * 0.85, size * 0.85, col, a * 0.6, fill=False, th=2)
     cv.text(s, x, y, size, fnt, col=col, a=a)
@@ -740,8 +741,8 @@ ORDER = [s['id'] for s in TL['segs']]
 def nxt(i): return ORDER[ORDER.index(i) + 1] if ORDER.index(i) + 1 < len(ORDER) else None
 
 
-def win(i, j=None, pre=0.3, post=0.12):
-    """镜头从句子 i 发声前 pre 秒开始，到句子 j（缺省为下一句）发声后 post 秒结束"""
+def win(i, j=None, pre=0.3, post=-0.2):
+    """镜头从句子 i 发声前 pre 秒开始，到句子 j（缺省为下一句）发声前 0.2 秒结束（v4：前后镜头只交叠约 0.1 秒，避免文字叠影）"""
     j = j or nxt(i)
     t1 = S(j) + post if j else E(i) + 1.0
     return S(i) - pre, t1

@@ -1,6 +1,7 @@
 """巴菲特原声段落（SOT）的画面：整屏转入“采访现场”。
 
-· 画面：专访原片原速播放，与原声同一入点（口型同步）；放大到整幅宽、近 4:5 的人像取景，上下羽化融入暗场，缓慢推近；
+· 画面：专访原片原速播放，与原声同一入点（口型同步）；v4 改为中景画窗（1000×640，原片整幅高度入画，不放大），
+  背后铺同一画面的虚化放大版；每段一种小幅机位运动（推近 / 拉远 / 横移）；
 · 左上“原声”标签 + 由原声实际响度驱动的声纹条；首次 3 秒出人名条；
 · 下方：英文原话（逐句）+ 中文翻译，按原声里的停顿逐句切换；出处行写明节目、日期与片中时间；
 · 进出：0.35s 推拉 + 金色光扫；普通旁白字幕在原声段落里不显示（common.subtitles 跳过 kind=sot）。
@@ -31,15 +32,26 @@ _feather = {}
 def _feather_mask(w, h):
     if (w, h) not in _feather:
         y = np.linspace(0, 1, h, dtype=np.float32)[:, None]; x = np.linspace(0, 1, w, dtype=np.float32)[None, :]
-        my = np.clip(y / 0.10, 0, 1) ** 1.2 * np.clip((1 - y) / 0.30, 0, 1) ** 1.5
-        mx = np.clip(x / 0.04, 0, 1) * np.clip((1 - x) / 0.04, 0, 1)
+        my = np.clip(y / 0.035, 0, 1) * np.clip((1 - y) / 0.035, 0, 1)
+        mx = np.clip(x / 0.03, 0, 1) * np.clip((1 - x) / 0.03, 0, 1)
         _feather[(w, h)] = (my * mx).astype(np.float32)
     return _feather[(w, h)]
 
 
-ZOOM = {'decider': 1.22}            # 双人景：巴菲特在画面右侧，收紧取景
-FOCUS = {'dontlike': (0.53, 0.42), 'decider': (0.9, 0.5), 'attacks': (0.55, 0.42), 'rank': (0.55, 0.42),
-         'trick': (0.53, 0.42), 'hundreds': (0.53, 0.42)}
+# v4 取景：中景，保留扶手椅、台灯与房间（原片只取字幕条以上的 1920×752；整幅高度全部入画，不再放大成大头像）。
+# 每段原声一种机位运动，避免机械重复：push 推近、pull 拉远、drift 横移；幅度都很小（≤5%）。
+WIN_W, WIN_H, WIN_CY = 1000, 640, 600
+FOCUS = {'dontlike': 0.53, 'decider': 0.74, 'attacks': 0.55, 'rank': 0.55, 'trick': 0.53, 'hundreds': 0.53}
+MOVE = {'dontlike': ('push', 0.0), 'decider': ('drift', -0.035), 'attacks': ('push', 0.0), 'rank': ('pull', 0.0),
+        'trick': ('drift', 0.03), 'hundreds': ('push', 0.0)}
+
+
+def _bg(src):
+    """同一画面的虚化放大版铺满全屏，压暗，给窗口一个有景深的环境"""
+    small = cv2.resize(src, (W // 10, int(src.shape[0] * (W // 10) / src.shape[1])), interpolation=cv2.INTER_AREA)
+    small = M._crop(small, W // 10, H // 10, 1.0, 0.5, 0.45)
+    b = cv2.resize(cv2.GaussianBlur(small, (0, 0), 2.2), (W, H), interpolation=cv2.INTER_LINEAR)
+    return b
 
 
 def footage(cv, sid, t, c0, ln, al):
@@ -48,24 +60,30 @@ def footage(cv, sid, t, c0, ln, al):
     fr = M.vframe(name, max(t - c0, 0.0))
     if fr is None: return
     src = fr[..., ::-1].astype(np.float32) / 255 if fr.dtype == np.uint8 else fr
-    w, h = W, 980
-    p = cl((t - c0) / max(ln, 0.1))
-    push = 1.0 + 0.055 * eio(p)
-    intro = 1 + 0.06 * (1 - eo((t - c0 + FADE) / 0.6))           # 进场时从稍大处落定
-    fx_, fy_ = FOCUS.get(sid, (0.53, 0.42))
-    img = M._crop(src, w, h, push * intro * ZOOM.get(sid, 1.0), fx_, fy_)
-    img = M.grade(img, 0.18, 0.92)
-    img = np.clip((img - 0.5) * 1.08 + 0.5 - 0.015, 0, 1)        # 略加反差
-    y0 = 250
-    cv.over(img, _feather_mask(w, h) * al, 0, y0)
-    # 取景框角标（细金线）
-    for (x, y, dx, dy) in ((60, 300, 1, 1), (W - 60, 300, -1, 1), (60, 1010, 1, -1), (W - 60, 1010, -1, -1)):
-        cv.line((x, y), (x + 46 * dx, y), GOLD, al * 0.55, 2); cv.line((x, y), (x, y + 46 * dy), GOLD, al * 0.55, 2)
+    b = M.grade(_bg(src), 0.1, 0.9) * 0.30
+    cv.over(b, np.full((H, W), al, np.float32), 0, 0)
+    p = eio(cl((t - c0) / max(ln, 0.1)))
+    kind, dx = MOVE.get(sid, ('push', 0.0))
+    z = {'push': 1.0 + 0.05 * p, 'pull': 1.05 - 0.05 * p, 'drift': 1.04}[kind]
+    z *= 1 + 0.03 * (1 - eo((t - c0 + FADE) / 0.7))                 # 进场时从稍大处落定
+    fx_ = FOCUS.get(sid, 0.53) + (dx * (p - 0.5) if kind == 'drift' else 0.0)
+    w, h = WIN_W, WIN_H
+    img = M._crop(src, w, h, z, fx_, 0.5)
+    img = M.grade(img, 0.12, 0.95)
+    img = np.clip((img - 0.5) * 1.05 + 0.5 - 0.01, 0, 1)
+    x0, y0 = (W - w) // 2, WIN_CY - h // 2
+    sh = np.zeros((h + 100, w + 100), np.float32); sh[50:-50, 50:-50] = 1
+    cv.img_mul(1 - cv2.GaussianBlur(sh, (0, 0), 22) * 0.65 * al, x0 - 50, y0 - 36)
+    cv.over(img, _feather_mask(w, h) * al, x0, y0)
+    cv.rrect(x0 - 1, y0 - 1, x0 + w + 1, y0 + h + 1, 3, GOLD_D, al * 0.45, fill=False, th=2)
+    # 取景框角标（细金线，框外）
+    for (x, y, sx, sy) in ((x0 - 14, y0 - 14, 1, 1), (x0 + w + 14, y0 - 14, -1, 1), (x0 - 14, y0 + h + 14, 1, -1), (x0 + w + 14, y0 + h + 14, -1, -1)):
+        cv.line((x, y), (x + 40 * sx, y), GOLD, al * 0.6, 2); cv.line((x, y), (x, y + 40 * sy), GOLD, al * 0.6, 2)
 
 
 def badge(cv, sid, t, c0, al):
     e = _envelope(sid); k = int((t - c0) * FPS)
-    x, y = 70, 345
+    x, y = 70, 326
     cv.rrect(x, y - 24, x + 196, y + 24, 24, (0.05, 0.04, 0.035), al * 0.75)
     cv.rrect(x, y - 24, x + 196, y + 24, 24, GOLD, al * 0.6, fill=False, th=2)
     blink = 0.6 + 0.4 * (math.sin(t * 5.5) > -0.2)
@@ -84,7 +102,7 @@ def name_super(cv, t, c0, al):
     p = t - c0
     k = env(p, 0.25, 3.6, 0.5, 0.5)
     if k <= 0.004: return
-    x, y = 70, 1150
+    x, y = 60, 990
     L = 6 + 420 * eo((p - 0.25) / 0.6)
     cv.rect(x, y - 52, x + 6, y + 40, GOLD, al * k, glow=0.3)
     cv.text('沃伦·巴菲特', x + 30, y - 18, 48, 'serif_black', gold=True, a=al * k, anchor='l', reveal=eo((p - 0.3) / 0.6), shadow=0.8)
@@ -106,7 +124,7 @@ def captions(cv, seg, t, c0, al):
         en_l = wrap('“' + en + '”' if (j == 0 and len(ph) == 1) else en, 'corm_med', 44, 960)
         cn_l = wrap_nice(cn, 'serif_semi', 54, 960)
         n_en, n_cn = len(en_l), len(cn_l)
-        top = 1300 + rise
+        top = 1150 + rise
         hh = n_en * 50 + n_cn * 74 + 60
         sub_backing(cv, 40, top - 40, W - 40, top + hh - 10, k * al, target=0.42)
         y = top
