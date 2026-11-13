@@ -1,6 +1,6 @@
 # 《二十年后的补票——巴菲特为什么出手谷歌》出处与口径
 
-片长 12:26.2。股价截至 2026-11-09 收盘；持股取自 SEC 13F 原件；详细核实过程见 `research/核实笔记.md`，CNBC 专访的带时间码转写见 `research/CNBC专访_20260715_转写.md`。
+片长 12:27.2。股价截至 2026-11-09 收盘；持股取自 SEC 13F 原件；详细核实过程见 `research/核实笔记.md`，CNBC 专访的带时间码转写见 `research/CNBC专访_20260715_转写.md`。
 
 **口径原则**：每个关于谷歌的投资判断，只用谷歌自身的数据或明确对应谷歌的交易证据（13F 的 Alphabet 行、Alphabet 的公告与财报、当事人谈谷歌的原话）；伯克希尔整个股票组合的买卖额等数据不用于谷歌叙事（核实笔记第零节）。
 
@@ -135,44 +135,44 @@
   - 出处：2007 年致股东信
 - `9:13.0` 2025 年，谷歌花在数据中心、芯片和机房上的钱是 914 亿美元；2026 年，计划花到大约 2000 亿，是前一年的两倍多。公司还说，2027 年还要大幅增加。
   - 出处：Alphabet 2025 年报；2026 年指引 $1,950–2,050 亿（7 月上调，10-28 维持）
-- `9:26.6` 很多人以为巴菲特不碰科技股。主持人问他，这一次是怎么回事。他答：
-  - 出处：CNBC 专访 2026-07-15（视频 5:13–5:38，原声见 SOTS hundreds）
-- `9:31.3` 🔊 **巴菲特原声**：“The real question with Google and all of its competitors now, they're all laying out hundreds of billions.” —— 真正的问题是，谷歌和它现在所有的竞争对手，都在砸下几千亿美元。
+- `9:26.6` 很多人以为巴菲特不碰科技股。主持人也追问：这一次，是怎么回事？巴菲特没有谈科技，先谈的是钱：
+  - 出处：CNBC 专访 2026-07-15（视频 5:13–5:38 主持人提问；巴菲特回答 5:38.8–5:45.3，原声见 SOTS hundreds）
+- `9:34.8` 🔊 **巴菲特原声**：“The real question with Google and all of its competitors now, they're all laying out hundreds of billions.” —— 真正的问题是，谷歌和它现在所有的竞争对手，都在砸下几千亿美元。
   - 出处：CNBC Squawk Box · Becky Quick 专访巴菲特 · 2026-07-15，专访 5:39（切点见 `src/cut_sot.py`、`work/sot/sot.json`）
-- `9:40.1` 他说，以前做电脑软件，用不着投这么多钱。现在，它们很多时候是在玩一场不想玩、又不得不玩的游戏。
+- `9:41.9` 他说，以前做电脑软件，用不着投这么多钱。现在，它们很多时候是在玩一场不想玩、又不得不玩的游戏。
   - 出处：CNBC 专访 2026-07-15（视频 5:56–6:20、8:41）
-- `9:48.3` 不过，这些投入已经开始带来收入。2026 年三季度，谷歌云的收入一年翻了一倍，达到 307 亿美元；云业务的经营利润，从一年前的 36 亿涨到 111 亿。
+- `9:50.2` 不过，这些投入已经开始带来收入。2026 年三季度，谷歌云的收入一年翻了一倍，达到 307 亿美元；云业务的经营利润，从一年前的 36 亿涨到 111 亿。
   - 出处：Alphabet 2026 年三季度财报
-- `10:01.8` 代价也写在账上：连续两个季度，谷歌经营赚到的现金，都不够付资本开支；今年前九个月，它没有回购过一股股票。
+- `10:03.5` 代价也写在账上：连续两个季度，谷歌经营赚到的现金，都不够付资本开支；今年前九个月，它没有回购过一股股票。
   - 出处：Alphabet 2026 年三季度财报（自由现金流 Q2 −$58.6 亿、Q3 −$90.7 亿）；10-Q（无回购）
-- `10:12.1` 所以，真正的问题不是谷歌花得多不多，而是这几千亿美元投下去，将来能赚回多少，又要一直投多久。
+- `10:13.6` 所以，真正的问题不是谷歌花得多不多，而是这几千亿美元投下去，将来能赚回多少，又要一直投多久。
   - 出处：本片解读
-- `10:20.8` 阿贝尔则说：伯克希尔旗下的公司自己就在用人工智能，能亲眼看到它带来了什么；在这上面，谷歌是重要的玩家。
+- `10:21.9` 阿贝尔则说：伯克希尔旗下的公司自己就在用人工智能，能亲眼看到它带来了什么；在这上面，谷歌是重要的玩家。
   - 出处：阿贝尔 CNBC 2026-09-02
 
 ### 这张票，补得值不值
 
-- `10:35.9` 回头看，伯克希尔这张票分两种方式买：在股市上，它的谷歌持股净增了约 7700 万股；那 100 亿美元的定增，钱则没有付给别的股东，而是直接进了谷歌的账上。
+- `10:36.9` 回头看，伯克希尔这张票分两种方式买：在股市上，它的谷歌持股净增了约 7700 万股；那 100 亿美元的定增，钱则没有付给别的股东，而是直接进了谷歌的账上。
   - 出处：13F 2025-09-30 至 2026-06-30（10,598 万 − 定增 2,857 万 = 7,741 万股，净增）；Alphabet 8-K / 424B5
-- `10:49.2` 谷歌写明，这轮融资的钱，将用于扩建 AI 基础设施和全球算力等用途。也就是说，伯克希尔不只是买了谷歌的股票，也直接为它这一轮 AI 扩张出了钱。
+- `10:50.1` 谷歌写明，这轮融资的钱，将用于扩建 AI 基础设施和全球算力等用途。也就是说，伯克希尔不只是买了谷歌的股票，也直接为它这一轮 AI 扩张出了钱。
   - 出处：Alphabet 2026-06-01 融资公告、6-02 定价公告（总额 $847.5 亿，含 $400 亿 ATM，ATM 主要用于员工股权奖励缴税）
-- `11:01.5` 10 月 28 日，谷歌公布三季度财报：云业务翻倍，搜索收入增长 12%，增速比上个季度有所回落；净利润比去年同期少了约四分之一，主要是因为它持有的其他公司股权出现了账面亏损。第二天，股价下跌了近 13%。
+- `11:02.4` 10 月 28 日，谷歌公布三季度财报：云业务翻倍，搜索收入增长 12%，增速比上个季度有所回落；净利润比去年同期少了约四分之一，主要是因为它持有的其他公司股权出现了账面亏损。第二天，股价下跌了近 13%。
   - 出处：Alphabet 2026 年三季度财报；Yahoo Finance（10-28 $324.89 → 10-29 $283.82）
-- `11:18.6` 到 11 月 9 日，谷歌股价约 288 美元，比伯克希尔定增时每股约 352 美元，低了约 18%。光是定增那 100 亿美元，按市价算，已经少了约 18 亿。
+- `11:19.5` 到 11 月 9 日，谷歌股价约 288 美元，比伯克希尔定增时每股约 352 美元，低了约 18%。光是定增那 100 亿美元，按市价算，已经少了约 18 亿。
   - 出处：Alphabet 8-K（股数）；Yahoo Finance 11-09 收盘（A $288.15、C $286.01）
-- `11:32.4` 这张票补得值不值，未来十年，可以盯住三件事。
-- `11:36.8` 第一，搜索还守不守得住：人工智能会让搜索更强，还是会改变人们找信息的方式？
+- `11:33.4` 这张票补得值不值，未来十年，可以盯住三件事。
+- `11:37.8` 第一，搜索还守不守得住：人工智能会让搜索更强，还是会改变人们找信息的方式？
   - 出处：本片解读
-- `11:43.6` 第二，云能不能持续赚钱：收入翻倍之后，利润能不能跟得上。
+- `11:44.6` 第二，云能不能持续赚钱：收入翻倍之后，利润能不能跟得上。
   - 出处：本片解读
-- `11:48.9` 第三，砸下去的钱，能不能重新变回自由现金流，赚回远高于国债的回报。
+- `11:49.8` 第三，砸下去的钱，能不能重新变回自由现金流，赚回远高于国债的回报。
   - 出处：本片解读（标准取自巴菲特 CNBC 2026-07-15）
-- `11:56.0` 二十年前，谷歌的创始人从巴菲特那里，借鉴了怎样和股东说话。二十年后，伯克希尔终于成了谷歌的股东。
-- `12:05.0` 巴菲特曾经错过它。这一次，他补上了这张票。只是他面对的，已经不是当年那个不需要大笔资本的谷歌了。
+- `11:56.9` 二十年前，谷歌的创始人从巴菲特那里，借鉴了怎样和股东说话。二十年后，伯克希尔终于成了谷歌的股东。
+- `12:06.0` 巴菲特曾经错过它。这一次，他补上了这张票。只是他面对的，已经不是当年那个不需要大笔资本的谷歌了。
 
 ### 片尾
 
-- `12:14.8` 下期：喜诗糖果——芒格怎样改变了巴菲特
+- `12:15.7` 下期：喜诗糖果——芒格怎样改变了巴菲特
 
 ## 巴菲特原声（SOT）
 
@@ -182,7 +182,7 @@
 - `7:33.1`（专访 11:17，10.4s）“If you have a wonderful business, you are going to be subject to attacks. So it's not a question of whether it was wonderful yesterday. The question is how long is it going to be wonderful?”
 - `8:25.1`（专访 1:13，4.7s）“It's probably… number five or six.”
 - `8:46.8`（专访 4:09，11.1s）“And the trick in life is to find — I mean, investing is to find businesses that are going to earn high returns on capital for an extended period of time.”
-- `9:31.3`（专访 5:39，8.1s）“The real question with Google and all of its competitors now, they're all laying out hundreds of billions.”
+- `9:34.8`（专访 5:39，6.5s）“The real question with Google and all of its competitors now, they're all laying out hundreds of billions.”
 
 ## 屏幕原话（英文原句 + 中文翻译）
 
@@ -267,7 +267,7 @@
 - `sot_attacks`：CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声（片源起点 676.891s，10.359s）—— If you have a wonderful business, you are going to be subject to attacks. So it's not a question of whether it was wonderful yesterday. The question is how long is it going to be wonderful?
 - `sot_rank`：CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声（片源起点 72.808s，4.743s）—— It's probably… number five or six.
 - `sot_trick`：CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声（片源起点 248.87s，11.08s）—— And the trick in life is to find — I mean, investing is to find businesses that are going to earn high returns on capital for an extended period of time.
-- `sot_hundreds`：CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声（片源起点 338.75s，8.13s）—— The real question with Google and all of its competitors now, they're all laying out hundreds of billions.
+- `sot_hundreds`：CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声（片源起点 338.75s，6.5s）—— The real question with Google and all of its competitors now, they're all laying out hundreds of billions.
 
 照片（Wikimedia Commons，第二期已核授权）：
 - `buffett_2010`：File:Warren Buffett Wall Street Money Never Sleeps Premiere, New York City, 2010 (55363166973)-corp.jpg，Anthony Quintano，CC BY 4.0，https://commons.wikimedia.org/wiki/File%3AWarren_Buffett_Wall_Street_Money_Never_Sleeps_Premiere%2C_New_York_City%2C_2010_%2855363166973%29-corp.jpg

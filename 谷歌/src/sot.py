@@ -44,6 +44,9 @@ WIN_W, WIN_H, WIN_CY = 1000, 640, 600
 FOCUS = {'dontlike': 0.53, 'decider': 0.74, 'attacks': 0.55, 'rank': 0.55, 'trick': 0.53, 'hundreds': 0.53}
 MOVE = {'dontlike': ('push', 0.0), 'decider': ('drift', -0.035), 'attacks': ('push', 0.0), 'rank': ('pull', 0.0),
         'trick': ('drift', 0.03), 'hundreds': ('push', 0.0)}
+# 原片在原声句尾切到双人全景（主持人在左）。切换时刻（片段内秒数）起改取画面右侧的巴菲特，
+# 跟随原片的机位切换，不出现主持人或空沙发。dontlike：原片 476.78s 切镜，片段入点 470.25s。
+REFRAME = {'dontlike': (6.52, 0.86, 1.45)}
 
 
 def _bg(src):
@@ -67,6 +70,8 @@ def footage(cv, sid, t, c0, ln, al):
     z = {'push': 1.0 + 0.05 * p, 'pull': 1.05 - 0.05 * p, 'drift': 1.04}[kind]
     z *= 1 + 0.03 * (1 - eo((t - c0 + FADE) / 0.7))                 # 进场时从稍大处落定
     fx_ = FOCUS.get(sid, 0.53) + (dx * (p - 0.5) if kind == 'drift' else 0.0)
+    if sid in REFRAME and t - c0 >= REFRAME[sid][0]:
+        fx_, z = REFRAME[sid][1], REFRAME[sid][2]
     w, h = WIN_W, WIN_H
     img = M._crop(src, w, h, z, fx_, 0.5)
     img = M.grade(img, 0.12, 0.95)
