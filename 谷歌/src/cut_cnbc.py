@@ -1,6 +1,6 @@
 """从仓库里的 CNBC 专访（Squawk Box，2026-07-15，Becky Quick 专访巴菲特）切出画面素材 → work_clips/c_*.mp4
 - 裁掉下方的 CNBC 字幕条（画面 y ≥ 0.70 处起是 “BUFFETT ON GOOGLE INVESTMENT” 横条与台标），只保留上方 1920×752；
-- 去掉音轨：片中不播放巴菲特原声，原话一律做成屏幕引语卡（制作宪章 三.1）；
+- 去掉音轨：这些片段只作旁白下的画面；需要原声的几句另由 src/cut_sot.py 带音轨切出（制作宪章 三.1，v3 起）；
 - 每段对应专访里的哪句话见 research/CNBC专访_20260715_转写.md 和下面的注释，供画面与引语卡对位。
 python3 src/cut_cnbc.py
 """

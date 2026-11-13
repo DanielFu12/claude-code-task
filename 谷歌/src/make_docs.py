@@ -1,7 +1,7 @@
 """生成 docs/SOURCES.md：逐句旁白的出处（含片中时间戳）、屏幕原话、数据口径、影像素材与配乐说明。时间戳取自 work/timeline.json。"""
 import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import LINES, QUOTES, CHAPTERS, TEASE
+from script import LINES, QUOTES, CHAPTERS, TEASE, SOTS, SOT_SRC
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 work = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'work')
 TL = json.load(open(os.path.join(work, 'timeline.json')))
@@ -26,7 +26,18 @@ for lid, ch, text, say, mood, src in LINES:
     if ch != cur:
         w(f'\n### {CHN.get(ch) or "开场"}\n'); cur = ch
     w(f'- `{ts(SEG[lid]["start"])}` {text}' + (f'\n  - 出处：{src}' if src else ''))
+    for sid, so in SOTS.items():
+        if so['after'] == lid:
+            sg = SEG['sot_' + sid]
+            w(f'- `{ts(sg["start"])}` 🔊 **巴菲特原声**：“{so["en"]}” —— ' + ''.join(c for _, c in so['ph']) +
+              f'\n  - 出处：{SOT_SRC}，专访 {so["ts"]}（切点见 `src/cut_sot.py`、`work/sot/sot.json`）')
 w(f'\n### 片尾\n\n- `{ts(SEG["tease"]["start"])}` {TEASE[0]}')
+w('\n## 巴菲特原声（SOT）\n')
+w('片中 6 处直接播放 CNBC 专访里巴菲特本人的原声：真实录音、原速、不改词、不拼接；入出点切在自然停顿，经离线英文语音识别逐句核对；'
+  '屏幕给出英文原话、中文翻译与出处。画面与声音同一入点（口型同步）。')
+for sid, so in SOTS.items():
+    sg = SEG['sot_' + sid]
+    w(f'- `{ts(sg["start"])}`（专访 {so["ts"]}，{sg["len"]:.1f}s）“{so["en"]}”')
 w('\n## 屏幕原话（英文原句 + 中文翻译）\n')
 for k, (en, cn, who) in QUOTES.items():
     w(f'- **{who}**：“{en}” —— {cn}')
@@ -48,6 +59,8 @@ for k, v in CR.items():
 w('\n## 声音\n')
 w('- 旁白：豆包语音合成 2.0（刘飞音色），逐段整读；离线中文识别逐句回听核对（`src/check_vo.py`、`src/check_lines.py`）。')
 w('- 配乐：本期原创，程序作曲（`src/music.py`，D 小调 / D 大调，80 BPM，四音主题贯穿），FluidSynth + FluidR3 GM 音色库渲染；'
-  '片名、“是我发起的”、片尾 logo 三处重拍。大师原话只以屏幕文字呈现，不模仿任何人的声音。')
+  '片名、“是我发起的”、片尾 logo 三处重拍。v3 加入打击乐、弦乐颤音与十六分固定音型、铜管齐奏主题、重拍前的噪声上扬与低频轰鸣，整体卷积混响；'
+  '护城河四段逐段加码到全编制，片尾全编制收束。')
+w('- 巴菲特原声：CNBC 专访原片音轨，80Hz 高通、整段响度对齐旁白，原声下配乐再压低 5 dB。除原声外，不模仿、不合成任何真实人物的声音。')
 open(os.path.join(ROOT, 'docs', 'SOURCES.md'), 'w').write('\n'.join(out) + '\n')
 print('docs/SOURCES.md', len(out), 'lines')

@@ -194,8 +194,29 @@ def quote_card(cv, key, t, t0, t1, cy=860, en_size=36, cn_size=42, hl=None, a=1.
     np.minimum(reg, 1.0, out=reg)
     cv.glow[Y0:Y1, X0:X1] *= (1 - al)
     cv.U[Y0:Y1, X0:X1] = (cv.U[Y0:Y1, X0:X1] * (1 - al)).astype(np.uint8)
-    cv.rrect(x0, y0, x1, y0 + hgt, 18, (0.03, 0.026, 0.024), al * 0.94)
-    cv.rrect(x0, y0, x1, y0 + hgt, 18, GOLD_D, al * 0.45, fill=False, th=2)
+    # 毛玻璃：卡片下方的画面虚化压暗后再铺半透明暖黑
+    gx0, gy0, gx1, gy1 = int(max(x0, 0)), int(max(y0, 0)), int(min(x1, W)), int(min(y0 + hgt, H))
+    if gx1 > gx0 + 4 and gy1 > gy0 + 4:
+        reg = cv.img[gy0:gy1, gx0:gx1]
+        sm = cv2.resize(reg, ((gx1 - gx0) // 6 + 1, (gy1 - gy0) // 6 + 1), interpolation=cv2.INTER_AREA)
+        bl = cv2.resize(cv2.GaussianBlur(sm, (0, 0), 3), (gx1 - gx0, gy1 - gy0)) * 0.45
+        cv.over(bl, np.full((gy1 - gy0, gx1 - gx0), al, np.float32), gx0, gy0)
+    cv.rrect(x0, y0, x1, y0 + hgt, 18, (0.035, 0.03, 0.026), al * 0.80)
+    # 竖向微光渐变（上沿略亮）
+    hh_ = int(hgt * 0.45)
+    if hh_ > 2:
+        cv.add(GOLD * 0.10, np.linspace(1, 0, hh_, dtype=np.float32)[:, None] * np.ones((1, int(w) - 8), np.float32) * al, x0 + 4, y0 + 2)
+    cv.rrect(x0, y0, x1, y0 + hgt, 18, GOLD_D, al * 0.38, fill=False, th=2)
+    # 金色角线
+    for (cx_, cy_, dx, dy) in ((x0, y0, 1, 1), (x1, y0 + hgt, -1, -1)):
+        cv.line((cx_ + 18 * dx, cy_), (cx_ + 110 * dx, cy_), GOLD_L, al * 0.9, 3)
+        cv.line((cx_, cy_ + 18 * dy), (cx_, cy_ + 70 * dy), GOLD_L, al * 0.9, 3)
+    # 引号水印
+    cv.text('”', x1 - 80, y0 + 92, 190, 'playfair', col=GOLD, a=al * 0.16)
+    # 入场：一道光沿上沿掠过
+    u = (t - t0) / 1.0
+    if 0 <= u <= 1:
+        cv.glow_dot((x0 + (x1 - x0) * eio(u), y0), 26, GOLD_L, al * math.sin(u * math.pi) * 0.9)
     cv.line((x0 + 50, y0 + 64), (x0 + 50 + 70 * eo((t - t0) / 0.8), y0 + 64), GOLD, al, 3)
     cjk = any('\u4e00' <= c <= '\u9fff' for c in who)
     cv.text(who, x0 + 140, y0 + 64, 22 if cjk else 24, 'sans_light' if cjk else 'corm', col=GOLD, a=al, anchor='l')
@@ -337,7 +358,7 @@ def sub_chunks(seg):
 def subtitles(cv, t):
     """逐段字幕：同一时刻只显示正在读的那一个短语（淡入 + 轻微上浮），读完换下一段"""
     for s in TL['segs']:
-        if s['id'] == 'tease': continue
+        if s['id'] == 'tease' or s.get('kind') == 'sot': continue
         if not (s['start'] - 0.2 <= t <= s['start'] + s['dur'] + 0.4): continue
         ch = sub_chunks(s)
         for k, (txt, a0, a1) in enumerate(ch):
@@ -407,6 +428,9 @@ def takeaway(cv, t):
         cv.rrect(90, 640, 990, 1260, 28, GOLD, a * 0.7, fill=False, th=2, glow=0.2)
         chip(cv, '本章要点 · 巴菲特理念 ' + num, W / 2, 720, 28, a, col=GOLD)
         cv.text(title, W / 2, 850, 84, 'serif_black', gold=True, a=a * eo(p / 0.5), glow=0.3, scale=1.06 - 0.06 * eo(p / 0.5))
+        import fx
+        fl = math.exp(-((p - 0.45) / 0.3) ** 2)
+        if fl > 0.02: fx.flare(cv, W / 2 - 300 + p * 500, 850, a * fl * 0.7, length=640)
         L = 260 * eo((p - 0.3) / 0.6)
         cv.line((W / 2 - L, 940), (W / 2 + L, 940), GOLD_D, a, 2)
         cv.text(key, W / 2, 1020, 50, 'serif_semi', col=CREAM, a=a * eo((p - 0.5) / 0.5))
@@ -430,6 +454,12 @@ def chapter_card(cv, t):
         cv.line((W / 2 - L, 990), (W / 2 + L, 990), GOLD_D, a * 0.8, 2)
         cv.text(en, W / 2, 1040, 28, 'corm', col=GOLD, a=a * eo((p - 0.3) / 0.6), track=0.35)
         cv.text('第' + '一二三四五六七'[int(cid[2]) - 1] + '章', W / 2, 812, 30, 'sans_light', col=CREAM, a=a * 0.8, track=0.5)
+        import fx                                     # v3：变形宽银幕光晕横扫标题 + 缓转的细环
+        fl = math.exp(-((p - 0.55) / 0.32) ** 2)
+        if fl > 0.02: fx.flare(cv, W / 2 - 380 + p * 520, 900, a * fl * 0.8, length=760)
+        for k in range(3):
+            ang = p * (0.5 + k * 0.25) * (1 if k % 2 else -1) + k * 2.1
+            cv.arc((W / 2, 640), 210 + k * 26, ang, ang + 1.6 + 0.4 * k, GOLD if k != 1 else GOLD_D, a * (0.5 - 0.12 * k), 2)
 
 
 # ------------------------------------------------------------------ 背景
@@ -741,7 +771,7 @@ def bars(cv, items, t, t0, a, x0=140, x1=940, base=1250, hmax=640, fmt=None, sta
         if e <= 0: continue
         cx = x0 + (x1 - x0) * (k + 0.5) / n
         h = hmax * v / vmax * e
-        cv.rect(cx - bw / 2, base - h, cx + bw / 2, base, col, a * 0.92, glow=0.12)
+        gbar(cv, cx - bw / 2, base - h, cx + bw / 2, base, col, a, sheen_t=t - ts)
         cv.text(fmt(v * e) if fmt else f'{v * e:,.0f}', cx, base - h - 44, 44, 'sans_bold', col=CREAM, a=a * min(e * 2, 1), shadow=0.6)
         cv.text(lab, cx, base + 40, label_size, 'sans_light', col=GREY, a=a * min(e * 2, 1))
 
@@ -752,10 +782,11 @@ FOLLOW_DUR, FOLLOW_FADE = 4.5, 0.4
 
 def _follow_schedule():
     """在句子说完的时刻浮出：第一章开播 50s 后开始，约每 150s 一次，最多 4 次；避开本章要点卡与章节卡"""
-    ends = sorted(s['start'] + s['dur'] for s in TL['segs'] if s['id'] != 'tease')
+    ends = sorted(s['start'] + s['dur'] for s in TL['segs'] if s['id'] != 'tease' and s.get('kind') != 'sot')
     b0, b1 = CH['ch1'][0] + 50, CH['end'][0] - 25
     busy = [(v[0] - 1, v[1] + 1) for k, v in CH.items() if k.startswith('tk_')] + \
-           [(CH[c][0] - 1, CH[c][0] + 3) for c in ('ch2', 'ch3', 'ch4', 'ch5', 'ch6', 'ch7')]
+           [(CH[c][0] - 1, CH[c][0] + 3) for c in ('ch2', 'ch3', 'ch4', 'ch5', 'ch6', 'ch7')] + \
+           [(s['start'] - s['lead'] - 1.5, s['start'] + s['dur'] + 1.0) for s in TL['segs'] if s.get('kind') == 'sot']
     ok = lambda e: b0 <= e <= b1 and not any(a <= e <= b or a <= e + FOLLOW_DUR <= b for a, b in busy)
     out = []
     for e in ends:
@@ -820,3 +851,42 @@ def print_photo(cv, name, t, t0, t1, cx, cy, h, a=1.0, tilt=0.0, cap=None):
     cv.over(rgb, alp * al, x0, y0)
     txt = ((cap + ' · ') if cap else '') + M.credit_text(name)
     cv.text(txt, cx, cy + ch * s / 2 + 42, 22, 'sans_light', col=(0.66, 0.64, 0.6), a=al * 0.95)
+
+
+# ------------------------------------------------------------------ v3 高质感构件：渐变柱（顶部高光、内侧扫光、底部倒影）
+def gbar(cv, x0, y0, x1, y1, col, a=1.0, horizontal=False, glow=0.12, sheen_t=None, reflect=True):
+    """柱体：沿生长方向由暗到亮的渐变 + 顶端 3px 亮边 + 左缘细高光 + 一道缓慢扫过的光泽；竖柱带底部倒影"""
+    if a <= 0.004: return
+    x0, x1 = sorted((x0, x1)); y0, y1 = sorted((y0, y1))
+    w, h = int(round(x1 - x0)), int(round(y1 - y0))
+    if w < 1 or h < 1: return
+    col = np.asarray(col, np.float32)
+    if horizontal:
+        g = np.linspace(0.55, 1.12, w, dtype=np.float32)[None, :, None]
+        cross = 1.0 - 0.22 * np.abs(np.linspace(-1, 1, h, dtype=np.float32))[:, None, None]
+    else:
+        g = np.linspace(1.12, 0.5, h, dtype=np.float32)[:, None, None]
+        cross = 1.0 - 0.22 * np.abs(np.linspace(-1, 1, w, dtype=np.float32))[None, :, None]
+    rgb = np.clip(col * g * cross, 0, 1.3)
+    if sheen_t is not None:                                  # 光泽扫过（沿生长方向）
+        u = ((sheen_t * 0.35) % 1.6) - 0.3
+        if horizontal: d = np.linspace(0, 1, w, dtype=np.float32)[None, :] - u
+        else: d = np.linspace(1, 0, h, dtype=np.float32)[:, None] - u
+        rgb = rgb + (np.exp(-(d / 0.06) ** 2) * 0.35)[..., None] * col
+    cv.over(rgb, np.full((h, w), a * 0.96, np.float32), x0, y0)
+    edge = np.clip(col * 1.6, 0, 1.5)
+    if horizontal: cv.rect(x1 - 3, y0, x1, y1, edge, a, glow=0.6)
+    else: cv.rect(x0, y0, x1, y0 + 3, edge, a, glow=0.6)
+    if glow: cv._glow(col, np.full((h, w), a * glow, np.float32), x0, y0)
+    if reflect and not horizontal:
+        rh = int(min(h * 0.35, 90))
+        if rh > 2:
+            m = (np.linspace(0.22, 0, rh, dtype=np.float32)[:, None] * np.ones((1, w), np.float32)) * a
+            cv.add(col * 0.6, m, x0, y1 + 4)
+
+
+def grid_lines(cv, x0, x1, base, top, a, n=4):
+    for k in range(1, n + 1):
+        y = base - (base - top) * k / n
+        for xx in range(int(x0), int(x1), 18):
+            cv.line((xx, y), (min(xx + 8, x1), y), (0.5, 0.48, 0.45), a * 0.22, 1)

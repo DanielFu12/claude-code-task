@@ -212,5 +212,53 @@
   "start": 14.0,
   "dur": 5.5,
   "note": "2026 年伯克希尔股东大会"
+ },
+ "sot_dontlike": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 470.25,
+  "dur": 7.608,
+  "shot": "close",
+  "note": "I don't like it as well as at least four or five other businesses that we own."
+ },
+ "sot_decider": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 60.242,
+  "dur": 3.374,
+  "shot": "close",
+  "note": "But he is the decider."
+ },
+ "sot_attacks": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 676.891,
+  "dur": 10.359,
+  "shot": "close",
+  "note": "If you have a wonderful business, you are going to be subject to attacks. So it's not a question of whether it was wonderful yesterday. The question is how long is it going to be wonderful?"
+ },
+ "sot_rank": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 72.808,
+  "dur": 4.743,
+  "shot": "close",
+  "note": "It's probably… number five or six."
+ },
+ "sot_trick": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 248.87,
+  "dur": 11.08,
+  "shot": "close",
+  "note": "And the trick in life is to find — I mean, investing is to find businesses that are going to earn high returns on capital for an extended period of time."
+ },
+ "sot_hundreds": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 338.75,
+  "dur": 8.13,
+  "shot": "close",
+  "note": "The real question with Google and all of its competitors now, they're all laying out hundreds of billions."
  }
 }

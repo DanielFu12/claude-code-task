@@ -88,25 +88,29 @@ def hbar(cv, t, rows, a, x0=300, x1=900, y0=520, dy=110, vmax=None, fmt=lambda v
         cv.text(lb, x0 - 24, y, lab, 'sans_med', col=CREAM, a=a * min(1, e * 2), anchor='r')
         L = (x1 - x0) * abs(v) / vmax * e
         c = col if col is not None else (GOLD if hl == j else GOLD * 0.62)
-        cv.rect(x0, y - 24, x0 + L, y + 24, c, a * 0.93, glow=0.18 if hl == j else 0.05)
-        cv.text(fmt(v), x0 + L + 18, y, size, 'sans_bold', col=GOLD_L if hl == j else CREAM, a=a * min(1, e * 2), anchor='l')
+        gbar(cv, x0, y - 26, x0 + max(L, 2), y + 26, c, a, horizontal=True, glow=0.2 if hl == j else 0.06, sheen_t=t - ts)
+        cv.text(fmt(v), x0 + L + 18, y, size, 'sans_bold', col=GOLD_L if hl == j else CREAM, a=a * min(1, e * 2), anchor='l',
+                shadow=0.6, glow=0.15 if hl == j else 0.0)
 
 
 def vbars(cv, t, items, a, x0=150, x1=930, base=1250, hmax=560, fmt=lambda v: f'${v:,.0f}亿', size=42, lab=26, dur=1.1, neg_room=0):
     """竖向柱状：items = [(标签, 数值, 出现时刻, 颜色或 None, 备注)]，支持负值（向下）"""
     vmax = max(abs(i[1]) for i in items); n = len(items); bw = (x1 - x0) / n * 0.56
+    if any(i[1] < 0 for i in items): neg_room = 1
+    grid_lines(cv, x0 - 20, x1 + 20, base, base - hmax, a * min(1, eexp((t - min(i[2] for i in items)) / 0.8)))
     for k, (lb, v, ts, col, note_) in enumerate(items):
         e = eexp((t - ts) / dur)
         if e <= 0: continue
         cx = x0 + (x1 - x0) * (k + 0.5) / n
         h = hmax * abs(v) / vmax * e
         c = col if col is not None else GOLD * 0.75
+        vv = v * e if e < 0.995 else v                      # 数字随柱子滚动到终值
         if v >= 0:
-            cv.rect(cx - bw / 2, base - h, cx + bw / 2, base, c, a * 0.93, glow=0.1)
-            cv.text(fmt(v), cx, base - h - 40, size, 'sans_bold', col=CREAM, a=a * min(e * 2, 1), shadow=0.6)
+            gbar(cv, cx - bw / 2, base - h, cx + bw / 2, base, c, a, sheen_t=t - ts, reflect=neg_room == 0)
+            cv.text(fmt(vv), cx, base - h - 40, size, 'sans_bold', col=CREAM, a=a * min(e * 2, 1), shadow=0.6)
         else:
-            cv.rect(cx - bw / 2, base, cx + bw / 2, base + h, c, a * 0.93, glow=0.1)
-            cv.text(fmt(v), cx, base + h + 40, size, 'sans_bold', col=c, a=a * min(e * 2, 1), shadow=0.6)
+            gbar(cv, cx - bw / 2, base, cx + bw / 2, base + h, c, a, sheen_t=t - ts, reflect=False)
+            cv.text(fmt(vv), cx, base + h + 40, size, 'sans_bold', col=c, a=a * min(e * 2, 1), shadow=0.6)
         cv.text(lb, cx, base - 34 if v < 0 else base + 40, lab, 'sans_light', col=GREY, a=a * min(e * 2, 1))
         if note_: cv.text(note_, cx, (base - h - 86) if v >= 0 else base + h + 86, 22, 'sans_light', col=GREY, a=a * min(e * 2, 1))
     cv.line((x0 - 20, base), (x1 + 20, base), DIM, a * 0.8, 2)
@@ -184,21 +188,103 @@ def castle(cv, t, cx, cy, s, a, lit=(), lit_t=(), red=False, red_t=None, rebuild
             cv.line((x, yy), (x + wd / 5, yy - 90 * s), GREY, a * 0.5, 1)
 
 
-def servers(cv, t, cy, a, rows=4, growth=1.0, seed=3):
-    """示意：一排排服务器机柜与指示灯（数据中心）"""
+def siege(cv, t, cx, cy, s, a, t0):
+    """示意：从四面八方射向城堡的“攻击”（光点拖尾），撞上护城河处闪光"""
+    if a <= 0.004 or t < t0: return
+    R = 330 * s
+    for k in range(9):
+        ang = k * 2.4 + 0.3; per = 1.6 + (k % 3) * 0.35
+        ph = ((t - t0) / per + k * 0.37) % 1.0
+        if t - t0 < k * 0.25: continue
+        d = lerp(R + 420, R + 8, eio(ph))
+        x, y = cx + math.cos(ang) * d, cy + math.sin(ang) * d
+        x2, y2 = cx + math.cos(ang) * (d + 90), cy + math.sin(ang) * (d + 90)
+        col = RED if k % 2 else GOLD_L
+        cv.line((x2, y2), (x, y), col, a * 0.5 * (1 - ph * 0.4), 3)
+        cv.glow_dot((x, y), 7, col, a * 0.9)
+        if ph > 0.92: cv.glow_dot((cx + math.cos(ang) * R, cy + math.sin(ang) * R), 30 * (ph - 0.92) / 0.08 + 8, col, a * 0.7)
+
+
+def servers(cv, t, cy, a, rows=4, growth=1.0, seed=3, f=430.0):
+    """示意：数据中心走廊（透视）——两侧机柜向远处延伸，指示灯闪烁，顶部灯带，镜头缓慢前推；growth 控制机柜铺开的程度"""
     if a <= 0.004: return
     rng = np.random.default_rng(seed)
-    for r in range(rows):
-        depth = 1 - r * 0.18; y = cy + r * 70 - 160
-        n = max(1, int(9 * growth))
-        for k in range(n):
-            x = W / 2 + (k - (n - 1) / 2) * 104 * depth
-            hh = 150 * depth; ww = 80 * depth
-            cv.rect(x - ww / 2, y - hh / 2, x + ww / 2, y + hh / 2, C(22, 26, 34), a)
-            cv.rect(x - ww / 2, y - hh / 2, x + ww / 2, y + hh / 2, C(60, 70, 90), a * 0.6, glow=0)
-            for j in range(6):
-                on = (math.sin(t * (2 + rng.uniform(0, 3)) + k * 1.7 + j + r) > 0.2)
-                if on: cv.glow_dot((x - ww / 2 + 12 * depth, y - hh / 2 + 16 + j * 22 * depth), 3 + 2 * depth, BLUE_L if (j + k) % 3 else GREEN, a * 0.9)
+    cx = W / 2
+    def P(X, Y, Z): return (cx + X / Z * f, cy - Y / Z * f)
+    dolly = (t * 0.6) % 1.5
+    nseg = 9; Y0, Y1 = -1.25, 1.55
+    vis = growth * nseg
+    # 地面反光与透视线
+    for X in (-2.2, -1.0, 0.0, 1.0, 2.2):
+        cv.line(P(X, Y0, 1.2), P(X, Y0, 16), C(60, 90, 140), a * 0.35, 2)
+    for k in range(nseg + 1):
+        Z = 1.6 + k * 1.5 - dolly
+        if Z < 1.2: continue
+        cv.line(P(-2.2, Y0, Z), P(2.2, Y0, Z), C(50, 70, 110), a * 0.25 / (1 + k * 0.3), 1)
+    # 顶部灯带
+    for X in (-0.6, 0.6):                                  # 顶部灯带（从中景开始，不压上方文字）
+        for k in range(14):
+            Za = 2.6 + k * 0.9 - (dolly % 0.9)
+            if Za < 2.6: continue
+            cv.line(P(X, Y1 + 0.3, Za), P(X, Y1 + 0.3, Za + 0.5), BLUE_L, a * 0.75 / (1 + 0.12 * k), 3)
+    cv.glow_dot(P(0, 0, 16), 90, BLUE_L, a * 0.35)
+    for k in reversed(range(nseg)):
+        if k > vis: continue
+        pop = cl(vis - k)
+        Za = 1.6 + k * 1.5 - dolly; Zb = Za + 1.35
+        if Za < 1.25: continue
+        fog = 1 / (1 + 0.16 * (Za - 1.5))
+        for X in (-2.2, 2.2):
+            q = [P(X, Y0, Za), P(X, Y0 + (Y1 - Y0) * pop, Za), P(X, Y0 + (Y1 - Y0) * pop, Zb), P(X, Y0, Zb)]
+            cv.fillpoly(q, C(20, 26, 38) * (0.6 + 0.6 * fog), a)
+            cv.poly(q + [q[0]], C(80, 110, 160) * fog, a * 0.7, 1)
+            # 机柜正面的指示灯：6 列 × 10 行
+            for i in range(8):
+                for j in range(16):
+                    if (j + 0.5) / 16 > pop: continue
+                    Z = Za + (i + 0.5) / 8 * (Zb - Za); Y = Y0 + (j + 0.5) / 16 * (Y1 - Y0)
+                    on = math.sin(t * (2.0 + (i * 7 + j * 3 + k) % 5) + i * 1.7 + j * 2.3 + k) > 0.25
+                    if on:
+                        col = GREEN if (i + j + k) % 7 == 0 else BLUE_L
+                        cv.glow_dot(P(X * 0.995, Y, Z), max(1.4, 3.6 * fog * 1.6 / Z * 2), col, a * fog)
+    cv.glow_dot((cx, cy), 160, C(40, 80, 160), a * 0.25)
+
+
+def icon(cv, kind, x, y, s, col, a):
+    """线性图标（自绘，不用任何商标）：search 放大镜 / cloud 云 / cycle 资金循环"""
+    if a <= 0.004: return
+    if kind == 'search':
+        cv.circle((x - 8 * s, y - 8 * s), 26 * s, col, a, 4); cv.line((x + 11 * s, y + 11 * s), (x + 34 * s, y + 34 * s), col, a, 6)
+    elif kind == 'cloud':
+        cv.arc((x - 18 * s, y + 4 * s), 20 * s, math.pi * 0.5, math.pi * 1.5, col, a, 4)
+        cv.arc((x + 2 * s, y - 10 * s), 26 * s, math.pi * 1.0, math.pi * 1.95, col, a, 4)
+        cv.arc((x + 26 * s, y + 6 * s), 18 * s, math.pi * 1.5, math.pi * 2.5, col, a, 4)
+        cv.line((x - 18 * s, y + 24 * s), (x + 26 * s, y + 24 * s), col, a, 4)
+    elif kind == 'cycle':
+        cv.arc((x, y), 32 * s, -0.3, math.pi - 0.3, col, a, 4); cv.arc((x, y), 32 * s, math.pi - 0.3 + 0.0, 2 * math.pi - 0.6, col, a, 4)
+        for ang in (-0.3, math.pi - 0.3):
+            px, py = x + 32 * s * math.cos(ang), y + 32 * s * math.sin(ang)
+            cv.fillpoly([(px - 9 * s, py - 4 * s), (px + 9 * s, py - 4 * s), (px, py + 10 * s)], col, a)
+        cv.text('$', x, y, int(34 * s), 'sans_bold', col=col, a=a)
+
+
+def browser(cv, t, cx, cy, w, h, a, url, body_a=1.0):
+    """示意：浏览器窗口（标签栏三点 + 地址栏 + 搜索框 + 结果条），全部为自绘线框"""
+    if a <= 0.004: return
+    x0, y0 = cx - w / 2, cy - h / 2
+    cv.rrect(x0, y0, x0 + w, y0 + h, 18, C(20, 22, 28), a * 0.95)
+    cv.rrect(x0, y0, x0 + w, y0 + h, 18, C(90, 100, 120), a * 0.6, fill=False, th=2)
+    cv.rect(x0 + 2, y0 + 60, x0 + w - 2, y0 + 62, C(70, 76, 90), a)
+    for k, c_ in enumerate((RED, GOLD, GREEN)): cv.circle((x0 + 34 + k * 30, y0 + 31), 8, c_, a * 0.8, -1)
+    cv.rrect(x0 + 140, y0 + 14, x0 + w - 30, y0 + 48, 17, C(36, 40, 50), a)
+    cv.text(url, x0 + 164, y0 + 31, 24, 'mono', col=CREAM, a=a, anchor='l')
+    ba = a * body_a
+    cv.rrect(cx - w * 0.36, y0 + 150, cx + w * 0.36, y0 + 210, 30, C(36, 40, 50), ba)
+    cv.rrect(cx - w * 0.36, y0 + 150, cx + w * 0.36, y0 + 210, 30, GREY, ba * 0.6, fill=False, th=2)
+    for k in range(4):
+        yy = y0 + 270 + k * 62
+        cv.rect(x0 + 60, yy, x0 + 60 + (w - 200) * (0.55 + 0.1 * ((k * 7) % 4)), yy + 14, BLUE_L * 0.6, ba * 0.7)
+        cv.rect(x0 + 60, yy + 24, x0 + 60 + (w - 160) * 0.8, yy + 32, GREY * 0.6, ba * 0.6)
 
 
 def ticket(cv, t, cx, cy, a, price_old=None, price_new=None, strike_t=None, label='补票'):
@@ -286,7 +372,10 @@ def shot_hook(cv, t):
         cv.rrect(140, 860, 940, 950, 10, C(26, 26, 30), a * k)
         cv.text('13F · 2025-09-30', 180, 905, 22, 'corm', col=GOLD, a=a * k, anchor='l', track=0.1)
         cv.text('ALPHABET INC CL A    17,846,142 股', 420, 905, 26, 'mono', col=CREAM, a=a * k, anchor='l')
-        qcard(cv, 'qdontlike', t, WT('h5', '论喜欢') - 0.5, t1, cy=1205, en=28, cn=34)
+        k2 = eo((t - WT('h5', '第三大持仓') + 0.1) / 0.5)
+        if k2 > 0:
+            big_num(cv, t, WT('h5', '第三大持仓'), 'No.3', 1170, size=150, a=a, sub='2026 年 6 月底 · 伯克希尔第三大股票持仓')
+        tag(cv, '他却这么说 ——', t, WT('h5', '这么说'), W / 2, 1390, 30, CREAM, a)
     # h6：两个问题 → 2004
     t0, t1 = S('h6') - 0.3, CH['title'][0] + 0.1
     a = env(t, t0, t1, 0.4, 0.2)
@@ -376,13 +465,23 @@ def shot_ch1(cv, t):
     t0, t1 = S('c1f') - 0.3, CH['tk_ch1'][0]
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
-        p = eo((t - t0) / 2.2)
-        cv.poly([(160, 1150), (160 + 760 * p, 1150 - 330 * p ** 1.6)], GOLD_L, a, 4)
-        cv.poly([(160, 1150), (160 + 760 * p, 1150)], GREY, a, 4)
-        cv.text('谷歌的生意', 160 + 760 * p, 1150 - 330 * p ** 1.6 - 34, 30, 'sans_bold', col=GOLD_L, a=a * p, anchor='r')
-        cv.text('伯克希尔的谷歌持仓：0', 920, 1200, 30, 'sans_med', col=GREY, a=a * p, anchor='r')
-        note(cv, '示意', 1270, a * 0.7, 20)
-        big_q(cv, t, '可他，没有买。', 640, S('c1f'), 66, a)
+        p = eo((t - t0) / 2.4)
+        xs = np.linspace(0, p, 60)
+        pts = [(140 + 800 * x, 1180 - 460 * x ** 1.7) for x in xs]
+        # 曲线下的渐变面积
+        for k in range(len(pts) - 1):
+            (xa, ya), (xb, yb) = pts[k], pts[k + 1]
+            cv.fillpoly([(xa, ya), (xb, yb), (xb, 1180), (xa, 1180)], GOLD * 0.35, a * 0.35)
+        cv.poly(pts, GOLD_L, a, 5)
+        hx, hy = pts[-1]
+        cv.glow_dot((hx, hy), 14, GOLD_L, a); cv.glow_dot((hx, hy), 40, GOLD, a * 0.5)
+        cv.poly([(140, 1180), (140 + 800 * p, 1180)], GREY, a, 4)
+        cv.text('谷歌的生意', hx - 20, hy - 44, 32, 'sans_bold', col=GOLD_L, a=a * p, anchor='r', shadow=0.7)
+        cv.text('伯克希尔的谷歌持仓：0', 940, 1230, 30, 'sans_med', col=GREY, a=a * p, anchor='r')
+        for yr, x in (('2004', 0.0), ('2017', 1.0)):
+            cv.text(yr, 140 + 800 * x, 1280, 26, 'oswald', col=GREY, a=a * p)
+        note(cv, '示意', 1330, a * 0.7, 20)
+        big_q(cv, t, '可他，没有买。', 480, S('c1f'), 66, a)
 
 
 # ======================================================================== 第二章：我搞砸了
@@ -451,12 +550,17 @@ def shot_ch3(cv, t):
         tag(cv, '2018 年股东大会', t, t0 + 0.2, W / 2, 380, 28, GOLD, a)
         tg = WT('c3a', '比尔·盖茨')
         k = eo((t - tg) / 0.8)
-        cv.text('AltaVista', W / 2 - 230 * k, 700, 64, 'playfair', col=lerp(CREAM, GREY, k), a=a)
+        ka = eo((t - WT('c3a', 'AltaVista') + 0.3) / 0.6)
+        # 浏览器：先是 AltaVista，盖茨的建议之后切到 Google（地址栏文字示意）
+        bw_, bh_ = 900, 560
+        sl = 60 * (1 - eo((t - t0) / 0.7))
+        browser(cv, t, W / 2, 800 + sl, bw_, bh_, a * (1 - k), 'www.altavista.com', body_a=0.35 + 0.65 * ka)
         if k > 0:
-            cv.text('→', W / 2 + 20, 700, 64, 'sans_bold', col=GOLD, a=a * k)
-            cv.text('Google', W / 2 + 250, 700, 64, 'playfair', col=GOLD_L, a=a * k)
-        tag(cv, '比尔·盖茨的建议', t, tg + 0.3, W / 2, 850, 30, BLUE_L, a)
-        note(cv, '文字示意，非商标图形', 930, a * 0.7, 20)
+            browser(cv, t, W / 2 + 40 * (1 - k), 850, bw_, bh_, a * k, 'www.google.com')
+            cv.rrect(W / 2 - 300, 1170, W / 2 + 300, 1250, 40, C(30, 40, 60), a * k * 0.95)
+            cv.text('比尔·盖茨：换成这个吧', W / 2, 1210, 34, 'sans_med', col=BLUE_L, a=a * k)
+        cv.text('1990 年代 · 他用的搜索引擎', W / 2, 470, 34, 'sans_med', col=CREAM, a=a * ka * (1 - k))
+        note(cv, '示意：自绘线框，非真实网页与商标', 1300, a * 0.7, 20)
         source(cv, '2018 年伯克希尔股东大会，CNBC 编辑版文字稿', a, y=1462)
     t0, t1 = win('c3b')
     a = env(t, t0, t1, 0.4, 0.4)
@@ -489,14 +593,25 @@ def shot_ch3(cv, t):
     t0, t1 = win('c3d')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        p = eo((t - t0) / 1.6)
-        cv.line((140, 820), (140 + 400 * p, 820), GOLD_L, a, 5)
-        cv.text('今天：怎么赚钱', 140, 760, 34, 'sans_bold', col=GOLD_L, a=a, anchor='l')
-        for k in range(30):
-            xx = 560 + k * 13 * p
-            cv.line((xx, 820), (xx + 8, 820), GREY, a * (1 - k / 30) * p, 5)
-        cv.text('十年后：还能不能赢？', 940, 760, 34, 'sans_bold', col=GREY, a=a * p, anchor='r')
-        big_q(cv, t, '是两回事', 1050, WT('c3d', '是两回事'), 70, a)
+        p = eo((t - t0) / 0.9); p2 = eo((t - WT('c3d', '确信') + 0.2) / 0.9)
+        # 左：今天——清晰、明亮的上升台阶
+        cv.rrect(80, 420, 520, 960, 22, C(34, 30, 24), a * p)
+        cv.rrect(80, 420, 520, 960, 22, GOLD, a * p * 0.8, fill=False, th=2, glow=0.15)
+        cv.text('看懂', 300, 490, 46, 'serif_black', gold=True, a=a * p)
+        cv.text('今天怎么赚钱', 300, 550, 28, 'sans_med', col=CREAM, a=a * p)
+        for k in range(5):
+            e = eexp((t - t0 - 0.3 - k * 0.15) / 0.6)
+            if e > 0: gbar(cv, 130 + k * 74, 900 - (60 + k * 50) * e, 180 + k * 74, 900, GOLD, a * p, sheen_t=t - t0, reflect=False)
+        # 右：十年后——雾中的分岔线，问号
+        cv.rrect(560, 420, 1000, 960, 22, C(24, 26, 34), a * p2)
+        cv.rrect(560, 420, 1000, 960, 22, GREY, a * p2 * 0.6, fill=False, th=2)
+        cv.text('确信', 780, 490, 46, 'serif_black', col=CREAM, a=a * p2)
+        cv.text('十年后还能赢', 780, 550, 28, 'sans_med', col=GREY, a=a * p2)
+        for j in range(6):
+            pts = [(600 + 360 * x, 880 - 220 * x + (j - 2.5) * 70 * x ** 1.5 + 14 * math.sin(x * 7 + t * 1.2 + j)) for x in np.linspace(0, 1, 30)]
+            cv.poly(pts, [GOLD, BLUE_L, GREY, RED, CREAM, GREY][j], a * p2 * (0.75 - 0.08 * j), 3)
+        cv.text('?', 780, 690, 120, 'serif_black', col=GOLD_L, a=a * p2 * 0.45, glow=0.2)
+        big_q(cv, t, '是两回事', 1130, WT('c3d', '是两回事'), 76, a)
     t0, t1 = win('c3e')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
@@ -520,14 +635,24 @@ def shot_ch4(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         cv.text('SEC 13F · 2025-09-30 · BERKSHIRE HATHAWAY', W / 2, 380, 26, 'corm', col=GOLD, a=a, track=0.12)
+        kt = eo((t - t0 - 0.2) / 0.6)
+        cv.text('NAME OF ISSUER', 150, 450, 22, 'mono', col=GREY, a=a * kt, anchor='l')
+        cv.text('SHARES', 760, 450, 22, 'mono', col=GREY, a=a * kt, anchor='r')
+        cv.text('VALUE', 930, 450, 22, 'mono', col=GREY, a=a * kt, anchor='r')
+        cv.line((120, 475), (120 + 840 * kt, 475), GOLD_D, a, 2)
         rows = [('ALPHABET INC CL A', '17,846,142', '$4,338M', WT('c4a', '1785')), ('APPLE INC', '减持', '', WT('c4a', '减持苹果'))]
         for j, (nm, sh_, v, ts) in enumerate(rows):
             k = eo((t - ts + 0.2) / 0.5)
-            y = 520 + j * 110
-            cv.rrect(120, y - 40, 960, y + 40, 8, C(26, 26, 30), a * k)
-            cv.text(nm, 150, y, 30, 'mono', col=GOLD_L if j == 0 else CREAM, a=a * k, anchor='l')
+            k0 = eo((t - t0 - 0.4 - j * 0.15) / 0.5)
+            y = 540 + j * 110
+            cv.rrect(120, y - 40, 960, y + 40, 8, C(26, 26, 30), a * k0)
+            if k > 0:
+                cv.rrect(120, y - 40, 960, y + 40, 8, GOLD_L if j == 0 else RED, a * k * 0.7, fill=False, th=2, glow=0.25)
+                if 0 < t - ts + 0.2 < 0.9: cv.glow_dot((120 + 840 * eio((t - ts + 0.2) / 0.9), y - 40), 22, GOLD_L, a * 0.8)
+            cv.text(nm, 150, y, 30, 'mono', col=GOLD_L if j == 0 else CREAM, a=a * k0 * (0.35 + 0.65 * k), anchor='l')
             cv.text(sh_, 760, y, 30, 'mono', col=GOLD_L if j == 0 else RED, a=a * k, anchor='r')
             cv.text(v, 930, y, 26, 'mono', col=GREY, a=a * k, anchor='r')
+            if j == 0: tag(cv, 'NEW · 新建仓', t, ts + 0.3, 840, y - 74, 22, GOLD, a)
         big_num(cv, t, WT('c4a', '43'), '≈ $43 亿', 900, size=100, a=a, sub='三季度新买入 · 季末市值')
         source(cv, '伯克希尔 2025 年三季度 13F（2025-11-14 提交）', a, y=1462)
     t0, t1 = win('c4b')
@@ -563,7 +688,7 @@ def shot_ch4(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         seq(cv, t, t0, t1, ['e_abel', 'c_approve', 'e_brk2026'], h=430, cap=None)
-        kb = 1 - eo((t - WT('c4e', '用他的话说') + 0.6) / 0.4)
+        kb = 1.0
         for j, (lb, v, ts) in enumerate([('2025-09-30', 1785, t0 + 0.3), ('2026-03-31', 5784, WT('c4e', '继续加仓'))]):
             e = eexp((t - ts) / 1.0)
             if e <= 0: continue
@@ -571,9 +696,14 @@ def shot_ch4(cv, t):
             cv.rect(x - 70, 1300 - h, x + 70, 1300, GOLD if j else GOLD * 0.6, a * kb)
             cv.text(f'{v:,} 万股', x, 1300 - h - 36, 34, 'sans_bold', col=CREAM, a=a * kb * min(e * 2, 1))
             cv.text(lb, x, 1335, 22, 'sans_light', col=GREY, a=a * kb)
-        qcard(cv, 'qapprove', t, WT('c4e', '用他的话说') - 0.4, t1, cy=1150, en=28, cn=34)
-        tag(cv, '“But he is the decider.”', t, WT('c4e', '拍板的是'), W / 2, 870, 26, GOLD, a * (1 - eo((t - WT('c4e', '用他的话说') + 0.5) / 0.4)))
-        source(cv, '13F 2026-03-31（A 5,425 万 + C 359 万股）；CNBC 专访 2026-07-15', a, y=1462)
+        big_q(cv, t, '现在，谁说了算？', 1420, WT('c4e', '谁说了算'), 56, a)
+        source(cv, '13F 2026-03-31（A 5,425 万 + C 359 万股）', a, y=1500)
+    t0, t1 = win('c4e2')
+    a = env(t, t0, t1, 0.4, 0.4)
+    if a > 0:
+        seq(cv, t, t0, t1, ['c_approve'], h=470)
+        qcard(cv, 'qapprove', t, WT('c4e2', '阿贝尔不赞成') - 0.5, t1, cy=1170, en=30, cn=38)
+        source(cv, 'CNBC 专访 2026-07-15', a, y=1462)
     t0, t1 = win('c4f')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
@@ -732,9 +862,10 @@ def shot_ch5(cv, t):
     t0, t1 = win('m10')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['c_attacks', 'c_ibm'], h=430)
-        qcard(cv, 'qattacks', t, WT('m10', '如果你有') - 0.5, t1, cy=1170, en=27, cn=34, typing=2.2)
-        tag(cv, '2018：会不会有人超过谷歌？', t, t0 + 0.2, W / 2, 870, 24, GREY, a * (1 - eo((t - WT('m10', '如果你有') + 0.6) / 0.4)))
+        castle(cv, t, W / 2, 800, 0.85, a, lit=[0, 1, 2, 3], lit_t=[t0 - 2] * 4, red=True, red_t=t0 - 2)
+        siege(cv, t, W / 2, 800, 0.85, a, t0 + 0.6)
+        tag(cv, '2018：会不会有人超过谷歌？', t, t0 + 0.2, W / 2, 1290, 30, CREAM, a)
+        tag(cv, '2026：专访的最后', t, WT('m10', '八年后'), W / 2, 1380, 30, GOLD, a)
     t0, t1 = win('m11')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
@@ -754,31 +885,44 @@ def shot_ch6(cv, t):
     t0, t1 = win('c5a')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['c_rank', 'c_two_b', 'c_dontlike', 'c_bnsf'], h=430)
-        tr = WT('c5a', '大概排')
-        qcard(cv, 'qrank', t, tr - 0.4, WT('c5a', '论喜欢') - 0.1, cy=1110, en=40, cn=42)
-        qcard(cv, 'qdontlike', t, WT('c5a', '论喜欢') - 0.3, WT('c5a', '他说的') + 0.2, cy=1150, en=30, cn=36)
-        k = eo((t - WT('c5a', '他说的')) / 0.5)
+        seq(cv, t, t0, t1, ['c_two_b'], h=470)
+        big_q(cv, t, '谷歌在伯克希尔，分量有多重？', 1150, WT('c5a', '分量'), 50, a)
+    t0, t1 = win('c5a2')
+    a = env(t, t0, t1, 0.4, 0.4)
+    if a > 0:
+        seq(cv, t, t0, t1, ['c_bnsf', 'c_rightterms'], h=470)
+        kq = WT('c5a2', '论喜欢')
+        k = eo((t - WT('c5a2', '所有生意') + 0.3) / 0.5) * (1 - eo((t - kq + 0.5) / 0.4))
         if k > 0:
-            cv.text('“所有生意”', W / 2, 1000, 50, 'serif_black', gold=True, a=a * k)
+            cv.text('“所有生意”', W / 2, 990, 56, 'serif_black', gold=True, a=a * k, glow=0.2)
             for j, nm in enumerate(['BNSF 铁路', '能源公司', 'GEICO …', '股票持仓']):
-                tag(cv, nm, t, WT('c5a', '包括') + j * 0.3, 190 + j * 235, 1130, 28, GOLD if j < 3 else GREY, a * k)
+                tag(cv, nm, t, WT('c5a2', '包括') + j * 0.3, 190 + j * 235, 1130, 28, GOLD if j < 3 else GREY, a * k)
             note(cv, '巴菲特在专访中自己举了伯灵顿北方铁路（BNSF）的例子', 1240, a * k, 22)
+        qcard(cv, 'qdontlike', t, kq - 0.3, t1, cy=1150, en=30, cn=38)
     t0, t1 = win('c5b')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['c_bonds', 'c_amex', 'c_munger'], h=430)
+        seq(cv, t, t0, t1, ['c_amex'], h=470)
         tm = WT('c5b', '美国运通')
-        qcard(cv, 'qtrick', t, t0 + 0.6, tm - 0.1, cy=1140, en=30, cn=36)
-        k = eo((t - tm + 0.1) / 0.5)
-        if k > 0:
-            cv.text('美国运通', W / 2, 1010, 44, 'sans_med', col=CREAM, a=a * k)
-            cv.text('30%+', W / 2, 1150, 150, 'sans_bold', gold=True, a=a * k, glow=0.3)
-            cv.text('资本回报率（巴菲特，2026）', W / 2, 1270, 28, 'sans_light', col=GREY, a=a * k)
+        cv.text('资本回报率（巴菲特在专访中的说法）', W / 2, 920, 30, 'sans_med', col=CREAM, a=a * eo((t - tm) / 0.5))
+        hbar(cv, t, [('美国运通', 30, tm + 0.2, GOLD), ('多数银行', 13.5, WT('c5b', '普通银行'), GOLD * 0.5)], a,
+             x0=330, x1=820, y0=1040, dy=130, vmax=34, fmt=lambda v: '30%+' if v >= 30 else '13–14%', size=44, lab=34, hl=0)
+        tag(cv, '风险却不比银行大', t, WT('c5b', '冒的风险'), W / 2, 1330, 30, GOLD, a)
+        source(cv, 'CNBC 专访 2026-07-15（视频 3:43–4:08）', a, y=1462)
+    t0, t1 = win('c5b2')
+    a = env(t, t0, t1, 0.4, 0.4)
+    if a > 0:
+        seq(cv, t, t0, t1, ['c_bonds'], h=470)
+        qcard(cv, 'qriskless', t, t0 + 0.2, t1, cy=1150, en=32, cn=40)
     t0, t1 = win('c5c')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         tag(cv, '2007：“Ask Microsoft or Google.”', t, t0 + 0.1, W / 2, 460, 30, GOLD, a)
+        kj = 1 - eo((t - WT('c5c', '可今天') + 0.3) / 0.4)
+        if kj > 0:
+            big_q(cv, t, '不需要大笔资本的榜样', 820, t0 + 0.3, 64, a * kj)
+            ruler(cv, 240, 840, 950, a * kj, (t - t0 - 0.5) / 1.0)
+            note(cv, '多卖一次广告，几乎不用多花钱', 1030, a * kj * eo((t - t0 - 0.8) / 0.5), 30, col=CREAM)
         g = eo((t - WT('c5c', '砸下去')) / 1.5)
         servers(cv, t, 900, a * eo((t - WT('c5c', '可今天')) / 0.6), rows=3, growth=0.4 + 0.6 * g)
         note(cv, '示意：数据中心', 1250, a, 22)
@@ -799,10 +943,14 @@ def shot_ch6(cv, t):
     t0, t1 = win('c5e')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['c_two_d', 'c_hundreds', 'c_railroad', 'c_game'], h=430)
-        ts = WT('c5e', '以前做电脑软件')
-        qcard(cv, 'qhundreds', t, t0 + 0.4, ts - 0.1, cy=1130, en=30, cn=36)
-        qcard(cv, 'qsoftware', t, ts - 0.3, t1, cy=1130, en=36, cn=40)
+        seq(cv, t, t0, t1, ['c_two_d'], h=470)
+        big_q(cv, t, '“不碰科技股”的巴菲特', 1080, t0 + 0.3, 54, a)
+        big_q(cv, t, '这一次，是怎么回事？', 1220, WT('c5e', '这一次'), 54, a, col=CREAM)
+    t0, t1 = win('c5e2')
+    a = env(t, t0, t1, 0.4, 0.4)
+    if a > 0:
+        seq(cv, t, t0, t1, ['c_railroad', 'c_game'], h=470)
+        qcard(cv, 'qsoftware', t, t0 + 0.2, t1, cy=1150, en=38, cn=42)
     t0, t1 = win('c5f')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
@@ -853,8 +1001,8 @@ def shot_ch7(cv, t):
         base = 1150; sc = 600 / 10598
         e1 = eexp((t - WT('c6a', '在股市上')) / 1.0); e2 = eexp((t - WT('c6a', '定增')) / 1.0)
         h1 = 7741 * sc * e1; h2 = 2857 * sc * e2
-        cv.rect(300, base - h1, 520, base, CREAM * 0.75, a)
-        cv.rect(300, base - h1 - h2, 520, base - h1, GOLD, a, glow=0.15)
+        gbar(cv, 300, base - h1, 520, base, CREAM * 0.62, a, sheen_t=t - t0, reflect=True)
+        if h2 > 1: gbar(cv, 300, base - h1 - h2, 520, base - h1, GOLD, a, sheen_t=t - t0, reflect=False, glow=0.25)
         if e1 > 0: cv.text('市场净买入 ≈ 7,741 万股', 560, base - h1 / 2, 30, 'sans_med', col=CREAM, a=a * min(e1 * 2, 1), anchor='l')
         if e2 > 0: cv.text('定增 2,857 万股 · $100 亿', 560, base - h1 - h2 / 2, 30, 'sans_bold', col=GOLD_L, a=a * min(e2 * 2, 1), anchor='l')
         k = eo((t - WT('c6a', '钱没有') + 0.1) / 0.5)
@@ -871,7 +1019,7 @@ def shot_ch7(cv, t):
         x = 90
         for nm, sub, v, col, ts in blocks:
             e = eexp((t - ts) / 0.9); w = 900 * v / 847.5 * e
-            cv.rect(x, 450, x + w, 560, col, a, glow=0.15 if col is GOLD else 0)
+            if w > 1: gbar(cv, x, 450, x + w, 560, col, a, horizontal=True, glow=0.2 if col is GOLD else 0.03, sheen_t=t - ts)
             if e > 0.5:
                 if v < 200:          # 窄块：名称写在块上方
                     cv.text(nm, x + w / 2, 425, 26, 'sans_bold', col=GOLD_L, a=a)
@@ -894,15 +1042,18 @@ def shot_ch7(cv, t):
         rows = [('云业务收入', '+103%', WT('c6b', '云业务'), GREEN), ('搜索收入', '+12%', WT('c6b', '搜索收入'), CREAM),
                 ('净利润', '$350 亿 → $265 亿', WT('c6b', '净利润'), RED)]
         for j, (nm, v, ts, col) in enumerate(rows):
-            k = eo((t - ts + 0.1) / 0.4); y = 500 + j * 120
-            cv.text(nm, 160, y, 36, 'sans_med', col=CREAM, a=a * k, anchor='l')
-            cv.text(v, 920, y, 44, 'sans_bold', col=col, a=a * k, anchor='r')
+            k = eo((t - ts + 0.1) / 0.4); y = 500 + j * 130; dx = 40 * (1 - k)
+            cv.rrect(110 + dx, y - 52, 970 + dx, y + 52, 14, C(30, 28, 26), a * k * 0.92)
+            cv.rect(110 + dx, y - 52, 118 + dx, y + 52, col, a * k, glow=0.4)
+            cv.text(nm, 160 + dx, y, 36, 'sans_med', col=CREAM, a=a * k, anchor='l')
+            cv.text(v, 930 + dx, y, 48, 'sans_bold', col=col, a=a * k, anchor='r', glow=0.12, shadow=0.6)
+            if 0 < t - ts + 0.1 < 0.8: cv.glow_dot((110 + 860 * eio((t - ts + 0.1) / 0.8), y + 52), 20, col, a * 0.7)
         k = eo((t - WT('c6b', '主要是') + 0.1) / 0.4)
-        if k > 0: note(cv, '其中：持有的其他公司股权账面亏损约 $87 亿', 810, a * k, 26, col=GOLD_L)
+        if k > 0: note(cv, '其中：持有的其他公司股权账面亏损约 $87 亿', 850, a * k, 26, col=GOLD_L)
         k = eo((t - WT('c6b', '第二天') + 0.1) / 0.4)
         if k > 0:
-            cv.text('$324.89 → $283.82', W / 2, 1000, 70, 'sans_bold', col=CREAM, a=a * k)
-            cv.text('GOOGL · 10-28 → 10-29 收盘 · −12.6%', W / 2, 1090, 30, 'sans_light', col=RED, a=a * k)
+            cv.text('$324.89 → $283.82', W / 2, 1010, 76, 'sans_bold', col=CREAM, a=a * k, shadow=0.7)
+            cv.text('GOOGL · 10-28 → 10-29 收盘 · −12.6%', W / 2, 1100, 30, 'sans_med', col=RED, a=a * k, glow=0.1)
         note(cv, '只列事实，不判断哪一项“导致”下跌；公司称搜索增速放慢主要是汇率影响', 1200, a, 22)
         source(cv, 'Alphabet 2026 年三季度财报与电话会；Yahoo Finance 收盘价', a, y=1462)
     t0, t1 = win('c6c')
@@ -929,6 +1080,8 @@ def shot_ch7(cv, t):
             cv.text(num, 210, y, 56, 'oswald', col=GOLD if on > 0.5 else DIM, a=a)
             cv.text(nm, 300, y - 22, 46, 'serif_black', col=CREAM, a=a * on, anchor='l')
             cv.text(sub, 300, y + 40, 26, 'sans_light', col=GREY, a=a * on, anchor='l')
+            icon(cv, ['search', 'cloud', 'cycle'][j], 860, y, 1.15, GOLD_L if on > 0.5 else DIM, a * (0.35 + 0.65 * on))
+            if 0 < t - S(lid) + 0.2 < 0.9: fx.sweep(cv, t, S(lid) - 0.2, 0.8, a=0.25 * a)
         note(cv, '本片解读；“远高于国债的回报”取自巴菲特 2026-07-15 的标准', 1330, a * eo((t - S('c6h')) / 0.5), 22)
     t0, t1 = win('c6i')
     a = env(t, t0, t1, 0.4, 0.4)

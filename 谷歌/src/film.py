@@ -7,6 +7,7 @@ import sys, os, subprocess, math
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import *          # noqa
 # ------------------------------------------------------------------ 章节镜头（见 film_ch*.py）
+from sot import sot_layer
 from gg import shot_hook, shot_title, shot_ch1, shot_ch2, shot_ch3, shot_ch4, shot_ch5, shot_ch6, shot_ch7   # 第四期全部镜头
 
 
@@ -26,6 +27,7 @@ def render(i):
     if CH['ch1'][0] <= t < CH['end'][0]:
         import fx
         fx.dust(cv, t, 0.35, seed=9)
+    sot_layer(cv, t)                      # 巴菲特原声段落：整屏转入采访现场
     # 镜头呼吸：极缓的推拉与漂移，让静态排版也有摄影机的生命感（字幕/角标不受影响）
     z = 1.012 + 0.012 * math.sin(t * 0.37)
     dx, dy = 6 * math.sin(t * 0.23), 8 * math.sin(t * 0.29 + 1)
@@ -57,7 +59,7 @@ if __name__ == '__main__':
         b = min(b, NFRAMES)
         p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24',
                               '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-c:v', 'libx264', '-preset', 'medium',
-                              '-crf', '14', '-pix_fmt', 'yuv420p', path], stdin=subprocess.PIPE)
+                              '-crf', '17', '-pix_fmt', 'yuv420p', path], stdin=subprocess.PIPE)
         for i in range(a, b):
             p.stdin.write(render(i).tobytes())
             if (i - a) % 150 == 0: print(path, i, flush=True)

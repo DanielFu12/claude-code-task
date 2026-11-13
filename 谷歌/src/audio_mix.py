@@ -29,8 +29,16 @@ def smooth(env, att, rel):
 
 if __name__ == '__main__':
     import pyloudnorm as pyln
-    voice = np.zeros(N, np.float32)
+    voice = np.zeros(N, np.float32); sotm = np.zeros(N, np.float32)
+    from scipy.signal import butter, sosfilt
     for s in TL['segs']:
+        if s.get('kind') == 'sot':                     # 巴菲特原声：80Hz 高通去低频嗡声，整段响度对齐旁白（−21 LUFS）
+            y, sr = sf.read(os.path.join(WORK, 'sot', s['id'][4:] + '.wav'), dtype='float32')
+            y = sosfilt(butter(2, 80, 'highpass', fs=SR, output='sos'), y).astype(np.float32)
+            y *= 10 ** ((-21.0 - pyln.Meter(SR).integrated_loudness(y)) / 20)
+            p = int((s['start'] - s['lead']) * SR)
+            e = min(p + len(y), N); voice[p:e] += y[:e - p]; sotm[p:e] = 1.0
+            continue
         y, sr = sf.read(os.path.join(WORK, 'vo', s['id'] + '.wav'), dtype='float32')
         if y.ndim > 1: y = y.mean(1)
         p = int((s['start'] - VO[s['id']]['lead']) * SR)
@@ -40,7 +48,7 @@ if __name__ == '__main__':
     mus = np.pad(mus, ((0, max(N - len(mus), 0)), (0, 0)))[:N]
     meter = pyln.Meter(SR)
     # 配乐按章节校平：程序作曲各章配器疏密不同，响度相差可达 17 dB；每章整体拉到目标响度（章内渐强保留），章节交界 3s 过渡
-    TARGET = {'hook': -25.0, 'title': -21.0, 'end': -21.0}
+    TARGET = {'hook': -24.0, 'title': -20.0, 'end': -20.0, 'ch5': -22.0, 'ch7': -22.5}
     keys = [k for k in TL['chapters'] if not k.startswith('tk_')]
     spans = sorted((TL['chapters'][k][0], TL['chapters'][k][1], k) for k in keys)
     gdb = np.zeros(N, np.float32); pts = []
@@ -67,6 +75,8 @@ if __name__ == '__main__':
     for h in BEATS['hits']:
         act *= 1 - np.exp(-((tt - h) / 1.2) ** 8)
     gain_db = -13.0 * np.clip(act * 1.4, 0, 1)
+    s64 = smooth(sotm[:N // 64 * 64].reshape(-1, 64).max(1), 0.3, 0.8)
+    gain_db -= 5.0 * np.clip(s64 * 1.2, 0, 1)            # 原声下配乐再低 5 dB（原声底噪较高，需要更干净的空间）
     g = np.repeat(10 ** (gain_db / 20), 64)
     g = np.pad(g, (0, N - len(g)), mode='edge')
     np.save(os.path.join(WORK, 'music', 'leveled_gain.npy'), g[::480])

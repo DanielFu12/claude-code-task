@@ -7,7 +7,7 @@
 """
 import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import LINES, TEASE
+from script import LINES, TEASE, SOTS
 
 HOOK_START = 1.2           # 开场心跳后第一句
 AFTER_HOOK = 0.6           # “为什么？”之后的空气（随后标题重拍）
@@ -21,6 +21,7 @@ GAP_EXTRA = {'h2': 0.3, 'h4': 0.6, 'h5': 0.3, 'c1c': 0.2, 'c1e': 0.45, 'c2c': 0.
              'c4b': 0.3, 'c4c': 1.2, 'c4d': 0.3, 'c4g2': 0.2, 'c4h': 0.3, 'c4i': 0.6, 'm2': 0.4, 'm4': 0.3, 'm8': 0.3, 'm9': 0.3,
              'm10': 0.9, 'm11': 0.3, 'c5a': 0.6, 'c5c': 0.2, 'c5e': 0.3, 'c5g': 0.3, 'c5h': 0.4, 'c6a2': 0.3, 'c6c': 0.5,
              'c6e': 0.3, 'c6h': 0.5, 'c6i': 0.6}   # 引语卡与转折前后多留一点（c4c“是我发起的”后留白）   # 转折与主题句前后多留一点
+SOT_PRE, SOT_POST = 0.55, 0.75   # 引入句 → 巴菲特原声 → 下一句旁白（原声前后留空气，画面切换）
 TAKEAWAY = 3.4            # 第一至六章结尾的“本章要点”卡
 END_GAP = 0.9              # 最后一句之后 → 片尾卡
 TEASE_LEAD, DISSOLVE, POST_LOGO = 0.8, 1.5, 5.8   # 片尾：预告 → 文字化作粒子汇聚成 logo → 品牌字/关注语 → 淡出
@@ -28,6 +29,7 @@ TEASE_LEAD, DISSOLVE, POST_LOGO = 0.8, 1.5, 5.8   # 片尾：预告 → 文字�
 
 def build(work, quiet=False):
     vo = json.load(open(os.path.join(work, 'vo', 'vo.json')))
+    sot = json.load(open(os.path.join(work, 'sot', 'sot.json')))
     t = HOOK_START
     segs, chapters = [], {}
     cur = None
@@ -45,6 +47,8 @@ def build(work, quiet=False):
             chapters[ch] = [0 if ch == 'hook' else t, None]
             if ch != 'hook': t += CHAPTER_CARD + CARD_EXTRA.get(ch, 0)
             cur = ch
+        elif segs and segs[-1].get('kind') == 'sot':
+            t = segs[-1]['start'] + segs[-1]['dur'] + SOT_POST
         elif segs:
             prev = segs[-1]; pm = vo[prev['id']]
             same = pm['passage'].split(':')[0] == vo[lid]['passage'].split(':')[0]
@@ -54,6 +58,11 @@ def build(work, quiet=False):
             t = prev['start'] + prev['dur'] + gap + GAP_EXTRA.get(prev['id'], 0)
         m = vo[lid]
         segs.append(dict(id=lid, ch=ch, text=l[2], start=round(t, 3), dur=m['dur'], ct=m['ct']))
+        for sid, so in SOTS.items():                      # 紧跟这句旁白的巴菲特原声
+            if so['after'] != lid: continue
+            sm = sot[sid]; ts_ = t + m['dur'] + SOT_PRE
+            segs.append(dict(id='sot_' + sid, ch=ch, kind='sot', text=so['en'], start=round(ts_, 3), dur=sm['dur'],
+                             lead=sm['lead'], len=sm['len'], ph=[[a - sm['lead'], b - sm['lead']] for a, b in sm['ph']], ct=[]))
     last = segs[-1]
     E = last['start'] + last['dur'] + END_GAP
     order = ['hook', 'ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch6', 'ch7']
