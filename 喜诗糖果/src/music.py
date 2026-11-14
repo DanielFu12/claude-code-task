@@ -262,9 +262,9 @@ def build():
     section(c['ch5'], t_turn - BEAT, ['Dm', 'Gm/D', 'Bb', 'A'], {'pizz', 'low', 'pad2', 'heart'}, 40, 58, motif_every=4, motif_oct=62)
     riser(t_turn, 2.2, 80)
     hit(t_turn, 'F', 98, ring=3.5, big=False)
-    section(t_turn + BEAT * 2, S('c5f') - 0.3, ['F', 'C/E', 'Dm', 'Bb', 'F/A', 'Bb', 'Gm', 'C'], {'pad', 'low', 'horn', 'ostinato'}, 54, 64,
+    section(t_turn + BEAT * 2, S('c5g') - 0.3, ['F', 'C/E', 'Dm', 'Bb', 'F/A', 'Bb', 'Gm', 'C'], {'pad', 'low', 'horn', 'ostinato'}, 54, 64,
             tonic=5, major=True, motif_every=4, motif_ins='horn', motif_oct=65)
-    section(S('c5f') - 0.3, S('c5i') - 0.3, ['F', 'Dm', 'Bb', 'C'], {'piano_chord', 'pad2'}, 42, 48, tonic=5, major=True, motif_every=2, motif_oct=74)
+    section(S('c5g') - 0.3, S('c5i') - 0.3, ['F', 'Dm', 'Bb', 'C'], {'piano_chord', 'pad2'}, 42, 48, tonic=5, major=True, motif_every=2, motif_oct=74)
     section(S('c5i') - 0.3, c['ch6'], ['F', 'C', 'Dm', 'Bb', 'Gm', 'Bb', 'C', 'C'], {'arp', 'pad', 'low', 'eighths'}, 50, 60, tonic=5, major=True,
             motif_every=4, motif_oct=72)
     # ---- 第六章：做不到的事（D 小调，心跳与长音）

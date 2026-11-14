@@ -2,7 +2,8 @@
 
 每条旁白标注出处（src），口径见 research/核实笔记.md（全部数字来自伯克希尔致股东信原文，原文存 research/raw/）。
 大师原话只用已刊出的文字：做成屏幕引语卡（英文原句 + 中文翻译 + 出处）。
-两段巴菲特原声（SOTS munger、trick）取自 CNBC 2026-07-15 专访原片（第四期已入库），原速、不改词，经语音识别逐句核对。
+原声四段：巴菲特两段（SOTS munger、trick，CNBC 2026-07-15 专访，第四期已入库）；芒格两段（SOTS mlousy、mcoke，
+纪录片《Becoming Warren Buffett》芒格访谈，Kunhardt Film Foundation 公开发布）。全部原速、不改词、不拼接，经语音识别逐句核对。
 旁白只用豆包刘飞音色，不用 AI 模仿任何真实人物的声音。
 """
 
@@ -30,9 +31,12 @@ LINES = [
      None, '', '2007 年致股东信：“the prototype of a dream business, our own See’s Candy”'),
 
     # ---------------------------------------------------------------- 第一章：差点谈崩的交易
-    ('c1a', 'ch1', '喜诗的故事，要从一位老太太说起。一百多年前，玛丽·喜在洛杉矶开了第一家小店，用自家的配方做巧克力，店员亲切热情。',
-     '喜诗的故事，要从一位老太太说起。一百多年前，玛丽喜在洛杉矶开了第一家小店，用自家的配方做巧克力，店员亲切热情。',
-     '', '2020 年致股东信：“A full century ago, Mary See set out to deliver an age-old product that she had reinvented with special recipes. Added to her business plan were quaint stores staffed by friendly salespeople. Her first small outlet in Los Angeles…”'),
+    ('c1a', 'ch1', '喜诗的故事，要从一位老太太说起。1921 年，玛丽·喜一家在洛杉矶开出第一家小店，卖的是玛丽用自家配方做的巧克力，店员亲切热情。',
+     '喜诗的故事，要从一位老太太说起。一九二一年，玛丽喜一家在洛杉矶开出第一家小店，卖的是玛丽用自家配方做的巧克力，店员亲切热情。',
+     '', '2020 年致股东信：“A full century ago, Mary See set out to deliver an age-old product that she had reinvented with special recipes. Added to her business plan were quaint stores staffed by friendly salespeople. Her first small outlet in Los Angeles…”；喜诗官网大事记 1921（Charles A. See 与母亲 Mary See 在洛杉矶开出第一家店，卖 Mary 的配方糖果）'),
+    ('c1a2', 'ch1', '1952 年，电视喜剧《我爱露西》的两位女主角，专门到喜诗的厨房学过怎么蘸巧克力、装糖盒，后来拍出了那段有名的巧克力流水线。',
+     '一九五二年，电视喜剧《我爱露西》的两位女主角，专门到喜诗的厨房学过怎么蘸巧克力、装糖盒，后来拍出了那段有名的巧克力流水线。',
+     '', '喜诗官网大事记 1952 “Lucy Loves See’s”：Lucille Ball and Vivian Vance visited the See’s Candy Kitchen on La Cienega Boulevard to learn the art of dipping and packing chocolates. Their experience inspired the iconic “Job Switching” episode of “I Love Lucy”'),
     ('c1b', 'ch1', '到 1972 年，喜诗已经是美国西海岸有名的盒装巧克力品牌，开了 167 家店。',
      None, '', '1984 年致股东信表格（1972 年底门店 167 家）；2014 年信：“a legendary West Coast manufacturer and retailer of boxed chocolates”'),
     ('c1c', 'ch1', '1972 年 1 月 3 日，巴菲特和芒格控制的蓝筹印花公司，买下了喜诗。蓝筹印花后来并入了伯克希尔。',
@@ -41,9 +45,7 @@ LINES = [
      None, '', '1991 年致股东信：“The nominal price… was $40 million. But the company had $10 million of excess cash, and therefore the true offering price was $30 million.”'),
     ('c1e', 'ch1', '喜诗当时一年税前赚 420 万，税后大约 200 万。可巴菲特和芒格盯着的，是账上那点有形资产。',
      None, '', '1991 年信（税前 $4.2M）；1983 年信（“earning about $2 million after tax”）；1991 年信（“looked at the company’s mere $7 million of tangible net worth”）'),
-    ('c1f', 'ch1', '1991 年他回忆：那时候，他和芒格都还不太懂“经济特许权”值多少钱，开口就说，2500 万封顶，说到做到。',
-     None, '', '1991 年致股东信：“Charlie and I, not yet fully appreciative of the value of an economic franchise… said $25 million was as high as we would go (and we meant it).”'),
-    ('c1g', 'ch1', '又过了二十多年，他把话说得更直白：芒格认为它值 3000 万，是对的；倒是他自己，连 2500 万都不太情愿。他说，自己的谨慎，差点毁了一笔绝好的收购。',
+    ('c1g', 'ch1', '多年以后，巴菲特在信里认了错：芒格说它值 3000 万，是对的；倒是他自己，连 2500 万都不太情愿。他说，自己错误的谨慎，差点毁了一笔绝好的收购。',
      None, '', '2014 年致股东信：“Charlie rightly said it was worth that much. But I didn’t want to pay more than $25 million and wasn’t all that enthusiastic even at that figure… My misguided caution could have scuttled a terrific purchase.”'),
     ('c1h', 'ch1', '买下的当天，他们就请原来的执行副总裁查克·哈金斯掌管喜诗。薪酬怎么算，五分钟就谈好了，握手为定，从没写成合同。',
      '买下的当天，他们就请原来的执行副总裁查克哈金斯掌管喜诗。薪酬怎么算，五分钟就谈好了，握手为定，从没写成合同。',
@@ -64,9 +66,6 @@ LINES = [
     ('c2f', 'ch2', '所以，800 万的资本，就撑起了一门税前赚 400 多万的生意：税前回报率约 60%，税后也有约 25%。',
      '所以，八百万的资本，就撑起了一门税前赚四百多万的生意：税前回报率约百分之六十，税后也有约百分之二十五。',
      '', '2007 年致股东信：“the company was earning 60% pre-tax on invested capital”；1983 年信：“the 25% after tax on net tangible assets that was earned by See’s”'),
-    ('c2g', 'ch2', '巴菲特说，不靠借钱、账目保守，还能一直赚到这个回报，这样的公司，在 1972 年很少，到 1983 年也很少。',
-     None, '', '1983 年致股东信附录：“In 1972 (and now) relatively few businesses could be expected to consistently earn the 25% after tax… with conservative accounting and no financial leverage.”'),
-
     # ---------------------------------------------------------------- 第三章：涨价的底气
     ('c3a', 'ch3', '可这还不是喜诗最值钱的地方。巴菲特说，买喜诗时，他和芒格只有一个重要的洞察：这家公司，还有没用出来的定价权。',
      None, '', '1991 年致股东信：“In our See’s purchase, Charlie and I had one important insight: We saw that the business had untapped pricing power.”'),
@@ -109,15 +108,13 @@ LINES = [
      None, '', '2007 年致股东信：“Typically, companies that increase their earnings from $5 million to $82 million require, say, $400 million or so of capital investment”（巴菲特举例，非统计）'),
     ('c4g', 'ch4', '他把生意比作三种储蓄账户。最好的一种，利率很高，还一年比一年高；不错的一种，利率也可以，但你得不断往里存钱；最糟的一种，利率很低，还要你不停地往里填钱。',
      None, '', '2007 年致股东信：“think of three types of ‘savings accounts.’ The great one… The good one… Finally, the gruesome account…”'),
-    ('c4h', 'ch4', '喜诗是第一种。他举的最糟的例子，是航空公司。',
-     None, '', '2007 年致股东信（See’s 为 great 的原型；gruesome：“Think airlines.”）'),
+    ('c4h', 'ch4', '喜诗是第一种。他说，最糟的生意，是长得很快、长大要砸很多钱，最后却赚不到什么钱的生意，比如航空公司。',
+     None, '', '2007 年致股东信：“The worst sort of business is one that grows rapidly, requires significant capital to engender the growth, and then earns little or no money. Think airlines.”'),
     ('c4i', 'ch4', '喜诗交出来的钱，伯克希尔交完税，就拿去买别的好生意。巴菲特打了个比方：就像亚当和夏娃，繁衍出了几十亿人。',
      None, '', '2007 年致股东信：“After paying corporate taxes on the profits, we have used the rest to buy other attractive businesses. Just as Adam and Eve kick-started an activity that led to six billion humans…”'),
     ('c4j', 'ch4', '2010 年他写道，像喜诗这样的公司赚来的钱，也成了伯克希尔买下 BNSF 铁路的一部分本钱。',
      '二零一零年他写道，像喜诗这样的公司赚来的钱，也成了伯克希尔买下 B N S F 铁路的一部分本钱。',
      '', '2010 年致股东信：“take money we earn from, say, See’s Candies or Business Wire… and use it as part of the stake we needed to buy BNSF.”'),
-    ('c4k', 'ch4', '到 2014 年，喜诗累计赚了 19 亿美元税前利润，增长只需追加 4000 万。这是巴菲特在致股东信里给出的最后一个累计数字。',
-     None, '', '2014 年致股东信（2015–2025 年致股东信均未再给出喜诗利润数字，已逐年检索）'),
 
     # ---------------------------------------------------------------- 第五章：芒格把我扳了过来
     ('c5a', 'ch5', '如果说喜诗是一台吐钱的机器，它吐出的最值钱的东西，也许不是钱，而是巴菲特的思路。',
@@ -126,22 +123,22 @@ LINES = [
      None, '', '2014 年致股东信：“Ben Graham had taught me that technique”；1989 年信：“A cigar butt found on the street that has only one puff left in it… the ‘bargain purchase’ will make that puff all profit.”'),
     ('c5c', 'ch5', '他说，靠这套办法，五十年代是他一生里投资成绩最好的十年。可钱一多，这一套就不管用了。',
      None, '', '2014 年致股东信：“made that decade by far the best of my life… Cigar-butt investing was scalable only to a point. With large sums, it would never work well.”'),
-    ('c5d', 'ch5', '2014 年，伯克希尔 50 周年，他在信里专门写了一节，标题是：芒格把我扳了过来。',
+    ('c5c2', 'ch5', '芒格在纪录片《成为沃伦·巴菲特》的访谈里，回忆过当年的喜诗：',
+     None, '', 'Kunhardt Film Foundation / HBO《Becoming Warren Buffett》芒格访谈（原声见 SOTS mlousy）'),
+    ('c5d', 'ch5', '2014 年，伯克希尔 50 周年，巴菲特在信里专门写了一节，标题是：芒格把我扳了过来。',
      None, '', '2014 年致股东信，小标题 “Charlie Straightens Me Out”'),
     ('c5e', 'ch5', '他写道：是芒格，打破了他捡烟蒂的习惯。芒格给他的蓝图很简单：忘掉用好价格买普通生意的那一套，改成用合理的价格，买好生意。',
      None, '', '2014 年致股东信：“It took Charlie Munger to break my cigar-butt habits… Forget what you know about buying fair businesses at wonderful prices; instead, buy wonderful businesses at fair prices.”'),
-    ('c5f', 'ch5', '改，并不容易。早在 1989 年，他就在信里承认：芒格很早就懂了，而他，是个慢学生。',
-     None, '', '1989 年致股东信：“Charlie understood this early; I was a slow learner.”'),
     ('c5g', 'ch5', '他说，两人意见不同时，芒格常常这样收尾：“沃伦，你再想想，你会同意我的。因为你很聪明，而我是对的。”',
      None, '', '2014 年致股东信：“Warren, think it over and you’ll agree with me because you’re smart and I’m right.”'),
     ('c5g2', 'ch5', '2023 年，芒格去世，离一百岁只差 33 天。2026 年，巴菲特在电视专访里谈起这位老搭档：',
      '二零二三年，芒格去世，离一百岁只差三十三天。二零二六年，巴菲特在电视专访里谈起这位老搭档：',
      '', '2023 年致股东信：“Charlie Munger died on November 28, just 33 days before his 100th birthday.”；CNBC 专访 2026-07-15（原声见 SOTS munger）'),
-    ('c5h', 'ch5', '1972 年的喜诗，就落在这次转变的路上：芒格愿意按好生意的价钱买，巴菲特还在为三倍的账面价格犹豫。',
-     None, '', '2014 年致股东信（本片按时间顺序串联，不作“第一笔”之类的判断）'),
     ('c5i', 'ch5', '后来，喜诗成了他的课堂。1991 年，他写道：拥有喜诗，让他们学到了很多评估特许经营权的东西；靠这些经验，他们后来在一些股票上赚了大钱。',
      None, '', '1991 年致股东信：“ownership of See’s has taught us much about the evaluation of franchises. We’ve made significant money in certain common stocks because of the lessons we learned at See’s.”'),
-    ('c5j', 'ch5', '他没有点名是哪些股票。不过在 2011 年，他把喜诗和可口可乐，放进了同一个道理里：买进原料，卖出品牌。',
+    ('c5j', 'ch5', '他没有在信里点名是哪些股票。芒格在同一段访谈里，把话说得更直接：',
+     None, '', 'Kunhardt Film Foundation / HBO《Becoming Warren Buffett》芒格访谈（原声见 SOTS mcoke）'),
+    ('c5k', 'ch5', '2011 年，巴菲特自己也把喜诗和可口可乐，放进了同一个道理里：买进原料，卖出品牌。',
      None, '', '2011 年致股东信：“‘Buy commodities, sell brands’ has long been a formula for business success. It has produced enormous and sustained profits for Coca-Cola since 1886… we have enjoyed good fortune with this approach at See’s Candy”'),
 
     # ---------------------------------------------------------------- 第六章：喜诗做不到的事
@@ -150,6 +147,9 @@ LINES = [
      None, '', '2014 年致股东信：“We would have loved, of course, to intelligently use those funds to expand our candy operation. But our many attempts to do so were largely futile.”'),
     ('c6c', 'ch6', '第二，它离不开一个地方、一个季节：1991 年，近八成的销售来自加州；利润集中在圣诞前后，夏天还要亏钱。',
      None, '', '1991 年致股东信：“Almost 80% of See’s sales come from California”；1984 年信（圣诞季）；2001 年信：“which loses considerable money during the summer months”'),
+    ('c6c2', 'ch6', '三十多年后，伯克希尔 2025 年的年报还是这样写：喜诗约有 250 家门店，主要在加州和美国西部；一年大约一半的收入，来自第四季度。',
+     '三十多年后，伯克希尔二零二五年的年报还是这样写：喜诗约有两百五十家门店，主要在加州和美国西部；一年大约一半的收入，来自第四季度。',
+     '', '伯克希尔 2025 年 10-K：“See’s operates approximately 250 retail and volume saving stores located mainly in California and other Western states, as well as approximately 100 seasonal locations. See’s revenues are highly seasonal with approximately half of its annual revenues earned in the fourth quarter.”'),
     ('c6d', 'ch6', '所以，喜诗的价值，很大一部分要靠伯克希尔来实现。巴菲特说，如果喜诗是一家独立的公司，利润只能分给股东自己去投，路上难免被税和各种摩擦成本吃掉不少。',
      None, '', '2014 年致股东信：“If See’s had remained a stand-alone company, its earnings would have had to be distributed to investors to redeploy, sometimes after being heavily depleted by large taxes and, almost always, by significant frictional and agency costs.”'),
     ('c6e', 'ch6', '一门好生意的回报，不只看它能赚多少，还要看赚来的钱，有没有人能用好。',
@@ -158,8 +158,9 @@ LINES = [
     # ---------------------------------------------------------------- 第七章：一盒糖的学费
     ('c7a', 'ch7', '如今，喜诗已经一百多岁。巴菲特写道：卖不是必需品的东西，顾客就是老板。一百年过去，顾客对伯克希尔说的，还是那句话：别乱动我的糖。',
      None, '', '2020 年致股东信：“When a business manufactures and distributes a non-essential consumer product, the customer is the boss… ‘Don’t mess with my candy.’”'),
-    ('c7b', 'ch7', '2022 年的伯克希尔股东大会上，喜诗的柜台两天卖出了 11 吨花生脆和巧克力。巴菲特说，福特 T 型车时代管用的那一套，今天依然管用。',
-     None, '', '2022 年致股东信：“our See’s kiosk sold you eleven tons of nourishing peanut brittle and chocolates… What worked for See’s in the days of Henry Ford’s model T works now.”'),
+    ('c7b2', 'ch7', '喜诗一年只长 2% 左右，却被巴菲特称作梦想生意。衡量一门生意好不好，不是看它长得多快，而是看它每多赚一块钱，要多投进去多少钱。',
+     '喜诗一年只长百分之二左右，却被巴菲特称作梦想生意。衡量一门生意好不好，不是看它长得多快，而是看它每多赚一块钱，要多投进去多少钱。',
+     '', '本片解读（依据 2007 年致股东信：销量年增约 2%、“prototype of a dream business”、三种储蓄账户与 “The worst sort of business is one that grows rapidly, requires significant capital…”）'),
     ('c7c', 'ch7', '2026 年夏天，95 岁的巴菲特接受电视专访，讲到什么是好生意，说的还是同一个道理：',
      None, '', 'CNBC 专访 2026-07-15（原声见 SOTS trick）'),
     ('c7d', 'ch7', '1972 年，他为一盒糖，犹豫过 500 万美元。这笔差点没付的学费，换来的是一双看得见品牌价值的眼睛。',
@@ -170,14 +171,29 @@ DROPPED = {}
 
 # 巴菲特原声（SOT）：CNBC Squawk Box 专访，2026-07-15（原片在 ../谷歌/，第四期已切出并经语音识别逐句核对）。
 SOT_SRC = 'CNBC Squawk Box · Becky Quick 专访巴菲特 · 2026-07-15'
+HBO_SRC = 'Kunhardt Film Foundation · HBO《Becoming Warren Buffett》芒格访谈'
 SOTS = {
-    'munger': dict(after='c5g2', ch='ch5', **{'in': 271.9, 'out': 288.55}, span=0.03,
+    # 芒格原声：KFF 公开的 HBO 纪录片完整访谈（YouTube F6s2HAzMeL0，2021-07-20 发布；archive.org youtube-F6s2HAzMeL0），“See’s Candy”一节
+    'mlousy': dict(after='c5c2', ch='ch5', **{'in': 719.35, 'out': 740.55}, span=0.08, who='munger', src='hbo_munger', srcname=HBO_SRC,
+                   en='Remember, Warren had a long history of buying stocks below working capital per share, hugely cheap securities. By definition, they were all pretty lousy companies. And in See’s, we bought a really good company. In its field, it was the best.',
+                   ph=[('Remember, Warren had a long history of buying stocks below working capital per share, hugely cheap securities.',
+                        '要知道，沃伦长期以来买的，都是价格低于每股营运资本的股票，便宜得不得了。'),
+                       ('By definition, they were all pretty lousy companies.', '按定义，这些都是相当差劲的公司。'),
+                       ('And in See’s, we bought a really good company. In its field, it was the best.', '而喜诗，是我们买下的一家真正的好公司。在它那一行，它是最好的。')],
+                   cuts=[12.35, 15.85], ts='12:00'),
+    'mcoke': dict(after='c5j', ch='ch5', **{'in': 761.45, 'out': 774.62}, span=0.05, who='munger', src='hbo_munger', srcname=HBO_SRC,
+                  en='It just was eye-opening how important these brands were. I don’t think that Warren would have made all the money that Berkshire made in Coca-Cola if he hadn’t bought See’s.',
+                  ph=[('It just was eye-opening how important these brands were.', '这让我们大开眼界：原来品牌这么重要。'),
+                      ('I don’t think that Warren would have made all the money that Berkshire made in Coca-Cola if he hadn’t bought See’s.',
+                       '我认为，要不是买了喜诗，沃伦不会在可口可乐上，为伯克希尔赚到那么多钱。')],
+                  cuts=[3.9], ts='12:41'),
+    'munger': dict(after='c5g2', ch='ch5', who='buffett', src='cnbc', srcname=SOT_SRC, **{'in': 271.9, 'out': 288.55}, span=0.03,
                    en='But Charlie… Charlie Munger, my partner for many — for decades, he just — he just pounded the idea that it wasn’t a good business just because it was doing sexy things or whatever it might be.',
                    ph=[('But Charlie… Charlie Munger, my partner for many — for decades, he just —', '可是查理……查理·芒格，我几十年的搭档，他总是——'),
                        ('he just pounded the idea that it wasn’t a good business', '他总是反复敲打一个观点：一门生意，'),
                        ('just because it was doing sexy things or whatever it might be.', '不会因为做了些时髦的事情之类，就成了好生意。')],
                    cuts=[5.5, 12.5], ts='4:32'),
-    'trick': dict(after='c7c', ch='ch7', **{'in': 248.87, 'out': 259.95}, span=0.03,
+    'trick': dict(after='c7c', ch='ch7', who='buffett', src='cnbc', srcname=SOT_SRC, **{'in': 248.87, 'out': 259.95}, span=0.03,
                   en='And the trick in life is to find — I mean, investing is to find businesses that are going to earn high returns on capital for an extended period of time.',
                   ph=[('And the trick in life is to find —', '人生的诀窍，就是找到——'),
                       ('I mean, investing is to find businesses', '我是说，投资的诀窍，就是找到这样的生意：'),
@@ -213,7 +229,6 @@ QUOTES = {
     'qbreak': ('It took Charlie Munger to break my cigar-butt habits.', '是芒格，打破了我捡烟蒂的习惯。', 'Warren Buffett · 2014 Letter, “Charlie Straightens Me Out”'),
     'qblueprint': ('Forget what you know about buying fair businesses at wonderful prices; instead, buy wonderful businesses at fair prices.',
                    '忘掉用好价格买普通生意的那一套；改成用合理的价格，买好生意。', 'Warren Buffett on Charlie Munger · 2014 Letter'),
-    'qslow': ('Charlie understood this early; I was a slow learner.', '芒格很早就懂了；我是个慢学生。', 'Warren Buffett · 1989 Letter to Shareholders'),
     'qsmart': ('Warren, think it over and you’ll agree with me because you’re smart and I’m right.',
                '沃伦，你再想想，你会同意我的。因为你很聪明，而我是对的。', 'Charlie Munger, quoted in the 2014 Letter'),
     'qlessons': ('We’ve made significant money in certain common stocks because of the lessons we learned at See’s.',
@@ -223,8 +238,6 @@ QUOTES = {
     'qfutile': ('our many attempts to do so were largely futile.', '我们多次尝试，大多是白费力气。', 'Warren Buffett · 2014 Letter to Shareholders'),
     'qboss': ('the customer is the boss', '顾客就是老板', 'Warren Buffett · 2020 Letter to Shareholders'),
     'qcandy': ('Don’t mess with my candy.', '别乱动我的糖。', 'Warren Buffett · 2020 Letter to Shareholders'),
-    'qford': ('What worked for See’s in the days of Henry Ford’s model T works now.', '福特 T 型车时代对喜诗管用的那一套，今天依然管用。',
-              'Warren Buffett · 2022 Letter to Shareholders'),
     'qeyes': ('I gained a business education about the value of powerful brands that opened my eyes to many other profitable investments.',
               '我上了一堂关于强大品牌价值的课，它让我看到了许多别的赚钱机会。', 'Warren Buffett · 2014 Letter to Shareholders'),
     'qtrick': ('investing is to find businesses that are going to earn high returns on capital for an extended period of time.',

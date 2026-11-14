@@ -41,8 +41,8 @@ def _feather_mask(w, h):
 # v4 取景：中景，保留扶手椅、台灯与房间（原片只取字幕条以上的 1920×752；整幅高度全部入画，不再放大成大头像）。
 # 每段原声一种机位运动，避免机械重复：push 推近、pull 拉远、drift 横移；幅度都很小（≤5%）。
 WIN_W, WIN_H, WIN_CY = 1000, 640, 600
-FOCUS = {'munger': 0.55, 'trick': 0.53}
-MOVE = {'munger': ('push', 0.0), 'trick': ('drift', 0.03)}
+FOCUS = {'munger': 0.55, 'trick': 0.53, 'mlousy': 0.6, 'mcoke': 0.6}
+MOVE = {'munger': ('push', 0.0), 'trick': ('drift', 0.03), 'mlousy': ('pull', 0.0), 'mcoke': ('push', 0.0)}
 # 原片在原声中途切到双人全景（主持人在左）。这段时间（片段内秒数）改取画面右侧的巴菲特，跟随原片的机位切换，
 # 不出现主持人或空沙发。munger：原片 277.58–285.95s 为双人景，片段入点 271.9s。
 REFRAME = {'munger': [(5.68, 14.05, 0.86, 1.45)]}
@@ -102,15 +102,20 @@ def badge(cv, sid, t, c0, al):
         cv.rect(xx, y - hh / 2, xx + 6, y + hh / 2, GOLD_L if j > 16 else GOLD * 0.8, al * (0.35 + 0.65 * j / 21))
 
 
-def name_super(cv, t, c0, al):
+WHO = {'buffett': ('沃伦·巴菲特', 'WARREN BUFFETT · 伯克希尔·哈撒韦董事长'),
+       'munger': ('查理·芒格', 'CHARLIE MUNGER · 伯克希尔副董事长（1924–2023）')}
+
+
+def name_super(cv, t, c0, al, who='buffett'):
     p = t - c0
     k = env(p, 0.25, 3.6, 0.5, 0.5)
     if k <= 0.004: return
     x, y = 60, 990
     L = 6 + 420 * eo((p - 0.25) / 0.6)
     cv.rect(x, y - 52, x + 6, y + 40, GOLD, al * k, glow=0.3)
-    cv.text('沃伦·巴菲特', x + 30, y - 18, 48, 'serif_black', gold=True, a=al * k, anchor='l', reveal=eo((p - 0.3) / 0.6), shadow=0.8)
-    cv.text('WARREN BUFFETT · 伯克希尔·哈撒韦董事长', x + 32, y + 30, 22, 'sans_med', col=CREAM, a=al * k * 0.9, anchor='l',
+    nm, sub = WHO[who]
+    cv.text(nm, x + 30, y - 18, 48, 'serif_black', gold=True, a=al * k, anchor='l', reveal=eo((p - 0.3) / 0.6), shadow=0.8)
+    cv.text(sub, x + 32, y + 30, 22, 'sans_med', col=CREAM, a=al * k * 0.9, anchor='l',
             track=0.04, shadow=0.8)
     cv.line((x + 30, y + 58), (x + 30 + L, y + 58), GOLD_D, al * k * 0.8, 2)
 
@@ -152,10 +157,11 @@ def sot_layer(cv, t):
         footage(cv, sid, t, c0, ln, al)
         if t - c0 < 0.8: fx.sweep(cv, t, c0 - 0.1, 0.8, a=0.5 * al)
         badge(cv, sid, t, c0, al)
-        if sid in FIRST_SUPER: name_super(cv, t, c0, al)
+        if sid in FIRST_SUPER: name_super(cv, t, c0, al, SOTS[sid].get('who', 'buffett'))
         captions(cv, seg, t, c0, al)
-        src = f'原声 · {SOT_SRC}（专访 {SOTS[sid]["ts"]}）'
+        so = SOTS[sid]
+        src = f'原声 · {so.get("srcname", SOT_SRC)}（{"访谈" if so.get("src") == "hbo_munger" else "专访"} {so["ts"]}）'
         source(cv, src, al, y=1640)
 
 
-FIRST_SUPER = {'dontlike', 'decider', 'attacks', 'rank'}     # 每章第一段原声出人名条
+FIRST_SUPER = {'mlousy', 'munger'}     # 每章第一段原声出人名条

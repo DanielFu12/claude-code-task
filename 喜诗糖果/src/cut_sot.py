@@ -1,4 +1,8 @@
-"""巴菲特专访原声（SOT）切片：仓库内 CNBC 专访（Squawk Box，2026-07-15）→ 带原声的画面 + 音频。
+"""大师原声（SOT）切片 → 带原声的画面 + 音频。两个片源：
+  cnbc        —— 仓库内 CNBC 专访（Squawk Box，2026-07-15，Becky Quick 专访巴菲特），画面只取字幕条以上 1920×752；
+  hbo_munger  —— Kunhardt Film Foundation 公开发布的 HBO 纪录片《Becoming Warren Buffett》芒格完整访谈
+                 （YouTube F6s2HAzMeL0 / archive.org youtube-F6s2HAzMeL0），由 src/fetch_ia.py 取 700–800s 一段到 work/src_dl/；
+                 画面裁掉烧录的时间码（右上）与片名水印（下方）。
 
 · 入出点先按本地语音识别定位（research/CNBC专访_20260715_转写.md），再在附近找能量最低的 60ms 切点，
   前后各留一点空气，0.12s 淡入淡出；画面与声音同一入点，口型同步，原速播放，不变速。
@@ -13,7 +17,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from script import SOTS
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-SRC = glob.glob(os.path.join(ROOT, '..', '谷歌', '*CNBC专访*.mp4'))[0]   # 原片在第四期目录
+SRCS = {   # 片源: (文件, 文件第 0 秒对应原片的秒数, 画面裁切, 署名, 链接)
+    'cnbc': (glob.glob(os.path.join(ROOT, '..', '谷歌', '*CNBC专访*.mp4'))[0], 0.0, 'crop=1920:752:0:0',
+             'CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声',
+             'https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html'),
+    'hbo_munger': (os.path.join(ROOT, 'work', 'src_dl', 'munger_hd_700.mp4'), 700.0, 'crop=2252:1150:308:0,delogo=x=1650:y=90:w=400:h=112',
+                   'Kunhardt Film Foundation：HBO《Becoming Warren Buffett》芒格访谈（2017 年纪录片素材，2021 年公开）· 原声',
+                   'https://archive.org/details/youtube-F6s2HAzMeL0'),
+}
 WORK = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'work')
 CLIPS = os.path.join(ROOT, 'work_clips')
 SR = 48000
@@ -29,13 +40,17 @@ def quiet_point(x, t, span=0.3, win=0.06):
 
 if __name__ == '__main__':
     os.makedirs(os.path.join(WORK, 'sot'), exist_ok=True); os.makedirs(CLIPS, exist_ok=True)
-    tmp = os.path.join(WORK, 'sot', '_src48.wav')
-    if not os.path.exists(tmp):
-        subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', SRC, '-vn', '-ac', '1', '-ar', str(SR), tmp], check=True)
-    x, _ = sf.read(tmp, dtype='float32')
+    xs = {}
     meta = {}
     for sid, s in SOTS.items():
-        a = quiet_point(x, s['in'], s.get('span', 0.3)); b = quiet_point(x, s['out'], s.get('span', 0.3))
+        SRC, off, crop, _, _ = SRCS[s.get('src', 'cnbc')]
+        if SRC not in xs:
+            tmp = os.path.join(WORK, 'sot', '_src48_%s.wav' % s.get('src', 'cnbc'))
+            if not os.path.exists(tmp):
+                subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', SRC, '-vn', '-ac', '1', '-ar', str(SR), tmp], check=True)
+            xs[SRC] = sf.read(tmp, dtype='float32')[0]
+        x = xs[SRC]
+        a = quiet_point(x, s['in'] - off, s.get('span', 0.3)); b = quiet_point(x, s['out'] - off, s.get('span', 0.3))
         y = x[int(a * SR):int(b * SR)].copy()
         f = int(0.12 * SR); y[:f] *= np.linspace(0, 1, f); y[-f:] *= np.linspace(1, 0, f)
         sf.write(os.path.join(WORK, 'sot', sid + '.wav'), y, SR)
@@ -61,15 +76,14 @@ if __name__ == '__main__':
         if 'cuts' in s: bnd = [lead] + list(s['cuts']) + [end]
         phr = [[round(bnd[i], 3), round(bnd[i + 1], 3)] for i in range(len(L))]
         subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-ss', f'{a:.3f}', '-i', SRC, '-t', f'{b - a:.3f}', '-r', '30',
-                        '-vf', 'crop=1920:752:0:0', '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', '-pix_fmt', 'yuv420p',
+                        '-vf', crop, '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', '-pix_fmt', 'yuv420p',
                         '-c:a', 'aac', '-b:a', '192k', os.path.join(CLIPS, 'sot_' + sid + '.mp4')], check=True)
-        meta[sid] = dict(src_in=round(a, 3), src_out=round(b, 3), len=round(b - a, 3), lead=round(lead, 3), dur=round(end - lead, 3), ph=phr)
+        meta[sid] = dict(src_in=round(a + off, 3), src_out=round(b + off, 3), len=round(b - a, 3), lead=round(lead, 3), dur=round(end - lead, 3), ph=phr)
         print(sid, meta[sid], flush=True)
     json.dump(meta, open(os.path.join(WORK, 'sot', 'sot.json'), 'w'), ensure_ascii=False, indent=1)
     p = os.path.join(ROOT, 'assets', 'media', 'ia_clips.json')
     m = json.load(open(p)) if os.path.exists(p) else {}
     for sid, v in meta.items():
-        m['sot_' + sid] = dict(source='CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声',
-                               ia='https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html',
-                               start=v['src_in'], dur=v['len'], shot='close', note=SOTS[sid]['en'])
+        _, _, _, nm, url = SRCS[SOTS[sid].get('src', 'cnbc')]
+        m['sot_' + sid] = dict(source=nm, ia=url, start=v['src_in'], dur=v['len'], shot='close', note=SOTS[sid]['en'])
     json.dump(m, open(p, 'w'), ensure_ascii=False, indent=1)

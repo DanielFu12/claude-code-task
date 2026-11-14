@@ -214,5 +214,294 @@
   "dur": 10.4,
   "shot": "close",
   "note": "“if you have a wonderful business, you are going to be subject to attacks… how long is it going to be wonderful?”"
+ },
+ "sot_mlousy": {
+  "source": "Kunhardt Film Foundation：HBO《Becoming Warren Buffett》芒格访谈（2017 年纪录片素材，2021 年公开）· 原声",
+  "ia": "https://archive.org/details/youtube-F6s2HAzMeL0",
+  "start": 719.375,
+  "dur": 21.225,
+  "shot": "close",
+  "note": "Remember, Warren had a long history of buying stocks below working capital per share, hugely cheap securities. By definition, they were all pretty lousy companies. And in See’s, we bought a really good company. In its field, it was the best."
+ },
+ "sot_mcoke": {
+  "source": "Kunhardt Film Foundation：HBO《Becoming Warren Buffett》芒格访谈（2017 年纪录片素材，2021 年公开）· 原声",
+  "ia": "https://archive.org/details/youtube-F6s2HAzMeL0",
+  "start": 761.43,
+  "dur": 13.197,
+  "shot": "close",
+  "note": "It just was eye-opening how important these brands were. I don’t think that Warren would have made all the money that Berkshire made in Coca-Cola if he hadn’t bought See’s."
+ },
+ "f_kettle": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 2.2,
+  "dur": 5.3,
+  "note": "铜锅熬制"
+ },
+ "f_fondant": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 15.0,
+  "dur": 8.0,
+  "note": "倒出软糖馅"
+ },
+ "f_enrober": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 27.6,
+  "dur": 2.3,
+  "note": "巧克力淋面"
+ },
+ "f_box": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 44.3,
+  "dur": 1.6,
+  "note": "一盒巧克力"
+ },
+ "f_line": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 50.4,
+  "dur": 1.6,
+  "note": "淋面流水线"
+ },
+ "f_rows": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 59.0,
+  "dur": 2.4,
+  "note": "巧克力淋面"
+ },
+ "f_hands": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 68.6,
+  "dur": 4.0,
+  "note": "手工整理"
+ },
+ "f_brittle": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 72.6,
+  "dur": 4.0,
+  "note": "花生脆出锅"
+ },
+ "f_brittle2": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 82.4,
+  "dur": 7.6,
+  "note": "花生脆摊开"
+ },
+ "f_workers": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 90.0,
+  "dur": 10.4,
+  "note": "花生脆分切装盘"
+ },
+ "f_pack": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 100.5,
+  "dur": 7.5,
+  "note": "装袋"
+ },
+ "f_boxes": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 108.2,
+  "dur": 5.8,
+  "note": "成箱的糖"
+ },
+ "f_coat": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 120.6,
+  "dur": 6.2,
+  "note": "淋面后的巧克力"
+ },
+ "f_kettle2": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 132.6,
+  "dur": 2.6,
+  "note": "铜锅"
+ },
+ "f_dough": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 141.0,
+  "dur": 8.4,
+  "note": "揉制"
+ },
+ "f_tray": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 157.3,
+  "dur": 2.6,
+  "note": "从盒里挑巧克力"
+ },
+ "f_rows2": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 179.0,
+  "dur": 5.4,
+  "note": "成排的巧克力"
+ },
+ "f_quality": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 186.8,
+  "dur": 1.8,
+  "note": "“Quality Without Compromise”"
+ },
+ "v_ext": {
+  "source": "KVVU 8 News Now：See’s Candies 拉斯维加斯新店（2021）",
+  "ia": "https://archive.org/details/youtube-KqCYdTtXxrI",
+  "start": 21.2,
+  "dur": 4.6,
+  "note": "门店外景"
+ },
+ "v_street": {
+  "source": "KVVU 8 News Now：See’s Candies 拉斯维加斯新店（2021）",
+  "ia": "https://archive.org/details/youtube-KqCYdTtXxrI",
+  "start": 37.8,
+  "dur": 8.8,
+  "note": "街角的喜诗"
+ },
+ "v_case": {
+  "source": "KVVU 8 News Now：See’s Candies 拉斯维加斯新店（2021）",
+  "ia": "https://archive.org/details/youtube-KqCYdTtXxrI",
+  "start": 18.2,
+  "dur": 1.5,
+  "note": "柜台"
+ },
+ "v_choc": {
+  "source": "KVVU 8 News Now：See’s Candies 拉斯维加斯新店（2021）",
+  "ia": "https://archive.org/details/youtube-KqCYdTtXxrI",
+  "start": 30.3,
+  "dur": 1.2,
+  "note": "糖块特写"
+ },
+ "v_shelf": {
+  "source": "KVVU 8 News Now：See’s Candies 拉斯维加斯新店（2021）",
+  "ia": "https://archive.org/details/youtube-KqCYdTtXxrI",
+  "start": 68.4,
+  "dur": 2.6,
+  "note": "店内货架"
+ },
+ "v_wall": {
+  "source": "KVVU 8 News Now：See’s Candies 拉斯维加斯新店（2021）",
+  "ia": "https://archive.org/details/youtube-KqCYdTtXxrI",
+  "start": 71.0,
+  "dur": 2.8,
+  "note": "老照片墙"
+ },
+ "v_vintage": {
+  "source": "KVVU 8 News Now：See’s Candies 拉斯维加斯新店（2021）",
+  "ia": "https://archive.org/details/youtube-KqCYdTtXxrI",
+  "start": 74.0,
+  "dur": 1.6,
+  "note": "老照片：早年的喜诗店员"
+ },
+ "v_clerk": {
+  "source": "KVVU 8 News Now：See’s Candies 拉斯维加斯新店（2021）",
+  "ia": "https://archive.org/details/youtube-KqCYdTtXxrI",
+  "start": 80.0,
+  "dur": 3.2,
+  "note": "店员"
+ },
+ "m_box": {
+  "source": "City of Moreno Valley：Business Spotlight – See’s Candy（2016）",
+  "ia": "https://archive.org/details/comvca-Business_Spotlight_See_s_Candy",
+  "start": 5.0,
+  "dur": 3.3,
+  "note": "一盒巧克力"
+ },
+ "m_store": {
+  "source": "City of Moreno Valley：Business Spotlight – See’s Candy（2016）",
+  "ia": "https://archive.org/details/comvca-Business_Spotlight_See_s_Candy",
+  "start": 9.0,
+  "dur": 1.6,
+  "note": "黑白格地砖的店堂"
+ },
+ "m_case": {
+  "source": "City of Moreno Valley：Business Spotlight – See’s Candy（2016）",
+  "ia": "https://archive.org/details/comvca-Business_Spotlight_See_s_Candy",
+  "start": 14.0,
+  "dur": 3.6,
+  "note": "玻璃柜"
+ },
+ "m_counter": {
+  "source": "City of Moreno Valley：Business Spotlight – See’s Candy（2016）",
+  "ia": "https://archive.org/details/comvca-Business_Spotlight_See_s_Candy",
+  "start": 18.0,
+  "dur": 2.1,
+  "note": "顾客在柜台买糖"
+ },
+ "n_boxes": {
+  "source": "KFMB News 8 圣地亚哥：1981 年母亲节送礼新闻",
+  "ia": "https://archive.org/details/youtube-bd0bR2eQypE",
+  "start": 13.6,
+  "dur": 4.6,
+  "note": "1981 年母亲节礼盒"
+ },
+ "n_shop": {
+  "source": "KFMB News 8 圣地亚哥：1981 年母亲节送礼新闻",
+  "ia": "https://archive.org/details/youtube-bd0bR2eQypE",
+  "start": 18.5,
+  "dur": 2.8,
+  "note": "1981 年的喜诗店里"
+ },
+ "a_gift": {
+  "source": "See’s Candies 电视广告（KIRO-TV 西雅图 1988-02-07 播出录像）",
+  "ia": "https://archive.org/details/capture-a-6523",
+  "start": 686.0,
+  "dur": 8.6,
+  "note": "1988 年喜诗广告：送礼"
+ },
+ "a_box": {
+  "source": "See’s Candies 电视广告（KIRO-TV 西雅图 1988-02-07 播出录像）",
+  "ia": "https://archive.org/details/capture-a-6523",
+  "start": 703.6,
+  "dur": 4.4,
+  "note": "1988 年喜诗广告：糖盒与玛丽·喜"
+ },
+ "k_tin": {
+  "source": "卓别林《寻子遇仙记》The Kid（1921，美国公有领域）",
+  "ia": "https://archive.org/details/Brzdac1921",
+  "start": 441.6,
+  "dur": 15.4,
+  "note": "铁盒里挑烟头"
+ },
+ "k_light": {
+  "source": "卓别林《寻子遇仙记》The Kid（1921，美国公有领域）",
+  "ia": "https://archive.org/details/Brzdac1921",
+  "start": 457.8,
+  "dur": 12.0,
+  "note": "挑中一根"
+ },
+ "x_bwb_desk": {
+  "source": "Becoming Warren Buffett（HBO, 2017）片段",
+  "ia": "https://archive.org/details/youtube-pKWN0YFf_14",
+  "start": 262,
+  "dur": 4,
+  "note": "办公室"
+ },
+ "x_bwb_office": {
+  "source": "Becoming Warren Buffett（HBO, 2017）片段",
+  "ia": "https://archive.org/details/youtube-pKWN0YFf_14",
+  "start": 316.5,
+  "dur": 5.5,
+  "note": "办公室"
+ },
+ "f_rows_b": {
+  "source": "Business Insider：See’s Candies Makes 26 Million Pounds of Candy Every Year（2018）",
+  "ia": "https://archive.org/details/youtube-P5St03dAHoo",
+  "start": 66.4,
+  "dur": 2.2,
+  "note": "一排排裹好的巧克力"
  }
 }
