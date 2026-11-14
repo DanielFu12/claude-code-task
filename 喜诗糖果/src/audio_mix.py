@@ -72,8 +72,9 @@ if __name__ == '__main__':
     act = smooth(act, 0.25, 0.9)
     # 重拍附近不闪避
     tt = np.arange(len(act)) * 64 / SR
+    soft = BEATS.get('soft', [])
     for h in BEATS['hits']:
-        act *= 1 - np.exp(-((tt - h) / 1.2) ** 8)
+        act *= 1 - (0.45 if any(abs(h - x) < 0.01 for x in soft) else 1.0) * np.exp(-((tt - h) / 1.2) ** 8)
     gain_db = -13.0 * np.clip(act * 1.4, 0, 1)
     s64 = smooth(sotm[:N // 64 * 64].reshape(-1, 64).max(1), 0.3, 0.8)
     gain_db -= 5.0 * np.clip(s64 * 1.2, 0, 1)            # 原声下配乐再低 5 dB（原声底噪较高，需要更干净的空间）

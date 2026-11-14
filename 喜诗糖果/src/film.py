@@ -35,9 +35,10 @@ def render(i):
     cv.img = cv2.warpAffine(cv.img, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
     cv.glow = cv2.warpAffine(cv.glow, M, (W, H), flags=cv2.INTER_LINEAR)
     if cv.U.any(): cv.U = cv2.warpAffine(cv.U, M, (W, H), flags=cv2.INTER_LINEAR)
+    interlude_dim(cv, t)                  # 幕间：要点卡 → 章节卡连续压暗（v3）
+    takeaway(cv, t)
     chapter_card(cv, t)
     nav(cv, t)
-    takeaway(cv, t)
     follow_pill(cv, t)
     subtitles(cv, t)
     fade = 1.0

@@ -39,6 +39,9 @@ PHOTOS = {
     'munger2': ("Charlie Munger 2.jpg", '芒格'),
     'buffett_munger': ("Buffett and Munger.jpg", '巴菲特与芒格'),
     'buffett_munger2': ("Buffett & Munger.jpg", '巴菲特与芒格'),
+    'costco_ext': ("Costco Wholesale Club.jpg", '下期预告：Costco 门店外景'),
+    'costco_int': ("Costco SSF interior.JPG", '下期预告：Costco 卖场（南旧金山）'),
+    'costco_int2': ("Costco Neihu Warehouse 1st Floor Food Area 20160320b.jpg", '下期预告：Costco 卖场'),
     'brk_meeting_2015': ("Kathy Ireland, Warren Buffett and Bill Gates at the 2015 Berkshire Hathaway Shareholders Meeting.jpg", '2015 股东大会'),
 }
 
@@ -82,6 +85,7 @@ if __name__ == '__main__':
              'sees_balboa', 'sees_modesto', 'brk_meeting_2015']
     order = FIRST + [n for n in PHOTOS if n not in FIRST]
     todo = {n: PHOTOS[n] for n in order if not (os.path.exists(os.path.join(MDIR, n + '.jpg')) and n in credits)}
+    if os.environ.get('ONLY'): todo = {n: v for n, v in todo.items() if n in os.environ['ONLY'].split(',')}   # 只补指定的几张
     # 一次请求取全部元数据（减少 API 调用，避免 429）
     d = api(dict(action='query', titles='|'.join('File:' + fn for fn, _ in todo.values()), prop='imageinfo', iiprop='url|extmetadata|size'))
     norm = {x['to']: x['from'] for x in d['query'].get('normalized', [])}

@@ -32,7 +32,7 @@ for lid, ch, text, say, mood, src in LINES:
             who = '芒格' if so.get('who') == 'munger' else '巴菲特'
             w(f'- `{ts(sg["start"])}` 🔊 **{who}原声**：“{so["en"]}” —— ' + ''.join(c for _, c in so['ph']) +
               f'\n  - 出处：{so.get("srcname", SOT_SRC)}，{"访谈" if so.get("src") == "hbo_munger" else "专访"} {so["ts"]}（切点见 `src/cut_sot.py`、`work/sot/sot.json`）')
-w(f'\n### 片尾\n\n- `{ts(SEG["tease"]["start"])}` {TEASE[0]}')
+w(f'\n### 片尾\n\n- `{ts(SEG["tease"]["start"])}` {TEASE[0]}：{TEASE[1]}' + (f'\n  - 出处：{TEASE[3]}' if len(TEASE) > 3 else ''))
 w('\n## 大师原声（SOT）\n')
 w('片中 4 处直接播放公开采访里的真实原声：芒格 2 处（Kunhardt Film Foundation 公开发布的 HBO 纪录片《Becoming Warren Buffett》芒格完整访谈，'
   'https://archive.org/details/youtube-F6s2HAzMeL0 ，原 YouTube F6s2HAzMeL0），巴菲特 2 处（CNBC Squawk Box 2026-07-15 专访）。'
@@ -55,6 +55,7 @@ w('- 2007 年：销售 $3.83 亿、税前 $8200 万、经营所需资本 $4000 �
 w('- “一般公司要投约 $4 亿”是巴菲特在 2007 年信中举的例子，不是统计数。')
 w('- 2025 年：伯克希尔 2025 年 10-K——约 250 家门店（另有约 100 个季节性网点），主要在加州和美国西部；约一半年收入在第四季度。10-K 不单列喜诗利润。')
 w('- 示意画面（美国西部门店分布、资金循环、储蓄罐、资金分枝、月度柱形状等）均在画面上标注“示意”，不代表真实数据；卓别林《寻子遇仙记》挑烟头的镜头为“烟蒂投资”的示意。')
+w('- Costco 预告：2007 年致股东信（低成本 vs 品牌两种护城河）；Costco 2023-11-29 公告（CEO Craig Jelinek 谈芒格）。')
 w('- 1952 年《我爱露西》：依据喜诗官网大事记（“Lucy Loves See’s”）；片中画面为今日喜诗厨房实拍，不是剧集画面。')
 w('\n## 影像素材\n')
 for k, v in IA.items():
@@ -65,7 +66,8 @@ for k, v in CR.items():
 w('\n## 声音\n')
 w('- 旁白：豆包语音合成 2.0（刘飞音色），逐段整读；离线中文识别逐句回听核对（`src/check_vo.py`、`src/check_lines.py`）。')
 w('- 配乐：本期原创，程序作曲（`src/music.py`，以 F 大调为主、谈判与“做不到的事”转 D 小调，80 BPM，四音主题贯穿），'
-  'FluidSynth + FluidR3 GM 音色库渲染；片名、“13.5 亿”、“芒格把我扳了过来”、片尾 logo 四处重拍；巴菲特原声下只留铺底。')
+  'FluidSynth + FluidR3 GM 音色库渲染。v3：全片统一小节网格，重拍都落在小节线上——片名、“13.5 亿”、“芒格把我扳了过来”、片尾 logo 四处大重拍；'
+  '每章要点卡期间上扬、章节号亮起时重拍；“19 亿”“四倍多”“眼睛”“Costco”处点题；原声下只留铺底。')
 w('- 大师原声：采访原片音轨，80Hz 高通、整段响度对齐旁白，原声下配乐再压低 5 dB。除原声外，不模仿、不合成任何真实人物的声音。')
 open(os.path.join(ROOT, 'docs', 'SOURCES.md'), 'w').write('\n'.join(out) + '\n')
 print('docs/SOURCES.md', len(out), 'lines')

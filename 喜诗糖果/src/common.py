@@ -416,51 +416,76 @@ def nav(cv, t):
                 col=CREAM if cur else (0.55, 0.55, 0.58), a=a)
 
 
+def interlude(t):
+    """章节之间的“幕间”压暗量：从“本章要点”卡出现，经章节卡，到下一章第一句开口前后，整段连续压暗、两头慢慢过渡，
+    中间不再有“亮—黑—卡—黑—卡”的反复（v3）"""
+    m = 0.0
+    for cid, title, en in CHAPTERS:
+        if title is None: continue
+        c0 = CH[cid][0]
+        prev = 'tk_ch%d' % (int(cid[2]) - 1)
+        a0 = CH[prev][0] - 0.15 if prev in CH else c0
+        m = max(m, env(t, a0, c0 + 2.6, 0.5, 0.75))
+    return m
+
+
+def interlude_dim(cv, t):
+    m = interlude(t)
+    if m <= 0.004: return
+    k = 1 - 0.96 * m
+    cv.dim(k); cv.glow *= k; cv.U = (cv.U * k).astype(np.uint8)
+
+
 def takeaway(cv, t):
-    """每章结尾的“本章要点”：巴菲特理念卡"""
+    """每章结尾的“本章要点”：巴菲特理念卡。v3：卡片退场时向上滑走、淡出，把位置让给接上来的章节卡"""
     for k, (num, title, key, desc) in TAKE.items():
         if k not in CH: continue
         t0, t1 = CH[k]
-        a = env(t, t0 - 0.15, t1 + 0.1, 0.35, 0.4)
+        a = env(t, t0 - 0.15, t1 - 0.05, 0.4, 0.45)
         if a <= 0.004: continue
         p = t - t0
-        cv.dim(1 - 0.95 * a); cv.glow *= (1 - 0.95 * a); cv.U = (cv.U * (1 - 0.95 * a)).astype(np.uint8)
-        cv.rrect(90, 640, 990, 1260, 28, (0.05, 0.045, 0.04), a)
-        cv.rrect(90, 640, 990, 1260, 28, GOLD, a * 0.7, fill=False, th=2, glow=0.2)
-        chip(cv, '本章要点 · 巴菲特理念 ' + num, W / 2, 720, 28, a, col=GOLD)
-        cv.text(title, W / 2, 850, 84, 'serif_black', gold=True, a=a * eo(p / 0.5), glow=0.3, scale=1.06 - 0.06 * eo(p / 0.5))
+        q = ei(prog(t, t1 - 0.6, t1 - 0.05))                   # 退场进度
+        dy = -150 * q + 30 * (1 - eo(p / 0.6))                 # 入场轻轻上浮，退场向上滑走
+        cv.rrect(90, 640 + dy, 990, 1260 + dy, 28, (0.05, 0.045, 0.04), a)
+        cv.rrect(90, 640 + dy, 990, 1260 + dy, 28, GOLD, a * 0.7, fill=False, th=2, glow=0.2)
+        chip(cv, '本章要点 · 巴菲特理念 ' + num, W / 2, 720 + dy, 28, a, col=GOLD)
+        cv.text(title, W / 2, 850 + dy, 84, 'serif_black', gold=True, a=a * eo(p / 0.5), glow=0.3, scale=1.06 - 0.06 * eo(p / 0.5))
         import fx
         fl = math.exp(-((p - 0.45) / 0.3) ** 2)
-        if fl > 0.02: fx.flare(cv, W / 2 - 300 + p * 500, 850, a * fl * 0.7, length=640)
+        if fl > 0.02: fx.flare(cv, W / 2 - 300 + p * 500, 850 + dy, a * fl * 0.7, length=640)
         L = 260 * eo((p - 0.3) / 0.6)
-        cv.line((W / 2 - L, 940), (W / 2 + L, 940), GOLD_D, a, 2)
-        cv.text(key, W / 2, 1020, 50, 'serif_semi', col=CREAM, a=a * eo((p - 0.5) / 0.5))
+        cv.line((W / 2 - L, 940 + dy), (W / 2 + L, 940 + dy), GOLD_D, a, 2)
+        cv.text(key, W / 2, 1020 + dy, 50, 'serif_semi', col=CREAM, a=a * eo((p - 0.4) / 0.5))
         for j, ln in enumerate(split_balanced(desc, 'sans_light', 30, 780)):
-            cv.text(ln, W / 2, 1120 + j * 46, 30, 'sans_light', col=(0.75, 0.74, 0.72), a=a * eo((p - 0.9) / 0.5))
+            cv.text(ln, W / 2, 1120 + j * 46 + dy, 30, 'sans_light', col=(0.75, 0.74, 0.72), a=a * eo((p - 0.7) / 0.5))
 
 
 def chapter_card(cv, t):
+    """章节卡（压暗由 interlude_dim 统一负责）。v3：编号光环从要点卡退场处升起；结束时标题向上收起，第一句旁白开口时画面已经亮起"""
     for cid, title, en in CHAPTERS:
         if title is None: continue
-        t0 = CH[cid][0]; t1 = t0 + 2.25
-        a = env(t, t0, t1, 0.2, 0.45)
+        t0 = CH[cid][0]; t1 = t0 + 2.45
+        a = env(t, t0, t1, 0.4, 0.55)
         if a <= 0.004: continue
         p = (t - t0)
+        q = ei(prog(t, t1 - 0.6, t1))
+        dy = -60 * q + 40 * (1 - eo(p / 0.7))
         num = '0' + str(int(cid[2]))
-        cv.dim(1 - 0.9 * a)
         sc = 1 + 0.04 * p
-        cv.text(num, W / 2, 640, int(260 * sc), 'oswald', col=GOLD, a=a * 0.16, mode='add')
-        cv.text(title, W / 2, 900, 78, 'serif_black', gold=True, a=a, reveal=eo(p / 0.7), glow=0.25)
-        L = 300 * eo(p / 0.8)
-        cv.line((W / 2 - L, 990), (W / 2 + L, 990), GOLD_D, a * 0.8, 2)
-        cv.text(en, W / 2, 1040, 28, 'corm', col=GOLD, a=a * eo((p - 0.3) / 0.6), track=0.35)
-        cv.text('第' + '一二三四五六七'[int(cid[2]) - 1] + '章', W / 2, 812, 30, 'sans_light', col=CREAM, a=a * 0.8, track=0.5)
-        import fx                                     # v3：变形宽银幕光晕横扫标题 + 缓转的细环
-        fl = math.exp(-((p - 0.55) / 0.32) ** 2)
-        if fl > 0.02: fx.flare(cv, W / 2 - 380 + p * 520, 900, a * fl * 0.8, length=760)
+        kn = eo((p - 0.45) / 0.45)                      # 要点卡完全离开后，编号与光环才升起
+        cv.text(num, W / 2, 640 + dy, int(260 * sc), 'oswald', col=GOLD, a=a * 0.16 * kn, mode='add')
+        cv.text(title, W / 2, 900 + dy, 78, 'serif_black', gold=True, a=a, reveal=eo((p - 0.5) / 0.7), glow=0.25)
+        L = 300 * eo((p - 0.5) / 0.8)
+        cv.line((W / 2 - L, 990 + dy), (W / 2 + L, 990 + dy), GOLD_D, a * 0.8, 2)
+        cv.text(en, W / 2, 1040 + dy, 28, 'corm', col=GOLD, a=a * eo((p - 0.85) / 0.6), track=0.35)
+        cv.text('第' + '一二三四五六七'[int(cid[2]) - 1] + '章', W / 2, 812 + dy, 30, 'sans_light', col=CREAM, a=a * 0.8 * eo((p - 0.45) / 0.5), track=0.5)
+        import fx                                     # 变形宽银幕光晕横扫标题 + 缓转的细环
+        fl = math.exp(-((p - 1.0) / 0.32) ** 2)
+        if fl > 0.02: fx.flare(cv, W / 2 - 380 + (p - 0.35) * 520, 900 + dy, a * fl * 0.8, length=760)
+        ring = eo((p - 0.45) / 0.6)
         for k in range(3):
             ang = p * (0.5 + k * 0.25) * (1 if k % 2 else -1) + k * 2.1
-            cv.arc((W / 2, 640), 210 + k * 26, ang, ang + 1.6 + 0.4 * k, GOLD if k != 1 else GOLD_D, a * (0.5 - 0.12 * k), 2)
+            if ring > 0: cv.arc((W / 2, 640 + dy), (150 + 60 * ring) + k * 26, ang, ang + (1.6 + 0.4 * k) * ring, GOLD if k != 1 else GOLD_D, a * (0.5 - 0.12 * k) * ring, 2)
 
 
 # ------------------------------------------------------------------ 背景
@@ -513,7 +538,7 @@ def cube(cv, x, y, s, a, col=GOLD, depth=0.45):
 
 # ------------------------------------------------------------------ 片尾：粒子汇聚成官方 logo
 _end = {}
-TEASE_L1, TEASE_L2 = '美国运通', '银行赚 13%，它凭什么赚 30%？'
+TEASE_L1, TEASE_L2 = 'Costco', '喜诗靠品牌，它靠低成本'
 TEASE_Y1, TEASE_Y2 = 735, 845
 
 
@@ -545,6 +570,23 @@ def end_particles():
     return _end['pts']
 
 
+def warehouse(cv, t, cx, cy, a):
+    """仓储卖场线稿（后备画面）：高货架、托盘、顶灯"""
+    if a <= 0.004: return
+    x0, x1, y0, y1 = cx - 480, cx + 480, cy - 260, cy + 260
+    cv.rrect(x0, y0, x1, y1, 6, (0.07, 0.07, 0.08), a)
+    for k in range(5):
+        x = x0 + 80 + k * 200
+        for r in range(4):
+            y = y1 - 40 - r * 110
+            cv.line((x, y), (x + 150, y), C(150, 160, 175), a * 0.7, 3)
+            for b in range(3):
+                cv.rect(x + 8 + b * 48, y - 70, x + 46 + b * 48, y - 6, C(120 + 30 * ((k + r + b) % 3), 110, 90), a * 0.8)
+        cv.line((x, y1 - 20), (x, y0 + 20), C(90, 110, 160), a * 0.9, 4); cv.line((x + 150, y1 - 20), (x + 150, y0 + 20), C(90, 110, 160), a * 0.9, 4)
+    for k in range(6): cv.glow_dot((x0 + 100 + k * 170, y0 + 14), 10, CREAM, a * 0.6)
+    cv.text('示意', x1 - 40, y1 - 24, 20, 'sans_light', col=GREY, a=a, anchor='r')
+
+
 def shot_end(cv, t):
     """片尾：下期预告 → 预告文字化作金色粒子，以官方 logo 透明通道为目标汇聚 → 原始 logo（重拍）
     → 金色「巴芒价值」+「BUFFETT · MUNGER」扫光 → 细金线 → 小字关注语 → 整体淡出（角标保留到最后）"""
@@ -554,16 +596,70 @@ def shot_end(cv, t):
     cx, cy = W / 2, 760
     ts = SEG['tease']['start']
     t_dis = hit - MP.get('dissolve', 1.5)                  # 文字开始化作粒子
-    # 0) 下期预告（与旁白同步）
-    ka = env(t, ts - 0.05, t_dis + 0.15, 0.6, 0.45)          # 上一镜头在 ts 前已淡出，不叠化
-    if ka > 0.004:                                           # 下期预告的画面：东京丸之内街景
-        import media as M
-        pass
+    # 0) 下期预告（与旁白同步，v3：Costco）
+    #    a. 片名“Costco”+ 卖场画面 → b. 2007 年信：两种护城河（品牌 / 成本最低）→ c. Costco 公告：“没有人比查理更爱 Costco”
+    #    → d. 收回到两行预告字，随后化作粒子汇聚成 logo
+    ka = env(t, ts - 0.05, t_dis + 0.15, 0.6, 0.45)
     if ka > 0.004:
-        chip(cv, '下期预告', W / 2, 615, 26, ka, col=GOLD)
-        cv.text(TEASE_L1, W / 2, TEASE_Y1, 76, 'serif_black', gold=True, a=ka, shadow=0.6, glow=0.12)
-        k2 = eo((t - WT('tease', '别的银行') + 0.1) / 0.5)
-        cv.text(TEASE_L2, W / 2, TEASE_Y2, 54, 'serif_semi', col=CREAM, a=ka * k2, shadow=0.6)
+        tm = WT('tease', '举过两种') - 0.2      # 护城河
+        tq = WT('tease', '芒格在')              # 芒格与 Costco
+        te = SEG['tease']['start'] + SEG['tease']['dur']
+        tf = t_dis - 2.0                        # 收回预告字（旁白结束后引语再停一会儿）
+        chip(cv, '下期预告', W / 2, 330, 26, ka, col=GOLD)
+        # a. 片名 + 卖场
+        aa = ka * (1 - eo((t - tm + 0.3) / 0.5))
+        if aa > 0.004:
+            import media as M
+            have = [n for n in ('costco_ext', 'costco_int2') if M.have(n)]
+            if have:
+                M.frame(cv, have[0], t, ts - 0.05, tm + 0.2, cy=640, w=1000, h=562, z0=1.02, z1=1.10, a=aa, fi=0.5, fo=0.4)
+            else:
+                warehouse(cv, t, W / 2, 640, aa)
+            cv.text(TEASE_L1, W / 2, 1060, 110, 'serif_black', gold=True, a=aa, shadow=0.6, glow=0.15)
+            cv.text('芒格最爱的那家仓储超市', W / 2, 1180, 40, 'serif_semi', col=CREAM, a=aa * eo((t - ts - 0.6) / 0.5))
+        # b. 两种护城河
+        ab = ka * eo((t - tm + 0.1) / 0.5) * (1 - eo((t - tq + 0.3) / 0.5))
+        if ab > 0.004:
+            cv.text('2007 年致股东信：两种护城河', W / 2, 450, 36, 'sans_med', col=CREAM, a=ab)
+            kb1 = eo((t - WT('tease', '强大的品牌') + 0.1) / 0.5)
+            kb2 = eo((t - WT('tease', '成本最低') + 0.1) / 0.5)
+            for j, (hd, sub, ex, kk, col) in enumerate([('强大的品牌', 'a powerful world-wide brand', '可口可乐 · 吉列 · 美国运通', kb1, GOLD_L),
+                                                         ('成本最低', 'the low-cost producer', 'GEICO · Costco', kb2, C(150, 200, 255))]):
+                if kk <= 0: continue
+                x = 300 + j * 480
+                cv.rrect(x - 210, 560, x + 210, 1000, 20, (0.06, 0.05, 0.045), ab * kk * 0.92)
+                cv.rrect(x - 210, 560, x + 210, 1000, 20, col, ab * kk * 0.7, fill=False, th=2)
+                cv.text(hd, x, 660, 54, 'serif_black', col=col, a=ab * kk)
+                cv.text(sub, x, 740, 24, 'corm', col=GREY, a=ab * kk)
+                cv.line((x - 140, 790), (x + 140, 790), col, ab * kk * 0.6, 2)
+                cv.text(ex, x, 860, 30, 'sans_med', col=CREAM, a=ab * kk)
+            ks = eo((t - WT('tease', '喜诗走的是') + 0.1) / 0.5)
+            if ks > 0:
+                chip(cv, '喜诗', 300, 1080, 36, ab * ks, col=GOLD_L)
+                cv.text('↑', 300, 1020 + 6 * math.sin(t * 4), 40, 'sans_bold', col=GOLD_L, a=ab * ks)
+            kc = eo((t - WT('tease', '成本最低') - 0.6) / 0.5)
+            if kc > 0:
+                chip(cv, '下期', 780, 1080, 36, ab * kc, col=C(150, 200, 255))
+                cv.text('↑', 780, 1020 + 6 * math.sin(t * 4 + 1), 40, 'sans_bold', col=C(150, 200, 255), a=ab * kc)
+        # c. 芒格与 Costco
+        ac = ka * eo((t - tq + 0.1) / 0.5) * (1 - eo((t - tf + 0.2) / 0.4))
+        if ac > 0.004:
+            import media as M
+            if M.have('costco_int'):
+                M.frame(cv, 'costco_int', t, tq - 0.3, tf + 0.3, cy=650, w=1000, h=562, z0=1.02, z1=1.12, a=ac, fi=0.5, fo=0.4)
+            cv.text('查理·芒格  ·  Costco 董事 25 年以上', W / 2, 1010, 38, 'serif_semi', col=GOLD_L, a=ac)
+            quote_card(cv, 'qcostco', t, WT('tease', 'Costco 说') - 0.3, tf, cy=1215, en_size=40,
+                       cn_size=44, a=ac, typing=0.9, w=900)
+        # d. 两行预告字（随后化作粒子）
+        ad = ka * eo((t - tf) / 0.45)
+        if ad > 0.004:
+            cv.text(TEASE_L1, W / 2, TEASE_Y1, 76, 'serif_black', gold=True, a=ad, shadow=0.6, glow=0.12)
+            cv.text(TEASE_L2, W / 2, TEASE_Y2, 54, 'serif_semi', col=CREAM, a=ad, shadow=0.6)
+        if t < tq + 0.5:
+            src_ = '伯克希尔 2007 年致股东信：“the low-cost producer (GEICO, Costco) or possessing a powerful world-wide brand (Coca-Cola, Gillette, American Express)”'
+        else:
+            src_ = 'Costco 2023-11-29 公告（CEO Craig Jelinek：“No one loved Costco more than Charlie… over the last quarter-century plus.”）'
+        source(cv, src_, ka * (1 - eo((t - tf) / 0.4)), y=1462)
     # 1) 预告文字化作粒子，汇聚成官方 logo
     tx, ty, sx, sy, col, delay, swirl = end_particles()
     if t >= t_dis - 0.1:

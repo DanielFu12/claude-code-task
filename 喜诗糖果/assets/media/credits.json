@@ -69,5 +69,32 @@
   "artist": "Rowanswiki",
   "date": "2010-09-03 19:53:19",
   "desc": "Some Coca-Cola bottles at a grocery store in Alaska, USA."
+ },
+ "costco_ext": {
+  "file": "Costco Wholesale Club.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Costco_Wholesale_Club.jpg",
+  "artist": "Jacob Blanck",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "use": "下期预告：Costco 门店外景",
+  "date": "2021-11-22 15:56:47"
+ },
+ "costco_int": {
+  "file": "Costco SSF interior.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Costco_SSF_interior.JPG",
+  "artist": "BrokenSphere",
+  "license": "CC BY-SA 3.0",
+  "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "use": "下期预告：Costco 卖场（南旧金山）",
+  "date": "Taken on 19 January 2008"
+ },
+ "costco_int2": {
+  "file": "Costco Neihu Warehouse 1st Floor Food Area 20160320b.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Costco_Neihu_Warehouse_1st_Floor_Food_Area_20160320b.jpg",
+  "artist": "玄史生",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "use": "下期预告：Costco 卖场",
+  "date": "Taken on 20 March 2016"
  }
 }

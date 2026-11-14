@@ -178,9 +178,12 @@ def full(cv, name, t, t0, t1, z0=1.04, z1=1.14, focus=(0.5, 0.5), pan=(0, 0, 0, 
 
 def frame(cv, name, t, t0, t1, cy=820, w=1000, h=680, z0=1.02, z1=1.10, focus=(0.5, 0.5), pan=(0, 0, 0, 0), a=1.0,
           fi=0.6, fo=0.6, warm=0.25, sat=0.85, src_t0=0.0, speed=1.0, bg=False, credit=True, cap=None, border=True, bw=False,
-          fit='cover'):
-    """窗口构图：清晰的画面放在中部，背后同一画面虚化放大并压暗"""
+          fit='cover', hold=False):
+    """窗口构图：清晰的画面放在中部，背后同一画面虚化放大并压暗。
+    hold=True：画面本身不淡出（由压在上面的下一段素材淡入完成叠化，中间不掉黑），只有署名文字淡出"""
     al = env(t, t0, t1, fi, fo) * a
+    al_c = al
+    if hold: al = env(t, t0, t1, fi, 0.0) * a
     if al <= 0.004: return 0.0
     r = resolve(name)
     if r != name: name, cap = r, None
@@ -217,8 +220,8 @@ def frame(cv, name, t, t0, t1, cy=820, w=1000, h=680, z0=1.02, z1=1.10, focus=(0
     if border: cv.rrect(x0 - 1, y0 - 1, x0 + w + 1, y0 + h + 1, 2, GOLD_D, al * 0.5, fill=False, th=2)
     if credit:
         txt = (cap + ' · ' if cap else '') + credit_text(name)
-        cv.text(txt, W / 2, y0 + h + 30, 19, 'sans_light', col=(0.62, 0.60, 0.58), a=al * 0.9)
-    return al
+        cv.text(txt, W / 2, y0 + h + 30, 19, 'sans_light', col=(0.62, 0.60, 0.58), a=al_c * 0.9)
+    return al_c
 
 
 def credit_line(cv, name, a, cap=None, y=1700):

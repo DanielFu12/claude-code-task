@@ -39,17 +39,18 @@ LINES = [
      '', '喜诗官网大事记 1952 “Lucy Loves See’s”：Lucille Ball and Vivian Vance visited the See’s Candy Kitchen on La Cienega Boulevard to learn the art of dipping and packing chocolates. Their experience inspired the iconic “Job Switching” episode of “I Love Lucy”'),
     ('c1b', 'ch1', '到 1972 年，喜诗已经是美国西海岸有名的盒装巧克力品牌，开了 167 家店。',
      None, '', '1984 年致股东信表格（1972 年底门店 167 家）；2014 年信：“a legendary West Coast manufacturer and retailer of boxed chocolates”'),
-    ('c1c', 'ch1', '1972 年 1 月 3 日，巴菲特和芒格控制的蓝筹印花公司，买下了喜诗。蓝筹印花后来并入了伯克希尔。',
-     None, '', '1991 年致股东信：“on January 3, 1972, Blue Chip Stamps (then an affiliate of Berkshire and later merged into it) bought control of See’s Candy Shops”；2007 年信'),
     ('c1d', 'ch1', '卖家开价 4000 万美元。不过公司账上有 1000 万多余的现金，所以实际要价是 3000 万。',
      None, '', '1991 年致股东信：“The nominal price… was $40 million. But the company had $10 million of excess cash, and therefore the true offering price was $30 million.”'),
-    ('c1e', 'ch1', '喜诗当时一年税前赚 420 万，税后大约 200 万。可巴菲特和芒格盯着的，是账上那点有形资产。',
-     None, '', '1991 年信（税前 $4.2M）；1983 年信（“earning about $2 million after tax”）；1991 年信（“looked at the company’s mere $7 million of tangible net worth”）'),
-    ('c1g', 'ch1', '多年以后，巴菲特在信里认了错：芒格说它值 3000 万，是对的；倒是他自己，连 2500 万都不太情愿。他说，自己错误的谨慎，差点毁了一笔绝好的收购。',
-     None, '', '2014 年致股东信：“Charlie rightly said it was worth that much. But I didn’t want to pay more than $25 million and wasn’t all that enthusiastic even at that figure… My misguided caution could have scuttled a terrific purchase.”'),
+    ('c1e', 'ch1', '喜诗当时一年税前赚 420 万，税后大约 200 万。可巴菲特的眼睛，还盯在账上那点有形资产上。',
+     None, '', '1991 年信（税前 $4.2M）；1983 年信（“earning about $2 million after tax”）；2014 年信：“A price that was three times net tangible assets made me gulp.”（1991 年信写的是“Charlie and I … looked at the company’s mere $7 million of tangible net worth”，但 2014 年信明确说芒格认为值 3000 万，故本片只说巴菲特，见核实笔记 11.1）'),
+    ('c1c', 'ch1', '卖家最后接受了 2500 万。1972 年 1 月 3 日，巴菲特和芒格控制的蓝筹印花公司，买下了喜诗；蓝筹印花后来并入了伯克希尔。',
+     '卖家最后接受了两千五百万。一九七二年一月三日，巴菲特和芒格控制的蓝筹印花公司，买下了喜诗；蓝筹印花后来并入了伯克希尔。',
+     '', '1991 年致股东信：“Fortunately, the sellers accepted our offer.”“on January 3, 1972, Blue Chip Stamps (then an affiliate of Berkshire and later merged into it) bought control of See’s Candy Shops”；2007 年信'),
     ('c1h', 'ch1', '买下的当天，他们就请原来的执行副总裁查克·哈金斯掌管喜诗。薪酬怎么算，五分钟就谈好了，握手为定，从没写成合同。',
      '买下的当天，他们就请原来的执行副总裁查克哈金斯掌管喜诗。薪酬怎么算，五分钟就谈好了，握手为定，从没写成合同。',
      '', '1991 年致股东信：“we found Chuck Huggins, then See’s executive vice-president, whom we instantly put in charge… conceived in about five minutes and never reduced to a written contract”'),
+    ('c1g', 'ch1', '多年以后，巴菲特在信里认了错：芒格说它值 3000 万，是对的；倒是他自己，连 2500 万都不太情愿。他说，自己错误的谨慎，差点毁了一笔绝好的收购。',
+     None, '', '2014 年致股东信：“Charlie rightly said it was worth that much. But I didn’t want to pay more than $25 million and wasn’t all that enthusiastic even at that figure… My misguided caution could have scuttled a terrific purchase.”'),
 
     # ---------------------------------------------------------------- 第二章：账上看不见的资产
     ('c2a', 'ch2', '那么，比有形资产多付的 1700 万，到底买到了什么？',
@@ -106,8 +107,8 @@ LINES = [
      '', '2007 年致股东信：“we have had to reinvest only $32 million since 1972… pre-tax earnings have totaled $1.35 billion. All of that, except for the $32 million, has been sent to Berkshire (or, in the early years, to Blue Chip).”'),
     ('c4f', 'ch4', '巴菲特说，一般的公司，要把利润从 500 万做到 8200 万，可能得投进 4 亿美元左右的资本。',
      None, '', '2007 年致股东信：“Typically, companies that increase their earnings from $5 million to $82 million require, say, $400 million or so of capital investment”（巴菲特举例，非统计）'),
-    ('c4g', 'ch4', '他把生意比作三种储蓄账户。最好的一种，利率很高，还一年比一年高；不错的一种，利率也可以，但你得不断往里存钱；最糟的一种，利率很低，还要你不停地往里填钱。',
-     None, '', '2007 年致股东信：“think of three types of ‘savings accounts.’ The great one… The good one… Finally, the gruesome account…”'),
+    ('c4g', 'ch4', '他把生意比作三种储蓄账户。最好的一种，利率极高，而且一年比一年高；不错的一种，利率也不错，往后存进去的钱，也能拿到这个利率；最糟的一种，利率太低，还要你不停地往里存钱，拿的还是那点可怜的利息。',
+     None, '', '2007 年致股东信：“think of three types of “savings accounts.” The great one pays an extraordinarily high interest rate that will rise as the years pass. The good one pays an attractive rate of interest that will be earned also on deposits that are added. Finally, the gruesome account both pays an inadequate interest rate and requires you to keep adding money at those disappointing returns.”'),
     ('c4h', 'ch4', '喜诗是第一种。他说，最糟的生意，是长得很快、长大要砸很多钱，最后却赚不到什么钱的生意，比如航空公司。',
      None, '', '2007 年致股东信：“The worst sort of business is one that grows rapidly, requires significant capital to engender the growth, and then earns little or no money. Think airlines.”'),
     ('c4i', 'ch4', '喜诗交出来的钱，伯克希尔交完税，就拿去买别的好生意。巴菲特打了个比方：就像亚当和夏娃，繁衍出了几十亿人。',
@@ -138,14 +139,15 @@ LINES = [
      None, '', '1991 年致股东信：“ownership of See’s has taught us much about the evaluation of franchises. We’ve made significant money in certain common stocks because of the lessons we learned at See’s.”'),
     ('c5j', 'ch5', '他没有在信里点名是哪些股票。芒格在同一段访谈里，把话说得更直接：',
      None, '', 'Kunhardt Film Foundation / HBO《Becoming Warren Buffett》芒格访谈（原声见 SOTS mcoke）'),
-    ('c5k', 'ch5', '2011 年，巴菲特自己也把喜诗和可口可乐，放进了同一个道理里：买进原料，卖出品牌。',
-     None, '', '2011 年致股东信：“‘Buy commodities, sell brands’ has long been a formula for business success. It has produced enormous and sustained profits for Coca-Cola since 1886… we have enjoyed good fortune with this approach at See’s Candy”'),
+    ('c5k', 'ch5', '2011 年，巴菲特在信里写道：“买进大宗商品，卖出品牌”，一直是做生意成功的公式。可口可乐从 1886 年起就靠它赚大钱；规模小一些，喜诗也是。',
+     '二零一一年，巴菲特在信里写道：“买进大宗商品，卖出品牌”，一直是做生意成功的公式。可口可乐从一八八六年起就靠它赚大钱；规模小一些，喜诗也是。', '', '2011 年致股东信：“‘Buy commodities, sell brands’ has long been a formula for business success. It has produced enormous and sustained profits for Coca-Cola since 1886… On a smaller scale, we have enjoyed good fortune with this approach at See’s Candy since we purchased it 40 years ago.”'),
+    ('c5k2', 'ch5', '买进的，是谁都能买到的原料；卖出去的，是顾客认准的那个牌子。', None, '', '本片解读（依据 2011 年信 “Buy commodities, sell brands”）'),
 
     # ---------------------------------------------------------------- 第六章：喜诗做不到的事
     ('c6a', 'ch6', '不过，喜诗也有它做不到的事。', None, '', ''),
     ('c6b', 'ch6', '第一，它长不大。巴菲特承认，他们多次想把喜诗赚的钱，投回糖果生意、扩大规模，大多是白费力气。',
      None, '', '2014 年致股东信：“We would have loved, of course, to intelligently use those funds to expand our candy operation. But our many attempts to do so were largely futile.”'),
-    ('c6c', 'ch6', '第二，它离不开一个地方、一个季节：1991 年，近八成的销售来自加州；利润集中在圣诞前后，夏天还要亏钱。',
+    ('c6c', 'ch6', '第二，它离不开一个地方、一个季节：1991 年，近八成的销售来自加州；利润集中在圣诞前后，2001 年的信里还说，夏天几个月要亏不少钱。',
      None, '', '1991 年致股东信：“Almost 80% of See’s sales come from California”；1984 年信（圣诞季）；2001 年信：“which loses considerable money during the summer months”'),
     ('c6c2', 'ch6', '三十多年后，伯克希尔 2025 年的年报还是这样写：喜诗约有 250 家门店，主要在加州和美国西部；一年大约一半的收入，来自第四季度。',
      '三十多年后，伯克希尔二零二五年的年报还是这样写：喜诗约有两百五十家门店，主要在加州和美国西部；一年大约一半的收入，来自第四季度。',
@@ -201,8 +203,11 @@ SOTS = {
                   ts='4:09'),
 }
 
-TEASE = ('下期：美国运通——银行赚 13%，它凭什么赚 30%', '下期，美国运通。别的银行赚百分之十三，它凭什么赚百分之三十？',
-         '系列片单：可口可乐 → 苹果 → 日本商社 → 谷歌 → 喜诗糖果 → 美国运通')
+TEASE = ('下期：Costco——喜诗靠品牌，它靠低成本',
+         '下期，我们讲 Costco。巴菲特在 2007 年的信里，举过两种护城河：一种是强大的品牌，比如可口可乐；一种是成本最低，比如 Costco。喜诗走的是第一条路。芒格在 Costco 当了二十五年以上的董事，Costco 说：没有人比查理更爱 Costco。',
+         '系列片单：可口可乐 → 苹果 → 日本商社 → 谷歌 → 喜诗糖果 → Costco',
+         '2007 年致股东信：“a formidable barrier such as a company’s being the low-cost producer (GEICO, Costco) or possessing a powerful world-wide brand (Coca-Cola, Gillette, American Express)”；'
+         'Costco 2023-11-29 公告（November Sales Results and the Passing of Long-Time Board Member Charles Munger），CEO Craig Jelinek：“No one loved Costco more than Charlie. The Company benefited greatly from his wisdom over the last quarter-century plus.”')
 
 # 屏幕上出现的原话（英文原句 + 中文翻译 + 出处）——全部来自伯克希尔致股东信原文
 QUOTES = {
@@ -233,13 +238,16 @@ QUOTES = {
                '沃伦，你再想想，你会同意我的。因为你很聪明，而我是对的。', 'Charlie Munger, quoted in the 2014 Letter'),
     'qlessons': ('We’ve made significant money in certain common stocks because of the lessons we learned at See’s.',
                  '因为在喜诗学到的东西，我们后来在一些股票上赚了大钱。', 'Warren Buffett · 1991 Letter to Shareholders'),
-    'qbrands': ('“Buy commodities, sell brands” has long been a formula for business success.', '“买进原料，卖出品牌”，一直是做生意成功的公式。',
+    'qbrands': ('“Buy commodities, sell brands” has long been a formula for business success.', '“买进大宗商品，卖出品牌”，一直是做生意成功的公式。',
                 'Warren Buffett · 2011 Letter to Shareholders'),
     'qfutile': ('our many attempts to do so were largely futile.', '我们多次尝试，大多是白费力气。', 'Warren Buffett · 2014 Letter to Shareholders'),
     'qboss': ('the customer is the boss', '顾客就是老板', 'Warren Buffett · 2020 Letter to Shareholders'),
     'qcandy': ('Don’t mess with my candy.', '别乱动我的糖。', 'Warren Buffett · 2020 Letter to Shareholders'),
     'qeyes': ('I gained a business education about the value of powerful brands that opened my eyes to many other profitable investments.',
               '我上了一堂关于强大品牌价值的课，它让我看到了许多别的赚钱机会。', 'Warren Buffett · 2014 Letter to Shareholders'),
+    'qgood': ('The good one pays an attractive rate of interest that will be earned also on deposits that are added.',
+              '不错的那种账户，利率也不错，往后存进去的钱，也能拿到这个利率。', 'Warren Buffett · 2007 Letter to Shareholders'),
+    'qcostco': ('No one loved Costco more than Charlie.', '没有人比查理更爱 Costco。', 'Craig Jelinek, Costco CEO · Nov 29, 2023'),
     'qtrick': ('investing is to find businesses that are going to earn high returns on capital for an extended period of time.',
                '投资，就是找到能长期赚取很高资本回报的生意。', 'Warren Buffett · CNBC, Jul 15, 2026'),
 }

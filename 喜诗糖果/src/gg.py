@@ -14,6 +14,7 @@ from common import _SAY
 import os
 import media as M
 import fx
+from sot import FADE as SOT_FADE
 
 PAPER = C(236, 228, 210)
 INKD = C(40, 36, 32)
@@ -30,8 +31,9 @@ def first_have(names):
     return None
 
 
-def seq(cv, t, t0, t1, names, cy=560, w=1000, h=420, focus=None, xfade=0.35, cap=None, a=1.0):
-    """多段素材按原速串接（不慢放单个镜头）：每段播放它在 USABLE 里的可用时长，用完换下一段"""
+def seq(cv, t, t0, t1, names, cy=560, w=1000, h=420, focus=None, xfade=0.45, cap=None, a=1.0):
+    """多段素材按原速串接（不慢放单个镜头）：每段播放它在 USABLE 里的可用时长，用完换下一段。
+    v3：段与段之间是真正的叠化——前一段保持不透明，后一段在上面淡入（不再两段同时变淡、中间掉黑）"""
     if not (t0 - 0.1 <= t <= t1 + 0.1): return
     durs = [M.USABLE.get(n, (0, 6))[1] - M.USABLE.get(n, (0, 6))[0] if n in M.USABLE else 6.0 for n in names]
     durs = [max(d, 1.5) for d in durs]
@@ -49,7 +51,8 @@ def seq(cv, t, t0, t1, names, cy=560, w=1000, h=420, focus=None, xfade=0.35, cap
             fc = focus or ((0.56, 0.45) if nm.startswith('c_') and not nm.startswith('c_two') else (0.66, 0.5) if nm.startswith('c_two') else (0.5, 0.5))
             st = M.USABLE.get(nm, (0, 0))[0]
             hh = min(h, 420) if (nm.startswith('c_') and not nm.startswith('c_two')) else h
-            M.frame(cv, nm, t, s0, s1, cy=cy, w=w, h=hh, z0=1.0, z1=1.04, focus=fc, a=a, fi=fi, fo=fo, src_t0=st, speed=1.0, cap=cap)
+            M.frame(cv, nm, t, s0, s1, cy=cy, w=w, h=hh, z0=1.0, z1=1.04, focus=fc, a=a, fi=fi, fo=fo, src_t0=st, speed=1.0, cap=cap,
+                    hold=s1 < t1 - 1e-6)
 
 
 PORTRAIT = {'buffett_2010', 'buffett_2015', 'buffett_ku', 'munger', 'munger2'}      # 人像照片：整幅入窗，不放大成大头像
@@ -322,7 +325,7 @@ def jar(cv, t, cx, by, w, h, fill, a, col=GOLD, label=None, rate=None, arrow_in=
             ph = (t * 0.9 + k / 3) % 1.0
             yy = y0 - 150 + ph * 120
             cv.text('$', cx, yy, 34, 'sans_bold', col=RED, a=a * arrow_in * math.sin(ph * math.pi))
-        cv.text('不断往里存', cx, y0 - 180, 22, 'sans_light', col=RED, a=a * arrow_in)
+        cv.text('往里存钱', cx, y0 - 180, 22, 'sans_light', col=RED, a=a * arrow_in)
     if arrow_out > 0:
         for k in range(4):
             ph = (t * 0.8 + k / 4) % 1.0
@@ -432,7 +435,7 @@ def shot_hook(cv, t):
     t0, t1 = S('h4') - 0.3, CH['title'][0] + 0.1
     a = env(t, t0, t1, 0.4, 0.2)
     if a > 0:
-        seq(cv, t, t0, t1 - 0.2, ['f_rows2', 'f_box', 'f_quality'], h=562, a=a)
+        seq(cv, t, t0, t1 - 0.2, ['f_rows2', 'f_tray'], h=562, a=a)
         big_q(cv, t, '喜诗糖果', 1000, S('h4'), 90, a)
         tag(cv, '“梦想生意的原型”', t, WT('h4', '梦想生意'), W / 2, 1130, 34, GOLD, a)
         big_q(cv, t, '芒格，怎样改变了巴菲特？', 1280, WT('h4', '芒格'), 52, a, col=CREAM)
@@ -460,13 +463,13 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1a', pre=0.1)
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['v_vintage', 'v_wall', 'f_kettle2', 'f_fondant'], h=562, a=a)
+        seq(cv, t, t0, t1, ['v_wall', 'f_kettle2', 'f_fondant'], h=562, a=a)
         tag(cv, '1921 · 洛杉矶', t, WT('c1a', '一九二一年'), W / 2, 950, 30, GOLD, a)
         k = eo((t - WT('c1a', '自家配方') + 0.1) / 0.5)
         if k > 0: candy_box(cv, 300, 1170, 0.55, a * k, lid=1.0)
+        if k > 0: cv.text('自家配方', 300, 1330, 32, 'sans_med', col=GOLD_L, a=a * k)
         k2 = eo((t - WT('c1a', '店员') + 0.1) / 0.5)
         if k2 > 0:
-            cv.text('自家配方', 300, 1330, 32, 'sans_med', col=GOLD_L, a=a * k)
             cv.text('店员亲切热情', 760, 1170, 40, 'serif_semi', col=CREAM, a=a * k2)
             for j in range(5):
                 cv.glow_dot((640 + j * 60, 1250), 8, GOLD_L, a * k2 * (0.6 + 0.4 * math.sin(t * 3 + j)))
@@ -475,13 +478,13 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1a2')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['f_enrober', 'f_hands', 'f_rows_b', 'f_tray'], h=562, a=a, cap='今日喜诗厨房')
+        seq(cv, t, t0, t1, ['f_hands', 'f_rows', 'f_coat'], h=562, a=a, cap='今日喜诗厨房')
         tag(cv, '1952 · 电视喜剧《我爱露西》', t, t0 + 0.3, W / 2, 950, 30, GOLD, a)
         k = eo((t - WT('c1a2', '专门到喜诗的厨房') + 0.1) / 0.5)
         if k > 0:
             cv.text('两位女主角到喜诗厨房', W / 2, 1080, 46, 'serif_semi', col=CREAM, a=a * k)
             cv.text('学蘸巧克力、装糖盒', W / 2, 1150, 46, 'serif_semi', col=CREAM, a=a * k)
-        k2 = eo((t - WT('c1a2', '巧克力流水线') + 0.1) / 0.5)
+        k2 = eo((t - WT('c1a2', '后来拍出了') + 0.1) / 0.5)
         if k2 > 0:
             chip(cv, '→ 巧克力流水线那一集 · “Job Switching”', W / 2, 1280, 28, a * k2, col=GOLD_L)
         source(cv, '喜诗官网大事记 1952 “Lucy Loves See’s”（Lucille Ball 与 Vivian Vance 到 La Cienega 的喜诗厨房学艺）', a, y=1462)
@@ -503,7 +506,9 @@ def shot_ch1(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         k = eo((t - t0 - 0.2) / 0.6)
-        cv.text('1972 年 1 月 3 日', W / 2, 380, 60, 'sans_bold', col=GOLD, a=a * k, glow=0.2)
+        chip(cv, '成交价 $2500 万', W / 2, 330, 30, a * k, col=GOLD_L)
+        k0 = eo((t - WT('c1c', '一九七二年') + 0.1) / 0.5)
+        cv.text('1972 年 1 月 3 日', W / 2, 440, 56, 'sans_bold', col=GOLD, a=a * k0, glow=0.2)
         stamp(cv, 330, 700, 1.0, a * eo((t - WT('c1c', '蓝筹印花') + 0.2) / 0.5), rot=-0.06)
         cv.text('蓝筹印花公司', 330, 860, 30, 'sans_med', col=CREAM, a=a * eo((t - WT('c1c', '蓝筹印花') + 0.2) / 0.5))
         cv.text('巴菲特、芒格与伯克希尔控制', 330, 905, 22, 'sans_light', col=GREY, a=a * eo((t - WT('c1c', '蓝筹印花') + 0.2) / 0.5))
@@ -513,18 +518,18 @@ def shot_ch1(cv, t):
             cv.fillpoly([(620 * kb + 500 * (1 - kb) + 0, 686), (640 * kb + 500 * (1 - kb), 700), (620 * kb + 500 * (1 - kb), 714)], GOLD, a * kb)
             candy_box(cv, 800, 700, 0.62, a * kb, lid=0.0)
             cv.text('喜诗糖果', 800, 860, 30, 'sans_med', col=CREAM, a=a * kb)
-        km = eo((t - WT('c1c', '后来并入') + 0.1) / 0.6)
+        km = eo((t - WT('c1c', '蓝筹印花后来') + 0.1) / 0.6)
         if km > 0:
             cv.line((330, 960), (330, 1060 * km + 960 * (1 - km)), GOLD_D, a, 3)
             chip(cv, '1983 年并入伯克希尔·哈撒韦', W / 2, 1140, 32, a * km, col=GOLD)
-        source(cv, '伯克希尔 1991 年致股东信（成交日 1972-01-03）；1983 年致股东信（蓝筹印花合并）', a, y=1462)
+        source(cv, '伯克希尔 1991 年致股东信（“the sellers accepted our offer”；成交日 1972-01-03）；1983 年致股东信（蓝筹印花合并）', a, y=1462)
     # c1d：名义要价 4000 万 − 多余现金 1000 万 = 实际要价 3000 万
     t0, t1 = win('c1d')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         cv.text('卖家开价', W / 2, 340, 40, 'sans_med', col=CREAM, a=a)
         rows = [('名义要价', '$4000 万', S('c1d') + 0.2, CREAM), ('账上多余现金', '− $1000 万', WT('c1d', '1000'), GREY),
-                ('实际要价', '$3000 万', WT('c1d', '实际要价'), GOLD_L)]
+                ('实际要价', '$3000 万', WT('c1d', '所以'), GOLD_L)]
         for j, (lb, v, ts, col) in enumerate(rows):
             k = eo((t - ts + 0.1) / 0.5)
             if k <= 0: continue
@@ -542,7 +547,7 @@ def shot_ch1(cv, t):
         cv.text('喜诗 · 1972 年', W / 2, 340, 40, 'sans_med', col=CREAM, a=a)
         money(cv, t, S('c1e') + 0.3, '$420 万', 300, 560, 80, a, sub='一年税前利润')
         money(cv, t, WT('c1e', '税后'), '≈ $200 万', 780, 560, 80, a, col=CREAM, sub='税后')
-        k = eo((t - WT('c1e', '有形资产') + 0.1) / 0.5)
+        k = eo((t - WT('c1e', '可巴菲特') + 0.1) / 0.5)
         if k > 0:
             cv.rrect(240, 880, 840, 1240, 14, C(36, 34, 32), a * k * 0.9)
             cv.rrect(240, 880, 840, 1240, 14, GREY, a * k * 0.6, fill=False, th=2)
@@ -550,9 +555,9 @@ def shot_ch1(cv, t):
             for j, (lb, w_) in enumerate([('存货', 0.5), ('厂房与设备', 0.8), ('其他', 0.3)]):
                 y = 1010 + j * 70
                 cv.text(lb, 290, y, 28, 'sans_light', col=CREAM, a=a * k, anchor='l')
-                cv.rect(500, y - 16, 500 + 300 * w_ * eo((t - WT('c1e', '有形资产') - 0.2 - j * 0.2) / 0.5), y + 16, GREY * 0.8, a * k)
+                cv.rect(500, y - 16, 500 + 300 * w_ * eo((t - WT('c1e', '可巴菲特') - 0.2 - j * 0.2) / 0.5), y + 16, GREY * 0.8, a * k)
             cv.text('约 $800 万', W / 2, 1290, 44, 'sans_bold', col=CREAM, a=a * k)
-        source(cv, '伯克希尔 1991 年信（税前 $4.2M）；1983 年信（税后约 $2M、有形净资产约 $8M）', a, y=1462)
+        source(cv, '伯克希尔 1991 年信（税前 $4.2M）；1983 年信（税后约 $2M、有形净资产约 $8M）；2014 年信（“three times net tangible assets made me gulp”）', a, y=1462)
     # c1g：2014 年：芒格说值 3000 万，是对的；我的谨慎差点毁了这笔收购
     t0, t1 = win('c1g')
     a = env(t, t0, t1, 0.4, 0.4)
@@ -579,7 +584,7 @@ def shot_ch1(cv, t):
         qcard(cv, 'qright', t, t0 + 0.3, WT('c1g', '他说') - 0.5 if '他说' in _SAY['c1g'] else t0 + 2, cy=1150, en=34, cn=38)
         source(cv, '伯克希尔 2014 年致股东信（50 周年回顾）', a, y=1462)
     # c1h：查克·哈金斯：当天掌管，五分钟谈好薪酬，握手为定
-    t0, t1 = S('c1h') - 0.3, CH['tk_ch1'][0]
+    t0, t1 = win('c1h')
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
         if not pic(cv, ['sees_hq', 'sees_hq_2025a'], t, t0, t1, cap='喜诗糖果旧金山总部', focus=(0.5, 0.5), pan=(0.0, 0.02, 0.0, -0.02)):
@@ -639,6 +644,8 @@ def shot_ch2(cv, t):
     if a > 0:
         items = [('存货', WT('c2c', '存货')), ('应收账款', WT('c2c', '应收账款')), ('厂房', WT('c2c', '厂房'))]
         ki = 1 - eo((t - WT('c2c', '账上看不见') + 0.3) / 0.4)
+        kh = eo((t - t0 - 0.1) / 0.5) * ki
+        if kh > 0: cv.text('高回报，是从哪来的？', W / 2, 640, 52, 'serif_semi', col=CREAM, a=a * kh)
         for j, (lb, ts) in enumerate(items):
             k = eo((t - ts + 0.1) / 0.4) * ki
             if k <= 0: continue
@@ -650,25 +657,25 @@ def shot_ch2(cv, t):
         kr = eo((t - WT('c2c', '账上看不见') + 0.1) / 0.6)
         if kr > 0:
             seq(cv, t, WT('c2c', '账上看不见') - 0.2, t1, ['n_shop', 'm_counter', 'v_clerk'], h=562, a=a)
-            k2 = eo((t - WT('c2c', '好名声') + 0.1) / 0.5)
+            k2 = eo((t - WT('c2c', '顾客买糖') + 0.1) / 0.5)
             if k2 > 0: cv.text('顾客的好名声', W / 2, 990, 64, 'serif_black', gold=True, a=a * kr * k2, glow=0.25, shadow=0.8)
-        qcard(cv, 'qrep', t, WT('c2c', '好名声') + 0.6, t1, cy=1250, en=26, cn=32, typing=1.0)
+        qcard(cv, 'qrep', t, WT('c2c', '好名声') - 0.2, t1, cy=1250, en=26, cn=32, typing=1.0)
         source(cv, '伯克希尔 1983 年致股东信附录《商誉及其摊销》', a, y=1462)
     # c2d：宁可要喜诗，也不要贵两三倍的糖 → 价格是你付出的，价值是你得到的
     t0, t1 = win('c2d')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['m_box', 'v_choc', 'f_box', 'f_tray'], h=562, a=a)
-        k = eo((t - WT('c2d', '贵两三倍') + 0.1) / 0.5)
-        if k > 0 and t < WT('c2d', '他顺手') - 0.3:
-            ka = k * (1 - eo((t - WT('c2d', '他顺手') + 0.6) / 0.3))
+        seq(cv, t, t0, t1, ['m_box', 'f_tray', 'f_rows2'], h=562, a=a)
+        k = eo((t - WT('c2d', '宁可要喜诗') + 0.1) / 0.5)
+        if k > 0 and t < WT('c2d', '他顺手') + 0.1:
+            ka = k * (1 - eo((t - WT('c2d', '他顺手') + 0.2) / 0.3))
             cv.text('喜诗', 300, 1000, 48, 'serif_semi', col=GOLD_L, a=a * ka)
             cv.text('$', 300, 1100, 60, 'sans_bold', col=CREAM, a=a * ka)
             cv.text('别家', 780, 1000, 48, 'serif_semi', col=CREAM, a=a * ka)
             cv.text('$$ – $$$', 780, 1100, 60, 'sans_bold', col=CREAM, a=a * ka)
             cv.text('>', W / 2, 1050, 90, 'serif_black', gold=True, a=a * ka)
             note(cv, '巴菲特的看法：“we believe”', 1200, a * ka * 0.8, 22)
-        qcard(cv, 'qprice', t, WT('c2d', '他顺手') - 0.2, t1, cy=1150, en=40, cn=44)
+        qcard(cv, 'qprice', t, WT('c2d', '他顺手') + 0.1, t1, cy=1150, en=40, cn=44)
         source(cv, '伯克希尔 1983 年致股东信', a, y=1462)
     # c2e：几乎不需要钱周转：现款买卖、周期短
     t0, t1 = win('c2e')
@@ -718,12 +725,12 @@ def shot_ch3(cv, t):
     t0, t1 = win('c3a')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['v_case', 'm_case', 'v_shelf', 'v_choc'], h=562, a=a)
+        seq(cv, t, t0, t1, ['m_case', 'v_shelf', 'v_clerk'], h=562, a=a)
         qcard(cv, 'qpower', t, WT('c3a', '一个重要的洞察') - 0.2, t1, cy=1150, en=34, cn=40)
         source(cv, '伯克希尔 1991 年致股东信', a, y=1462)
     # c3b–c3e：1984 年原表：磅数、销售额、每磅价格 vs 通胀（以 1972 = 1 为基准）
-    t0, t1 = S('c3b') - 0.3, win('c3e')[1]
-    a = env(t, t0, t1, 0.4, 0.4)
+    t0, t1 = S('c3b') - 0.3, S('c3f') + 0.35
+    a = env(t, t0, t1, 0.4, 0.75)
     if a > 0:
         cv.text('喜诗历年数据 · 1972–1984', W / 2, 320, 36, 'sans_med', col=CREAM, a=a)
         cv.text('BERKSHIRE 1984 LETTER · SEE’S RECAP', W / 2, 362, 22, 'corm', col=GOLD, a=a, track=0.15)
@@ -764,18 +771,22 @@ def shot_ch3(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         seq(cv, t, t0, t1, ['n_boxes', 'n_shop', 'a_gift'], h=562, a=a)
-        cv.text('1984 年 · 圣诞节前的 4 个星期', W / 2, 935, 36, 'sans_med', col=GOLD_L, a=a)
+        kt = eo((t - WT('c3f', '1984') + 0.1) / 0.5)
+        cv.text('1984 年 · 圣诞节前的 4 个星期', W / 2, 935, 36, 'sans_med', col=GOLD_L, a=a * kt)
         k1 = eexp((t - WT('c3f', '40%') + 0.1) / 1.0) if '40%' in _SAY['c3f'] else eexp((t - WT('c3f', '百分之四十') + 0.1) / 1.0)
         k2 = eexp((t - WT('c3f', '75%') + 0.1) / 1.0) if '75%' in _SAY['c3f'] else eexp((t - WT('c3f', '百分之七十五') + 0.1) / 1.0)
         for j, (lb, v, k, col) in enumerate([('全年销量', 40, k1, GOLD * 0.7), ('全年利润', 75, k2, GOLD * 0.95)]):
             cx = 330 + j * 420; cy = 1120; R = 120
-            disc(cv, (cx, cy), R, C(60, 56, 52), a)
+            kd = eo((t - WT('c3f', '圣诞节前') - j * 0.15) / 0.6)
+            if kd <= 0: continue
+            disc(cv, (cx, cy), R * (0.85 + 0.15 * kd), C(60, 56, 52), a * kd)
+            cv.circle((cx, cy), R, GOLD_D, a * kd * 0.6, 2)
             if k > 0:
                 ang1 = -math.pi / 2 + 2 * math.pi * v / 100 * k
                 pts = [(cx, cy)] + [(cx + R * math.cos(-math.pi / 2 + (ang1 + math.pi / 2) * i / 40), cy + R * math.sin(-math.pi / 2 + (ang1 + math.pi / 2) * i / 40)) for i in range(41)]
                 cv.fillpoly(pts, col, a)
                 cv.text(f'{int(round(v * k))}%', cx, cy, 56, 'sans_bold', col=WHITE, a=a, shadow=0.8)
-            cv.text(lb, cx, cy + R + 40, 30, 'sans_med', col=CREAM, a=a)
+            cv.text(lb, cx, cy + R + 40, 30, 'sans_med', col=CREAM, a=a * kd)
         kg = eo((t - WT('c3f', '买来送人') + 0.1) / 0.5)
         if kg > 0:
             note(cv, '画面：1981 年圣地亚哥母亲节新闻；1988 年喜诗电视广告（送礼）。“买来送人”为本片解读', 1385, a * kg * 0.8, 20)
@@ -805,7 +816,7 @@ def shot_ch3(cv, t):
     t0, t1 = win('c3h')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['v_street', 'v_ext', 'm_store'], h=562, a=a, cap='喜诗门店（非阿尔伯克基店）')
+        seq(cv, t, t0, t1, ['v_street', 'v_ext'], h=562, a=a, cap='喜诗门店（非阿尔伯克基店）')
         tag(cv, '1990 · 阿尔伯克基', t, t0 + 0.3, W / 2, 930, 30, GOLD, a)
         tw = WT('c3h', '两百六十三')
         p = eo((t - tw + 0.1) / 1.6)
@@ -882,8 +893,8 @@ def shot_ch4(cv, t):
         cv.text('喜诗的销量（磅）', W / 2, 935, 34, 'sans_med', col=CREAM, a=a)
         rows = [('1972', 16, t0 + 0.3, GOLD * 0.6), ('2007', 31, WT('c4c', '2007') if '2007' in _SAY['c4c'] else t0 + 1.4, GOLD)]
         hbar(cv, t, rows, a, x0=230, x1=800, y0=1050, dy=120, vmax=34, fmt=lambda v: f'{v:.0f} 百万磅', size=38, lab=34, hl=1)
-        k = eo((t - WT('c4c', '2%') + 0.1) / 0.5) if '2%' in _SAY['c4c'] else eo((t - WT('c4c', '百分之二') + 0.1) / 0.5)
-        if k > 0: big_q(cv, t, '35 年，每年只增长约 2%', 1320, WT('c4c', '一年只增长'), 48, a)
+        k = eo((t - WT('c4c', '一年只增长') + 0.4) / 0.5)
+        if k > 0: big_q(cv, t, '35 年，每年只增长约 2%', 1320, WT('c4c', '一年只增长') - 0.3, 48, a)
         source(cv, '伯克希尔 2007 年致股东信：“a growth rate of only 2% annually”', a, y=1462)
     # c4d：2007 年：销售 3.83 亿，税前 8200 万；经营所需资本 4000 万
     t0, t1 = win('c4d')
@@ -896,7 +907,7 @@ def shot_ch4(cv, t):
         if k > 0:
             cv.line((140, 820), (940, 820), GOLD_D, a * k, 2)
             cv.text('经营需要的资本', W / 2, 900, 36, 'sans_med', col=CREAM, a=a * k)
-            money(cv, t, WT('c4d', '只有四千万'), '只有 $4000 万', W / 2, 1060, 96, a, sub='（1972 年为 $800 万）')
+            money(cv, t, WT('c4d', '经营需要的资本') + 0.5, '只有 $4000 万', W / 2, 1060, 96, a, sub='（1972 年为 $800 万）')
         source(cv, '伯克希尔 2007 年致股东信', a, y=1462)
     # c4e：35 年累计税前 13.5 亿，仅 3200 万留作再投入，其余全交伯克希尔
     t0, t1 = win('c4e')
@@ -919,10 +930,10 @@ def shot_ch4(cv, t):
         if ks > 0:
             cv.line((x0 + 9, base + 20), (x0 + 9, base + 120), CREAM, a * ks, 3)
             chip(cv, '留下再投入：$3200 万', x0 + 180, base + 150, 28, a * ks, col=CREAM)
-        kb = eo((t - WT('c4e', '全都交给') + 0.1) / 0.6)
+        kb = eo((t - WT('c4e', '其余的钱') + 0.1) / 0.6)
         if kb > 0:
             for k in range(14):
-                ph = ((t - WT('c4e', '全都交给')) * 0.7 + k / 14) % 1.0
+                ph = ((t - WT('c4e', '其余的钱')) * 0.7 + k / 14) % 1.0
                 x = lerp(300 + (k * 47) % 600, W / 2, ph); y = lerp(800, 1340, eio(ph))
                 cv.glow_dot((x, y), 8, GOLD_L, a * kb * math.sin(ph * math.pi))
             chip(cv, '其余全部交给伯克希尔', W / 2, 1340, 32, a * kb, col=GOLD_L)
@@ -932,7 +943,7 @@ def shot_ch4(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         cv.text('利润从 $500 万做到 $8200 万，要投多少钱？', W / 2, 340, 36, 'sans_med', col=CREAM, a=a)
-        rows = [('喜诗', 32, t0 + 0.4, GOLD_L), ('一般公司（巴菲特举例）', 400, WT('c4f', '四亿') if '四亿' in _SAY['c4f'] else WT('c4f', '4 亿'), C(140, 150, 170))]
+        rows = [('喜诗', 32, t0 + 0.4, GOLD_L), ('一般公司（巴菲特举例）', 400, WT('c4f', '可能得投进'), C(140, 150, 170))]
         vbars(cv, t, [(lb, v, ts, col, None) for lb, v, ts, col in rows], a, x0=200, x1=880, base=1180, hmax=640,
               fmt=lambda v: (f'${v / 100:.1f} 亿'.replace('.0 亿', ' 亿') if v >= 100 else f'${v * 100:,.0f} 万'.replace(',', '')), size=44, lab=28)
         note(cv, '喜诗：1972 年以来追加投入 $3200 万；一般公司为巴菲特举的例子，不是统计数', 1290, a * 0.85, 22)
@@ -942,9 +953,9 @@ def shot_ch4(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         cv.text('三种“储蓄账户”', W / 2, 340, 50, 'serif_semi', col=CREAM, a=a)
-        specs = [('最好的', '利率很高，还逐年升高', WT('c4g', '最好的一种'), GOLD_L, 0.35, 0.0, 1.0, True),
-                 ('不错的', '利率可以，但要不断存钱', WT('c4g', '不错的一种'), GOLD * 0.8, 0.6, 1.0, 0.6, False),
-                 ('最糟的', '利率很低，还要不停填钱', WT('c4g', '最糟的一种'), C(200, 110, 100), 0.8, 1.0, 0.15, False)]
+        specs = [('最好的', '利率极高，还一年比一年高', WT('c4g', '最好的一种'), GOLD_L, 0.35, 0.0, 1.0, True),
+                 ('不错的', '利率不错，新存的钱也拿这个利率', WT('c4g', '不错的一种'), GOLD * 0.8, 0.6, 0.5, 0.6, False),
+                 ('最糟的', '利率太低，还得不停往里存', WT('c4g', '最糟的一种'), C(200, 110, 100), 0.8, 1.0, 0.15, False)]
         for j, (lb, sub, ts, col, fill, ain, aout, rising) in enumerate(specs):
             k = eo((t - ts + 0.1) / 0.5)
             if k <= 0: continue
@@ -958,7 +969,7 @@ def shot_ch4(cv, t):
         if k2 > 0: chip(cv, '航空公司', 860, 1270, 34, a * k2, col=C(220, 130, 120))
         k3 = eo((t - WT('c4h', '长得很快') + 0.1) / 0.5)
         if k3 > 0: chip(cv, '长得快 · 要砸钱 · 不赚钱', 640, 1340, 26, a * k3, col=C(220, 130, 120))
-        source(cv, '伯克希尔 2007 年致股东信（the great / the good / the gruesome；“The worst sort of business is one that grows rapidly, requires significant capital… Think airlines.”）', a, y=1462)
+        source(cv, '伯克希尔 2007 年致股东信：the great（利率极高且逐年升高）/ the good（新存入的钱也按这个利率）/ the gruesome（利率太低还得不停存）；“Think airlines.”', a, y=1462)
     # c4i + c4j：钱拿去买别的好生意（亚当与夏娃）；也是买 BNSF 的一部分本钱
     t0, t1 = S('c4i') - 0.3, win('c4j')[1]
     a = env(t, t0, t1, 0.4, 0.4)
@@ -1040,18 +1051,18 @@ def shot_ch5(cv, t):
             pe = eo((t - WT('c5c', '钱一多') + 0.1) / 1.2)
             pts = [(x0 + (x1 - x0) * u, top + 40 + (base - top - 60) * (u ** 2)) for u in np.linspace(0, max(pe, 0.01), 30)]
             if len(pts) > 1: cv.poly(pts, C(230, 140, 120), a * kc, 4)
-            if pe > 0.95: chip(cv, '钱一多，就不管用了', 640, 760, 30, a * kc, col=C(230, 140, 120))
+            if pe > 0.45: chip(cv, '钱一多，就不管用了', 640, 760, 30, a * kc * eo((pe - 0.45) / 0.3), col=C(230, 140, 120))
             note(cv, '示意', 1210, a * kc * 0.7, 20)
         source(cv, '伯克希尔 2014 年致股东信（“Ben Graham had taught me that technique”）；1989 年致股东信（“cigar butt”）', a, y=1462)
     # c5c2：引入芒格原声（HBO 纪录片访谈）
-    t0, t1 = S('c5c2') - 0.3, S('sot_mlousy') - SEG['sot_mlousy']['lead'] + 0.2
+    t0, t1 = S('c5c2') - 0.3, S('sot_mlousy') - SEG['sot_mlousy']['lead'] - SOT_FADE
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
         k = eo((t - t0) / 0.6)
         cv.text('查理·芒格', W / 2, 640, 96, 'serif_black', gold=True, a=a * k, glow=0.2)
         cv.text('CHARLIE MUNGER', W / 2, 740, 30, 'corm', col=GOLD, a=a * k, track=0.3)
         tag(cv, '纪录片《成为沃伦·巴菲特》（HBO，2017）· 芒格访谈', t, WT('c5c2', '纪录片') if '纪录片' in _SAY['c5c2'] else t0 + 0.5, W / 2, 900, 28, GOLD_L, a)
-        big_q(cv, t, '他怎么回忆喜诗？', 1100, WT('c5c2', '回忆过') if '回忆过' in _SAY['c5c2'] else t0 + 1.5, 56, a, col=CREAM)
+        big_q(cv, t, '他怎么回忆喜诗？', 1100, WT('c5c2', '回忆过') - 0.6, 56, a, col=CREAM)
     # c5d + c5e：2014 年“Charlie Straightens Me Out”→ 蓝图
     t0, t1 = S('c5d') - 0.3, win('c5e')[1]
     a = env(t, t0, t1, 0.4, 0.4)
@@ -1077,7 +1088,7 @@ def shot_ch5(cv, t):
                 cv.line((240, 1030), (840, 1030), GOLD, a * kb * k2, 3)
         source(cv, '伯克希尔 2014 年致股东信，小节“Charlie Straightens Me Out”', a, y=1462)
     # c5g + c5g2：“你很聪明，而我是对的” → 芒格去世，差 33 天满一百岁 → 引入原声
-    t0, t1 = S('c5g') - 0.3, S('sot_munger') - SEG['sot_munger']['lead'] + 0.2
+    t0, t1 = S('c5g') - 0.3, S('sot_munger') - SEG['sot_munger']['lead'] - SOT_FADE
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
         kq = 1 - eo((t - S('c5g2') + 0.3) / 0.4)
@@ -1094,7 +1105,7 @@ def shot_ch5(cv, t):
             k3 = eo((t - WT('c5g2', '二零二六年') + 0.1) / 0.5)
             if k3 > 0:
                 seq(cv, t, WT('c5g2', '二零二六年') - 0.2, t1, ['c_two_c'], cy=1080, h=420)
-                tag(cv, '2026 年 7 月 15 日 · CNBC 专访', t, WT('c5g2', '二零二六年'), W / 2, 1340, 26, GOLD, a)
+                tag(cv, '2026 年 7 月 15 日 · CNBC 专访', t, WT('c5g2', '二零二六年'), W / 2, 1385, 26, GOLD, a)
         source(cv, '伯克希尔 2014 年致股东信；2023 年致股东信（“Charlie Munger died on November 28, just 33 days before his 100th birthday.”）', a, y=1462)
     # c5i：喜诗成了课堂（1991）
     t0, t1 = S('c5i') - 0.3, win('c5i')[1]
@@ -1105,38 +1116,72 @@ def shot_ch5(cv, t):
         qcard(cv, 'qlessons', t, WT('c5i', '靠这些经验') - 0.4, t1, cy=1180, en=30, cn=36)
         source(cv, '伯克希尔 1991 年致股东信', a, y=1462)
     # c5j：他没在信里点名 → 芒格原声
-    t0, t1 = S('c5j') - 0.3, S('sot_mcoke') - SEG['sot_mcoke']['lead'] + 0.2
+    t0, t1 = S('c5j') - 0.3, S('sot_mcoke') - SEG['sot_mcoke']['lead'] - SOT_FADE
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
         big_q(cv, t, '是哪些股票？', 720, S('c5j') + 0.2, 80, a)
         tag(cv, '芒格在同一段访谈里说', t, WT('c5j', '芒格'), W / 2, 920, 30, GOLD_L, a)
-    # c5k：2011 年：买进原料，卖出品牌（可口可乐 · 喜诗）
-    t0, t1 = S('c5k') - 0.3, CH['tk_ch5'][0]
-    a = env(t, t0, t1, 0.4, 0.3)
+    # c5k：2011 年信原文 “Buy commodities, sell brands”（引用的商业公式）→ 可口可乐 1886 年起 → 规模小一些，喜诗也是
+    t0, t1 = S('c5k') - 0.3, win('c5k')[1] + 0.25
+    a = env(t, t0, t1, 0.4, 0.5)
     if a > 0:
-        kp = 1 - eo((t - WT('c5k', '买进原料') + 0.5) / 0.4)
+        tc = WT('c5k', '可口可乐从')
+        kd = 1 - eo((t - tc + 0.2) / 0.5)
+        if kd > 0:
+            doc_page(cv, t, t0, tc + 0.3, 'BERKSHIRE HATHAWAY · 2011 LETTER TO SHAREHOLDERS',
+                     ['“Buy commodities, sell brands” has', 'long been a formula for business', 'success. It has produced enormous',
+                      'and sustained profits for Coca-Cola', 'since 1886…'],
+                     cy=720, w=900, size=34, hl='Buy commodities, sell brands', hl_t=WT('c5k', '买进大宗商品'), a=a * kd)
+            k1 = eo((t - WT('c5k', '买进大宗商品') - 0.3) / 0.5)
+            if k1 > 0: big_q(cv, t, '“买进大宗商品，卖出品牌”', 1180, WT('c5k', '买进大宗商品') + 0.4, 54, a * kd)
+        kp = eo((t - tc + 0.3) / 0.5)
         if kp > 0:
-            photo_win(cv, 'coke_bottles', t, t0, WT('c5k', '买进原料') - 0.1, cap='可口可乐', focus=(0.5, 0.5), a=kp)
-            tag(cv, '喜诗 · 可口可乐', t, t0 + 0.3, W / 2, 950, 30, GOLD, a * kp)
-        k = eo((t - WT('c5k', '买进原料') + 0.3) / 0.5)
-        if k > 0:
-            cv.text('2011 年致股东信', W / 2, 380, 34, 'sans_med', col=CREAM, a=a * k)
-            kr = eo((t - WT('c5k', '买进原料') + 0.1) / 0.6)
-            # 原料 → 品牌
-            for j, (lb, x) in enumerate([('糖 · 可可 · 坚果', 260), ('糖 · 水 · 香料', 820)]):
-                cv.text(lb, x, 560, 30, 'sans_light', col=GREY, a=a * k * kr)
-                cv.text('↓', x, 640, 50, 'sans_bold', col=GOLD_D, a=a * k * kr)
-            kb = eo((t - WT('c5k', '卖出品牌') + 0.1) / 0.6)
-            if kb > 0:
-                candy_box(cv, 260, 820, 0.55, a * k * kb, lid=0.0)
-                cv.text('喜诗', 260, 960, 40, 'serif_black', gold=True, a=a * k * kb)
-                # 自绘玻璃瓶轮廓（不是商标）
-                bx = 820
-                pts = [(bx - 18, 690), (bx + 18, 690), (bx + 22, 740), (bx + 48, 800), (bx + 44, 900), (bx + 50, 940), (bx - 50, 940), (bx - 44, 900), (bx - 48, 800), (bx - 22, 740)]
-                cv.poly(pts + [pts[0]], C(180, 200, 190), a * k * kb, 3)
-                cv.text('可口可乐', 820, 1000, 40, 'serif_black', gold=True, a=a * k * kb)
-            qcard(cv, 'qbrands', t, WT('c5k', '卖出品牌') + 0.6, t1, cy=1210, en=28, cn=34, typing=1.0)
-        source(cv, '伯克希尔 2011 年致股东信（“Buy commodities, sell brands”）', a, y=1462)
+            photo_win(cv, 'coke_bottles', t, tc - 0.3, t1, cap='可口可乐', focus=(0.5, 0.5), a=a)
+            chip(cv, '可口可乐 · 1886 年起', 330, 960, 32, a * kp, col=GOLD_L)
+            ks = eo((t - WT('c5k', '规模小一些') + 0.1) / 0.5)
+            if ks > 0:
+                chip(cv, '喜诗 · 规模小一些，也是', 760, 960, 32, a * ks, col=GOLD)
+                candy_box(cv, 760, 1170, 0.5, a * ks, lid=1.0)
+            k2 = eo((t - WT('c5k', '可口可乐从') - 0.2) / 0.5)
+            if k2 > 0:
+                pts = [(330 - 18, 1080), (330 + 18, 1080), (330 + 22, 1120), (330 + 48, 1170), (330 + 44, 1250), (330 + 50, 1280),
+                       (330 - 50, 1280), (330 - 44, 1250), (330 - 48, 1170), (330 - 22, 1120)]
+                cv.poly(pts + [pts[0]], C(200, 210, 200), a * k2, 3)       # 自绘瓶形轮廓（不是商标）
+        source(cv, '伯克希尔 2011 年致股东信：“Buy commodities, sell brands” has long been a formula for business success… Coca-Cola since 1886… See’s Candy', a, y=1462)
+    # c5k2：本片解读——买进的是谁都能买到的原料，卖出的是顾客认准的牌子（慢一点：原料 → 工厂 → 顾客认准的盒子）
+    t0, t1 = S('c5k2') - 0.25, CH['tk_ch5'][0] + 0.2
+    a = env(t, t0, t1, 0.45, 0.4)
+    if a > 0:
+        cv.text('买进的', 270, 360, 40, 'sans_med', col=GREY, a=a)
+        cv.text('卖出去的', 810, 360, 40, 'sans_med', col=GOLD_L, a=a * eo((t - WT('c5k2', '卖出去的') + 0.1) / 0.5))
+        # 左：一堆没有名字的原料（灰色方块，谁都能买到）
+        rng = np.random.default_rng(3)
+        for i in range(18):
+            x = 170 + (i % 6) * 40 + rng.uniform(-6, 6); y = 760 - (i // 6) * 40 + rng.uniform(-4, 4)
+            ki = eo((t - t0 - 0.2 - i * 0.04) / 0.4)
+            cv.rect(x, y, x + 34, y + 34, C(120, 116, 110), a * ki)
+        cv.text('谁都能买到的原料', 270, 880, 32, 'sans_med', col=CREAM, a=a * eo((t - t0 - 0.5) / 0.5))
+        # 中：箭头流过（金色光点从左往右）
+        kf = eo((t - WT('c5k2', '卖出去的') + 0.6) / 0.6)
+        if kf > 0:
+            cv.line((420, 700), (620, 700), GOLD_D, a * kf, 3)
+            cv.fillpoly([(620, 686), (646, 700), (620, 714)], GOLD_D, a * kf)
+            for k in range(4):
+                ph = ((t - t0) * 0.5 + k / 4) % 1.0
+                cv.glow_dot((420 + 220 * ph, 700), 7, GOLD_L, a * kf * math.sin(ph * math.pi))
+        # 右：顾客认准的那个盒子（喜诗）
+        kb = eo((t - WT('c5k2', '卖出去的') + 0.1) / 0.6)
+        if kb > 0:
+            candy_box(cv, 810, 700, 0.62, a * kb, lid=1.0, glow=0.4)
+            cv.text('顾客认准的那个牌子', 810, 880, 32, 'sans_bold', col=GOLD_L, a=a * kb)
+        kq = eo((t - WT('c5k2', '卖出去的') - 0.9) / 0.6)
+        if kq > 0:
+            cv.rrect(140, 1020, 940, 1280, 18, C(40, 30, 24), a * kq * 0.9)
+            cv.rrect(140, 1020, 940, 1280, 18, GOLD, a * kq * 0.7, fill=False, th=2)
+            cv.text('多付的钱，付给的是“认准”', W / 2, 1110, 44, 'serif_black', gold=True, a=a * kq)
+            cv.text('这就是 1972 年那 1700 万“商誉”背后的东西', W / 2, 1195, 30, 'sans_med', col=CREAM, a=a * kq)
+        note(cv, '本片解读 · 方块为示意', 1385, a * 0.7, 20)
+        source(cv, '依据伯克希尔 2011 年致股东信（“Buy commodities, sell brands”）；1983 年信附录（商誉）', a, y=1462)
 
 
 # ======================================================================== 第六章：喜诗做不到的事
@@ -1185,20 +1230,20 @@ def shot_ch6(cv, t):
                 cv.rect(x, 860 - max(h, 0), x + 24, 860 - min(h, 0), col, aa)
             cv.line((x0 - 10, 860), (x0 + 12 * 34, 860), GREY, aa, 2)
             cv.text('圣诞', x0 + 11 * 34 + 12, 880 + 22, 22, 'sans_light', col=GOLD_L, a=aa)
-            ks = eo((t - WT('c6c', '夏天还要亏钱') + 0.1) / 0.5)
-            if ks > 0: cv.text('夏天亏钱', x0 + 6 * 34 + 12, 930, 24, 'sans_light', col=C(220, 120, 110), a=aa * ks)
+            ks = eo((t - WT('c6c', '夏天几个月') + 0.1) / 0.5)
+            if ks > 0: cv.text('夏天亏钱（2001 年信）', x0 + 6 * 34 + 12, 930, 24, 'sans_light', col=C(220, 120, 110), a=aa * ks)
             note(cv, '月度柱为示意形状，不是实际数据', 1020, aa * 0.8, 20)
     # 二（续）：三十多年后，2025 年 10-K
     k25 = eo((t - S('c6c2') + 0.1) / 0.5)
     k25o = 1 - eo((t - S('c6d') + 0.3) / 0.4)
     if k25 > 0 and k25o > 0:
         aa = a * k25 * k25o
-        seq(cv, t, S('c6c2') - 0.2, S('c6d') - 0.1, ['v_street', 'm_store', 'v_shelf'], cy=760, w=900, h=480, a=aa)
-        cv.text('伯克希尔 2025 年年报（10-K）', W / 2, 1060, 30, 'sans_med', col=GOLD, a=aa)
+        seq(cv, t, S('c6c2') - 0.2, S('c6d') - 0.1, ['v_street', 'v_shelf', 'm_case'], cy=740, w=900, h=480, a=aa)
+        cv.text('伯克希尔 2025 年年报（10-K）', W / 2, 1090, 30, 'sans_med', col=GOLD, a=aa)
         k1_ = eo((t - WT('c6c2', '两百五十家') + 0.1) / 0.5)
-        if k1_ > 0: cv.text('约 250 家门店 · 主要在加州和美国西部', W / 2, 1150, 38, 'sans_bold', col=CREAM, a=aa * k1_)
-        k2_ = eo((t - WT('c6c2', '第四季度') + 0.1) / 0.5)
-        if k2_ > 0: cv.text('一年约一半收入 · 来自第四季度', W / 2, 1230, 38, 'sans_bold', col=GOLD_L, a=aa * k2_)
+        if k1_ > 0: cv.text('约 250 家门店 · 主要在加州和美国西部', W / 2, 1175, 38, 'sans_bold', col=CREAM, a=aa * k1_)
+        k2_ = eo((t - WT('c6c2', '一年大约一半') + 0.1) / 0.5)
+        if k2_ > 0: cv.text('一年约一半收入 · 来自第四季度', W / 2, 1255, 38, 'sans_bold', col=GOLD_L, a=aa * k2_)
     # 三：价值要靠伯克希尔来实现（独立公司 vs 伯克希尔内部调配）
     k3 = eo((t - S('c6d') + 0.1) / 0.5)
     if k3 > 0:
@@ -1234,7 +1279,7 @@ def shot_ch7(cv, t):
     t0, t1 = win('c7a', pre=0.1)
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['v_ext', 'm_store', 'f_quality', 'v_wall'], h=562, a=a)
+        seq(cv, t, t0, t1, ['v_ext', 'v_clerk', 'm_counter', 'v_wall'], h=562, a=a)
         k = eo((t - t0 - 0.2) / 0.6)
         cv.text('100+', 300, 1000, 110, 'oswald', col=GOLD, a=a * k * (1 - eo((t - WT('c7a', '顾客就是老板') + 0.4) / 0.4)), glow=0.2)
         cv.text('年', 300, 1100, 34, 'sans_med', col=CREAM, a=a * k * (1 - eo((t - WT('c7a', '顾客就是老板') + 0.4) / 0.4)))
@@ -1264,12 +1309,22 @@ def shot_ch7(cv, t):
             note(cv, '本片解读（依据 2007 年致股东信）', 1290, a * k2 * 0.8, 20)
         source(cv, '伯克希尔 2007 年致股东信（年增约 2%；“prototype of a dream business”；1972 年以来再投入 $3200 万）', a, y=1462)
     # c7c：引入原声（双人景）
-    t0, t1 = S('c7c') - 0.3, S('sot_trick') - SEG['sot_trick']['lead'] + 0.2
+    t0, t1 = S('c7c') - 0.3, S('sot_trick') - SEG['sot_trick']['lead'] - SOT_FADE
     a = env(t, t0, t1, 0.4, 0.3)
     if a > 0:
         seq(cv, t, t0, t1, ['c_two_b'], h=562)
-        tag(cv, '2026 年 7 月 15 日 · CNBC 专访', t, t0 + 0.3, W / 2, 900, 26, GOLD, a)
-        big_q(cv, t, '同一个道理 ——', 1120, WT('c7c', '同一个道理'), 52, a, col=CREAM)
+        tag(cv, '2026 年 7 月 15 日 · CNBC 专访', t, t0 + 0.3, W / 2, 935, 26, GOLD, a)
+        # 1972 → 2026：同一个道理讲了 54 年
+        kl = eo((t - WT('c7c', '95 岁') + 0.1) / 1.2)
+        if kl > 0:
+            y = 1090
+            cv.line((200, y), (200 + 680 * kl, y), GOLD_D, a, 3)
+            disc(cv, (200, y), 12, GOLD, a); cv.text('1972', 200, y - 46, 34, 'oswald', col=GOLD, a=a)
+            cv.text('买下喜诗', 200, y + 46, 26, 'sans_light', col=CREAM, a=a)
+            if kl > 0.98:
+                disc(cv, (880, y), 12, GOLD_L, a); cv.text('2026', 880, y - 46, 34, 'oswald', col=GOLD_L, a=a)
+                cv.text('95 岁', 880, y + 46, 26, 'sans_light', col=CREAM, a=a)
+        big_q(cv, t, '同一个道理 ——', 1250, WT('c7c', '同一个道理') - 0.3, 52, a, col=CREAM)
     # c7d：500 万的学费 → 看得见品牌价值的眼睛
     t0, t1 = S('c7d') - 0.3, CH['end'][0] + 0.3
     a = env(t, t0, t1, 0.4, 0.5)
