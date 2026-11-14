@@ -646,9 +646,9 @@ def shot_end(cv, t):
         if ac > 0.004:
             import media as M
             if M.have('costco_int'):
-                M.frame(cv, 'costco_int', t, tq - 0.3, tf + 0.3, cy=650, w=1000, h=562, z0=1.02, z1=1.12, a=ac, fi=0.5, fo=0.4)
-            cv.text('查理·芒格  ·  Costco 董事 25 年以上', W / 2, 1010, 38, 'serif_semi', col=GOLD_L, a=ac)
-            quote_card(cv, 'qcostco', t, WT('tease', 'Costco 说') - 0.3, tf, cy=1215, en_size=40,
+                M.frame(cv, 'costco_int', t, tq - 0.3, tf + 0.3, cy=655, w=900, h=506, z0=1.02, z1=1.12, a=ac, fi=0.5, fo=0.4)
+            cv.text('查理·芒格  ·  Costco 董事 25 年以上', W / 2, 990, 38, 'serif_semi', col=GOLD_L, a=ac)
+            quote_card(cv, 'qcostco', t, WT('tease', 'Costco 说') - 0.3, tf, cy=1225, en_size=40,
                        cn_size=44, a=ac, typing=0.9, w=900)
         # d. 两行预告字（随后化作粒子）
         ad = ka * eo((t - tf) / 0.45)

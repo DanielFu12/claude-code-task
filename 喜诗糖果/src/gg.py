@@ -506,7 +506,14 @@ def shot_ch1(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         k = eo((t - t0 - 0.2) / 0.6)
-        chip(cv, '成交价 $2500 万', W / 2, 330, 30, a * k, col=GOLD_L)
+        ks = eo((t - WT('c1c', '蓝筹印花') + 0.7) / 0.45)        # 大数字收起 → 变成顶部小标签
+        if ks < 1:
+            kz = 1 - ks
+            cv.text('$2500', W / 2 + 110, 720, 150, 'oswald', col=GOLD, a=a * k * kz, glow=0.25, anchor='r')
+            cv.text('万', W / 2 + 125, 735, 88, 'sans_bold', col=GOLD, a=a * k * kz, glow=0.25, anchor='l')
+            cv.text('卖家接受了这个价格', W / 2, 850, 34, 'sans_med', col=CREAM, a=a * eo((t - t0 - 0.6) / 0.6) * kz)
+            cv.text('比 3000 万的要价，少了 500 万', W / 2, 910, 26, 'sans_light', col=GREY, a=a * eo((t - t0 - 1.0) / 0.6) * kz)
+        chip(cv, '成交价 $2500 万', W / 2, 330, 30, a * ks, col=GOLD_L)
         k0 = eo((t - WT('c1c', '一九七二年') + 0.1) / 0.5)
         cv.text('1972 年 1 月 3 日', W / 2, 440, 56, 'sans_bold', col=GOLD, a=a * k0, glow=0.2)
         stamp(cv, 330, 700, 1.0, a * eo((t - WT('c1c', '蓝筹印花') + 0.2) / 0.5), rot=-0.06)
