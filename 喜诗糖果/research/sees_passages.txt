@@ -1,0 +1,1435 @@
+
+
+################ 1986.txt
+Our owner-earnings equation does not yield the deceptively precise figures provided by GAAP, since( c) must be a guess - and one sometimes very difficult to make. Despite this problem, we consider the owner earnings figure, not the GAAP figure, to be the relevant item for valuation purposes - both for investors in buying stocks and for managers in buying entire businesses. We agree with Keynes's observation: "I would rather be vaguely right than precisely wrong."
+The approach we have outlined produces "owner earnings" for Company O and Company N that are identical, which means valuations are also identical, just as common sense would tell you should be the case. This result is reached because the sum of (a) and (b) is the same in both columns O and N, and because( c) is necessarily the same in both cases.
+And what do Charlie and I, as owners and managers, believe is the correct figure for the owner earnings of Scott Fetzer? Under current circumstances, we believe ( c) is very close to the "old" company's (b) number of $8.3 million and much below the "new" company's (b) number of $19.9 million. Therefore, we believe that owner earnings are far better depicted by the reported earnings in the O column than by those in the N column. In other words, we feel owner earnings of Scott Fetzer are considerably larger than the GAAP figures that we report.
+That is obviously a happy state of affairs. But calculations of this sort usually do not provide such pleasant news. Most managers probably will acknowledge that they need to spend something more than (b) on their businesses over the longer term just to hold their ground in terms of both unit volume and competitive position. When this imperative exists - that is, when ( c) exceeds (b) - GAAP earnings overstate owner earnings. Frequently this overstatement is substantial. The oil industry has in recent years provided a conspicuous example of this phenomenon. Had most major oil companies spent only (b) each year, they would have guaranteed their shrinkage in real terms.
+All of this points up the absurdity of the "cash flow" numbers that are often set forth in Wall Street reports. These numbers routinely include (a) plus (b) - but do not subtract ( c) . Most sales brochures of investment bankers also feature deceptive presentations of this kind. These imply that the business being offered is the commercial counterpart of the Pyramids - forever state-of-the-art, never needing to be replaced, improved or refurbished. Indeed, if all U.S. corporations were to be offered simultaneously for sale through our leading investment bankers - and if the sales brochures describing them were to be believed - governmental projections of national plant and equipment spending would have to be slashed by 90%.
+"Cash Flow", true, may serve as a shorthand of some utility in descriptions of certain real estate businesses or other enterprises that make huge initial outlays and only tiny outlays thereafter. A company whose only holding is a bridge or an extremely long-lived gas field would be an example. But "cash flow" is meaningless in such businesses as manufacturing, retailing, extractive companies, and utilities because, for them, ( c) is always significant. To be sure, businesses of this kind may in a given year be able to defer capital spending. But over a five- or ten-year period, they must make the investment - or the business decays. 
+Why, then, are "cash flow" numbers so popular today? In answer, we confess our cynicism: we believe these numbers are frequently used by marketers of businesses and securities in attempts to justify the unjustifiable (and thereby to sell what should be the unsalable). When (a) - that is, GAAP earnings - looks by itself inadequate to service debt of a junk bond or justify a foolish stock price, how convenient it becomes for salesmen to focus on (a) + (b). But you shouldn't add (b) without subtracting ( c) : though dentists correctly claim that if you ignore your teeth they'll go away, the same is not true for ( c) . The company or investor believing that the debt-servicing ability or the equity valuation of an enterprise can be measured by totaling (a) and (b) while ignoring ( c) is headed for certain trouble.
+* * *
+ To sum up: in the case of both Scott Fetzer and our other businesses, we feel that (b) on an historical-cost basis - i.e., with both amortization of intangibles and other purchase-price adjustments excluded - is quite close in amount to ( c) . (The two items are not identical, of course. For example, at See's we annually make capitalized expenditures that exceed depreciation by $500,000 to $1 million, simply to hold our ground competitively.) Our conviction about this point is the reason we show our amortization and other purchase-price adjustment items separately in the table on page 8 and is also our reason for viewing the earnings of the individual businesses as reported there as much more closely approximating owner earnings than the GAAP figures.
+ Questioning GAAP figures may seem impious to some. After all, what are we paying the accountants for if it is not to deliver us the "truth" about our business. But the accountants' job is to record, not to evaluate. The evaluation job falls to investors and managers.
+ Accounting numbers, of course, are the language of business and as such are of enormous help to anyone evaluating the worth of a business and tracking its progress. Charlie and I would be lost without these numbers: they invariably are the starting point for us in evaluating our own businesses and those of others. Managers and owners need to remember, however, that accounting is but an aid to business thinking, never a substitute for it.
+---
+
+
+################ 1987.txt
+At Berkshire, however, my appraisal of our operating 
+managers is, if anything, understated. To understand why, first 
+take a look at page 7, where we show the earnings (on an 
+historical-cost accounting basis) of our seven largest non-
+financial units: Buffalo News, Fechheimer, Kirby, Nebraska 
+Furniture Mart, Scott Fetzer Manufacturing Group, See's Candies, 
+and World Book. In 1987, these seven business units had combined 
+operating earnings before interest and taxes of $180 million.
+---
+(000s omitted) 
+ ------------------------------------------
+ Berkshire's Share 
+ of Net Earnings 
+ (after taxes and 
+ Pre-Tax Earnings minority interests)
+ ------------------- -------------------
+ 1987 1986 1987 1986 
+ -------- -------- -------- --------
+Operating Earnings: 
+ Insurance Group: 
+ Underwriting ............... $(55,429) $(55,844) $(20,696) $(29,864) 
+ Net Investment Income ...... 152,483 107,143 136,658 96,440 
+ Buffalo News ................. 39,410 34,736 21,304 16,918 
+ Fechheimer (Acquired 6/3/86) 13,332 8,400 6,580 3,792 
+ Kirby ........................ 22,408 20,218 12,891 10,508 
+ Nebraska Furniture Mart ...... 16,837 17,685 7,554 7,192 
+ Scott Fetzer Mfg. Group ...... 30,591 25,358 17,555 13,354 
+ See's Candies ................ 31,693 30,347 17,363 15,176 
+ Wesco - other than Insurance 6,209 5,542 4,978 5,550 
+ World Book ................... 25,745 21,978 15,136 11,670 
+ Amortization of Goodwill ..... (2,862) (2,555) (2,862) (2,555) 
+ Other Purchase-Price 
+ Accounting Adjustments .... (5,546) (10,033) (6,544) (11,031) 
+ Interest on Debt and 
+ Pre-Payment Penalty ....... (11,474) (23,891) (5,905) (12,213) 
+ Shareholder-Designated 
+ Contributions ............. (4,938) (3,997) (2,963) (2,158) 
+ Other ........................ 22,460 20,770 13,696 8,685 
+ -------- -------- -------- --------
+ Operating Earnings ........... 280,919 195,857 214,745 131,464 
+ Sales of Securities .......... 27,319 216,242 19,807 150,897 
+ -------- -------- -------- --------
+Total Earnings - All Entities .. $308,238 $412,099 $234,552 $282,361 
+ ======== ======== ======== ========
+---
+Charlie and I do not believe in flexible operating budgets, 
+as in "Non-direct expenses can be X if revenues are Y, but must 
+be reduced if revenues are Y - 5%." Should we really cut our news 
+hole at the Buffalo News, or the quality of product and service 
+at See's, simply because profits are down during a given year or 
+quarter? Or, conversely, should we add a staff economist, a 
+corporate strategist, an institutional advertising campaign or 
+something else that does Berkshire no good simply because the 
+money currently is rolling in?
+---
+o Chuck Huggins continues to set new records at See's, just as 
+he has ever since we put him in charge on the day of our purchase 
+some 16 years ago. In 1987, volume hit a new high at slightly 
+Under 25 million pounds. For the second year in a row, moreover, 
+same-store sales, measured in pounds, were virtually unchanged. 
+In case you are wondering, that represents improvement: In each 
+of the previous six years, same-store sales had fallen.
+---
+Although we had a particularly strong 1986 Christmas season, 
+we racked up better store-for-store comparisons in the 1987 
+Christmas season than at any other time of the year. Thus, the 
+seasonal factor at See's becomes even more extreme. In 1987, 
+about 85% of our profit was earned during December.
+---
+Candy stores are fun to visit, but most have not been fun 
+for their owners. From what we can learn, practically no one 
+besides See's has made significant profits in recent years from 
+the operation of candy shops. Clearly, Chuck's record at See's 
+is not due to a rising industry tide. Rather, it is a one-of-a-
+kind performance.
+---
+His achievement requires an excellent product - which we 
+have - but it also requires genuine affection for the customer. 
+Chuck is 100% customer-oriented, and his attitude sets the tone 
+for the rest of the See's organization.
+---
+Here's an example of Chuck in action: At See's we regularly 
+add new pieces of candy to our mix and also cull a few to keep 
+our product line at about 100 varieties. Last spring we selected 
+14 items for elimination. Two, it turned out, were badly missed 
+by our customers, who wasted no time in letting us know what they 
+thought of our judgment: "A pox on all in See's who participated 
+in the abominable decision...;" "May your new truffles melt in 
+transit, may they sour in people's mouths, may your costs go up 
+and your profits go down...;" "We are investigating the 
+possibility of obtaining a mandatory injunction requiring you to 
+supply...;" You get the picture. In all, we received many hundreds of 
+letters.
+---
+See's increased prices only slightly in the last two years. 
+In 1988 we have raised prices somewhat more, though still 
+moderately. To date, sales have been weak and it may be 
+difficult for See's to improve its earnings this year.
+---
+
+
+################ 1989.txt
+(000s omitted) 
+ ----------------------------------------------
+ Berkshire's Share 
+ of Net Earnings 
+ (after taxes and 
+ Pre-Tax Earnings minority interests)
+ ---------------------- ----------------------
+ 1989 1988 1989 1988
+ ---------- ---------- ---------- ----------
+Operating Earnings:
+ Insurance Group:
+ Underwriting ............ $(24,400) $(11,081) $(12,259) $ (1,045)
+ Net Investment Income ... 243,599 231,250 213,642 197,779
+ Buffalo News .............. 46,047 42,429 27,771 25,462
+ Fechheimer ................ 12,621 14,152 6,789 7,720
+ Kirby ..................... 26,114 26,891 16,803 17,842
+ Nebraska Furniture Mart ... 17,070 18,439 8,441 9,099
+ Scott Fetzer 
+ Manufacturing Group .... 33,165 28,542 19,996 17,640
+ See's Candies ............. 34,235 32,473 20,626 19,671
+ Wesco - other than Insurance 13,008 16,133 9,810 10,650
+ World Book ................ 25,583 27,890 16,372 18,021
+ Amortization of Goodwill .. (3,387) (2,806) (3,372) (2,806)
+ Other Purchase-Price 
+ Accounting Charges ........ (5,740) (6,342) (6,668) (7,340)
+ Interest Expense* ......... (42,389) (35,613) (27,098) (23,212)
+ Shareholder-Designated 
+ Contributions .......... (5,867) (4,966) (3,814) (3,217)
+ Other ..................... 23,755 41,059 12,863 27,177
+ ---------- ---------- ---------- ----------
+Operating Earnings .......... 393,414 418,450 299,902 313,441
+Sales of Securities ......... 223,810 131,671 147,575 85,829
+ ---------- ---------- ---------- ----------
+Total Earnings - All Entities $617,224 $550,121 $447,477 $399,270
+---
+This divine assemblage - Borsheim's, The Buffalo News, 
+Fechheimer Bros., Kirby, Nebraska Furniture Mart, Scott Fetzer 
+Manufacturing Group, See's Candies, World Book - is a collection 
+of businesses with economic characteristics that range from good 
+to superb. Its managers range from superb to superb.
+---
+o At See's Candies we had an 8% increase in pounds sold, even 
+though 1988 was itself a record year. Included in the 1989 
+performance were excellent same-store poundage gains, our first 
+in many years.
+---
+Advertising played an important role in this outstanding 
+performance. We increased total advertising expenditures from $4 
+million to $5 million and also got copy from our agency, Hal 
+Riney & Partners, Inc., that was 100% on the money in conveying 
+the qualities that make See's special.
+---
+In our media businesses, such as the Buffalo News, we sell 
+advertising. In other businesses, such as See's, we are buyers. 
+When we buy, we practice exactly what we preach when we sell. At 
+See's, we more than tripled our expenditures on newspaper 
+advertising last year, to the highest percentage of sales that I 
+can remember. The payoff was terrific, and we thank both Hal 
+Riney and the power of well-directed newspaper advertising for 
+this result.
+---
+See's splendid performances have become routine. But there 
+is nothing routine about the management of Chuck Huggins: His 
+daily involvement with all aspects of production and sales 
+imparts a quality-and-service message to the thousands of 
+employees we need to produce and distribute over 27 million 
+pounds of candy annually. In a company with 225 shops and a 
+massive mail order and phone business, it is no small trick to 
+run things so that virtually every customer leaves happy. Chuck 
+makes it look easy.
+---
+Another plug for newspapers: NFM increased its linage in the 
+local paper by over 20% in 1989 - off a record 1988 - and remains 
+the paper's largest ROP advertiser by far. (ROP advertising is 
+the kind printed in the paper, as opposed to that in preprinted 
+inserts.) To my knowledge, Omaha is the only city in which a home 
+furnishings store is the advertising leader. Many retailers cut 
+space purchases in 1989; our experience at See's and NFM would 
+indicate they made a major mistake.
+---
+
+
+################ 1990.txt
+(000s omitted) 
+ -----------------------------------------
+ Berkshire's Share 
+ of Net Earnings 
+ (after taxes and 
+ Pre-Tax Earnings minority interests)
+ ------------------- ------------------- 
+ 1990 1989 1990 1989
+ -------- -------- -------- --------
+Operating Earnings:
+ Insurance Group:
+ Underwriting ................ $(26,647) $(24,400) $(14,936) $(12,259)
+ Net Investment Income ....... 327,048 243,599 282,613 213,642 
+ Buffalo News .................. 43,954 46,047 25,981 27,771 
+ Fechheimer .................... 12,450 12,621 6,605 6,789 
+ Kirby ......................... 27,445 26,114 17,613 16,803 
+ Nebraska Furniture Mart ....... 17,248 17,070 8,485 8,441 
+ Scott Fetzer Manufacturing Group 30,378 33,165 18,458 19,996 
+ See's Candies ................. 39,580 34,235 23,892 20,626 
+ Wesco - other than Insurance .. 12,441 13,008 9,676 9,810 
+ World Book .................... 31,896 25,583 20,420 16,372 
+ Amortization of Goodwill ...... (3,476) (3,387) (3,461) (3,372)
+ Other Purchase-Price 
+ Accounting Charges ......... (5,951) (5,740) (6,856) (6,668)
+ Interest Expense* ............. (76,374) (42,389) (49,726) (27,098)
+ Shareholder-Designated 
+ Contributions .............. (5,824) (5,867) (3,801) (3,814)
+ Other ......................... 58,309 23,755 35,782 12,863 
+ -------- -------- -------- --------
+Operating Earnings .............. 482,477 393,414 370,745 299,902 
+Sales of Securities ............. 33,989 223,810 23,348 147,575 
+ -------- -------- -------- --------
+Total Earnings - All Entities $516,466 $617,224 $394,093 $447,477 
+ ======== ======== ======== ========
+*Excludes interest expense of Scott Fetzer Financial Group and Mutual Savings & Loan. 
+      We refer you also to pages 47-53, where we have rearranged Berkshire's financial data into four segments. These correspond to the way Charlie and I think about the business and should help you more in estimating Berkshire's intrinsic value than consolidated figures would do. Shown on these pages are balance sheets and earnings statements for: (1) our insurance operations, with their major investment positions itemized; (2) our manufacturing, publishing and retailing businesses, leaving aside certain non- operating assets and purchase-price accounting adjustments; (3) our subsidiaries engaged in finance-type operations, which are Mutual Savings and Scott Fetzer Financial; and (4) an all-other category that includes the non-operating assets (primarily marketable securities) held by the companies in segment (2), all purchase- price accounting adjustments, and various assets and debts of the Wesco and Berkshire parent companies. 
+      If you combine the earnings and net worths of these four segments, you will derive totals matching those shown on our GAAP statements. However, I want to emphasize that this four-category presentation does not fall within the purview of our auditors, who in no way bless it.
+---
+o      While Fran Blumkin was helping the Friedman family set records at Borsheim's, her sons, Irv and Ron, along with husband Louie, were setting records at The Nebraska Furniture Mart. Sales at our one-and-only location were $159 million, up 4% from 1989. Though again the fact can't be conclusively proved, we believe NFM does close to double the volume of any other home furnishings store in the country. 
+      The NFM formula for success parallels that of Borsheim's. First, operating costs are rock-bottom - 15% in 1990 against about 40% for Levitz, the country's largest furniture retailer, and 25% for Circuit City Stores, the leading discount retailer of electronics and appliances. Second, NFM's low costs allow the business to price well below all competitors. Indeed, major chains, knowing what they will face, steer clear of Omaha. Third, the huge volume generated by our bargain prices allows us to carry the broadest selection of merchandise available anywhere. 
+      Some idea of NFM's merchandising power can be gleaned from a recent report of consumer behavior in Des Moines, which showed that NFM was Number 3 in popularity among 20 furniture retailers serving that city. That may sound like no big deal until you consider that 19 of those retailers are located in Des Moines, whereas our store is 130 miles away. This leaves customers driving a distance equal to that between Washington and Philadelphia in order to shop with us, even though they have a multitude of alternatives next door. In effect, NFM, like Borsheim's, has dramatically expanded the territory it serves - not by the traditional method of opening new stores but rather by creating an irresistible magnet that employs price and selection to pull in the crowds. 
+      Last year at the Mart there occurred an historic event: I experienced a counterrevelation. Regular readers of this report know that I have long scorned the boasts of corporate executives about synergy, deriding such claims as the last refuge of scoundrels defending foolish acquisitions. But now I know better: In Berkshire's first synergistic explosion, NFM put a See's candy cart in the store late last year and sold more candy than that moved by some of the full-fledged stores See's operates in California. This success contradicts all tenets of retailing. With the Blumkins, though, the impossible is routine.
+---
+o      At See's, physical volume set a record in 1990 - but only barely and only because of good sales early in the year. After the invasion of Kuwait, mall traffic in the West fell. Our poundage volume at Christmas dropped slightly, though our dollar sales were up because of a 5% price increase. 
+      That increase, and better control of expenses, improved profit margins. Against the backdrop of a weak retailing environment, Chuck Huggins delivered outstanding results, as he has in each of the nineteen years we have owned See's. Chuck's imprint on the business - a virtual fanaticism about quality and service - is visible at all of our 225 stores. 
+      One happening in 1990 illustrates the close bond between See's and its customers. After 15 years of operation, our store in Albuquerque was endangered: The landlord would not renew our lease, wanting us instead to move to an inferior location in the mall and even so to pay a much higher rent. These changes would have wiped out the store's profit. After extended negotiations got us nowhere, we set a date for closing the store. 
+      On her own, the store's manager, Ann Filkins, then took action, urging customers to protest the closing. Some 263 responded by sending letters and making phone calls to See's headquarters in San Francisco, in some cases threatening to boycott the mall. An alert reporter at the Albuquerque paper picked up the story. Supplied with this evidence of a consumer uprising, our landlord offered us a satisfactory deal. (He, too, proved susceptible to a counterrevelation.) 
+      Chuck subsequently wrote personal letters of thanks to every loyalist and sent each a gift certificate. He repeated his thanks in a newspaper ad that listed the names of all 263. The sequel: Christmas sales in Albuquerque were up substantially.
+---
+Miscellaneous 
+      Ken Chace has decided not to stand for reelection as a director at our upcoming annual meeting. We have no mandatory retirement age for directors at Berkshire (and won't!), but Ken, at 75 and living in Maine, simply decided to cut back his activities. 
+      Ken was my immediate choice to run the textile operation after Buffett Partnership, Ltd. assumed control of Berkshire early in 1965. Although I made an economic mistake in sticking with the textile business, I made no mistake in choosing Ken: He ran the operation well, he was always 100% straight with me about its problems, and he generated the funds that allowed us to diversify into insurance. 
+      My wife, Susan, will be nominated to succeed Ken. She is now the second largest shareholder of Berkshire and if she outlives me will inherit all of my stock and effectively control the company. She knows, and agrees, with my thoughts on successor management and also shares my view that neither Berkshire nor its subsidiary businesses and important investments should be sold simply because some very high bid is received for one or all. 
+      I feel strongly that the fate of our businesses and their managers should not depend on my health - which, it should be added, is excellent - and I have planned accordingly. Neither my estate plan nor that of my wife is designed to preserve the family fortune; instead, both are aimed at preserving the character of Berkshire and returning the fortune to society. 
+      Were I to die tomorrow, you could be sure of three things: (1) None of my stock would have to be sold; (2) Both a controlling shareholder and a manager with philosophies similar to mine would follow me; and (3) Berkshire's earnings would increase by $1 million annually, since Charlie would immediately sell our corporate jet, The Indefensible (ignoring my wish that it be buried with me). 
+* * * * * * * * * * * * 
+      About 97.3% of all eligible shares participated in Berkshire's 1990 shareholder-designated contributions program. Contributions made through the program were $5.8 million, and 2,600 charities were recipients. 
+      We suggest that new shareholders read the description of our shareholder-designated contributions program that appears on pages 54-55. To participate in future programs, you must make sure your shares are registered in the name of the actual owner, not in the nominee name of a broker, bank or depository. Shares not so registered on August 31, 1991 will be ineligible for the 1991 program. 
+      In addition to the shareholder-designated contributions that Berkshire distributes, managers of our operating businesses make contributions, including merchandise, averaging about $1.5 million annually. These contributions support local charities, such as The United Way, and produce roughly commensurate benefits for our businesses. 
+      However, neither our operating managers nor officers of the parent company use Berkshire funds to make contributions to broad national programs or charitable activities of special personal interest to them, except to the extent they do so as shareholders. If your employees, including your CEO, wish to give to their alma maters or other institutions to which they feel a personal attachment, we believe they should use their own money, not yours. 
+* * * * * * * * * * * * 
+      The annual meeting this year will be held at the Orpheum Theater in downtown Omaha at 9:30 a.m. on Monday, April 29, 1991. Attendance last year grew to a record 1,300, about a 100-fold increase from ten years ago. 
+      We recommend getting your hotel reservations early at one of these hotels: (1) The Radisson-Redick Tower, a small (88 rooms) but nice hotel across the street from the Orpheum; (2) the much larger Red Lion Hotel, located about a five-minute walk from the Orpheum; or (3) the Marriott, located in West Omaha about 100 yards from Borsheim's and a twenty minute drive from downtown. We will have buses at the Marriott that will leave at 8:30 and 8:45 for the meeting, and return after it ends. 
+      Charlie and I always enjoy the meeting, and we hope you can make it. The quality of our shareholders is reflected in the quality of the questions we get: We have never attended an annual meeting anywhere that features such a consistently high level of intelligent, owner-related questions. 
+      An attachment to our proxy material explains how you can obtain the card you will need for admission to the meeting. Because weekday parking can be tight around the Orpheum, we have lined up a number of nearby lots for our shareholders to use. The attachment also contains information about them. 
+      As usual, we will have buses to take you to Nebraska Furniture Mart and Borsheim's after the meeting and to take you to downtown hotels or to the airport later. I hope that you will allow plenty of time to fully explore the attractions of both stores. Those of you arriving early can visit the Furniture Mart any day of the week; it is open from 10 a.m. to 5:30 p.m. on Saturdays, and from noon to 5:30 p.m. on Sundays. While there, stop at the See's Candy cart and see for yourself the dawn of synergism at Berkshire. 
+      Borsheim's normally is closed on Sunday, but we will open for shareholders and their guests from noon to 6 p.m. on Sunday, April 28. At our Sunday opening last year you made Ike very happy: After totaling the day's volume, he suggested to me that we start holding annual meetings quarterly. Join us at Borsheim's even if you just come to watch; it's a show you shouldn't miss. 
+      Last year the first question at the annual meeting was asked by 11-year-old Nicholas Kenner, a third-generation shareholder from New York City. Nicholas plays rough: "How come the stock is down?" he fired at me. My answer was not memorable. 
+      We hope that other business engagements won't keep Nicholas away from this year's meeting. If he attends, he will be offered the chance to again ask the first question; Charlie and I want to tackle him while we're fresh. This year, however, it's Charlie's turn to answer.
+---
+
+
+################ 1991.txt
+(000s omitted)
+ ----------------------------------------------
+ Berkshire's Share 
+ of Net Earnings 
+ (after taxes and 
+ Pre-Tax Earnings minority interests)
+ ---------------------- ---------------------- 
+ 1991 1990 1991 1990
+ ---------- ---------- ---------- ----------
+Operating Earnings:
+ Insurance Group:
+ Underwriting ............ $(119,593) $ (26,647) $ (77,229) $ (14,936)
+ Net Investment Income ... 331,846 327,047 285,173 282,613 
+ H. H. Brown (acquired 7/1/91) 13,616 --- 8,611 --- 
+ Buffalo News .............. 37,113 43,954 21,841 25,981 
+ Fechheimer ................ 12,947 12,450 6,843 6,605 
+ Kirby ..................... 35,726 27,445 22,555 17,613 
+ Nebraska Furniture Mart ... 14,384 17,248 6,993 8,485 
+ Scott Fetzer 
+ Manufacturing Group .... 26,123 30,378 15,901 18,458 
+ See's Candies ............. 42,390 39,580 25,575 23,892 
+ Wesco - other than Insurance 12,230 12,441 8,777 9,676 
+ World Book ................ 22,483 31,896 15,487 20,420 
+ Amortization of Goodwill .. (4,113) (3,476) (4,098) (3,461)
+ Other Purchase-Price 
+ Accounting Charges ..... (6,021) (5,951) (7,019) (6,856)
+ Interest Expense* ......... (89,250) (76,374) (57,165) (49,726)
+ Shareholder-Designated 
+ Contributions .......... (6,772) (5,824) (4,388) (3,801)
+ Other ..................... 77,399 58,310 47,896 35,782 
+ ---------- ---------- ---------- ----------
+Operating Earnings 400,508 482,477 315,753 370,745 
+Sales of Securities 192,478 33,989 124,155 23,348 
+Total Earnings - All Entities $ 592,986 $ 516,466 $ 439,908 $ 394,093
+---
+We've just passed a milestone: Twenty years ago, on January 3, 
+1972, Blue Chip Stamps (then an affiliate of Berkshire and later 
+merged into it) bought control of See's Candy Shops, a West Coast 
+manufacturer and retailer of boxed-chocolates. The nominal price 
+that the sellers were asking - calculated on the 100% ownership we 
+ultimately attained - was $40 million. But the company had $10 
+million of excess cash, and therefore the true offering price was 
+$30 million. Charlie and I, not yet fully appreciative of the value 
+of an economic franchise, looked at the company's mere $7 million 
+of tangible net worth and said $25 million was as high as we would 
+go (and we meant it). Fortunately, the sellers accepted our offer.
+---
+The sales of trading stamps by Blue Chip thereafter declined 
+from $102.5 million in 1972 to $1.2 million in 1991. But See's 
+candy sales in the same period increased from $29 million to $196 
+million. Moreover, profits at See's grew even faster than sales, 
+from $4.2 million pre-tax in 1972 to $42.4 million last year.
+---
+For an increase in profits to be evaluated properly, it must 
+be compared with the incremental capital investment required to 
+produce it. On this score, See's has been astounding: The company 
+now operates comfortably with only $25 million of net worth, which 
+means that our beginning base of $7 million has had to be 
+supplemented by only $18 million of reinvested earnings. Meanwhile, 
+See's remaining pre-tax profits of $410 million were distributed to 
+Blue Chip/Berkshire during the 20 years for these companies to 
+deploy (after payment of taxes) in whatever way made most sense.
+---
+In our See's purchase, Charlie and I had one important 
+insight: We saw that the business had untapped pricing power. 
+Otherwise, we were lucky twice over. First, the transaction was not 
+derailed by our dumb insistence on a $25 million price. Second, we 
+found Chuck Huggins, then See's executive vice-president, whom we 
+instantly put in charge. Both our business and personal experiences 
+with Chuck have been outstanding. One example: When the purchase 
+was made, we shook hands with Chuck on a compensation arrangement - 
+conceived in about five minutes and never reduced to a written 
+contract - that remains unchanged to this day.
+---
+In 1991, See's sales volume, measured in dollars, matched that 
+of 1990. In pounds, however, volume was down 4%. All of that 
+slippage took place in the last two months of the year, a period 
+that normally produces more than 80% of annual profits. Despite the 
+weakness in sales, profits last year grew 7%, and our pre-tax 
+profit margin was a record 21.6%.
+---
+Almost 80% of See's sales come from California and our 
+business clearly was hurt by the recession, which hit the state 
+with particular force late in the year. Another negative, however, 
+was the mid-year initiation in California of a sales tax of 7%-8«% 
+(depending on the county involved) on "snack food" that was deemed 
+applicable to our candy.
+---
+Charlie and I have many reasons to be thankful for our 
+association with Chuck and See's. The obvious ones are that we've 
+earned exceptional returns and had a good time in the process. 
+Equally important, ownership of See's has taught us much about the 
+evaluation of franchises. We've made significant money in certain 
+common stocks because of the lessons we learned at See's.
+---
+As usual, we will have buses to take you to Nebraska Furniture 
+Mart and Borsheim's after the meeting and to take you from there to 
+downtown hotels or the airport later. I hope that you will allow 
+plenty of time to fully explore the attractions of both stores. 
+Those of you arriving early can visit the Furniture Mart any day of 
+the week; it is open from 10 a.m. to 5:30 p.m. on Saturdays and 
+from noon to 5:30 p.m. on Sundays. While there, stop at the See's 
+Candy Cart and find out for yourself why Americans ate 26 million 
+pounds of See's products last year.
+---
+
+
+################ 1992.txt
+(000s omitted)
+ -----------------------------------------------
+ Berkshire's Share 
+ of Net Earnings 
+ (after taxes and 
+ Pre-Tax Earnings minority interests)
+ ---------------------- ---------------------- 
+ 1992 1991 1992 1991
+ ---------- ---------- ---------- ----------
+Operating Earnings:
+ Insurance Group:
+ Underwriting ............ $(108,961) $(119,593) $ (71,141) $ (77,229)
+ Net Investment Income.... 355,067 331,846 305,763 285,173 
+ H. H. Brown (acquired 7/1/91) 27,883 13,616 17,340 8,611 
+ Buffalo News .............. 47,863 37,113 28,163 21,841 
+ Fechheimer ................ 13,698 12,947 7,267 6,843 
+ Kirby ..................... 35,653 35,726 22,795 22,555 
+ Nebraska Furniture Mart ... 17,110 14,384 8,072 6,993 
+ Scott Fetzer 
+ Manufacturing Group .... 31,954 26,123 19,883 15,901 
+ See's Candies ............. 42,357 42,390 25,501 25,575 
+ Wesco - other than Insurance 15,153 12,230 9,195 8,777 
+ World Book ................ 29,044 22,483 19,503 15,487 
+ Amortization of Goodwill .. (4,702) (4,113) (4,687) (4,098)
+ Other Purchase-Price 
+ Accounting Charges ..... (7,385) (6,021) (8,383) (7,019)
+ Interest Expense* ......... (98,643) (89,250) (62,899) (57,165)
+ Shareholder-Designated 
+ Contributions .......... (7,634) (6,772) (4,913) (4,388)
+ Other ..................... 72,223 77,399 36,267 47,896 
+ ---------- ---------- ---------- ----------
+Operating Earnings .......... 460,680 400,508 347,726 315,753 
+Sales of Securities ......... 89,937 192,478 59,559 124,155 
+ ---------- ---------- ---------- ----------
+Total Earnings - All Entities $ 550,617 $ 592,986 $ 407,285 $ 439,908 
+ ========== ========== ========== ==========
+---
+As usual, we will have buses to take you to Nebraska Furniture 
+Mart and Borsheim's after the meeting and to take you from there to 
+downtown hotels or the airport later. I hope that you will allow 
+plenty of time to fully explore the attractions of both stores. 
+Those of you arriving early can visit the Furniture Mart any day of 
+the week; it is open from 10 a.m. to 5:30 p.m. on Saturdays and 
+from noon to 5:30 p.m. on Sundays. While there, stop at the See's 
+Candy Cart and find out for yourself why Charlie and I are a good 
+bit wider than we were back in 1972 when we bought See's.
+---
+Borsheim's normally is closed on Sunday but will be open for 
+shareholders and their guests from noon to 6 p.m. on Sunday, April 
+25. Charlie and I will be in attendance, sporting our jeweler's 
+loupes, and ready to give advice about gems to anyone foolish 
+enough to listen. Also available will be plenty of Cherry Cokes, 
+See's candies, and other lesser goodies. I hope you will join us.
+---
+
+
+################ 1993.txt
+Operating Earnings:
+ Insurance Group:
+ Underwriting ............... $ 30,876 $(108,961) $ 20,156 $(71,141) 
+ Net Investment Income ...... 375,946 355,067 321,321 305,763 
+ H. H. Brown, Lowell, 
+ and Dexter ............... 44,025* 27,883 28,829 17,340 
+ Buffalo News ................. 50,962 47,863 29,696 28,163 
+ Commercial & Consumer Finance 22,695 19,836 14,161 12,664 
+ Fechheimer ................... 13,442 13,698 6,931 7,267 
+ Kirby ........................ 39,147 35,653 25,056 22,795 
+ Nebraska Furniture Mart ...... 21,540 17,110 10,398 8,072 
+ Scott Fetzer Manufacturing Group 38,196 31,954 23,809 19,883 
+ See's Candies ................ 41,150 42,357 24,367 25,501 
+ World Book ................... 19,915 29,044 13,537 19,503 
+ Purchase-Price Accounting & 
+ Goodwill Charges ......... (17,033) (12,087) (13,996) (13,070) 
+ Interest Expense** ........... (56,545) (98,643) (35,614) (62,899)
+ Shareholder-Designated 
+ Contributions ............ (9,448) (7,634) (5,994) (4,913) 
+ Other ........................ 28,428 67,540 15,094 32,798 
+ ---------- ---------- -------- -------- 
+Operating Earnings ............. 643,296 460,680 477,751 347,726 
+Sales of Securities ............ 546,422 89,937 356,702 59,559 
+Tax Accruals Caused by 
+ New Accounting Rules ........ --- --- (146,332) --- 
+ ---------- ---------- -------- --------
+Total Earnings - All Entities .. $1,189,718 $ 550,617 $688,121 $407,285
+---
+In assessing risk, a beta purist will disdain examining what a 
+company produces, what its competitors are doing, or how much 
+borrowed money the business employs. He may even prefer not to 
+know the company's name. What he treasures is the price history of 
+its stock. In contrast, we'll happily forgo knowing the price 
+history and instead will seek whatever information will further our 
+understanding of the company's business. After we buy a stock, 
+consequently, we would not be disturbed if markets closed for a 
+year or two. We don't need a daily quote on our 100% position in 
+See's or H. H. Brown to validate our well-being. Why, then, should 
+we need a quote on our 7% interest in Coke?
+---
+This year the Annual Meeting will be held at the Orpheum 
+Theater in downtown Omaha at 9:30 a.m. on Monday, April 25, 1994. 
+A record 2,200 people turned up for the meeting last year, but the 
+theater can handle many more. We will have a display in the lobby 
+featuring many of our consumer products - candy, spray guns, shoes, 
+cutlery, encyclopedias, and the like. Among my favorites slated to 
+be there is a See's candy assortment that commemorates Mrs. B's 
+100th birthday and that features her picture, rather than Mrs. 
+See's, on the package.
+---
+
+
+################ 1994.txt
+Operating Earnings:
+ Insurance Group:
+ Underwriting ............... $129,926 $ 30,876 $ 80,860 $ 20,156 
+ Net Investment Income ...... 419,422 375,946 350,453 321,321 
+ Buffalo News ................. 54,238 50,962 31,685 29,696 
+ Fechheimer ................... 14,260 13,442 7,107 6,931 
+ Finance Businesses ........... 21,568 22,695 14,293 14,161 
+ Kirby ........................ 42,349 39,147 27,719 25,056 
+ Nebraska Furniture Mart ...... 17,356 21,540 8,652 10,398 
+ Scott Fetzer Manufacturing Group 39,435 38,196 24,909 23,809 
+ See's Candies ................ 47,539 41,150 28,247 24,367 
+ Shoe Group ................... 85,503 44,025* 55,750 28,829 
+ World Book ................... 24,662 19,915 17,275 13,537 
+ Purchase-Price Premium Charges (22,595) (17,033) (19,355) (13,996)
+ Interest Expense** ........... (60,111) (56,545) (37,264) (35,614)
+ Shareholder-Designated 
+ Contributions ............. (10,419) (9,448) (6,668) (5,994) 
+ Other ........................ 36,232 28,428 22,576 15,094 
+ -------- -------- -------- -------- 
+Operating Earnings ............. 839,365 643,296 606,239 477,751 
+Sales of Securities ............ 91,332 546,422 61,138 356,702 
+Decline in Value of 
+ USAir Preferred Stock ..... (268,500) --- (172,579) ---
+Tax Accruals Caused by 
+ New Accounting Rules ...... --- --- --- (146,332) 
+ -------- --------- -------- --------
+Total Earnings - All Entities .. $662,197 $1,189,718 $494,798 $688,121 
+ ======== ========= ======== ========
+---
+Given the risks we accept, Ajit and I constantly focus on our 
+"worst case," knowing, of course, that it is difficult to judge 
+what this is, since you could conceivably have a Long Island 
+hurricane, a California earthquake, and Super Cat X all in the same 
+year. Additionally, insurance losses could be accompanied by non-
+insurance troubles. For example, were we to have super-cat losses 
+from a large Southern California earthquake, they might well be 
+accompanied by a major drop in the value of our holdings in See's, 
+Wells Fargo and Freddie Mac.
+---
+We purchased National Indemnity in 1967, See's in 1972, 
+Buffalo News in 1977, Nebraska Furniture Mart in 1983, and Scott 
+Fetzer in 1986 because those are the years they became available 
+and because we thought the prices they carried were acceptable. In 
+each case, we pondered what the business was likely to do, not what 
+the Dow, the Fed, or the economy might do. If we see this approach 
+as making sense in the purchase of businesses in their entirety, 
+why should we change tack when we are purchasing small pieces of 
+wonderful businesses in the stock market?
+---
+Before looking at new investments, we consider adding to old 
+ones. If a business is attractive enough to buy once, it may well 
+pay to repeat the process. We would love to increase our economic 
+interest in See's or Scott Fetzer, but we haven't found a way to 
+add to a 100% holding. In the stock market, however, an investor 
+frequently gets the chance to increase his economic interest in 
+businesses he knows and likes. Last year we went that direction by 
+enlarging our holdings in Coca-Cola and American Express.
+---
+
+
+################ 1995.txt
+(in millions)
+ ---------------------------------------
+ Berkshire's Share 
+ of Net Earnings 
+ (after taxes and 
+ Pre-Tax Earnings minority interests)
+ ------------------ ------------------
+ 1995 1994 1995 1994 
+ -------- -------- -------- --------
+Operating Earnings:
+ Insurance Group:
+ Underwriting ............... $ 20.5 $129.9 $ 11.3 $ 80.9
+ Net Investment Income ...... 501.6 419.4 417.7 350.5 
+ Buffalo News ................. 46.8 54.2 27.3 31.7 
+ Fechheimer ................... 16.9 14.3 8.8 7.1 
+ Finance Businesses ........... 20.8 22.1 12.6 14.6 
+ Home Furnishings ............. 29.7(1) 17.4 16.7(1) 8.7 
+ Jewelry ...................... 33.9(2) ---(3) 19.1(2) ---(3)
+ Kirby ........................ 50.2 42.3 32.1 27.7 
+ Scott Fetzer Manufacturing Group 34.1 39.5 21.2 24.9 
+ See's Candies ................ 50.2 47.5 29.8 28.2 
+ Shoe Group ................... 58.4 85.5 37.5 55.8 
+ World Book ................... 8.8 24.7 7.0 17.3 
+ Purchase-Price Premium Charges (27.0) (22.6) (23.4) (19.4) 
+ Interest Expense(4) .......... (56.0) (60.1) (34.9) (37.3)
+ Shareholder-Designated
+ Contributions ............ (11.6) (10.4) (7.0) (6.7) 
+ Other ........................ 37.4 35.7 24.4 22.3 
+ -------- -------- -------- -------- 
+Operating Earnings ............. 814.7 839.4 600.2 606.2 
+Sales of Securities ............ 194.1 91.3 125.0 61.1 
+Decline in Value of 
+ USAir Preferred Stock ...... --- (268.5) --- (172.6)
+ --------- -------- -------- --------
+Total Earnings - All Entities $1,008.8 $662.2 $725.2 $494.8 
+ ========= ======== ======== ========
+---
+
+
+################ 1996.txt
+I have mentioned that a mega-catastrophe might cause a catastrophe in 
+the financial markets, a possibility that is unlikely but not far-fetched. 
+Were the catastrophe a quake in California of sufficient magnitude to tap 
+our coverage, we would almost certainly be damaged in other ways as well. 
+For example, See's, Wells Fargo and Freddie Mac could be hit hard. All in 
+all, though, we can handle this aggregation of exposures.
+---
+(in millions) 
+ --------------------------------------
+ Berkshire's Share
+ of Net Earnings 
+ (after taxes and 
+ Pre-tax Earnings minority interests) 
+ ---------------- -------------------
+ 1996 1995(1) 1996 1995(1) 
+ ------- -------- ------- -------
+Operating Earnings:
+ Insurance Group:
+ Underwriting.....................$ 222.1 $ 20.5 $ 142.8 $ 11.3 
+ Net Investment Income............ 726.2 501.6 593.1 417.7 
+ Buffalo News........................... 50.4 46.8 29.5 27.3 
+ Fechheimer............................. 17.3 16.9 9.3 8.8 
+ Finance Businesses..................... 23.1 20.8 14.9 12.6 
+ Home Furnishings....................... 43.8 29.7(2) 24.8 16.7(2) 
+ Jewelry................................ 27.8 33.9(3) 16.1 19.1(3) 
+ Kirby.................................. 58.5 50.2 39.9 32.1 
+ Scott Fetzer Manufacturing Group....... 50.6 34.1 32.2 21.2 
+ See's Candies.......................... 51.9 50.2 30.8 29.8 
+ Shoe Group............................. 61.6 58.4 41.0 37.5 
+ World Book............................. 12.6 8.8 9.5 7.0 
+ Purchase-Accounting Adjustments........ (75.7) (27.0) (70.5) (23.4) 
+ Interest Expense(4).................... (94.3) (56.0) (56.6) (34.9) 
+ Shareholder-Designated Contributions... (13.3) (11.6) (8.5) (7.0) 
+ Other.................................. 58.8 37.4 34.8 24.4 
+ ------- -------- -------- -------
+Operating Earnings.......................1,221.4 814.7 883.1 600.2 
+Sales of Securities......................2,484.5 194.1 1,605.5 125.0 
+ ------- -------- -------- -------
+Total Earnings - All Entities...........$3,705.9 $1,008.8 $2,488.6 $ 725.2 
+ ======= ======== ======== =======
+---
+Obviously all businesses change to some extent. Today, See's is 
+different in many ways from what it was in 1972 when we bought it: It 
+offers a different assortment of candy, employs different machinery and 
+sells through different distribution channels. But the reasons why 
+people today buy boxed chocolates, and why they buy them from us rather 
+than from someone else, are virtually unchanged from what they were in 
+the 1920s when the See family was building the business. Moreover, these 
+motivations are not likely to change over the next 20 years, or even 50.
+---
+Overcoming our legendary repugnance for activities even faintly 
+commercial, we will also have an abundant array of Berkshire products for 
+sale in the halls outside the meeting room. Last year we broke all 
+records, selling 1,270 pounds of See's candy, 1,143 pairs of Dexter 
+shoes, $29,000 of World Books and related publications, and 700 sets of 
+knives manufactured by our Quikut subsidiary. Additionally, many 
+shareholders made inquiries about GEICO auto policies. If you would like 
+to investigate possible insurance savings, bring your present policy to 
+the meeting. We estimate that about 40% of our shareholders can save 
+money by insuring with us. (We'd like to say 100%, but the insurance 
+business doesn't work that way: Because insurers differ in their 
+underwriting judgments, some of our shareholders are currently paying 
+rates that are lower than GEICO's.)
+---
+
+
+################ 1997.txt
+(in millions) 
+ Berkshire's Share 
+ of Net Earnings 
+ (after taxes and 
+ Pre-Tax Earnings minority interests)
+ 1997 1996 1997 1996 
+Operating Earnings:
+ Insurance Group:
+ Underwriting -- Super-Cat. . . . . . . .$ 283.0 $ 167.0 $ 182.7 $ 107.4
+ Underwriting -- Other Reinsurance. . . . (155.2) (174.8) (100.1) (112.4)
+ Underwriting -- GEICO. . . . . . . . . . 280.7 171.4 181.1 110.2
+ Underwriting -- Other Primary. . . . . . 52.9 58.5 34.1 37.6
+ Net Investment Income. . . . . . . . . . 882.3 726.2 703.6 593.1
+ Buffalo News . . . . . . . . . . . . . . . 55.9 50.4 32.7 29.5
+ Finance Businesses . . . . . . . . . . . . 28.1 23.1 18.0 14.9
+ FlightSafety . . . . . . . . . . . . . . . 139.5 3.1(1) 84.4 1.9(1)
+ Home Furnishings . . . . . . . . . . . . . 56.8(2) 43.8 32.2(2) 24.8
+ Jewelry. . . . . . . . . . . . . . . . . . 31.6 27.8 18.3 16.1
+ Scott Fetzer(excluding finance operation). 118.9 121.7 77.3 81.6
+ See's Candies. . . . . . . . . . . . . . . 58.6 51.9 35.0 30.8
+ Shoe Group . . . . . . . . . . . . . . . . 48.8 61.6 32.2 41.0
+ Purchase-Accounting Adjustments. . . . . . (104.9) (75.7) (97.0) (70.5)
+ Interest Expense(3). . . . . . . . . . . . (106.6) (94.3) (67.1) (56.6)
+ Shareholder-Designated Contributions . . . (15.4) (13.3) (9.9) (8.5)
+ Other. . . . . . . . . . . . . . . . . . . 60.7 73.0 37.0 42.2
+ -------- -------- -------- -------- 
+Operating Earnings . . . . . . . . . . . . . 1,715.7 1,221.4 1,194.5 883.1 
+Capital Gains from Investments . . . . . . . 1,111.9 2,484.5 707.1 1,605.5
+ -------- -------- -------- --------
+Total Earnings - All Entities. . . . . . . .$2,827.6 $3,705.9 $1,901.6 $2,488.6
+ ======== ======== ======== ========
+---
+In effect, the records of the public
+companies reflect the cumulative benefits of the earnings they have retained,
+while the records of our operating subsidiaries get no such boost. Over
+time, however, the earnings these subsidiaries have distributed have created
+truly huge amounts of earning power elsewhere in Berkshire. The News, See's
+and Scott Fetzer have alone paid us $1.8 billion, which we have gainfully
+employed elsewhere. We owe their managements our gratitude for much more
+than the earnings that are detailed in the table.
+---
+Because our roster is filled with
+.380 hitters, we have tried to pay cash for acquisitions, and here our
+record has been far better. Starting with National Indemnity in 1967, and
+continuing with, among others, See's, Buffalo News, Scott Fetzer and GEICO,
+we have acquired -- for cash -- a number of large businesses that have
+performed incredibly well since we bought them. These acquisitions have
+delivered Berkshire tremendous value -- indeed, far more than I anticipated
+when we made our purchases.
+---
+Berkshire products will again be
+for sale in the halls outside the meeting room. Last year -- not
+that I pay attention to this sort of thing -- we again set sales records,
+moving 2,500 pounds of See's candy, 1,350 pairs of Dexter shoes, $75,000
+of World Books and related publications, and 888 sets of Quikut knives.
+We also took orders for a new line of apparel, featuring our Berkshire
+logo, and sold about 1,000 polo, sweat, and T-shirts. At this year's meeting,
+we will unveil our 1998 collection.
+---
+
+
+################ 1998.txt
+(in millions)
+ Berkshire’s Share
+ of Net Earnings
+ (after taxes and
+ Pre-Tax Earnings minority interests)
+ 1998 1997 1998 1997
+ Operating Earnings:
+ Insurance Group:
+ Underwriting — Super-Cat . . . . . . . . . . . . . . . . . . $154 $283 $100 $183
+ Underwriting — Other Reinsurance . . . . . . . . . . . (175) (155) (114) (100)
+ Underwriting — GEICO . . . . . . . . . . . . . . . . . . . . 269 281 175 181
+ Underwriting — Other Primary . . . . . . . . . . . . . . . 17 53 10 34
+ Net Investment Income . . . . . . . . . . . . . . . . . . . . . 974 882 731 704
+ Buffalo News . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 53 56 32 33
+ Finance and Financial Products Businesses . . . . . . . 205(1) 28 133(1) 18
+ Flight Services . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 181 140(2) 110 84(2)
+ Home Furnishings . . . . . . . . . . . . . . . . . . . . . . . . . . 72 57 41 32
+ International Dairy Queen . . . . . . . . . . . . . . . . . . . . 58 — 35 —
+ Jewelry . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39 32 23 18
+ Scott Fetzer (excluding finance operation) . . . . . . . . 137 119 85 77
+ See’s Candies . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 62 59 40 35
+ Shoe Group . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33(3) 49 23(3) 32
+ General Re . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26 — 16 —
+ Purchase-Accounting Adjustments . . . . . . . . . . . . . (123) (101) (118) (94)
+ Interest Expense (4) . . . . . . . . . . . . . . . . . . . . . . . . . . (100) (107) (63) (67)
+ Shareholder-Designated Contributions . . . . . . . . . . (17) (15) (11) (10)
+ Other . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34 60 29 37
+ Operating Earnings . . . . . . . . . . . . . . . . . . . . . . . . . . 1,899 1,721 1,277 1,197
+ Capital Gains from Investments . . . . . . . . . . . . . . . . . 2,415 1,106 1,553 704
+ Total Earnings - All Entities . . . . . . . . . . . . . . . . . . . $4,314 $2,827 $ 2,830 $1,901
+---
+16
+investors in a variety of ways that often skirt or cross the line of unfairness. These practices leave the great bulk
+of shareholders at a distinct disadvantage to a favored class.
+ At Berkshire, we regard the holder of one share of B stock as the equal of our large institutional investors.
+We, of course, warmly welcome institutions as owners and have gained a number of them through the General
+Re merger. We hope also that these new holders find that our owner’s manual and annual reports offer them
+more insights and information about Berkshire than they garner about other companies from the investor relations
+departments that these corporations typically maintain. But if it is “earnings guidance” or the like that
+shareholders or analysts seek, we will simply guide them to our public documents.
+ This year we plan to post our quarterly reports on the Internet after the close of the market on May 14,
+August 13, and November 12. We also expect to put the 1999 annual report on our website on Saturday, March
+11, 2000, and to mail the print version at roughly the same time.
+ We promptly post press releases on our website. This means that you do not need to rely on the versions
+of these reported by the media but can instead read the full text on your computer.
+ Despite the pathetic technical skills of your Chairman, I’m delighted to report that GEICO, Borsheim’s,
+See’s, and The Buffalo News are now doing substantial business via the Internet. We’ve also recently begun to
+offer annuity products on our website. This business was developed by Ajit Jain, who over the last decade has
+personally accounted for a significant portion of Berkshire’s operating earnings. While Charlie and I sleep, Ajit
+keeps thinking of new ways to add value to Berkshire.
+---
+17
+ The doors will open at both locations at 7 a.m. on Monday, and at 8:30 we will premier the 1999 Berkshire
+movie epic, produced by Marc Hamburg, our CFO. The meeting will last from 9:30 until 3:30, interrupted only
+by the short lunch break.
+ An attachment to the proxy material that is enclosed with this report explains how you can obtain the badge
+you will need for admission to the meeting and other events. As for plane, hotel and car reservations, we have
+again signed up American Express (800-799-6634) to give you special help. In our normal fashion, we will run
+buses from the larger hotels to the meeting. After the meeting, these will make trips back to the hotels and to
+Nebraska Furniture Mart, Borsheim’s and the airport. Even so, you are likely to find a car useful.
+ The full line of Berkshire products will be available at Aksarben, and the more popular items will also be
+at Holiday. Last year we set sales records across-the-board, moving 3,700 pounds of See’s candy, 1,635 pairs of
+Dexter shoes, 1,150 sets of Quikut knives and 3,104 Berkshire shirts and hats. Additionally, $26,944 of World
+Book products were purchased as well as more than 2,000 golf balls with the Berkshire Hathaway logo. Charlie
+and I are pleased but not satisfied with these numbers and confidently predict new records in all categories this
+year. Our 1999 apparel line will be unveiled at the meeting, so please defer your designer purchases until you
+view our collection.
+ Dairy Queen will also be on hand and will again donate all proceeds to the Children’s Miracle Network.
+Last year we sold about 4,000 Dilly® bars, fudge bars and vanilla/orange bars. Additionally, GEICO will have
+a booth that will be manned by a number of our top counselors from around the country, all of them ready to
+supply you with auto insurance quotes. In almost all cases, GEICO will be able to offer you a special
+shareholder’s discount. Check out whether we can save you some money.
+ The piece de resistance of our one-company trade show will be a 79-foot-long, nearly 12-foot-wide, fully-
+outfitted cabin of a 737 Boeing Business Jet (“BBJ”), which is NetJets’ newest product. This plane has a 14-hour
+range; is designed to carry 19 passengers; and offers a bedroom, an office, and two showers. Deliveries to
+fractional owners will begin in the first quarter of 2000.
+ The BBJ will be available for your inspection on May 1-3 near the entrance to the Aksarben hall. You
+should be able to minimize your wait by making your visit on Saturday or Sunday. Bring along your checkbook
+in case you decide to make an impulse purchase.
+ NFM's multi-stored complex, located on a 75-acre site about a mile from Aksarben, is open from 10 a.m.
+to 9 p.m. on weekdays, and 10 a.m. to 6 p.m. on Saturdays and Sundays. This operation did $300 million in
+business during 1998 and offers an unrivaled breadth of merchandise — furniture, electronics, appliances, carpets
+and computers — all at can’t-be-beat prices. During the April 30th to May 4th period, shareholders presenting
+their meeting badge will receive a discount that is customarily given only to its employees.
+ Borsheim's normally is closed on Sunday but will be open for shareholders from 10 a.m. to 6 p.m. on May
+2nd. On annual meeting weekend last year, the store did an incredible amount of business. Sales were double
+those of the previous year, and the store’s volume on Sunday greatly exceeded volume for any day in Borsheim’s
+history. Charlie attributes this record to the fact that he autographed sales tickets that day and, while I have my
+doubts about this proposition, we are not about to mess with a winning formula. Please give him writer’s cramp.
+On last year’s Sunday, Borsheim’s wrote 2,501 tickets during the eight hours it was open. For those of you who
+are mathematically challenged, that is one ticket every 11½ seconds.
+ Shareholders who wish to avoid Sunday’s crowd can visit Borsheim’s on Saturday (10 a.m.-5:30 p.m.) or
+on Monday (10 a.m.-8 p.m.). Be sure to identify yourself as a Berkshire owner so that Susan Jacques, Borsheim’s
+CEO, can quote you a ”shareholder-weekend” price. Susan joined us in 1983 as a $4-per-hour salesperson and
+was made CEO in 1994. This move ranks as one of my best managerial decisions.
+ Bridge players can look forward to a thrill on Sunday, when Bob Hamman — the best the game has ever
+seen — will turn up to play with our shareholders in the mall outside of Borsheim’s. Bob plays without sorting
+his cards — hey, maybe that’s what’s wrong with my game. We will also have a couple of other tables at which
+another expert or two will be playing.
+---
+
+
+################ 1999.txt
+You should be aware that one item 
+ regularly working to widen the amount by which intrinsic value exceeds 
+ book value is the annual charge against income we take for amortization 
+ of goodwill -- an amount now running about $500 million. This charge 
+ reduces the amount of goodwill we show as an asset and likewise 
+ the amount that is included in our book value. This is an accounting 
+ matter having nothing to do with true economic goodwill, which increases 
+ in most years. But even if economic goodwill were to remain constant, 
+ the annual amortization charge would persistently widen the gap 
+ between intrinsic value and book value. 
+      Though we can't give you a precise 
+ figure for Berkshire's intrinsic value, or even an approximation, 
+ Charlie and I can assure you that it far exceeds our $57.8 billion 
+ book value. Businesses such as See's and Buffalo News are now worth 
+ fifteen to twenty times the value at which they are carried on our 
+ books. Our goal is to continually widen this spread at all subsidiaries.
+---
+Once again, I would like to make 
+ some comments about accounting, in this case about its application 
+ to acquisitions. This is currently a very contentious topic and, 
+ before the dust settles, Congress may even intervene (a truly terrible 
+ idea). 
+      When a company is acquired, generally 
+ accepted accounting principles ("GAAP") currently condone two very 
+ different ways of recording the transaction: "purchase" and "pooling." 
+ In a pooling, stock must be the currency; in a purchase, payment 
+ can be made in either cash or stock. Whatever the currency, managements 
+ usually detest purchase accounting because it almost always requires 
+ that a "goodwill" account be established and subsequently written 
+ off -- a process that saddles earnings with a large annual charge 
+ that normally persists for decades. In contrast, pooling avoids 
+ a goodwill account, which is why managements love it. 
+      Now, the Financial Accounting Standards 
+ Board ("FASB") has proposed an end to pooling, and many CEOs are 
+ girding for battle. It will be an important fight, so we'll venture 
+ some opinions. To begin with, we agree with the many managers who 
+ argue that goodwill amortization charges are usually spurious. You'll 
+ find my thinking about this in the appendix to our 1983 annual report, 
+ which is available on our website, and in the Owner's Manual on 
+ pages 55 - 62. 
+      For accounting rules to mandate 
+ amortization that will, in the usual case, conflict with reality 
+ is deeply troublesome: Most accounting charges relate to 
+ what's going on, even if they don't precisely measure it. As an 
+ example, depreciation charges can't with precision calibrate the 
+ decline in value that physical assets suffer, but these charges 
+ do at least describe something that is truly occurring: Physical 
+ assets invariably deteriorate. Correspondingly, obsolescence charges 
+ for inventories, bad debt charges for receivables and accruals for 
+ warranties are among the charges that reflect true costs. The annual 
+ charges for these expenses can't be exactly measured, but the necessity 
+ for estimating them is obvious. 
+      In contrast, economic goodwill does 
+ not, in many cases, diminish. Indeed, in a great many instances 
+ -- perhaps most -- it actually grows in value over time. In character, 
+ economic goodwill is much like land: The value of both assets is 
+ sure to fluctuate, but the direction in which value is going to 
+ go is in no way ordained. At See's, for example, economic goodwill 
+ has grown, in an irregular but very substantial manner, for 78 years. 
+ And, if we run the business right, growth of that kind will probably 
+ continue for at least another 78 years. 
+      To escape from the fiction of goodwill 
+ charges, managers embrace the fiction of pooling. This accounting 
+ convention is grounded in the poetic notion that when two rivers 
+ merge their streams become indistinguishable. Under this concept, 
+ a company that has been merged into a larger enterprise has not 
+ been "purchased" (even though it will often have received a large 
+ "sell-out" premium). Consequently, no goodwill is created, and those 
+ pesky subsequent charges to earnings are eliminated. Instead, the 
+ accounting for the ongoing entity is handled as if the businesses 
+ had forever been one unit. 
+      So much for poetry. The reality 
+ of merging is usually far different: There is indisputably an acquirer 
+ and an acquiree, and the latter has been "purchased," no matter 
+ how the deal has been structured. If you think otherwise, just ask 
+ employees severed from their jobs which company was the conqueror 
+ and which was the conquered. You will find no confusion. So on this 
+ point the FASB is correct: In most mergers, a purchase has been 
+ made. Yes, there are some true "mergers of equals," but they are 
+ few and far between. 
+      Charlie and I believe there's a 
+ reality-based approach that should both satisfy the FASB, which 
+ correctly wishes to record a purchase, and meet the objections of 
+ managements to nonsensical charges for diminution of goodwill. We 
+ would first have the acquiring company record its purchase price 
+ -- whether paid in stock or cash -- at fair value. In most cases, 
+ this procedure would create a large asset representing economic 
+ goodwill. We would then leave this asset on the books, not requiring 
+ its amortization. Later, if the economic goodwill became impaired, 
+ as it sometimes would, it would be written down just as would any 
+ other asset judged to be impaired. 
+      If our proposed rule were to be 
+ adopted, it should be applied retroactively so that acquisition 
+ accounting would be consistent throughout America -- a far cry from 
+ what exists today. One prediction: If this plan were to take effect, 
+ managements would structure acquisitions more sensibly, deciding 
+ whether to use cash or stock based on the real consequences for 
+ their shareholders rather than on the unreal consequences for their 
+ reported earnings.
+---
+See's Candies .........................................
+ 74
+---
+Almost all of our manufacturing, 
+ retailing and service businesses had excellent results in 1999. 
+ The exception was Dexter Shoe, and there the shortfall did not occur 
+ because of managerial problems: In skills, energy and devotion to 
+ their work, the Dexter executives are every bit the equal of our 
+ other managers. But we manufacture shoes primarily in the U.S., 
+ and it has become extremely difficult for domestic producers to 
+ compete effectively. In 1999, approximately 93% of the 1.3 billion 
+ pairs of shoes purchased in this country came from abroad, where 
+ extremely low-cost labor is the rule. 
+      Counting both Dexter and H. H. Brown, 
+ we are currently the leading domestic manufacturer of shoes, and 
+ we are likely to continue to be. We have loyal, highly-skilled workers 
+ in our U.S. plants, and we want to retain every job here that we 
+ can. Nevertheless, in order to remain viable, we are sourcing more 
+ of our output internationally. In doing that, we have incurred significant 
+ severance and relocation costs that are included in the earnings 
+ we show in the table. 
+      A few years back, Helzberg's, our 
+ 200-store jewelry operation, needed to make operating adjustments 
+ to restore margins to appropriate levels. Under Jeff Comment's leadership, 
+ the job was done and profits have dramatically rebounded. In the 
+ shoe business, where we have Harold Alfond, Peter Lunder, Frank 
+ Rooney and Jim Issler in charge, I believe we will see a similar 
+ improvement over the next few years. 
+      See's Candies deserves a special 
+ comment, given that it achieved a record operating margin of 24% 
+ last year. Since we bought See's for $25 million in 1972, it has 
+ earned $857 million pre-tax. And, despite its growth, the business 
+ has required very little additional capital. Give the credit for 
+ this performance to Chuck Huggins. Charlie and I put him in charge 
+ the day of our purchase, and his fanatical insistence on both product 
+ quality and friendly service has rewarded customers, employees and 
+ owners. 
+      Chuck gets better every year. When 
+ he took charge of See's at age 46, the company's pre-tax profit, 
+ expressed in millions, was about 10% of his age. Today he's 74, 
+ and the ratio has increased to 100%. Having discovered this mathematical 
+ relationship -- let's call it Huggins' Law -- Charlie and I now 
+ become giddy at the mere thought of Chuck's birthday.
+---
+This year's Woodstock 
+ Weekend for Capitalists will follow a format slightly different 
+ from that of recent years. We need to make a change because the 
+ Aksarben Coliseum, which served us well the past three years, is 
+ gradually being closed down. Therefore, we are relocating to the 
+ Civic Auditorium (which is on Capitol Avenue between 18th 
+ and 19th, behind the Doubletree Hotel), the only other 
+ facility in Omaha offering the space we require. 
+      The Civic, however, is located in 
+ downtown Omaha, and we would create a parking and traffic nightmare 
+ if we were to meet there on a weekday. We will, therefore, convene 
+ on Saturday, April 29, with the doors opening at 7 a.m., the movie 
+ beginning at 8:30 and the meeting itself commencing at 9:30. As 
+ in the past, we will run until 3:30 with a short break at noon for 
+ food, which will be available at the Civic's concession stands. 
+      An attachment to the proxy material 
+ that is enclosed with this report explains how you can obtain the 
+ credential you will need for admission to the meeting and other 
+ events. As for plane, hotel and car reservations, we have again 
+ signed up American Express (800-799-6634) to give you special help. 
+ In our normal fashion, we will run buses from the larger hotels 
+ to the meeting. After the meeting, the buses will make trips back 
+ to the hotels and to Nebraska Furniture Mart, Borsheim's and the 
+ airport. Even so, you are likely to find a car useful. 
+      We have scheduled the meeting in 
+ 2002 and 2003 on the customary first Saturday in May. In 2001, however, 
+ the Civic is already booked on that Saturday, so we will meet on 
+ April 28. The Civic should fit our needs well on any weekend, since 
+ there will then be more than ample parking in nearby lots and garages 
+ as well as on streets. We will also be able to greatly enlarge the 
+ space we give exhibitors. So, overcoming my normal commercial reticence, 
+ I will see that you have a wide display of Berkshire products at 
+ the Civic that you can purchase. As a benchmark, in 1999 
+ shareholders bought 3,059 pounds of See's candy, $16,155 of World 
+ Book Products, 1,928 pairs of Dexter shoes, 895 sets of Quikut knives, 
+ 1,752 golf balls with the Berkshire Hathaway logo and 3,446 items 
+ of Berkshire apparel. I know you can do better. 
+      Last year, we also initiated the 
+ sale of at least eight fractions of Executive Jet aircraft. We will 
+ again have an array of models at the Omaha airport for your inspection 
+ on Saturday and Sunday. Ask an EJA representative at the Civic about 
+ viewing any of these planes. 
+      Dairy Queen will also be on hand 
+ at the Civic and again will donate all proceeds to the Children's 
+ Miracle Network. Last year we sold 4,586 Dilly® bars, fudge 
+ bars and vanilla/orange bars. Additionally, GEICO will have a booth 
+ that will be staffed by a number of our top counselors from around 
+ the country, all of them ready to supply you with auto insurance 
+ quotes. In most cases, GEICO will be able to offer you a special 
+ shareholder's discount. Bring the details of your existing insurance, 
+ and check out whether we can save you some money. 
+      Finally, Ajit Jain and his associates 
+ will be on hand to offer both no-commission annuities and a liability 
+ policy with jumbo limits of a size rarely available elsewhere. Talk 
+ to Ajit and learn how to protect yourself and your family against 
+ a $10 million judgment. 
+      NFM's newly remodeled complex, located 
+ on a 75-acre site on 72nd Street between Dodge and Pacific, 
+ is open from 10 a.m. to 9 p.m. on weekdays and 10 a.m. to 6 p.m. 
+ on Saturdays and Sundays. This operation offers an unrivaled breadth 
+ of merchandise -- furniture, electronics, appliances, carpets and 
+ computers -- all at can't-be-beat prices. In 1999 NFM did more than 
+ $300 million of business at its 72nd Street location, 
+ which in a metropolitan area of 675,000 is an absolute miracle. 
+ During the Thursday, April 27 to Monday, May 1 period, any shareholder 
+ presenting his or her meeting credential will receive a discount 
+ that is customarily given only to employees. We have offered this 
+ break to shareholders the last couple of years, and sales have been 
+ amazing. In last year's five-day "Berkshire Weekend," NFM's volume 
+ was $7.98 million, an increase of 26% from 1998 and 51% from 1997. 
+      Borsheim's -- the largest jewelry 
+ store in the country except for Tiffany's Manhattan store -- will 
+ have two shareholder-only events. The first will be a champagne 
+ and dessert party from 6 p.m.-10 p.m. on Friday, April 28. The second, 
+ the main gala, will be from 9 a.m. to 6 p.m. on Sunday, April 30. 
+ On that day, Charlie and I will be on hand to sign sales tickets. 
+ Shareholder prices will be available Thursday through Monday, so 
+ if you wish to avoid the largest crowds, which will form on Friday 
+ evening and Sunday, come at other times and identify yourself as 
+ a shareholder. On Saturday, we will be open until 7 p.m. Borsheim's 
+ operates on a gross margin that is fully twenty percentage points 
+ below that of its major rivals, so be prepared to be blown away 
+ by both our prices and selection. 
+      In the mall outside of Borsheim's, 
+ we will again have Bob Hamman -- the best bridge player the game 
+ has ever seen -- available to play with our shareholders on Sunday. 
+ We will also have a few other experts playing at additional tables. 
+ In 1999, we had more demand than tables, but we will cure that problem 
+ this year. 
+      Patrick Wolff, twice US chess champion, 
+ will again be in the mall playing blindfolded against all comers. 
+ He tells me that he has never tried to play more than four games 
+ simultaneously while handicapped this way but might try to bump 
+ that limit to five or six this year. If you're a chess fan, take 
+ Patrick on -- but be sure to check his blindfold before your first 
+ move. 
+      Gorat's -- my favorite steakhouse 
+ -- will again be open exclusively for Berkshire shareholders on 
+ Sunday, April 30, and will be serving from 4 p.m. until about midnight. 
+ Please remember that you can't come to Gorat's on Sunday without 
+ a reservation. To make one, call 402-551-3733 on April 3 (but 
+ not before). If Sunday is sold out, try Gorat's on one of the 
+ other evenings you will be in town. I make a "quality check" of 
+ Gorat's about once a week and can report that their rare T-bone 
+ (with a double order of hash browns) is still unequaled throughout 
+ the country. 
+      The usual baseball game will be 
+ held at Rosenblatt Stadium at 7 p.m. on Saturday night. This year 
+ the Omaha Golden Spikes will play the Iowa Cubs. Come early, because 
+ that's when the real action takes place. Those who attended last 
+ year saw your Chairman pitch to Ernie Banks. 
+      This encounter proved to be the 
+ titanic duel that the sports world had long awaited. After the first 
+ few pitches -- which were not my best, but when have I ever thrown 
+ my best? -- I fired a brushback at Ernie just to let him know who 
+ was in command. Ernie charged the mound, and I charged the plate. 
+ But a clash was avoided because we became exhausted before reaching 
+ each other. 
+      Ernie was dissatisfied with his 
+ performance last year and has been studying the game films all winter. 
+ As you may know, Ernie had 512 home runs in his career as a Cub. 
+ Now that he has spotted telltale weaknesses in my delivery, he expects 
+ to get #513 on April 29. I, however, have learned new ways to disguise 
+ my "flutterball." Come and watch this matchup. 
+      I should add that I have extracted 
+ a promise from Ernie that he will not hit a "come-backer" at me 
+ since I would never be able to duck in time to avoid it. My reflexes 
+ are like Woody Allen's, who said his were so slow that he was once 
+ hit by a car being pushed by two guys. 
+      Our proxy statement contains instructions 
+ about obtaining tickets to the game and also a large quantity of 
+ other information that should help you enjoy your visit in Omaha. 
+ Join us at the Capitalist Caper on Capitol Avenue.
+---
+
+
+################ 2001.txt
+Berkshire’s loss in net worth during 2001 was $3.77 billion, which decreased the per-share book value of
+both our Class A and Class B stock by 6.2%. Over the last 37 years (that is, since present management took over)
+per-share book value has grown from $19 to $37,920, a rate of 22.6% compounded annually.∗
+ Per-share intrinsic grew somewhat faster than book value during these 37 years, and in 2001 it probably
+decreased a bit less. We explain intrinsic value in our Owner’s Manual, which begins on page 62. I urge new
+shareholders to read this manual to become familiar with Berkshire’s key economic principles.
+ Two years ago, reporting on 1999, I said that we had experienced both the worst absolute and relative
+performance in our history. I added that “relative results are what concern us,” a viewpoint I’ve had since forming
+my first investment partnership on May 5, 1956. Meeting with my seven founding limited partners that evening, I
+gave them a short paper titled “The Ground Rules” that included this sentence: “Whether we do a good job or a
+poor job is to be measured against the general experience in securities.” We initially used the Dow Jones Industrials
+as our benchmark, but shifted to the S&P 500 when that index became widely used. Our comparative record since
+1965 is chronicled on the facing page; last year Berkshire’s advantage was 5.7 percentage points.
+ Some people disagree with our focus on relative figures, arguing that “you can’t eat relative performance.”
+But if you expect – as Charlie Munger, Berkshire’s Vice Chairman, and I do – that owning the S&P 500 will
+produce reasonably satisfactory results over time, it follows that, for long-term investors, gaining small advantages
+annually over that index must prove rewarding. Just as you can eat well throughout the year if you own a profitable,
+but highly seasonal, business such as See’s (which loses considerable money during the summer months) so, too,
+can you regularly feast on investment returns that beat the averages, however variable the absolute numbers may be.
+ Though our corporate performance last year was satisfactory, my performance was anything but. I manage
+most of Berkshire’s equity portfolio, and my results were poor, just as they have been for several years. Of even
+more importance, I allowed General Re to take on business without a safeguard I knew was important, and on
+September 11th, this error caught up with us. I’ll tell you more about my mistake later and what we are doing to
+correct it.
+ Another of my 1956 Ground Rules remains applicable: “I cannot promise results to partners.” But Charlie
+and I can promise that your economic result from Berkshire will parallel ours during the period of your ownership:
+We will not take cash compensation, restricted stock or option grants that would make our results superior to yours.
+ Additionally, I will keep well over 99% of my net worth in Berkshire. My wife and I have never sold a
+share nor do we intend to. Charlie and I are disgusted by the situation, so common in the last few years, in which
+shareholders have suffered billions in losses while the CEOs, promoters, and other higher-ups who fathered these
+disasters have walked away with extraordinary wealth. Indeed, many of these people were urging investors to buy
+shares while concurrently dumping their own, sometimes using methods that hid their actions. To their shame, these
+business leaders view shareholders as patsies, not partners.
+ Though Enron has become the symbol for shareholder abuse, there is no shortage of egregious conduct
+elsewhere in corporate America. One story I’ve heard illustrates the all-too-common attitude of managers toward
+---
+
+
+################ 2003.txt
+• In retailing, our furniture group earned $106 million pre-tax, our jewelers $59 million and See’s, which
+ is both a manufacturer and retailer, $59 million.
+---
+
+
+################ 2005.txt
+13
+ • Our retailing category includes See’s Candies, a company we bought early in 1972 (a date making
+ it our oldest non-insurance business). At that time, Charlie and I immediately decided to put
+ Chuck Huggins, then 46, in charge. Though we were new at the game of selecting managers,
+ Charlie and I hit a home run with this appointment. Chuck’s love for the customer and the brand
+ permeated the organization, which in his 34-year tenure produced a more-than-tenfold increase in
+ profits. This gain was achieved in an industry growing at best slowly and perhaps not at all.
+ (Volume figures in this industry are hard to pin down.)
+---
+At yearend, Chuck turned the reins at See’s over to Brad Kinstler, who previously had served
+ Berkshire well while running Cypress Insurance and Fechheimer’s. It’s unusual for us to move
+ managers around, but Brad’s record made him an obvious choice for the See’s job. I hope Chuck
+ and his wife, Donna, are at the annual meeting. If they are, shareholders can join Charlie and me
+ in giving America’s number one candy maker a richly-deserved round of applause.
+ ************
+ Every day, in countless ways, the competitive position of each of our businesses grows either
+weaker or stronger. If we are delighting customers, eliminating unnecessary costs and improving our
+products and services, we gain strength. But if we treat customers with indifference or tolerate bloat, our
+businesses will wither. On a daily basis, the effects of our actions are imperceptible; cumulatively, though,
+their consequences are enormous.
+---
+
+
+################ 2007.txt
+Let’s look at the prototype of a dream business, our own See’s Candy. The boxed-chocolates
+industry in which it operates is unexciting: Per-capita consumption in the U.S. is extremely low and doesn’t
+grow. Many once-important brands have disappeared, and only three companies have earned more than
+token profits over the last forty years. Indeed, I believe that See’s, though it obtains the bulk of its revenues
+from only a few states, accounts for nearly half of the entire industry’s earnings.
+---
+At See’s, annual sales were 16 million pounds of candy when Blue Chip Stamps purchased the
+company in 1972. (Charlie and I controlled Blue Chip at the time and later merged it into Berkshire.) Last
+year See’s sold 31 million pounds, a growth rate of only 2% annually. Yet its durable competitive
+advantage, built by the See’s family over a 50-year period, and strengthened subsequently by Chuck
+Huggins and Brad Kinstler, has produced extraordinary results for Berkshire.
+---
+We bought See’s for $25 million when its sales were $30 million and pre-tax earnings were less
+than $5 million. The capital then required to conduct the business was $8 million. (Modest seasonal debt
+was also needed for a few months each year.) Consequently, the company was earning 60% pre-tax on
+invested capital. Two factors helped to minimize the funds required for operations. First, the product was
+sold for cash, and that eliminated accounts receivable. Second, the production and distribution cycle was
+short, which minimized inventories.
+---
+Last year See’s sales were $383 million, and pre-tax profits were $82 million. The capital now
+required to run the business is $40 million. This means we have had to reinvest only $32 million since
+1972 to handle the modest physical growth – and somewhat immodest financial growth – of the business.
+In the meantime pre-tax earnings have totaled $1.35 billion. All of that, except for the $32 million, has
+been sent to Berkshire (or, in the early years, to Blue Chip). After paying corporate taxes on the profits, we
+have used the rest to buy other attractive businesses. Just as Adam and Eve kick-started an activity that led
+to six billion humans, See’s has given birth to multiple new streams of cash for us. (The biblical command
+to “be fruitful and multiply” is one we take seriously at Berkshire.)
+---
+There aren’t many See’s in Corporate America. Typically, companies that increase their earnings
+from $5 million to $82 million require, say, $400 million or so of capital investment to finance their
+growth. That’s because growing businesses have both working capital needs that increase in proportion to
+sales growth and significant requirements for fixed asset investments.
+---
+A company that needs large increases in capital to engender its growth may well prove to be a
+satisfactory investment. There is, to follow through on our example, nothing shabby about earning $82
+million pre-tax on $400 million of net tangible assets. But that equation for the owner is vastly different
+from the See’s situation. It’s far better to have an ever-increasing stream of earnings with virtually no
+major capital requirements. Ask Microsoft or Google.
+---
+7
+ Nevertheless, this business requires a significant reinvestment of earnings if it is to grow. When
+we purchased FlightSafety in 1996, its pre-tax operating earnings were $111 million, and its net investment
+in fixed assets was $570 million. Since our purchase, depreciation charges have totaled $923 million. But
+capital expenditures have totaled $1.635 billion, most of that for simulators to match the new airplane
+models that are constantly being introduced. (A simulator can cost us more than $12 million, and we have
+273 of them.) Our fixed assets, after depreciation, now amount to $1.079 billion. Pre-tax operating
+earnings in 2007 were $270 million, a gain of $159 million since 1996. That gain gave us a good, but far
+from See’s-like, return on our incremental investment of $509 million.
+---
+To begin with, I almost blew the See’s purchase. The seller was asking $30 million, and I was
+adamant about not going above $25 million. Fortunately, he caved. Otherwise I would have balked, and
+that $1.35 billion would have gone to somebody else.
+---
+About the time of the See’s purchase, Tom Murphy, then running Capital Cities Broadcasting,
+called and offered me the Dallas-Fort Worth NBC station for $35 million. The station came with the Fort
+Worth paper that Capital Cities was buying, and under the “cross-ownership” rules Murph had to divest it.
+I knew that TV stations were See’s-like businesses that required virtually no capital investment and had
+excellent prospects for growth. They were simple to run and showered cash on their owners.
+---
+11
+ We agreed to purchase 35,464,337 shares of MidAmerican at $35.05 per share in 1999, a year in
+which its per-share earnings were $2.59. Why the odd figure of $35.05? I originally decided the business
+was worth $35.00 per share to Berkshire. Now, I’m a “one-price” guy (remember See’s?) and for several
+days the investment bankers representing MidAmerican had no luck in getting me to increase Berkshire’s
+offer. But, finally, they caught me in a moment of weakness, and I caved, telling them I would go to
+$35.05. With that, I explained, they could tell their client they had wrung the last nickel out of me. At the
+time, it hurt.
+---
+• In a tough year for retailing, our standouts were See’s, Borsheims and Nebraska Furniture Mart.
+---
+Two years ago Brad Kinstler was made CEO of See’s. We very seldom move managers from one
+ industry to another at Berkshire. But we made an exception with Brad, who had previously run
+ our uniform company, Fechheimer, and Cypress Insurance. The move could not have worked out
+ better. In his two years, profits at See’s have increased more than 50%.
+---
+
+
+################ 2009.txt
+COMPANY CEO
+ Benjamin Moore (paint) Denis Abrams
+ Borsheims (jewelry retailing) Susan Jacques
+ H. H. Brown (manufacturing and retailing of shoes) Jim Issler
+ CTB (agricultural equipment) Vic Mancinelli
+ Dairy Queen John Gainor
+ Nebraska Furniture Mart (furniture retailing) Ron and Irv Blumkin
+ Pampered Chef (direct sales of kitchen tools) Marla Gottschalk
+ See’s (manufacturing and retailing of candy) Brad Kinstler
+ Star Furniture (furniture retailing) Bill Kimbrell
+---
+Naturally, I’ve been plotting a comeback and will take her on outside of Borsheims at 1:00 p.m. on
+Sunday. It will be a three-point match, and after I soften her up, all shareholders are invited to try their luck at
+similar three-point contests. Winners will be given a box of See’s candy. We will have equipment available, but
+bring your own paddle if you think it will help. (It won’t.)
+---
+
+
+################ 2010.txt
+Our flexibility in respect to capital allocation has accounted for much of our progress to date. We have
+been able to take money we earn from, say, See’s Candies or Business Wire (two of our best-run businesses, but
+also two offering limited reinvestment opportunities) and use it as part of the stake we needed to buy BNSF.
+---
+The best reason to exit, of course, is to shop. We will help you do that by filling the 194,300-square-
+foot hall that adjoins the meeting area with products from dozens of Berkshire subsidiaries. Last year, you did
+your part, and most locations racked up record sales. In a nine-hour period, we sold 1,053 pairs of Justin boots,
+12,416 pounds of See’s candy, 8,000 Dairy Queen Blizzards® and 8,800 Quikut knives (that’s 16 knives per
+minute). But you can do better. Remember: Anyone who says money can’t buy happiness simply hasn’t learned
+where to shop.
+---
+
+
+################ 2011.txt
+• “Buy commodities, sell brands” has long been a formula for business success. It has produced
+ enormous and sustained profits for Coca-Cola since 1886 and Wrigley since 1891. On a smaller scale,
+ we have enjoyed good fortune with this approach at See’s Candy since we purchased it 40 years ago.
+---
+Last year See’s had record pre-tax earnings of $83 million, bringing its total since we bought it to $1.65
+ billion. Contrast that figure with our purchase price of $25 million and our yearend carrying-value (net
+ of cash) of less than zero. (Yes, you read that right; capital employed at See’s fluctuates seasonally,
+ hitting a low after Christmas.) Credit Brad Kinstler for taking the company to new heights since he
+ became CEO in 2006.
+---
+My own preference – and you knew this was coming – is our third category: investment in productive
+ assets, whether businesses, farms, or real estate. Ideally, these assets should have the ability in
+ inflationary times to deliver output that will retain its purchasing-power value while requiring a
+ minimum of new capital investment. Farms, real estate, and many businesses such as Coca-Cola, IBM
+ and our own See’s Candy meet that double-barreled test. Certain other companies – think of our
+ regulated utilities, for example – fail it because inflation places heavy capital requirements on them. To
+ earn more, their owners must invest more. Even so, these investments will remain superior to
+ nonproductive or currency-based assets.
+---
+Whether the currency a century from now is based on gold, seashells, shark teeth, or a piece of paper
+ (as today), people will be willing to exchange a couple of minutes of their daily labor for a Coca-Cola
+ or some See’s peanut brittle. In the future the U.S. population will move more goods, consume more
+ food, and require more living space than it does now. People will forever exchange what they produce
+ for what others produce.
+---
+The best reason to exit, of course, is to shop. We will help you do so by filling the 194,300-square-foot
+hall that adjoins the meeting area with products from dozens of Berkshire subsidiaries. Last year, you did your
+part, and most locations racked up record sales. In a nine-hour period, we sold 1,249 pairs of Justin boots, 11,254
+pounds of See’s candy, 8,000 Quikut knives (that’s 15 knives per minute) and 6,126 pairs of Wells Lamont
+gloves, a Marmon product whose very existence was news to me. (The product I focus on is money.) But you can
+do better. Remember: Anyone who says money can’t buy happiness simply hasn’t shopped at our meeting.
+---
+
+
+################ 2012.txt
+The best reason to exit, of course, is to shop. We will help you do so by filling the 194,300-square-foot hall
+that adjoins the meeting area with products from dozens of Berkshire subsidiaries. Last year, you did your part, and
+most locations racked up record sales. In a nine-hour period, we sold 1,090 pairs of Justin boots, (that’s a pair every
+30 seconds), 10,010 pounds of See’s candy, 12,879 Quikut knives (24 knives per minute) and 5,784 pairs of Wells
+Lamont gloves, always a hot item. But you can do better. Remember: Anyone who says money can’t buy happiness
+simply hasn’t shopped at our meeting.
+---
+
+
+################ 2013.txt
+21
+ The best reason to exit, of course, is to shop. We’ll assist you by filling the 194,300-square-foot hall that
+adjoins the meeting area with products from dozens of Berkshire subsidiaries. Last year, you did your part, and
+most locations racked up record sales. In a nine-hour period, we sold 1,062 pairs of Justin boots (that’s a pair every
+32 seconds), 12,792 pounds of See’s candy, 11,162 Quikut knives (21 knives per minute) and 6,344 pairs of Wells
+Lamont gloves, always a hot item. This year, Charlie and I will have competing ketchup bottles for sale. Naturally,
+the one with Charlie’s picture will be heavily discounted. But, if you help, my bottle will outsell his. This is
+important, so don’t let me down.
+---
+
+
+################ 2014.txt
+Last year you did your part as a shopper, and most of our businesses racked up record sales. In a nine-hour
+period on Saturday, we sold 1,385 pairs of Justin boots (that’s a pair every 23 seconds), 13,440 pounds of See’s
+candy, 7,276 pairs of Wells Lamont work gloves and 10,000 bottles of Heinz ketchup. Heinz has a new mustard
+product, so both mustard and ketchup will be available this year. (Buy both!) Now that we are open for business on
+Friday as well, we expect new records in every precinct.
+---
+The year 1972 was a turning point for Berkshire (though not without occasional backsliding on my part –
+remember my 1975 purchase of Waumbec). We had the opportunity then to buy See’s Candy for Blue Chip Stamps,
+a company in which Charlie, I and Berkshire had major stakes, and which was later merged into Berkshire.
+---
+See’s was a legendary West Coast manufacturer and retailer of boxed chocolates, then annually earning
+about $4 million pre-tax while utilizing only $8 million of net tangible assets. Moreover, the company had a huge
+asset that did not appear on its balance sheet: a broad and durable competitive advantage that gave it significant
+pricing power. That strength was virtually certain to give See’s major gains in earnings over time. Better yet, these
+would materialize with only minor amounts of incremental investment. In other words, See’s could be expected to
+gush cash for decades to come.
+---
+The family controlling See’s wanted $30 million for the business, and Charlie rightly said it was worth that
+much. But I didn’t want to pay more than $25 million and wasn’t all that enthusiastic even at that figure. (A price
+that was three times net tangible assets made me gulp.) My misguided caution could have scuttled a terrific
+purchase. But, luckily, the sellers decided to take our $25 million bid.
+---
+To date, See’s has earned $1.9 billion pre-tax, with its growth having required added investment of only
+$40 million. See’s has thus been able to distribute huge sums that have helped Berkshire buy other businesses that,
+in turn, have themselves produced large distributable profits. (Envision rabbits breeding.) Additionally, through
+watching See’s in action, I gained a business education about the value of powerful brands that opened my eyes to
+many other profitable investments.
+---
+I mentioned earlier that See’s Candy had produced huge earnings compared to its modest capital
+requirements. We would have loved, of course, to intelligently use those funds to expand our candy operation. But
+our many attempts to do so were largely futile. So, without incurring tax inefficiencies or frictional costs, we have
+used the excess funds generated by See’s to help purchase other businesses. If See’s had remained a stand-alone
+company, its earnings would have had to be distributed to investors to redeploy, sometimes after being heavily
+depleted by large taxes and, almost always, by significant frictional and agency costs.
+---
+
+
+################ 2015.txt
+Viewers can also observe our life-prolonging diet. During the meeting, Charlie and I will each consume
+enough Coke, See’s fudge and See’s peanut brittle to satisfy the weekly caloric needs of an NFL lineman. Long ago
+we discovered a fundamental truth: There’s nothing like eating carrots and broccoli when you’re really hungry –
+and want to stay that way.
+---
+
+
+################ 2020.txt
+Charlie and I journeyed throughout the nation to join with many of these individuals or their families. On the
+West Coast, we began the routine in 1972 with our purchase of See’s Candy. A full century ago, Mary See set out to
+deliver an age-old product that she had reinvented with special recipes. Added to her business plan were quaint stores
+staffed by friendly salespeople. Her first small outlet in Los Angeles eventually led to several hundred shops, spread
+throughout the West.
+---
+Today, Mrs. See’s creations continue to delight customers while providing life-long employment for
+thousands of women and men. Berkshire’s job is simply not to meddle with the company’s success. When a business
+manufactures and distributes a non-essential consumer product, the customer is the boss. And, after 100 years, the
+customer’s message to Berkshire remains clear: “Don’t mess with my candy.” (The website is https://www.sees.com/;
+try the peanut brittle.)
+---
+Yahoo streamed the proceedings to a record-sized international audience. Becky Quick of CNBC, operating
+from her home in New Jersey, selected questions from thousands that shareholders had earlier submitted or that
+viewers had emailed to her during the four hours Greg and I were on stage. See’s peanut brittle and fudge, along with
+Coca-Cola, provided us with nourishment.
+---
+
+
+################ 2022.txt
+From the opening bell, we went straight for your wallet. In short order, our See’s kiosk
+sold you eleven tons of nourishing peanut brittle and chocolates. In our P.T. Barnum pitch, we
+promised you longevity. After all, what else but candy from See’s could account for Charlie and
+me making it to 99 and 92?
+---
+On Friday, the doors were open from noon until 5 p.m., and our candy counters rang up
+2,690 individual sales. On Saturday, See’s registered an additional 3,931 transactions between
+7 a.m. and 4:30 p.m., despite the fact that 6 1⁄ 2 of the 9 1⁄ 2 operating hours occurred while our movie
+and the question-and-answer session were limiting commercial traffic.
+---
+10
+ Do the math: See’s rang up about 10 sales per minute during its prime operating time
+(racking up $400,309 of volume during the two days), with all the goods purchased at a single
+location selling products that haven’t been materially altered in 101 years. What worked for See’s
+in the days of Henry Ford’s model T works now.
+---
+
+
+################ 2025.txt
+Berkshire’s success depends on our nearly 400,000 employees. Their commitment to applying our
+culture and values across Berkshire’s operating businesses – from See’s Candies to GEICO and
+everything in between – and in every circumstance is central to our progress. Our success also
+benefits from our Board’s leadership and ongoing alignment with our focus.
+---

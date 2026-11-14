@@ -1,0 +1,218 @@
+{
+ "sot_trick": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 248.87,
+  "dur": 11.08,
+  "shot": "close",
+  "note": "And the trick in life is to find — I mean, investing is to find businesses that are going to earn high returns on capital for an extended period of time."
+ },
+ "sot_munger": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 271.9,
+  "dur": 16.65,
+  "shot": "close",
+  "note": "But Charlie… Charlie Munger, my partner for many — for decades, he just — he just pounded the idea that it wasn’t a good business just because it was doing sexy things or whatever it might be."
+ },
+ "c_initiated": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 36.4,
+  "dur": 5.5,
+  "shot": "close",
+  "note": "“I initiated it… I normally wouldn’t give you an answer”"
+ },
+ "c_two_a": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 42.1,
+  "dur": 4.5,
+  "shot": "two",
+  "note": "双人景：谈阿贝尔"
+ },
+ "c_approve": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 46.8,
+  "dur": 11.5,
+  "shot": "close",
+  "note": "“I am not doing anything that he doesn’t approve of”"
+ },
+ "c_rank": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 69.0,
+  "dur": 9.0,
+  "shot": "close",
+  "note": "“It’s probably number five or six”"
+ },
+ "c_bnsf": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 89.3,
+  "dur": 6.8,
+  "shot": "close",
+  "note": "“We’ve got the Burlington Northern Railroad”"
+ },
+ "c_rightterms": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 101.2,
+  "dur": 22.0,
+  "shot": "close",
+  "note": "全资与股票一视同仁；“buy a good business on the right terms”"
+ },
+ "c_two_b": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 137.3,
+  "dur": 9.8,
+  "shot": "two",
+  "note": "双人景：谈可口可乐"
+ },
+ "c_goodbiz": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 147.3,
+  "dur": 25.5,
+  "shot": "close",
+  "note": "“a very good business… earn high returns on capital over a long period”"
+ },
+ "c_bonds": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 182.7,
+  "dur": 32.8,
+  "shot": "close",
+  "note": "国债 vs 好生意：“a lot more than the returns on essentially riskless investments”"
+ },
+ "c_amex": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 225.3,
+  "dur": 16.0,
+  "shot": "close",
+  "note": "美国运通 “30% plus on capital”"
+ },
+ "c_munger": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 243.7,
+  "dur": 33.8,
+  "shot": "close",
+  "note": "“the trick… high returns on capital for an extended period”；芒格反复强调"
+ },
+ "c_two_c": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 277.7,
+  "dur": 8.2,
+  "shot": "two",
+  "note": "双人景：谈芒格"
+ },
+ "c_cash": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 286.1,
+  "dur": 18.2,
+  "shot": "close",
+  "note": "真金白银的现金，能分配或再投资"
+ },
+ "c_two_d": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 329.7,
+  "dur": 8.6,
+  "shot": "two",
+  "note": "双人景：“Google, you just called an AI company”"
+ },
+ "c_hundreds": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 338.5,
+  "dur": 7.6,
+  "shot": "close",
+  "note": "“they’re all laying out hundreds of billions”"
+ },
+ "c_railroad": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 349.3,
+  "dur": 19.9,
+  "shot": "close",
+  "note": "铁路投不起这种钱；“They weren’t playing that game with computer software”"
+ },
+ "c_winner": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 391.5,
+  "dur": 10.5,
+  "shot": "close",
+  "note": "“more likely to be a winner… than 90% or 95%”"
+ },
+ "c_quarter": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 411.8,
+  "dur": 10.5,
+  "shot": "close",
+  "note": "华尔街只问下个季度"
+ },
+ "c_dontlike": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 466.6,
+  "dur": 10.1,
+  "shot": "close",
+  "note": "“I don’t like it as well as at least four or five other businesses”"
+ },
+ "c_two_e": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 512.9,
+  "dur": 5.0,
+  "shot": "two",
+  "note": "双人景：问为什么是谷歌而不是其他巨头"
+ },
+ "c_game": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 523.7,
+  "dur": 23.2,
+  "shot": "close",
+  "note": "“playing a game they don’t want to play”；IBM"
+ },
+ "c_grocery": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 555.6,
+  "dur": 14.4,
+  "shot": "close",
+  "note": "祖父的杂货店：顾客不傻"
+ },
+ "c_two_f": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 597.9,
+  "dur": 10.2,
+  "shot": "two",
+  "note": "双人景：A&P 的好牌没了"
+ },
+ "c_ibm": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 647.4,
+  "dur": 20.8,
+  "shot": "close",
+  "note": "Data Documents 与 IBM 反垄断"
+ },
+ "c_attacks": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 676.9,
+  "dur": 10.4,
+  "shot": "close",
+  "note": "“if you have a wonderful business, you are going to be subject to attacks… how long is it going to be wonderful?”"
+ }
+}
