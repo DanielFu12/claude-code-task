@@ -83,14 +83,14 @@ if __name__ == '__main__':
     order = FIRST + [n for n in PHOTOS if n not in FIRST]
     todo = {n: PHOTOS[n] for n in order if not (os.path.exists(os.path.join(MDIR, n + '.jpg')) and n in credits)}
     if os.environ.get('ONLY'): todo = {n: v for n, v in todo.items() if n in os.environ['ONLY'].split(',')}   # 只补指定的几张
-    # 一次请求取全部元数据（减少 API 调用，避免 429）
-    d = api(dict(action='query', titles='|'.join('File:' + fn for fn, _ in todo.values()), prop='imageinfo', iiprop='url|extmetadata|size'))
-    norm = {x['to']: x['from'] for x in d['query'].get('normalized', [])}
+    # 逐张取元数据（批量请求在限流时整批 429；单张请求更稳）
     info = {}
-    for pg in d['query']['pages'].values():
-        info[norm.get(pg['title'], pg['title'])[5:]] = pg
     for name, (fn, use) in todo.items():
-        page = info.get(fn) or info.get(fn.replace('_', ' '))
+        d = api(dict(action='query', titles='File:' + fn, prop='imageinfo', iiprop='url|extmetadata|size'))
+        for pg in d['query']['pages'].values(): info[fn] = pg
+        time.sleep(12)
+    for name, (fn, use) in todo.items():
+        page = info.get(fn)
         if not page or 'imageinfo' not in page: print('MISSING', name, fn); continue
         ii = page['imageinfo'][0]; md = ii.get('extmetadata', {})
         lic = md.get('LicenseShortName', {}).get('value', '')
@@ -109,4 +109,4 @@ if __name__ == '__main__':
                              date=re.sub(r'<[^>]+>', '', md.get('DateTimeOriginal', {}).get('value', '')).strip()[:40])
         print('ok', name, ii.get('width'), 'x', ii.get('height'), lic, '|', artist[:40], flush=True)
         json.dump(credits, open(cp, 'w'), ensure_ascii=False, indent=1)
-        time.sleep(30)
+        time.sleep(40)

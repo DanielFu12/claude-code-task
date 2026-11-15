@@ -699,7 +699,7 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1c')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['a_walk', 'a_shelf', 'a_walk2'], h=562, a=a, cap='辛内格尔巡店（ABC 2005）')
+        seq(cv, t, t0, t1, ['a_greet', 'a_shelf', 'a_walk'], h=562, a=a, cap='辛内格尔巡店（ABC 2005）')
         kc = eo((t - t0 - 0.2) / 0.5) * (1 - eo((t - WT('c1c', '你要是敢') + 0.4) / 0.4))
         if kc > 0:
             node(cv, 290, 1020, '耶利内克', a * kc, col=CREAM, size=34, sub='时任 CEO（2018 年回忆）')
@@ -729,7 +729,7 @@ def shot_ch1(cv, t):
     if a > 0:
         tsw = WT('c1e', '为了守住')
         pic(cv, ['chicken_oven', 'chicken_pack'], t, t0, tsw + 0.3, fb=['a_chicken'], cy=560, h=562, a=a, cap='Costco 的烤鸡')
-        seq(cv, t, tsw - 0.1, t1, ['a_meat', 'a_chicken'], h=562, a=a, cap='Costco 肉品区与烤鸡（ABC 2005）')
+        seq(cv, t, tsw - 0.1, t1, ['a_meat', 'a_bake2'], h=562, a=a, cap='Costco 肉品区与烘焙（ABC 2005）')
         price_tag(cv, W / 2, 1010, 0.7, a * eo((t - WT('c1e', '四块九') + 0.1) / 0.45), '$4.99', '一只烤鸡', col=COST_R)
         steps = [('饲料厂', WT('c1e', '饲料厂')), ('孵化场', WT('c1e', '孵化场')), ('加工厂', WT('c1e', '加工厂'))]
         for j, (nm, ts) in enumerate(steps):
@@ -825,7 +825,7 @@ def shot_ch2(cv, t):
     t0, t1 = win('c2d')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['pc_int1', 'pc_int2', 'pc_int3'], h=562, a=a, cap='Price Club（CBS 8，1982）')
+        seq(cv, t, t0, t1, ['pc_int1', 'pc_int3', 'sol_int2'], h=562, a=a, cap='Price Club 与普莱斯（CBS 8，1982）')
         k = eo((t - WT('c2d', '飞机库') + 0.1) / 0.6)
         hangar(cv, 300, 1130, 0.75, a * k, t)
         cv.text('1976 · Price Club', 300, 1300, 34, 'sans_bold', col=GOLD_L, a=a * eo((t - WT('c2d', '第一家') + 0.1) / 0.4))
@@ -840,7 +840,7 @@ def shot_ch2(cv, t):
     if a > 0:
         ts_ = WT('c2e', '马路对面')
         seq(cv, t, t0, ts_ + 0.2, ['fm_check', 'fm_bag'], h=562, a=a, cap='FedMart 最后的日子（CBS 8，1982）')
-        seq(cv, t, ts_ - 0.2, t1, ['pc_int1', 'pc_int2'], h=562, a=a, cap='马路对面的 Price Club（CBS 8，1982）')
+        seq(cv, t, ts_ - 0.2, t1, ['pc_int2', 'sol_int3'], h=562, a=a, cap='马路对面的 Price Club（CBS 8，1982）')
         tag(cv, '1982 · 圣地亚哥', t, t0 + 0.3, W / 2, 950, 30, GOLD, a)
         k1 = eo((t - WT('c2e', '关门') + 0.1) / 0.45)
         node(cv, 290, 1130, 'FedMart', a * k1, col=COST_R, size=40, sub='关门清仓', w=380)
@@ -928,7 +928,7 @@ def shot_ch3(cv, t):
     t0, t1 = win('c3b')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        seq(cv, t, t0, t1, ['a_fork', 'a_fork2', 'w_stock'], h=562, a=a, cap='整托盘上架（ABC 2005 / WBZ 1991）')
+        seq(cv, t, t0, t1, ['a_fork', 'w_stock', 'a_cans'], h=562, a=a, cap='整托盘上架（ABC 2005 / WBZ 1991）')
         steps = [('品种少', '品种少了'), ('每种卖得多', '每一种'), ('订单更大', '订单越大'), ('进价更低', '进价'), ('运输上架更省', '运输')]
         for j, (s_, w_) in enumerate(steps):
             k = eo((t - WT('c3b', w_) + 0.1) / 0.4)
