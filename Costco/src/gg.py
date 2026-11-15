@@ -664,7 +664,8 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1a', pre=0.1)
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        pic(cv, ['hotdog1', 'hotdog2', 'foodcourt'], t, t0, t1, cy=560, h=562, a=a, cap='Costco 美食区的热狗套餐')
+        if not pic(cv, ['hotdog1', 'hotdog2', 'foodcourt'], t, t0, t1, cy=560, h=562, a=a, cap='Costco 美食区的热狗套餐'):
+            hotdog(cv, W / 2 - 60, 560, 1.4, a * eo((t - t0) / 0.5), t); note(cv, '示意', 800, a * 0.7, 20)
         k = eo((t - WT('c1a', '一根热狗') + 0.1) / 0.5)
         if k > 0: hotdog(cv, 360, 1150, 0.7, a * k, t)
         price_tag(cv, 800, 1110, 0.95, a * eo((t - WT('c1a', '一块五') + 0.1) / 0.45), '$1.50', '热狗 + 续杯汽水', rot=-0.06)
@@ -714,7 +715,7 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1d')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        pic(cv, ['hotdog3', 'hotdog2', 'foodcourt2', 'foodcourt'], t, t0, t1, fb=['a_bakery'], cy=560, h=562, a=a)
+        pic(cv, ['hotdog3', 'hotdog2', 'foodcourt2', 'foodcourt'], t, t0, t1, fb=['a_meat'], cy=560, h=562, a=a)
         k1 = eo((t - WT('c1d', '原来的供应商') + 0.1) / 0.5)
         node(cv, 270, 1080, '供应商涨价', a * k1, col=COST_R, size=34)
         k2 = eo((t - WT('c1d', '干脆') + 0.1) / 0.5)
@@ -746,7 +747,7 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1f')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        pic(cv, ['foodcourt', 'hotdog3', 'chicken_pack'], t, t0, t1, fb=['a_bakery'], cy=560, h=562, a=a)
+        pic(cv, ['foodcourt', 'hotdog3', 'chicken_pack'], t, t0, t1, fb=['a_crowd'], cy=560, h=562, a=a)
         k0 = eo((t - t0 - 0.2) / 0.5) * (1 - eo((t - WT('c1f', '它们更像') + 0.4) / 0.4))
         if k0 > 0:
             cv.text('不等于什么都不涨价', W / 2, 1070, 38, 'sans_med', col=CREAM, a=a * k0)
@@ -1205,7 +1206,10 @@ def shot_ch5(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         tc = WT('c5d', 'Costco 直到')
-        pic(cv, ['sams_sz1999', 'sams_sz', 'sams_bj'], t, t0, tc + 0.3, cy=520, h=480, a=a, cap='山姆会员店（深圳）')
+        if not pic(cv, ['sams_sz1999', 'sams_sz', 'sams_bj'], t, t0, tc + 0.3, cy=520, h=480, a=a, cap='山姆会员店（深圳）'):
+            kk = env(t, t0, tc + 0.3, 0.4, 0.4)
+            cv.text('1996 · 深圳', W / 2, 470, 90, 'serif_black', col=BLUE_L, a=a * kk, glow=0.15)
+            cv.text('山姆会员店进入中国', W / 2, 590, 40, 'sans_med', col=CREAM, a=a * kk)
         pic(cv, ['costco_int2', 'crowded', 'costco_int3'], t, tc - 0.2, t1, fb=['a_crowd'], cy=520, h=480, a=a)
         y = 1060; xa, xb = 170, 910
         k = eexp((t - WT('c5d', '一九九六') + 0.1) / 1.4)
@@ -1223,7 +1227,8 @@ def shot_ch5(cv, t):
     t0, t1 = win('c5e')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        pic(cv, ['sams_bj', 'sams_suzhou', 'sams_sz'], t, t0, t1, cy=520, h=480, a=a, cap='山姆会员店（中国）')
+        if not pic(cv, ['sams_bj', 'sams_suzhou', 'sams_sz'], t, t0, t1, cy=520, h=480, a=a, cap='山姆会员店（中国）'):
+            cv.text('城市家庭：公寓 · 小冰箱', W / 2, 540, 56, 'serif_black', col=BLUE_L, a=a * eo((t - t0) / 0.5))
         k1 = eo((t - WT('c5e', '公寓') + 0.1) / 0.45)
         if k1 > 0:
             for j in range(4):

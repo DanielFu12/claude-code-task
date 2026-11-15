@@ -6,7 +6,7 @@ python3 src/fetch_media.py
 import os, sys, json, time, urllib.parse, urllib.request
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 MDIR = os.path.join(ROOT, 'assets', 'media'); os.makedirs(MDIR, exist_ok=True)
-UA = {'User-Agent': 'baman-value-doc/1.0 (research use)'}
+UA = {'User-Agent': 'ClaudeCode-video-research/1.0 (https://code.claude.com/docs; documentary image credits) python-urllib/3'}
 OK_LICENSE = ('cc0', 'public domain', 'pd', 'cc by', 'cc-by')
 
 # 名称: (Commons 文件名, 用途)
