@@ -1,7 +1,7 @@
-"""生成 docs/SOURCES.md：逐句旁白的出处（含片中时间戳）、屏幕原话、数据口径、影像素材与配乐说明。时间戳取自 work/timeline.json。"""
+"""生成 docs/SOURCES.md：逐句旁白的出处（含片中时间戳）、原声、屏幕原话、数据口径、影像素材与配乐说明。时间戳取自 work/timeline.json。"""
 import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import LINES, QUOTES, CHAPTERS, TEASE, SOTS, SOT_SRC, HBO_SRC
+from script import LINES, QUOTES, CHAPTERS, TEASE, SOTS, SOT_SRC
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 work = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'work')
 TL = json.load(open(os.path.join(work, 'timeline.json')))
@@ -9,17 +9,24 @@ IA = json.load(open(os.path.join(ROOT, 'assets', 'media', 'ia_clips.json')))
 CR = json.load(open(os.path.join(ROOT, 'assets', 'media', 'credits.json')))
 SEG = {s['id']: s for s in TL['segs']}
 CHN = {c[0]: c[1] for c in CHAPTERS}
+WHO = {'munger': '芒格', 'buffett': '巴菲特', 'sinegal': '辛内格尔'}
 
 
 def ts(sec): return f'{int(sec // 60)}:{sec % 60:04.1f}'
 
 
+def sot_line(sid, so):
+    sg = SEG['sot_' + sid]
+    return (f'- `{ts(sg["start"])}` 🔊 **{WHO[so["who"]]}原声**：“{so["en"]}” —— ' + ''.join(c for _, c in so['ph']) +
+            f'\n  - 出处：{so.get("srcname", SOT_SRC)}' + (f'，片中 {so["ts"]}' if so.get('ts') else '') + '（切点见 `src/cut_sot.py`、`work/sot/sot.json`）')
+
+
 out = []; w = out.append
-w('# 《一盒糖的学费——芒格怎样改变了巴菲特》出处与口径\n')
-w(f'片长 {ts(TL["total"])}。喜诗的全部数字取自伯克希尔致股东信原文（原文存 `research/raw/`，摘录见 `research/sees_passages*.txt`）；'
-  '详细核实过程与口径见 `research/核实笔记.md`。\n')
-w('**口径原则**：税前 / 税后、当年 / 累计分开写；信中不同年份说法有出入时，片中只用核实笔记标注的口径；'
-  '2015–2025 年的致股东信未再披露喜诗利润，片中不推测近况。\n')
+w('# 《一块五的热狗——芒格为什么最爱 Costco》出处与口径\n')
+w(f'片长 {ts(TL["total"])}。Costco 财务数字取自 2026 财年 10-K（截至 2026-08-30，2026-10-07 提交）；伯克希尔原话取自致股东信原文；'
+  '详细核实过程、每条数字的交叉来源与两版参考脚本的勘误见 `research/核实笔记.md`。\n')
+w('**口径原则**：加价率与毛利率分开；会员费不等于全部利润；“付费会员”与“持卡人”分开；续费率分美加与全球；'
+  '只查到单一来源或媒体转述的，旁白写“据报道 / 据多家媒体报道”。\n')
 w('## 逐句旁白\n')
 cur = None
 for lid, ch, text, say, mood, src in LINES:
@@ -27,36 +34,36 @@ for lid, ch, text, say, mood, src in LINES:
         w(f'\n### {CHN.get(ch) or "开场"}\n'); cur = ch
     w(f'- `{ts(SEG[lid]["start"])}` {text}' + (f'\n  - 出处：{src}' if src else ''))
     for sid, so in SOTS.items():
-        if so['after'] == lid:
-            sg = SEG['sot_' + sid]
-            who = '芒格' if so.get('who') == 'munger' else '巴菲特'
-            w(f'- `{ts(sg["start"])}` 🔊 **{who}原声**：“{so["en"]}” —— ' + ''.join(c for _, c in so['ph']) +
-              f'\n  - 出处：{so.get("srcname", SOT_SRC)}，{"访谈" if so.get("src") == "hbo_munger" else "专访"} {so["ts"]}（切点见 `src/cut_sot.py`、`work/sot/sot.json`）')
+        if so['after'] == lid: w(sot_line(sid, so))
 w(f'\n### 片尾\n\n- `{ts(SEG["tease"]["start"])}` {TEASE[0]}：{TEASE[1]}' + (f'\n  - 出处：{TEASE[3]}' if len(TEASE) > 3 else ''))
-w('\n## 大师原声（SOT）\n')
-w('片中 4 处直接播放公开采访里的真实原声：芒格 2 处（Kunhardt Film Foundation 公开发布的 HBO 纪录片《Becoming Warren Buffett》芒格完整访谈，'
-  'https://archive.org/details/youtube-F6s2HAzMeL0 ，原 YouTube F6s2HAzMeL0），巴菲特 2 处（CNBC Squawk Box 2026-07-15 专访）。'
-  '全部原速、不改词、不拼接；入出点切在自然停顿，经离线英文语音识别逐句核对（芒格访谈全文转写：`research/芒格HBO访谈_转写_whisper.txt`）；'
-  '屏幕给出英文原话、中文翻译与出处。画面与声音同一入点（口型同步）；芒格访谈画面上烧录的时间码已抹去、片名水印已裁出画外。')
+for sid, so in SOTS.items():
+    if so['after'] == 'tease': w(sot_line(sid, so))
+w('\n## 原声（SOT）\n')
+w('片中 7 处直接播放公开影像里的真实原声：芒格 5 处（2022-02-16《每日期刊》年度股东会答问，Becky Quick 代读提问；'
+  '片源为第三方转载件 https://archive.org/details/youtube-A21VQ4AFV5M ，转载件在芒格答问中间插了图库镜头，这些时段画面换成本片的 Costco 档案画面，'
+  '芒格出镜时段保持原片、口型同步；转载件烧录的字幕已裁出画外）；辛内格尔 1 处（ABC《20/20》2005 年报道，https://archive.org/details/youtube-f9Iv_vdO7sw）；'
+  '巴菲特 1 处（CNBC Squawk Box 2026-07-15 专访，第四期已入库）。全部原速、不改词、不拼接；入出点切在自然停顿，'
+  '经离线英文语音识别（sherpa-onnx whisper small.en，`src/asr_en.py`）逐句核对，转写稿在 `research/asr/`；屏幕给出英文原话、中文翻译与出处。\n')
+w('2011 年股东大会的“劫机笑话”和 2024 年股东大会的“买、买、买”，原声在 CNBC 巴菲特档案与 YouTube，均无法合规取得（机器人拦截），片中只用屏幕引语卡。\n')
 for sid, so in SOTS.items():
     sg = SEG['sot_' + sid]
-    who = '芒格' if so.get('who') == 'munger' else '巴菲特'
-    w(f'- `{ts(sg["start"])}` {who}（{"访谈" if so.get("src") == "hbo_munger" else "专访"} {so["ts"]}，{sg["len"]:.1f}s）“{so["en"]}”')
+    w(f'- `{ts(sg["start"])}` {WHO[so["who"]]}（{so["srcname"]}，{sg["len"]:.1f}s）“{so["en"]}”')
 w('\n## 屏幕原话（英文原句 + 中文翻译）\n')
 for k, (en, cn, who) in QUOTES.items():
     w(f'- **{who}**：“{en}” —— {cn}')
 w('\n- 致股东信原文均可在 https://www.berkshirehathaway.com/letters/letters.html 查到；屏幕引语卡注明年份。')
-w('- 1983 年信附录《商誉及其摊销》（Goodwill and its Amortization）是第二章的主要依据。')
 w('\n## 数据口径\n')
-w('- 1972–1984 年喜诗数据：1984 年致股东信原表（销售额、税后营业利润、售出磅数、年底门店）。每磅售价 1972 年约 $1.85 为本片按原表推算（$31,337,000 ÷ 16,954,000 磅）；1984 年 $5.49 为信中原数。')
-w('- 美国物价：BLS CPI-U 年均值（1972 年 41.8、1975 年 53.8、1978 年 65.2、1981 年 90.9、1984 年 103.9）。')
-w('- 收购价：卖方名义要价 $4000 万，含 $1000 万多余现金，实际要价 $3000 万；成交 $2500 万（1991、2007、2014 年信）。有形资产 1991 年信作 $700 万、其余各信作 $800 万，片中用约 $800 万。')
-w('- 2007 年：销售 $3.83 亿、税前 $8200 万、经营所需资本 $4000 万；1972–2007 累计税前 $13.5 亿，其中 $3200 万再投入。2014 年：累计税前 $19 亿，追加投入 $4000 万。')
-w('- “一般公司要投约 $4 亿”是巴菲特在 2007 年信中举的例子，不是统计数。')
-w('- 2025 年：伯克希尔 2025 年 10-K——约 250 家门店（另有约 100 个季节性网点），主要在加州和美国西部；约一半年收入在第四季度。10-K 不单列喜诗利润。')
-w('- 示意画面（美国西部门店分布、资金循环、储蓄罐、资金分枝、月度柱形状等）均在画面上标注“示意”，不代表真实数据；卓别林《寻子遇仙记》挑烟头的镜头为“烟蒂投资”的示意。')
-w('- Costco 预告：2007 年致股东信（低成本 vs 品牌两种护城河）；Costco 2023-11-29 公告（CEO Craig Jelinek 谈芒格）。')
-w('- 1952 年《我爱露西》：依据喜诗官网大事记（“Lucy Loves See’s”）；片中画面为今日喜诗厨房实拍，不是剧集画面。')
+w('- 2026 财年（截至 2026-08-30）：商品净销售额 $297,247M；会员费 $5,907M；商品毛利 $32,968M（毛利率 11.09%）；SG&A $27,190M；'
+  '营业利润约 $11.7B（本片按 32,968 − 27,190 + 5,907 = 11,685 计算，未单列开业前费用）；净利润 $9,226M；付费会员 8410 万、持卡人 1.504 亿；'
+  '续费率美加 92.3%、全球 89.8%；仓库 939 家；年末存货 $19,324M、应付账款 $22,591M（二手数据，两家来源一致）。')
+w('- “会员费约占营业利润一半”：5,907 ÷ 11,685 ≈ 50.6%。SG&A 无法严格拆成“卖货的”和“会员的”，片中只说“毛利付完整个公司的开销，还有结余”。')
+w('- 加价上限 14% / 15%：多家媒体报道，Costco 没有正式披露；片中注明“据多家媒体报道”。100 → 114 的毛利率为 12.28%。')
+w('- 热狗套餐 $1.50：多数来源写 1985 年起，维基百科写 1984 年推出；片中用 1985 年。物价：BLS CPI-U 1985 年均 107.6、2025 年 12 月 326.0（约 3 倍）。')
+w('- 内布拉斯加养鸡体系：弗里蒙特市长所说“超过 4.5 亿美元”包括饲料厂、孵化场与加工厂；2019 年投产。')
+w('- YouGov：顾客中高收入家庭占比 Costco 18%、BJ’s 15%、山姆 12%（美国）。')
+w('- 山姆中国：1996 年深圳首店；付费会员超 1070 万（媒体报道，时间点表述不一）；约 1 小时送达（多数城市）。Costco 中国首店：2019-08-27 上海闵行。')
+w('- 伯克希尔 2020 年三季度卖出全部 4,333,363 股 Costco（13F）。市盈率：2026-08-29 约 47.6 倍、2026-11-02 约 50 倍（第三方数据），片中写“四十多倍到五十倍之间”。')
+w('- 示意画面（物价曲线、方块数量、利润桥比例、飞轮、仓库/工厂/卡片线稿、市盈率仪表）均为示意或按上述数字绘制；自绘图形不使用任何公司的商标。')
 w('\n## 影像素材\n')
 for k, v in IA.items():
     w(f'- `{k}`：{v["source"]}（片源起点 {v["start"]}s，{v["dur"]}s）{("—— " + v["note"]) if v.get("note") else ""}')
@@ -64,10 +71,9 @@ w('\n影像只取画面、不用原声（原声段落除外），画面上逐镜
 for k, v in CR.items():
     w(f'- `{k}`：{v.get("title") or v.get("file")}，{v.get("artist", "")}，{v.get("license", "")}，{v["page"]}')
 w('\n## 声音\n')
-w('- 旁白：豆包语音合成 2.0（刘飞音色），逐段整读；离线中文识别逐句回听核对（`src/check_vo.py`、`src/check_lines.py`）。')
-w('- 配乐：本期原创，程序作曲（`src/music.py`，以 F 大调为主、谈判与“做不到的事”转 D 小调，80 BPM，四音主题贯穿），'
-  'FluidSynth + FluidR3 GM 音色库渲染。v3：全片统一小节网格，重拍都落在小节线上——片名、“13.5 亿”、“芒格把我扳了过来”、片尾 logo 四处大重拍；'
-  '每章要点卡期间上扬、章节号亮起时重拍；“19 亿”“四倍多”“眼睛”“Costco”处点题；原声下只留铺底。')
-w('- 大师原声：采访原片音轨，80Hz 高通、整段响度对齐旁白，原声下配乐再压低 5 dB。除原声外，不模仿、不合成任何真实人物的声音。')
+w('- 旁白：豆包语音合成 2.0（刘飞音色），逐段整读；离线中文识别逐句回听核对（`src/check_lines.py`），英文专名另用英文识别复核。')
+w('- 配乐：本期原创，程序作曲（`src/music.py`），FluidSynth + FluidR3 GM 音色库渲染。全片统一小节网格：片名、“我就宰了你”、“规模经济共享”、'
+  '“净利润九十二亿”、“买、买、买”、片尾“美国运通”与 logo 处卡点，每章要点卡期间上扬、章节号亮起时重拍；原声下只留铺底。')
+w('- 原声：影像原片音轨，整段响度对齐旁白，原声下配乐再压低。除原声外，不模仿、不合成任何真实人物的声音。')
 open(os.path.join(ROOT, 'docs', 'SOURCES.md'), 'w').write('\n'.join(out) + '\n')
 print('docs/SOURCES.md', len(out), 'lines')
