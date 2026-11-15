@@ -1,0 +1,387 @@
+{
+ "a_open": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 24.0,
+  "dur": 6.6,
+  "note": "新店开业，辛内格尔在人群里"
+ },
+ "a_crowd": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 37.0,
+  "dur": 8.0,
+  "note": "开业人潮与购物车"
+ },
+ "a_greet": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 58.2,
+  "dur": 8.8,
+  "note": "辛内格尔和员工打招呼"
+ },
+ "a_tag": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 90.3,
+  "dur": 2.8,
+  "note": "名牌：JIM"
+ },
+ "a_phone": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 100.6,
+  "dur": 5.5,
+  "note": "辛内格尔自己接电话"
+ },
+ "a_hall": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 115.0,
+  "dur": 9.0,
+  "note": "总部走廊"
+ },
+ "a_entrance": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 142.5,
+  "dur": 3.6,
+  "note": "仓库入口"
+ },
+ "a_floor": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 150.7,
+  "dur": 3.1,
+  "note": "仓库全景"
+ },
+ "a_bakery": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 154.6,
+  "dur": 2.5,
+  "note": "海鲜区"
+ },
+ "a_sign": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 179.9,
+  "dur": 2.8,
+  "note": "Costco 招牌"
+ },
+ "a_walk": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 183.0,
+  "dur": 2.7,
+  "note": "辛内格尔巡店"
+ },
+ "a_lot": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 187.7,
+  "dur": 5.8,
+  "note": "停车场推车"
+ },
+ "a_aisle": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 193.8,
+  "dur": 3.8,
+  "note": "通道与购物车"
+ },
+ "a_walk2": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 208.4,
+  "dur": 2.7,
+  "note": "辛内格尔巡店"
+ },
+ "a_cans": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 211.4,
+  "dur": 6.4,
+  "note": "整托盘罐头"
+ },
+ "a_chicken": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 221.0,
+  "dur": 2.3,
+  "note": "烤鸡"
+ },
+ "a_wine": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 223.6,
+  "dur": 3.4,
+  "note": "葡萄酒"
+ },
+ "a_pies": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 227.3,
+  "dur": 6.0,
+  "note": "南瓜派"
+ },
+ "a_shelf": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 259.4,
+  "dur": 5.3,
+  "note": "辛内格尔检查货架"
+ },
+ "a_meat": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 265.0,
+  "dur": 5.9,
+  "note": "肉品区"
+ },
+ "a_fork": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 271.2,
+  "dur": 6.2,
+  "note": "叉车与整托盘"
+ },
+ "a_fork2": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 287.8,
+  "dur": 2.0,
+  "note": "叉车"
+ },
+ "a_bake2": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 306.6,
+  "dur": 8.0,
+  "note": "烘焙员工"
+ },
+ "a_office": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 346.4,
+  "dur": 10.0,
+  "note": "朴素的总部办公室"
+ },
+ "a_fax": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 356.8,
+  "dur": 3.3,
+  "note": "自己发传真"
+ },
+ "a_desk": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 360.4,
+  "dur": 12.8,
+  "note": "办公桌前打电话"
+ },
+ "fm_ext": {
+  "source": "CBS 8 圣地亚哥（KFMB News 8）：FedMart 倒闭，记者 Gene Cubbison 采访索尔·普莱斯（1982-04-29）",
+  "ia": "https://archive.org/details/youtube-3Ui_sFvSgDI",
+  "start": 0.3,
+  "dur": 5.3,
+  "note": "FedMart 门店（1982）"
+ },
+ "fm_ext2": {
+  "source": "CBS 8 圣地亚哥（KFMB News 8）：FedMart 倒闭，记者 Gene Cubbison 采访索尔·普莱斯（1982-04-29）",
+  "ia": "https://archive.org/details/youtube-3Ui_sFvSgDI",
+  "start": 7.9,
+  "dur": 4.5,
+  "note": "FedMart 停车场（1982）"
+ },
+ "pc_int1": {
+  "source": "CBS 8 圣地亚哥（KFMB News 8）：FedMart 倒闭，记者 Gene Cubbison 采访索尔·普莱斯（1982-04-29）",
+  "ia": "https://archive.org/details/youtube-3Ui_sFvSgDI",
+  "start": 18.5,
+  "dur": 2.2,
+  "note": "Price Club 卖场（1982）"
+ },
+ "pc_int2": {
+  "source": "CBS 8 圣地亚哥（KFMB News 8）：FedMart 倒闭，记者 Gene Cubbison 采访索尔·普莱斯（1982-04-29）",
+  "ia": "https://archive.org/details/youtube-3Ui_sFvSgDI",
+  "start": 22.1,
+  "dur": 2.3,
+  "note": "Price Club 卖场（1982）"
+ },
+ "pc_int3": {
+  "source": "CBS 8 圣地亚哥（KFMB News 8）：FedMart 倒闭，记者 Gene Cubbison 采访索尔·普莱斯（1982-04-29）",
+  "ia": "https://archive.org/details/youtube-3Ui_sFvSgDI",
+  "start": 24.6,
+  "dur": 2.2,
+  "note": "Price Club 货架（1982）"
+ },
+ "sol_int1": {
+  "source": "CBS 8 圣地亚哥（KFMB News 8）：FedMart 倒闭，记者 Gene Cubbison 采访索尔·普莱斯（1982-04-29）",
+  "ia": "https://archive.org/details/youtube-3Ui_sFvSgDI",
+  "start": 38.4,
+  "dur": 12.0,
+  "note": "索尔·普莱斯（1982）"
+ },
+ "sol_int2": {
+  "source": "CBS 8 圣地亚哥（KFMB News 8）：FedMart 倒闭，记者 Gene Cubbison 采访索尔·普莱斯（1982-04-29）",
+  "ia": "https://archive.org/details/youtube-3Ui_sFvSgDI",
+  "start": 96.4,
+  "dur": 11.6,
+  "note": "索尔·普莱斯（1982）"
+ },
+ "sol_int3": {
+  "source": "CBS 8 圣地亚哥（KFMB News 8）：FedMart 倒闭，记者 Gene Cubbison 采访索尔·普莱斯（1982-04-29）",
+  "ia": "https://archive.org/details/youtube-3Ui_sFvSgDI",
+  "start": 110.2,
+  "dur": 10.2,
+  "note": "索尔·普莱斯（1982）"
+ },
+ "fm_check": {
+  "source": "CBS 8 圣地亚哥：FedMart 奥申赛德店最后几天（1982 年 6 月）",
+  "ia": "https://archive.org/details/youtube-3N94uTwddHE",
+  "start": 8.2,
+  "dur": 5.8,
+  "note": "FedMart 收银台（1982）"
+ },
+ "fm_front": {
+  "source": "CBS 8 圣地亚哥：FedMart 奥申赛德店最后几天（1982 年 6 月）",
+  "ia": "https://archive.org/details/youtube-3N94uTwddHE",
+  "start": 2.2,
+  "dur": 4.4,
+  "note": "FedMart 门店（1982）"
+ },
+ "fm_bag": {
+  "source": "CBS 8 圣地亚哥：FedMart 奥申赛德店最后几天（1982 年 6 月）",
+  "ia": "https://archive.org/details/youtube-3N94uTwddHE",
+  "start": 16.2,
+  "dur": 5.0,
+  "note": "FedMart 收银员（1982）"
+ },
+ "sol66_cu": {
+  "source": "CBS 8 圣地亚哥：索尔·普莱斯接受 Harold Keen 采访（1966-11-07）",
+  "ia": "https://archive.org/details/youtube-7Dwhpeivpes",
+  "start": 240.0,
+  "dur": 14.0,
+  "note": "索尔·普莱斯（1966）"
+ },
+ "sol66_two": {
+  "source": "CBS 8 圣地亚哥：索尔·普莱斯接受 Harold Keen 采访（1966-11-07）",
+  "ia": "https://archive.org/details/youtube-7Dwhpeivpes",
+  "start": 22.0,
+  "dur": 10.0,
+  "note": "索尔·普莱斯接受采访（1966）"
+ },
+ "w_ext": {
+  "source": "WBZ-TV 波士顿：仓储会员店报道（1991，Costco 段落）",
+  "ia": "https://archive.org/details/discount-warehouse-stores-report-boston-ma-usa-1991",
+  "start": 124.5,
+  "dur": 5.0,
+  "note": "Costco 仓库外景（1991）"
+ },
+ "w_aisle": {
+  "source": "WBZ-TV 波士顿：仓储会员店报道（1991，Costco 段落）",
+  "ia": "https://archive.org/details/discount-warehouse-stores-report-boston-ma-usa-1991",
+  "start": 129.9,
+  "dur": 2.2,
+  "note": "Costco 通道（1991）"
+ },
+ "w_bakery": {
+  "source": "WBZ-TV 波士顿：仓储会员店报道（1991，Costco 段落）",
+  "ia": "https://archive.org/details/discount-warehouse-stores-report-boston-ma-usa-1991",
+  "start": 132.4,
+  "dur": 3.5,
+  "note": "Costco 烘焙区（1991）"
+ },
+ "w_bake2": {
+  "source": "WBZ-TV 波士顿：仓储会员店报道（1991，Costco 段落）",
+  "ia": "https://archive.org/details/discount-warehouse-stores-report-boston-ma-usa-1991",
+  "start": 141.9,
+  "dur": 3.8,
+  "note": "Costco 烘焙（1991）"
+ },
+ "w_stock": {
+  "source": "WBZ-TV 波士顿：仓储会员店报道（1991，Costco 段落）",
+  "ia": "https://archive.org/details/discount-warehouse-stores-report-boston-ma-usa-1991",
+  "start": 146.0,
+  "dur": 4.2,
+  "note": "Costco 理货（1991）"
+ },
+ "m_dj1": {
+  "source": "2022 年《每日期刊》年度股东会芒格答问（转载片段，只取芒格出镜画面）",
+  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
+  "start": 15.0,
+  "dur": 3.6,
+  "note": "芒格（2022）"
+ },
+ "m_dj2": {
+  "source": "2022 年《每日期刊》年度股东会芒格答问（转载片段，只取芒格出镜画面）",
+  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
+  "start": 133.5,
+  "dur": 9.0,
+  "note": "芒格（2022）"
+ },
+ "m_dj3": {
+  "source": "2022 年《每日期刊》年度股东会芒格答问（转载片段，只取芒格出镜画面）",
+  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
+  "start": 50.3,
+  "dur": 5.0,
+  "note": "芒格（2022）"
+ },
+ "sot_titan": {
+  "source": "2022 年《每日期刊》年度股东会，芒格答问（Becky Quick 代读提问）· 原声",
+  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
+  "start": 101.01,
+  "dur": 11.41,
+  "shot": "close",
+  "note": "Costco’s gonna be an absolute titan on the internet, ’cause they got curated products that everybody trusts and huge purchasing power on a limited number of stocking units."
+ },
+ "sot_sinegal": {
+  "source": "ABC News《20/20》：James Sinegal（2005）· 原声",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 453.25,
+  "dur": 15.283,
+  "shot": "close",
+  "note": "Wall Street is in the business of making money between now and next Tuesday. We’re in the business of building an organization, an institution that we hope will be here 50 years from now. And paying good wages and keeping your people working with you is very good business."
+ },
+ "sot_culture": {
+  "source": "2022 年《每日期刊》年度股东会，芒格答问（Becky Quick 代读提问）· 原声",
+  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
+  "start": 133.091,
+  "dur": 17.607,
+  "shot": "close",
+  "note": "I think it has a good culture and a good moral ethos and so. I wish everything else in America is working as well as Costco does. Think what a blessing that would be for us all."
+ },
+ "sot_price1": {
+  "source": "2022 年《每日期刊》年度股东会，芒格答问（Becky Quick 代读提问）· 原声",
+  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
+  "start": 14.162,
+  "dur": 16.26,
+  "shot": "close",
+  "note": "Well, that’s a very good question, and I’ve always believed that nothing was worth an infinite price. So even an admirable place like Costco could get to a price where you would say that’s too high."
+ },
+ "sot_price2": {
+  "source": "2022 年《每日期刊》年度股东会，芒格答问（Becky Quick 代读提问）· 原声",
+  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
+  "start": 31.213,
+  "dur": 23.027,
+  "shot": "close",
+  "note": "But I would argue that if I were investing money for some sovereign wealth fund or some pension fund and at 30, 40, 50 year time horizon, I would buy Costco at the current price. I think it’s that strong an enterprise and that admirable a place."
+ },
+ "sot_price3": {
+  "source": "2022 年《每日期刊》年度股东会，芒格答问（Becky Quick 代读提问）· 原声",
+  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
+  "start": 54.984,
+  "dur": 14.429,
+  "shot": "close",
+  "note": "Now, I’m not saying I would — I can’t bring myself with my habits to pay these big prices. But I never even think about selling a share of Costco just because it’s selling at a high price."
+ },
+ "sot_amex": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 232.705,
+  "dur": 16.17,
+  "shot": "close",
+  "note": "But American Express would come up with some figure similar, but it’s so different that it earns 30% plus on capital and does not incur more risk in doing so than the banks that earn 13 or 14 percent."
+ }
+}

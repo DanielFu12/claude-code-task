@@ -1,0 +1,50 @@
+{
+ "costco_ext": {
+  "file": "Costco Wholesale Club.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Costco_Wholesale_Club.jpg",
+  "artist": "Jacob Blanck",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "use": "下期预告：Costco 门店外景",
+  "date": "2021-11-22 15:56:47",
+  "reused_from": "喜诗糖果/assets/media"
+ },
+ "costco_int": {
+  "file": "Costco SSF interior.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Costco_SSF_interior.JPG",
+  "artist": "BrokenSphere",
+  "license": "CC BY-SA 3.0",
+  "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "use": "下期预告：Costco 卖场（南旧金山）",
+  "date": "Taken on 19 January 2008",
+  "reused_from": "喜诗糖果/assets/media"
+ },
+ "costco_int2": {
+  "file": "Costco Neihu Warehouse 1st Floor Food Area 20160320b.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Costco_Neihu_Warehouse_1st_Floor_Food_Area_20160320b.jpg",
+  "artist": "玄史生",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "use": "下期预告：Costco 卖场",
+  "date": "Taken on 20 March 2016",
+  "reused_from": "喜诗糖果/assets/media"
+ },
+ "buffett_2015": {
+  "title": "File:Warren Buffett at the 2015 SelectUSA Investment Summit.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AWarren_Buffett_at_the_2015_SelectUSA_Investment_Summit.jpg",
+  "license": "Public domain",
+  "artist": "USA International Trade Administration",
+  "date": "2015-04-17",
+  "desc": "Warren Buffett at the 2015 SelectUSA Investment Summit",
+  "reused_from": "喜诗糖果/assets/media"
+ },
+ "buffett_2010": {
+  "title": "File:Warren Buffett Wall Street Money Never Sleeps Premiere, New York City, 2010 (55363166973)-corp.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File%3AWarren_Buffett_Wall_Street_Money_Never_Sleeps_Premiere%2C_New_York_City%2C_2010_%2855363166973%29-corp.jpg",
+  "license": "CC BY 4.0",
+  "artist": "Anthony Quintano",
+  "date": "2010-09-20",
+  "desc": "Warren Buffett Wall Street Money Never Sleeps Premiere, New York City, 2010",
+  "reused_from": "喜诗糖果/assets/media"
+ }
+}
