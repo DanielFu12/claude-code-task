@@ -65,12 +65,12 @@ def photo_win(cv, name, t, t0, t1, cy=560, w=1000, h=562, focus=(0.5, 0.5), cap=
     return M.frame(cv, name, t, t0, t1, cy=cy, w=w, h=h, z0=z0, z1=z1, focus=focus, a=a, cap=cap, pan=pan)
 
 
-def pic(cv, names, t, t0, t1, fb=None, **kw):
+def pic(cv, names, t, t0, t1, fb=None, fbcap=None, **kw):
     """names 里第一张已入库的照片；都没有时用 fb（档案影像）串接；仍没有则返回 False（调用方画后备画面）"""
     n = first_have(names)
     if n is None:
         if fb:
-            seq(cv, t, t0, t1, fb, **{k: v for k, v in kw.items() if k in ('cy', 'w', 'h', 'a', 'cap')}); return True
+            seq(cv, t, t0, t1, fb, cap=fbcap, **{k: v for k, v in kw.items() if k in ('cy', 'w', 'h', 'a')}); return True
         return False
     photo_win(cv, n, t, t0, t1, **kw); return True
 
@@ -598,7 +598,7 @@ def shot_hook(cv, t):
     t0, t1 = win('h3')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        pic(cv, ['costco_ext', 'costco_ext2'], t, t0, t1, fb=['w_ext'], cy=560, h=562, a=a, cap='Costco 仓库')
+        pic(cv, ['costco_ext', 'costco_ext2'], t, t0, t1, fb=['w_ext'], fbcap='Costco 仓库（WBZ 1991）', cy=560, h=562, a=a, cap='Costco 仓库')
         y = 1110; xa, xb = 170, 910
         k = eexp((t - WT('h3', '一九九七') + 0.1) / 1.6)
         cv.line((xa, y), (xa + (xb - xa) * k, y), GOLD, a, 4)
@@ -664,8 +664,7 @@ def shot_ch1(cv, t):
     t0, t1 = win('c1a', pre=0.1)
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        if not pic(cv, ['hotdog1', 'hotdog2', 'foodcourt'], t, t0, t1, cy=560, h=562, a=a, cap='Costco 美食区的热狗套餐'):
-            hotdog(cv, W / 2 - 60, 560, 1.4, a * eo((t - t0) / 0.5), t); note(cv, '示意', 800, a * 0.7, 20)
+        pic(cv, ['hotdog1', 'hotdog2', 'foodcourt'], t, t0, t1, fb=['a_open', 'a_crowd'], fbcap='Costco 卖场（ABC 2005）', cy=560, h=562, a=a, cap='Costco 美食区的热狗套餐')
         k = eo((t - WT('c1a', '一根热狗') + 0.1) / 0.5)
         if k > 0: hotdog(cv, 360, 1150, 0.7, a * k, t)
         price_tag(cv, 800, 1110, 0.95, a * eo((t - WT('c1a', '一块五') + 0.1) / 0.45), '$1.50', '热狗 + 续杯汽水', rot=-0.06)
@@ -729,7 +728,7 @@ def shot_ch1(cv, t):
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
         tsw = WT('c1e', '为了守住')
-        pic(cv, ['chicken_oven', 'chicken_pack'], t, t0, tsw + 0.3, fb=['a_chicken'], cy=560, h=562, a=a, cap='Costco 的烤鸡')
+        pic(cv, ['chicken_oven', 'chicken_pack'], t, t0, tsw + 0.3, fb=['a_chicken'], fbcap='Costco 的烤鸡（ABC 2005）', cy=560, h=562, a=a, cap='Costco 的烤鸡')
         seq(cv, t, tsw - 0.1, t1, ['a_meat', 'a_bake2'], h=562, a=a, cap='Costco 肉品区与烘焙（ABC 2005）')
         price_tag(cv, W / 2, 1010, 0.7, a * eo((t - WT('c1e', '四块九') + 0.1) / 0.45), '$4.99', '一只烤鸡', col=COST_R)
         steps = [('饲料厂', WT('c1e', '饲料厂')), ('孵化场', WT('c1e', '孵化场')), ('加工厂', WT('c1e', '加工厂'))]
@@ -792,7 +791,7 @@ def shot_ch2(cv, t):
     t0, t1 = win('c2b')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        pic(cv, ['sinegal'], t, t0, t1, fb=['a_hall'], cy=560, h=562, a=a, cap='吉姆·辛内格尔')
+        pic(cv, ['sinegal'], t, t0, t1, fb=['a_hall'], fbcap='辛内格尔在总部（ABC 2005）', cy=560, h=562, a=a, cap='吉姆·辛内格尔')
         k = eo((t - WT('c2b', '卸床垫') + 0.1) / 0.5)
         for j in range(4):
             kk = eo((t - WT('c2b', '卸床垫') - j * 0.18) / 0.4)
@@ -872,7 +871,7 @@ def shot_ch2(cv, t):
     if a > 0:
         if not pic(cv, ['sams_us', 'sams_int'], t, t0, t1, cy=560, h=562, a=a, cap='山姆会员店（美国）'):
             kk = eo((t - t0) / 0.5)
-            cv.text('Sam’s Club', W / 2, 520, 110, 'serif_black', col=BLUE_L, a=a * kk, glow=0.15)
+            cv.text('山姆会员店', W / 2, 520, 110, 'serif_black', col=BLUE_L, a=a * kk, glow=0.15)
             cv.text('1983 · 俄克拉何马州', W / 2, 640, 34, 'sans_med', col=CREAM, a=a * kk)
         k = eo((t - WT('c2g', '山姆沃尔顿') + 0.1) / 0.45) * (1 - eo((t - WT('c2g', '他在自传') + 0.3) / 0.4))
         if k > 0:
@@ -1097,7 +1096,7 @@ def shot_ch4(cv, t):
     t0, t1 = win('c4e')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        pic(cv, ['checkout', 'checkout2', 'card'], t, t0, t1, fb=['a_aisle', 'a_lot'], cy=520, h=480, a=a, cap='Costco 收银台')
+        pic(cv, ['checkout', 'checkout2', 'card'], t, t0, t1, fb=['a_aisle', 'a_lot'], fbcap='Costco 会员（ABC 2005）', cy=520, h=480, a=a, cap='Costco 收银台')
         k = eo((t - WT('c4e', '八千四百') + 0.1) / 0.45)
         if k > 0:
             cv.text(counter(0, 8410, t, WT('c4e', '八千四百'), 1.2, lambda v: f'{v:,.0f} 万'), W / 2, 920, 84, 'sans_bold', gold=True, a=a * k, glow=0.2)
@@ -1140,6 +1139,9 @@ def shot_ch4(cv, t):
         grid = [('costco_neworleans', '美国'), ('costco_japan', '日本'), ('costco_korea', '韩国'), ('costco_taiwan', '中国台湾'),
                 ('costco_uk', '英国'), ('costco_ext2', '美国'), ('costco_ext', '美国'), ('costco_pallets', '美国'), ('costco_books', '美国')]
         have = [g for g in grid if M.have(g[0])][:6]
+        if len(have) < 3:                       # 照片不够拼贴：改用档案影像
+            have = []
+            seq(cv, t, t0, t1, ['w_ext', 'a_sign', 'a_entrance'], h=480, cy=520, a=a, cap='Costco 仓库（WBZ 1991 / ABC 2005）')
         for j, (nm, cp) in enumerate(have):
             r, c = divmod(j, 3)
             mini_photo(cv, nm, t, t0 + 0.15 * j, t1, 200 + c * 340, 480 + r * 270, 310, 200, a, cap=cp)
@@ -1160,7 +1162,7 @@ def shot_ch5(cv, t):
     t0, t1 = win('c5a')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        pic(cv, ['crowded', 'costco_int3', 'costco_int2'], t, t0, t1, fb=['a_crowd'], cy=520, h=480, a=a, cap='Costco 卖场')
+        pic(cv, ['crowded', 'costco_int3', 'costco_int2'], t, t0, t1, fb=['a_crowd'], fbcap='Costco 卖场（ABC 2005）', cy=520, h=480, a=a, cap='Costco 卖场')
         cv.text('顾客里高收入家庭的占比', W / 2, 860, 34, 'sans_med', col=CREAM, a=a * eo((t - WT('c5a', 'YouGov') + 0.1) / 0.4))
         bars(cv, [('Costco', 18, GOLD, WT('c5a', '百分之十八')), ("BJ's", 15, GREY, WT('c5a', '百分之十八') + 0.5), ('山姆会员店', 12, BLUE_L, WT('c5a', '百分之十二'))],
              t, t0, a, x0=200, x1=880, base=1330, hmax=300, fmt=lambda v: f'{v:.0f}%', label_size=28)
