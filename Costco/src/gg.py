@@ -1203,93 +1203,166 @@ def shot_ch5(cv, t):
             cv.text('靠的不是面子', W / 2, 1230, 40, 'sans_med', col=GREY, a=a * k)
             cv.text('是一笔算得清的账', W / 2, 1320, 54, 'serif_black', gold=True, a=a * eo((t - WT('c5c', '算得清') + 0.1) / 0.45))
         source(cv, '本片解读', a * 0.8, y=1462)
-    # c5d：中国：山姆 1996 深圳；Costco 2019 上海
+    # c5d：美国——门店数相近，单店销售差一倍多
     t0, t1 = win('c5d')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        tc = WT('c5d', 'Costco 直到')
-        if not pic(cv, ['sams_sz1999', 'sams_sz', 'sams_bj'], t, t0, tc + 0.3, cy=520, h=480, a=a, cap='山姆会员店（深圳）'):
-            kk = env(t, t0, tc + 0.3, 0.4, 0.4)
-            cv.text('1996 · 深圳', W / 2, 470, 90, 'serif_black', col=BLUE_L, a=a * kk, glow=0.15)
-            cv.text('山姆会员店进入中国', W / 2, 590, 40, 'sans_med', col=CREAM, a=a * kk)
-        pic(cv, ['costco_int2', 'crowded', 'costco_int3'], t, tc - 0.2, t1, fb=['a_crowd'], cy=520, h=480, a=a)
-        y = 1060; xa, xb = 170, 910
-        k = eexp((t - WT('c5d', '一九九六') + 0.1) / 1.4)
-        cv.line((xa, y), (xa + (xb - xa) * k, y), GOLD_D, a, 4)
-        if k > 0:
-            node(cv, xa + 60, y - 90, '1996 · 山姆', a * min(1, k * 4), col=BLUE_L, size=30, sub='深圳首店')
-        kc = eo((t - tc + 0.1) / 0.45)
-        if kc > 0:
-            node(cv, xb - 70, y - 90, '2019 · Costco', a * kc, col=GOLD, size=30, sub='上海首店')
-            cv.text('相隔 23 年', W / 2, y + 50, 30, 'sans_med', col=CREAM, a=a * kc)
-        kk = eo((t - WT('c5d', '提前关门') + 0.1) / 0.45)
-        if kk > 0: chip(cv, '开业当天，人多到提前关门', W / 2, 1230, 32, a * kk, col=COST_R)
-        source(cv, '36kr、界面（山姆 1996 年深圳福田首店）；CNBC、NBC、财新 2019-08-27（Costco 上海闵行开业当天提前关门）', a, y=1462)
-    # c5e–c5i：同门，两条路——Costco（美国为主）与山姆（中国）逐项对照
-    ROWS = [('会员卡', '美国普通卡 $65 / 年', '普通 260 元 · 卓越 680 元', '付费会员 1070 万+（据报道）', 'c5e', '会员卡'),
-            ('顾客怎么看', '美国：更偏高收入家庭', '中国大城市：一种生活方式', '美国山姆：更偏中低收入', 'c5f', '顾客怎么看'),
-            ('卖什么', '全球好货压到最低价', '联合开发别处买不到的商品', 'Member’s Mark 约三成（据报道）', 'c5g', '卖什么'),
-            ('怎么送', '大仓自提为主 · 线上约 11%', '500+ 前置仓 · 约 1 小时', '沃尔玛中国线上约一半', 'c5h', '怎么送')]
-    t0, t1 = S('c5e') - 0.3, S('c5i') - 0.2
-    a = env(t, t0, t1, 0.4, 0.45)
-    if a > 0:
-        cv.text('同门，两条路', W / 2, 330, 54, 'serif_black', gold=True, a=a * eo((t - t0) / 0.5), glow=0.15)
-        hx = (230, 600, 880)
-        kh = eo((t - t0 - 0.2) / 0.5)
-        cv.text('Costco', hx[1], 430, 40, 'serif_black', col=GOLD_L, a=a * kh)
-        cv.text('（美国为主）', hx[1], 472, 22, 'sans_light', col=GREY, a=a * kh)
-        cv.text('山姆会员店', hx[2] - 10, 430, 40, 'serif_black', col=BLUE_L, a=a * kh)
-        cv.text('（中国）', hx[2] - 10, 472, 22, 'sans_light', col=GREY, a=a * kh)
-        cv.line((70, 500), (1010, 500), GOLD_D, a * kh * 0.8, 2)
-        cur = max([j for j, r in enumerate(ROWS) if t >= S(r[4]) - 0.3] or [0])
-        for j, (dim, cc, ss, sub, lid, w_) in enumerate(ROWS):
-            k = eo((t - (WT(lid, w_) if j else WT('c5e', '会员卡')) + 0.1) / 0.5)
-            if k <= 0: continue
-            y = 600 + j * 200
-            hl = j == cur
-            if hl: cv.rrect(60, y - 86, 1020, y + 86, 18, (0.10, 0.09, 0.07), a * k * 0.9)
-            if hl: cv.rrect(60, y - 86, 1020, y + 86, 18, GOLD, a * k * 0.7, fill=False, th=2)
-            cv.text(f'{j + 1}', 100, y, 50, 'oswald', col=GOLD if hl else GREY, a=a * k)
-            cv.text(dim, 222, y, 30, 'sans_bold', col=CREAM if hl else GREY, a=a * k)
-            cv.line((330, y - 60), (330, y + 60), DIM, a * k * 0.8, 1)
-            for x, txt, col, up in ((470, cc, GOLD_L, 0), (800, ss, BLUE_L, 20)):
-                ln = wrap_cn(txt, 'sans_med', 28, 290)
-                for li, l in enumerate(ln):
-                    cv.text(l, x, y - up - 18 * (len(ln) - 1) + li * 36, 28, 'sans_med', col=col if hl else col * 0.7, a=a * k)
-            ksub = eo((t - (WT(lid, w_) if j else WT('c5e', '会员卡')) - 0.8) / 0.5)
-            cv.text(sub, 800, y + 46, 22, 'sans_light', col=GREY, a=a * k * ksub)
-        note(cv, '第 2 行“生活方式”为本片概括；第 3、4 行山姆数字为媒体报道', 1395, a * eo((t - S('c5f')) / 0.5) * 0.8, 20)
-        srcs = {0: '山姆中国会籍 260 / 680 元（多家报道）；付费会员超 1070 万（36kr、界面等）；Costco 2024-09 起 Gold Star $65',
-                1: 'YouGov：美国仓储会员店顾客收入结构（Costco 高收入 18%、山姆 12%；低收入 Costco 18%、山姆 28%）；钛媒体、36kr 报道',
-                2: '行业报告与媒体报道：Member’s Mark 约占山姆中国销售 30%（口径不一）；Costco 10-K（Kirkland Signature）',
-                3: '36kr、界面（前置仓 500+，口径不一）；沃尔玛 2025 财年四季度财报；Costco 2026 财年 10-K（线上约 11%）；China Daily（在华 7 家店）'}
-        source(cv, srcs[cur], a, y=1462)
-    # c5i：拉新 vs 留存
-    t0, t1 = S('c5i') - 0.3, CH['tk_ch5'][0] + 0.3
+        seq(cv, t, t0, t1, ['w_ext', 'a_walk2', 'a_lot'], h=480, cy=520, a=a, cap='Costco 美国仓库（WBZ 1991 / ABC 2005）')
+        tq = WT('c5d', '先看美国')
+        kq = env(t, t0, tq + 0.2, 0.4, 0.35)
+        if kq > 0:
+            cv.text('同门师兄弟', W / 2, 1010, 40, 'sans_med', col=CREAM, a=a * kq)
+            cv.text('护城河差在哪？', W / 2, 1110, 72, 'serif_black', gold=True, a=a * kq * eo((t - WT('c5d', '护城河') + 0.1) / 0.45), glow=0.15)
+        ku = eo((t - tq + 0.1) / 0.45)
+        if ku > 0:
+            cv.text('美国', W / 2, 900, 40, 'serif_black', col=CREAM, a=a * ku, track=0.3)
+            rows = [('Costco', '647 家', 3.34, GOLD, WT('c5d', '六百四十七'), WT('c5d', '三点三亿')),
+                    ('山姆会员店', '约 600 家', 1.54, BLUE_L, WT('c5d', '约六百'), WT('c5d', '一点五亿'))]
+            for j, (nm, cnt, v, col, tc_, tv) in enumerate(rows):
+                y = 1030 + j * 150
+                kc = eo((t - tc_ + 0.1) / 0.45)
+                if kc <= 0: continue
+                cv.text(nm, 260, y - 22, 34, 'sans_bold', col=col, a=a * kc, anchor='r')
+                cv.text(cnt, 260, y + 24, 26, 'sans_light', col=CREAM, a=a * kc, anchor='r')
+                e = eexp((t - tv) / 1.0)
+                if e > 0:
+                    L = 520 * v / 3.34 * e
+                    gbar(cv, 300, y - 30, 300 + max(L, 2), y + 30, col, a, horizontal=True, glow=0.12, sheen_t=t - tv)
+                    cv.text(f'${v * e:.1f} 亿', 300 + L + 18, y, 40, 'sans_bold', col=col if j else GOLD_L, a=a * min(1, e * 2), anchor='l', shadow=0.6)
+            kv = eo((t - WT('c5d', '三点三亿') + 0.1) / 0.45)
+            if kv > 0: cv.text('每家店一年的销售额（美元）', 560, 950, 24, 'sans_light', col=GREY, a=a * kv)
+            kx = eo((t - WT('c5d', '相差一倍多') + 0.1) / 0.45)
+            if kx > 0: chip(cv, '单店销售：Costco 是山姆的 2 倍多', W / 2, 1360, 34, a * kx, col=GOLD)
+        source(cv, 'Costco 2026 财年 10-K（美国 647 家，美国销售约 $2,160 亿）；Walmart 2026 财年 10-K（Sam’s Club 601 家，$930 亿）；单店为本片计算；MMCG 2026 研报约 2 倍',
+               a, y=1462)
+    # c5e：美国——顾客收入结构
+    t0, t1 = win('c5e')
     a = env(t, t0, t1, 0.4, 0.4)
     if a > 0:
-        for j, (hd, sub, col, x, w_) in enumerate((('拉新', '名气 · 便利', BLUE_L, 290, '请进门'), ('留存', '商品 · 价格', GOLD_L, 790, '续不续卡'))):
-            k = eo((t - WT('c5i', w_) + 0.1) / 0.45)
+        seq(cv, t, t0, t1, ['a_walk', 'a_shelf'], h=480, cy=520, a=a, cap='Costco 卖场（ABC 2005）')
+        kt = eo((t - WT('c5e', '背靠沃尔玛') + 0.1) / 0.45)
+        if kt > 0: chip(cv, '山姆：沃尔玛旗下', W / 2, 875, 30, a * kt, col=BLUE_L)
+        kh = eo((t - WT('c5e', 'YouGov') + 0.1) / 0.45)
+        if kh > 0: cv.text('顾客里低收入家庭的占比（美国）', W / 2, 948, 30, 'sans_med', col=CREAM, a=a * kh)
+        bars(cv, [('山姆会员店', 28, BLUE_L, WT('c5e', '百分之二十八')), ('Costco', 18, GOLD, WT('c5e', '是百分之十八'))],
+             t, t0, a, x0=290, x1=790, base=1290, hmax=230, fmt=lambda v: f'{v:.0f}%', label_size=28)
+        kk = eo((t - WT('c5e', '买得多') + 0.1) / 0.45)
+        if kk > 0: cv.text('买得多、续得稳的会员，更多在 Costco', W / 2, 1395, 34, 'sans_bold', col=GOLD_L, a=a * kk)
+        source(cv, 'YouGov：美国仓储会员店顾客收入结构（低收入家庭：Sam’s Club 28%、Costco 18%；高收入：Costco 18%、Sam’s Club 12%）', a, y=1462)
+    # c5f：中国——位置互换
+    t0, t1 = win('c5f')
+    a = env(t, t0, t1, 0.4, 0.4)
+    if a > 0:
+        tsw = WT('c5f', '反了过来')
+        ksw = eio((t - tsw) / 1.1)
+        cv.text('美国', W / 2, 330, 34, 'sans_med', col=GREY, a=a * (1 - ksw))
+        cv.text('中国', W / 2, 330, 34, 'sans_med', col=CREAM, a=a * ksw)
+        for j, (nm, col) in enumerate((('Costco', GOLD), ('山姆会员店', BLUE_L))):
+            yy = (440 if j == 0 else 640) + (200 if j == 0 else -200) * ksw
+            xx = W / 2 + (1 if j == 0 else -1) * 270 * math.sin(math.pi * ksw)
+            lead = (j == 0) if ksw < 0.5 else (j == 1)
+            w_ = 500 if lead else 420
+            cv.rrect(xx - w_ / 2, yy - 70, xx + w_ / 2, yy + 70, 22, (0.09, 0.08, 0.07), a * 0.95)
+            cv.rrect(xx - w_ / 2, yy - 70, xx + w_ / 2, yy + 70, 22, col, a * (0.9 if lead else 0.45), fill=False, th=3 if lead else 2)
+            cv.text(nm, xx, yy, 52 if lead else 42, 'serif_black', col=col if lead else col * 0.7, a=a)
+        kr = eo((t - tsw - 1.0) / 0.45)
+        if kr > 0: cv.text('先到的一方，占住了位置', W / 2, 790, 30, 'sans_med', col=CREAM, a=a * kr)
+        y = 1010; xa, xb = 170, 910
+        k = eexp((t - WT('c5f', '一九九六') + 0.1) / 1.4)
+        if k > 0:
+            cv.line((xa, y), (xa + (xb - xa) * k, y), GOLD_D, a, 4)
+            node(cv, xa + 80, y - 60, '1996 · 山姆', a * min(1, k * 4), col=BLUE_L, size=28, sub='深圳首店')
+        kc = eo((t - WT('c5f', '二零一九') + 0.1) / 0.45)
+        if kc > 0: node(cv, xb - 80, y - 60, '2019 · Costco', a * kc, col=GOLD, size=28, sub='上海首店')
+        k23 = eo((t - WT('c5f', '早了') + 0.1) / 0.45)
+        if k23 > 0: cv.text('早了 23 年', W / 2, y + 45, 30, 'sans_bold', col=CREAM, a=a * k23)
+        ks = eo((t - WT('c5f', '六十多家') + 0.1) / 0.45)
+        if ks > 0:
+            cv.text('60+', 300, 1210, 96, 'sans_bold', col=BLUE_L, a=a * ks, glow=0.15)
+            cv.text('山姆门店（2026）', 300, 1290, 26, 'sans_light', col=CREAM, a=a * ks)
+        km = eo((t - WT('c5f', '一千零七十万') + 0.1) / 0.45)
+        if km > 0: cv.text('付费会员 1070 万+（据报道）', 300, 1335, 24, 'sans_light', col=BLUE_L, a=a * km)
+        k7 = eo((t - WT('c5f', '只有七家') + 0.1) / 0.45)
+        if k7 > 0:
+            cv.text('7', 780, 1210, 96, 'sans_bold', col=GOLD_L, a=a * k7, glow=0.15)
+            cv.text('Costco 在华门店', 780, 1290, 26, 'sans_light', col=CREAM, a=a * k7)
+        source(cv, '36kr、界面（山姆 1996 深圳首店）；每日经济新闻（2026-05 山姆 67 家）；多家媒体（付费会员超 1070 万）；CNBC 2019-08-27；China Daily 2026-08（Costco 在华 7 家）',
+               a, y=1462)
+    # c5g：先到的山姆成了一种生活方式
+    t0, t1 = win('c5g')
+    a = env(t, t0, t1, 0.4, 0.4)
+    if a > 0:
+        tn = WT('c5g', '小红书')
+        for k_ in range(18):                                   # 示意：一篇篇分享笔记（不画任何应用标识）
+            r, c = divmod(k_, 6)
+            e = eo((t - tn - 0.07 * k_) / 0.4)
+            if e <= 0: continue
+            x = 140 + c * 160; yy = 400 + r * 150 + 20 * (1 - e)
+            cv.rrect(x - 66, yy - 60, x + 66, yy + 60, 12, (0.13, 0.11, 0.10), a * e * 0.95)
+            cv.rect(x - 54, yy - 48, x + 54, yy + 4, BLUE_L * (0.45 + 0.1 * (k_ % 3)), a * e * 0.8)
+            cv.line((x - 54, yy + 22), (x + 40, yy + 22), CREAM * 0.6, a * e, 2)
+            cv.line((x - 54, yy + 40), (x + 12, yy + 40), CREAM * 0.4, a * e, 2)
+        kl = eo((t - WT('c5g', '生活方式') + 0.1) / 0.45)
+        kl = max(kl, eo((t - t0) / 0.5) * 0.85)
+        if kl > 0 and t < tn + 0.3: cv.text('一种生活方式', W / 2, 560, 64, 'serif_black', col=BLUE_L, a=a * kl * (1 - eo((t - tn) / 0.3)), glow=0.15)
+        kn = eo((t - WT('c5g', '二十二万') + 0.1) / 0.45)
+        if kn > 0:
+            cv.text(counter(0, 22, t, WT('c5g', '二十二万'), 1.0, lambda v: f'{v:.0f} 万+'), W / 2, 1000, 110, 'sans_bold', col=BLUE_L, a=a * kn, glow=0.2)
+            cv.text('篇以“山姆”为关键词的小红书笔记（截至 2021 年）', W / 2, 1090, 28, 'sans_med', col=CREAM, a=a * kn)
+        kc = eo((t - WT('c5g', '两百六十元') + 0.1) / 0.45)
+        if kc > 0: card(cv, W / 2, 1225, 0.72, a * kc, '会员卡', '260 元 / 年', col=BLUE_L * 0.8, rot=-0.04 * (1 - kc))
+        kk = eo((t - WT('c5g', '值得分享') + 0.1) / 0.45)
+        if kk > 0: cv.text('买的不只是便宜，也是一份值得分享的日常', W / 2, 1385, 32, 'sans_bold', col=GOLD_L, a=a * kk)
+        source(cv, '36kr（截至 2021-11，小红书“山姆”相关笔记 22 万+ 篇）；山姆普通会员 260 元 / 年（多家报道）；“生活方式”为本片概括', a, y=1462)
+    # c5h：名气请进门；续卡看商品和价格——山姆的本地做法
+    t0, t1 = win('c5h')
+    a = env(t, t0, t1, 0.4, 0.4)
+    if a > 0:
+        for j, (hd, sub, col, x, w_) in enumerate((('进门', '名气', BLUE_L, 300, '请进门'), ('续卡', '商品 · 价格', GOLD_L, 780, '第二年'))):
+            k = eo((t - WT('c5h', w_) + 0.1) / 0.45)
             if k <= 0: continue
             disc(cv, (x, 560), 150, (0.07, 0.06, 0.05), a * k)
             cv.circle((x, 560), 150, col, a * k, 4)
-            cv.text(hd, x, 535, 64, 'serif_black', col=col, a=a * k)
-            cv.text(sub, x, 615, 30, 'sans_med', col=CREAM, a=a * k)
-        kk = eo((t - WT('c5i', '续不续卡') + 0.3) / 0.45)
-        if kk > 0: cv.text('名气和便利请人进门，商品和价格让人续卡', W / 2, 800, 38, 'sans_bold', col=GOLD_L, a=a * kk)
+            cv.text(hd, x, 530, 64, 'serif_black', col=col, a=a * k)
+            cv.text(sub, x, 612, 30, 'sans_med', col=CREAM, a=a * k)
+        ka = eo((t - WT('c5h', '第二年') + 0.1) / 0.45)
+        arrow(cv, (470, 560), (610, 560), a * ka, col=GOLD, k=ka)
+        kh = eo((t - WT('c5h', '山姆在中国') + 0.1) / 0.45)
+        if kh > 0: cv.text('山姆的本地做法', W / 2, 860, 34, 'sans_med', col=CREAM, a=a * kh)
+        its = [('联合开发', '别处买不到的烘焙、零食', '一起开发', GOLD), ('前置仓', '一小时左右送到家', '前置仓', BLUE_L), ('线上 > 50%', '沃尔玛中国（含大卖场）', '超过一半', BLUE_L)]
+        for j, (hd, sub, w_, col) in enumerate(its):
+            k = eo((t - WT('c5h', w_) + 0.1) / 0.45)
+            node(cv, W / 2, 990 + j * 140, hd, a * k, col=col, size=36, w=700, sub=sub)
+        source(cv, '媒体报道（山姆与供应商联合开发商品；多数城市约 1 小时送达）；沃尔玛财报（中国区电商占净销售额超过一半，含沃尔玛大卖场）', a, y=1462)
+    # c5i：名气最容易受伤；两家的续卡逻辑是同一条
+    t0, t1 = S('c5i') - 0.3, CH['tk_ch5'][0] + 0.3
+    a = env(t, t0, t1, 0.4, 0.4)
+    if a > 0:
         k2 = eo((t - WT('c5i', '二零二六') + 0.1) / 0.45)
         if k2 > 0:
-            cv.rrect(110, 900, 970, 1060, 18, (0.10, 0.06, 0.05), a * k2 * 0.9)
-            cv.rrect(110, 900, 970, 1060, 18, COST_R, a * k2 * 0.7, fill=False, th=2)
-            cv.text('2026 年 6 月', W / 2, 945, 28, 'sans_med', col=COST_R, a=a * k2)
-            cv.text('市场监管总局就食品安全约谈沃尔玛中国', W / 2, 1010, 34, 'sans_bold', col=CREAM, a=a * k2)
-        k3 = eo((t - WT('c5i', '送货到家') + 0.1) / 0.45)
-        if k3 > 0:
-            node(cv, 300, 1200, '更方便', a * k3, col=GREEN, size=36, w=260)
-            cv.text('⇄', W / 2, 1200, 50, 'sans_bold', col=GOLD, a=a * k3)
-            node(cv, 780, 1200, '更花钱', a * k3, col=COST_R, size=36, w=260)
-            cv.text('要靠复购和续费来消化', W / 2, 1330, 36, 'sans_bold', col=GOLD_L, a=a * eo((t - WT('c5i', '复购') + 0.1) / 0.45))
-        source(cv, '市场监管总局 2026-06-15 约谈沃尔玛（中国）（媒体报道）；其余为本片解读', a, y=1462)
+            cv.rrect(110, 380, 970, 560, 18, (0.10, 0.06, 0.05), a * k2 * 0.9)
+            cv.rrect(110, 380, 970, 560, 18, COST_R, a * k2 * 0.7, fill=False, th=2)
+            cv.text('2026 年 6 月', W / 2, 430, 28, 'sans_med', col=COST_R, a=a * k2)
+            cv.text('市场监管总局就食品安全约谈沃尔玛中国', W / 2, 500, 36, 'sans_bold', col=CREAM, a=a * k2)
+        kq = eo((t - WT('c5i', '最容易受伤') + 0.1) / 0.45)
+        if kq > 0 and k2 < 1: cv.text('名气，最容易受伤', W / 2, 470, 56, 'serif_black', col=COST_R, a=a * kq * (1 - k2))
+        kg = eo((t - WT('c5i', '身份光环') + 0.1) / 0.45)
+        if kg > 0:
+            node(cv, 290, 720, '身份光环', a * kg, col=BLUE_L, size=38, w=400, sub='管拉新：省下广告费')
+        kr = eo((t - WT('c5i', '决定会员') + 0.1) / 0.45)
+        if kr > 0:
+            node(cv, 790, 720, '续不续卡', a * kr, col=GOLD, size=38, w=400, sub='管留存：看商品和价格')
+        ku = eo((t - WT('c5i', '在美国一样') + 0.1) / 0.45)
+        if ku > 0:
+            cv.text('Costco 在美国', 300, 930, 30, 'sans_med', col=GOLD_L, a=a * ku)
+            cv.text('山姆在中国', 780, 930, 30, 'sans_med', col=BLUE_L, a=a * ku)
+            arrow(cv, (300, 965), (520, 1080), a * ku, col=GOLD_D, k=ku); arrow(cv, (780, 965), (560, 1080), a * ku, col=GOLD_D, k=ku)
+        for j, (s_, w_) in enumerate((('商品守得住', '守不守得住'), ('价格划得算', '划不划算'))):
+            k = eo((t - WT('c5i', w_) + 0.1) / 0.45)
+            if k > 0: chip(cv, s_, 380 + j * 320, 1150, 38, a * k, col=GOLD)
+        kf = eo((t - WT('c5i', '划不划算') - 0.6) / 0.5)
+        if kf > 0: cv.text('真正的护城河，是同一条', W / 2, 1290, 50, 'serif_black', gold=True, a=a * kf, glow=0.15)
+        source(cv, '市场监管总局 2026-06-15 约谈沃尔玛（中国）投资有限公司（每日经济新闻等报道）；其余为本片解读', a, y=1462)
 
 
 # ======================================================================== 第六章：买、买、买

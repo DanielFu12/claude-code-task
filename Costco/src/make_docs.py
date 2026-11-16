@@ -60,8 +60,9 @@ w('- “会员费约占营业利润一半”：5,907 ÷ 11,685 ≈ 50.6%。SG&A 
 w('- 加价上限 14% / 15%：多家媒体报道，Costco 没有正式披露；片中注明“据多家媒体报道”。100 → 114 的毛利率为 12.28%。')
 w('- 热狗套餐 $1.50：多数来源写 1985 年起，维基百科写 1984 年推出；片中用 1985 年。物价：BLS CPI-U 1985 年均 107.6、2025 年 12 月 326.0（约 3 倍）。')
 w('- 内布拉斯加养鸡体系：弗里蒙特市长所说“超过 4.5 亿美元”包括饲料厂、孵化场与加工厂；2019 年投产。')
-w('- YouGov：顾客中高收入家庭占比 Costco 18%、BJ’s 15%、山姆 12%（美国）。')
-w('- 山姆中国：1996 年深圳首店；付费会员超 1070 万（媒体报道，时间点表述不一）；约 1 小时送达（多数城市）。Costco 中国首店：2019-08-27 上海闵行。')
+w('- YouGov：顾客中高收入家庭占比 Costco 18%、BJ’s 15%、山姆 12%；低收入家庭占比山姆 28%、Costco 18%（美国）。')
+w('- 美国单店年销售（本片计算）：Costco 2026 财年美国净销售额约 $2,160 亿（72.7% × $297,247M）÷ 647 家 ≈ $3.3 亿；Walmart 2026 财年 Sam’s Club U.S. $930 亿 ÷ 601 家 ≈ $1.5 亿；两家财年截止月不同。MMCG 2026 研报约 2 倍。')
+w('- 山姆中国：1996 年深圳首店；2026 年门店 67–69 家（媒体报道）；付费会员超 1070 万（媒体报道，沃尔玛未披露）；约 1 小时送达（多数城市）；小红书“山姆”相关笔记 22 万+ 篇（36kr，截至 2021-11）。Costco 中国首店：2019-08-27 上海闵行，在华 7 家（China Daily 2026-08）。')
 w('- 伯克希尔 2020 年三季度卖出全部 4,333,363 股 Costco（13F）。市盈率：2026-08-29 约 47.6 倍、2026-11-02 约 50 倍（第三方数据），片中写“四十多倍到五十倍之间”。')
 w('- 示意画面（物价曲线、方块数量、利润桥比例、飞轮、仓库/工厂/卡片线稿、市盈率仪表）均为示意或按上述数字绘制；自绘图形不使用任何公司的商标。')
 w('\n## 影像素材\n')
@@ -77,3 +78,29 @@ w('- 配乐：本期原创，程序作曲（`src/music.py`），FluidSynth + Flu
 w('- 原声：影像原片音轨，整段响度对齐旁白，原声下配乐再压低。除原声外，不模仿、不合成任何真实人物的声音。')
 open(os.path.join(ROOT, 'docs', 'SOURCES.md'), 'w').write('\n'.join(out) + '\n')
 print('docs/SOURCES.md', len(out), 'lines')
+
+
+# ------------------------------------------------------------------ docs/脚本.md：旁白全文（含时间戳与原声）
+SOT_NAME = {'cnbc': 'CNBC Squawk Box · Becky Quick 专访巴菲特 · 2026-07-15'}
+o = []; w = o.append
+w('# 《一块五的热狗——芒格为什么最爱 Costco》旁白脚本（第六期）\n')
+w(f'片长 {ts(TL["total"])}。出处见 `docs/SOURCES.md`，核实过程与参考脚本勘误见 `research/核实笔记.md`。\n')
+CHE = {c[0]: c for c in CHAPTERS}
+cur = None
+w(f'\n## 开场（0:00.0）\n')
+for lid, ch, text, say, mood, src in LINES:
+    if ch != cur and ch in CHE and CHE[ch][1]:
+        c = CHE[ch]; en = c[2] if len(c) > 2 and isinstance(c[2], str) else ''
+        st = TL['chapters'].get(ch, [SEG[lid]['start']])[0]
+        w(f'\n## {c[1]}' + (f'  ·  {en}' if en else '') + f'（{ts(st)}）\n')
+    cur = ch
+    w(f'- `{ts(SEG[lid]["start"])}` {text}')
+    for sid, so in SOTS.items():
+        if so['after'] == lid: w(f'  - 🔊 原声（{so["srcname"]}）：“{so["en"]}”')
+w(f'\n## 片尾预告（{ts(SEG["tease"]["start"])}）\n')
+w(f'- {TEASE[1]}')
+for sid, so in SOTS.items():
+    if so['after'] == 'tease': w(f'  - 🔊 原声（{so["srcname"]}）：“{so["en"]}”')
+w('- 系列片单：可口可乐 → 苹果 → 日本商社 → 谷歌 → 喜诗糖果 → Costco → 美国运通')
+open(os.path.join(ROOT, 'docs', '脚本.md'), 'w').write('\n'.join(o) + '\n')
+print('docs/脚本.md', len(o), 'lines')
