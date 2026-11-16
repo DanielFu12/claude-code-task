@@ -1258,12 +1258,12 @@ def shot_ch5(cv, t):
                     cv.text(l, x, y - up - 18 * (len(ln) - 1) + li * 36, 28, 'sans_med', col=col if hl else col * 0.7, a=a * k)
             ksub = eo((t - (WT(lid, w_) if j else WT('c5e', '会员卡')) - 0.8) / 0.5)
             cv.text(sub, 800, y + 46, 22, 'sans_light', col=GREY, a=a * k * ksub)
-        note(cv, '第 2 行“生活方式”为本片概括；第 3、4 行山姆数字为媒体报道', 1430, a * eo((t - S('c5f')) / 0.5) * 0.8, 20)
+        note(cv, '第 2 行“生活方式”为本片概括；第 3、4 行山姆数字为媒体报道', 1395, a * eo((t - S('c5f')) / 0.5) * 0.8, 20)
         srcs = {0: '山姆中国会籍 260 / 680 元（多家报道）；付费会员超 1070 万（36kr、界面等）；Costco 2024-09 起 Gold Star $65',
                 1: 'YouGov：美国仓储会员店顾客收入结构（Costco 高收入 18%、山姆 12%；低收入 Costco 18%、山姆 28%）；钛媒体、36kr 报道',
                 2: '行业报告与媒体报道：Member’s Mark 约占山姆中国销售 30%（口径不一）；Costco 10-K（Kirkland Signature）',
                 3: '36kr、界面（前置仓 500+，口径不一）；沃尔玛 2025 财年四季度财报；Costco 2026 财年 10-K（线上约 11%）；China Daily（在华 7 家店）'}
-        source(cv, srcs[cur], a, y=1490)
+        source(cv, srcs[cur], a, y=1462)
     # c5i：拉新 vs 留存
     t0, t1 = S('c5i') - 0.3, CH['tk_ch5'][0] + 0.3
     a = env(t, t0, t1, 0.4, 0.4)
