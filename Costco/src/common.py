@@ -395,7 +395,7 @@ TAKE = {'tk_ch1': ('01', '价格的锚', '成本涨了，先降成本，不先�
         'tk_ch2': ('02', '同一位师傅', '会员卡、大仓库，谁都学得会', '难学的是：省下来的钱，归谁'),
         'tk_ch3': ('03', '规模经济共享', '把规模省下的钱，主动让给顾客', '顾客更多 → 规模更大 → 成本更低'),
         'tk_ch4': ('04', '利润的真相', '卖货不亏，会员费是又一层利润', '九成会员续费：他们算过账'),
-        'tk_ch5': ('05', '同门，位置互换', '美国：Costco 单店卖出山姆的两倍多；中国：山姆先到 23 年', '名气请人进门，商品和价格让人续卡'),
+        'tk_ch5': ('05', '同门，矛与盾', '名气是矛，商品和价格才是盾', '美国 Costco 单店销售是山姆的两倍多；中国山姆先到 23 年，名气拉新，续卡仍要靠商品和价格'),
         'tk_ch6': ('06', '少赚一点的纪律', '芒格看懂的，是几十年不变的克制', '巴菲特：我本该更大胆一些')}
 
 
@@ -455,9 +455,13 @@ def takeaway(cv, t):
         if fl > 0.02: fx.flare(cv, W / 2 - 300 + p * 500, 850 + dy, a * fl * 0.7, length=640)
         L = 260 * eo((p - 0.3) / 0.6)
         cv.line((W / 2 - L, 940 + dy), (W / 2 + L, 940 + dy), GOLD_D, a, 2)
-        cv.text(key, W / 2, 1020 + dy, 50, 'serif_semi', col=CREAM, a=a * eo((p - 0.4) / 0.5))
+        ks = 50                                                # 要点句：超宽时缩小字号，仍放不下就分两行，始终留在框内
+        while ks > 38 and text_size(key, 'serif_semi', ks)[0] > 800: ks -= 2
+        kl = [key] if text_size(key, 'serif_semi', ks)[0] <= 800 else split_balanced(key, 'serif_semi', ks, 800)
+        for j, ln in enumerate(kl):
+            cv.text(ln, W / 2, 1020 + (j - (len(kl) - 1) / 2) * ks * 1.25 + dy, ks, 'serif_semi', col=CREAM, a=a * eo((p - 0.4) / 0.5))
         for j, ln in enumerate(split_balanced(desc, 'sans_light', 30, 780)):
-            cv.text(ln, W / 2, 1120 + j * 46 + dy, 30, 'sans_light', col=(0.75, 0.74, 0.72), a=a * eo((p - 0.7) / 0.5))
+            cv.text(ln, W / 2, 1120 + (24 if len(kl) > 1 else 0) + j * 46 + dy, 30, 'sans_light', col=(0.75, 0.74, 0.72), a=a * eo((p - 0.7) / 0.5))
 
 
 def chapter_card(cv, t):

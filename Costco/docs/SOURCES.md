@@ -1,6 +1,6 @@
 # 《一块五的热狗——芒格为什么最爱 Costco》出处与口径
 
-片长 13:12.6。Costco 财务数字取自 2026 财年 10-K（截至 2026-08-30，2026-10-07 提交）；伯克希尔原话取自致股东信原文；详细核实过程、每条数字的交叉来源与两版参考脚本的勘误见 `research/核实笔记.md`。
+片长 14:06.2。Costco 财务数字取自 2026 财年 10-K（截至 2026-08-30，2026-10-07 提交）；伯克希尔原话取自致股东信原文；详细核实过程、每条数字的交叉来源与两版参考脚本的勘误见 `research/核实笔记.md`。
 
 **口径原则**：加价率与毛利率分开；会员费不等于全部利润；“付费会员”与“持卡人”分开；续费率分美加与全球；只查到单一来源或媒体转述的，旁白写“据报道 / 据多家媒体报道”。
 
@@ -114,54 +114,60 @@
   - 出处：Costco 2026 财年 10-K（美国 647 家；美国占净销售额 72.7%，× $297,247M ÷ 647 ≈ $3.3 亿，本片计算）；Walmart 2026 财年 10-K（Sam’s Club U.S. 601 家，净销售额 $93.0B，≈ $1.5 亿，本片计算）；MMCG 2026 研报（单店约 2.0 倍）。两家财年截止月不同
 - `7:43.6` 差距的一部分，在顾客。山姆背靠沃尔玛，顾客更偏中低收入：YouGov 的调查里，山姆顾客中低收入家庭占 28%，Costco 是 18%。在美国，那批买得多、续得稳的会员，更多留在了 Costco。
   - 出处：YouGov（Sam’s Club 与 BJ’s 低收入家庭各 28%，Costco 18%）；“更多留在了 Costco”为本片解读（呼应上文的高收入占比与单店销售）
-- `8:00.2` 到了中国，位置却反了过来。山姆 1996 年就在深圳开了第一家店，比 Costco 早了 23 年；如今已开到六十多家，据报道付费会员超过 1070 万。Costco 2019 年才进上海，到今天只有 7 家店。
-  - 出处：36kr、界面（山姆 1996 深圳首店）；每日经济新闻 2026-06（2026 年 5 月 67 家）；百科资料（2026 年 9 月 69 家）；付费会员超 1070 万（多家媒体报道）；CNBC 2019-08-27；China Daily 2026-08（Costco 在华 7 家）
-- `8:16.6` 先到的山姆，在中国的大城市里成了一种生活方式。早在 2021 年，小红书上以“山姆”为关键词的笔记，就超过了 22 万篇。一张 260 元的会员卡，买的不只是便宜，也是一份值得分享的日常。
-  - 出处：36kr（截至 2021-11，小红书“山姆”相关笔记 22 万+ 篇）；山姆普通会员 260 元 / 年（多家报道）；“生活方式”“值得分享的日常”为本片概括
-- `8:31.7` 可名气只能把人请进门，第二年续不续卡，看的还是商品和价格。山姆在中国的办法，是把这两样做成本地的样子：和供应商一起开发别处买不到的烘焙和零食；再用城市里的前置仓，一小时左右送到家。沃尔玛中国的线上销售，已经超过一半。
-  - 出处：媒体报道（山姆与供应商联合开发商品；多数城市约 1 小时送达）；沃尔玛财报（中国区电商占净销售额超过 50%，含沃尔玛大卖场）
-- `8:51.4` 名气这层护城河，也最容易受伤。2026 年 6 月，市场监管总局就食品安全问题，约谈了沃尔玛中国。身份光环能替山姆省下广告费，可决定会员续不续卡的，和 Costco 在美国一样：商品守不守得住，价格划不划算。
-  - 出处：市场监管总局 2026-06-15 约谈沃尔玛（中国）投资有限公司（每日经济新闻等报道）；其余为本片解读
+- `8:00.2` 到了中国，位置却反了过来。山姆 1996 年就在深圳开了第一家店，比 Costco 早了 23 年；如今已开到约 70 家，据报道付费会员超过 1070 万。Costco 2019 年才进上海，到今天只有 7 家店。
+  - 出处：36kr、界面（山姆 1996 深圳首店）；每日经济新闻（2026-05 山姆 67 家）、赢商网等（2026 年约 70 家）；付费会员超 1070 万（多家媒体报道，沃尔玛未披露）；CNBC 2019-08-27；China Daily 2026-08（Costco 在华 7 家）
+- `8:16.7` 先到的山姆，在中国的大城市里成了一种生活方式。在小红书上，有人专门分享山姆里买什么、怎么吃；早在 2021 年，以“山姆”为关键词的笔记就超过了 22 万篇。这份名气，是一把锋利的矛，替山姆拉来了一批又一批新会员。
+  - 出处：36kr（截至 2021-11，小红书“山姆”相关笔记 22 万+ 篇，以食品推荐为主）；“生活方式”“矛”为本片概括
+- `8:34.8` 可矛不是盾。名气能让人办下第一张卡；第二年还续不续，要看两件事：这里的东西，别处买不买得到；这里的价格，算下来值不值。冲着面子办的卡，一旦觉得不值，说不续就不续。
+  - 出处：本片解读（参考脚本 V1 第五章“拉新矛 / 留存盾”的思路）
+- `8:50.3` 这面盾，山姆已经被试过几次。2025 年 7 月，它下架了一批会员口碑很好的商品，又上了好丽友、卫龙这类随处能买到的零食。不少会员在网上质疑：买这些，还值得交会员费吗？争议商品很快在线上下架了。
+  - 出处：澎湃新闻 2025-07、36kr、财联社（山姆下架蛋黄酥、米布丁等口碑商品，上架好丽友派、卫龙魔芋等引发会员质疑；山姆客服称线上已下架争议商品）
+- `9:08.0` 第二个考验，是扩张。2025 年，山姆在中国新开了 10 家店，是入华以来最多的一年。店开得越快，品控越难。2026 年 6 月，市场监管总局就食品安全问题，约谈了沃尔玛中国。
+  - 出处：钛媒体、赢商网（2025 年山姆在华新开 10 家，入华以来最多）；“店开得越快，品控越难”为本片解读；市场监管总局 2026-06-15 约谈沃尔玛（中国）投资有限公司（每日经济新闻等）
+- `9:23.8` 第三个考验，是对手。盒马曾对标山姆开会员店，到 2025 年 8 月全部关停：会员店的样子好学，里子难学。奥乐齐走的是另一条路：小店、低价，据报道九成左右是自有品牌，到 2026 年 10 月底，已在中国开出 131 家。山姆的爆品一旦有了平替，差异就会变薄。
+  - 出处：第一财经、新华网、澎湃（盒马X会员店 2025-08-31 全部关停）；奥乐齐官网 / 第一财经（截至 2026-10-30 在华 131 家）；赢商网、澎湃（自有品牌约九成，口径不一）；“里子难学”“差异变薄”为本片解读
+- `9:47.8` 回头再看 Costco。它在美国和加拿大的续费率是 92.3%，留住会员的不是面子，是一件件比得了价的商品。名气是拉新的矛，商品和价格，才是留存的盾。这一点，Costco 和山姆谁都绕不开。
+  - 出处：Costco 2026 财年 10-K（renewal rate 92.3%, US & Canada）；其余为本片解读
 
 ### 买、买、买
 
-- `9:16.5` 回到芒格。1997 年，Costco 本来想请巴菲特当董事。巴菲特婉拒了，推荐了芒格。
+- `10:10.2` 回到芒格。1997 年，Costco 本来想请巴菲特当董事。巴菲特婉拒了，推荐了芒格。
   - 出处：Barchart、moomoo/Yahoo 引《Acquired》2023 访谈：“This seat was first offered to Warren Buffett in 1997, which he declined”
-- `9:24.1` 巴菲特对零售业一向谨慎。1995 年他写道：零售是门难做的生意，他见过太多零售商风光一阵，然后一头栽下去，常常一路栽到破产。
+- `10:17.7` 巴菲特对零售业一向谨慎。1995 年他写道：零售是门难做的生意，他见过太多零售商风光一阵，然后一头栽下去，常常一路栽到破产。
   - 出处：1995 年致股东信：“Retailing is a tough business… and then suddenly nosedive, often all the way into bankruptcy.”
-- `9:35.2` 他自己就吃过亏：早年买下巴尔的摩的一家百货公司，三年后卖掉，只拿回了差不多当初的本钱。
+- `10:28.8` 他自己就吃过亏：早年买下巴尔的摩的一家百货公司，三年后卖掉，只拿回了差不多当初的本钱。
   - 出处：1989 年致股东信：“three years later I was lucky to sell the business for about what I had paid.”
-- `9:42.0` 芒格看到的，是另一面。2022 年，98 岁的芒格说：
+- `10:35.6` 芒格看到的，是另一面。2022 年，98 岁的芒格说：
   - 出处：2022-02-16 Daily Journal 年度股东会（原声见 SOTS culture）
-- `9:46.9` 🔊 **芒格原声**：“I think it has a good culture and a good moral ethos and so. I wish everything else in America is working as well as Costco does. Think what a blessing that would be for us all.” —— 它有好的文化，也有好的道德风气。我真希望，美国别的一切，都能像 Costco 运转得这么好。想想看，那对我们所有人，会是多大的福气。
+- `10:40.5` 🔊 **芒格原声**：“I think it has a good culture and a good moral ethos and so. I wish everything else in America is working as well as Costco does. Think what a blessing that would be for us all.” —— 它有好的文化，也有好的道德风气。我真希望，美国别的一切，都能像 Costco 运转得这么好。想想看，那对我们所有人，会是多大的福气。
   - 出处：2022 年《每日期刊》（Daily Journal）年度股东会 · 2022-02-16（切点见 `src/cut_sot.py`、`work/sot/sot.json`）
-- `10:04.5` 伯克希尔持有 Costco 股票多年，2020 年第三季度，把 433 万股全部卖掉了。芒格自己的那份，一股没卖。
+- `10:58.2` 伯克希尔持有 Costco 股票多年，2020 年第三季度，把 433 万股全部卖掉了。芒格自己的那份，一股没卖。
   - 出处：伯克希尔 2020 年 Q3 13F（4,333,363 股，Motley Fool、Yahoo Finance）；芒格 2022：“I’m never going to sell a share.”
-- `10:12.9` 2023 年 11 月，芒格去世。Costco 在公告里说：没有人比查理更爱 Costco。
+- `11:06.6` 2023 年 11 月，芒格去世。Costco 在公告里说：没有人比查理更爱 Costco。
   - 出处：Costco 2023-11-29 公告，CEO Craig Jelinek：“No one loved Costco more than Charlie.”
-- `10:19.8` 半年后的伯克希尔股东大会上，巴菲特身边第一次没有了芒格。他说，这么多年，查理只有两次拍着桌子对他说“买、买、买”：一次是比亚迪，一次是 Costco。他说，他本该在 Costco 上更大胆一些。
+- `11:13.4` 半年后的伯克希尔股东大会上，巴菲特身边第一次没有了芒格。他说，这么多年，查理只有两次拍着桌子对他说“买、买、买”：一次是比亚迪，一次是 Costco。他说，他本该在 Costco 上更大胆一些。
   - 出处：2024-05-04 伯克希尔股东大会（Steady Compounding 转写、CNBC 报道）：“Charlie twice pounded the table with me and just said… ‘Buy, buy, buy.’ … BYD was one of them, and Costco was the other… But I should have been more aggressive in Costco.”
 
 ### 好公司与好价格
 
-- `10:41.0` 不过，最爱 Costco 的芒格，也给追捧它的人泼过冷水。2022 年那次股东会上，有人问他：Costco 的估值已经创了历史新高，新投资者该怎么看？
+- `11:34.7` 不过，最爱 Costco 的芒格，也给追捧它的人泼过冷水。2022 年那次股东会上，有人问他：Costco 的估值已经创了历史新高，新投资者该怎么看？
   - 出处：2022-02-16 Daily Journal 年度股东会（Becky Quick 代读提问：“Costco has never traded at a higher price to sales or price to earnings multiple”；原声见 SOTS price，一段播完）
-- `10:52.9` 🔊 **芒格原声**：“Well, that’s a very good question, and I’ve always believed that nothing was worth an infinite price. So even an admirable place like Costco could get to a price where you would say that’s too high. But I would argue that if I were investing money for some sovereign wealth fund or some pension fund and at 30, 40, 50 year time horizon, I would buy Costco at the current price. I think it’s that strong an enterprise and that admirable a place. Now, I’m not saying I would — I can’t bring myself with my habits to pay these big prices. But I never even think about selling a share of Costco just because it’s selling at a high price.” —— 这个问题问得很好。我一向认为，没有什么东西，值得付无限高的价钱。所以，即便是 Costco 这样令人钦佩的公司，价格也可能高到让你说：太贵了。但我会说，如果我是在替某个主权基金、或者某个养老基金投资，看三十年、四十年、五十年，我会在现在的价格买 Costco。我认为它就是这么强大、这么令人钦佩的一家企业。我不是说我会——以我的习惯，我下不了手付这么高的价钱。但我从来没想过，因为价格高，就卖掉一股 Costco。
+- `11:46.5` 🔊 **芒格原声**：“Well, that’s a very good question, and I’ve always believed that nothing was worth an infinite price. So even an admirable place like Costco could get to a price where you would say that’s too high. But I would argue that if I were investing money for some sovereign wealth fund or some pension fund and at 30, 40, 50 year time horizon, I would buy Costco at the current price. I think it’s that strong an enterprise and that admirable a place. Now, I’m not saying I would — I can’t bring myself with my habits to pay these big prices. But I never even think about selling a share of Costco just because it’s selling at a high price.” —— 这个问题问得很好。我一向认为，没有什么东西，值得付无限高的价钱。所以，即便是 Costco 这样令人钦佩的公司，价格也可能高到让你说：太贵了。但我会说，如果我是在替某个主权基金、或者某个养老基金投资，看三十年、四十年、五十年，我会在现在的价格买 Costco。我认为它就是这么强大、这么令人钦佩的一家企业。我不是说我会——以我的习惯，我下不了手付这么高的价钱。但我从来没想过，因为价格高，就卖掉一股 Costco。
   - 出处：2022 年《每日期刊》（Daily Journal）年度股东会 · 2022-02-16（切点见 `src/cut_sot.py`、`work/sot/sot.json`）
-- `11:48.5` 好公司，不等于什么价格都值得买。2026 年秋天，Costco 的市盈率，在四十多倍到五十倍之间。
+- `12:42.2` 好公司，不等于什么价格都值得买。2026 年秋天，Costco 的市盈率，在四十多倍到五十倍之间。
   - 出处：GuruFocus（2026-08-29：47.6 倍）；fullratio（2026-11-02：约 50 倍）；Motley Fool 2026-08
-- `11:56.5` 所以，研究 Costco，要盯住三件事：低毛利、大采购、高续费的循环，有没有松动；新开的仓库和线上投入，回报好不好；今天的价格，有没有给你留出余地。
+- `12:50.1` 所以，研究 Costco，要盯住三件事：低毛利、大采购、高续费的循环，有没有松动；新开的仓库和线上投入，回报好不好；今天的价格，有没有给你留出余地。
   - 出处：本片解读
-- `12:10.5` 巴菲特在 2007 年的信里，把两种护城河并排写过：一种是强大的品牌，比如可口可乐；一种是成本最低，比如 Costco。
+- `13:04.1` 巴菲特在 2007 年的信里，把两种护城河并排写过：一种是强大的品牌，比如可口可乐；一种是成本最低，比如 Costco。
   - 出处：2007 年致股东信：“the low-cost producer (GEICO, Costco) or possessing a powerful world-wide brand (Coca-Cola, Gillette, American Express)”
-- `12:19.1` 一盒年年涨价的糖，一根四十年不涨价的热狗。路是相反的，靠的却是同一样东西：顾客愿意一次又一次地回来。
+- `13:12.8` 一盒年年涨价的糖，一根四十年不涨价的热狗。路是相反的，靠的却是同一样东西：顾客愿意一次又一次地回来。
   - 出处：本片解读
 
 ### 片尾
 
-- `12:30.0` 下期：美国运通——Costco 用了十六年的那张卡：下期，我们讲美国运通。它曾是 Costco 美国门店唯一能刷的信用卡，两家合作了十六年，二零一六年分了手。二零二六年夏天，巴菲特在专访里说，大多数银行的资本回报率，只有百分之十三到十四。
+- `13:23.6` 下期：美国运通——Costco 用了十六年的那张卡：下期，我们讲美国运通。它曾是 Costco 美国门店唯一能刷的信用卡，两家合作了十六年，二零一六年分了手。二零二六年夏天，巴菲特在专访里说，大多数银行的资本回报率，只有百分之十三到十四。
   - 出处：AP / Star Tribune 2015-03-02（独家合作约 16 年，2016-03-31 到期）；CS Monitor 2016-05-15（2016-06-20 起改收 Visa）；CNBC 专访 2026-07-15（原声见 SOTS amex）
-- `12:46.3` 🔊 **巴菲特原声**：“But American Express would come up with some figure similar, but it’s so different that it earns 30% plus on capital and does not incur more risk in doing so than the banks that earn 13 or 14 percent.” —— 美国运通，你可能也会猜个差不多的数，可它完全不同：它的资本回报率在百分之三十以上，而它承担的风险，并不比那些只赚百分之十三、十四的银行更大。
+- `13:40.0` 🔊 **巴菲特原声**：“But American Express would come up with some figure similar, but it’s so different that it earns 30% plus on capital and does not incur more risk in doing so than the banks that earn 13 or 14 percent.” —— 美国运通，你可能也会猜个差不多的数，可它完全不同：它的资本回报率在百分之三十以上，而它承担的风险，并不比那些只赚百分之十三、十四的银行更大。
   - 出处：CNBC Squawk Box · Becky Quick 专访巴菲特 · 2026-07-15，片中 3:52（切点见 `src/cut_sot.py`、`work/sot/sot.json`）
 
 ## 原声（SOT）
@@ -172,9 +178,9 @@
 
 - `3:50.1` 芒格（2022 年《每日期刊》（Daily Journal）年度股东会 · 2022-02-16，11.4s）“Costco’s gonna be an absolute titan on the internet, ’cause they got curated products that everybody trusts and huge purchasing power on a limited number of stocking units.”
 - `5:07.7` 辛内格尔（ABC News《20/20》· Costco 与辛内格尔 · 2005，15.3s）“Wall Street is in the business of making money between now and next Tuesday. We’re in the business of building an organization, an institution that we hope will be here 50 years from now. And paying good wages and keeping your people working with you is very good business.”
-- `9:46.9` 芒格（2022 年《每日期刊》（Daily Journal）年度股东会 · 2022-02-16，17.6s）“I think it has a good culture and a good moral ethos and so. I wish everything else in America is working as well as Costco does. Think what a blessing that would be for us all.”
-- `10:52.9` 芒格（2022 年《每日期刊》（Daily Journal）年度股东会 · 2022-02-16，55.3s）“Well, that’s a very good question, and I’ve always believed that nothing was worth an infinite price. So even an admirable place like Costco could get to a price where you would say that’s too high. But I would argue that if I were investing money for some sovereign wealth fund or some pension fund and at 30, 40, 50 year time horizon, I would buy Costco at the current price. I think it’s that strong an enterprise and that admirable a place. Now, I’m not saying I would — I can’t bring myself with my habits to pay these big prices. But I never even think about selling a share of Costco just because it’s selling at a high price.”
-- `12:46.3` 巴菲特（CNBC Squawk Box · Becky Quick 专访巴菲特 · 2026-07-15，16.2s）“But American Express would come up with some figure similar, but it’s so different that it earns 30% plus on capital and does not incur more risk in doing so than the banks that earn 13 or 14 percent.”
+- `10:40.5` 芒格（2022 年《每日期刊》（Daily Journal）年度股东会 · 2022-02-16，17.6s）“I think it has a good culture and a good moral ethos and so. I wish everything else in America is working as well as Costco does. Think what a blessing that would be for us all.”
+- `11:46.5` 芒格（2022 年《每日期刊》（Daily Journal）年度股东会 · 2022-02-16，55.3s）“Well, that’s a very good question, and I’ve always believed that nothing was worth an infinite price. So even an admirable place like Costco could get to a price where you would say that’s too high. But I would argue that if I were investing money for some sovereign wealth fund or some pension fund and at 30, 40, 50 year time horizon, I would buy Costco at the current price. I think it’s that strong an enterprise and that admirable a place. Now, I’m not saying I would — I can’t bring myself with my habits to pay these big prices. But I never even think about selling a share of Costco just because it’s selling at a high price.”
+- `13:40.0` 巴菲特（CNBC Squawk Box · Becky Quick 专访巴菲特 · 2026-07-15，16.2s）“But American Express would come up with some figure similar, but it’s so different that it earns 30% plus on capital and does not incur more risk in doing so than the banks that earn 13 or 14 percent.”
 
 ## 屏幕原话（英文原句 + 中文翻译）
 
@@ -202,7 +208,8 @@
 - 内布拉斯加养鸡体系：弗里蒙特市长所说“超过 4.5 亿美元”包括饲料厂、孵化场与加工厂；2019 年投产。
 - YouGov：顾客中高收入家庭占比 Costco 18%、BJ’s 15%、山姆 12%；低收入家庭占比山姆 28%、Costco 18%（美国）。
 - 美国单店年销售（本片计算）：Costco 2026 财年美国净销售额约 $2,160 亿（72.7% × $297,247M）÷ 647 家 ≈ $3.3 亿；Walmart 2026 财年 Sam’s Club U.S. $930 亿 ÷ 601 家 ≈ $1.5 亿；两家财年截止月不同。MMCG 2026 研报约 2 倍。
-- 山姆中国：1996 年深圳首店；2026 年门店 67–69 家（媒体报道）；付费会员超 1070 万（媒体报道，沃尔玛未披露）；约 1 小时送达（多数城市）；小红书“山姆”相关笔记 22 万+ 篇（36kr，截至 2021-11）。Costco 中国首店：2019-08-27 上海闵行，在华 7 家（China Daily 2026-08）。
+- 山姆中国：1996 年深圳首店；2026 年门店约 70 家（媒体报道，67–70 家口径不一）；付费会员超 1070 万（媒体报道，沃尔玛未披露）；约 1 小时送达（多数城市）；小红书“山姆”相关笔记 22 万+ 篇（36kr，截至 2021-11）。Costco 中国首店：2019-08-27 上海闵行，在华 7 家（China Daily 2026-08）。
+- 山姆的三次考验：2025-07 选品争议（澎湃、36kr、财联社；无退卡数据，屏幕会员质疑为网上言论示意）；2025 年在华新开 10 家（入华以来最多）；2026-06-15 市场监管总局约谈。对手：盒马X会员店 2025-08-31 全部关停；奥乐齐在华 131 家（2026-10-30，奥乐齐官网），自有品牌约九成（媒体报道，口径不一）。
 - 伯克希尔 2020 年三季度卖出全部 4,333,363 股 Costco（13F）。市盈率：2026-08-29 约 47.6 倍、2026-11-02 约 50 倍（第三方数据），片中写“四十多倍到五十倍之间”。
 - 示意画面（物价曲线、方块数量、利润桥比例、飞轮、仓库/工厂/卡片线稿、市盈率仪表）均为示意或按上述数字绘制；自绘图形不使用任何公司的商标。
 
