@@ -353,8 +353,8 @@ def build():
     section(nxtbar(t_buy), tk('ch6'), ['F', 'C', 'Dm', 'Bb', 'F', 'C', 'Bb', 'C'], {'pad', 'low', 'horn', 'brass', 'brassmotif', 'nomotif'}, 58, 70, tonic=5, major=True)
     s7 = bridge('ch6', 'ch7', ['Bb', 'C'], 'F', 92)
     # ---- 第七章：泼冷水（颤音）→ 芒格三段原声（铺底）→ 三件事 → 两种护城河 → 顾客回来（合唱涨起）→ 预告：美国运通 → logo
-    section(s7, so_in('price1') - 0.3, ['Dm', 'Bb', 'Gm', 'A'], {'pad2', 'low', 'trem'}, 42, 52, motif_every=0)
-    b = bed('price1', 'price3')
+    section(s7, so_in('price') - 0.3, ['Dm', 'Bb', 'Gm', 'A'], {'pad2', 'low', 'trem'}, 42, 52, motif_every=0)
+    b = bed('price')
     section(b, S('c7f') - 0.3, ['Dm', 'Bb', 'F', 'C'], {'pizz', 'pad2', 'low', 'eighths'}, 46, 58, motif_every=4, motif_oct=67)
     section(S('c7f') - 0.3, t_back, ['Bb', 'C', 'Dm', 'Bb', 'F/A', 'Gm', 'Csus4', 'C'], {'pad', 'arp', 'low', 'choir', 'harp'}, 50, 72,
             tonic=5, major=True, motif_every=2)

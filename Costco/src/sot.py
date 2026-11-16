@@ -41,9 +41,8 @@ def _feather_mask(w, h):
 # v4 取景：中景，保留扶手椅、台灯与房间（原片只取字幕条以上的 1920×752；整幅高度全部入画，不再放大成大头像）。
 # 每段原声一种机位运动，避免机械重复：push 推近、pull 拉远、drift 横移；幅度都很小（≤5%）。
 WIN_W, WIN_H, WIN_CY = 1000, 640, 600
-FOCUS = {'titan': 0.5, 'culture': 0.5, 'price1': 0.5, 'price2': 0.5, 'price3': 0.5, 'sinegal': 0.58, 'amex': 0.55}
-MOVE = {'titan': ('push', 0.0), 'sinegal': ('pull', 0.0), 'culture': ('drift', 0.03), 'price1': ('push', 0.0), 'price2': ('pull', 0.0),
-        'price3': ('push', 0.0), 'amex': ('drift', 0.03)}
+FOCUS = {'titan': 0.5, 'culture': 0.5, 'price': 0.5, 'sinegal': 0.58, 'amex': 0.55}
+MOVE = {'titan': ('push', 0.0), 'sinegal': ('pull', 0.0), 'culture': ('drift', 0.03), 'price': ('push', 0.0), 'amex': ('drift', 0.03)}
 # 原片在原声中途切到双人全景（主持人在左）。这段时间（片段内秒数）改取画面右侧的巴菲特，跟随原片的机位切换，
 # 不出现主持人或空沙发。munger：原片 277.58–285.95s 为双人景，片段入点 271.9s。
 REFRAME = {}
@@ -60,7 +59,7 @@ def _bg(src):
 # 《每日期刊》2022 片源是第三方转载件，芒格答问中间插了图库镜头：这些时段换成本片自己的档案画面（Costco 卖场），
 # 芒格出镜的时段仍用原片（口型同步）。判定：与芒格出镜参考帧的色彩直方图相关度（≥ 0.6 为出镜）。
 CUTAWAY = {'titan': ['a_floor', 'a_cans', 'a_wine'], 'culture': ['a_greet', 'a_bake2', 'a_crowd', 'a_pies'],
-           'price1': ['w_ext', 'a_floor', 'a_entrance'], 'price2': ['a_crowd', 'a_aisle', 'a_lot', 'a_meat'], 'price3': ['a_entrance', 'a_lot']}
+           'price': ['w_ext', 'a_floor', 'a_crowd', 'a_aisle', 'a_entrance', 'a_meat', 'a_lot']}
 _mask = {}
 
 
@@ -205,4 +204,4 @@ def sot_layer(cv, t):
         source(cv, src, al, y=1640)
 
 
-FIRST_SUPER = {'titan', 'sinegal', 'culture', 'price1', 'amex'}     # 每章第一段原声出人名条
+FIRST_SUPER = {'titan', 'sinegal', 'culture', 'price', 'amex'}     # 每章第一段原声出人名条

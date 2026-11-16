@@ -352,30 +352,6 @@
   "shot": "close",
   "note": "I think it has a good culture and a good moral ethos and so. I wish everything else in America is working as well as Costco does. Think what a blessing that would be for us all."
  },
- "sot_price1": {
-  "source": "2022 年《每日期刊》年度股东会，芒格答问（Becky Quick 代读提问）· 原声",
-  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
-  "start": 14.162,
-  "dur": 16.26,
-  "shot": "close",
-  "note": "Well, that’s a very good question, and I’ve always believed that nothing was worth an infinite price. So even an admirable place like Costco could get to a price where you would say that’s too high."
- },
- "sot_price2": {
-  "source": "2022 年《每日期刊》年度股东会，芒格答问（Becky Quick 代读提问）· 原声",
-  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
-  "start": 31.213,
-  "dur": 23.027,
-  "shot": "close",
-  "note": "But I would argue that if I were investing money for some sovereign wealth fund or some pension fund and at 30, 40, 50 year time horizon, I would buy Costco at the current price. I think it’s that strong an enterprise and that admirable a place."
- },
- "sot_price3": {
-  "source": "2022 年《每日期刊》年度股东会，芒格答问（Becky Quick 代读提问）· 原声",
-  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
-  "start": 54.984,
-  "dur": 14.429,
-  "shot": "close",
-  "note": "Now, I’m not saying I would — I can’t bring myself with my habits to pay these big prices. But I never even think about selling a share of Costco just because it’s selling at a high price."
- },
  "sot_amex": {
   "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
   "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
@@ -383,5 +359,13 @@
   "dur": 16.17,
   "shot": "close",
   "note": "But American Express would come up with some figure similar, but it’s so different that it earns 30% plus on capital and does not incur more risk in doing so than the banks that earn 13 or 14 percent."
+ },
+ "sot_price": {
+  "source": "2022 年《每日期刊》年度股东会，芒格答问（Becky Quick 代读提问）· 原声",
+  "ia": "https://archive.org/details/youtube-A21VQ4AFV5M",
+  "start": 14.162,
+  "dur": 55.251,
+  "shot": "close",
+  "note": "Well, that’s a very good question, and I’ve always believed that nothing was worth an infinite price. So even an admirable place like Costco could get to a price where you would say that’s too high. But I would argue that if I were investing money for some sovereign wealth fund or some pension fund and at 30, 40, 50 year time horizon, I would buy Costco at the current price. I think it’s that strong an enterprise and that admirable a place. Now, I’m not saying I would — I can’t bring myself with my habits to pay these big prices. But I never even think about selling a share of Costco just because it’s selling at a high price."
  }
 }
