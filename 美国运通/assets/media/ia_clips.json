@@ -1,0 +1,317 @@
+{
+ "a_floor": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 150.7,
+  "dur": 3.1,
+  "note": "仓库全景"
+ },
+ "a_aisle": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 193.8,
+  "dur": 3.8,
+  "note": "通道与购物车"
+ },
+ "a_lot": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 187.7,
+  "dur": 5.8,
+  "note": "停车场推车"
+ },
+ "a_sign": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 179.9,
+  "dur": 2.8,
+  "note": "Costco 招牌"
+ },
+ "a_crowd": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 37.0,
+  "dur": 8.0,
+  "note": "开业人潮与购物车"
+ },
+ "a_entrance": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 142.5,
+  "dur": 3.6,
+  "note": "仓库入口"
+ },
+ "a_cans": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 211.4,
+  "dur": 6.4,
+  "note": "整托盘罐头"
+ },
+ "w_ext": {
+  "source": "WBZ-TV 波士顿：仓储会员店报道（1991，Costco 段落）",
+  "ia": "https://archive.org/details/discount-warehouse-stores-report-boston-ma-usa-1991",
+  "start": 124.5,
+  "dur": 5.0,
+  "note": "Costco 仓库外景（1991）"
+ },
+ "a_walk": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 183.0,
+  "dur": 2.7,
+  "note": "辛内格尔巡店"
+ },
+ "a_shelf": {
+  "source": "ABC News《20/20》：James Sinegal 与 Costco（2005）",
+  "ia": "https://archive.org/details/youtube-f9Iv_vdO7sw",
+  "start": 259.4,
+  "dur": 5.3,
+  "note": "辛内格尔检查货架"
+ },
+ "nyse1": {
+  "source": "纽约证券交易所宣传片《The Big Board》（1958，Prelinger Archives）",
+  "ia": "https://archive.org/details/0730_Big_Board_The_17_01_01_00",
+  "start": 42.1,
+  "dur": 6.0,
+  "note": "纽约证券交易所交易大厅（1958）"
+ },
+ "nyse2": {
+  "source": "纽约证券交易所宣传片《The Big Board》（1958，Prelinger Archives）",
+  "ia": "https://archive.org/details/0730_Big_Board_The_17_01_01_00",
+  "start": 80.3,
+  "dur": 7.9,
+  "note": "交易大厅俯瞰（1958）"
+ },
+ "nyse3": {
+  "source": "纽约证券交易所宣传片《The Big Board》（1958，Prelinger Archives）",
+  "ia": "https://archive.org/details/0730_Big_Board_The_17_01_01_00",
+  "start": 192.0,
+  "dur": 4.0,
+  "note": "交易员（1958）"
+ },
+ "nyse4": {
+  "source": "纽约证券交易所宣传片《The Big Board》（1958，Prelinger Archives）",
+  "ia": "https://archive.org/details/0730_Big_Board_The_17_01_01_00",
+  "start": 346.2,
+  "dur": 3.8,
+  "note": "交易大厅（1958）"
+ },
+ "nyse5": {
+  "source": "纽约证券交易所宣传片《The Big Board》（1958，Prelinger Archives）",
+  "ia": "https://archive.org/details/0730_Big_Board_The_17_01_01_00",
+  "start": 647.0,
+  "dur": 6.4,
+  "note": "交易大厅（1958）"
+ },
+ "nyse_tick": {
+  "source": "纽约证券交易所宣传片《The Big Board》（1958，Prelinger Archives）",
+  "ia": "https://archive.org/details/0730_Big_Board_The_17_01_01_00",
+  "start": 715.7,
+  "dur": 3.3,
+  "note": "报价牌（1958）"
+ },
+ "tc_bank": {
+  "source": "美国运通旅行支票电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09710",
+  "start": 11.2,
+  "dur": 8.4,
+  "note": "旅行支票广告动画（1960 年代）"
+ },
+ "tc_sign": {
+  "source": "美国运通旅行支票电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09710",
+  "start": 19.9,
+  "dur": 3.0,
+  "note": "旅行支票柜台牌（1960 年代）"
+ },
+ "tc_write": {
+  "source": "美国运通旅行支票电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09710",
+  "start": 30.4,
+  "dur": 5.8,
+  "note": "在旅行支票上签名（1960 年代）"
+ },
+ "tc_cheque": {
+  "source": "美国运通旅行支票电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09710",
+  "start": 47.6,
+  "dur": 3.3,
+  "note": "旅行支票（1960 年代）"
+ },
+ "tc_beach": {
+  "source": "美国运通电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09715",
+  "start": 0.5,
+  "dur": 10.3,
+  "note": "运通广告动画（1960 年代）"
+ },
+ "ax_logo60": {
+  "source": "美国运通电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09715",
+  "start": 11.2,
+  "dur": 2.6,
+  "note": "运通标志（1960 年代广告）"
+ },
+ "tc_pisa": {
+  "source": "美国运通电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09715",
+  "start": 14.3,
+  "dur": 13.3,
+  "note": "运通广告动画：比萨斜塔（1960 年代）"
+ },
+ "tc_ship": {
+  "source": "美国运通电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09715",
+  "start": 27.9,
+  "dur": 10.8,
+  "note": "运通广告动画：邮轮（1960 年代）"
+ },
+ "ad88_desk": {
+  "source": "美国运通卡电视广告（1988）",
+  "ia": "https://archive.org/details/youtube-DGPhXpECU0M",
+  "start": 1.5,
+  "dur": 4.5,
+  "note": "机场柜台与运通卡（1988 年广告）"
+ },
+ "ad88_card": {
+  "source": "美国运通卡电视广告（1988）",
+  "ia": "https://archive.org/details/youtube-DGPhXpECU0M",
+  "start": 26.8,
+  "dur": 2.6,
+  "note": "运通卡（1988 年广告）"
+ },
+ "ad89_city": {
+  "source": "美国运通金卡电视广告（A&E，1989-07-20）",
+  "ia": "https://archive.org/details/CLE-B26_396316-397252",
+  "start": 3.0,
+  "dur": 14.5,
+  "note": "纽约城市天际线（1989 年广告）"
+ },
+ "ad89_gold": {
+  "source": "美国运通金卡电视广告（A&E，1989-07-20）",
+  "ia": "https://archive.org/details/CLE-B26_396316-397252",
+  "start": 25.4,
+  "dur": 5.6,
+  "note": "运通金卡（1989 年广告）"
+ },
+ "lg_front": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：百夫长贵宾厅开业（2018）",
+  "ia": "https://archive.org/details/Centurion_Lounge_Opens_at_DFW_Airport",
+  "start": 20.8,
+  "dur": 9.7,
+  "note": "百夫长贵宾厅（2018）"
+ },
+ "lg_bar": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：百夫长贵宾厅开业（2018）",
+  "ia": "https://archive.org/details/Centurion_Lounge_Opens_at_DFW_Airport",
+  "start": 30.9,
+  "dur": 9.0,
+  "note": "百夫长贵宾厅酒吧（2018）"
+ },
+ "lg_logo": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：百夫长贵宾厅开业（2018）",
+  "ia": "https://archive.org/details/Centurion_Lounge_Opens_at_DFW_Airport",
+  "start": 83.7,
+  "dur": 2.7,
+  "note": "贵宾厅里的运通标志（2018）"
+ },
+ "lg_seats": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：百夫长贵宾厅开业（2018）",
+  "ia": "https://archive.org/details/Centurion_Lounge_Opens_at_DFW_Airport",
+  "start": 143.2,
+  "dur": 6.0,
+  "note": "百夫长贵宾厅（2018）"
+ },
+ "lg_wall": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：百夫长贵宾厅开业（2018）",
+  "ia": "https://archive.org/details/Centurion_Lounge_Opens_at_DFW_Airport",
+  "start": 170.5,
+  "dur": 6.0,
+  "note": "百夫长贵宾厅（2018）"
+ },
+ "lg_food": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：百夫长贵宾厅开业（2018）",
+  "ia": "https://archive.org/details/Centurion_Lounge_Opens_at_DFW_Airport",
+  "start": 47.1,
+  "dur": 2.3,
+  "note": "贵宾厅餐食（2018）"
+ },
+ "dl_plane": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：达美航空 A220 首航（2019）",
+  "ia": "https://archive.org/details/Delta_Air_Lines_Debuts_A220_Flights_at_DFW_Airport",
+  "start": 101.0,
+  "dur": 13.0,
+  "note": "达美航空客机（2019）"
+ },
+ "dl_dusk": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：达美航空 A220 首航（2019）",
+  "ia": "https://archive.org/details/Delta_Air_Lines_Debuts_A220_Flights_at_DFW_Airport",
+  "start": 136.6,
+  "dur": 7.7,
+  "note": "达美航空客机（2019）"
+ },
+ "dl_cabin": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：达美航空 A220 首航（2019）",
+  "ia": "https://archive.org/details/Delta_Air_Lines_Debuts_A220_Flights_at_DFW_Airport",
+  "start": 32.3,
+  "dur": 13.0,
+  "note": "达美航空客舱（2019）"
+ },
+ "tc_hand": {
+  "source": "美国运通旅行支票电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09713",
+  "start": 38.0,
+  "dur": 7.4,
+  "note": "在旅行支票上签名（1960 年代广告）"
+ },
+ "tc_bill": {
+  "source": "美国运通旅行支票电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09704",
+  "start": 20.0,
+  "dur": 6.6,
+  "note": "用旅行支票付账（1960 年代广告动画）"
+ },
+ "tc_car": {
+  "source": "美国运通旅行支票电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09704",
+  "start": 36.6,
+  "dur": 5.4,
+  "note": "带着旅行支票出门（1960 年代广告动画）"
+ },
+ "tc_logo2": {
+  "source": "美国运通旅行支票电视广告（1960 年代，Duke University Libraries 广告档案）",
+  "ia": "https://archive.org/details/dmbb09704",
+  "start": 46.4,
+  "dur": 3.6,
+  "note": "运通标志（1960 年代广告）"
+ },
+ "lg_conf": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：百夫长贵宾厅开业（2018）",
+  "ia": "https://archive.org/details/Centurion_Lounge_Opens_at_DFW_Airport",
+  "start": 122.5,
+  "dur": 12.0,
+  "note": "百夫长贵宾厅会议室（2018）"
+ },
+ "lg_family": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：百夫长贵宾厅开业（2018）",
+  "ia": "https://archive.org/details/Centurion_Lounge_Opens_at_DFW_Airport",
+  "start": 154.0,
+  "dur": 12.8,
+  "note": "百夫长贵宾厅（2018）"
+ },
+ "lg_canape": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：百夫长贵宾厅开业（2018）",
+  "ia": "https://archive.org/details/Centurion_Lounge_Opens_at_DFW_Airport",
+  "start": 51.3,
+  "dur": 8.2,
+  "note": "贵宾厅餐点（2018）"
+ },
+ "lg_window": {
+  "source": "达拉斯–沃思堡机场电视台（ICTN）：百夫长贵宾厅开业（2018）",
+  "ia": "https://archive.org/details/Centurion_Lounge_Opens_at_DFW_Airport",
+  "start": 14.5,
+  "dur": 5.9,
+  "note": "机场航站楼与贵宾厅（2018）"
+ }
+}
