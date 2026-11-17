@@ -7,7 +7,7 @@ python3 src/tts_doubao.py WORK [pid ...] [--takes N]     # → work/tts_db/<pid>
 import sys, os, json, base64, time, uuid, subprocess, concurrent.futures as cf
 import urllib.request
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from tts_passage import PASSAGES, TEASE_P, spoken
+from tts_passage import PASSAGES, spoken
 
 URL = 'https://openspeech.bytedance.com/api/v3/tts/unidirectional'
 RESOURCE = 'volc.seedtts.default'                 # 账号开通的豆包语音合成 2.0 资源
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     takes = 1
     if '--takes' in args: k = args.index('--takes'); takes = int(args[k + 1]); args = args[:k] + args[k + 2:]
     d = os.path.join(work, 'tts_db'); os.makedirs(d, exist_ok=True)
-    ps = [p for p in PASSAGES + [TEASE_P] if not args or p[0] in args]
+    ps = [p for p in PASSAGES if not args or p[0] in args]
     jobs = [(p, os.path.join(d, f'{p[0]}_{k}.mp3')) for p in ps for k in range(takes)]
     jobs = [j for j in jobs if not os.path.exists(j[1][:-4] + '.wav')]
     def run(j):

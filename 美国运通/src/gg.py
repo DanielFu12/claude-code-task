@@ -144,7 +144,7 @@ def shot_hook(cv, t):
         cv.text('1995', xa, y + 52, 34, 'oswald', col=GOLD_L, a=a * min(1, k * 4))
         cv.glow_dot((xa, y), 10, GOLD_L, a * min(1, k * 4))
         money(cv, t, WT('h2', '十三亿'), '约 13 亿美元', xa + 150, y - 80, 46, a, sub='买入基本完成')
-        k2 = appear(t, 'h2', '此后')
+        k2 = appear(t, 'h2', '最近')
         if k2 > 0:
             cv.text('今天', xb, y + 52, 32, 'sans_bold', col=GOLD_L, a=a * k2)
             cv.glow_dot((xb, y), 10, GOLD_L, a * k2)
@@ -602,9 +602,9 @@ def shot_ch3(cv, t):
                 cv.rect(x, y, x + 64, y + 50, GOLD if lit else BANK_G * 0.6, a * fade * min(1, kr * 3))
             cv.text('流通股：越回购越少', W / 2, 1010, 32, 'sans_med', col=CREAM, a=a * min(1, kr * 3))
             cv.text('伯克希尔那一份（金色）不变，占比却在变大', W / 2, 1060, 26, 'sans_light', col=GOLD_L, a=a * min(1, kr * 3))
-        kb = appear(t, 'c3i', '伯克希尔')
+        kb = appear(t, 'c3i', '开头')
         if kb > 0:
-            hbar(cv, t, [('2024 年末', 702, WT('c3i', '伯克希尔'), BANK_G), ('2025 年末', 686, WT('c3i', '伯克希尔') + 0.4, GOLD)], a,
+            hbar(cv, t, [('2024 年末', 702, WT('c3i', '开头'), BANK_G), ('2025 年末', 686, WT('c3i', '开头') + 0.4, GOLD)], a,
                  x0=330, x1=880, y0=1180, dy=95, vmax=720, fmt=lambda v: f'{v:.0f} 百万股', size=32, lab=28)
             note(cv, '示意：金色方块 = 伯克希尔持有的股份', 1395, a * kb * 0.8, 20)
         source(cv, '运通 2025 年报（$7.6B 分红与回购）；2025Q4 附表（流通股 702M → 686M）；伯克希尔 2022 年信', a, y=1462)
@@ -612,7 +612,7 @@ def shot_ch3(cv, t):
 
 # ======================================================================== 第四章：Costco 走了以后
 def shot_ch4(cv, t):
-    # c4a：动手的是 Costco
+    # c4a：麻烦来自 Costco
     t0, t1 = win2('c4a')
     a = A(t, t0, t1)
     if a > 0:
@@ -982,11 +982,12 @@ def shot_ch7(cv, t):
         y = 1060; xa, xb = 200, 880
         k = eexp((t - WT('c7d', '一九六四') + 0.1) / 2.0)
         cv.line((xa, y), (xa + (xb - xa) * k, y), GOLD, a, 4)
-        for x, yr, lb, kk in ((xa, '1964', '色拉油丑闻', min(1, k * 4)), (xb, '今天', '伯克希尔持有 22.1%', appear(t, 'c7d', '今天'))):
+        for x, yr, lb, kk in ((xa, '1964', '合伙基金重仓', min(1, k * 4)), (xb, '今天', '伯克希尔持有 22.1%', appear(t, 'c7d', '今天'))):
             if kk <= 0: continue
             cv.glow_dot((x, y), 12, GOLD_L, a * kk)
             cv.text(yr, x, y - 60, 52 if yr.isdigit() else 46, 'oswald' if yr.isdigit() else 'sans_bold', col=GOLD_L, a=a * kk)
             cv.text(lb, x, y + 56, 28, 'sans_med', col=CREAM, a=a * kk)
         k2 = appear(t, 'c7d', '六十年')
-        if k2 > 0: cv.text('六十年，看的是同一件事', W / 2, 1260, 50, 'serif_black', gold=True, a=a * k2, glow=0.15)
+        if k2 > 0 and t < CH['end'][0]:      # 落版字在片尾开始时交给 common.shot_end（同一位置），随后化作粒子
+            cv.text('六十年，看的是同一件事', W / 2, 1260, 50, 'serif_black', gold=True, a=k2, glow=0.15)
         source(cv, '伯克希尔 1994 年信；伯克希尔 2025 年信持仓表', a, y=1462)

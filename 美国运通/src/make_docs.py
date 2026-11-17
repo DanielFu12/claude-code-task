@@ -1,7 +1,7 @@
 """生成 docs/SOURCES.md：逐句旁白的出处（含片中时间戳）、原声、屏幕原话、数据口径、影像素材与配乐说明。时间戳取自 work/timeline.json。"""
 import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import LINES, QUOTES, CHAPTERS, TEASE, SOTS, SOT_SRC
+from script import LINES, QUOTES, CHAPTERS, SOTS, SOT_SRC
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 work = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'work')
 TL = json.load(open(os.path.join(work, 'timeline.json')))
@@ -36,9 +36,7 @@ for lid, ch, text, say, mood, src in LINES:
     w(f'- `{ts(SEG[lid]["start"])}` {text}' + (f'\n  - 出处：{src}' if src else ''))
     for sid, so in SOTS.items():
         if so['after'] == lid: w(sot_line(sid, so))
-w(f'\n### 片尾\n\n- `{ts(SEG["tease"]["start"])}` {TEASE[0]}：{TEASE[1]}' + (f'\n  - 出处：{TEASE[3]}' if len(TEASE) > 3 else ''))
-for sid, so in SOTS.items():
-    if so['after'] == 'tease': w(sot_line(sid, so))
+w(f'\n### 片尾\n\n- `{ts(TL["chapters"]["end"][0])}` 无旁白：落版字“六十年，看的是同一件事”化作粒子，汇聚成「巴芒价值」logo（本期起不再预告下一期）')
 w('\n## 原声（SOT）\n')
 w('片中 2 处直接播放巴菲特的真实原声，都来自 CNBC Squawk Box 2026-07-15 专访（第四期已入库的原片），是同一段回答里前后相接的两句，'
   '在片中分开播放（开场与第七章），各自原速、不改词、不拼接；入出点切在自然停顿，经离线英文语音识别（sherpa-onnx whisper small.en，`src/asr_en.py`）逐句核对；'
@@ -72,7 +70,7 @@ for k, v in CR.items():
 w('\n## 声音\n')
 w('- 旁白：豆包语音合成 2.0（刘飞音色），逐段整读；离线中文识别逐句回听核对（`src/check_lines.py`），英文专名另用英文识别复核。')
 w('- 配乐：本期原创，程序作曲（`src/music.py`），FluidSynth + FluidR3 GM 音色库渲染。全片统一小节网格：片名、股价跌到“三十七美元”、“闭环”、'
-  '“三点八美元”、“不再续约”、“里子把人留下来”、片尾“比亚迪”与 logo 处卡点，每章要点卡期间上扬、章节号亮起时重拍；原声下只留铺底。')
+  '“三点八美元”、“不再续约”、“里子把人留下来”与片尾 logo 处卡点，每章要点卡期间上扬、章节号亮起时重拍；原声下只留铺底。')
 w('- 原声：影像原片音轨，整段响度对齐旁白，原声下配乐再压低。除原声外，不模仿、不合成任何真实人物的声音。')
 open(os.path.join(ROOT, 'docs', 'SOURCES.md'), 'w').write('\n'.join(out) + '\n')
 print('docs/SOURCES.md', len(out), 'lines')
@@ -95,10 +93,7 @@ for lid, ch, text, say, mood, src in LINES:
     w(f'- `{ts(SEG[lid]["start"])}` {text}')
     for sid, so in SOTS.items():
         if so['after'] == lid: w(f'  - 🔊 原声（{so["srcname"]}）：“{so["en"]}”')
-w(f'\n## 片尾预告（{ts(SEG["tease"]["start"])}）\n')
-w(f'- {TEASE[1]}')
-for sid, so in SOTS.items():
-    if so['after'] == 'tease': w(f'  - 🔊 原声（{so["srcname"]}）：“{so["en"]}”')
-w('- 系列片单：' + TEASE[2].split('：', 1)[1])
+w(f'\n## 片尾（{ts(TL["chapters"]["end"][0])}）\n')
+w('- 无旁白：落版字化作粒子，汇聚成「巴芒价值」logo。')
 open(os.path.join(ROOT, 'docs', '脚本.md'), 'w').write('\n'.join(o) + '\n')
 print('docs/脚本.md', len(o), 'lines')

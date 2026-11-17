@@ -1,7 +1,7 @@
 """旁白段落划分：同一段落一次读完（豆包 TTS，src/tts_doubao.py），句间衔接自然；段落之间才是“换场”。"""
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import LINES, TEASE, DROPPED
+from script import LINES, DROPPED
 
 PASSAGES = [
     ('hook', ['h1'], ''),
@@ -33,13 +33,11 @@ PASSAGES = [
     ('ch7a', ['c7a', 'c7b', 'c7c'], ''),
     ('ch7b', ['c7d'], ''),
 ]
-TEASE_P = ('tease', ['tease'], '')
 GROUPS = {p[0]: [p[0]] for p in PASSAGES}
 assert sorted(i for p in PASSAGES for i in p[1]) == sorted(l[0] for l in LINES), '段落与 LINES 不一致'
 
 
 def spoken(lid):
-    if lid == 'tease': return TEASE[1]
     if lid in DROPPED: return DROPPED[lid]
     l = next(l for l in LINES if l[0] == lid)
     return l[3] or l[2]

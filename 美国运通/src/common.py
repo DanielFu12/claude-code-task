@@ -6,7 +6,7 @@ import numpy as np, cv2
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from engine import *          # noqa
 import shaders
-from script import QUOTES, CHAPTERS, LINES, TEASE
+from script import QUOTES, CHAPTERS, LINES
 
 WORK = sys.argv[1] if len(sys.argv) > 1 else 'work'
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
@@ -25,8 +25,8 @@ def S(i): return SEG[i]['start']
 def E(i): return SEG[i]['start'] + SEG[i]['dur']
 
 
-_SAY = {l[0]: (l[3] or l[2]) for l in LINES}; _SAY['tease'] = TEASE[1]
-_TXT = {l[0]: l[2] for l in LINES}; _TXT['tease'] = TEASE[0]
+_SAY = {l[0]: (l[3] or l[2]) for l in LINES}
+_TXT = {l[0]: l[2] for l in LINES}
 
 
 def WT(i, sub):
@@ -542,8 +542,7 @@ def cube(cv, x, y, s, a, col=GOLD, depth=0.45):
 
 # ------------------------------------------------------------------ 片尾：粒子汇聚成官方 logo
 _end = {}
-TEASE_L1, TEASE_L2 = '比亚迪', '芒格拍着桌子说“买”的另一家公司'
-TEASE_Y1, TEASE_Y2 = 735, 845
+END_L, END_Y, END_SZ = '六十年，看的是同一件事', 1260, 50     # 第七章最后一句的落版字（gg.py c7d 同一位置），片尾化作粒子
 
 
 def text_points(s, fnt, size, x, y):
@@ -563,10 +562,8 @@ def end_particles():
         idx = rng.choice(len(xs), n, replace=len(xs) < n)
         tx = xs[idx] - 150 + W / 2 + rng.normal(0, 0.6, n); ty = ys[idx] - 150 + 760 + rng.normal(0, 0.6, n)
         col = rgb[ys[idx], xs[idx]]
-        # 粒子的起点：下期预告的两行文字（文字淡去的同时化作金色粒子）
-        p1 = text_points(TEASE_L1, 'serif_black', 76, W / 2, TEASE_Y1)
-        p2 = text_points(TEASE_L2, 'serif_semi', 54, W / 2, TEASE_Y2)
-        px = np.concatenate([p1[0], p2[0]]); py = np.concatenate([p1[1], p2[1]])
+        # 粒子的起点：第七章落版字“六十年，看的是同一件事”（文字淡去的同时化作金色粒子）
+        px, py = text_points(END_L, 'serif_black', END_SZ, W / 2, END_Y)
         k = rng.choice(len(px), n, replace=len(px) < n)
         sx = px[k] + rng.normal(0, 0.8, n); sy = py[k] + rng.normal(0, 0.8, n)
         delay = rng.uniform(0, 0.35, n); swirl = rng.uniform(-1.0, 1.0, n)
@@ -592,42 +589,18 @@ def warehouse(cv, t, cx, cy, a):
 
 
 def shot_end(cv, t):
-    """片尾：下期预告 → 预告文字化作金色粒子，以官方 logo 透明通道为目标汇聚 → 原始 logo（重拍）
+    """片尾：第七章落版字 → 化作金色粒子，以官方 logo 透明通道为目标汇聚 → 原始 logo（重拍）
     → 金色「巴芒价值」+「BUFFETT · MUNGER」扫光 → 细金线 → 小字关注语 → 整体淡出（角标保留到最后）"""
     t0 = CH['end'][0]
     hit = MP['hits']['logo']
     if t < t0 - 0.6: return
     cx, cy = W / 2, 760
-    ts = SEG['tease']['start']
     t_dis = hit - MP.get('dissolve', 1.5)                  # 文字开始化作粒子
-    # 0) 下期预告（第七期 → 第八期：比亚迪）：芒格两次拍桌子“买、买、买”——Costco（已讲）与比亚迪；2008 年伯克希尔入股
-    s_out = ts + SEG['tease']['dur']
-    ka = env(t, ts - 0.05, s_out + 0.3, 0.6, 0.35)
-    if ka > 0.004:
-        chip(cv, '下期预告', W / 2, 330, 26, ka, col=GOLD)
-        k0 = eo((t - ts) / 0.6)
-        cv.text('比亚迪', W / 2, 520, 120, 'serif_black', gold=True, a=ka * k0, shadow=0.6, glow=0.15)
-        k1 = eo((t - WT('tease', '芒格两次') + 0.1) / 0.45)
-        if k1 > 0:
-            cv.text('芒格两次拍着桌子说：', W / 2, 700, 40, 'sans_med', col=CREAM, a=ka * k1)
-            cv.text('“买、买、买”', W / 2, 790, 64, 'serif_black', gold=True, a=ka * k1, glow=0.15)
-        for j, (nm, tw, done) in enumerate((('Costco', '一次是', True), ('比亚迪', '另一次', False))):
-            kk = eo((t - WT('tease', tw) + 0.1) / 0.45)
-            if kk <= 0: continue
-            x = 330 + j * 420
-            chip(cv, nm + ('（上期）' if done else '（下期）'), x, 940, 34, ka * kk, col=GREY if done else GOLD_L)
-        k3 = eo((t - WT('tease', '二零零八年') + 0.1) / 0.45)
-        if k3 > 0:
-            cv.text('2008 · 伯克希尔入股', W / 2, 1100, 44, 'sans_bold', col=GOLD_L, a=ka * k3)
-        source(cv, '2024-05-04 伯克希尔股东大会（巴菲特：芒格两次拍桌子，一次比亚迪、一次 Costco）；2008-09 MidAmerican 宣布入股比亚迪约 10%', ka, y=1462)
-    # d. 预告旁白之后：两行预告字（随后化作粒子）
-    tf = s_out + 0.15
-    ad = eo((t - tf) / 0.45) * (1 - eo((t - hit + 0.2) / 0.3))
-    if ad > 0.004 and t < t_dis + 0.2:
-        cv.text(TEASE_L1, W / 2, TEASE_Y1, 76, 'serif_black', gold=True, a=ad, shadow=0.6, glow=0.12)
-        cv.text(TEASE_L2, W / 2, TEASE_Y2, 54, 'serif_semi', col=CREAM, a=ad, shadow=0.6)
-        chip(cv, '下期预告', W / 2, 600, 26, ad, col=GOLD)
-    # 1) 预告文字化作粒子，汇聚成官方 logo
+    # 0) 第七期起不再预告下一期：接住 c7d 的落版字，停留片刻后化作粒子（gg.py 的 c7d 在 CH['end'][0] 交棒）
+    ad = 1 - eo((t - t_dis) / 0.6)
+    if t >= t0 and ad > 0.004:
+        cv.text(END_L, W / 2, END_Y, END_SZ, 'serif_black', gold=True, a=ad, glow=0.15)
+    # 1) 落版字化作粒子，汇聚成官方 logo
     tx, ty, sx, sy, col, delay, swirl = end_particles()
     if t >= t_dis - 0.1:
         dur = hit - t_dis

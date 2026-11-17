@@ -6,7 +6,7 @@ python3 src/check_vo.py WORK
 import sys, os, re, difflib, subprocess
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from tts_passage import PASSAGES, TEASE_P, spoken
+from tts_passage import PASSAGES, spoken
 from cnnum import to_reading
 
 
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     D = os.environ['ASR_DIR'].rstrip('/') + '/'
     rec = sherpa_onnx.OfflineRecognizer.from_paraformer(paraformer=D + 'model.int8.onnx', tokens=D + 'tokens.txt', num_threads=4)
     work = sys.argv[1]; bad = 0
-    for pid, ids, _ in PASSAGES + [TEASE_P]:
+    for pid, ids, _ in PASSAGES:
         wav = os.path.join(work, 'tts_db', f'{pid}_0.wav')
         y = subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', wav, '-f', 'f32le', '-ac', '1', '-ar', '16000', '-'], capture_output=True).stdout
         x = np.frombuffer(y, np.float32)

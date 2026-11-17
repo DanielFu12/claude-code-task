@@ -7,7 +7,7 @@
 """
 import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import LINES, TEASE, SOTS
+from script import LINES, SOTS
 
 HOOK_START = 1.2           # 开场心跳后第一句
 AFTER_HOOK = 0.6           # “为什么？”之后的空气（随后标题重拍）
@@ -26,8 +26,8 @@ SOT_PRE_X = {'open': 0.8, 'trick': 0.9}
 TK_PRE = {'ch3': 0.6, 'ch6': 0.6}     # v3：章末画面需要多看一会儿的章节，在要点卡前多留   # v3：引入的问题在屏幕上多停一会儿，再切原声
 TAKEAWAY = 4.2            # 第一至六章结尾的“本章要点”卡
 END_GAP = 1.8              # 最后一句之后 → 片尾卡
-TEASE_LEAD, DISSOLVE, POST_LOGO = 0.8, 1.5, 5.8
-TEASE_HOLD = 2.2          # v3：预告旁白结束后，引语与两行预告字再停 2.4s，然后化作粒子   # 片尾：预告 → 文字化作粒子汇聚成 logo → 品牌字/关注语 → 淡出
+DISSOLVE, POST_LOGO = 1.5, 5.8
+END_HOLD = 0.6          # 最后一句旁白结束 + END_GAP 之后，落版字再停一会儿，然后化作粒子汇聚成 logo → 品牌字/关注语 → 淡出
 
 
 def build(work, quiet=False):
@@ -73,17 +73,7 @@ def build(work, quiet=False):
         chapters[a][1] = chapters['title'][0] if a == 'hook' else chapters[b][0]
     chapters = {k: v for k, v in chapters.items()}
     chapters['ch7'][1] = E
-    tm = vo['tease']
-    ts = E + TEASE_LEAD
-    segs.append(dict(id='tease', ch='end', text=TEASE[0], start=round(ts, 3), dur=tm['dur'], ct=tm['ct']))
-    tend = ts + tm['dur']
-    for sid, so in SOTS.items():                      # 预告后可接原声（本期无）
-        if so['after'] != 'tease': continue
-        sm = sot[sid]; t2 = tend + SOT_PRE_X.get(sid, SOT_PRE)
-        segs.append(dict(id='sot_' + sid, ch='end', kind='sot', text=so['en'], start=round(t2, 3), dur=sm['dur'],
-                         lead=sm['lead'], len=sm['len'], ph=[[x - sm['lead'], y - sm['lead']] for x, y in sm['ph']], ct=[]))
-        tend = t2 + sm['dur'] + SOT_POST
-    logo = tend + TEASE_HOLD + DISSOLVE
+    logo = E + END_HOLD + DISSOLVE          # 第七期起片尾不再预告下一期：最后一句的落版字直接化作粒子汇聚成 logo
     total = logo + POST_LOGO
     chapters['end'] = [E, total]
     tl = dict(total=round(total, 3), segs=segs, chapters=chapters, logo=round(logo, 3), dissolve=DISSOLVE)

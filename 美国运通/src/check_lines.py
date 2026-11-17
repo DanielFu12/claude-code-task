@@ -4,7 +4,7 @@ ASR_DIR 同 check_vo.py。 python3 src/check_lines.py WORK
 import sys, os, re, difflib, subprocess, json
 import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from tts_passage import PASSAGES, TEASE_P, spoken
+from tts_passage import PASSAGES, spoken
 from cnnum import to_reading
 SIM = {'它': '他', '她': '他', '得': '的', '地': '的'}
 
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     D = os.environ['ASR_DIR'].rstrip('/') + '/'
     rec = sherpa_onnx.OfflineRecognizer.from_paraformer(paraformer=D + 'model.int8.onnx', tokens=D + 'tokens.txt', num_threads=4)
     work = sys.argv[1]; bad = []
-    for pid, ids, _ in PASSAGES + [TEASE_P]:
+    for pid, ids, _ in PASSAGES:
         for i in ids:
             y = np.frombuffer(subprocess.run(['ffmpeg', '-loglevel', 'error', '-i', os.path.join(work, 'vo', i + '.wav'), '-f', 'f32le',
                                               '-ac', '1', '-ar', '16000', '-'], capture_output=True).stdout, np.float32)

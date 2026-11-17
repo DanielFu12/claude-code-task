@@ -32,7 +32,7 @@ LINES = [
     # ---------------------------------------------------------------- 开场
     ('h1', 'hook', '2026 年 7 月，95 岁的巴菲特在 CNBC 的专访里，拿美国运通和银行做了一个比较。',
      '二零二六年七月，九十五岁的巴菲特在 CNBC 的专访里，拿美国运通和银行做了一个比较。', '', 'CNBC Squawk Box 2026-07-15 专访（原声见 SOTS open）'),
-    ('h2', 'hook', '这句话，他有资格说。伯克希尔对运通的买入，1995 年就基本完成，一共花了大约 13 亿美元。此后二十多年，一股没买，一股没卖。',
+    ('h2', 'hook', '这句话，他有资格说。伯克希尔对运通的买入，1995 年就基本完成，一共花了大约 13 亿美元。最近二十多年，一股没买，一股没卖。',
      None, '', '2022 年信：“purchases of Amex were essentially completed in 1995 … cost $1.3 billion”；2023 年信：“did not buy or sell a share … well over two decades”'),
     ('h3', 'hook', '运通年年回购自己的股票，伯克希尔不花一分钱，持股比例就涨到了 22.1%。到 2025 年底，这笔投资市值 561 亿美元；光是 2025 年一年的分红，就有 4.79 亿。',
      None, '', BRK25 + '：22.1%，成本 $1,287M，市值 $56,088M，分红 $479M；2022 年信：“repurchases increased Berkshire’s ownership … without any cost to us”'),
@@ -95,11 +95,11 @@ LINES = [
      None, '', '美联储 FRED CORCCACBS（2025 年四个季度 4.43%、4.18%、4.18%、4.11%）；' + Q4 + '：Card Member loans net write-off rate (principal only) 2.2%'),
     ('c3h', 'ch3', '不过，这些钱不是白来的。2025 年，运通花在积分和持卡人服务上的钱，有 245 亿美元，相当于营收的三分之一。',
      None, '', Q4 + '：Card Member rewards $18,409M + Card Member services $6,057M = $24,466M（÷ $72,229M ≈ 34%）'),
-    ('c3i', 'ch3', '剩下的利润，大量还给了股东：2025 年分红加回购，一共 76 亿美元。股票越回购越少，伯克希尔不花一分钱，持股比例就一点点涨了上去。',
+    ('c3i', 'ch3', '剩下的利润，大量还给了股东：2025 年分红加回购，一共 76 亿美元。股票越回购越少，开头说的那 22.1%，就是这么来的。',
      None, '', '致股东信：“we delivered $7.6 billion to our shareholders through dividends and share buybacks”；2022 年伯克希尔信'),
 
     # ---------------------------------------------------------------- 第四章：Costco 走了以后
-    ('c4a', 'ch4', '这台机器，也遇到过大麻烦。动手的，正是上一期的主角：Costco。',
+    ('c4a', 'ch4', '这台机器，也遇到过大麻烦。麻烦来自上一期的主角：Costco。',
      None, '', '本片过渡'),
     ('c4b', 'ch4', '从 1999 年起，Costco 美国门店只收运通一种信用卡；2004 年起，两家还一起发联名卡。',
      None, '', '维基百科 American Express（引 Bloomberg 2015-10-15：独家协议始于 1999 年；联名卡始于 2004 年）'),
@@ -151,7 +151,7 @@ LINES = [
      None, '', AR + ' 10-K Item 1：“Delta cobrand portfolio … approximately 13 percent of worldwide billed business and approximately 21 percent of worldwide Card Member loans … runs through the end of 2029”'),
     ('c6e', 'ch6', '第四，费率。运通在年报里承认：受理的商户越多，手续费率就越有往下走的压力；各地的监管和诉讼，也在压费率。',
      None, '', AR + ' 10-K 风险因素：“We have also experienced erosion of our merchant discount rates as we increase merchant acceptance.”'),
-    ('c6f', 'ch6', '所以，看运通，要盯住三个数：年费收入还能不能稳定增长；核销率会不会抬头；积分和服务的花费，会不会跑得比收入还快。',
+    ('c6f', 'ch6', '这四件事落到年报上，每年最该看的，是三个数：年费收入还能不能稳定增长；核销率会不会抬头；积分和服务的花费，会不会跑得比收入还快。',
      None, '', '本片解读'),
 
     # ---------------------------------------------------------------- 第七章：三家公司，一个答案
@@ -161,7 +161,7 @@ LINES = [
      None, '', '本片解读'),
     ('c7c', 'ch7', '还是 2026 年那次专访，巴菲特接着说：',
      None, '', 'CNBC 2026-07-15（原声见 SOTS trick，紧接开场那段之后）'),
-    ('c7d', 'ch7', '从 1964 年的色拉油丑闻，到今天伯克希尔持有 22.1%，巴菲特看了运通六十年，看的就是这一件事。',
+    ('c7d', 'ch7', '从 1964 年那笔重仓，到今天伯克希尔持有 22.1%，巴菲特看了运通六十年，看的就是这一件事。',
      None, '', '1994 年信；' + BRK25),
 ]
 
@@ -190,10 +190,7 @@ SOTS = {
                       ('is to find businesses that are going to earn high returns on capital for an extended period of time.', '就是找到那些能在很长时间里，持续赚取高资本回报的生意。')]),
 }
 
-TEASE = ('下期：比亚迪——芒格拍着桌子说“买”的另一家公司',
-         '下期，我们讲比亚迪。芒格两次拍着桌子，对巴菲特说“买、买、买”：一次是 Costco，另一次，就是比亚迪。二零零八年，伯克希尔入股了这家中国车企。',
-         '系列片单：可口可乐 → 苹果 → 日本商社 → 谷歌 → 喜诗糖果 → Costco → 美国运通 → 比亚迪',
-         '2024-05-04 伯克希尔股东大会（“Charlie twice pounded the table … BYD was one of them, and Costco was the other”，第六期已核实）；2008-09 MidAmerican 宣布入股比亚迪约 10%')
+# 第七期起片尾不再预告下一期（用户要求）：最后一句之后，落版字化作粒子汇聚成品牌 logo。
 
 # 屏幕上出现的原话（英文原句 + 中文翻译 + 出处）
 QUOTES = {

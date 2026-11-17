@@ -16,12 +16,12 @@ import pretty_midi as pm
 
 WORK = sys.argv[1] if len(sys.argv) > 1 else 'work'
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import LINES, TEASE
+from script import LINES
 
 TL = json.load(open(os.path.join(WORK, 'timeline.json')))
 SEG = {s['id']: s for s in TL['segs']}
 CH = TL['chapters']
-SAY = {l[0]: (l[3] or l[2]) for l in LINES}; SAY['tease'] = TEASE[1]
+SAY = {l[0]: (l[3] or l[2]) for l in LINES}
 SF2 = '/usr/share/sounds/sf2/FluidR3_GM.sf2'
 BAR = 3.0; BEAT = BAR / 4
 
@@ -267,12 +267,12 @@ def build():
     T = TL['total']; title = CH['title'][0]
     c = {k: CH[k][0] for k in ('ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch6', 'ch7', 'end')}
     # 第七期卡点：片名、各章章节号亮起（章节卡开始后 0.5s）、c1e 股价跌到“三十七美元”、c2c“闭环”、c3e“三点八美元”、
-    #             c4c“不再续约”、c5k“里子把人留下来”、片尾“比亚迪”、logo；原声段落下只留很轻的铺底。
+    #             c4c“不再续约”、c5k“里子把人留下来”、logo；原声段落下只留很轻的铺底。
     hc = {k: c[k] + 0.5 for k in ('ch2', 'ch3', 'ch4', 'ch5', 'ch6', 'ch7')}
     t_crash = WT('c1e', '三十七美元'); t_loop = WT('c2c', '闭环'); t_38 = WT('c3e', '三点八美元')
-    t_cut = WT('c4c', '不再续约'); t_keep = WT('c5k', '里子把人留下来'); t_next = WT('tease', '比亚迪'); logo = TL['logo']
+    t_cut = WT('c4c', '不再续约'); t_keep = WT('c5k', '里子把人留下来'); logo = TL['logo']
     t_same = WT('c1g', '照用不误'); t_three = WT('c4g', '差不多三倍'); t_half = WT('c3g', '大约只有一半')
-    make_grid([title, t_crash, t_loop, t_38, t_cut, t_keep, t_next, logo] + list(hc.values()), T)
+    make_grid([title, t_crash, t_loop, t_38, t_cut, t_keep, logo] + list(hc.values()), T)
     tk = lambda cid: CH['tk_' + cid][0]
     so_in = lambda sid: S('sot_' + sid) - SEG['sot_' + sid]['lead']
     so_out = lambda sid: E('sot_' + sid)
@@ -347,15 +347,14 @@ def build():
     section(s6, S('c6f') - 0.3, ['Dm', 'Bb', 'Gm', 'A', 'Dm', 'Bb', 'F', 'C'], {'pad2', 'low', 'heart', 'pizz'}, 42, 56, motif_every=4, motif_oct=62)
     section(S('c6f') - 0.3, tk('ch6'), ['F', 'C', 'Dm', 'Bb'], {'pad', 'low', 'horn', 'brass', 'brassmotif', 'nomotif'}, 52, 66, tonic=5, major=True)
     s7 = bridge('ch6', 'ch7', ['Bb', 'C'], 'F', 92)
-    # ---- 第七章：三家公司（合唱涨起）→ 巴菲特原声（铺底）→ 六十年 → 预告：比亚迪 → logo
+    # ---- 第七章：三家公司（合唱涨起）→ 巴菲特原声（铺底）→ 六十年 → 落版字化作粒子 → logo
     section(s7, so_in('trick') - 0.3, ['Bb', 'C', 'Dm', 'Bb', 'F/A', 'Gm', 'Csus4', 'C'], {'pad', 'arp', 'low', 'choir', 'harp'}, 48, 66,
             tonic=5, major=True, motif_every=2)
     b = bed('trick')
-    section(b, t_next, ['F', 'Bb', 'F/A', 'C', 'F', 'Bb', 'Gm', 'C'], {'pad', 'choir', 'low', 'horn'}, 54, 50, tonic=5, major=True, motif_every=4,
+    t_60 = WT('c7d', '六十年')
+    section(b, t_60, ['F', 'Bb', 'F/A', 'C', 'F', 'Bb', 'Gm', 'C'], {'pad', 'choir', 'low', 'horn'}, 54, 50, tonic=5, major=True, motif_every=4,
             motif_ins='horn', motif_oct=65)
-    riser(t_next, 1.6, 72)
-    hit(t_next, 'Dm', 94, ring=3.0, big=False)
-    section(nxtbar(t_next), logo, ['Dm', 'Bb', 'F', 'C', 'Dm', 'Bb', 'Gm', 'A'], {'pad', 'low', 'ostinato', 'perc', 'eighths', 'brass', 'nomotif'}, 56, 86)
+    section(t_60, logo, ['Bb', 'C', 'Dm', 'Bb', 'Gm', 'C'], {'pad', 'choir', 'low', 'horn', 'arp', 'nomotif'}, 58, 62, tonic=5, major=True)
     riser(logo, 3.0, 96)
     hit(logo, 'F', 110, ring=T - logo + 0.5)
     # 混响与声相
@@ -368,8 +367,8 @@ def build():
                               pm.ControlChange(7, {'horn': 92, 'timp': 100, 'choir': 70, 'pad': 70, 'spic': 84, 'brass': 88,
                                                    'trumpet': 84, 'trombone': 88, 'taiko': 110}.get(name, 100), 0.0)]
     beats = sorted(g0 + k * (g1 - g0) / 4 for g0, g1 in zip(GRID, GRID[1:]) for k in range(4) if g0 < T)
-    SOFT[:] = [t_crash, t_loop, t_38, t_cut, t_same, t_three, t_half, t_keep, t_next]     # 句中的点题：配乐只半闪避，不压字
-    return beats, [title, t_crash, t_loop, t_38, t_cut, t_keep, t_next, logo] + list(hc.values()), list(hc.values())
+    SOFT[:] = [t_crash, t_loop, t_38, t_cut, t_same, t_three, t_half, t_keep]     # 句中的点题：配乐只半闪避，不压字
+    return beats, [title, t_crash, t_loop, t_38, t_cut, t_keep, logo] + list(hc.values()), list(hc.values())
 
 
 def post(wav):

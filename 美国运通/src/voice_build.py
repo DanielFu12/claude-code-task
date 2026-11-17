@@ -9,7 +9,7 @@ ct（[朗读文本中的字符下标, 相对发声起点的秒数]），供时�
 import sys, os, json, re
 import numpy as np, soundfile as sf, librosa
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from tts_passage import PASSAGES, TEASE_P, spoken
+from tts_passage import PASSAGES, spoken
 
 SR = 48000
 PUN = re.compile(r'[\s，。、：；？！“”‘’《》（）—…·,.;:?!"\'()\-]')
@@ -102,7 +102,7 @@ def process(pid, ids, wav, js, out, meta):
 
 def build(work):
     out = os.path.join(work, 'vo'); os.makedirs(out, exist_ok=True); meta = {}
-    for pid, ids, _ in PASSAGES + [TEASE_P]:
+    for pid, ids, _ in PASSAGES:
         b = os.path.join(work, 'tts_db', f'{pid}_0')
         process(pid, ids, b + '.wav', b + '.json', out, meta)
     json.dump(meta, open(os.path.join(out, 'vo.json'), 'w'), ensure_ascii=False, indent=0)
