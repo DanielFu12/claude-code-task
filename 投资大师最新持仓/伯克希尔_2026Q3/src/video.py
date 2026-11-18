@@ -1,6 +1,6 @@
-"""投资大师最新持仓 EP.01 · 巴菲特 / 伯克希尔·哈撒韦 2026Q3 13F —— 竖屏 1080×1920 动态图形短片
+"""投资大师最新持仓 · 巴菲特 / 伯克希尔·哈撒韦 2026Q3 最新持仓解析 —— 竖屏 1080×1920 动态图形短片
 
-每个 sc_* 函数是一个镜头；时间点全部来自 timeline.py（对齐到音乐节拍），数据全部来自 data.py（SEC 13F 原始申报）。
+每个 sc_* 函数是一个镜头；时间点全部来自 timeline.py（对齐到音乐节拍），数据全部来自 data.py（参考网页 masterstao.com）。
 """
 import math, os, sys
 import numpy as np, cv2
@@ -23,6 +23,13 @@ MINUS = '−'
 JPC = C(255, 128, 140)       # 日本商社
 W_OF = {r[1]: r[3] for r in D.H}     # 网页占比
 ASSETS_Y = D.ASSETS / 1e8          # 资产规模（亿美元）
+# 持仓全览：谷歌-A、谷歌-C 合并为「谷歌（A+C）」，按市值重新排序 → 谷歌升至第 3
+_g = [r for r in D.H if r[1] in ('GOOGL', 'GOOG')]
+MERGED = sorted([r for r in D.H if r[1] not in ('GOOGL', 'GOOG')] +
+                [('谷歌（A+C）', 'GOOGL+GOOG', round(sum(r[2] for r in _g), 2), round(sum(r[3] for r in _g), 2), '0', '不变', '13F')],
+                key=lambda r: -r[2])
+TOP_M = MERGED[:10]
+G_RANK = [r[1] for r in MERGED].index('GOOGL+GOOG')      # 0 起：2 → 第 3 大
 
 
 import json
@@ -45,7 +52,7 @@ def snare_pulse(t, decay=0.09):
     return math.exp(-_since(SNARES, t) / decay)
 
 def energy(t):
-    return keys(t, [(0, .3), (T_S2, .6), (T_S3, .6), (T_S3 + .1, .5), (b(32), .3), (T_DROP1, 1), (T_S9 - .01, 1), (T_S9, .6),
+    return keys(t, [(0, .3), (T_S2, .6), (T_S3, .6), (T_S3 + .1, .5), (b(36), .3), (T_DROP1, 1), (T_S9 - .01, 1), (T_S9, .6),
                     (T_S10, .6), (T_S10 + .1, .25), (T_DROP2, 1), (T_END, 1), (T_END + .5, .3)])
 
 def sa(t, a, b, fi=0.45, fo=0.4):
@@ -275,7 +282,7 @@ def counter(v, p, fmt):
 def sc_open(f, t):
     """S1 冷开场：总市值计数"""
     if t > T_S2 + 0.5: return
-    a = sa(t, 0.2, T_S2 + 0.2, 0.8, 0.5)
+    a = sa(t, 0.2, T_S2, 0.8, 0.45)
     out = (T_S2 - 0.55, 0.5)
     cy = 900
     # 背后的刻度盘
@@ -317,7 +324,7 @@ def _pack():
     rng = np.random.default_rng(5)
     v = np.array([x[2] for x in D.H], np.float64)
     r = np.sqrt(v / v.sum()) * 1.0
-    k = 400 / math.sqrt((r ** 2).sum() / 0.62)      # 总面积约占半径 400 圆的 62%
+    k = 370 / math.sqrt((r ** 2).sum() / 0.62)      # 总面积约占半径 370 圆的 62%
     r = r * k
     r = np.maximum(r, 7)
     p = rng.normal(0, 60, (len(r), 2))
@@ -335,12 +342,12 @@ PACK_P, PACK_R = _pack()
 
 def sc_cluster(f, t):
     if not (T_S2 - 0.6 < t < T_S3 + 0.6): return
-    a = sa(t, T_S2 - 0.3, T_S3 + 0.3, 0.4, 0.5)
+    a = sa(t, T_S2, T_S3, 0.4, 0.45)
     out = (T_S3 - 0.45, 0.45)
-    cy = 920
+    cy = 990
     po = eio((t - (T_S3 - 0.45)) / 0.75)
     for i, ((nm, tk, v, w, *_), (px, py), r) in enumerate(zip(D.H, PACK_P, PACK_R)):
-        p = (t - T_S2 - 0.05 - i * 0.045) / 0.55
+        p = (t - T_S2 - 0.1 - i * 0.07) / 0.6
         if p <= 0: continue
         s = eback(cl(p), 1.6) * (1 - po * 0.6)
         rr = r * s
@@ -360,10 +367,10 @@ def sc_cluster(f, t):
                 f.text(tk, x, y - (r * 0.12 if r > 80 else 0), max(int(r * 0.42), 20), 'bebas', lerpc(col, WHITE, .5), al)
         if r > 80:
             f.text(f'{w:.2f}%', x, y + r * 0.32, int(r * 0.2), 'mono', INK, al * 0.85)
-    f.text(f'{D.N_POS}', CX - 70, 380, 150, 'bebas', WHITE, a, grad=[GOLD2, GOLD], t0=T_S2, out=out, glow=0.3)
-    f.text('只持仓', CX + 70, 398, 64, 'serif_black', GOLD2, a, t0=T_S2 + 0.15, out=out)
-    f.text('圆的面积 = 持仓市值　粉色 = 日本商社', CX, 480, 28, 'sans_light', DIM, a, t0=T_S2 + 0.4, out=out)
-    f.text('这个季度，它动了哪里？', CX, 1440, 58, 'serif_black', WHITE, a, t0=b(20), stag=0.06, out=out, glow=0.15)
+    runs(f, [(f'{D.N_POS}', 'bebas', 150, [GOLD2, GOLD]), (' 只持仓', 'serif_black', 64, GOLD2)], CX, 360, a * (1 - eio((t - out[0]) / out[1])),
+         glow=0.3, t0=T_S2, stag=0.06)
+    f.text('圆的面积 = 持仓市值　粉色 = 日本商社', CX, 470, 28, 'sans_light', DIM, a, t0=T_S2 + 0.4, out=out)
+    f.text('这个季度，它动了哪里？', CX, 1500, 58, 'serif_black', WHITE, a, t0=b(22), stag=0.06, out=out, glow=0.15)
 
 
 # ---- S3 四个数字
@@ -372,10 +379,10 @@ TILES = [('新进', len(D.NEW), NEWC, 'Bending Spoons'), ('增持', len(D.ADD), 
 
 def sc_four(f, t):
     if not (T_S3 - 0.5 < t < T_DROP1 + 0.1): return
-    a = sa(t, T_S3 - 0.2, T_DROP1, 0.3, 0.05)
+    a = sa(t, T_S3, T_DROP1, 0.3, 0.05)
     eyebrow(f, '2026 Q3  vs  2026 Q2', 400, a, T_S3)
     f.text('本季调仓 · 一图看懂', CX, 480, 60, 'serif_black', WHITE, a, t0=T_S3 + 0.1, stag=0.05, glow=0.12)
-    pull = ei(cl((t - b(32)) / (T_DROP1 - b(32))))
+    pull = ei(cl((t - b(36)) / (T_DROP1 - b(36))))
     for i, (lab, n, col, sub) in enumerate(TILES):
         ti = TILE_HITS[i]
         p = (t - ti) / 0.5
@@ -393,28 +400,28 @@ def sc_four(f, t):
             f.text(lab, cx, cy - 112 * sc, int(42 * sc), 'sans_med', lerpc(col, WHITE, .35), al)
             f.text(str(n), cx, cy + 6 * sc, int(190 * sc), 'bebas', lerpc(col, WHITE, .25), al, mode='E', glow=0.3)
             f.text(sub, cx, cy + 128 * sc, int(28 * sc), 'sans_light', INK, al * 0.9)
-    implode(f, t, b(31), T_DROP1, CX, 960, [GOLD, GOLD2, WHITE, NEWC, UP, DOWN], 1.0, 760)
+    implode(f, t, b(35.5), T_DROP1, CX, 960, [GOLD, GOLD2, WHITE, NEWC, UP, DOWN], 1.0, 760)
 
 
 def sc_title(f, t):
     """S4 片名（第一次重拍）"""
     if not (T_DROP1 - 0.05 < t < T_S5 + 0.5): return
-    a = sa(t, T_DROP1, T_S5 + 0.15, 0.05, 0.5)
+    a = sa(t, T_DROP1, T_S5, 0.05, 0.45)
     out = (T_S5 - 0.5, 0.5)
     burst(f, t, T_DROP1, CX, 900, [GOLD, GOLD2, WHITE, GOLDD], 1, 800, 1500, 1.3)
     zz = 1 + 0.05 * (t - T_DROP1)
-    f.text('13F', CX, 900, int(560 * zz), 'bebas', GOLD, a * 0.07)
-    eyebrow(f, '投资大师最新持仓  ·  EP.01', 640, a, T_DROP1 + 0.05)
+    f.text('Q3', CX, 900, int(560 * zz), 'bebas', GOLD, a * 0.07)
+    eyebrow(f, '投资大师最新持仓', 640, a, T_DROP1 + 0.05)
     f.text('巴菲特', CX, 830, 220, 'serif_black', WHITE, a, grad=[GOLD2, GOLD, GOLDD], t0=T_DROP1 + 0.02, stag=0.09,
            dur=0.5, rise=40, mode='E', glow=0.45, out=out)
     f.text('伯克希尔·哈撒韦', CX, 1030, 80, 'serif_black', WHITE, a, t0=T_DROP1 + 0.35, stag=0.05, out=out)
-    f.text('2026 Q3 · 13F 持仓全解析', CX, 1135, 40, 'sans_light', INK, a, track=0.15, t0=T_DROP1 + 0.7, stag=0.03, out=out)
+    f.text('2026 Q3 · 最新持仓全解析', CX, 1135, 40, 'sans_light', INK, a, track=0.15, t0=T_DROP1 + 0.7, stag=0.03, out=out)
 
 
 def sc_donut(f, t):
     """S5 前十大重仓环形图"""
     if not (T_S5 - 0.5 < t < T_S6 + 0.6): return
-    a = sa(t, T_S5 - 0.2, T_S6 + 0.05, 0.4, 0.45)
+    a = sa(t, T_S5, T_S6, 0.4, 0.45)
     out = (T_S6 - 0.5, 0.45)
     eyebrow(f, 'PORTFOLIO  ·  持仓全景', 290, a, T_S5)
     headline(f, '前十大重仓', 372, a, T_S5 + 0.1, out=out)
@@ -422,14 +429,14 @@ def sc_donut(f, t):
     rot = -math.pi / 2 + 0.25 * eio((t - T_S5) / 3) - 0.25
     exit_p = eio((t - out[0]) / 0.7)
     T = ASSETS_Y
-    segs = [(zh, tk, v) for zh, tk, v, *_ in D.TOP]
+    segs = [(zh, tk, v) for zh, tk, v, *_ in TOP_M]
     rest = T - sum(v for _, _, v in segs)
-    segs.append((f'其他 {D.N_POS - 10} 只', '', rest))
+    segs.append(('其他', '', rest))
     reveal = eio((t - T_S5 - 0.15) / 1.7)
     # 焦点循环：#1 → #5，每 2 拍一个
     fk = -1
-    if b(48) <= t < b(58):
-        fk = int((t - b(48)) / SPB) // 2
+    if b(50) <= t < b(70):
+        fk = int((t - b(50)) / SPB) // 4
     acc = 0.0
     for i, (zh, tk, v) in enumerate(segs):
         frac = v / T
@@ -439,11 +446,11 @@ def sc_donut(f, t):
         lim = rot + reveal * 2 * math.pi
         if a0 >= lim: break
         a1v = min(a1, lim)
-        col = GOLDS[i] if i < 10 else OTHER
+        col = (GOLD2 if i == G_RANK else GOLDS[i]) if i < 10 else OTHER
         foc = (i == fk)
         fp = 0.0
         if foc:
-            fp = eback(cl((t - b(48 + 2 * fk)) / 0.35), 2)
+            fp = eback(cl((t - b(50 + 4 * fk)) / 0.4), 2)
         dim = 0.35 if (fk >= 0 and not foc) else 1.0
         mid = (a0 + a1) / 2
         off = 26 * fp
@@ -455,41 +462,49 @@ def sc_donut(f, t):
     f.circle((cx, cy), R0 - 18, GOLD, a * 0.25 * (1 - exit_p), 1)
     # 中心信息
     if fk < 0:
-        ca = a * (1 - exit_p) * cl((t - T_S5 - 0.6) / 0.5) * (1 - eio((t - b(48) + 0.15) / 0.15) if t < b(48) else 1)
-        if t >= b(58): ca = a * (1 - exit_p) * eo((t - b(58)) / 0.4)
+        ca = a * (1 - exit_p) * cl((t - T_S5 - 0.6) / 0.5) * (1 - eio((t - b(50) + 0.2) / 0.2) if t < b(50) else 1)
+        if t >= b(70): ca = a * (1 - exit_p) * eo((t - b(70)) / 0.4)
         f.text('持仓资产规模', cx, cy - 58, 32, 'sans_light', INK, ca)
         runs(f, [(f'{ASSETS_Y:,.0f}', 'bebas', 120, [GOLD2, GOLD]), (' 亿美元', 'sans_med', 34, GOLD2)], cx, cy + 22, ca)
     else:
-        zh, tk, v, w, *_ = D.TOP[fk]
-        tf = t - b(48 + 2 * fk)
+        zh, tk, v, w, *_ = TOP_M[fk]
+        tf = t - b(50 + 4 * fk)
         ca = a * eo(tf / 0.3)
         f.text(f'#{fk + 1}', cx, cy - 120, 36, 'bebas', GOLD, ca)
-        f.text(zh, cx, cy - 62, 54, 'serif_black', WHITE, ca, t0=b(48 + 2 * fk), stag=0.03, rise=12)
+        f.text(zh, cx, cy - 62, 50 if len(zh) > 4 else 54, 'serif_black', WHITE, ca, t0=b(50 + 4 * fk), stag=0.04, rise=12)
         f.text(f'{w:.2f}%', cx, cy + 38, 118, 'bebas', WHITE, ca, grad=[GOLD2, GOLD], glow=0.3, mode='E')
-        f.text(f'{v:.2f} 亿美元', cx, cy + 122, 30, 'sans_light', INK, ca)
+        if fk == G_RANK:      # 谷歌：A + C 合并后升至第三大持仓
+            gA, gC = W_OF['GOOGL'], W_OF['GOOG']
+            f.text(f'A {gA:.2f}% + C {gC:.2f}%', cx, cy + 122, 28, 'sans_med', GOLD2, ca)
+            pp = eback(cl((tf - 0.5) / 0.45), 2)
+            chip(f, '谷歌升至第三大持仓', cx, 1196, 34, GOLD2, a * cl(pp) * (1 - exit_p), 'sans_black', 0.18)
+            f.glow((cx, 1196), 120, GOLD2, a * 0.2 * cl(pp) * (1 + math.exp(-max(tf - 0.5, 0) / 0.3)), 'B')
+            burst(f, t, b(50 + 4 * fk) + 0.25, cx, cy, [GOLD2, GOLD, WHITE], 4, 500, 1000, 0.9, a=0.8)
+        else:
+            f.text(f'{v:.2f} 亿美元', cx, cy + 122, 30, 'sans_light', INK, ca)
     # 图例（两列）
-    for i, (zh, tk, v, w, *_) in enumerate(D.TOP):
-        col = GOLDS[i]
+    for i, (zh, tk, v, w, *_) in enumerate(TOP_M):
+        col = GOLD2 if i == G_RANK else GOLDS[i]
         x = 110 if i < 5 else 590
-        y = 1240 + (i % 5) * 70
-        p = eo((t - T_S5 - 0.5 - i * 0.09) / 0.4)
+        y = 1262 + (i % 5) * 70
+        p = eo((t - T_S5 - 0.8 - i * 0.15) / 0.5)
         al = a * p * (1 - exit_p) * (1 if (fk < 0 or fk == i) else 0.45)
         if al < 0.01: continue
         x += (1 - p) * 30
         f.fillpoly([(x, y - 9), (x + 18, y - 9), (x + 18, y + 9), (x, y + 9)], col, al)
         f.text(f'{i + 1:02d}', x + 34, y, 24, 'mono', DIM, al, 'l')
-        f.text(zh, x + 78, y, 32, 'sans_med', WHITE, al, 'l')
+        f.text(zh, x + 78, y, 32, 'sans_black' if i == G_RANK else 'sans_med', GOLD2 if i == G_RANK else WHITE, al, 'l')
         f.text(f'{w:.2f}%', x + 380, y, 34, 'bebas', lerpc(col, WHITE, .3), al, 'r')
 
 
 def sc_conc(f, t):
     """S6 集中度 + 30 只持仓本季动作"""
     if not (T_S6 - 0.4 < t < T_S7 + 0.6): return
-    a = sa(t, T_S6 + 0.02, T_S7 + 0.3, 0.35, 0.5)
+    a = sa(t, T_S6, T_S7, 0.35, 0.45)
     out = (T_S7 - 0.45, 0.45)
-    top5 = sum(x[3] for x in D.TOP[:5])                 # 网页占比直接相加：60.82%
+    top5 = sum(x[3] for x in TOP_M[:5])                 # 谷歌 A+C 合并后前五：63.52%
     eyebrow(f, 'CONCENTRATION  ·  集中度', 330, a, T_S6)
-    q = eo((t - T_S6 - 0.05) / (b(62) - T_S6))           # 第 62 拍落定
+    q = eo((t - T_S6 - 0.05) / (b(76) - T_S6))           # 第 76 拍落定
     oa = a * (1 - eio((t - out[0]) / out[1]))
     f.text(f'{top5 * q:.2f}%', CX, 600, 280, 'bebas', WHITE, oa, grad=[GOLD2, GOLD, GOLDD], mode='E', glow=0.35)
     f.text('前五大重仓合计占比', CX, 790, 46, 'serif_black', WHITE, a, t0=T_S6 + 0.3, stag=0.04, out=out)
@@ -498,7 +513,7 @@ def sc_conc(f, t):
     acc = 0
     rv = eio((t - T_S6 - 0.3) / 1.0)
     for i in range(6):
-        wv = D.TOP[i][3] if i < 5 else 100 - top5
+        wv = TOP_M[i][3] if i < 5 else 100 - top5
         w = wv / 100 * (x1 - x0)
         xa = x0 + acc; xb = min(xa + w, x0 + (x1 - x0) * rv)
         acc += w
@@ -507,14 +522,14 @@ def sc_conc(f, t):
         box(f, xa + 2, y - 26, xb - 2, y + 26, col, oa * (0.9 if i < 5 else 0.5))
         if i < 5:
             box(f, xa + 2, y - 26, xb - 2, y + 26, col, oa * 0.25, buf='B')
-        lab = D.TOP[i][1] if i < 5 else f'其余 {D.N_POS - 5} 只  {100 - top5:.2f}%'
-        lab_al = oa * cl((t - T_S6 - 0.9 - i * 0.06) / 0.3)
+        lab = (TOP_M[i][0][:2] if i == G_RANK else TOP_M[i][1]) if i < 5 else f'其余  {100 - top5:.2f}%'
+        lab_al = oa * cl((t - T_S6 - 1.2 - i * 0.12) / 0.4)
         if i < 5:
-            f.text(lab, (xa + xb) / 2, y + 58, 24, 'mono', INK, lab_al)
+            f.text(lab, (xa + xb) / 2, y + 58, 24, 'sans_med', INK, lab_al)
         else:
             f.text(lab, (xa + xb) / 2, y, 26, 'sans_med', WHITE, lab_al)
     # 30 只持仓的本季动作：每拍点亮一组
-    t2 = b(64)
+    t2 = b(77)
     f.text(f'{D.N_POS} 只持仓 · 本季动作', CX, 1130, 34, 'sans_med', INK, a, t0=t2 - 0.3, out=out)
     groups = [(D.N_UNCHANGED, GOLD2, '不变'), (len(D.NEW), NEWC, '新进'), (len(D.ADD), UP, '增持'),
               (len(D.CUT), DOWN, '减持')]
@@ -557,7 +572,7 @@ def bars_q(f, t, vals, labels, x0, x1, base, hmax, t0s, cols, a, vmax=None, lab_
 def sc_googl(f, t):
     """S7 谷歌：A、C 两类股一年合计持股 ×5.9（网页分列：谷歌-A 8.91%、谷歌-C 3.05%）"""
     if not (T_S7 - 0.4 < t < T_S8 + 0.6): return
-    a = sa(t, T_S7 - 0.15, T_S8 + 0.3, 0.4, 0.5)
+    a = sa(t, T_S7, T_S8, 0.4, 0.45)
     out = (T_S8 - 0.45, 0.45)
     oa = a * (1 - eio((t - out[0]) / out[1]))
     hA, hC = D.HIST['GOOGL'], D.HIST['GOOG']
@@ -565,12 +580,12 @@ def sc_googl(f, t):
     eyebrow(f, 'SPOTLIGHT  ·  一年里最大的变化', 290, a, T_S7)
     headline(f, '谷歌（A + C 两类股）', 380, a, T_S7 + 0.1, size=72, out=out)
     runs(f, [('一年合计持股  ', 'serif_black', 46, WHITE), (f'×{tot[-1] / tot[0]:.1f}', 'bebas', 96, [GOLD2, GOLD])], CX, 488,
-         oa * eo((t - b(76)) / 0.4), mode='E', glow=0.3)
+         oa * eo((t - b(94)) / 0.5), mode='E', glow=0.3)
     base, hmax, w = 1150, 470, 110
     mx = max(tot)
     for i in range(5):
         x = 160 + 760 * i / 4
-        ti = b(70 + i)
+        ti = b(86 + 1.5 * i)
         p = eo((t - ti) / 0.45)
         hA_ = hmax * hA[i] / mx * p; hC_ = hmax * hC[i] / mx * p
         if hA_ > 1:
@@ -584,27 +599,27 @@ def sc_googl(f, t):
             f.text(wan(tot[i]), x, base - hA_ - hC_ - 34, 38, 'sans_med', WHITE, oa * p)
     f.line((160 - w, base), (920 + w, base), INK, oa * 0.5, 1)
     # 图例
-    la = oa * cl((t - b(72)) / 0.4)
+    la = oa * cl((t - b(88)) / 0.5)
     box(f, 300, 1222, 326, 1240, NEWC, la); f.text('谷歌-A', 340, 1231, 26, 'sans_med', INK, la, 'l')
     box(f, 600, 1222, 626, 1240, GOLD2, la); f.text('谷歌-C', 640, 1231, 26, 'sans_med', INK, la, 'l')
     # 倍数弧线
-    p = eio((t - b(75)) / 0.7)
+    p = eio((t - b(93)) / 0.9)
     if p > 0:
         x0, y0, x1, y1 = 160, base - hmax * tot[0] / mx - 80, 920, base - hmax - 80
         pts = [(lerp(x0, x1, u), lerp(y0, y1, u) - 90 * math.sin(u * math.pi)) for u in np.linspace(0, p, 40)]
         f.poly(pts, GOLD2, oa * 0.8, 2)
         f.glow(pts[-1], 8, GOLD2, oa * 0.8, 'E')
-    for i, (big, small) in enumerate([(f'{W_OF["GOOGL"]:.2f}%', '谷歌-A 占比 · 第 4'), (f'{W_OF["GOOG"]:.2f}%', '谷歌-C 占比 · 第 13'),
+    for i, (big, small) in enumerate([('#3', '第三大持仓'), (f'{W_OF["GOOGL"] + W_OF["GOOG"]:.2f}%', 'A 7.91% + C 2.70%'),
                                       (wan(tot[-1]), '两类合计股数')]):
-        stat(f, big, small, 200 + i * 340, 1350, oa, GOLD2, b(78) + i * SPB / 2)
-    f.text('本季两类股数均未变动', CX, 1500, 30, 'sans_light', DIM, a, t0=b(80), out=out)
+        stat(f, big, small, 200 + i * 340, 1350, oa, GOLD2, b(95) + i * SPB)
+    f.text('本季两类股数均未变动', CX, 1500, 30, 'sans_light', DIM, a, t0=b(97), out=out)
 
 
 def sc_new(f, t):
     """S8a 新进"""
     t1 = T_ADD
     if not (T_S8 - 0.4 < t < t1 + 0.6): return
-    a = sa(t, T_S8 - 0.15, t1 + 0.3, 0.4, 0.45)
+    a = sa(t, T_S8, t1, 0.4, 0.45)
     out = (t1 - 0.4, 0.4)
     oa = a * (1 - eio((t - out[0]) / out[1]))
     zh, tk, sh, v = D.NEW[0]
@@ -623,8 +638,8 @@ def sc_new(f, t):
            stag=0.035, mode='E', glow=0.3, out=out)
     f.text('意大利科技公司 · 旗下有 Evernote、WeTransfer 等', CX, 1010, 32, 'sans_light', INK, a, t0=T_S8 + 0.6, stag=0.015, out=out)
     for i, (big, small) in enumerate([(wan(sh), '买入股数'), (f'{v:.2f}亿', '市值 · 美元'), (f'{W_OF[tk]:.2f}%', '组合占比')]):
-        stat(f, big, small, 200 + i * 340, 1200, oa, lerpc(NEWC, WHITE, .3), b(87) + i * SPB / 2, 80)
-    f.text('本季唯一一只新进股票', CX, 1390, 32, 'sans_med', NEWC, a, t0=b(89), out=out)
+        stat(f, big, small, 200 + i * 340, 1200, oa, lerpc(NEWC, WHITE, .3), b(103) + i * SPB, 80)
+    f.text('本季唯一一只新进股票', CX, 1390, 32, 'sans_med', NEWC, a, t0=b(105), out=out)
 
 
 def change_rows(f, t, rows, col, t0s, a, y0=640, dy=230, sign='+'):
@@ -653,13 +668,13 @@ def sc_add(f, t):
     """S8b 增持"""
     t0 = T_ADD
     if not (t0 - 0.4 < t < T_S9 + 0.6): return
-    a = sa(t, t0 - 0.15, T_S9 + 0.3, 0.4, 0.5)
+    a = sa(t, t0, T_S9, 0.4, 0.45)
     eyebrow(f, 'ADDED  ·  增持', 330, a, t0, UP)
     headline(f, f'增持 {len(D.ADD)} 只', 410, a, t0 + 0.05, out=(T_S9 - 0.45, 0.45))
-    change_rows(f, t, D.ADD, UP, [b(93), b(94), b(95), b(96)], a * (1 - eio((t - T_S9 + 0.45) / 0.45)), 600, 215)
-    f.text('上期', 140, 1560, 24, 'sans_light', DIM, a * 0.8, 'l', t0=b(93))
+    change_rows(f, t, D.ADD, UP, [b(109), b(111), b(113), b(115)], a * (1 - eio((t - T_S9 + 0.45) / 0.45)), 600, 215)
+    f.text('上期', 140, 1560, 24, 'sans_light', DIM, a * 0.8, 'l', t0=b(109))
     box(f, 90, 1553, 128, 1567, DIM, a * 0.5)
-    f.text('本期（按申报股数）', 330, 1560, 24, 'sans_light', DIM, a * 0.8, 'l', t0=b(93))
+    f.text('本期（按申报股数）', 330, 1560, 24, 'sans_light', DIM, a * 0.8, 'l', t0=b(109))
     box(f, 280, 1550, 318, 1570, UP, a * 0.8)
 
 
@@ -667,7 +682,7 @@ def sc_cut(f, t):
     """S9 减持（渐弱段）"""
     t1 = T_BAC
     if not (T_S9 - 0.4 < t < t1 + 0.6): return
-    a = sa(t, T_S9 - 0.1, t1 + 0.3, 0.4, 0.5)
+    a = sa(t, T_S9, t1, 0.4, 0.45)
     out = (t1 - 0.45, 0.45)
     oa = a * (1 - eio((t - out[0]) / out[1]))
     eyebrow(f, 'TRIMMED  ·  减持', 290, a, T_S9, DOWN)
@@ -675,7 +690,7 @@ def sc_cut(f, t):
     rows = sorted(D.CUT, key=lambda r: pct(r[2], r[3]))
     for i, (zh, tk, s0, s1, web) in enumerate(rows):
         y = 540 + i * 168
-        ti = b(101 + i)
+        ti = b(121 + 2 * i)
         p = eo((t - ti) / 0.45)
         if p <= 0: continue
         al = oa * p
@@ -691,7 +706,7 @@ def sc_cut(f, t):
         box(f, 90, y + 46, 90 + keep, y + 58, INK, al * 0.55)
         box(f, 90 + keep, y + 46, 90 + L, y + 58, DOWN, al * 0.9 * q)
         box(f, 90 + keep, y + 46, 90 + L, y + 58, DOWN, al * 0.3 * q, buf='B')
-    f.text('灰色 = 保留部分　红色 = 本季卖出部分', CX, 1560, 24, 'sans_light', DIM, oa * cl((t - b(107)) / 0.5))
+    f.text('灰色 = 保留部分　红色 = 本季卖出部分', CX, 1560, 24, 'sans_light', DIM, oa * cl((t - b(132)) / 0.5))
 
 
 def line_chart(f, t, series, x0, x1, y0, y1, vmin, vmax, t0, dur, a, labels=None):
@@ -725,7 +740,7 @@ def sc_bac(f, t):
     """S9b 美国银行：一年减持 19.8%"""
     t0 = T_BAC
     if not (t0 - 0.4 < t < T_S10 + 0.5): return
-    a = sa(t, t0 - 0.15, T_S10 + 0.2, 0.4, 0.45)
+    a = sa(t, t0, T_S10, 0.4, 0.45)
     out = (T_S10 - 0.4, 0.4)
     oa = a * (1 - eio((t - out[0]) / out[1]))
     h = D.HIST['BAC']
@@ -734,7 +749,7 @@ def sc_bac(f, t):
     yr = pct(h[0], h[-1])
     runs(f, [('一年减持  ', 'serif_black', 46, WHITE), (f'{MINUS}{abs(yr):.1f}%', 'bebas', 96, lerpc(DOWN, WHITE, .2))],
          CX, 520, oa * eo((t - t0 - 0.3) / 0.4), mode='E', glow=0.25)
-    f.text(f'本季变动股份  {D.CUT[4][4]}', CX, 600, 30, 'sans_med', lerpc(DOWN, WHITE, .4), a, t0=b(114), stag=0.015, out=out)
+    f.text(f'本季变动股份  {D.CUT[4][4]}', CX, 600, 30, 'sans_med', lerpc(DOWN, WHITE, .4), a, t0=b(138), stag=0.02, out=out)
     line_chart(f, t, [(h, DOWN, '')], 140, 940, 680, 1150, 4.0e8, 6.0e8, t0 + 0.4, 2.2, oa, D.QUARTERS)
     n = len(h)
     for i, v in enumerate(h):
@@ -743,14 +758,14 @@ def sc_bac(f, t):
             f.text(f'{v / 1e8:.2f}亿', x, y - 40, 30, 'sans_med', WHITE, oa * 0.95)
     for i, (big, small) in enumerate([('#5', '仍是第五大重仓'), (f'{W_OF["BAC"]:.2f}%', '组合占比'),
                                       (f'{MINUS}{abs(pct(D.HIST["COF"][0], D.HIST["COF"][-1])):.1f}%', '第一资本 · 一年')]):
-        stat(f, big, small, 200 + i * 340, 1340, oa, GOLD2 if i < 2 else lerpc(DOWN, WHITE, .2), b(117) + i * SPB / 2, 80)
+        stat(f, big, small, 200 + i * 340, 1340, oa, GOLD2 if i < 2 else lerpc(DOWN, WHITE, .2), b(142) + i * SPB, 80)
 
 
 def sc_zero(f, t):
     """S10 清仓 = 0（鼓点抽空）"""
     if not (T_S10 - 0.1 < t < T_DROP2 + 0.1): return
     a = sa(t, T_S10, T_DROP2, 0.15, 0.05)
-    pull = ei(cl((t - b(125)) / (T_DROP2 - b(125))))
+    pull = ei(cl((t - b(152.5)) / (T_DROP2 - b(152.5))))
     oa = a * (1 - pull)
     eyebrow(f, 'SOLD OUT  ·  清仓', 420, oa, T_S10 + 0.05)
     p = eo((t - T_S10) / 0.6)
@@ -762,7 +777,7 @@ def sc_zero(f, t):
     # 清仓数量时间线
     xs = [250, 540, 830]
     for i, (q, n) in enumerate(D.EXITS):
-        ti = b(121 + i)
+        ti = b(149 + i)
         pp = eo((t - ti) / 0.4)
         if pp <= 0: continue
         col = DOWN if n > 0 else GOLD2
@@ -772,13 +787,13 @@ def sc_zero(f, t):
         f.text(f'{q} 清仓（只）', xs[i], 1430, 26, 'sans_med', INK, oa * pp)
         if i:
             f.line((xs[i - 1] + 16, 1300), (lerp(xs[i - 1] + 16, xs[i] - 16, pp), 1300), DIM, oa * 0.6, 2)
-    f.text('2026Q1 一季清仓 16 只，本季原有持仓全部保留', CX, 1530, 32, 'sans_light', INK, oa, t0=b(123), stag=0.02)
-    implode(f, t, b(125), T_DROP2, CX, 800, [GOLD, GOLD2, WHITE], 1.0, 650)
+    f.text('2026Q1 一季清仓 16 只，本季原有持仓全部保留', CX, 1530, 32, 'sans_light', INK, oa, t0=b(150.5), stag=0.02)
+    implode(f, t, b(152.5), T_DROP2, CX, 800, [GOLD, GOLD2, WHITE], 1.0, 650)
 
 
 def sc_signals_title(f, t):
     if not (T_DROP2 - 0.05 < t < T_SIG1 + 0.5): return
-    a = sa(t, T_DROP2, T_SIG1 + 0.15, 0.05, 0.45)
+    a = sa(t, T_DROP2, T_SIG1, 0.05, 0.45)
     out = (T_SIG1 - 0.45, 0.45)
     burst(f, t, T_DROP2, CX, 900, [GOLD, GOLD2, WHITE, GOLDD], 2, 800, 1500, 1.3)
     f.text('最值得关注的', CX, 760, 52, 'sans_med', INK, a, t0=T_DROP2 + 0.05, stag=0.04, out=out)
@@ -798,37 +813,37 @@ def sig_head(f, t, n, title, sub, t0, a, out, col=GOLD2):
 def sc_sig1(f, t):
     """信号 01：苹果连续 3 个季度一股未动"""
     if not (T_SIG1 - 0.4 < t < T_SIG2 + 0.6): return
-    a = sa(t, T_SIG1 - 0.15, T_SIG2 + 0.3, 0.4, 0.5)
+    a = sa(t, T_SIG1, T_SIG2, 0.4, 0.45)
     out = (T_SIG2 - 0.45, 0.45)
     oa = a * (1 - eio((t - out[0]) / out[1]))
     sig_head(f, t, '01', '苹果：3 个季度一股未动', '仍是第一大重仓，占组合近四分之一', T_SIG1, a, out)
     h = D.HIST['AAPL']
-    t0s = [b(133 + i) for i in range(5)]
+    t0s = [b(166 + i) for i in range(5)]
     cols = [DIM] + [GOLD2] * 4
     bars_q(f, t, h, D.QUARTERS, 160, 920, 1080, 480, t0s, cols, oa, lab_fmt=lambda v: f'{v / 1e8:.2f}亿')
     # 「持平」标注
-    p = eio((t - b(137.5)) / 0.6)
+    p = eio((t - b(171)) / 0.7)
     if p > 0:
         y = 1080 - 480 * h[1] / max(h) - 90
         f.line((350, y), (lerp(350, 970, p), y), GOLD2, oa * 0.6, 2)
-        f.text('股数持平', 660, y - 30, 30, 'sans_med', GOLD2, oa * cl((t - b(138)) / 0.4))
+        f.text('股数持平', 660, y - 30, 30, 'sans_med', GOLD2, oa * cl((t - b(171.5)) / 0.4))
     v = D.TOP[0][2]
     for i, (big, small) in enumerate([(f'{v:.2f}', '市值 · 亿美元'), (f'{D.TOP[0][3]:.2f}%', '组合占比'),
                                       (f'+{v - D.AAPL_VALUE_PREV:.1f}', '本季市值变化 · 亿美元')]):
-        stat(f, big, small, 200 + i * 340, 1290, oa, GOLD2 if i < 2 else UP, b(139) + i * SPB / 2)
-    f.text('市值增加完全来自股价上涨，股数没有变化', CX, 1460, 28, 'sans_light', DIM, a, t0=b(141), stag=0.015, out=out)
+        stat(f, big, small, 200 + i * 340, 1290, oa, GOLD2 if i < 2 else UP, b(173) + i * SPB)
+    f.text('市值增加完全来自股价上涨，股数没有变化', CX, 1460, 28, 'sans_light', DIM, a, t0=b(176), stag=0.02, out=out)
 
 
 
 def sc_sig2(f, t):
     """信号 02：加码美国「住房 + 出行」"""
     if not (T_SIG2 - 0.4 < t < T_SIG3 + 0.6): return
-    a = sa(t, T_SIG2 - 0.15, T_SIG3 + 0.3, 0.4, 0.5)
+    a = sa(t, T_SIG2, T_SIG3, 0.4, 0.45)
     out = (T_SIG3 - 0.45, 0.45)
     oa = a * (1 - eio((t - out[0]) / out[1]))
     sig_head(f, t, '02', '加码美国「住房 + 出行」', '连续多个季度买入同一批股票', T_SIG2, a, out, UP)
-    panels = [('莱纳建筑-A', 'LEN · 住宅建筑商', D.HIST['LEN'], 560, b(145)),
-              ('达美航空', 'DAL · 航空公司', D.HIST['DAL'], 1040, b(149))]
+    panels = [('莱纳建筑-A', 'LEN · 住宅建筑商', D.HIST['LEN'], 560, b(182)),
+              ('达美航空', 'DAL · 航空公司', D.HIST['DAL'], 1040, b(188))]
     for k, (zh, sub, h, y0, t0) in enumerate(panels):
         p = eo((t - t0) / 0.5)
         al = oa * p
@@ -838,7 +853,7 @@ def sc_sig2(f, t):
         mx = max(h)
         for i, v in enumerate(h):
             x = 140 + i * 125
-            q = eo((t - t0 - 0.2 - i * 0.12) / 0.45)
+            q = eo((t - t0 - 0.3 - i * 0.22) / 0.5)
             hh = hmax * v / mx * q
             col = lerpc(C(40, 110, 90), UP, i / 4)
             if hh > 1:
@@ -858,7 +873,7 @@ def sc_sig2(f, t):
 def sc_sig3(f, t):
     """信号 03：日本五大商社合计 11.19%，超过可口可乐"""
     if not (T_SIG3 - 0.4 < t < T_OUTRO + 0.6): return
-    a = sa(t, T_SIG3 - 0.15, T_OUTRO + 0.3, 0.4, 0.5)
+    a = sa(t, T_SIG3, T_OUTRO, 0.4, 0.45)
     out = (T_OUTRO - 0.45, 0.45)
     oa = a * (1 - eio((t - out[0]) / out[1]))
     jw = sum(r[3] for r in D.JP); jv = sum(r[2] for r in D.JP)
@@ -866,7 +881,7 @@ def sc_sig3(f, t):
     mx = D.JP[0][2]
     for i, (nm, tk, v, w, *_) in enumerate(D.JP):
         y = 560 + i * 120
-        ti = b(158 + i)
+        ti = b(198 + 1.5 * i)
         p = eo((t - ti) / 0.4)
         if p <= 0: continue
         al = oa * p
@@ -877,7 +892,7 @@ def sc_sig3(f, t):
         box(f, 420, y - 16, 420 + L, y + 16, JPC, al * 0.25, buf='B')
         f.text(f'{w:.2f}%', 990, y, 52, 'bebas', lerpc(JPC, WHITE, .3), al, 'r')
     # 合计 vs 可口可乐
-    tc = b(163)
+    tc = b(206)
     ko = D.TOP[2]
     for k, (lab, v, w, col) in enumerate([('五大商社合计', jv, jw, JPC), (f'{ko[0]}（第 3 大）', ko[2], ko[3], GOLD2)]):
         y = 1230 + k * 130
@@ -896,11 +911,11 @@ SUMMARY = [('核心重仓', '苹果 · 运通 · 可口可乐 纹丝不动', GOL
 
 def sc_outro(f, t):
     if not (T_OUTRO - 0.4 < t < T_END + 0.5): return
-    a = sa(t, T_OUTRO - 0.15, T_END + 0.2, 0.4, 0.5)
+    a = sa(t, T_OUTRO, T_END, 0.4, 0.45)
     out = (T_END - 0.45, 0.45)
     eyebrow(f, 'TAKEAWAY  ·  一句话总结', 520, a, T_OUTRO)
     for i, (k, v, col) in enumerate(SUMMARY):
-        ti = b(169 + i * 2)
+        ti = b(213 + i * 2)
         y = 680 + i * 220
         p = eo((t - ti) / 0.5)
         al = a * p * (1 - eio((t - out[0]) / out[1]))
@@ -910,7 +925,10 @@ def sc_outro(f, t):
         f.text(v, 180 + (1 - p) * 30, y + 40, 34, 'sans_light', INK, al, 'l')
     n, up, dn = D.Q4_NEWS
     f.text(f'季后最新动态：2026Q4 已有 {n} 项新披露 · 增持 {up} · 减持 {dn}', CX, 1390, 30, 'sans_med', GOLD, a,
-           t0=b(174), stag=0.015, out=out)
+           t0=b(219), stag=0.015, out=out)
+    f.text('数据来源：大师之道 masterstao.com（美股报告期 2026-09-30 · 日股 大量保有報告書）', CX, 1560, 22,
+           'sans_light', DIM, a * 0.9, t0=b(220), stag=0.005, out=out)
+    f.text('仅为公开信息整理，不构成任何投资建议', CX, 1600, 22, 'sans_light', DIM, a * 0.9, t0=b(220.5), stag=0.005, out=out)
 
 
 def sc_end(f, t):
@@ -926,10 +944,8 @@ def sc_end(f, t):
     f.text('巴芒价值', CX, 1000, 120, 'serif_black', GOLD2, e, t0=T_END + 0.25, stag=0.12, dur=0.6,
            grad=[GOLD2, GOLD, GOLDD], mode='O', glow=0.5)
     f.text('BUFFETT · MUNGER', CX, 1096, 34, 'corm', C(214, 178, 112), e, track=0.42, t0=T_END + 0.8, stag=0.03, mode='O')
-    f.text('投资大师最新持仓 · 下期见', CX, 1210, 34, 'sans_light', INK, e, track=0.2, t0=T_END + 1.2, stag=0.03)
-    f.text('数据来源：大师之道 masterstao.com（美股 13F 报告期 2026-09-30 · 日股 大量保有報告書）', CX, 1500, 22,
-           'sans_light', DIM, e * 0.9, t0=T_END + 1.6, stag=0.005)
-    f.text('仅为公开信息整理，不构成任何投资建议', CX, 1545, 22, 'sans_light', DIM, e * 0.9, t0=T_END + 1.8, stag=0.005)
+    # 与《人为什么会感到不开心》片尾一致
+    f.text('来之则安 · 去之则顺', CX, 1200, 36, 'sans_light', lerpc(GREY, WHITE, .4), e, track=0.3, t0=T_END + 1.2, stag=0.05)
 
 
 # ============================================================== 品牌角标 + 页面框架
@@ -953,7 +969,7 @@ def draw_chrome(f, t):
     al = 0.9 * env(t, 0.6, T_END, 0.8, 0.4)
     if al <= 0.003: return
     f.text('投资大师最新持仓', 56, 52, 28, 'sans_med', GOLD2, al, 'l', mode='O')
-    f.text('EP.01 · BERKSHIRE · 2026Q3', 56, 90, 18, 'mono', DIM, al * 0.9, 'l', mode='O')
+    f.text('BERKSHIRE HATHAWAY · 2026Q3', 56, 90, 18, 'mono', DIM, al * 0.9, 'l', mode='O')
     # 底部进度条（章节刻度）
     x0, x1, y = 90, 990, 1740
     f.line((x0, y), (x1, y), DIM, al * 0.25, 1)

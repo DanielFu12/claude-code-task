@@ -128,26 +128,26 @@ def sub(m, dur, rel=0.05):
 CH = {'Am': [57, 60, 64, 69], 'F': [53, 57, 60, 65], 'C': [55, 60, 64, 67], 'G': [55, 59, 62, 67]}
 ROOT = {'Am': 33, 'F': 29, 'C': 36, 'G': 31}
 MAIN = ['Am', 'F', 'C', 'G']
-BREAK = ['F', 'G', 'Am', 'Am', 'F']
+BREAK = ['F', 'G', 'Am', 'Am']
 
 def chord_of(bar):
-    if 25 <= bar <= 29: return BREAK[bar - 25]
-    if 30 <= bar <= 31: return 'Am'
-    if bar >= 44: return 'Am'
+    if 30 <= bar <= 36: return BREAK[(bar - 30) % 4]
+    if 37 <= bar <= 38: return 'Am'
+    if bar >= 56: return 'Am'
     return MAIN[bar % 4]
 
 def section(bar):
     if bar <= 3: return 'intro'
-    if bar <= 5: return 'groove'
-    if bar <= 7: return 'stops'
-    if bar == 8: return 'build'
-    if bar <= 24: return 'drop1'
-    if bar <= 29: return 'half'
-    if bar <= 31: return 'void'
-    if bar <= 43: return 'drop2'
+    if bar <= 6: return 'groove'
+    if bar <= 8: return 'stops'
+    if bar == 9: return 'build'
+    if bar <= 29: return 'drop1'
+    if bar <= 36: return 'half'
+    if bar <= 38: return 'void'
+    if bar <= 55: return 'drop2'
     return 'end'
 
-NBARS = 44
+NBARS = 56
 
 # ------------------------------------------------------------------ 编排
 FILL_BEATS = {round(tc / SPB) - 1 for tc in CUTS}      # 每个转场前一拍放军鼓过门
@@ -179,7 +179,7 @@ for bar in range(NBARS + 1):
         if sec == 'stops':
             for s16 in range(4):
                 drums.put(tb + s16 * SPB / 4, hat(0.04, 0.012), 0.05, pan=0.3)       # 紧张的细碎滴答
-        if sec == 'void' and bar == 30 and k in (0, 2):
+        if sec == 'void' and bar == 37 and k in (0, 2):
             drums.put(tb, lp(kick(), 200), 0.8); drums.put(tb + 0.22, lp(kick(), 200), 0.5)   # 心跳
             EV['kick'].append(tb)
         # 过门
@@ -187,7 +187,7 @@ for bar in range(NBARS + 1):
             for s16 in range(4):
                 drums.put(tb + s16 * SPB / 4, snare_short(), 0.18 + 0.1 * s16, pan=(s16 - 1.5) * 0.2)
     # ---- 军鼓滚奏（第 8、31 小节）
-    if sec == 'build' or bar == 31:
+    if sec == 'build' or bar == 38:
         n_hits = [4, 8, 16, 16]
         for k in range(4):
             for j in range(n_hits[k]):
@@ -267,8 +267,8 @@ def curve(points):
     return np.interp(T, [p[0] for p in points], [p[1] for p in points])
 
 # 和弦垫亮度：前奏暗 → DROP 亮 → 半速段暗 → 抽空最暗 → DROP2 最亮
-bright = curve([(0, 0.0), (b(32), 0.35), (b(35.9), 0.6), (T_DROP1, 1.0), (b(99.9), 1.0), (T_S9, 0.35),
-                (b(119.9), 0.3), (T_S10, 0.08), (b(127.9), 0.25), (T_DROP2, 1.0), (DUR, 1.0)])[:, None]
+bright = curve([(0, 0.0), (b(36), 0.35), (T_DROP1 - 0.05, 0.6), (T_DROP1, 1.0), (T_S9 - 0.05, 1.0), (T_S9, 0.35),
+                (T_S10 - 0.05, 0.3), (T_S10, 0.08), (T_DROP2 - 0.05, 0.25), (T_DROP2, 1.0), (DUR, 1.0)])[:, None]
 pad_dark, pad_bright = lp(pad.x, 700, 2), lp(pad.x, 3800, 2)
 pad_mix = pad_dark * (1 - bright) + pad_bright * bright
 arp_mix = lp(arp.x, 5000)
@@ -296,8 +296,8 @@ mix = hp(mix, 25)
 mix = mix - 0.5 * lp(mix, 95, 2)            # 低频搁架衰减约 -6 dB：避免手机外放发闷
 mix = mix + 0.25 * bp(mix, 2500, 6000)       # 轻微提亮中高频（只到 6 kHz，不刺耳）
 # 段落动态：前奏渐强、半速段略收、抽空段明显压低，把两次 DROP 衬托出来
-dyn = curve([(0, 0.55), (b(15.9), 0.8), (b(16), 0.9), (T_DROP1 - 0.01, 0.9), (T_DROP1, 1.0), (b(99.9), 1.0), (T_S9, 0.82),
-             (b(119.9), 0.82), (T_S10 + 0.6, 0.7), (T_S10 + 1.2, 0.45), (b(124), 0.5), (b(127.9), 0.85), (T_DROP2, 1.05),
+dyn = curve([(0, 0.55), (b(15.9), 0.8), (b(16), 0.9), (T_DROP1 - 0.01, 0.9), (T_DROP1, 1.0), (T_S9 - 0.05, 1.0), (T_S9, 0.82),
+             (T_S10 - 0.05, 0.82), (T_S10 + 0.6, 0.7), (T_S10 + 1.2, 0.45), (b(152), 0.5), (T_DROP2 - 0.05, 0.85), (T_DROP2, 1.05),
              (DUR, 1.05)])[:, None]
 mix = mix * dyn
 # 软削波 + 归一化
