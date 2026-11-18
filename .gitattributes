@@ -1,1 +1,4 @@
 *.mp4 filter=lfs diff=lfs merge=lfs -text
+# 以下文件实际按普通 git 文件存储（未走 LFS），在此声明以免被误判为已修改
+/从现在看过去-AI简史.mp4 !filter !diff !merge binary
+/不开心视频/*.mp4 !filter !diff !merge binary
