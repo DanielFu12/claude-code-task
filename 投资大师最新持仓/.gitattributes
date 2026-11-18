@@ -1,0 +1,2 @@
+# 仓库 LFS 额度已用完：本系列成片按普通 git 文件存储（单个文件 < 100MB）
+*.mp4 !filter !diff !merge binary
