@@ -88,9 +88,6 @@ try:
     for tk, h in D.HIST.items():
         check(f'SEC 历史 {tk}', [Q[q].get(CUSIP[tk], [0])[0] for q in D.QUARTERS], h)
     check('SEC 苹果上期市值', round(prev[CUSIP['AAPL']][1] / 1e8, 2), D.AAPL_VALUE_PREV)
-    qs = list(FILINGS)
-    for q, n in D.EXITS:
-        i = qs.index(q); check(f'SEC 清仓只数 {q}', len(set(Q[qs[i - 1]]) - set(Q[q])), n)
     check('SEC 13F 只数 = 网页美股只数', len(cur), len(D.US))
 except OSError as e:
     print('SEC 无法访问，跳过第 2 部分：', e)
