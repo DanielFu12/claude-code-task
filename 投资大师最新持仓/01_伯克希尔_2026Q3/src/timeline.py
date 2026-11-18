@@ -1,53 +1,48 @@
-"""音乐结构与全片时间轴（所有镜头都对齐到节拍网格）
+"""全片时间轴：原创配乐 120 BPM（1 拍 = 0.5 s，1 小节 = 4 拍 = 2 s），所有镜头、动画、音效都落在拍点上。
 
-背景音乐取自仓库根目录 `opus5.5涌现.mp4`（约 112 BPM，2:05）。
-剪辑：源曲第 0–96 拍原样保留，第 96 拍直接接到第 144 拍（两处都是 16 拍乐句的起点），
-跳过 48 拍（≈25.5 s）。这样就有：前奏 → 第一次重拍（18.2 s）→ 主律动 → 渐弱段 → 抽空 → 第二次重拍 → 尾声。
+配乐由 music.py 按同一套拍号逐音符合成，所以画面与音乐是「同一张谱」——天然卡点。
+
+  小节   时间       音乐段落                     镜头
+  0–3    0–8 s     前奏：滤波琶音逐渐打开、闷鼓   S1 冷开场：总市值计数
+  4–5    8–12 s    鼓组进入                      S2 30 只持仓「星群」
+  6–7    12–16 s   停顿式重音（每半小节一击）     S3 新进 / 增持 / 减持 / 清仓 四个数字
+  8      16–18 s   军鼓滚奏 + 上行蓄力           S3 坍缩
+  9      18 s      第一次 DROP                   S4 片名
+  9–24   18–50 s   主段（满编）                  S5 前十大 → S6 集中度 → S7 谷歌 → S8 新进 / 增持
+  25–29  50–60 s   半速段（暗色和声）             S9 减持 → 美国银行
+  30–31  60–64 s   抽空：心跳 + 蓄力             S10 清仓 = 0
+  32     64 s      第二次 DROP                   S11 三个信号
+  42–43  84–88 s   尾段                          S12 总结
+  44     88 s      终止重击 + 余韵                片尾
 """
-import os
 import numpy as np
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-SRC_BEATS = np.load(os.path.join(HERE, 'beats_src.npy'))
-CUT_A, CUT_B = 96, 144                     # 源曲拍号：从 A 跳到 B
-SHIFT = SRC_BEATS[CUT_B] - SRC_BEATS[CUT_A]   # ≈25.50 s
-# 输出时间轴上的节拍（拍号 = 输出拍号）
-BEATS = np.concatenate([SRC_BEATS[:CUT_A], SRC_BEATS[CUT_B:] - SHIFT])
-DUR = 98.0                                 # 成片时长（秒）
+BPM = 120.0
+SPB = 60.0 / BPM          # 0.5 s / 拍
+DUR = 94.0
+BEATS = np.arange(0, DUR / SPB + 1) * SPB
 
 
 def b(i):
-    """输出第 i 拍的时间（秒）。"""
-    return float(BEATS[i])
+    """第 i 拍的时间（秒），可为小数拍。"""
+    return float(i) * SPB
 
 
-# ---------------------------------------------------------------- 镜头（输出拍号）
-#  拍号      音乐                    镜头
-#  0–12     前奏                     S1 冷开场：总市值计数 3042 亿美元
-#  12–20    前奏                     S2 27 家公司的「星群」
-#  20–32    鼓点抽空 + 蓄力           S3 本季四个数字：新进/增持/减持/清仓 → 坍缩
-#  32       第一次重拍                S4 片名
-#  40–56    主律动                   S5 前十大重仓环形图
-#  56–64    主律动                   S6 集中度：前五大 71.6%
-#  64–80    主律动                   S7 Alphabet：一年股数 ×5.9
-#  80–96    主律动                   S8 新进 + 增持
-#  96–116   渐弱段（剪辑点）          S9 减持
-#  116–124  鼓点抽空                 S10 清仓 = 0
-#  124      第二次重拍                S11 三个最值得关注的信号
-#  164–     尾声                     S12 总结 + 片尾
-T_S2, T_S3, T_DROP1 = b(12), b(20), b(32)
-T_S5, T_S6, T_S7, T_S8 = b(40), b(56), b(64), b(80)
-T_S9, T_S10, T_DROP2 = b(96), b(116), b(124)
-T_SIG1, T_SIG2, T_SIG3 = b(128), b(140), b(152)
-T_OUTRO, T_END = b(164), b(172)
+T_S2, T_S3, T_DROP1 = b(16), b(24), b(36)
+T_S5, T_S6, T_S7, T_S8 = b(44), b(60), b(68), b(84)
+T_ADD = b(92)
+T_S9, T_BAC, T_S10, T_DROP2 = b(100), b(112), b(120), b(128)
+T_SIG1, T_SIG2, T_SIG3 = b(132), b(144), b(156)
+T_OUTRO, T_END = b(168), b(176)
 
-IMPACTS = [(T_DROP1, 1.0), (T_DROP2, 1.0), (T_S10, 0.55), (T_END, 0.6)]
-RISERS = [(b(28), T_DROP1), (b(120), T_DROP2)]
-# 普通转场（低沉 whoosh + 闷响）
-CUTS = [T_S2, T_S3, b(40), T_S6, T_S7, T_S8, T_S9, T_SIG2, T_SIG3, T_OUTRO]
+IMPACTS = [(T_DROP1, 1.0), (T_DROP2, 1.0), (T_S10, 0.55), (T_END, 0.7)]
+RISERS = [(b(32), T_DROP1), (b(124), T_DROP2)]
+# 普通转场：画面光扫 + 音乐里的重音（tom + 低频冲击 + 镲片涌起）
+CUTS = [T_S2, T_S3, T_S5, T_S6, T_S7, T_S8, T_ADD, T_S9, T_BAC, T_SIG1, T_SIG2, T_SIG3, T_OUTRO]
+# 四个数字逐一弹出的重音
+TILE_HITS = [b(24), b(26), b(28), b(30)]
 
 if __name__ == '__main__':
-    print('shift', SHIFT)
     for k, v in list(globals().items()):
         if k.startswith('T_'):
-            print(f'{k:10s} {v:7.2f}')
+            print(f'{k:10s} {v:6.2f}s  bar {v / 2:5.2f}')
