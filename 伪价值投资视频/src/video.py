@@ -216,6 +216,10 @@ CASES = [
 
 for c in CASES:
     c['X'], c['Y'] = make_series(c['anchors'], seed=c['seed'])
+CASES[0]['segs'] = [((2018.22, 400), (2026.88, 373))]                       # 腾讯：买点→现价的虚线
+CASES[2]['chip'] = ('大笔回购 ✓', 30)
+CASES[4]['avoid'] = [(260 - 130, 640 - 30, 260 + 130, 640 + 30)]          # 英伟达：AI 需求还在
+CASES[3]['avoid'] = [(885, 480, 1000, 1160)]                               # 智谱：右侧①②③腰斩标注
 
 BX0, BX1, BY0, BY1 = 110, 930, 560, 1150
 
@@ -284,7 +288,12 @@ def draw_chart(fr, t, c, a, dx=0.0, box=None, d=None, mini=False):
         fr.circle(p, 11 if not mini else 7, GOLD, a, 3)
         fr.glow(p, 18 + 6 * pulse, GOLD, a * 0.6)
         if not mini:
-            fr.text('你的买点 ' + str(bv), p[0] - 18 + (0 if p[0] > 300 else 36), p[1] + (44 if p[0] > 300 else 64), 32, 'sans_black', GOLD, a, anchor='l' if p[0] < 600 else 'r', mode='L', glow=0.2)
+            lx, ly = chart_layout(c, box, (64 if box == (BX0, BY0, BX1, BY1) else 58))['label']
+            if math.hypot(lx - p[0] + dx, ly - p[1]) > 75:      # 标签离买点较远时，用细引线连回去
+                q = (lx + dx, ly - 22 if ly > p[1] else ly + 22)
+                v = np.array(q) - np.array(p); v = v / (np.linalg.norm(v) + 1e-6)
+                dashed(fr, (p[0] + v[0] * 16, p[1] + v[1] * 16), q, GOLD, a * 0.6, 2, 8, 7)
+            fr.text('你的买点 ' + str(bv), lx + dx, ly, 32, 'sans_black', GOLD, a, mode='L', glow=0.2)
     if c['end'] and d >= c['end'][0] - 1e-6:
         e = c['end']; p = (px(e[0]), py(e[1]))
         fr.circle(p, 10 if not mini else 7, RED2, a, -1)
@@ -528,6 +537,75 @@ def sh_books(fr, t):
             fr.text(ch, x, y0 + 60 + j * 62, 50, 'serif_black', col, ak, mode='L', glow=0.15)
     btext(fr, t, '买股票，就是买公司', CX, ZB, 76, 'hand', C(245, 232, 200), a, CH('L02', 1) - 0.1, glow=0.2)
 
+
+# ---------------------------------------------------------------- 标注避让：买入印章、买点标签、旁注不压折线、不互相重叠
+def _rect(x, y, w, h, m=0): return (x - w / 2 - m, y - h / 2 - m, x + w / 2 + m, y + h / 2 + m)
+def _hit(r, a): return not (r[2] < a[0] or r[0] > a[2] or r[3] < a[1] or r[1] > a[3])
+def _cands(rs, pref):
+    out = []
+    for r in rs:
+        for k in range(24):
+            ang = math.radians(k * 15)
+            da = abs((k * 15 - pref + 180) % 360 - 180)
+            out.append((r + da * 0.9, r * math.cos(ang), r * math.sin(ang)))
+    return [(x, y) for _, x, y in sorted(out)]
+def _free(pts, cx, cy, w, h, cands, bounds, avoid, m=16):
+    for ox, oy in cands:
+        x, y = cx + ox, cy + oy; r = _rect(x, y, w, h, m)
+        if r[0] < bounds[0] or r[2] > bounds[2] or r[1] < bounds[1] or r[3] > bounds[3]: continue
+        if np.any((pts[:, 0] > r[0]) & (pts[:, 0] < r[2]) & (pts[:, 1] > r[1]) & (pts[:, 1] < r[3])): continue
+        if any(_hit(r, a) for a in avoid): continue
+        return x, y
+    best, bx = None, None                       # 实在没有空位：取压线最少的位置
+    for ox, oy in cands:
+        x, y = cx + ox, cy + oy; r = _rect(x, y, w, h, m)
+        if r[0] < bounds[0] or r[2] > bounds[2] or r[1] < bounds[1] or r[3] > bounds[3]: continue
+        n = int(np.sum((pts[:, 0] > r[0]) & (pts[:, 0] < r[2]) & (pts[:, 1] > r[1]) & (pts[:, 1] < r[3]))) + 1000 * sum(_hit(r, a) for a in avoid)
+        if best is None or n < best: best, bx = n, (x, y)
+    print('layout fallback', w, h, best, file=sys.stderr)
+    return bx or (cx + cands[0][0], cy + cands[0][1])
+_SBOX = {}
+def stamp_box(s, size):
+    k = (s, size)
+    if k not in _SBOX:
+        m = stamp_mask(s, size, -10); ys, xs = np.nonzero(m > 0.05)
+        _SBOX[k] = (xs.max() - xs.min() + 1, ys.max() - ys.min() + 1)
+    return _SBOX[k]
+def chart_layout(c, box, ssize):
+    main = box == (BX0, BY0, BX1, BY1)
+    chip = c.get('chip') if main else None
+    extra_avoid = c.get('avoid', ()) if main else ()
+    key = (box, ssize)
+    L = c.setdefault('_lay', {})
+    if key in L: return L[key]
+    px, py = case_xf(c, box)
+    xs = np.linspace(c['x0'], c['X'][-1], 4000)
+    pts = [np.stack([[px(x) for x in xs], [py(y) for y in np.interp(xs, c['X'], c['Y'])]], 1)]
+    for (xa, ya), (xb, yb) in (c.get('segs', []) if main else []):
+        u = np.linspace(0, 1, 200)[:, None]
+        pts.append((1 - u) * np.array([px(xa), py(ya)]) + u * np.array([px(xb), py(yb)]))
+    pts = np.vstack(pts)
+    avoid = list(extra_avoid)
+    pk = c['peak']; w = text_width(pk[2], 'sans_med', 30); P = (px(pk[0]), py(pk[1]))
+    avoid.append((P[0] + 18 - 4, P[1] - 30 - 22, P[0] + 18 + w + 4, P[1] - 30 + 22))
+    e = c['end']; w = text_width(e[2], 'num', 46); E = (px(e[0]), py(e[1]))
+    avoid.append((E[0] - 4 - w - 4, E[1] + 52 - 30, E[0], E[1] + 52 + 30))
+    avoid.append((box[2] + 4, box[1] - 40, box[2] + 90, box[3]))            # 右侧刻度
+    bounds = (box[0] - 30, box[1] - 70, box[2], box[3] - 8)
+    B = (px(c['buy'][0]), py(c['buy'][1]))
+    sw, sh = stamp_box('买入', ssize)
+    st = _free(pts, *B, sw, sh, _cands([110, 130, 150, 175, 200, 230, 260, 300, 340, 380], -45), bounds, avoid)
+    avoid.append(_rect(*st, sw, sh))
+    lab = '你的买点 ' + str(c['buy'][1]); lw = text_width(lab, 'sans_black', 32) + 8
+    lb = _free(pts, *B, lw, 40, _cands([48, 62, 80, 100, 125, 150, 180, 215, 250, 290, 330], 90), bounds, avoid, 12)
+    avoid.append(_rect(*lb, lw, 40))
+    ch = None
+    if chip:
+        cw, chh = text_width(chip[0], 'sans_black', chip[1]) + 48, chip[1] * 1.9
+        ch = _free(pts, *B, cw, chh, _cands([70, 90, 115, 140, 170, 200, 240], 60), bounds, avoid, 12)
+    L[key] = dict(stamp=st, label=lb, chip=ch, B=B)
+    return L[key]
+
 def case_shot(fr, t, i):
     c = CASES[i]
     if not (c['t_in'] - 0.1 < t < c['t_out'] + 0.1): return None
@@ -536,7 +614,8 @@ def case_shot(fr, t, i):
     px, py, a, dx = r
     if t > c['t_buy']:
         bx, bv = c['buy']
-        stamp(fr, t, '买入', px(bx) + 70, py(bv) - 92, 64, c['t_buy'], GOLD, -10, a)
+        sx, sy = chart_layout(c, (BX0, BY0, BX1, BY1), 64)['stamp']
+        stamp(fr, t, '买入', sx + dx, sy, 64, c['t_buy'], GOLD, -10, a)
         if t - c['t_buy'] < 0.5: fr.glow((px(bx), py(bv)), 60, GOLD2, (1 - (t - c['t_buy']) / 0.5) * 0.8 * a)
     return px, py, a, dx
 
@@ -566,7 +645,8 @@ def sh_ali(fr, t):
     if not r: return
     px, py, a, dx = r
     tb = CASES[2]['t_buy'] + 0.6
-    chip(fr, px(2021.68) + 170 + dx * 0, py(150) + 110, '大笔回购 ✓', GOLD, a * eo((t - tb) / 0.4), 30)
+    cx_, cy_ = chart_layout(CASES[2], (BX0, BY0, BX1, BY1), 64)['chip']
+    chip(fr, cx_ + dx, cy_, '大笔回购 ✓', GOLD, a * eo((t - tb) / 0.4), 30)
     if t > CUE['L08']:
         ab = a * eo((t - CUE['L08'] - 0.2) / 0.4)
         fr.text('一度跌到 63', CX + dx, 1300, 110, 'num', RED2, ab, mode='L', glow=0.45)
@@ -1248,7 +1328,7 @@ def sh_band(fr, t):
     tag(fr, t, T2, a, S['noise'])
     t0, t76, t77 = S['band'], _t('L76'), _t('L77')
     btext(fr, t, '我们对未来的判断，可能是错的', CX, ZB, 56, 'serif_black', WHITE, a, t0 + 0.2, glow=0.12)
-    py = lambda v: 1250 - v * 6
+    py = lambda v: 1340 - v * 6
     vc = 85
     w = 4 + 26 * eo((t - t76) / 1.2)
     fr.rrect_fill(160, py(vc + w), 920, py(vc - w), 8, GOLD, a * 0.18); fr.line((160, py(vc)), (920, py(vc)), GOLD, a * 0.9, 3)
@@ -1429,7 +1509,8 @@ def sh_epilogue(fr, t):
     if am > 0:
         draw_chart(fr, t, c, am, 0, box, d=c['rev'][-1][1], mini=False)
         px, py = case_xf(c, box)
-        stamp(fr, t, '买入', px(c['buy'][0]) + 70, py(c['buy'][1]) - 80, 58, t0, GOLD, -10, am)
+        sx, sy = chart_layout(c, box, 58)['stamp']
+        stamp(fr, t, '买入', sx, sy, 58, t0, GOLD, -10, am)
         fr.text('截至 2026.11.18 · 股价不含分红与实物分派', CX, 1170, 26, 'sans_light', DIM, am)
         if t > t91:
             for k, s in enumerate(['业务在变', '竞争在变', '预期在变']):
