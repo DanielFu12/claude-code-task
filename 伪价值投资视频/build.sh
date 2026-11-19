@@ -10,7 +10,8 @@ ROOT=$(pwd); WORK="$ROOT/work"; mkdir -p "$WORK"
 python3 src/timeline.py "$WORK"
 python3 src/music.py "$WORK"
 NF=$(python3 -c "import json;print(int(json.load(open('$WORK/timeline.json'))['total']*30))")
-for k in 0 1 2 3; do WORK="$WORK" python3 src/video.py chunk $((k*NF/4)) $(((k+1)*NF/4)) "$WORK/seg$k.mp4" & done; wait
+pids=(); for k in 0 1 2 3; do WORK="$WORK" python3 src/video.py chunk $((k*NF/4)) $(((k+1)*NF/4)) "$WORK/seg$k.mp4" & pids+=($!); done
+for p in "${pids[@]}"; do wait "$p"; done   # 任一分段失败即中止
 printf "file '%s'\n" "$WORK"/seg{0,1,2,3}.mp4 > "$WORK/list.txt"
 # 混音：旁白轻压缩 + 配乐，整体响度 -14 LUFS
 ffmpeg -loglevel error -y -i "$WORK/voice.wav" -i "$WORK/music.wav" -filter_complex \

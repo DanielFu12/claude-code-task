@@ -224,7 +224,7 @@ def draw_chart(fr, t, c, a, dx=0.0, box=None, d=None, mini=False):
             fr.text(lab, px(xv), y1b + 34, 26, 'mono', DIM, a * 0.7)
     X, Y = c['X'], c['Y']
     m = X <= d
-    if m.sum() < 2: return
+    if m.sum() < 2: return px, py
     xs = np.append(X[m], d); ys = np.append(Y[m], np.interp(d, X, Y))
     pts = np.stack([[px(x) for x in xs], [py(y) for y in ys]], 1)
     bx = c['buy'][0]
@@ -909,7 +909,7 @@ if __name__ == '__main__':
     else:
         f0, f1, outp = int(sys.argv[2]), int(sys.argv[3]), sys.argv[4]
         pr = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}',
-                               '-r', str(FPS), '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-crf', '17',
+                               '-r', str(FPS), '-i', '-', '-c:v', 'libx264', '-preset', 'slow', '-crf', '20',
                                '-pix_fmt', 'yuv420p', outp], stdin=subprocess.PIPE)
         for f in range(f0, f1):
             pr.stdin.write(render(f / FPS).tobytes())
