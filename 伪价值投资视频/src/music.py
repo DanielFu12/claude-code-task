@@ -8,7 +8,7 @@ from scipy import signal
 W = sys.argv[1] if len(sys.argv) > 1 else 'work'
 TL = json.load(open(f'{W}/timeline.json'))
 SR = 48000; BEAT = TL['beat']; T = TL['total']
-S = TL['sections']; LN = {l['id']: l for l in TL['lines']}
+S = TL['sections']; LN = {l['id']: l for l in TL['lines']}; CUE = TL['cues']
 N = int(T * SR) + SR
 rng = np.random.default_rng(7)
 
@@ -150,13 +150,13 @@ put(pad, 0, drone(M('D2'), 0, t_cases, 0.09, att=0.4))
 put(pad, 0, pad_chord([M(x) for x in DM], 0, t_cases, 0.06, fc=700, att=3))
 for k in range(0, int(t_cases / BEAT), 2):
     put(bass, B(k), heartbeat(0.55 if k < 12 else 0.7))
-for k, n in [(0, 'A4'), (4, 'F4'), (8, 'D4'), (11, 'E4'), (12, 'F4'), (16, 'A4')]:
+for k, n in [(0, 'A4'), (3, 'F4'), (6, 'D4')]:
     put(piano, B(k) + 0.0, piano_note(M(n), 3.0, 0.42), pan=0.15)
-hit(LN['L02']['t0'] + 0.0, 0.55)        # 「而是，最听话的好学生」
+hit(CUE['h1_turn'], 0.75)               # 「八年后，股价还在成本线下」
 put(fx, t_cases - 1.5, riser(1.5, 0.12))
 
 # --- 案例 cases：Dm-B♭-F-C 钢琴琶音 + 低鼓 + 钟表滴答
-t_piv = S['pivot']; q_stop = LN['L13']['t0']
+t_piv = S['pivot']; q_stop = LN['N2']['t0']
 prog = ['DM', 'BB', 'F', 'C']
 k0 = int(round(t_cases / BEAT)); k1 = int(round(q_stop / BEAT))
 for k in range(k0, k1):
@@ -169,14 +169,17 @@ for k in range(k0, k1):
         put(piano, B(k) + h * BEAT / 2, piano_note(ms[idx] + 12, 1.2, 0.30 + 0.06 * (h == 0)), pan=-0.2 + 0.2 * idx)
     if (k - k0) % 2 == 0: put(bass, B(k), kick(0.45))
     put(fx, B(k), tick(0.035), pan=0.3); put(fx, B(k) + BEAT / 2, tick(0.02), pan=0.3)
-for L in ('L05', 'L08', 'L10'):          # 每一次「后来……」：深沉下坠
-    t = onset(L)
-    put(fx, t - 0.9, whoosh(0.9, 0.10)); hit(t, 0.9, f0=55, f1=28, dec=1.9)
-hit(LN['L11']['t0'], 0.4)
+for key, s_ in (('tx_now', 0.9), ('ali_low', 0.8), ('ali_now', 0.55), ('zp_now', 0.9)):   # 每一次「如今……」：深沉下坠
+    t = CUE[key]
+    put(fx, t - 0.9, whoosh(0.9, 0.10)); hit(t, s_, f0=55, f1=28, dec=1.9)
+hit(LN['Z3']['t0'], 0.4)
 hit(S['cases'], 0.6)
-put(fx, LN['L12']['t0'], riser(LN['L13']['t0'] - LN['L12']['t0'], 0.10, 100, 900))
+hit(CUE['stamp'], 0.5)                    # 「满分」章
+put(fx, LN['N1']['t0'], riser(LN['N2']['t0'] - LN['N1']['t0'], 0.10, 100, 900))
 hit(q_stop, 0.5)                          # 「这一次，总该对了吧？」后音乐抽空
 put(pad, q_stop, drone(M('A1'), q_stop, t_piv + 4, 0.12, att=0.3))
+put(fx, CUE['nv_now'] - 1.6, riser(1.6, 0.12, 90, 1000))
+hit(CUE['nv_now'], 1.05, f0=58, f1=26, dec=2.2)   # 「股价，却跌到 151」
 
 # --- 追问 pivot：心跳加速 + 上升 → 标题重拍
 t_title = S['title']

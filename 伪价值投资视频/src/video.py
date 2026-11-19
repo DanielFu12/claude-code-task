@@ -15,7 +15,7 @@ WORK = os.environ.get('WORK', os.path.join(HERE, '..', 'work'))
 TL = json.load(open(os.path.join(WORK, 'timeline.json')))
 HITS = json.load(open(os.path.join(WORK, 'hits.json')))
 LN = {l['id']: l for l in TL['lines']}
-S = TL['sections']; TOTAL = TL['total']; BEAT = TL['beat']
+S = TL['sections']; TOTAL = TL['total']; BEAT = TL['beat']; CUE = TL['cues']
 CX = W / 2
 RED2 = C(255, 86, 86); DIM = C(120, 128, 150); PAPER = C(236, 228, 210)
 
@@ -49,8 +49,8 @@ DUST = dict(x=rng0.random(150) * W, y=rng0.random(150) * H, z=0.3 + rng0.random(
 
 # 每个章节的色调：(星云色, 底色)
 MOOD = [(0, (C(40, 70, 140), C(4, 6, 14))), (S['cases'] - 0.5, (C(40, 70, 140), C(4, 6, 14))),
-        (S['cases'] + 1, (C(30, 80, 120), C(3, 7, 12))), (L0('L07'), (C(90, 40, 60), C(8, 4, 8))),
-        (L0('L12'), (C(30, 90, 70), C(3, 8, 7))), (L0('L13'), (C(30, 30, 40), C(2, 2, 4))),
+        (S['cases'] + 1, (C(30, 80, 120), C(3, 7, 12))), (L0('A1'), (C(90, 40, 60), C(8, 4, 8))),
+        (L0('N1'), (C(30, 90, 70), C(3, 8, 7))), (L0('N2'), (C(30, 30, 40), C(2, 2, 4))), (L0('N3'), (C(70, 30, 35), C(6, 2, 3))),
         (S['pivot'] + 3, (C(60, 30, 30), C(5, 2, 3))), (S['title'], (C(140, 100, 40), C(8, 6, 3))),
         (S['munger'] + 1, (C(110, 80, 40), C(7, 5, 3))), (S['p2'], (C(60, 80, 130), C(4, 5, 10))),
         (S['p3'], (C(50, 100, 110), C(3, 7, 9))), (S['kill'], (C(150, 30, 30), C(9, 2, 3))),
@@ -167,36 +167,41 @@ def make_series(anchors, n=600, seed=1, wig=0.02):
     return X, Y * (1 + wig * nz * np.sin(np.pi * u))
 
 CASES = [
- dict(no='01', name='腾讯控股', sub='0700.HK · 港元', x0=2017.7, x1=2026.95, y0=120, y1=860, buy=(2018.22, 400),
+ dict(no='01', name='腾讯控股', sub='0700.HK · 港元 · 截至 2026.11.18', x0=2017.7, x1=2026.95, y0=120, y1=860, buy=(2018.22, 400),
       anchors=[(2017.7, 330), (2018.08, 476), (2018.22, 400), (2018.5, 380), (2018.83, 255), (2019.3, 395), (2019.65, 325),
                (2020.2, 380), (2020.55, 560), (2021.13, 775), (2021.6, 440), (2022.0, 470), (2022.4, 350), (2022.82, 190),
                (2023.08, 400), (2023.7, 310), (2024.1, 270), (2024.8, 410), (2025.3, 500), (2025.8, 650), (2026.05, 630),
-               (2026.4, 520), (2026.81, 375)],
-      peak=(2018.08, 476, '高点 476'), end=(2026.81, 375, '375'), grid=[200, 400, 600, 800],
+               (2026.4, 520), (2026.81, 375), (2026.85, 430), (2026.88, 373)],
+      peak=(2018.08, 476, '高点 476'), end=(2026.88, 373, '373'), grid=[200, 400, 600, 800],
       xl=[(2018.0, '2018'), (2022.0, '2022'), (2026.0, '2026')],
-      t_in=L0('L04'), t_out=L0('L07') - 0.5, badge='-6%', cap='持有 8 年 · 原地踏步', seed=3,
-      rev=[(L0('L04'), 2017.7), (L0('L04') + 1.9, 2018.08), (CH('L04', 1) - 0.1, 2018.22), (onset('L05') - 1.0, 2018.22), (onset('L05'), 2026.81)]),
- dict(no='02', name='阿里巴巴', sub='BABA · 美元', x0=2020.45, x1=2022.95, y0=20, y1=360, buy=(2021.68, 150),
-      anchors=[(2020.45, 250), (2020.6, 270), (2020.82, 319), (2021.0, 222), (2021.15, 260), (2021.45, 210), (2021.6, 168),
-               (2021.68, 150), (2021.82, 170), (2022.0, 120), (2022.2, 75), (2022.45, 118), (2022.62, 92), (2022.81, 60)],
-      peak=(2020.82, 319, '高点 319'), end=(2022.81, 60, '≈60'), grid=[100, 200, 300],
-      xl=[(2020.6, '2020'), (2021.5, '2021'), (2022.5, '2022')],
-      t_in=L0('L07') - 0.25, t_out=L0('L09') - 0.5, badge='-60%', cap='腰斩之后，又跌六成', seed=8,
-      rev=[(L0('L07'), 2020.45), (L0('L07') + 1.6, 2020.82), (CH('L07', 1) - 0.2, 2021.68), (onset('L08') - 0.9, 2021.68), (onset('L08'), 2022.81)]),
- dict(no='03', name='智谱', sub='2513.HK · 港元', x0=2026.38, x1=2026.9, y0=0, y1=3300, buy=(2026.57, 1500),
+      t_in=L0('T1') - 0.3, t_out=L0('G1') - 0.4, badge='-7%', cap='8 年 · 股价仍低于买入价（不含分红）', seed=3,
+      rev=[(L0('T1'), 2017.7), (L0('T1') + 1.9, 2018.08), (CH('T1', 1) - 0.1, 2018.22), (CUE['tx_now'] - 1.0, 2018.22), (CUE['tx_now'], 2026.88)]),
+ dict(no='02', name='阿里巴巴', sub='BABA · 美元 · 截至 2026.11.18', x0=2020.45, x1=2026.95, y0=20, y1=360, buy=(2021.68, 150),
+      anchors=[(2020.45, 250), (2020.82, 319), (2021.0, 222), (2021.15, 260), (2021.45, 210), (2021.6, 168), (2021.68, 150),
+               (2021.85, 165), (2022.0, 120), (2022.2, 75), (2022.45, 118), (2022.62, 92), (2022.81, 60), (2023.08, 118),
+               (2023.5, 95), (2023.95, 72), (2024.1, 68), (2024.75, 108), (2025.15, 140), (2025.3, 105), (2025.6, 120),
+               (2025.78, 185), (2026.0, 147), (2026.4, 125), (2026.7, 115), (2026.84, 107), (2026.88, 84)],
+      peak=(2020.82, 319, '高点 319'), end=(2026.88, 84, '84'), grid=[100, 200, 300],
+      marks=[(2022.81, 60, '2022 低点 60')],
+      xl=[(2021.0, '2021'), (2023.0, '2023'), (2025.0, '2025'), (2026.6, '2026')],
+      t_in=L0('A1') - 0.25, t_out=L0('Z1') - 0.5, badge='-44%', cap='5 年后，仍亏四成多', seed=8,
+      rev=[(L0('A1'), 2020.45), (L0('A1') + 1.6, 2020.82), (CH('A1', 1) - 0.2, 2021.68), (CUE['ali_low'] - 0.9, 2021.68),
+           (CUE['ali_low'], 2022.81), (CUE['ali_now'] - 1.3, 2022.81), (CUE['ali_now'], 2026.88)]),
+ dict(no='03', name='智谱', sub='2513.HK · 港元 · 截至 2026.11.18', x0=2026.38, x1=2026.92, y0=0, y1=3300, buy=(2026.57, 1500),
       anchors=[(2026.38, 620), (2026.43, 900), (2026.455, 1050), (2026.47, 2980), (2026.49, 2350), (2026.52, 1950),
-               (2026.57, 1500), (2026.62, 1280), (2026.69, 980), (2026.77, 720), (2026.86, 430)],
-      peak=(2026.47, 2980, '高点 2980'), end=(2026.86, 430, '<500'), grid=[1000, 2000, 3000],
-      xl=[(2026.42, '2026.06'), (2026.84, '2026.11')],
-      t_in=L0('L09') - 0.25, t_out=L0('L12') - 0.5, badge='≤-67%', cap='避开第一场腰斩，赶上后两场', seed=11,
-      rev=[(L0('L09'), 2026.38), (L0('L09') + 1.7, 2026.47), (CH('L09', 1) - 0.3, 2026.57), (onset('L10') - 0.9, 2026.57), (onset('L10'), 2026.86)]),
- dict(no='04', name='英伟达', sub='NVDA · 美元', x0=2026.45, x1=2027.1, y0=110, y1=270, buy=(2026.885, 180),
+               (2026.57, 1500), (2026.62, 1280), (2026.69, 980), (2026.77, 720), (2026.83, 442), (2026.86, 408),
+               (2026.875, 335), (2026.88, 366)],
+      peak=(2026.47, 2980, '高点 2980'), end=(2026.88, 366, '366'), grid=[1000, 2000, 3000],
+      xl=[(2026.42, '2026.06'), (2026.86, '2026.11')],
+      t_in=L0('Z1') - 0.25, t_out=L0('N1') - 0.5, badge='-76%', cap='1500 → 750 → 375：又是两场腰斩', seed=11,
+      rev=[(L0('Z1'), 2026.38), (L0('Z1') + 1.7, 2026.47), (CH('Z1', 1) - 0.3, 2026.57), (CUE['zp_now'] - 0.9, 2026.57), (CUE['zp_now'], 2026.88)]),
+ dict(no='04', name='英伟达', sub='NVDA · 美元 · 截至 2026.11.18', x0=2026.45, x1=2026.93, y0=120, y1=260, buy=(2026.85, 180),
       anchors=[(2026.45, 172), (2026.53, 188), (2026.6, 182), (2026.66, 206), (2026.72, 224), (2026.77, 240), (2026.81, 214),
-               (2026.85, 196), (2026.885, 180)],
-      peak=(2026.77, 240, '高点 ≈240'), end=None, grid=[150, 200, 250],
-      xl=[(2026.5, '2026.07'), (2026.88, '现在'), (2027.05, '?')],
-      t_in=L0('L12') - 0.25, t_out=S['pivot'] - 0.6, badge='?', cap='', seed=21,
-      rev=[(L0('L12'), 2026.45), (CH('L12', 1), 2026.77), (CH('L12', 2) - 0.2, 2026.885)]),
+               (2026.835, 196), (2026.85, 180), (2026.86, 186), (2026.87, 162), (2026.875, 155), (2026.88, 151)],
+      peak=(2026.77, 240, '高点 ≈240'), end=(2026.88, 151, '151'), grid=[150, 200, 250],
+      xl=[(2026.5, '2026.07'), (2026.86, '2026.11')],
+      t_in=L0('N1') - 0.25, t_out=S['pivot'] - 0.6, badge='-16%', cap='营收翻倍，股价照跌', seed=21,
+      rev=[(L0('N1'), 2026.45), (CH('N1', 1), 2026.77), (CH('N1', 2) - 0.2, 2026.85), (CUE['nv_now'] - 1.4, 2026.85), (CUE['nv_now'], 2026.88)]),
 ]
 for c in CASES:
     c['X'], c['Y'] = make_series(c['anchors'], seed=c['seed'])
@@ -251,7 +256,7 @@ def draw_chart(fr, t, c, a, dx=0.0, box=None, d=None, mini=False):
         fr.glow(tip, 14, RED2 if d > bx else WHITE, a * 0.5)
         fr.circle(tip, 5, WHITE, a, -1)
     # 标注
-    def mark(xv, yv, lab, col, side=1, big=False, alpha=1.0):
+    def mark(xv, yv, lab, col, side=1, big=False, alpha=1.0, dy=-30):
         if d < xv - 1e-6: return
         u = cl((d - xv) / ((c['x1'] - c['x0']) * 0.03) + 0.0001) if xv < d else 1.0
         u = 1.0 if d >= xv else 0.0
@@ -259,8 +264,9 @@ def draw_chart(fr, t, c, a, dx=0.0, box=None, d=None, mini=False):
         fr.circle(p, 9 if not mini else 6, col, aa, 2)
         fr.glow(p, 12, col, aa * 0.5)
         if not mini and lab:
-            fr.text(lab, p[0] + 18 * side, p[1] - 30, 30 if not big else 34, 'sans_med', col, aa, anchor='l' if side > 0 else 'r')
+            fr.text(lab, p[0] + 18 * side, p[1] + dy, 30 if not big else 34, 'sans_med', col, aa, anchor='l' if side > 0 else 'r')
     pk = c['peak']; mark(pk[0], pk[1], pk[2], C(200, 205, 220), 1)
+    for mx, my, ml in c.get('marks', []): mark(mx, my, ml, C(255, 150, 150), 1, alpha=0.85, dy=34)
     bx, bv = c['buy']
     if d >= bx:
         p = (px(bx), py(bv)); pulse = 0.5 + 0.5 * math.sin(t * 5)
@@ -302,51 +308,53 @@ def scene_cases(fr, t):
         r = case_scene(fr, t, c, 0)
         if r:
             px, py, a, dx = r
-            t6 = L0('L06')
+            t6 = L0('T3')
             if t > t6:
-                p0, p1 = (px(2018.22), py(400)), (px(2026.81), py(375))
+                p0, p1 = (px(2018.22), py(400)), (px(2026.88), py(373))
                 u = eo((t - t6) / 1.4)
                 dashed(fr, p0, p1, GOLD, a * 0.9, 2, prog=u)
-                if t > CH('L06', 1):
-                    au = a * eo((t - CH('L06', 1)) / 0.5)
+                if t > CH('T3', 1):
+                    au = a * eo((t - CH('T3', 1)) / 0.5)
                     fx, fy = p1[0], p1[1] - 6
                     fr.line((fx, fy), (fx, fy - 70), GOLD, au, 3)
-                    fr.fillpoly([(fx, fy - 70), (fx + 46, fy - 58), (fx, fy - 46)], GOLD, au * 0.9, 'E')
+                    fr.fillpoly([(fx, fy - 70), (fx - 46, fy - 58), (fx, fy - 46)], GOLD, au * 0.9, 'E')
                     fr.text('目的地：提前 8 年到达', CX + dx, py(560), 36, 'sans_black', GOLD, au, mode='L', glow=0.2)
-            # 八年快进：年份计数
-            o5 = onset('L05')
-            if o5 - 1.0 < t < o5 + 1.4:
+            o5 = CUE['tx_now']
+            if o5 - 1.0 < t < o5 + 1.4:      # 八年快进：年份计数
                 yr = int(keys(t, c['rev']))
                 ay = a * env(t, o5 - 1.0, o5 + 1.4, 0.2, 0.4)
                 fr.text(str(yr), 900 + dx, 520, 64, 'num', WHITE, ay * 0.85, anchor='r', mode='L', glow=0.2)
-    # 阿里：回购
+    # 阿里：回购 → 2022 低点 → 五年后
     c = CASES[1]
     if c['t_in'] - 0.1 < t < c['t_out'] + 0.6:
         r = case_scene(fr, t, c, 1)
         if r:
             px, py, a, dx = r
-            tb = CH('L07', 1) + 0.3
+            tb = CH('A1', 1) + 0.3
             if t > tb:
                 ab = a * eo((t - tb) / 0.4)
                 x0, y0 = px(2021.68) + 40, py(150) - 150
                 fr.rrect(x0, y0 - 30, x0 + 190, y0 + 30, 28, GOLD, ab * 0.9, 2)
                 fr.text('大额回购 ✓', x0 + 95, y0, 30, 'sans_med', GOLD, ab)
+            if t > CUE['ali_now'] - 1.3:
+                ay = a * env(t, CUE['ali_now'] - 1.3, CUE['ali_now'] + 1.2, 0.2, 0.4)
+                fr.text(str(int(keys(t, c['rev']))), 900 + dx, 520, 64, 'num', WHITE, ay * 0.85, anchor='r', mode='L', glow=0.2)
     # 智谱：三场腰斩
     c = CASES[2]
     if c['t_in'] - 0.1 < t < c['t_out'] + 0.6:
         r = case_scene(fr, t, c, 2)
         if r:
             px, py, a, dx = r
-            tb = CH('L09', 1)
+            tb = CH('Z1', 1)
             if t > tb:
-                ab = a * eo((t - tb) / 0.4) * (1 - eio((t - L0('L11')) / 0.4))
+                ab = a * eo((t - tb) / 0.4) * (1 - eio((t - L0('Z3')) / 0.4))
                 x0, y0 = px(2026.57) + 30, py(1500) - 120
                 fr.rrect(x0, y0 - 30, x0 + 250, y0 + 30, 28, GOLD, ab * 0.9, 2)
                 fr.text('泡沫挤干了？', x0 + 125, y0, 30, 'sans_med', GOLD, ab)
-            t11 = L0('L11')
+            t11 = L0('Z3')
             if t > t11:
                 xb = 985 + dx
-                segs = [(2980, 1500, '①', DIM, t11, '避开'), (1500, 750, '②', RED2, CH('L11', 1), ''), (750, 375, '③', RED2, CH('L11', 1) + 0.45, '')]
+                segs = [(2980, 1500, '①', DIM, t11, '避开'), (1500, 750, '②', RED2, CH('Z3', 1), ''), (750, 375, '③', RED2, CH('Z3', 1) + 0.45, '')]
                 for hi, lo, lab, col, ts, note in segs:
                     if t < ts: continue
                     u = eo((t - ts) / 0.45); ya, yb = py(hi), py(lo)
@@ -354,67 +362,61 @@ def scene_cases(fr, t):
                     fr.line((xb - 12, ya), (xb, ya), col, a * u, 3); fr.line((xb - 12, yb), (xb, yb), col, a * u, 3)
                     fr.text(lab, xb + 30, (ya + yb) / 2, 34, 'sans_black', col, a * u, mode='L', glow=0.2)
                     if note: fr.text(note, xb - 22, (ya + yb) / 2, 28, 'sans_med', col, a * u, anchor='r')
-    # 英伟达：这一次，总该对了吧？
+    # 英伟达：这一次，总该对了吧？ → 营收翻倍，股价照跌
     c = CASES[3]
     if c['t_in'] - 0.1 < t < c['t_out'] + 0.6:
         r = case_scene(fr, t, c, 3)
         if r:
             px, py, a, dx = r
-            for k, (lab, tt) in enumerate([('回调 25%', CH('L12', 1) + 0.6), ('明年 PE 13×', CH('L12', 2) + 0.5)]):
+            t3 = L0('N3')
+            for k, (lab, tt) in enumerate([('回调 25%', CH('N1', 1) + 0.6), ('明年 PE 13×', CH('N1', 2) + 0.5)]):
                 if t > tt:
-                    ab = a * eo((t - tt) / 0.35)
+                    ab = a * eo((t - tt) / 0.35) * (1 - eio((t - t3) / 0.4))
                     x0, y0 = 150 + dx, 1270 + k * 86
                     fr.rrect(x0, y0 - 32, x0 + 330, y0 + 32, 30, GOLD, ab * 0.9, 2)
                     fr.text(lab, x0 + 165, y0, 34, 'sans_black', GOLD, ab, mode='L', glow=0.15)
-            t13 = L0('L13')
-            if t > t13:
-                aq = a * eo((t - t13) / 0.6)
-                bx = px(2026.885)
+            t13 = L0('N2')
+            aq = a * eo((t - t13) / 0.6) * (1 - eio((t - t3) / 0.5))
+            if aq > 0.003:
+                bx = px(2026.85)
                 fr.rrect_fill(bx + 8, BY0, BX1 + dx, BY1, 8, C(30, 34, 50), aq * 0.5)
                 for k in range(6):
                     yk = BY0 + 40 + k * 95
                     dashed(fr, (bx + 20, yk), (BX1 + dx - 10, yk), DIM, aq * 0.25, 1, 6, 12)
                 pul = 0.75 + 0.25 * math.sin(t * 4)
-                fr.text('?', (bx + BX1 + dx) / 2, (BY0 + BY1) / 2, 260, 'serif_black', WHITE, aq * pul, mode='L', glow=0.5)
-                if int(t * 2.2) % 2 == 0:
-                    fr.line((bx + 14, py(180) - 26), (bx + 14, py(180) + 26), WHITE, aq, 3)
+                fr.text('?', (bx + BX1 + dx) / 2, (BY0 + BY1) / 2, 200, 'serif_black', WHITE, aq * pul, mode='L', glow=0.5)
+            if t > t3:
+                ae = a * eo((t - t3 - 0.2) / 0.4)
+                x0, y0 = 150 + dx, 640
+                fr.rrect(x0, y0 - 34, x0 + 380, y0 + 34, 32, TEAL, ae, 2)
+                fr.rrect_fill(x0, y0 - 34, x0 + 380, y0 + 34, 32, TEAL, ae * 0.1)
+                fr.text('Q3 营收 同比 +103%', x0 + 190, y0, 32, 'sans_black', TEAL, ae, mode='L', glow=0.2)
 
 # ================================================================ 场景
 def scene_hook(fr, t):
-    t1, t2, t3 = L0('L01'), L0('L02'), L0('L03')
-    # 淡淡的作业本横线
-    ah = env(t, 0, S['cases'] + 0.3, 1.0, 0.5)
+    h1, g1 = L0('H1'), L0('G1')
+    # 淡淡的作业本横线（开场与自检表）
+    ah = max(env(t, 0, S['cases'] + 0.2, 0.8, 0.5), env(t, g1 - 0.3, L0('A1') - 0.1, 0.4, 0.4))
     for k in range(18):
         y = 300 + k * 72
         fr.line((70, y), (W - 70, y), C(90, 110, 160), ah * 0.07, 1)
     fr.line((150, 260), (150, 1600), RED, ah * 0.08, 1)
-    a1 = env(t, t1, t2 + 0.9, 0.3, 0.5)
+    # 冷开场：一个反常识的真实结果
+    a1 = env(t, h1 - 0.2, S['cases'] - 0.05, 0.3, 0.55)
     if a1 > 0:
-        lift = eio((t - t2) / 0.9) * 60
-        fr.text('在股市里', CX, 700 - lift, 58, 'serif_med', C(200, 205, 220), a1, t0=t1, mode='L')
-        fr.text('亏得最惨的', CX, 840 - lift, 112, 'serif_black', WHITE, a1, t0=t1 + 0.6, mode='L', glow=0.12)
-        tc = CH('L01', 1) + 0.6
-        tw = text_width('往往不是赌徒', 'serif_black', 112)
-        fr.text('往往不是', CX - tw / 2, 990 - lift, 112, 'serif_black', WHITE, a1, anchor='l', t0=tc, mode='L', glow=0.12)
-        xg = CX - tw / 2 + text_width('往往不是', 'serif_black', 112)
-        fr.text('赌徒', xg, 990 - lift, 112, 'serif_black', RED2, a1, anchor='l', t0=tc + 0.25, mode='L', glow=0.3)
-        if t > t2:   # 划掉「赌徒」
-            u = eo((t - t2) / 0.35)
-            fr.line((xg - 10, 995 - lift), (xg - 10 + (text_width('赌徒', 'serif_black', 112) + 20) * u, 985 - lift), RED, a1, 6)
-    a2 = env(t, t2 + 0.4, t3 - 0.1, 0.4, 0.5)
-    if a2 > 0:
-        tp = t2 + 0.55
-        fr.text('而是', CX, 770, 60, 'serif_med', C(200, 205, 220), a2, t0=tp - 0.3)
-        fr.text('最听话的', CX, 920, 120, 'serif_black', WHITE, a2, t0=tp, mode='L', glow=0.12)
-        sc = 1 + 0.05 * (1 - eo((t - tp - 0.5) / 0.6))
-        fr.text('好学生', CX, 1110, int(190 * sc), 'serif_black', GOLD, a2, t0=tp + 0.45, stag=0.08, mode='L', glow=0.55,
-                grad=[GOLD2, GOLD, GOLDD])
-    # 自检表
-    a3 = env(t, t3 - 0.3, S['cases'] + 0.2, 0.4, 0.45)
+        fr.text('等到回调', CX, 700, 104, 'serif_black', WHITE, a1, t0=h1, stag=0.06, mode='L', glow=0.12)
+        fr.text('买最好的公司', CX, 840, 104, 'serif_black', WHITE, a1, t0=h1 + 0.75, stag=0.06, mode='L', glow=0.12)
+        tc = CUE['h1_turn']
+        fr.line((CX - 160 * eo((t - tc + 0.3) / 0.4), 950), (CX + 160 * eo((t - tc + 0.3) / 0.4), 950), GOLD, a1 * 0.7, 2)
+        fr.text('八年后', CX, 1040, 60, 'serif_med', C(200, 205, 220), a1, t0=tc - 0.05)
+        sc = 1 + 0.06 * impact(t)
+        fr.text('股价还在成本线下', CX, 1180, int(100 * sc), 'serif_black', RED2, a1, t0=tc + 0.45, stag=0.06, mode='L', glow=0.45)
+    # 好学生自检表
+    a3 = env(t, g1 - 0.3, L0('A1') - 0.15, 0.4, 0.45)
     if a3 > 0:
-        fr.text('股市好学生 · 自检表', CX, 520, 34, 'mono', GOLD, a3 * 0.9, track=0.2, t0=t3 - 0.3)
+        fr.text('股市好学生 · 自检表', CX, 520, 34, 'mono', GOLD, a3 * 0.9, track=0.2, t0=g1 - 0.3)
         items = ['不追高', '不碰垃圾股', '熟读巴菲特', '专门等回调']
-        starts = [t3, P('L03', 0), P('L03', 1), P('L03', 2)]
+        starts = [g1, g1 + 0.54, g1 + 1.43, g1 + 2.33]
         for k, (it, ts) in enumerate(zip(items, starts)):
             y = 680 + k * 150
             ai = a3 * eo((t - ts + 0.15) / 0.35)
@@ -422,20 +424,21 @@ def scene_hook(fr, t):
             fr.text(it, 380, y, 70, 'serif_med', WHITE, ai, anchor='l')
             check(fr, 292, y, 70, (t - ts - 0.25) / 0.35, GOLD, ai, 6)
             if t > ts + 0.25: fr.glow((292, y), 30, GOLD, ai * 0.25 * math.exp(-(t - ts - 0.4) * 2))
-        stamp(fr, t, '满分', 810, 1300, 120, L1('L03') + 0.3, RED, -14, a3)
+        stamp(fr, t, '满分', 810, 1300, 120, CUE['stamp'], RED, -14, a3)
+
 
 def scene_pivot(fr, t):
     t0 = S['pivot']; a = env(t, t0 - 0.2, S['title'] + 0.05, 0.5, 0.15)
     if a <= 0: return
     hb = impact(t)
     boxes = [(80, 380, 520, 700), (560, 380, 1000, 700), (80, 760, 520, 1080), (560, 760, 1000, 1080)]
-    caps = ['腾讯 -6% · 8年', '阿里 -60%', '智谱 ≤-67%', '英伟达 ?']
+    caps = ['腾讯 -7% · 8年', '阿里 -44% · 5年', '智谱 -76%', '英伟达 -16%']
     for k, (c, b, cap) in enumerate(zip(CASES, boxes, caps)):
         ak = a * 0.55 * eo((t - t0 - k * 0.12) / 0.4)
         fr.rrect(b[0], b[1], b[2], b[3], 14, DIM, ak * 0.4, 1)
         d = c['rev'][-1][1]
         draw_chart(fr, t, c, ak, 0, (b[0] + 24, b[1] + 70, b[2] - 24, b[3] - 24), d=d, mini=True)
-        fr.text(cap, (b[0] + b[2]) / 2, b[1] + 36, 30, 'sans_med', RED2 if k < 3 else WHITE, ak * 1.4)
+        fr.text(cap, (b[0] + b[2]) / 2, b[1] + 36, 30, 'sans_med', RED2, ak * 1.4)
     for k, (lab, ts) in enumerate(zip(['有研究', '有耐心', '有纪律'], [t0, P('L14', 0), P('L14', 1)])):
         x = 210 + k * 330
         ai = a * eo((t - ts) / 0.3)
@@ -820,11 +823,11 @@ def draw_card_text(fr, t):
     nat = text_width(s, 'corm_b', 44)
     tr = (tw - nat) / (len(s) - 1) / 44
     fr.text(s, CX, 1190, 44, 'corm_b', C(214, 178, 112), a, track=tr)
-    fr.text('不构成投资建议 · 股价为公开行情约数，走势为示意', CX, 1720, 26, 'sans_light', DIM, a * 0.8)
+    fr.text('不构成投资建议 · 股价截至 2026.11.18 收盘（约数），中间走势为示意', CX, 1720, 26, 'sans_light', DIM, a * 0.8)
 
 # ================================================================ 字幕 / HUD / 合成
-HIDE = {'L01', 'L02', 'L03', 'L14', 'L16', 'L19', 'L21', 'L25', 'L28', 'L29', 'L15'}
-HIDE_CHUNK = {('L24', 1)}
+HIDE = {'H1', 'L14', 'L16', 'L19', 'L21', 'L25', 'L28', 'L29', 'L15'}
+HIDE_CHUNK = {('L24', 1), ('G1', 0), ('G1', 1)}
 GOLD_CH = set('0123456789%×≠=÷.')
 
 def post_text(out, s, x, y, size, fnt, a, colf):

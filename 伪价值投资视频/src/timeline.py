@@ -7,7 +7,7 @@ from script import LINES
 W = sys.argv[1] if len(sys.argv) > 1 else 'work'
 BPM = 80; BEAT = 60 / BPM; BAR = 4 * BEAT; SR = 48000
 # 章节：从哪一句开始，起点前额外留多少小节（音乐/画面过门）
-SECTIONS = [('hook', 'L01', 0), ('cases', 'L04', 0), ('pivot', 'L14', 0), ('title', None, 0),
+SECTIONS = [('hook', 'H1', 0), ('cases', 'T1', 0), ('pivot', 'L14', 0), ('title', None, 0),
             ('munger', 'L15', 0), ('p1', 'L16', 0), ('p2', 'L19', 0), ('p3', 'L21', 0), ('kill', 'L24', 0),
             ('cure', 'L25', 0), ('end', 'L29', 0), ('card', None, 0)]
 SEC_START = {s[1]: s[0] for s in SECTIONS if s[1]}
@@ -40,13 +40,13 @@ def chunks(sub, ps, t0, d):
 
 up = lambda t, q: math.ceil(t / q - 1e-6) * q
 t = BEAT * 1                    # 开场 1 拍就进旁白（钩子要快）
-EXTRA = dict(cases=BEAT, pivot=BEAT, p1=0, p2=BEAT / 2, p3=BEAT / 2, kill=BEAT, cure=BEAT * 2, end=BEAT)
+EXTRA = dict(cases=0, pivot=BEAT, p1=0, p2=BEAT / 2, p3=BEAT / 2, kill=BEAT, cure=BEAT * 2, end=BEAT)
 lines, secs = [], {'hook': 0.0}
 voice = np.zeros(int(200 * SR), np.float32)
 for (i, text, sub, ctx, gap) in LINES:
     y, _ = sf.read(f'{W}/vo/{i}.wav', dtype='float32')
     d = len(y) / SR
-    if i in SEC_START and i != 'L01':
+    if i in SEC_START and i != 'H1':
         name = SEC_START[i]
         if name == 'munger':            # 标题卡：「伪价值投资」6 拍
             t = up(t, BEAT); secs['title'] = t; t += 6 * BEAT
@@ -57,11 +57,24 @@ for (i, text, sub, ctx, gap) in LINES:
                       chunks=chunks(sub, ps, t, d)))
     a = int(t * SR); voice[a:a + len(y)] += y
     t = up(t + d + gap, BEAT / 2)
+LD = {l['id']: l for l in lines}
+def after_pause(i, k):
+    l = LD[i]; return round(l['t0'] + l['pauses'][k][1], 3)
+# 数字揭晓的瞬间（配乐重击 + 画面落点共用）
+cues = dict(
+    h1_turn=LD['H1']['chunks'][1][1],                 # 「八年后，股价还在成本线下」
+    tx_now=after_pause('T2', 0),                      # 「如今，|373」
+    ali_low=round(LD['A2']['t0'] + 1.05, 3),          # 「后来，跌到|60」
+    ali_now=round(LD['A2']['chunks'][1][1] + 1.25, 3),# 「五年后的今天，|84」
+    zp_now=after_pause('Z2', 1),                      # 「如今，|366」（第 0 个停顿在句首）
+    nv_now=round(LD['N3']['t1'] - 1.15, 3),           # 「却跌到|151」
+    stamp=LD['G1']['chunks'][2][1] + 0.6,             # 「这样的好学生」盖章
+)
 secs['card'] = up(t + BEAT / 2, BEAT)
 T = secs['card'] + 6 * BEAT
 voice = voice[:int(T * SR)]
 sf.write(f'{W}/voice.wav', voice, SR, subtype='FLOAT')
-json.dump(dict(bpm=BPM, beat=BEAT, bar=BAR, total=T, sections=secs, lines=lines), open(f'{W}/timeline.json', 'w'),
+json.dump(dict(cues=cues, bpm=BPM, beat=BEAT, bar=BAR, total=T, sections=secs, lines=lines), open(f'{W}/timeline.json', 'w'),
           ensure_ascii=False, indent=1)
 for k, v in secs.items(): print(f'{k:7s} {v:7.2f}  bar {v / BAR:.2f}')
 print('total', T)
