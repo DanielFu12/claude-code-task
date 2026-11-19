@@ -8,7 +8,7 @@ W, H, FPS = 1080, 1920, 30
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONT_DIR = os.path.join(HERE, '..', 'fonts')
 FONTS = {k: os.path.join(FONT_DIR, k + '.ttf') for k in
-         ['serif_light', 'serif_med', 'serif_black', 'sans_light', 'sans_med', 'sans_black', 'corm', 'corm_b', 'mono', 'num']}
+         ['serif_light', 'serif_med', 'serif_black', 'sans_light', 'sans_med', 'sans_black', 'corm', 'corm_b', 'mono', 'num', 'hand']}
 
 # ---------------------------------------------------------------- easing
 def cl(x, a=0.0, b=1.0):

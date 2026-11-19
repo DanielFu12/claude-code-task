@@ -2,10 +2,10 @@
 所有落点读自 work/timeline.json（cues / sections），与画面共用。
 情绪弧线：
   第一幕 D 小调钢琴叹息动机 + 琶音，每个「如今……」用定音鼓 + 低音弦乐重音砸下；
-  追问：心跳加速、弦乐颤音渐强 → 抽空 → 标题全奏；
-  第二幕：低音提琴 8 分音符暗涌；三记锤击 = 太鼓 + 定音鼓 + 铁砧 + 次低频，严格一小节一锤，锤前一拍抽空；
-  第三幕：Dm-Gm-B♭-A 推进，每个真相落在重拍；
-  第四幕：转 F 大调，动机变成大调，弦乐 + 圆号 + 合唱推到全片最高点，最后只剩钢琴。"""
+  追问：心跳加速、弦乐颤音渐强 → 只剩一个钢琴单音 → 标题全奏；
+  第二幕倒带：每段开头一声磁带倒卷；内心独白只铺一层弦乐，芒格的问题落在整拍并进入「心跳」律动；
+  第五段铁锤：低音提琴 8 分暗涌，三锤 = 太鼓 + 定音鼓 + 铁砧 + 次低频，严格一小节一锤，锤前一拍抽空，之后全部抽空；
+  第三幕觉醒：钢琴独奏 → 转 F 大调，三个问题各落一记，「真正的安全边际」由圆号唱出全片最高点，最后只剩钢琴。"""
 import json, os, sys, subprocess
 import numpy as np, soundfile as sf
 from scipy import signal
@@ -102,146 +102,142 @@ def stab(t, root='D', big=1.0):
 def silence_mask(t, win):
     return any(c - win <= t < c for c in STOP)
 
-STOP = [CUE['T2'], CUE['A2'], CUE['Z2'], CUE['N3'], CUE['M3'], CUE['M4'], CUE['M5'], CUE['k3_punch'], CUE['k6_26'], CUE['q_ask']]
+STOP = [CUE['T1'], CUE['A1'], CUE['Z1'], CUE['N1'], CUE['S1'], CUE['S2'], CUE['S3'], CUE['q_ask'], CUE['r3_26'], CUE['tx_expect']]
 
-# ---------------------------------------------------------------- 第一幕
+def arp_bed(t0, t1, prog, vel=46, drum=True, bassline=True, low=False):
+    """钢琴 8 分琶音 + 大提琴根音 + 弦乐和声（遇到揭晓点前一拍自动抽空）"""
+    k0, k1 = int(round(t0 / BEAT)), int(round(t1 / BEAT))
+    for k in range(k0, k1):
+        t = k * BEAT; bar = (k - k0) // 4; c = prog[bar % len(prog)]; ms = CHD[c]
+        if (k - k0) % 4 == 0:
+            if bassline: note('cello', M(ROOTS[c]) + 12, t, BAR * 0.95, 60)
+            if not silence_mask(t + BAR * 0.9, BEAT): chord('strings', [m + 12 for m in ms], t, BAR * 0.98, vel)
+        for h in range(2):
+            th = t + h * BEAT / 2
+            if silence_mask(th, BEAT): continue
+            idx = [0, 1, 2, 1, 0, 2, 1, 2][((k - k0) % 4) * 2 + h]
+            note('piano', ms[idx] + (0 if low else 12), th, BEAT * 0.9, vel + 8 * (h == 0))
+        if drum and (k - k0) % 2 == 0 and not silence_mask(t, BEAT): note('drums', 35, t, 0.2, 58)
+
+def heart_bed(t0, t1, prog, vel=70):
+    """倒带段落共用的「心跳」律动：低音提琴两拍一下 + 弦乐长音"""
+    k0, k1 = int(round(t0 / BEAT)), int(round(t1 / BEAT))
+    for k in range(k0, k1):
+        t = k * BEAT; bar = (k - k0) // 4; c = prog[bar % len(prog)]
+        if silence_mask(t, BEAT): continue
+        if (k - k0) % 2 == 0:
+            note('bass', M(ROOTS[c]), t, BEAT * 0.5, vel); note('drums', 35, t, 0.2, 52)
+            note('bass', M(ROOTS[c]), t + 0.24, BEAT * 0.35, vel * 0.6)
+        if (k - k0) % 4 == 0: chord('strings', [m + 12 for m in CHD[c]], t, BAR * 0.98, 42)
+
+# ---------------------------------------------------------------- 序章 + 第一幕
 t_c, t_piv = S['cases'], S['pivot']
 chord('strings', DM, 0.0, t_c, 42); ramp('strings', 0, CUE['H1'], 40, 105); ramp('strings', CUE['H1'] + 0.1, t_c, 90, 60)
 note('bass', M('D1'), 0.0, t_c + 1, 55)
-motif('piano', 0.75, MOTIF_MIN[:6], 52)
-for k in range(int(t_c / BEAT)):
-    note('drums', 35, k * BEAT, 0.2, 52 if k % 2 == 0 else 34)          # 心跳
+motif('piano', 0.6, MOTIF_MIN[:5], 52)
+for k in range(int(t_c / BEAT)): note('drums', 35, k * BEAT, 0.2, 52 if k % 2 == 0 else 34)
 stab(CUE['H1'], 'D', 0.9)
-
-prog = ['DM', 'BB', 'F', 'C']
-q0 = LN['N2']['t0']
-k0, k1 = int(round(t_c / BEAT)), int(round(q0 / BEAT))
-for k in range(k0, k1):
-    t = k * BEAT; bar = (k - k0) // 4; c = prog[bar % 4]; ms = CHD[c]
-    if (k - k0) % 4 == 0:
-        note('cello', M(ROOTS[c]) + 12, t, BAR * 0.95, 62)
-        if not silence_mask(t + BAR * 0.9, BEAT): chord('strings', [m + 12 for m in ms], t, BAR * 0.98, 46)
-    for h in range(2):
-        th = t + h * BEAT / 2
-        if silence_mask(th, BEAT): continue
-        idx = [0, 1, 2, 1, 0, 2, 1, 2][((k - k0) % 4) * 2 + h]
-        note('piano', ms[idx] + 12, th, BEAT * 0.9, 46 + 8 * (h == 0))
-    if (k - k0) % 2 == 0 and not silence_mask(t, BEAT): note('drums', 35, t, 0.2, 58)
-# 阿里之后，高音弦乐唱动机，情绪抬升
-motif('slow', LN['A1']['t0'], MOTIF_MIN, 54, 12, 1.1); ramp('slow', LN['A1']['t0'], LN['A1']['t0'] + 6, 60, 95)
-motif('slow', LN['Z1']['t0'], MOTIF_MIN, 58, 12, 1.1)
-for key, root, big in (('T2', 'D', 0.95), ('A2', 'A#', 0.9), ('Z2', 'D', 0.95)):
-    stab(CUE[key], root, big)
-# 「这一次，总该对了吧？」：只剩心跳和一根高音弦
-note('slow', M('A4'), q0, CUE['N3'] - q0, 50); ramp('slow', q0, CUE['N3'], 50, 100)
-for k in range(int(round(q0 / BEAT)), int(round(CUE['N3'] / BEAT))):
-    note('drums', 35, k * BEAT, 0.2, 60)
-stab(CUE['N3'], 'D', 1.1)
-chord('strings', Ms('D2', 'A2', 'D3'), CUE['N3'], t_piv - CUE['N3'] + 0.5, 50)
+arp_bed(t_c, S['nv'] + 4 * BEAT, ['DM', 'BB', 'F', 'C'])
+motif('slow', S['ali'], MOTIF_MIN, 54, 12, 1.1); ramp('slow', S['ali'], S['ali'] + 6, 60, 95)
+motif('slow', S['zp'], MOTIF_MIN, 58, 12, 1.1)
+for key, root, big in (('T1', 'D', 0.95), ('A1', 'A#', 0.9), ('Z1', 'D', 0.95)): stab(CUE[key], root, big)
+# 英伟达：琶音收窄，只剩心跳和一根高音弦 → 151 重音
+nv = S['nv']
+note('slow', M('A4'), nv + 4 * BEAT, CUE['N1'] - nv - 4 * BEAT, 50); ramp('slow', nv + 4 * BEAT, CUE['N1'], 50, 100)
+for k in range(int(round((nv + 4 * BEAT) / BEAT)), int(round(CUE['N1'] / BEAT))): note('drums', 35, k * BEAT, 0.2, 60)
+stab(CUE['N1'], 'D', 1.1)
+chord('strings', Ms('D2', 'A2', 'D3'), CUE['N1'], t_piv - CUE['N1'] + 0.5, 50)
 
 # ---------------------------------------------------------------- 追问 → 标题
-t_ti = S['title']
-kq = int(round(CUE['q_ask'] / BEAT))
+t_ti = S['title']; kq = int(round(CUE['q_ask'] / BEAT))
 for k in range(int(round(t_piv / BEAT)), kq):
     u = (k * BEAT - t_piv) / max(CUE['q_ask'] - t_piv, 1)
     note('drums', 35, k * BEAT, 0.2, 55 + 40 * u)
     if u > 0.45: note('drums', 35, k * BEAT + BEAT / 2, 0.2, 40 + 40 * u)
-    for s16 in range(4):                                                 # 弦乐颤音渐强
+    for s16 in range(4):
         note('strings', M('D3'), k * BEAT + s16 * BEAT / 4, BEAT / 4, 40 + 60 * u)
         note('strings', M('A3'), k * BEAT + s16 * BEAT / 4, BEAT / 4, 36 + 60 * u)
 chord('choir', Ms('D3', 'A3', 'D4'), t_piv + 2, CUE['q_ask'] - t_piv - 2, 50); ramp('choir', t_piv + 2, CUE['q_ask'], 40, 110)
-for k in range(kq + 1, int(round(t_ti / BEAT))):
-    note('drums', 35, k * BEAT, 0.2, 70)
-# 标题全奏
+note('piano', M('D4'), CUE['q_ask'], 3.0, 60)                       # 「为什么结果总是一样？」只剩一个钢琴单音
 tt = t_ti
 chord('horn', Ms('D3', 'F3', 'A3', 'D4'), tt, 4.5, 105); chord('strings', Ms('D2', 'A2', 'D3', 'F3', 'A3', 'D4'), tt, 5.0, 112)
 chord('choir', Ms('D3', 'F3', 'A3', 'D4'), tt, 5.0, 100); chord('bass', Ms('D1', 'D2'), tt, 5.0, 120)
 note('timp', M('D2'), tt, 2.0, 127); note('taiko', M('C2'), tt, 1.5, 120)
-for k in range(10): note('timp', M('A1'), tt - 1.2 + k * 0.11, 0.1, 40 + k * 6)    # 定音鼓滚奏推进
-chord('piano', Ms('D1', 'D2', 'D3'), tt, 5.0, 110)
-ramp('strings', tt + 0.5, S['hammer'], 110, 70)
+for k in range(10): note('timp', M('A1'), tt - 1.2 + k * 0.11, 0.1, 40 + k * 6)
+chord('piano', Ms('D1', 'D2', 'D3'), tt, 5.0, 110); ramp('strings', tt + 0.5, S['rewind'], 110, 60)
 
-# ---------------------------------------------------------------- 第二幕：铁锤人
-t_h, t_s, t_a, t_two = S['hammer'], S['strikes'], S['ask'], S['two']
+# ---------------------------------------------------------------- 第二幕 · 倒带
+t_rw = S['rewind']
+chord('strings', Ms('D3', 'A3'), t_rw, S['r1'] - t_rw, 45); motif('piano', t_rw + 0.4, MOTIF_MIN[:4], 46)
+RP = [('r1', 'R1b', ['DM', 'BB', 'GM', 'A']), ('r2', 'R2b', ['GM', 'DM', 'BB', 'A']), ('r3', 'R3b', ['BB', 'GM', 'DM', 'A']),
+      ('r4', 'R4b', ['DM', 'C', 'BB', 'A'])]
+ends = {'r1': S['r2'], 'r2': S['r3'], 'r3': S['r4'], 'r4': S['r5']}
+for key, qid, prog in RP:
+    t0 = S[key]; tq = LN[qid]['t0']
+    chord('slow', [m + 12 for m in CHD[prog[0]]], t0 + 0.6, tq - t0 - 0.6, 40)        # 内心独白：只铺一层弦
+    heart_bed(tq, ends[key] - 0.2, prog)                                             # 芒格的问题：心跳律动
+    note('timp', M('D2'), tq, 1.0, 85); motif('piano', tq, MOTIF_MIN[:5], 50, 12)
+stab(CUE['r1_mos'], 'D', 0.6); stab(CUE['r2_drop'], 'G', 0.55); stab(CUE['r3_26'], 'D', 0.95); stab(CUE['r4_3'], 'A', 0.7)
+# 第五段：最后一笔 → 铁锤
+t5, th, ts = S['r5'], S['hammer'], S['strikes']
+chord('slow', Ms('D4', 'F4', 'A4'), t5 + 0.6, th - t5 - 0.6, 45); ramp('slow', t5, th, 40, 90)
 OST = ['D2', 'D2', 'D2', 'D2', 'A#1', 'A#1', 'A1', 'A1']
-k0, k1 = int(round(t_h / BEAT)), int(round((CUE['M5'] + BEAT) / BEAT))
+k0, k1 = int(round(th / BEAT)), int(round((CUE['S3'] + BEAT) / BEAT))
 for k in range(k0, k1):
     for h in range(2):
-        th = k * BEAT + h * BEAT / 2
-        if silence_mask(th, BEAT) and th >= t_s - 0.01: continue
+        tk = k * BEAT + h * BEAT / 2
+        if silence_mask(tk, BEAT) and tk >= ts - 0.01: continue
         p = M(OST[((k - k0) * 2 + h) % 8])
-        note('bass', p, th, BEAT * 0.4, 88 if h == 0 else 70); note('cello', p + 12, th, BEAT * 0.4, 72 if h == 0 else 58)
+        note('bass', p, tk, BEAT * 0.4, 88 if h == 0 else 70); note('cello', p + 12, tk, BEAT * 0.4, 72 if h == 0 else 58)
     if (k - k0) % 4 == 0: note('timp', M('D2'), k * BEAT, 1.0, 70)
-chord('choir', Ms('D3', 'F3', 'A3'), t_h, t_s - t_h, 55); ramp('choir', t_h, t_s, 50, 95)
-chord('strings', Ms('D3', 'A3'), t_h, t_s - t_h + 0.5, 50)
-for k, tw in enumerate(CUE['m2_words']):                                 # 五个公式词，一词一音
-    note('piano', Ms('D5', 'F5', 'A5', 'C6', 'D6')[k], tw, 0.6, 72); note('harp', Ms('D4', 'F4', 'A4', 'C5', 'D5')[k], tw, 0.8, 70)
-for i, key in enumerate(('M3', 'M4', 'M5')):                             # 三锤
-    t = CUE[key]; big = 0.9 + 0.1 * i
-    note('taiko', M('C2'), t, 1.5, 120); note('taiko', M('G1'), t, 1.5, 110)
-    note('timp', M('D2'), t, 2.0, 120); chord('bass', Ms('D1', 'D2'), t, 1.6, 120)
-    chord('horn', Ms('D3', 'A3'), t, 0.9, 85 + 10 * i); chord('strings', Ms('D2', 'D3', 'A3', 'D4'), t, 1.2, 100 + 8 * i)
-# 「每一锤，都像价值投资。可你从没问过……」：抽空
-note('cello', M('D2'), t_a, t_two - t_a, 55); note('slow', M('D5'), CUE['m6_ask'], t_two - CUE['m6_ask'], 40)
-for k, (n_, b) in enumerate([('A4', 0), ('F4', 1.5), ('E4', 3), ('D4', 4.5)]):
-    note('piano', M(n_), t_a + 0.3 + b * BEAT, 1.4, 48)
-# 「能力圈，和反过来想」：暖色转调
-chord('strings', Ms('A#2', 'F3', 'A#3', 'D4'), t_two, CUE['m7_two'] - t_two, 55); ramp('strings', t_two, CUE['m7_two'], 50, 100)
-chord('strings', Ms('F2', 'C3', 'F3', 'A3', 'C4'), CUE['m7_two'], S['tx'] - CUE['m7_two'] + 0.3, 95)
-chord('choir', Ms('F3', 'A3', 'C4'), CUE['m7_two'], S['tx'] - CUE['m7_two'], 85); chord('horn', Ms('F3', 'A3'), CUE['m7_two'], 3.0, 70)
-note('harp', M('F4'), CUE['m7_two'], 2, 75); note('harp', M('A4'), CUE['m7_two'] + 0.12, 2, 70); note('harp', M('C5'), CUE['m7_two'] + 0.24, 2, 68)
-ramp('strings', CUE['m7_two'] + 1, S['tx'], 100, 55)
+chord('choir', Ms('D3', 'F3', 'A3'), th, ts - th, 55); ramp('choir', th, ts, 50, 95)
+for i, key in enumerate(('S1', 'S2', 'S3')):
+    t = CUE[key]
+    note('taiko', M('C2'), t, 1.5, 120); note('taiko', M('G1'), t, 1.5, 110); note('timp', M('D2'), t, 2.0, 120)
+    chord('bass', Ms('D1', 'D2'), t, 1.6, 120); chord('horn', Ms('D3', 'A3'), t, 0.9, 85 + 10 * i)
+    chord('strings', Ms('D2', 'D3', 'A3', 'D4'), t, 1.2, 100 + 8 * i)
+# 「每一个词都没错。错的是……」全部抽空，「当成了结论」落一个钢琴低音
+note('piano', M('D2'), CUE['clue'], 4.0, 70); note('piano', M('D3'), CUE['clue'], 4.0, 55)
+# 腾讯：股价 = 利润 × 市盈率
+t_tx, t_inv, t_w = S['tx'], S['inv'], S['wake']
+heart_bed(t_tx, t_inv - 0.3, ['DM', 'GM', 'BB', 'A'], 66)
+motif('slow', t_tx, MOTIF_MIN[:5], 56, 12)
+for k, n_ in enumerate(['D5', 'C5', 'A#4', 'A4', 'G4', 'F4', 'E4', 'D4']):          # 市盈率下滑：弦乐下行
+    note('slow', M(n_), CUE['tx_pe'] + k * BEAT / 2, BEAT / 2 * 1.05, 70)
+stab(CUE['tx_expect'], 'D', 1.0)
+# 反过来想：阿里
+chord('strings', Ms('A#2', 'F3', 'A#3'), t_inv, CUE['inv_rivals'] - t_inv, 50); ramp('strings', t_inv, CUE['inv_rivals'], 45, 95)
+stab(CUE['inv_rivals'], 'A#', 0.8)
+chord('strings', Ms('A2', 'E3', 'A3'), CUE['inv_rivals'], t_w - CUE['inv_rivals'] - 0.3, 60)
 
-# ---------------------------------------------------------------- 第三幕：拔钉子
-t_cure = S['cure']
-prog3 = ['DM', 'GM', 'BB', 'A']
-k0, k1 = int(round(S['tx'] / BEAT)), int(round((t_cure - BEAT) / BEAT))
-for k in range(k0, k1):
-    t = k * BEAT; bar = (k - k0) // 4; c = prog3[bar % 4]; ms = CHD[c]
-    if (k - k0) % 4 == 0 and not silence_mask(t + BAR * 0.9, BEAT):
-        chord('strings', [m + 12 for m in ms], t, BAR * 0.98, 55); note('bass', M(ROOTS[c]), t, BAR * 0.95, 70)
-    for h in range(2):
-        th = t + h * BEAT / 2
-        if silence_mask(th, BEAT): continue
-        note('cello', M(ROOTS[c]) + 12 + (12 if h else 0), th, BEAT * 0.4, 62)
-        idx = [0, 2, 1, 2, 0, 2, 1, 2][((k - k0) % 4) * 2 + h]
-        note('piano', ms[idx] + 12, th, BEAT * 0.8, 44)
-    if (k - k0) % 2 == 0 and not silence_mask(t, BEAT): note('drums', 35, t, 0.2, 62)
-for key in ('tx', 'ali', 'zp', 'nv'):                                    # 每颗钉子：动机 + 重音
-    t = S[key]; motif('slow', t, MOTIF_MIN[:5], 56, 12, 1.0)
-    note('timp', M('D2'), t, 1.2, 95); note('taiko', M('C2'), t, 1.0, 80)
-for key, big in (('k3_punch', 1.0), ('k4_buyback', 0.75), ('k5_q', 0.8), ('k6_26', 1.0)):
-    stab(CUE[key], 'D', big)
-# 市盈率从 40 多倍跌到 12 倍：弦乐下行
-for k, n_ in enumerate(['D5', 'C5', 'A#4', 'A4', 'G4', 'F4', 'E4', 'D4']):
-    note('slow', M(n_), CUE['k2_pe'] + k * BEAT / 2, BEAT / 2 * 1.05, 70)
-
-# ---------------------------------------------------------------- 第四幕：解药（F 大调）
-t_rep, t_ring, t_fin, t_out, t_card = S['report'], S['ring'], S['finale'], S['outro'], S['card']
-chord('slow', Ms('F3', 'C4', 'F4'), t_cure, t_rep - t_cure + 0.5, 45)
-motif('piano', t_cure + 0.2, MOTIF_MAJ, 58)
+# ---------------------------------------------------------------- 第三幕 · 觉醒（F 大调）
+t_ibm, t_3, t_mos, t_q, t_out, t_card = S['ibm'], S['three'], S['mos'], S['quote'], S['outro'], S['card']
+motif('piano', t_w + 0.3, MOTIF_MIN, 50)                                            # 钢琴独奏，D 小调最后一次
+note('cello', M('D2'), t_w, t_ibm - t_w, 45)
+chord('strings', Ms('A#2', 'D3', 'F3'), t_ibm, t_3 - t_ibm, 45); ramp('strings', t_ibm, t_3, 40, 80)
+motif('piano', t_ibm + 0.3, MOTIF_MAJ[:5], 50)
 prog4 = [Ms('A#2', 'D3', 'F3'), Ms('F2', 'A2', 'C3'), Ms('C3', 'E3', 'G3'), Ms('D3', 'F3', 'A3')]
 roots4 = ['A#1', 'F1', 'C2', 'D2']
-k0, k1 = int(round(t_rep / BEAT)), int(round(t_out / BEAT))
+k0, k1 = int(round(t_3 / BEAT)), int(round(t_q / BEAT))
 for k in range(k0, k1):
     t = k * BEAT; bar = (k - k0) // 4; ms = prog4[bar % 4]
-    build = (t - t_rep) / (t_fin - t_rep)
+    build = min((t - t_3) / max(t_mos - t_3, 1), 1.25)
     if (k - k0) % 4 == 0:
-        chord('strings', [m + 12 for m in ms] + [ms[0]], t, BAR * 0.98, 50 + 35 * min(build, 1.2))
-        note('bass', M(roots4[bar % 4]), t, BAR * 0.95, 65 + 30 * min(build, 1.0))
-        if t >= t_ring: chord('choir', [m + 12 for m in ms], t, BAR * 0.98, 50 + 40 * min(build, 1.2))
+        chord('strings', [m + 12 for m in ms] + [ms[0]], t, BAR * 0.98, 48 + 40 * build)
+        note('bass', M(roots4[bar % 4]), t, BAR * 0.95, 62 + 32 * min(build, 1))
+        if build > 0.4: chord('choir', [m + 12 for m in ms], t, BAR * 0.98, 45 + 45 * min(build, 1.1))
     for h in range(2):
         idx = [0, 2, 1, 2, 0, 2, 1, 2][((k - k0) % 4) * 2 + h]
-        note('piano', ms[idx] + 24, t + h * BEAT / 2, BEAT * 0.9, 46 + 10 * min(build, 1))
-    if t >= t_ring and (k - k0) % 2 == 0: note('drums', 35, t, 0.2, 55 + 25 * min(build, 1))
-    if t >= t_fin and (k - k0) % 4 == 0: note('timp', M(roots4[bar % 4]), t, 1.0, 90)
-motif('slow', t_ring, MOTIF_MAJ, 60, 0, 1.1)
-# 终曲：圆号唱大调动机，全片最高点
-motif('horn', t_fin, MOTIF_MAJ, 92, -12, 1.0); motif('slow', t_fin, MOTIF_MAJ, 75, 12, 1.0)
-for i, key in enumerate(('report', 'ring', 'finale')): note('timp', M('F2'), S[key], 1.5, 80 + 12 * i)
-note('timp', M('A#1'), CUE['e1_turn'], 1.5, 110); note('taiko', M('C2'), CUE['e1_turn'], 1.2, 95)
-# 尾声：只剩钢琴
+        note('piano', ms[idx] + 24, t + h * BEAT / 2, BEAT * 0.9, 44 + 12 * min(build, 1))
+    if build > 0.3 and (k - k0) % 2 == 0: note('drums', 35, t, 0.2, 52 + 25 * min(build, 1))
+for i, key in enumerate(('q1', 'q2', 'q3')):                                          # 三个问题，一问一记
+    note('timp', M('F2'), S[key], 1.2, 75 + 10 * i); note('harp', M(['C5', 'F5', 'A5'][i]), S[key], 1.5, 72)
+motif('horn', t_mos, MOTIF_MAJ, 92, -12, 1.0); motif('slow', t_mos, MOTIF_MAJ, 78, 12, 1.0)   # 全片最高点
+note('timp', M('F2'), t_mos, 1.5, 105); note('taiko', M('C2'), t_mos, 1.2, 95)
+note('timp', M('A#1'), CUE['mos2'], 1.5, 110)
+chord('strings', Ms('F2', 'C3', 'F3', 'A3', 'C4'), t_q, t_out - t_q + 0.5, 70); ramp('strings', t_q, t_out, 80, 40)
 motif('piano', t_out, MOTIF_MAJ[:6], 55)
+chord('slow', Ms('F3', 'A3', 'C4'), t_out, t_card - t_out + 1.0, 42); ramp('slow', t_out, t_card, 38, 70)   # 结尾问句下的长音
 fin = Ms('F2', 'C3', 'F3', 'A3', 'C4', 'G4')
 chord('piano', fin, t_card, 6.0, 70, 0.08); chord('strings', Ms('F2', 'C3', 'F3', 'A3'), t_card, 5.5, 60)
 chord('choir', Ms('F3', 'A3', 'C4'), t_card, 5.0, 50); note('timp', M('F2'), t_card, 2.0, 70)
@@ -300,23 +296,33 @@ def whoosh(dur=1.0, v=0.12):
 def hit(t, s=1.0, **kw):
     put(t, sub_boom(s, **kw)); HITS.append((round(t, 3), s))
 
+def tape_rewind(dur=1.1, v=0.22):
+    """倒带：磁带倒卷的「嗖嗖」声——下滑的音高 + 低通颤动噪声"""
+    n = int(dur * SR); t = np.arange(n) / SR; u = t / dur
+    f = 900 * (1 - u) ** 1.5 + 120
+    tone = np.sin(2 * np.pi * np.cumsum(f * (1 + 0.04 * np.sin(2 * np.pi * 23 * t))) / SR) * 0.35
+    nz = bp(rng.standard_normal(n), 200, 1800, 2) * (0.5 + 0.5 * np.sin(2 * np.pi * 31 * t))
+    env = np.sin(np.pi * np.clip(u * 1.15, 0, 1)) ** 0.7
+    return lp(tone + nz * 0.6, 2200) * env * v
+
 hit(CUE['H1'], 0.8)
-for key, s_ in (('T2', 0.9), ('A2', 0.85), ('Z2', 0.9)):
+for key, s_ in (('T1', 0.9), ('A1', 0.85), ('Z1', 0.9)):
     put(CUE[key] - 0.9, whoosh(0.9, 0.08)); hit(CUE[key], s_, f0=55, f1=28, dec=1.9)
-put(CUE['N3'] - 1.6, riser(1.6, 0.10, 90, 900)); hit(CUE['N3'], 1.05, f0=58, f1=26, dec=2.2)
-hit(S['cases'], 0.5)
-put(S['title'] - 2.5, riser(2.5, 0.16, 90, 1400)); hit(S['title'], 1.4, f0=70, f1=26, dec=2.6)
-for i, key in enumerate(('M3', 'M4', 'M5')):
+put(CUE['N1'] - 1.6, riser(1.6, 0.10, 90, 900)); hit(CUE['N1'], 1.05, f0=58, f1=26, dec=2.2)
+put(S['title'] - 1.9, riser(1.9, 0.16, 90, 1400)); hit(S['title'], 1.4, f0=70, f1=26, dec=2.6)
+put(S['rewind'] + 0.1, tape_rewind(2.0, 0.26))
+for key in ('r1', 'r2', 'r3', 'r4', 'r5'):
+    put(S[key] - 1.0, tape_rewind(1.0, 0.2)); hit(S[key], 0.45, f0=50, f1=30, dec=1.5)
+for key, s_ in (('r1_mos', 0.55), ('r2_drop', 0.5), ('r3_26', 0.9), ('r4_3', 0.65)):
+    put(CUE[key] - 1.0, reverse_swell(1.0, 0.10)); hit(CUE[key], s_)
+for i, key in enumerate(('S1', 'S2', 'S3')):
     put(CUE[key] - 1.2, reverse_swell(1.2, 0.18 + 0.04 * i)); put(CUE[key], anvil(0.22 + 0.05 * i))
     hit(CUE[key], 1.15 + 0.1 * i, f0=66, f1=26, dec=2.2)
-hit(CUE['m6_hit'], 0.7, f0=50, f1=24, dec=2.8)
-hit(CUE['m7_two'], 0.55)
-for key in ('tx', 'ali', 'zp', 'nv'):
-    put(S[key] - 1.0, whoosh(1.0, 0.10)); hit(S[key], 0.75)
-for key, s_ in (('k3_punch', 1.0), ('k4_buyback', 0.6), ('k5_q', 0.7), ('k6_26', 1.0)):
-    put(CUE[key] - 1.1, reverse_swell(1.1, 0.12)); hit(CUE[key], s_)
-hit(S['cure'], 0.6, f0=58, f1=32, dec=2.2)
-hit(CUE['e1_turn'], 0.85, f0=55, f1=28, dec=2.6)
+hit(CUE['clue'], 0.6, f0=48, f1=24, dec=3.0)
+put(CUE['tx_expect'] - 1.1, reverse_swell(1.1, 0.12)); hit(CUE['tx_expect'], 1.0)
+hit(CUE['inv_rivals'], 0.7)
+hit(S['three'], 0.5, f0=55, f1=32, dec=2.0)
+put(S['mos'] - 1.4, riser(1.4, 0.10, 120, 1200)); hit(S['mos'], 0.9, f0=55, f1=28, dec=2.6)
 hit(S['card'], 0.7, f0=55, f1=30, dec=2.8)
 
 # ================================================================ 混音
