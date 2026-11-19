@@ -83,6 +83,8 @@ class Frame:
         self.B = np.zeros((H, W, 3), np.float32)   # bloom only
         self.U = np.zeros((H, W, 3), np.uint8)     # cv2 AA strokes -> E
         self.over = []                             # deferred alpha-over glyphs
+        self.sprites = []                          # (rgb, alpha, x0, y0) 预渲染 RGBA 贴图，alpha-over 合成
+        self.streak = 0.35                         # 变形镜头横向光晕强度
         self.ca = 0.0                              # chromatic aberration px
         self.flash = 0.0
         self.shake = (0, 0)
@@ -261,6 +263,18 @@ def finish(fr, bg, bloom_k=1.0, vignette=None, grain=None):
     bl = cv2.resize(b1 * 0.9 + cv2.resize(b2, (W // 4, H // 4), interpolation=cv2.INTER_LINEAR) * 1.1,
                     (W, H), interpolation=cv2.INTER_LINEAR)
     out = bg + fr.L + E + bl * bloom_k
+    if fr.streak > 0:                              # anamorphic streak：亮部向两侧拉出一道冷色光
+        s8 = cv2.resize(src, (W // 8, H // 8), interpolation=cv2.INTER_AREA)
+        br = np.clip(s8.max(2) - 0.45, 0, None)
+        st = cv2.GaussianBlur(br, (0, 0), sigmaX=22, sigmaY=0.5)
+        st = cv2.resize(st, (W, H), interpolation=cv2.INTER_LINEAR)[..., None]
+        out += st * np.array((0.55, 0.75, 1.0), np.float32) * fr.streak
+    for (rgb, al, X0, Y0) in fr.sprites:
+        h, w = al.shape
+        x0, y0 = max(X0, 0), max(Y0, 0); x1, y1 = min(X0 + w, W), min(Y0 + h, H)
+        if x1 <= x0 or y1 <= y0: continue
+        reg = out[y0:y1, x0:x1]; a3 = al[y0 - Y0:y1 - Y0, x0 - X0:x1 - X0][..., None]
+        reg *= (1 - a3); reg += a3 * rgb[y0 - Y0:y1 - Y0, x0 - X0:x1 - X0]
     if fr.flash > 0:
         out += fr.flash
     for (mm, X0, Y0, colv, a) in fr.over:

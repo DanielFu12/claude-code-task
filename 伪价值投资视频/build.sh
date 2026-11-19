@@ -6,7 +6,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 ROOT=$(pwd); WORK="$ROOT/work"; mkdir -p "$WORK"
 ./fetch_fonts.sh
-[ -f "$WORK/vo/L29.wav" ] || RATE=12 python3 src/tts_all.py "$WORK/vo"
+[ -f "$WORK/vo/E2.wav" ] || RATE=12 python3 src/tts_all.py "$WORK/vo"
 python3 src/timeline.py "$WORK"
 python3 src/music.py "$WORK"
 NF=$(python3 -c "import json;print(int(json.load(open('$WORK/timeline.json'))['total']*30))")
