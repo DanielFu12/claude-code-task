@@ -1624,21 +1624,25 @@ def post_text(out, s, x, y, size, fnt, a, colf):
             reg *= (1 - mm); reg += mm * np.array(colf(ch), np.float32)
         cx += adv
 
+_SUBS = []
+for _l in TL['lines']:
+    for _k, (_s, _a0, _a1) in enumerate(_l['chunks']):
+        _SUBS.append([_l['id'], _k, _s, _a0, _a1 + (0.25 if _k == len(_l['chunks']) - 1 else 0.0)])
+_SUBS.sort(key=lambda r: r[3])
+for _j in range(len(_SUBS) - 1):          # 每条字幕在下一条出现前 0.1 秒收掉，句子首尾相接时也不会两条叠在一起
+    _SUBS[_j][4] = min(_SUBS[_j][4], _SUBS[_j + 1][3] - 0.1)
+
 def subtitles(out, t):
-    for l in TL['lines']:
-        if l['id'] in HIDE: continue
-        ch = l['chunks']
-        for k, (s, a0, a1) in enumerate(ch):
-            if (l['id'], k) in HIDE_CHUNK: continue
-            a1 = a1 + 0.25 if k == len(ch) - 1 else ch[k + 1][1] - 0.02
-            if a0 - 0.08 <= t <= a1:
-                a = eo((t - a0 + 0.08) / 0.12) * (1 - eio((t - a1 + 0.1) / 0.1))
-                size = 50
-                while text_width(s, 'sans_med', size) > 960: size -= 2
-                y = 1560
-                band = out[y - 70:y + 70]
-                band *= (1 - 0.35 * a)
-                post_text(out, s, CX, y, size, 'sans_med', a, lambda ch: GOLD2 if ch in GOLD_CH else (0.96, 0.96, 0.97))
+    for lid, k, s, a0, a1 in _SUBS:
+        if lid in HIDE or (lid, k) in HIDE_CHUNK: continue
+        if a0 - 0.08 <= t <= a1:
+            a = eo((t - a0 + 0.08) / 0.12) * (1 - eio((t - a1 + 0.1) / 0.1))
+            size = 50
+            while text_width(s, 'sans_med', size) > 960: size -= 2
+            y = 1560
+            band = out[y - 70:y + 70]
+            band *= (1 - 0.35 * a)
+            post_text(out, s, CX, y, size, 'sans_med', a, lambda ch: GOLD2 if ch in GOLD_CH else (0.96, 0.96, 0.97))
 
 CHAPTERS = [(0, '好公司也亏钱'), (S['q1_card'], '好公司≠好投资'), (S['q2_card'], '下跌≠买错'), (S['q3_card'], '价值投资的本质'),
             (S['epilogue'] - 0.5, '回到原点')]
