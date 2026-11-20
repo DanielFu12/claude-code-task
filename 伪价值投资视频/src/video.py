@@ -1608,7 +1608,8 @@ def draw_card_text(fr, t):
     af = eo((t - t0 - 1.8) / 1.0)                    # 关注语：在品牌名下方缓缓浮现
     if af > 0.01:
         fr.line((CX - 60, 1268), (CX + 60, 1268), GOLD, a * af * 0.5, 1)
-        fr.text('关注「巴芒价值」，传承大师智慧，领悟投资真谛', CX, 1330 + 14 * (1 - af), 38, 'sans_med', C(232, 222, 198), af, track=0.06)
+        fr.text('关注「巴芒价值」，传承大师智慧，领悟投资真谛', CX, 1330 + 14 * (1 - af), 38, 'sans_med', GOLD, af, track=0.06,
+                mode='L', glow=0.2, grad=[GOLD2, GOLD, GOLDD, GOLD])     # 与「巴芒价值」同一套金色渐变
     fr.text('不构成投资建议 · 股价截至 2026.11.18 收盘（约数）', CX, 1700, 25, 'sans_light', DIM, a * 0.8)
     fr.text('走势图中间路径为示意 · 「真正值 100 元」、市盈率等为假设性算例', CX, 1742, 25, 'sans_light', DIM, a * 0.8)
 
