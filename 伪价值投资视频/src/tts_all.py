@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from script import LINES
 from tts import synth
 SPK = 'zh_male_m191_uranus_bigtts'
-RATE = int(os.environ.get('RATE', '32'))
+RATE = int(os.environ.get('RATE', '25'))
 OUT = sys.argv[1] if len(sys.argv) > 1 else 'work/vo'
 os.makedirs(OUT, exist_ok=True)
 def one(L):

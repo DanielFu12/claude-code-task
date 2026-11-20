@@ -63,11 +63,11 @@ SECTIONS = [
     ('unwilling', 'L06', 1, 'beat'), ('catl', 'L07', 0, 'beat'), ('ali', 'L08', 0, 'beat'), ('zp', 'L09', 0, 'beat'),
     ('halves', 'L10', 0, 'half'), ('gold', 'L11', 0, 'beat'), ('nv', 'L12', 0, 'beat'), ('wall', 'L14', 1, 'beat'),
     ('q1', 'L16', 0, 'bar'), ('anchor', 'L17', 0, 'beat'), ('scale', 'L19', 0, 'beat'), ('twoscales', 'L22', 0, 'beat'),
-    ('gold1', 'L24', 1, 'beat'), ('tenyear', 'L25', 2, 'bar'), ('moat', 'L26', 0, 'beat'), ('quotes', 'L29', 0, 'beat'),
+    ('gold1', 'L24', 1, 'beat'), ('tenyear', 'L25', 0, 'bar'), ('moat', 'L26', 0, 'beat'), ('quotes', 'L29', 0, 'beat'),
     ('newmoat', 'L31', 0, 'beat'), ('keep', 'L33', 0, 'beat'), ('tech', 'L35', 1, 'beat'), ('ibm', 'L37', 0, 'beat'),
-    ('baskets', 'L39', 1, 'beat'), ('circle', 'L42', 0, 'beat'), ('story', 'L44', 2, 'bar'), ('cars', 'L46', 0, 'beat'),
+    ('baskets', 'L39', 1, 'beat'), ('circle', 'L42', 0, 'beat'), ('story', 'L44', 0, 'bar'), ('cars', 'L46', 0, 'beat'),
     ('air', 'L47', 0, 'beat'), ('capital', 'L48', 0, 'beat'), ('lowpe', 'L50', 1, 'beat'), ('stair', 'L55', 0, 'beat'),
-    ('q99', 'L57', 0, 'beat'), ('expect', 'L58', 1, 'beat'), ('post2', 'L61', 2, 'bar'), ('hammer', 'L62', 0, 'beat'),
+    ('q99', 'L57', 0, 'beat'), ('expect', 'L58', 1, 'beat'), ('post2', 'L61', 0, 'bar'), ('hammer', 'L62', 0, 'beat'),
     ('strikes', 'L63a', 0, 'bar'), ('verdict', 'L64', 0, 'beat'), ('inv', 'L67', 1, 'beat'),
     ('q2', 'L70', 0, 'bar'), ('noise', 'L72', 0, 'beat'), ('drops', 'L73', 0, 'beat'), ('band', 'L75', 0, 'beat'),
     ('guarantee', 'L78', 0, 'beat'), ('branches', 'L80', 0, 'beat'), ('line', 'L83', 1, 'beat'),
@@ -93,7 +93,7 @@ NAT = json.load(open(f'{W}/vo/gaps.json')) if os.path.exists(f'{W}/vo/gaps.json'
 lines, secs, cues = [], {}, {}
 voice = np.zeros(int(1000 * SR), np.float32)
 t = BEAT
-HOLD = {'L06': 0.9, 'L07': 1.1, 'L08': 1.2, 'L10': 0.35, 'L13': 1.3, 'L71': 1.0, 'L79': 0.3, 'L83': 0.35, 'L86': 0.9}   # 讲故事的人会在这几句后面停一下
+HOLD = {'L06': 0.9, 'L07': 1.1, 'L08': 1.2, 'L10': 0.35, 'L13': 1.3, 'L71': 1.0, 'L79': 0.3, 'L83': 0.35, 'L85': 0.45, 'L86': 1.6, 'L87': 0.45, 'L88': 0.45}   # 讲故事的人会在这几句后面停一下
 inside = False          # 当前句是否接在同一整段合成的上一句后面（首尾相接 = 原来那一口气）
 prev_pause = 0.0
 for (i, text, sub, ctx, gap) in LINES:
@@ -108,7 +108,8 @@ for (i, text, sub, ctx, gap) in LINES:
             t = up(t + pad * BEAT, q)
             if name in CHAPTER_BEATS:
                 secs[name + '_card'] = t; t += CHAPTER_BEATS[name] * BEAT
-        secs[name] = t                                 # 段内的小节：画面跟着话走，不打断语流
+        pend = name                                    # 段内的小节：画面跟着话走，不打断语流（起点在揭晓对齐之后再定）
+    else: pend = None
     off = reveal_off(i, y, d)
     if off is not None:
         c = t + off
@@ -124,6 +125,7 @@ for (i, text, sub, ctx, gap) in LINES:
             c = g if -back <= g - c <= 0.3 else up(c, BEAT / 2)
         t = c - off
         cues[i] = round(c, 3)
+    if pend: secs[pend] = t
     lines.append(dict(id=i, t0=round(t, 4), t1=round(t + d, 4), sub=sub, pauses=ps, chunks=chunks(sub, ps, t, d)))
     a = int(t * SR); voice[a:a + len(y)] += y
     ng = NAT.get(i)

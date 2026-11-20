@@ -5,6 +5,7 @@
 import re, os
 HERE = os.path.dirname(os.path.abspath(__file__))
 src = open(os.path.join(HERE, '..', '脚本.md')).read()
+src = src.split('## 事实与口径核查')[0]          # 只解析旁白表，后面的核查/审校表不算
 rows = re.findall(r'^\| (\d+) \| (.+?) \| ', src, re.M)
 rows = [(int(k), re.sub(r'〔.*?〕', '', v).strip()) for k, v in rows]
 

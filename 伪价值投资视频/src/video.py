@@ -802,12 +802,12 @@ def sh_twoscales(fr, t):
     if av > 0.01:
         x1 = lerp(150, 930, eo((t - ch22(1)) / 0.9))
         fr.line((150, yv(100)), (x1, yv(100)), GOLD, av, 4); fr.glow((x1, yv(100)), 26, GOLD2, av * 0.6)
-        fr.text('真正值 100 元', 160, yv(100) - 34, 34, 'sans_black', GOLD, av, anchor='l', mode='L', glow=0.3)
+        fr.text('真正值 100 元', 930, yv(100) - 34, 34, 'sans_black', GOLD, av, anchor='r', mode='L', glow=0.3)
     # 价格柱 A：300 → 150
     aA = a * eo((t - ch22(1) - 0.3) / 0.5)
     if aA > 0.01:
         u = eio((t - ch22(2) - 0.3) / 1.6)
-        p = lerp(300, 150, u); xa = 470; w = 78
+        p = lerp(300, 150, u); xa = 330; w = 78
         over = cl((t - ch22(3) + 0.2) / 0.5)
         fr.rrect_fill(xa - w, yv(min(p, 100)), xa + w, base, 6, C(200, 205, 220), aA * 0.22)
         if p > 100:
@@ -823,7 +823,7 @@ def sh_twoscales(fr, t):
     # 价格柱 B：50
     aB = a * eo((t - t23 - 0.2) / 0.5)
     if aB > 0.01:
-        xb = 800; w = 78; u = eo((t - t23 - 0.2) / 0.9)
+        xb = 740; w = 78; u = eo((t - t23 - 0.2) / 0.9)
         p = 50 * u
         fr.rrect_fill(xb - w, yv(p), xb + w, base, 6, TEAL, aB * 0.3); fr.rrect(xb - w, yv(p), xb + w, base, 6, TEAL, aB, 2)
         fr.text('50', xb, yv(p) - 40, 58, 'num', TEAL, aB, mode='L', glow=0.3)
@@ -833,11 +833,12 @@ def sh_twoscales(fr, t):
             fr.line((xx, yv(100)), (xx, lerp(yv(100), yv(50), eo((t - ch23(1)) / 0.6))), TEAL, a5, 4)
             fr.line((xx - 12, yv(100)), (xx + 12, yv(100)), TEAL, a5, 4); fr.line((xx - 12, yv(50)), (xx + 12, yv(50)), TEAL, a5, 4)
             fr.text('五折', xx + 18, yv(75), 38, 'sans_black', TEAL, a5, anchor='l', mode='L', glow=0.35)
-            fr.text('没跌过，却便宜', xb, base + 50, 32, 'sans_black', TEAL, a5, mode='L', glow=0.25)
+            fr.text('花 50 元', xb, base + 48, 32, 'sans_black', TEAL, a5, mode='L', glow=0.25)
+            fr.text('买到 100 元的价值', xb, base + 94, 32, 'sans_black', TEAL, a5, mode='L', glow=0.25)
 
 def sh_gold1(fr, t):
     a = shot(t, 'gold1')
-    golden_line(fr, t, '关键不是它跌了多少', '而是它到底值多少钱', a, S['gold1'] + 0.05)
+    golden_line(fr, t, '贵还是便宜，看价格和价值的差距', '而不是看它跌了多少', a, S['gold1'] + 0.05)
 
 # ================================================================ 问题一 · 护城河与能力圈
 T12 = '第一章 · 护城河与能力圈'
@@ -1136,7 +1137,7 @@ def sh_lowpe(fr, t):
             col = lerpc(GOLD, RED2, cl((pe - 13) / 6))
             fr.text(f'{pe:.0f}×', CX, 740, int(150 + 30 * impact(t) * (pe > 25)), 'num', col, am * eo((t - t53) / 0.4), mode='L', glow=0.5)
             fr.text('假设：股价不变，利润减半', CX, 850, 34, 'sans_med', C(210, 210, 220), am * eo((t - t53 - 1.0) / 0.4))
-    golden_line(fr, t, '最让人觉得便宜的时刻', '有时恰恰是企业最赚钱的时刻', a * eo((t - t54) / 0.4), t54)
+    golden_line(fr, t, '对周期性行业来说，看起来最便宜的时候', '往往正是企业最赚钱的时候', a * eo((t - t54) / 0.4), t54)
 
 def sh_stair(fr, t):
     a = shot(t, 'stair')
@@ -1577,7 +1578,6 @@ def sh_last(fr, t):
     if a <= 0: return
     btext(fr, t, '这或许就是价值投资', CX, 780, 70, 'serif_black', WHITE, a, t0 + 0.1, glow=0.12)
     btext(fr, t, '最深刻，也最难掌握的地方', CX, 920, 76, 'serif_black', GOLD, a, t0 + 1.2, glow=0.45, grad=GOLDG)
-    fr.text('你买过的好公司，后来怎么样了？', CX, 1150, 40, 'sans_med', GOLD2, a * eo((t - t0 - 2.6) / 0.5))
 
 LOGO = None
 def scene_card(fr, t, out):
@@ -1589,9 +1589,11 @@ def scene_card(fr, t, out):
     rgb, al = LOGO
     sc_y = 820 - 30 * (1 - a)
     x0, y0 = int(CX - 150), int(sc_y - 150)
+    P = 140                                          # 光晕在加宽的画布上模糊，避免被 300×300 裁成方块
+    big = np.pad(al, P)
+    gl = cv2.GaussianBlur(big, (0, 0), 30)[..., None] * np.array(C(110, 175, 255), np.float32) * 0.35 * a
+    out[y0 - P:y0 + 300 + P, x0 - P:x0 + 300 + P] += gl
     reg = out[y0:y0 + 300, x0:x0 + 300]
-    gl = cv2.GaussianBlur(al, (0, 0), 30)[..., None] * np.array(C(110, 175, 255), np.float32) * 0.35 * a
-    reg += gl
     m = (al * a)[..., None]; reg *= (1 - m); reg += m * rgb
 
 def draw_card_text(fr, t):
@@ -1603,7 +1605,12 @@ def draw_card_text(fr, t):
     nat = text_width(s, 'corm_b', 44)
     tr = (tw - nat) / (len(s) - 1) / 44
     fr.text(s, CX, 1190, 44, 'corm_b', C(214, 178, 112), a, track=tr)
-    fr.text('不构成投资建议 · 股价截至 2026.11.18 收盘（约数），中间走势为示意 · 芒格的提问为其思考方式的演绎', CX, 1720, 26, 'sans_light', DIM, a * 0.8)
+    af = eo((t - t0 - 1.8) / 1.0)                    # 关注语：在品牌名下方缓缓浮现
+    if af > 0.01:
+        fr.line((CX - 60, 1268), (CX + 60, 1268), GOLD, a * af * 0.5, 1)
+        fr.text('关注「巴芒价值」，传承大师智慧，领悟投资真谛', CX, 1330 + 14 * (1 - af), 38, 'sans_med', C(232, 222, 198), af, track=0.06)
+    fr.text('不构成投资建议 · 股价截至 2026.11.18 收盘（约数）', CX, 1700, 25, 'sans_light', DIM, a * 0.8)
+    fr.text('走势图中间路径为示意 · 「真正值 100 元」、市盈率等为假设性算例', CX, 1742, 25, 'sans_light', DIM, a * 0.8)
 
 # ================================================================ 字幕 / HUD / 合成
 HIDE = {'L06', 'L15', 'L24', 'L34', 'L54', 'L60', 'L71', 'L84', 'L89', 'L92', 'L95'}

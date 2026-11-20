@@ -8,7 +8,7 @@ ROOT=$(pwd); WORK="$ROOT/work"; mkdir -p "$WORK"
 ./fetch_fonts.sh
 python3 src/gen_script.py
 [ -f "$WORK/vo_ref/L95.wav" ] || python3 src/tts_all.py "$WORK/vo_ref"   # 逐句参考：只用于强制对齐切句与校验
-[ -f "$WORK/vo/gaps.json" ] || python3 src/tts_blocks.py "$WORK"         # 按章整段合成 → 强制对齐切句 → 跨章统一音高/音色/响度
+[ -f "$WORK/vo/gaps.json" ] || python3 src/tts_take.py "$WORK"           # 整篇一次合成（一条录完）→ 拉平长文本音高漂移 → 逐句对齐切句 → 第三章放慢
 python3 src/timeline.py "$WORK"
 python3 src/music.py "$WORK"
 NF=$(python3 -c "import json;print(int(json.load(open('$WORK/timeline.json'))['total']*30))")
