@@ -72,7 +72,7 @@ SECTIONS = [
     ('q2', 'L70', 0, 'bar'), ('noise', 'L72', 0, 'beat'), ('drops', 'L73', 0, 'beat'), ('band', 'L75', 0, 'beat'),
     ('guarantee', 'L78', 0, 'beat'), ('branches', 'L80', 0, 'beat'), ('line', 'L83', 1, 'beat'),
     ('q3', 'L85', 0, 'bar'), ('principles', 'L86', 0, 'beat'), ('rebuild', 'L87', 0, 'beat'), ('diversify', 'L88', 0, 'beat'),
-    ('finale', 'L89', 1, 'bar'), ('epilogue', 'L90', 2, 'bar'), ('hardest', 'L93', 1, 'beat'), ('last', 'L95', 0, 'beat')]
+    ('finale', 'L89', 1, 'bar'), ('epilogue', 'L90', 7, 'bar'), ('hardest', 'L93', 1, 'beat'), ('last', 'L95', 0, 'beat')]
 SEC_START = {s[1]: s for s in SECTIONS}
 CHAPTER_BEATS = {'q1': 4, 'q2': 4, 'q3': 4}       # 章节卡单独亮相的拍数（全奏落点）
 TITLE_BEATS = 6                                   # 片名卡
@@ -93,30 +93,42 @@ NAT = json.load(open(f'{W}/vo/gaps.json')) if os.path.exists(f'{W}/vo/gaps.json'
 lines, secs, cues = [], {}, {}
 voice = np.zeros(int(1000 * SR), np.float32)
 t = BEAT
+HOLD = {'L06': 0.9, 'L07': 1.1, 'L08': 1.2, 'L10': 0.35, 'L13': 1.3, 'L71': 1.0, 'L79': 0.3, 'L83': 0.35, 'L86': 0.9}   # 讲故事的人会在这几句后面停一下
+inside = False          # 当前句是否接在同一整段合成的上一句后面（首尾相接 = 原来那一口气）
+prev_pause = 0.0
 for (i, text, sub, ctx, gap) in LINES:
     y, _ = sf.read(f'{W}/vo/{i}.wav', dtype='float32')
     d = len(y) / SR; ps = pauses(y)
     if i in SEC_START:
         name, _, pad, al = SEC_START[i]
-        if name == 'q1':                               # 片名卡 → 问题一章节卡
-            t = up(t + BEAT, BAR); secs['title'] = t; t += TITLE_BEATS * BEAT
-        q = {'bar': BAR, 'beat': BEAT, 'half': BEAT / 2}[al]
-        t = up(t + pad * BEAT, q)
-        if name in CHAPTER_BEATS:
-            secs[name + '_card'] = t; t += CHAPTER_BEATS[name] * BEAT
-        secs[name] = t
+        if not inside:                                 # 整段的开头：留出音乐呼吸，对齐网格
+            if name == 'q1':                           # 片名卡 → 第一章章节卡
+                t = up(t + BEAT, BAR); secs['title'] = t; t += TITLE_BEATS * BEAT
+            q = {'bar': BAR, 'beat': BEAT, 'half': BEAT / 2}[al]
+            t = up(t + pad * BEAT, q)
+            if name in CHAPTER_BEATS:
+                secs[name + '_card'] = t; t += CHAPTER_BEATS[name] * BEAT
+        secs[name] = t                                 # 段内的小节：画面跟着话走，不打断语流
     off = reveal_off(i, y, d)
     if off is not None:
-        t = up(t + off, BEAT) - off
+        c = t + off
         prev = {'L63b': 'L63a', 'L63c': 'L63b'}.get(i)
-        if prev: t = cues[prev] + 2 * BAR - off                                # 三锤：严格每两小节一锤
-        if i == 'L63a': t = up(t + off, BAR) - off                       # 第一锤落在小节线
-        cues[i] = round(t + off, 3)
+        if prev:
+            dp = lines[-1]['t1'] - cues[prev]       # 三锤：每锤间隔半小节的整数倍，放得下上一句为止
+            c = cues[prev] + 2 * BEAT * math.ceil((dp + 0.3) / (2 * BEAT))
+        elif i == 'L63a': c = up(c, BEAT)              # 第一锤落在整拍
+        elif i in GOLDEN: c = up(c, BEAT) if up(c, BEAT) - c < 0.6 else up(c, BEAT / 2)   # 金句前多留半口气
+        else:                                          # 数字揭晓：只在停顿里挪动，最多前后 0.19 秒
+            g = round(c / (BEAT / 2)) * (BEAT / 2)
+            back = max(0.0, prev_pause / 2 - 0.03) if inside else 0.0
+            c = g if -back <= g - c <= 0.3 else up(c, BEAT / 2)
+        t = c - off
+        cues[i] = round(c, 3)
     lines.append(dict(id=i, t0=round(t, 4), t1=round(t + d, 4), sub=sub, pauses=ps, chunks=chunks(sub, ps, t, d)))
     a = int(t * SR); voice[a:a + len(y)] += y
     ng = NAT.get(i)
-    if ng is not None: t = t + d + float(np.clip(ng - 0.13, 0.12, 0.8))      # 同一段里：沿用整段合成时的自然停顿
-    else: t = up(t + d + gap * GAP_K, BEAT / 2)
+    inside = ng is not None; prev_pause = ng or 0.0
+    t = t + d + HOLD.get(i, 0.0) if inside else up(t + d + gap * GAP_K, BEAT / 2)
 secs['card'] = up(t + 1.5, BEAT)
 T = secs['card'] + 6 * BEAT
 voice = voice[:int(T * SR)]

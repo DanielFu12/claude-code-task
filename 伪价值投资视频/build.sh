@@ -7,8 +7,8 @@ cd "$(dirname "$0")"
 ROOT=$(pwd); WORK="$ROOT/work"; mkdir -p "$WORK"
 ./fetch_fonts.sh
 python3 src/gen_script.py
-[ -d "$WORK/vo_old" ] || { python3 src/tts_all.py "$WORK/vo_old"; }   # 逐句版：只用作切句的时长参考
-[ -f "$WORK/vo/gaps.json" ] || python3 src/tts_blocks.py "$WORK"     # 整段合成 → 切句 → 跨段统一音高/音色/响度
+[ -f "$WORK/vo_ref/L95.wav" ] || python3 src/tts_all.py "$WORK/vo_ref"   # 逐句参考：只用于强制对齐切句与校验
+[ -f "$WORK/vo/gaps.json" ] || python3 src/tts_blocks.py "$WORK"         # 按章整段合成 → 强制对齐切句 → 跨章统一音高/音色/响度
 python3 src/timeline.py "$WORK"
 python3 src/music.py "$WORK"
 NF=$(python3 -c "import json;print(int(json.load(open('$WORK/timeline.json'))['total']*30))")

@@ -729,24 +729,25 @@ def sh_title(fr, t):
     fr.text('雪球热帖里的五笔交易 · 三个问题', CX, 1190, 36, 'sans_med', C(210, 205, 195), a * eo((u - 1.0) / 0.5), track=0.1)
 
 def chapter_card(fr, t, key, no, q1, q2):
-    """章节卡：问题编号 + 两行问题；在本章第一句旁白期间保留，随后淡出"""
+    """章节卡：章节名 + 本章要回答的问题（两行）；在本章第一句旁白期间保留，随后淡出"""
     t0 = S[key + '_card']; t1 = NEXT[key]
     a = env(t, t0, t1, 0.25, 0.4)
     if a <= 0: return
     u = t - t0
     fr.glow((CX, 860), 300, GOLD, a * 0.12 * (1 - eo(u / 1.5)) + a * 0.03)
     k = eo(u / 0.6)
-    fr.text(no, CX, 620, 40, 'sans_black', GOLD, a * k, track=0.4 + 0.5 * (1 - k), mode='L', glow=0.3)
+    fr.text(no, CX, 620, 40, 'sans_black', GOLD, a * k, track=0.18 + 0.35 * (1 - k), mode='L', glow=0.3)
     v = eo((u - 0.35) / 0.6)
     if v > 0.01: fr.line((CX - 160 * v, 688), (CX + 160 * v, 688), GOLD, a * 0.7 * v, 2)
     btext(fr, t, q1, CX, 820, 80, 'serif_black', WHITE, a, t0 + 0.15, glow=0.15)
     btext(fr, t, q2, CX, 960, 80, 'serif_black', GOLD, a, t0 + 0.55, glow=0.45, grad=GOLDG)
 
-# ================================================================ 问题一 · 价格与价值
+# ================================================================ 第一章 · 价格与价值
+T11 = '第一章 · 价格与价值'
 def sh_anchor(fr, t):
     a = shot(t, 'anchor')
     if a <= 0: return
-    tag(fr, t, '问题一 · 价格与价值', a, S['anchor'])
+    tag(fr, t, T11, a, S['anchor'])
     pairs = [('476', '400', '腾讯'), ('319', '150', '阿里'), ('2980', '1500', '智谱')]
     l17 = LN['L17']; ts = [l17['t0'] + 0.1, l17['t0'] + (l17['t1'] - l17['t0']) * 0.36, l17['t0'] + (l17['t1'] - l17['t0']) * 0.7]
     ta = _t('L18') + 1.4
@@ -765,7 +766,7 @@ def sh_anchor(fr, t):
 def sh_scale(fr, t):
     a = shot(t, 'scale')
     if a <= 0: return
-    tag(fr, t, '问题一 · 价格与价值', a, S['anchor'])
+    tag(fr, t, T11, a, S['anchor'])
     t0 = S['scale']; t20, t21 = _t('L20'), _t('L21')
     btext(fr, t, '卖多少钱 ≠ 值多少钱', CX, ZB, 66, 'serif_black', WHITE, a, t0 + 0.3, glow=0.15)
     tilt = 0
@@ -785,25 +786,61 @@ def sh_scale(fr, t):
         fr.text('巴菲特：内在价值是企业未来现金流的折现值（伯克希尔《股东手册》）', CX, ZD, 24, 'sans_light', DIM, a * eo((t - t21 - 1.0) / 0.5))
 
 def sh_twoscales(fr, t):
+    """同一家公司「真正值 100 元」：价格柱 300 → 150 仍高出价值线（还是贵）；另一根只有 50，在价值线下方（五折）"""
     a = shot(t, 'twoscales')
     if a <= 0: return
-    tag(fr, t, '问题一 · 价格与价值', a, S['anchor'])
+    tag(fr, t, T11, a, S['anchor'])
     t0, t23 = S['twoscales'], _t('L23')
-    a1 = a * eo((t - t0 - 0.2) / 0.5)
-    tl = lerp(0, -14, eo((t - t0 - 1.2) / 1.0))
-    draw_scale(fr, t, 290, 900, 220, tl, a1, '价格', '价值', 1.3, 0.5, WHITE, GOLD, '1500', '300')
-    fr.text('依然昂贵得惊人', 290, 1240, 40, 'serif_black', RED2, a1 * eo((t - t0 - 2.2) / 0.4), mode='L', glow=0.3)
-    a2 = a * eo((t - t23 - 0.2) / 0.5)
-    tr = lerp(0, 12, eo((t - t23 - 1.2) / 1.0))
-    draw_scale(fr, t, 790, 900, 220, tr, a2, '价格', '价值', 0.5, 1.2, WHITE, GOLD, '50', '100')
-    fr.text('可能蕴藏机会', 790, 1240, 40, 'serif_black', TEAL, a2 * eo((t - t23 - 2.4) / 0.4), mode='L', glow=0.3)
+    ch22 = lambda k: CH('L22', min(k, len(LN['L22']['chunks']) - 1))
+    ch23 = lambda k: CH('L23', min(k, len(LN['L23']['chunks']) - 1))
+    btext(fr, t, '贵不贵，看价值，不看跌幅', CX, ZB, 60, 'serif_black', WHITE, a, t0 + 0.2, glow=0.12)
+    base = 1290; k_ = 2.05                          # 价格 → 像素
+    yv = lambda p: base - p * k_
+    fr.line((150, base), (930, base), DIM, a * 0.5, 2)
+    # 价值线
+    av = a * eo((t - ch22(1)) / 0.6)
+    if av > 0.01:
+        x1 = lerp(150, 930, eo((t - ch22(1)) / 0.9))
+        fr.line((150, yv(100)), (x1, yv(100)), GOLD, av, 4); fr.glow((x1, yv(100)), 26, GOLD2, av * 0.6)
+        fr.text('真正值 100 元', 160, yv(100) - 34, 34, 'sans_black', GOLD, av, anchor='l', mode='L', glow=0.3)
+    # 价格柱 A：300 → 150
+    aA = a * eo((t - ch22(1) - 0.3) / 0.5)
+    if aA > 0.01:
+        u = eio((t - ch22(2) - 0.3) / 1.6)
+        p = lerp(300, 150, u); xa = 470; w = 78
+        over = cl((t - ch22(3) + 0.2) / 0.5)
+        fr.rrect_fill(xa - w, yv(min(p, 100)), xa + w, base, 6, C(200, 205, 220), aA * 0.22)
+        if p > 100:
+            fr.rrect_fill(xa - w, yv(p), xa + w, yv(100), 6, lerpc(C(200, 205, 220), RED2, over), aA * (0.22 + 0.25 * over))
+        fr.rrect(xa - w, yv(p), xa + w, base, 6, lerpc(C(220, 225, 240), RED2, over), aA, 2)
+        fr.text(str(int(round(p))), xa, yv(p) - 40, 58, 'num', lerpc(WHITE, RED2, over), aA, mode='L', glow=0.25)
+        if u > 0.02:
+            fr.text('300', xa + w + 18, yv(300), 30, 'num', DIM, aA * 0.6 * u, anchor='l')
+            dashed(fr, (xa - w, yv(300)), (xa + w, yv(300)), DIM, aA * 0.5 * u, 2)
+        ao = aA * over
+        if ao > 0.01:
+            fr.text('腰斩了，还贵 50%', xa, base + 50, 32, 'sans_black', RED2, ao, mode='L', glow=0.25)
+    # 价格柱 B：50
+    aB = a * eo((t - t23 - 0.2) / 0.5)
+    if aB > 0.01:
+        xb = 800; w = 78; u = eo((t - t23 - 0.2) / 0.9)
+        p = 50 * u
+        fr.rrect_fill(xb - w, yv(p), xb + w, base, 6, TEAL, aB * 0.3); fr.rrect(xb - w, yv(p), xb + w, base, 6, TEAL, aB, 2)
+        fr.text('50', xb, yv(p) - 40, 58, 'num', TEAL, aB, mode='L', glow=0.3)
+        a5 = a * eo((t - ch23(1)) / 0.5)
+        if a5 > 0.01:
+            xx = xb + w + 30
+            fr.line((xx, yv(100)), (xx, lerp(yv(100), yv(50), eo((t - ch23(1)) / 0.6))), TEAL, a5, 4)
+            fr.line((xx - 12, yv(100)), (xx + 12, yv(100)), TEAL, a5, 4); fr.line((xx - 12, yv(50)), (xx + 12, yv(50)), TEAL, a5, 4)
+            fr.text('五折', xx + 18, yv(75), 38, 'sans_black', TEAL, a5, anchor='l', mode='L', glow=0.35)
+            fr.text('没跌过，却便宜', xb, base + 50, 32, 'sans_black', TEAL, a5, mode='L', glow=0.25)
 
 def sh_gold1(fr, t):
     a = shot(t, 'gold1')
-    golden_line(fr, t, '跌了多少，不是答案', '值多少钱，才是问题', a, S['gold1'] + 0.05)
+    golden_line(fr, t, '关键不是它跌了多少', '而是它到底值多少钱', a, S['gold1'] + 0.05)
 
 # ================================================================ 问题一 · 护城河与能力圈
-T12 = '问题一 · 护城河与能力圈'
+T12 = '第一章 · 护城河与能力圈'
 
 def ring(fr, cx, cy, R, col, a, gaps=(), th=4, flip=1.0, n=220):
     t_ = np.linspace(0, 2 * math.pi, n); keep = np.ones(n, bool)
@@ -984,7 +1021,7 @@ def sh_circle(fr, t):
     fr.text('巴菲特，1996 年致股东信', CX, ZD, 24, 'sans_light', DIM, a * eo((t - t0 - 1.0) / 0.5))
 
 # ================================================================ 问题一 · 时代故事、周期、预期
-T13 = '问题一 · 时代故事、周期与预期'
+T13 = '第一章 · 时代、周期与预期'
 
 def sh_story(fr, t):
     a = shot(t, 'story')
@@ -1283,10 +1320,10 @@ def sh_inv(fr, t):
         if int(t * 2.5) % 2 == 0: fr.line((x0 + 130, y0 + 196), (x0 + 130, y0 + 244), WHITE, ar, 3)
 
 # ================================================================ 问题二
-T2 = '问题二 · 股价下跌，就说明买错了吗？'
+T2 = '第二章 · 下跌≠买错'
 
 def sh_q2(fr, t):
-    chapter_card(fr, t, 'q2', 'QUESTION 02', '股价下跌', '就说明当初买错了吗？')
+    chapter_card(fr, t, 'q2', '第二章 · 下跌≠买错', '股价下跌', '就说明当初买错了吗？')
     a = shot(t, 'q2')
     t71 = _t('L71')
     btext(fr, t, '未必。', CX, 1250, 110, 'serif_black', GOLD, a, t71, glow=0.45, grad=GOLDG, dur=0.4)
@@ -1404,10 +1441,10 @@ def sh_line(fr, t):
     golden_line(fr, t, '区分它们的，不是涨跌', '是企业的事实，有没有改变', a * eo((t - t84) / 0.4), t84)
 
 # ================================================================ 问题三
-T3 = '问题三 · 真正的价值投资'
+T3 = '第三章 · 价值投资的本质'
 
 def sh_q3(fr, t):
-    chapter_card(fr, t, 'q3', 'QUESTION 03', '真正的价值投资', '究竟是什么？')
+    chapter_card(fr, t, 'q3', '第三章 · 价值投资的本质', '真正的价值投资', '究竟是什么？')
 
 def sh_principles(fr, t):
     a = shot(t, 'principles')
@@ -1456,26 +1493,24 @@ def sh_rebuild(fr, t):
     if a <= 0: return
     tag(fr, t, T3, a, S['principles'])
     t0 = S['rebuild']; P = hammer_particles(); x0, y0, sc = CX, 1000.0, 0.6
-    if t < t0 + 0.6: draw_hammer(fr, t, a * (1 - eo((t - t0) / 0.5)), pose=(x0, y0, 0.0, sc))
     bx = x0 + P['x'] * sc; by = y0 + P['y'] * sc; u = max(t - t0 - 0.3, 0)
     ex = bx + P['vx'] * 200 * (1 - math.exp(-u * 1.8)); ey = by + P['vy'] * 200 * (1 - math.exp(-u * 1.8))
-    g = eio((t - t0 - 1.2) / 1.6)
+    g = eio((t - t0 - 0.5) / 1.1)
     tx_, ty_ = along(scale_segs(CX, 960, 330), P['u']); tx_ += P['j'] * 3; ty_ += P['j'] * 3
     px_, py_ = lerp(ex, tx_, g), lerp(ey, ty_, g)
     if t > t0 + 0.2:
-        fr.splat(px_, py_, P['col'] * (1 - g * 0.4) + np.array(GOLD2) * g * 0.4, a * 0.9 * (1 - eo((t - t0 - 3.4) / 0.6)), 'E')
+        fr.splat(px_, py_, P['col'] * (1 - g * 0.4) + np.array(GOLD2) * g * 0.4, a * 1.3 * (1 - eo((t - t0 - 1.9) / 0.6)), 'E')
         fr.splat(px_, py_, P['col'], a * 0.35, 'B')
-    if t < t0 + 0.6: fr.glow((x0, y0 - 60), 180, GOLD2, max(0, 1 - (t - t0) / 0.6) * a)
-    ad = a * eo((t - t0 - 3.0) / 0.6)
-    draw_scale(fr, t, CX, 960, 330, 6 * eo((t - t0 - 3.2) / 1.0), ad, '价格', '保守估计的价值', 0.7, 1.0)
-    chip(fr, CX, 1290, '为判断错误，留下安全边际', TEAL, ad * eo((t - t0 - 3.6) / 0.5), 34, 0.12)
-    btext(fr, t, '能力圈 · 合理价格 · 安全边际', CX, ZB, 58, 'serif_black', GOLD, a, t0 + 1.0, glow=0.3, grad=GOLDG)
+    ad = a * eo((t - t0 - 0.6) / 0.6)
+    draw_scale(fr, t, CX, 960, 330, 6 * eo((t - t0 - 0.9) / 1.0), ad, '价格', '保守估计的价值', 0.7, 1.0)
+    chip(fr, CX, 1290, '为判断错误，留下安全边际', TEAL, ad * eo((t - t0 - 1.3) / 0.5), 34, 0.12)
+    btext(fr, t, '能力圈 · 合理价格 · 安全边际', CX, ZB, 58, 'serif_black', GOLD, a, t0 + 0.4, glow=0.3, grad=GOLDG)
 
 def sh_diversify(fr, t):
     a = shot(t, 'diversify')
     if a <= 0: return
     tag(fr, t, T3, a, S['principles'])
-    t0 = S['diversify']; u = eio((t - t0 - 1.8) / 1.6)
+    t0 = S['diversify']; u = eio((t - t0 - 1.0) / 1.4)
     pos = [(CX, 960), (300, 800), (780, 800), (300, 1140), (780, 1140)]
     for k, (x, y) in enumerate(pos):
         if k == 0: R = lerp(300, 120, u); xx, yy = CX, 960
@@ -1484,7 +1519,7 @@ def sh_diversify(fr, t):
         ring(fr, xx, yy, R, GOLD if k == 0 else TEAL, a, th=3); fr.glow((xx, yy), R * 0.5, GOLD if k == 0 else TEAL, a * 0.1)
     fr.text('风险管理', CX, 960, 50, 'serif_black', GOLD, a * (1 - u * 0.0), mode='L', glow=0.3)
     btext(fr, t, '做到这些，也无法保证每一次都成功', CX, ZB, 54, 'serif_black', WHITE, a, t0 + 0.2, glow=0.12)
-    fr.text('适度分散', CX, 1330, 36, 'sans_black', TEAL, a * eo((t - t0 - 3.0) / 0.4))
+    fr.text('适度分散', CX, 1330, 36, 'sans_black', TEAL, a * eo((t - t0 - 2.2) / 0.4))
 
 def sh_finale(fr, t):
     a = shot(t, 'finale')
@@ -1500,7 +1535,7 @@ def sh_finale(fr, t):
     if a2 > 0:
         L3 = [('好公司，不一定是好投资', WHITE), ('好投资，也不一定立刻带来好回报', WHITE), ('真正的价值投资', GOLD), ('是在不确定的世界里', GOLD), ('尽可能作出有利于长期回报的决策', GOLD)]
         for k, (s, col) in enumerate(L3):
-            btext(fr, t, s, CX, 640 + k * 130, 56 if k > 1 else 60, 'serif_black', col, a2, t1 + 0.5 + k * 0.7, glow=0.35 if col == GOLD else 0.1,
+            btext(fr, t, s, CX, 640 + k * 130, 56 if k > 1 else 60, 'serif_black', col, a2, t1 + 0.4 + k * 0.5, glow=0.35 if col == GOLD else 0.1,
                   grad=GOLDG if col == GOLD else None)
     dust(fr, t, a * 1.3)
 
@@ -1605,38 +1640,44 @@ def subtitles(out, t):
                 band *= (1 - 0.35 * a)
                 post_text(out, s, CX, y, size, 'sans_med', a, lambda ch: GOLD2 if ch in GOLD_CH else (0.96, 0.96, 0.97))
 
-CHAPTERS = [(0, '序章'), (S['q1_card'], '问题一'), (S['q2_card'], '问题二'), (S['q3_card'], '问题三'), (S['epilogue'] - 0.5, '尾声')]
+CHAPTERS = [(0, '好公司也亏钱'), (S['q1_card'], '好公司≠好投资'), (S['q2_card'], '下跌≠买错'), (S['q3_card'], '价值投资的本质'),
+            (S['epilogue'] - 0.5, '回到原点')]
 CH_END = [c[0] for c in CHAPTERS[1:]] + [S['card']]
-BAR_Y, BAR_X0, BAR_X1, BAR_GAP = 92, 52, 1028, 14
+HUD = Hud(scale=1.0, frame_w=W)
+HUD.y0 = 44                                          # 角标与章节条同一行（右侧）
+BAR_X0, BAR_X1, BAR_GAP = 40, HUD.x0 - 34, 12
+BAR_CY = HUD.y0 + HUD.h / 2                         # 章节条整体与角标上下居中
+BAR_LAB, BAR_Y, BAR_FS = BAR_CY - 13, int(BAR_CY + 16), 22
+_lw = [text_width(l, 'sans_black', BAR_FS) + 10 for _, l in CHAPTERS]
+_extra = (BAR_X1 - BAR_X0 - BAR_GAP * (len(CHAPTERS) - 1) - sum(_lw)) / len(CHAPTERS)
+BAR_SEG = []
+_x = BAR_X0
+for w_ in _lw: BAR_SEG.append((_x, _x + w_ + _extra)); _x += w_ + _extra + BAR_GAP
 def chapter(fr, t): pass
 
 def chapter_bar(out, t):
-    """顶部章节条：五段，已看完的段淡金，当前段亮金并随进度填满，未到的段灰；当前章节名高亮"""
+    """顶部章节条（与品牌角标同一行）：五章按主题命名；看完的段淡金，当前段亮金并随进度填满，未到的段灰"""
     a = (1 - eio((t - S['card'] + 0.5) / 0.5)) * eo((t - 0.3) / 0.6)
     if a <= 0.003: return
-    n = len(CHAPTERS); sw = (BAR_X1 - BAR_X0 - BAR_GAP * (n - 1)) / n
-    cur = max(k for k in range(n) if t >= CHAPTERS[k][0])
-    for k, (t0, lab) in enumerate(CHAPTERS):
-        x0 = BAR_X0 + k * (sw + BAR_GAP); x1 = x0 + sw
-        y0, y1 = BAR_Y - 2, BAR_Y + 2
+    cur = max(k for k in range(len(CHAPTERS)) if t >= CHAPTERS[k][0])
+    for k, ((t0, lab), (x0, x1)) in enumerate(zip(CHAPTERS, BAR_SEG)):
+        y0, y1 = BAR_Y - 2, BAR_Y + 1
         reg = out[y0:y1, int(x0):int(x1)]
-        reg *= 1 - 0.5 * a; reg += np.array((0.32, 0.33, 0.38), np.float32) * 0.5 * a      # 底轨
+        reg *= 1 - 0.5 * a; reg += np.array((0.32, 0.33, 0.38), np.float32) * 0.5 * a
         p = 1.0 if k < cur else (cl((t - t0) / (CH_END[k] - t0)) if k == cur else 0.0)
         if p > 0:
             xe = int(x0 + (x1 - x0) * p)
             col = np.array(GOLD2 if k == cur else GOLDD, np.float32)
             r2 = out[y0:y1, int(x0):xe]; r2 *= 1 - a; r2 += col * a
-            if k == cur:                                                               # 进度头的小光点
+            if k == cur:
                 gy0, gy1, gx0, gx1 = BAR_Y - 9, BAR_Y + 9, max(xe - 9, 0), min(xe + 9, W)
                 yy, xx = np.mgrid[gy0:gy1, gx0:gx1]
                 gl = np.exp(-((yy - BAR_Y) ** 2 + (xx - xe) ** 2) / 18.0)[..., None]
                 out[gy0:gy1, gx0:gx1] += gl * np.array(GOLD2, np.float32) * 0.8 * a
         on = k == cur
-        colf = (lambda ch: GOLD2) if on else (lambda ch: (0.62, 0.63, 0.68))
-        post_text(out, lab, (x0 + x1) / 2, BAR_Y - 34, 26, 'sans_black' if on else 'sans_med', a * (1.0 if on else 0.7), colf)
+        colf = (lambda ch: GOLD2) if on else (lambda ch: (0.6, 0.61, 0.66))
+        post_text(out, lab, (x0 + x1) / 2, BAR_LAB, BAR_FS, 'sans_black' if on else 'sans_med', a * (1.0 if on else 0.75), colf)
 
-HUD = Hud(scale=1.0, frame_w=W)
-HUD.y0 = 132                                         # 角标下移到章节条下方（原 30）
 CUTS = sorted(set([v for k, v in S.items() if k not in ('post', 'title') and not k.endswith('_card')]))
 
 def zoom_blur(out, k):
@@ -1650,7 +1691,7 @@ def zoom_blur(out, k):
     return acc / wsum
 
 SHOTS = [sh_post, sh_books, sh_tencent, sh_unwilling, sh_catl, sh_ali, sh_zp, sh_gold, sh_nv, sh_wall, sh_title,
-         lambda fr, t: chapter_card(fr, t, 'q1', 'QUESTION 01', '买了好公司', '为什么还可能亏钱？'),
+         lambda fr, t: chapter_card(fr, t, 'q1', '第一章 · 好公司≠好投资', '买了好公司', '为什么还可能亏钱？'),
          sh_anchor, sh_scale, sh_twoscales, sh_gold1, sh_tenyear, sh_moat, sh_quotes, sh_newmoat, sh_keep, sh_tech, sh_ibm,
          sh_baskets, sh_circle, sh_story, sh_cars, sh_air, sh_capital, sh_lowpe, sh_stair, sh_q99, sh_expect, sh_post2,
          sh_hammer, sh_inv, sh_q2, sh_noise, sh_drops, sh_band, sh_guarantee, sh_branches, sh_line, sh_q3, sh_principles,

@@ -1,11 +1,11 @@
-"""逐句合成旁白 -> work/vo/Lxx.wav（48k 单声道，裁掉首尾静音）并打印时长。"""
+"""逐句合成旁白 -> work/vo_ref/Lxx.wav（48k 单声道，裁掉首尾静音）。只作整段合成切句时的时长参考与校验。"""
 import os, sys, subprocess, concurrent.futures as cf
 import numpy as np, soundfile as sf, librosa
 sys.path.insert(0, os.path.dirname(__file__))
 from script import LINES
 from tts import synth
 SPK = 'zh_male_m191_uranus_bigtts'
-RATE = int(os.environ.get('RATE', '6'))
+RATE = int(os.environ.get('RATE', '32'))
 OUT = sys.argv[1] if len(sys.argv) > 1 else 'work/vo'
 os.makedirs(OUT, exist_ok=True)
 def one(L):

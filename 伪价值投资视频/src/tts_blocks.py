@@ -13,26 +13,21 @@ from script import LINES, TONE
 from tts import synth
 
 SPK = 'zh_male_m191_uranus_bigtts'
-RATE = int(os.environ.get('RATE', '6'))
+RATE = int(os.environ.get('RATE', '32'))
 W = sys.argv[1] if len(sys.argv) > 1 else 'work'
-OUT, REF, CACHE = f'{W}/vo', f'{W}/vo_old', f'{W}/vo_blocks'
+OUT, REF, CACHE = f'{W}/vo', f'{W}/vo_ref', f'{W}/vo_blocks'
 os.makedirs(OUT, exist_ok=True); os.makedirs(CACHE, exist_ok=True)
 SR = 48000
-MAXC = 230                                     # 每段最多字数
-CHAPTER = {'L16', 'L61', 'L70', 'L85', 'L89', 'L90'}   # 必须断开的地方：章节卡、铁锤段、全片收束、尾声
-
-src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'timeline.py'), encoding='utf-8').read()
-SEC = {b for _, b in re.findall(r"\('(\w+)', '(L\w+)', \d, '\w+'\)", src)}
+# 按章（长章按小节）整段合成：接缝只出现在章节卡 / 小节转场处，那里本来就有音乐和画面的停顿
+BREAKS = ['L01', 'L16', 'L25', 'L44', 'L61', 'L70', 'L85', 'L90']
 ID = {L[0]: k for k, L in enumerate(LINES)}
 
 
 def blocks():
-    out, cur, n = [], [], 0
+    out, cur = [], []
     for L in LINES:
-        i, text = L[0], L[1]
-        brk = i in CHAPTER or (i in SEC and n + len(text) > MAXC * 0.6) or n + len(text) > MAXC
-        if cur and brk: out.append(cur); cur, n = [], 0
-        cur.append(L); n += len(text)
+        if cur and L[0] in BREAKS: out.append(cur); cur = []
+        cur.append(L)
     out.append(cur)
     return out
 
@@ -92,6 +87,58 @@ def split(y, exp):
     return b, a0, a1
 
 
+def _feat(y):
+    z = librosa.resample(y, orig_sr=SR, target_sr=16000)
+    m = librosa.feature.mfcc(y=z, sr=16000, n_mfcc=20, hop_length=320)[1:]
+    return (m - m.mean(1, keepdims=True)) / (m.std(1, keepdims=True) + 1e-6)
+
+
+def align_split(y, refs):
+    """强制对齐切句：把整段音频和逐句参考音频（同一文本、同一音色）的拼接做 DTW，
+    把参考里的句界映射到整段里，再吸附到附近最安静的位置。返回 [(切点起, 切点止)]、首、尾（秒）"""
+    hop = 320 / 16000
+    F = _feat(y)
+    R = [_feat(r) for r in refs]
+    bounds = np.cumsum([r.shape[1] for r in R])[:-1]
+    D, wp = librosa.sequence.dtw(F, np.hstack(R), metric='cosine', global_constraints=True, band_rad=0.12)
+    wp = wp[::-1]
+    sil = silences(y, thr_db=-32, min_len=0.05)
+    a0 = sil[0][1] if sil and sil[0][0] < 0.05 else 0.0
+    a1 = sil[-1][0] if sil and sil[-1][1] > len(y) / SR - 0.05 else len(y) / SR
+    # 能量包络（10ms）
+    h = 480; n = len(y) // h
+    e = 20 * np.log10(np.sqrt(np.mean(y[:n * h].reshape(n, h) ** 2, 1)) + 1e-9)
+    out = []
+    for b in bounds:
+        ys = wp[wp[:, 1] == b, 0]
+        tb = (np.median(ys) if len(ys) else wp[np.argmin(np.abs(wp[:, 1] - b)), 0]) * hop
+        # 附近 ±0.35 秒内的静音段优先，没有就取能量最低点
+        near = [s_ for s_ in sil if s_[0] - 0.35 < tb < s_[1] + 0.35]
+        if near:
+            s_ = max(near, key=lambda q: (q[1] - q[0]) - 0.6 * abs((q[0] + q[1]) / 2 - tb))
+        else:
+            k0, k1 = int((tb - 0.25) / 0.01), int((tb + 0.25) / 0.01)
+            k = k0 + int(np.argmin(e[max(k0, 0):k1])); s_ = (k * 0.01 - 0.02, k * 0.01 + 0.02)
+        out.append(s_)
+    return out, a0, a1
+
+
+def seg_ok(y, b, a0, a1, refs):
+    """校验：每一段与它对应的参考句最像（比相邻两句更像），时长比在 0.7~1.4"""
+    st = [a0] + [s_[1] for s_ in b]; en = [s_[0] for s_ in b] + [a1]
+    segs = [y[int(st[k] * SR):int(en[k] * SR)] for k in range(len(refs))]
+    if any(len(g) < SR * 0.3 for g in segs): return False
+    Fs = [_feat(g) for g in segs]; Rs = [_feat(r) for r in refs]
+    def d(a, b_):
+        D, wp = librosa.sequence.dtw(a, b_, metric='cosine'); return D[-1, -1] / len(wp)
+    for k in range(len(refs)):
+        if not 0.7 < len(segs[k]) / len(refs[k]) < 1.4: return False
+        d0 = d(Fs[k], Rs[k])
+        for j in (k - 1, k + 1):
+            if 0 <= j < len(refs) and d(Fs[k], Rs[j]) < d0 * 1.02: return False
+    return True
+
+
 def synth_block(Ls, tag=''):
     text = ''.join(L[1] for L in Ls)
     h = hashlib.md5((SPK + str(RATE) + TONE + text + tag).encode()).hexdigest()[:10]
@@ -105,26 +152,27 @@ def synth_block(Ls, tag=''):
 
 
 def do_block(Ls, depth=0):
-    exp = [ref_dur(L[0]) for L in Ls]
+    refs = [sf.read(f'{REF}/{L[0]}.wav', dtype='float32')[0] for L in Ls]
+    r = None
     for attempt in range(3):
         y = synth_block(Ls, '' if attempt == 0 else f'#{attempt}')
-        r = split(y, exp)
-        if r is not None: break
-    else:
-        if len(Ls) == 1: r = ([], *(lambda s: (s[0][1] if s and s[0][0] < .05 else 0, s[-1][0] if s and s[-1][1] > len(y) / SR - .05 else len(y) / SR))(silences(y)))
-        else:
-            m = len(Ls) // 2
-            print('  split fallback', Ls[0][0], '..', Ls[-1][0], '->', Ls[m][0], flush=True)
-            return do_block(Ls[:m], depth + 1) + do_block(Ls[m:], depth + 1)
+        b, a0, a1 = align_split(y, refs)
+        if seg_ok(y, b, a0, a1, refs): r = (b, a0, a1); break
+        print('  align check failed', Ls[0][0], 'attempt', attempt, flush=True)
+    if r is None:
+        m = len(Ls) // 2
+        print('  split fallback', Ls[0][0], '..', Ls[-1][0], '->', Ls[m][0], flush=True)
+        return do_block(Ls[:m], depth + 1) + do_block(Ls[m:], depth + 1)
     b, a0, a1 = r
-    st = [a0] + [s[1] for s in b]; en = [s[0] for s in b] + [a1]
-    gaps = [s[1] - s[0] for s in b] + [None]
+    # 段内切点取停顿正中：把这些句子首尾相接，就还原成原来那一整段连续的话
+    cut = [max(0.0, a0 - 0.05)] + [(q[0] + q[1]) / 2 for q in b] + [min(len(y) / SR, a1 + 0.15)]
+    pause = [q[1] - q[0] for q in b] + [None]
     out = []
     for k, L in enumerate(Ls):
-        x0 = max(0, int((st[k] - 0.04) * SR)); x1 = min(len(y), int((en[k] + 0.09) * SR))
-        seg = y[x0:x1].copy()
-        f = int(0.012 * SR); seg[:f] *= np.linspace(0, 1, f); f = int(0.05 * SR); seg[-f:] *= np.linspace(1, 0, f)
-        out.append(dict(id=L[0], y=seg, gap=gaps[k], block=Ls[0][0]))
+        seg = y[int(cut[k] * SR):int(cut[k + 1] * SR)].copy()
+        if k == 0: f = int(0.01 * SR); seg[:f] *= np.linspace(0, 1, f)
+        if k == len(Ls) - 1: f = int(0.06 * SR); seg[-f:] *= np.linspace(1, 0, f)
+        out.append(dict(id=L[0], y=seg, gap=pause[k], block=Ls[0][0]))
     return out
 
 
@@ -163,6 +211,7 @@ def psola_shift(y, semi):
     call(pt, 'Multiply frequencies', snd.xmin, snd.xmax, 2 ** (semi / 12))
     call([pt, man], 'Replace pitch tier')
     out = call(man, 'Get resynthesis (overlap-add)').values[0]
+    out = np.pad(out, (0, max(0, len(y) - len(out))))
     return out[:len(y)].astype(np.float32)
 
 
@@ -194,20 +243,19 @@ if __name__ == '__main__':
         semi = 12 * np.log2(ratio)
         corr = np.clip(smooth_bands(LT - st['lt']), -4, 4)
         corr -= np.average(corr, weights=np.exp(-((np.linspace(0, SR / 2, len(corr)) - 1500) / 1500) ** 2))   # 只改音色，不改响度
-        for s in ss:
-            y = s['y']
-            if abs(semi) > 0.25: y = psola_shift(y, 0.7 * semi)
-            s['y'] = eq(y, corr)
+        corr = np.clip(corr, -4, 4)
+        y = np.concatenate([s['y'] for s in ss]); n = np.cumsum([0] + [len(s['y']) for s in ss])
+        if abs(semi) > 0.25: y = psola_shift(y, 0.7 * semi)
+        y = eq(y, corr)
+        for k, s in enumerate(ss): s['y'] = y[n[k]:n[k + 1]]
         print('%-5s f0 %.1f Hz -> shift %+.2f st, eq max %.1f dB' % (g, st['f0'], float(np.clip(0.7 * semi, -1.5, 1.5)) if abs(semi) > 0.25 else 0, np.abs(corr).max()), flush=True)
 
-    # 响度：整段统一到 -20 dBFS（有声 RMS），段内每句只做 ±1.5 dB 的微调，保留自然起伏
+    # 响度：每一整段统一到 -20 dBFS（有声 RMS）；段内不再逐句调整，保留原本的轻重起伏
     def arms(y):
         a = y[np.abs(y) > 0.02]; return np.sqrt(np.mean(a ** 2)) if len(a) else 1e-3
     for g, ss in groups.items():
         gb = 10 ** (-20 / 20) / arms(np.concatenate([s['y'] for s in ss]))
-        for s in ss:
-            gl = np.clip(10 ** (-20 / 20) / (arms(s['y']) * gb), 10 ** (-1.5 / 20), 10 ** (1.5 / 20))
-            s['y'] = s['y'] * gb * gl
+        for s in ss: s['y'] = s['y'] * gb
     pk = max(np.abs(s['y']).max() for s in segs)
     if pk > 0.89: [s.update(y=s['y'] * 0.89 / pk) for s in segs]
     gaps = {}
