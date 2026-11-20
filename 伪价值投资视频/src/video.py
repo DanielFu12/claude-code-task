@@ -457,9 +457,12 @@ def shot(t, name, fi=0.35, fo=0.35, until=None):
 def tag(fr, t, s, a, t0):
     """标签区：小节名（带两侧细线）"""
     if a <= 0: return
-    u = eo((t - t0) / 0.5); w = text_width(s, 'sans_med', 30) / 2
+    u = eo((t - t0) / 0.5); w = text_width(s, 'sans_med', 30, 0.15) / 2
     fr.text(s, CX, ZT, 30, 'sans_med', GOLD, a * u, track=0.15)
-    fr.line((CX - w - 70 * u, ZT), (CX - w - 20, ZT), GOLD, a * u * 0.6, 2); fr.line((CX + w + 20, ZT), (CX + w + 70 * u, ZT), GOLD, a * u * 0.6, 2)
+    v = eo((t - t0 - 0.2) / 0.5)                     # 横线在文字出现后再从内向外伸出，与文字保持 30px 间隙
+    if v > 0.01:
+        fr.line((CX - w - 30, ZT), (CX - w - 30 - 64 * v, ZT), GOLD, a * v * 0.6, 2)
+        fr.line((CX + w + 30, ZT), (CX + w + 30 + 64 * v, ZT), GOLD, a * v * 0.6, 2)
 
 def quote_card(fr, t, lines_, src, a, t0, y0=640, size=62, gold_last=True):
     """引文卡：竖排的大引号 + 逐行模糊入场 + 出处"""
@@ -732,8 +735,10 @@ def chapter_card(fr, t, key, no, q1, q2):
     if a <= 0: return
     u = t - t0
     fr.glow((CX, 860), 300, GOLD, a * 0.12 * (1 - eo(u / 1.5)) + a * 0.03)
-    fr.text(no, CX, 620, 40, 'sans_black', GOLD, a * eo(u / 0.4), track=0.4, mode='L', glow=0.3)
-    fr.line((CX - 160 * eo(u / 0.6), 680), (CX + 160 * eo(u / 0.6), 680), GOLD, a * 0.7, 2)
+    k = eo(u / 0.6)
+    fr.text(no, CX, 620, 40, 'sans_black', GOLD, a * k, track=0.4 + 0.5 * (1 - k), mode='L', glow=0.3)
+    v = eo((u - 0.35) / 0.6)
+    if v > 0.01: fr.line((CX - 160 * v, 688), (CX + 160 * v, 688), GOLD, a * 0.7 * v, 2)
     btext(fr, t, q1, CX, 820, 80, 'serif_black', WHITE, a, t0 + 0.15, glow=0.15)
     btext(fr, t, q2, CX, 960, 80, 'serif_black', GOLD, a, t0 + 0.55, glow=0.45, grad=GOLDG)
 
@@ -1600,14 +1605,39 @@ def subtitles(out, t):
                 band *= (1 - 0.35 * a)
                 post_text(out, s, CX, y, size, 'sans_med', a, lambda ch: GOLD2 if ch in GOLD_CH else (0.96, 0.96, 0.97))
 
-CHAPTERS = [(0, '序章  ·  雪球热帖'), (S['q1_card'], '问题一'), (S['q2_card'], '问题二'), (S['q3_card'], '问题三'), (S['epilogue'] - 0.5, '尾声')]
-def chapter(fr, t):
-    lab = [l for t0, l in CHAPTERS if t >= t0][-1]
-    a = 0.75 * (1 - eio((t - S['card'] + 0.5) / 0.5)) * eo((t - 0.6) / 0.5)
-    fr.text(lab, 52, 92, 26, 'sans_med', C(200, 200, 210), a, anchor='l')
+CHAPTERS = [(0, '序章'), (S['q1_card'], '问题一'), (S['q2_card'], '问题二'), (S['q3_card'], '问题三'), (S['epilogue'] - 0.5, '尾声')]
+CH_END = [c[0] for c in CHAPTERS[1:]] + [S['card']]
+BAR_Y, BAR_X0, BAR_X1, BAR_GAP = 92, 52, 1028, 14
+def chapter(fr, t): pass
+
+def chapter_bar(out, t):
+    """顶部章节条：五段，已看完的段淡金，当前段亮金并随进度填满，未到的段灰；当前章节名高亮"""
+    a = (1 - eio((t - S['card'] + 0.5) / 0.5)) * eo((t - 0.3) / 0.6)
+    if a <= 0.003: return
+    n = len(CHAPTERS); sw = (BAR_X1 - BAR_X0 - BAR_GAP * (n - 1)) / n
+    cur = max(k for k in range(n) if t >= CHAPTERS[k][0])
+    for k, (t0, lab) in enumerate(CHAPTERS):
+        x0 = BAR_X0 + k * (sw + BAR_GAP); x1 = x0 + sw
+        y0, y1 = BAR_Y - 2, BAR_Y + 2
+        reg = out[y0:y1, int(x0):int(x1)]
+        reg *= 1 - 0.5 * a; reg += np.array((0.32, 0.33, 0.38), np.float32) * 0.5 * a      # 底轨
+        p = 1.0 if k < cur else (cl((t - t0) / (CH_END[k] - t0)) if k == cur else 0.0)
+        if p > 0:
+            xe = int(x0 + (x1 - x0) * p)
+            col = np.array(GOLD2 if k == cur else GOLDD, np.float32)
+            r2 = out[y0:y1, int(x0):xe]; r2 *= 1 - a; r2 += col * a
+            if k == cur:                                                               # 进度头的小光点
+                gy0, gy1, gx0, gx1 = BAR_Y - 9, BAR_Y + 9, max(xe - 9, 0), min(xe + 9, W)
+                yy, xx = np.mgrid[gy0:gy1, gx0:gx1]
+                gl = np.exp(-((yy - BAR_Y) ** 2 + (xx - xe) ** 2) / 18.0)[..., None]
+                out[gy0:gy1, gx0:gx1] += gl * np.array(GOLD2, np.float32) * 0.8 * a
+        on = k == cur
+        colf = (lambda ch: GOLD2) if on else (lambda ch: (0.62, 0.63, 0.68))
+        post_text(out, lab, (x0 + x1) / 2, BAR_Y - 34, 26, 'sans_black' if on else 'sans_med', a * (1.0 if on else 0.7), colf)
 
 HUD = Hud(scale=1.0, frame_w=W)
-CUTS = sorted(set([v for k, v in S.items() if k not in ('post',)]))
+HUD.y0 = 132                                         # 角标下移到章节条下方（原 30）
+CUTS = sorted(set([v for k, v in S.items() if k not in ('post', 'title') and not k.endswith('_card')]))
 
 def zoom_blur(out, k):
     """转场：径向推镜模糊（多层放大叠加）"""
@@ -1637,7 +1667,7 @@ def render(t):
     chapter(fr, t)
     fr.flash = 0.03 * imp
     fr.ca = 4 * impact(t, 1.3)
-    fr.streak = 0.3 + 0.9 * imp
+    fr.streak = 0.3 + 0.5 * imp
     for key in STRIKE_KEYS:                 # 锤击震屏
         u = t - CUE[key]
         if 0 <= u < 0.4:
@@ -1651,9 +1681,8 @@ def render(t):
     if abs(z - 1) > 1e-4:
         M_ = cv2.getRotationMatrix2D((W / 2, H * 0.45), 0, z)
         out = cv2.warpAffine(out, M_, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
-    p = t / TOTAL
-    out[0:5, :int(W * p)] = out[0:5, :int(W * p)] * 0.3 + np.array(GOLD, np.float32) * 0.7
     subtitles(out, t)
+    chapter_bar(out, t)
     out = np.clip(out, 0, 1)
     HUD.draw(out, t)
     fade = min(1.0, t / 0.35) * min(1.0, (TOTAL - t) / 0.6)

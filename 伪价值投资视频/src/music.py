@@ -378,13 +378,7 @@ mix += fx * 1.0 + verb(fx, 0.35)
 mix = hp(mix, 30, 2)
 mix = lp(mix, 10000, 2)                    # 去刺耳高频
 
-# 旁白闪避：人声时音乐压低约 7dB
-v, _ = sf.read(f'{W}/voice.wav', dtype='float32')
-env = np.abs(v); env = np.pad(env, (0, max(0, N - len(env))))[:N]
-k = int(0.02 * SR); env = (np.convolve(env, np.ones(k) / k, 'same') > 0.01).astype(np.float32)
-a_att, a_rel = np.exp(-1 / (0.08 * SR)), np.exp(-1 / (0.5 * SR))
-g = np.maximum(signal.lfilter([1 - a_rel], [1, -a_rel], env), signal.lfilter([1 - a_att], [1, -a_att], env))
-mix *= (1 - 0.55 * np.clip(g * 1.4, 0, 1))[:, None]
+# 旁白闪避移到 src/mix.py 的最终混音里做（在压缩之后，才不会被压缩器抹平）
 mix = mix[:int(T * SR)]
 f = int(3.0 * SR); mix[-f:] *= np.linspace(1, 0, f)[:, None] ** 1.5
 mix /= np.sqrt(np.mean(mix ** 2)) / 0.09

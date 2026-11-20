@@ -89,6 +89,7 @@ def reveal_off(i, y, d):
     return None
 
 
+NAT = json.load(open(f'{W}/vo/gaps.json')) if os.path.exists(f'{W}/vo/gaps.json') else {}
 lines, secs, cues = [], {}, {}
 voice = np.zeros(int(1000 * SR), np.float32)
 t = BEAT
@@ -113,7 +114,9 @@ for (i, text, sub, ctx, gap) in LINES:
         cues[i] = round(t + off, 3)
     lines.append(dict(id=i, t0=round(t, 4), t1=round(t + d, 4), sub=sub, pauses=ps, chunks=chunks(sub, ps, t, d)))
     a = int(t * SR); voice[a:a + len(y)] += y
-    t = up(t + d + gap * GAP_K, BEAT / 2)
+    ng = NAT.get(i)
+    if ng is not None: t = t + d + float(np.clip(ng - 0.13, 0.12, 0.8))      # 同一段里：沿用整段合成时的自然停顿
+    else: t = up(t + d + gap * GAP_K, BEAT / 2)
 secs['card'] = up(t + 1.5, BEAT)
 T = secs['card'] + 6 * BEAT
 voice = voice[:int(T * SR)]
