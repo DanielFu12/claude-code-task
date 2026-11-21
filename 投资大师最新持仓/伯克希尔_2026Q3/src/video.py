@@ -22,6 +22,7 @@ OTHER = C(70, 80, 105)
 MINUS = '−'
 JPC = C(255, 128, 140)       # 日本商社
 W_OF = {r[1]: r[3] for r in D.H}     # 网页占比
+VAL_OF = {r[1]: r[2] for r in D.H}   # 网页持仓市值（亿美元）
 ASSETS_Y = D.ASSETS / 1e8          # 资产规模（亿美元）
 # 持仓全览：谷歌-A、谷歌-C 合并为「谷歌（A+C）」，按市值重新排序 → 谷歌升至第 3
 _g = [r for r in D.H if r[1] in ('GOOGL', 'GOOG')]
@@ -366,7 +367,7 @@ def sc_cluster(f, t):
             else:
                 f.text(tk, x, y - (r * 0.12 if r > 80 else 0), max(int(r * 0.42), 20), 'bebas', lerpc(col, WHITE, .5), al)
         if r > 80:
-            f.text(f'{w:.2f}%', x, y + r * 0.32, int(r * 0.2), 'mono', INK, al * 0.85)
+            f.text(f'{v:.0f}亿', x, y + r * 0.32, int(r * 0.2), 'sans_med', INK, al * 0.85)
     runs(f, [(f'{D.N_POS}', 'bebas', 150, [GOLD2, GOLD]), (' 只持仓', 'serif_black', 64, GOLD2)], CX, 360, a * (1 - eio((t - out[0]) / out[1])),
          glow=0.3, t0=T_S2, stag=0.06)
     f.text('圆面积 = 持仓市值（美元）　粉色 = 日本商社', CX, 470, 28, 'sans_light', DIM, a, t0=T_S2 + 0.4, out=out)
@@ -425,7 +426,7 @@ def sc_donut(f, t):
     out = (T_S6 - 0.5, 0.45)
     eyebrow(f, 'PORTFOLIO  ·  持仓全景', 290, a, T_S5)
     headline(f, '前十大重仓', 372, a, T_S5 + 0.1, out=out)
-    f.text('占比 = 持仓市值 ÷ 资产规模（美元）', CX, 440, 26, 'sans_light', DIM, a, t0=T_S5 + 0.5, out=out)
+    f.text('按持仓市值排序 · 单位：亿美元', CX, 440, 26, 'sans_light', DIM, a, t0=T_S5 + 0.5, out=out)
     cx, cy, R1, R0 = CX, 800, 330, 232
     rot = -math.pi / 2 + 0.25 * eio((t - T_S5) / 3) - 0.25
     exit_p = eio((t - out[0]) / 0.7)
@@ -471,18 +472,20 @@ def sc_donut(f, t):
         zh, tk, v, w, *_ = TOP_M[fk]
         tf = t - b(62 + 4 * fk)
         ca = a * eo(tf / 0.3)
-        f.text(f'#{fk + 1}', cx, cy - 120, 36, 'bebas', GOLD, ca)
-        f.text(zh, cx, cy - 62, 50 if len(zh) > 4 else 54, 'serif_black', WHITE, ca, t0=b(62 + 4 * fk), stag=0.04, rise=12)
-        f.text(f'{w:.2f}%', cx, cy + 38, 118, 'bebas', WHITE, ca, grad=[GOLD2, GOLD], glow=0.3, mode='E')
+        f.text(f'#{fk + 1}', cx, cy - 132, 34, 'bebas', GOLD, ca)
+        f.text(zh, cx, cy - 78, 48 if len(zh) > 4 else 52, 'serif_black', WHITE, ca, t0=b(62 + 4 * fk), stag=0.04, rise=12)
+        # 主数字统一为持仓市值（亿美元），占比作为辅助信息
+        runs(f, [(f'{v:.2f}', 'bebas', 104, [GOLD2, GOLD]), ('亿美元', 'sans_med', 30, GOLD2)], cx, cy + 18, ca, mode='E', glow=0.3)
         if fk == G_RANK:      # 谷歌：A + C 合并后升至第三大持仓
-            gA, gC = W_OF['GOOGL'], W_OF['GOOG']
-            f.text(f'A {gA:.2f}% + C {gC:.2f}%', cx, cy + 122, 28, 'sans_med', GOLD2, ca)
+            gA, gC = VAL_OF['GOOGL'], VAL_OF['GOOG']
+            f.text(f'A {gA:.2f}亿 + C {gC:.2f}亿', cx, cy + 100, 26, 'sans_med', GOLD2, ca)
+            f.text(f'市值占比 {w:.2f}%', cx, cy + 140, 24, 'sans_light', INK, ca)
             pp = eback(cl((tf - 0.5) / 0.45), 2)
             chip(f, '谷歌升至第三大持仓', cx, 1196, 34, GOLD2, a * cl(pp) * (1 - exit_p), 'sans_black', 0.18)
             f.glow((cx, 1196), 120, GOLD2, a * 0.2 * cl(pp) * (1 + math.exp(-max(tf - 0.5, 0) / 0.3)), 'B')
             burst(f, t, b(62 + 4 * fk) + 0.25, cx, cy, [GOLD2, GOLD, WHITE], 4, 500, 1000, 0.9, a=0.8)
         else:
-            f.text(f'{v:.2f} 亿美元', cx, cy + 122, 30, 'sans_light', INK, ca)
+            f.text(f'市值占比 {w:.2f}%', cx, cy + 110, 28, 'sans_light', INK, ca)
     # 图例（两列）
     for i, (zh, tk, v, w, *_) in enumerate(TOP_M):
         col = GOLD2 if i == G_RANK else GOLDS[i]
@@ -493,9 +496,10 @@ def sc_donut(f, t):
         if al < 0.01: continue
         x += (1 - p) * 30
         f.fillpoly([(x, y - 9), (x + 18, y - 9), (x + 18, y + 9), (x, y + 9)], col, al)
-        f.text(f'{i + 1:02d}', x + 34, y, 24, 'mono', DIM, al, 'l')
-        f.text(zh, x + 78, y, 32, 'sans_black' if i == G_RANK else 'sans_med', GOLD2 if i == G_RANK else WHITE, al, 'l')
-        f.text(f'{w:.2f}%', x + 380, y, 34, 'bebas', lerpc(col, WHITE, .3), al, 'r')
+        f.text(f'{i + 1:02d}', x + 30, y, 22, 'mono', DIM, al, 'l')
+        f.text('谷歌 A+C' if i == G_RANK else zh, x + 66, y, 28, 'sans_black' if i == G_RANK else 'sans_med', GOLD2 if i == G_RANK else WHITE, al, 'l')
+        f.text(f'{v:.2f}亿', x + 348, y, 28, 'sans_med', lerpc(col, WHITE, .3), al, 'r')
+        f.text(f'{w:.2f}%', x + 428, y, 24, 'bebas', DIM, al, 'r')
 
 
 def sc_conc(f, t):
@@ -611,7 +615,8 @@ def sc_googl(f, t):
         pts = [(lerp(x0, x1, u), lerp(y0, y1, u) - 90 * math.sin(u * math.pi)) for u in np.linspace(0, p, 40)]
         f.poly(pts, GOLD2, oa * 0.8, 2)
         f.glow(pts[-1], 8, GOLD2, oa * 0.8, 'E')
-    for i, (big, small) in enumerate([('#3', '第三大持仓（按市值）'), (f'{W_OF["GOOGL"] + W_OF["GOOG"]:.2f}%', '市值占比 · A 7.91% + C 2.70%'),
+    gv = VAL_OF['GOOGL'] + VAL_OF['GOOG']
+    for i, (big, small) in enumerate([('#3', '第三大持仓（按市值）'), (f'{gv:.2f}亿', f'持仓市值（美元）· 占比 {W_OF["GOOGL"] + W_OF["GOOG"]:.2f}%'),
                                       (wan(tot[-1]) + '股', '两类合计持股数')]):
         stat(f, big, small, 200 + i * 340, 1350, oa, GOLD2, b(113) + i * 2 * SPB)
     f.text('本季两类股数均未变动', CX, 1500, 30, 'sans_light', DIM, a, t0=b(116), out=out)
@@ -708,7 +713,8 @@ def change_rows(f, t, rows, col, t0s, a, y0=640, dy=230, sign='+'):
         nb = 90 + L * (s0 + (s1 - s0) * q) / mx
         box(f, 90, y + 44, nb, y + 64, col, al * 0.9)                                     # 本期
         box(f, 90, y + 44, nb, y + 64, col, al * 0.3, buf='B')
-        f.text(f'{web} 股　（{wan(s0)} → {wan(s1)}）', 90, y + 96, 26, 'sans_light', INK, al * cl((t - t0s[i] - 0.4) / 0.4), 'l')
+        f.text(f'{web.replace("-", MINUS)}股（{wan(s0)} → {wan(s1)}）　持仓市值 {VAL_OF[tk]:.2f}亿美元', 90, y + 96, 26, 'sans_light', INK,
+               al * cl((t - t0s[i] - 0.4) / 0.4), 'l')
 
 
 def sc_add(f, t):
@@ -738,7 +744,7 @@ def sc_cut(f, t):
     f.text('百分比 = 持股数变化（本季 vs 上季）', CX, 440, 26, 'sans_light', DIM, a, t0=T_S9 + 0.4, out=out)
     rows = sorted(D.CUT, key=lambda r: pct(r[2], r[3]))
     for i, (zh, tk, s0, s1, web) in enumerate(rows):
-        y = 540 + i * 168
+        y = 530 + i * 170
         ti = b(161 + 2 * i)
         p = eo((t - ti) / 0.45)
         if p <= 0: continue
@@ -747,6 +753,10 @@ def sc_cut(f, t):
         f.text(zh, 90, y, 40, 'serif_black', WHITE, al, 'l')
         f.text(tk, 90 + text_width(zh, 'serif_black', 40) + 14, y + 4, 24, 'mono', DIM, al, 'l')
         f.text(f'{MINUS}{abs(ch):.1f}%', 990, y, 76, 'bebas', lerpc(DOWN, WHITE, .2), al, 'r', mode='E', glow=0.25)
+        note = f'{web.replace("-", MINUS)}股　持仓市值 {VAL_OF[tk]:.2f}亿美元'
+        if tk in D.FILINGS and D.FILINGS[tk][0][1].startswith('Form 4'):
+            note += f'　· {D.FILINGS[tk][0][0].replace("-", "/")} Form 4 卖出申报'
+        f.text(note, 90, y + 86, 22, 'sans_light', INK, al * cl((t - ti - 0.4) / 0.4), 'l')
         # 被卖掉的比例条：整条代表上期持股，红色部分 = 卖出
         q = eio((t - ti - 0.1) / 0.6)
         L = 900
@@ -806,7 +816,7 @@ def sc_bac(f, t):
             x = 140 + 800 * i / (n - 1); y = 1150 - 450 * (v - 4.0e8) / 2.0e8
             f.text(f'{v / 1e8:.2f}亿股', x, y - 40, 28, 'sans_med', WHITE, oa * 0.95)
     bac_web = D.CUT[4][4].replace('-', MINUS)            # 网页「变动股份」：-2753万
-    for i, (big, small) in enumerate([('#5', '第五大持仓（按市值）'), (f'{W_OF["BAC"]:.2f}%', '市值占比'),
+    for i, (big, small) in enumerate([('#5', '第五大持仓（按市值）'), (f'{VAL_OF["BAC"]:.2f}亿', f'持仓市值（美元）· 占比 {W_OF["BAC"]:.2f}%'),
                                       (bac_web + '股', '本季变动股数')]):
         stat(f, big, small, 200 + i * 340, 1340, oa, GOLD2 if i < 2 else lerpc(DOWN, WHITE, .2), b(188) + i * 2 * SPB, 80)
 
@@ -867,39 +877,88 @@ def sc_sig1(f, t):
 
 
 
+def _day(md):
+    """'08-14' → 8 月 1 日起的天数"""
+    m, d = int(md[:2]), int(md[3:])
+    return (d - 1) if m == 8 else 31 + d - 1
+
+
+def _wan_num(s):
+    return float(s.replace('万', '')) * 1e4
+
+
 def sc_sig2(f, t):
-    """信号 02：加码美国「住房 + 出行」"""
+    """信号 02：加码美国「住房 + 出行」—— 莱纳建筑本季申报时间线 + 达美航空三个季度建仓"""
     if not (T_SIG2 - 0.4 < t < T_SIG3 + 0.6): return
     a = sa(t, T_SIG2, T_SIG3, 0.4, 0.45)
     out = (T_SIG3 - 0.45, 0.45)
     oa = a * (1 - eio((t - out[0]) / out[1]))
-    sig_head(f, t, '02', '加码美国「住房 + 出行」', '连续多个季度买入同一批股票', T_SIG2, a, out, UP)
-    panels = [('莱纳建筑-A', 'LEN · 住宅建筑商 · 持股数（股）', D.HIST['LEN'], 560, b(234)),
-              ('达美航空', 'DAL · 航空公司 · 持股数（股）', D.HIST['DAL'], 1040, b(242))]
-    for k, (zh, sub, h, y0, t0) in enumerate(panels):
-        p = eo((t - t0) / 0.5)
-        al = oa * p
-        f.text(zh, 90, y0, 46, 'serif_black', WHITE, al, 'l')
-        f.text(sub, 90 + text_width(zh, 'serif_black', 46) + 16, y0 + 4, 26, 'sans_light', DIM, al, 'l')
-        base, hmax = y0 + 330, 230
-        mx = max(h)
-        for i, v in enumerate(h):
-            x = 140 + i * 125
-            q = eo((t - t0 - 0.4 - i * 0.3) / 0.5)
-            hh = hmax * v / mx * q
-            col = lerpc(C(40, 110, 90), UP, i / 4)
-            if hh > 1:
-                box(f, x - 38, base - hh, x + 38, base, col, al * 0.85)
-                box(f, x - 38, base - hh, x + 38, base, col, al * 0.2, buf='B')
-            f.text(D.QUARTERS[i], x, base + 30, 22, 'mono', INK, al * 0.8)
-            if q > 0.1:
-                f.text(wan(v) if v else '0', x, base - hh - 26, 26 if v else 30, 'sans_med' if v else 'bebas', WHITE, al * q)
-        f.line((90, base), (700, base), INK, al * 0.4, 1)
-        if k == 0:
-            big, small = f'×{h[-1] / h[0]:.1f}', '一年持股数倍数'
-        else:
-            big, small = '0→' + wan(h[-1]) + '股', '三个季度持股数'
-        stat(f, big, small, 860, y0 + 180, oa, lerpc(UP, WHITE, .2), t0 + 1.6, 92 if k == 0 else 64)
+    F = D.LEN_FORM4
+    sig_head(f, t, '02', '加码美国「住房 + 出行」', '莱纳建筑本季 5 次申报，9 月下旬连续买入', T_SIG2, a, out, UP)
+    # ---------------- 莱纳建筑-A：本季申报时间线（持股数，申报时点）
+    t0 = b(233)
+    pa = oa * eo((t - t0) / 0.5)
+    f.text('莱纳建筑-A', 90, 470, 44, 'serif_black', WHITE, pa, 'l')
+    f.text('LEN · 住宅建筑商 · 持股数（股），各申报时点', 90 + text_width('莱纳建筑-A', 'serif_black', 44) + 16, 476, 24, 'sans_light', DIM, pa, 'l')
+    Y0, Y1 = 1000, 660                              # y：1000万 → 2800万股；x：每次申报等距排列
+    yv = lambda v: Y0 + (Y1 - Y0) * (v - 1.0e7) / 1.8e7
+    for k in range(4):
+        yy = yv(1.0e7 + k * 0.6e7)
+        f.line((150, yy), (990, yy), DIM, pa * 0.12, 1)
+        f.text(f'{1000 + k * 600}万', 138, yy, 20, 'sans_light', DIM, pa * 0.8, 'r')
+    f.line((150, Y0), (990, Y0), INK, pa * 0.4, 1)
+    pts, seen = [], set()
+    for (md, src, hold, chg) in D.FILINGS['LEN']:
+        if (md, hold) in seen: continue                         # 9/30 的 13F 与 Form 4 持股相同，合并为一个点
+        seen.add((md, hold))
+        tag = '13F + Form 4' if md == '09-30' else src.replace(' · 买入', ' 买入')
+        pts.append((md, hold, tag))
+    xs = [230, 470, 690, 900]
+    # 9/17–9/30 Form 4 连续买入窗口（第 2–4 个点）
+    wp = eio((t - b(240)) / 0.6)
+    if wp > 0:
+        xa, xb = xs[1] - 70, xs[3] + 70
+        box(f, xa, Y1 - 50, xa + (xb - xa) * wp, Y0, UP, pa * 0.07)
+        box(f, xa, Y1 - 50, xa + (xb - xa) * wp, Y0, UP, pa * 0.05, buf='B')
+        f.text(f'SEC Form 4：9/17–9/30 共 {F["days"]} 个交易日买入，成交价约 {F["px_lo"]:.0f}–{F["px_hi"]:.0f} 美元', CX, Y1 - 82, 24,
+               'sans_med', lerpc(UP, WHITE, .3), pa * cl((t - b(240.5)) / 0.4))
+    for i, ((md, hold, tag), x) in enumerate(zip(pts, xs)):
+        y = yv(_wan_num(hold))
+        ti = b(234 + 1.5 * i)
+        pp = eo((t - ti) / 0.45)
+        if pp <= 0: continue
+        if i:
+            px, py = xs[i - 1], yv(_wan_num(pts[i - 1][1]))
+            f.line((px, py), (lerp(px, x, pp), lerp(py, y, pp)), UP, pa * 0.9, 3)
+        f.glow((x, y), 9, UP, pa * pp, 'E')
+        f.glow((x, y), 24, UP, pa * pp * 0.3 * (1 + 2 * math.exp(-max(t - ti, 0) / 0.3)), 'B')
+        f.text(hold + '股', x, y - 40, 28, 'sans_med', WHITE, pa * pp)
+        f.text(md.replace('-', '/'), x, Y0 + 30, 22, 'mono', INK, pa * pp)
+        f.text(tag, x, Y0 + 60, 20, 'sans_light', lerpc(UP, WHITE, .4) if 'Form' in tag else DIM, pa * pp)
+    # 一年变化
+    h = D.HIST['LEN']
+    runs(f, [('一年持股数  ', 'sans_med', 28, INK), (f'{wan(h[0])}', 'sans_med', 28, WHITE), (' → ', 'sans_light', 28, DIM),
+             (f'{wan(h[-1])}股  ', 'sans_med', 28, WHITE), (f'×{h[-1] / h[0]:.1f}', 'bebas', 56, lerpc(UP, WHITE, .2))],
+         CX, 1150, oa * eo((t - b(242)) / 0.5))
+    # ---------------- 达美航空：三个季度从 0 到 6445 万股
+    t1 = b(244)
+    qa = oa * eo((t - t1) / 0.5)
+    f.text('达美航空', 90, 1256, 44, 'serif_black', WHITE, qa, 'l')
+    f.text('DAL · 航空公司 · 持股数（股），各季末', 90 + text_width('达美航空', 'serif_black', 44) + 16, 1262, 24, 'sans_light', DIM, qa, 'l')
+    hd = D.HIST['DAL']; base, hmax = 1580, 200; mx = max(hd)
+    for i, v in enumerate(hd):
+        x = 150 + i * 120
+        q = eo((t - t1 - 0.3 - i * 0.3) / 0.5)
+        hh = hmax * v / mx * q
+        col = lerpc(C(40, 110, 90), UP, i / 4)
+        if hh > 1:
+            box(f, x - 36, base - hh, x + 36, base, col, qa * 0.85)
+            box(f, x - 36, base - hh, x + 36, base, col, qa * 0.2, buf='B')
+        f.text(D.QUARTERS[i], x, base + 28, 20, 'mono', INK, qa * 0.8)
+        if q > 0.1:
+            f.text(wan(v) if v else '0', x, base - hh - 24, 24 if v else 28, 'sans_med' if v else 'bebas', WHITE, qa * q)
+    f.line((100, base), (690, base), INK, qa * 0.4, 1)
+    stat(f, '0→' + wan(hd[-1]) + '股', '三个季度建仓', 860, 1460, oa, lerpc(UP, WHITE, .2), b(248), 60)
 
 
 def sc_sig3(f, t):
@@ -909,7 +968,7 @@ def sc_sig3(f, t):
     out = (T_OUTRO - 0.45, 0.45)
     oa = a * (1 - eio((t - out[0]) / out[1]))
     jw = sum(r[3] for r in D.JP); jv = sum(r[2] for r in D.JP)
-    sig_head(f, t, '03', f'日本五大商社：合计 {jw:.2f}%', '五家全部持有不动 · 百分比 = 市值占比', T_SIG3, a, out, JPC)
+    sig_head(f, t, '03', f'日本五大商社：合计 {jw:.2f}%', '五家全部持有不动 · 持仓市值单位：亿美元', T_SIG3, a, out, JPC)
     mx = D.JP[0][2]
     for i, (nm, tk, v, w, *_) in enumerate(D.JP):
         y = 560 + i * 120
@@ -918,11 +977,12 @@ def sc_sig3(f, t):
         if p <= 0: continue
         al = oa * p
         f.text(nm, 90, y, 38, 'serif_black', WHITE, al, 'l')
-        f.text(f'{tk} · 申报 {D.JP_DATES[tk]}', 90, y + 40, 22, 'mono', DIM, al, 'l')
+        f.text(f'{tk} · 申报日 {D.JP_DATES[tk]}', 90, y + 40, 22, 'sans_light', DIM, al, 'l')
         L = 380 * v / mx * eio((t - ti) / 0.6)
         box(f, 420, y - 16, 420 + L, y + 16, JPC, al * 0.85)
         box(f, 420, y - 16, 420 + L, y + 16, JPC, al * 0.25, buf='B')
-        f.text(f'{w:.2f}%', 990, y, 52, 'bebas', lerpc(JPC, WHITE, .3), al, 'r')
+        runs(f, [(f'{v:.2f}', 'bebas', 50, lerpc(JPC, WHITE, .3)), ('亿', 'sans_med', 24, lerpc(JPC, WHITE, .3))], 990, y - 8, al, 'r')
+        f.text(f'占比 {w:.2f}%', 990, y + 34, 22, 'sans_light', DIM, al, 'r')
     # 合计 vs 可口可乐
     tc = b(265)
     ko = D.TOP[2]

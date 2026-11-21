@@ -4,6 +4,13 @@ import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src'))
 import engine
 from engine import text_width
+from fontTools.ttLib import TTFont
+CMAP = {}
+MISSING = {}
+def has(fnt, ch):
+    if fnt not in CMAP:
+        CMAP[fnt] = set(TTFont(engine.FONTS[fnt]).getBestCmap())
+    return ord(ch) in CMAP[fnt]
 import video as V
 
 REC = []
@@ -11,6 +18,9 @@ SCENE = ['?']
 _orig = engine.Frame.text
 
 def rec_text(self, s, x, y, size, fnt='sans_med', col=engine.WHITE, a=1.0, anchor='m', track=0.0, **kw):
+    if s:
+        bad = [ch for ch in s if ch != ' ' and not has(fnt, ch)]
+        if bad: MISSING.setdefault((fnt, s), ''.join(sorted(set(bad))))
     if s and a > 0.12:
         eff = a
         t0, out = kw.get('t0'), kw.get('out')
@@ -52,3 +62,6 @@ while t < V.DUR:
 for (sa, ta, sb, tb), ts in sorted(issues.items(), key=lambda kv: kv[1][0]):
     print(f'{ts[0]:6.1f}–{ts[-1]:6.1f}s  [{sa}] {ta!r}  ×  [{sb}] {tb!r}  ({len(ts)} 帧)')
 print('无遮挡' if not issues else f'共 {len(issues)} 处')
+for (fnt, s_), chs in MISSING.items():
+    print(f'缺字：[{fnt}] {s_!r} 缺 {chs!r}')
+print('无缺字' if not MISSING else f'缺字 {len(MISSING)} 处')

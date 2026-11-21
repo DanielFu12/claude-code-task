@@ -38,13 +38,24 @@ check('网页 2026Q4 动态', tuple(int(x) for x in m.groups()), D.Q4_NEWS)
 
 seg = text[text.index('变动股份') + 4:text.index('上一页')]
 L = [x.strip() for x in seg.split('\n') if x.strip()]
-rows, i = [], 0
+rows, filings, i = [], {}, 0
 while i < len(L):
     name = L[i]; tk, _ = L[i + 1].split(' · ')
     val = L[i + 2].lstrip('$'); val = float(val[:-1]) if val.endswith('亿') else float(val[:-1]) / 1e4
     src = '13F' if L[i + 6] == '来源 13F' else ('JP' if '大量保有' in L[i + 6] else L[i + 6])
-    rows.append((name, tk, round(val, 4), float(L[i + 3].rstrip('%')), L[i + 4], L[i + 5], src, L[i + 7]))
-    i += 8
+    j = i + 7
+    if L[j].startswith('本季') and L[j].endswith('次申报'):
+        nfil = int(L[j].split()[1]); j += 1
+    else:
+        nfil = 0
+    date = L[j]; j += 1
+    if nfil and j < len(L) and L[j] == '日期':          # 展开后的申报明细：日期 / 来源 / 持股 / 变动
+        j += 4; fl = []
+        for _ in range(nfil):
+            fl.append((L[j], L[j + 1], L[j + 2].replace('股', '', 1) if L[j + 2].endswith('股') else L[j + 2], L[j + 3])); j += 4
+        filings[tk] = fl
+    rows.append((name, tk, round(val, 4), float(L[i + 3].rstrip('%')), L[i + 4], L[i + 5], src, date))
+    i = j
 check('网页 行数', len(rows), len(D.H))
 for r, h in zip(rows, D.H):
     check(f'网页 {h[1]}', r[:7], h)
@@ -58,6 +69,8 @@ for zh, tk, s0, s1, web in D.ADD + D.CUT:
     check(f'网页变动 = 13F 股数差（四舍五入到万）{tk}', shown, web)
 check('网页 新进', [r[1] for r in rows if r[5] == '新进'], [x[1] for x in D.NEW])
 check('网页 不变只数', sum(1 for r in rows if r[5] == '不变'), D.N_UNCHANGED)
+for tk, fl in D.FILINGS.items():
+    check(f'网页 本季申报明细 {tk}', filings.get(tk), fl)
 
 # ---------------------------------------------------------------- 2) SEC 13F 原文（精确股数 / 历史）
 UA = {'User-Agent': 'research-client contact@example.com'}
@@ -89,6 +102,26 @@ try:
         check(f'SEC 历史 {tk}', [Q[q].get(CUSIP[tk], [0])[0] for q in D.QUARTERS], h)
     check('SEC 苹果上期市值', round(prev[CUSIP['AAPL']][1] / 1e8, 2), D.AAPL_VALUE_PREV)
     check('SEC 13F 只数 = 网页美股只数', len(cur), len(D.US))
+    # 莱纳建筑-A 的三份 Form 4（Berkshire 申报）：逐笔买入、价格区间、申报后持股
+    F = D.LEN_FORM4; days, pxs, afters, first_before = set(), [], [], None
+    for acc in F['accs']:
+        base = f'https://www.sec.gov/Archives/edgar/data/1067983/{acc}/'
+        name = [x['name'] for x in json.loads(get(base + 'index.json'))['directory']['item'] if x['name'].endswith('.xml')][0]
+        r = ET.fromstring(get(base + name))
+        for tr in r.iter('nonDerivativeTransaction'):
+            if tr.findtext('securityTitle/value') != 'Class A Common Stock': continue
+            sh = int(tr.findtext('transactionAmounts/transactionShares/value'))
+            aft = int(tr.findtext('postTransactionAmounts/sharesOwnedFollowingTransaction/value'))
+            if first_before is None: first_before = aft - sh
+            days.add(tr.findtext('transactionDate/value')); pxs.append(float(tr.findtext('transactionAmounts/transactionPricePerShare/value')))
+            check(f'SEC Form 4 {acc[-6:]} 买入', tr.findtext('transactionCoding/transactionCode'), 'P')
+        afters.append(aft)
+    check('SEC Form 4 交易日数', len(days), F['days'])
+    check('SEC Form 4 首末日', (min(days)[5:], max(days)[5:]), (F['first'], F['last']))
+    check('SEC Form 4 价格区间', (min(pxs), max(pxs)), (F['px_lo'], F['px_hi']))
+    check('SEC Form 4 起止持股', (first_before, afters[-1]), (F['start'], F['end']))
+    check('SEC Form 4 申报后持股 = 网页明细', [f'{round(a / 1e4)}万' for a in afters],
+          [x[2] for x in D.FILINGS['LEN'] if x[1].startswith('Form 4')])
 except OSError as e:
     print('SEC 无法访问，跳过第 2 部分：', e)
 print('ALL OK' if ok else 'SOME CHECKS FAILED')
