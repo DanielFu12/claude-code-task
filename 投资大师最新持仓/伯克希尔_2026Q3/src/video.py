@@ -1070,8 +1070,9 @@ def sc_end(f, t):
     lp = eio((t - tc + 0.3) / 0.7)
     f.line((CX - 300 * lp, 1168), (CX + 300 * lp, 1168), GOLD, e * 0.55, 1)
     f.glow((CX, 1168), 6, GOLD2, e * lp * 0.8, 'E')
-    runs(f, [('关注「巴芒价值」，', 'sans_med', 38, lerpc(GOLD2, WHITE, .2)), ('传承大师智慧，领悟投资真谛', 'sans_light', 36, lerpc(GREY, WHITE, .65))],
-         CX, 1232, e, glow=0.2, t0=tc, stag=0.055, rise=24)
+    # 金色字体：与「巴芒价值」同一套金色竖向渐变（思源宋体）
+    runs(f, [('关注「巴芒价值」，传承大师智慧，领悟投资真谛', 'serif_med', 38, C(240, 196, 112))],
+         CX, 1232, e, mode='O', glow=0.25, t0=tc, stag=0.055, rise=24)
     # 数据来源（片尾底部）
     f.text('持仓数据参考：MastersTao（masterstao.com）', CX, 1520, 26, 'sans_med', INK, e * 0.9, t0=T_END + 2.6, stag=0.01)
     f.text('现金数据：伯克希尔 2026 Q3 季报 · 仅为公开信息整理，不构成投资建议', CX, 1565, 22, 'sans_light', DIM, e * 0.9, t0=T_END + 2.9, stag=0.008)
