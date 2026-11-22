@@ -32,7 +32,7 @@ head = {k: re.search(k + r'：(\S+)', text).group(1) for k in ['数据季度', '
 check('网页 数据季度', head['数据季度'], D.FILING['quarter'])
 check('网页 持股数量', int(head['持股数量']), D.N_POS)
 check('网页 资产规模', head['资产规模'], f'${D.ASSETS / 1e8:.2f}亿')
-check('网页 近一年估算收益', head['近一年估算收益'], f'+{D.RET_1Y:.2f}%')
+print('INFO 网页近一年估算收益（每日变动，片中不展示）：', head['近一年估算收益'])
 m = re.search(r'2026Q4 最新披露动态：(\d+) 项变动 —— 增持 (\d+) · 减持 (\d+)', text)
 check('网页 2026Q4 动态', tuple(int(x) for x in m.groups()), D.Q4_NEWS)
 
@@ -122,6 +122,18 @@ try:
     check('SEC Form 4 起止持股', (first_before, afters[-1]), (F['start'], F['end']))
     check('SEC Form 4 申报后持股 = 网页明细', [f'{round(a / 1e4)}万' for a in afters],
           [x[2] for x in D.FILINGS['LEN'] if x[1].startswith('Form 4')])
+    # 现金储备：10-Q 原文
+    import html as _h
+    def mdna(acc, fn):
+        tx = get(f'https://www.sec.gov/Archives/edgar/data/1067983/{acc}/{fn}').decode('utf-8', 'ignore')
+        return re.sub(r'\s+', ' ', _h.unescape(re.sub(r'<[^>]+>', ' ', tx)))
+    q3t, q2t = mdna(D.CASH['acc_q3'], 'brka-20260930.htm'), mdna(D.CASH['acc_q2'], 'brka-20260630.htm')
+    pat = r'held investments in cash, cash equivalents and U\.S\. Treasury Bills \([^)]*\) of \$([\d.]+) billion'
+    check('10-Q 现金 2026Q3（亿美元）', round(float(re.search(pat, q3t).group(1)) * 10), D.CASH['q3'])
+    check('10-Q 现金 2026Q2（亿美元）', round(float(re.search(pat, q2t).group(1)) * 10), D.CASH['q2'])
+    check('10-Q 前九个月回购', round(float(re.search(r'acquired \$([\d.]+) billion of treasury stock in the first nine months', q3t).group(1)) * 10), D.CASH['buyback_9m'])
+    check('10-Q 上半年回购', round(float(re.search(r'acquired \$([\d.]+) billion of treasury stock in the first six months', q2t).group(1)) * 10), D.CASH['buyback_h1'])
+    check('10-Q TMHC 收购', round(float(re.search(r'acquired TMHC on July 24, 2026, for aggregate cash consideration of approximately \$([\d.]+) billion', q3t).group(1)) * 10), D.CASH['tmhc'])
 except OSError as e:
     print('SEC 无法访问，跳过第 2 部分：', e)
 print('ALL OK' if ok else 'SOME CHECKS FAILED')

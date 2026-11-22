@@ -317,7 +317,6 @@ def sc_open(f, t):
     f.line((CX - 400 * lp, 1060), (CX + 400 * lp, 1060), GOLD2, a * 0.7 * (1 - eio((t - out[0]) / out[1])), 2)
     f.glow((CX, 1060), 30, GOLD2, a * 0.5 * math.exp(-max(t - b(12), 0) / 0.5) * (t > b(12)), 'B')
     f.text(f'{D.N_POS} 只持仓 = {len(D.US)} 只美股 + {len(D.JP)} 家日本商社', CX, 1125, 34, 'sans_light', INK, a, t0=b(12.4), stag=0.02, out=out)
-    chip(f, f'近一年估算收益  +{D.RET_1Y:.2f}%', CX, 1215, 30, UP, a * cl((t - b(14.5)) / 0.4) * (1 - eio((t - out[0]) / out[1])))
 
 
 # ---- S2 星群（圆形打包，面积 ∝ 市值）
@@ -821,15 +820,47 @@ def sc_bac(f, t):
         stat(f, big, small, 200 + i * 340, 1340, oa, GOLD2 if i < 2 else lerpc(DOWN, WHITE, .2), b(188) + i * 2 * SPB, 80)
 
 
-def sc_lead(f, t):
-    """S10 鼓点抽空：引出「最值得关注的 3 个信号」"""
+def sc_cash(f, t):
+    """S10 现金储备（鼓点抽空 + 滴答，计数在第 204 拍落定；数据：伯克希尔 2026Q3 / Q2 10-Q）"""
     if not (T_S10 - 0.1 < t < T_DROP2 + 0.1): return
     a = sa(t, T_S10, T_DROP2, 0.5, 0.05)
-    pull = ei(cl((t - b(200)) / (T_DROP2 - b(200))))
+    pull = ei(cl((t - b(208)) / (T_DROP2 - b(208))))
     oa = a * (1 - pull)
-    f.text('看完数据，', CX, 820, 52, 'sans_light', INK, oa, t0=T_S10 + 0.2, stag=0.08)
-    f.text('哪些变化最值得关注？', CX, 920, 64, 'serif_black', WHITE, oa, t0=T_S10 + 1.0, stag=0.08, glow=0.15)
-    implode(f, t, b(200), T_DROP2, CX, 880, [GOLD, GOLD2, WHITE], 1.0, 650)
+    K = D.CASH
+    eyebrow(f, 'CASH  ·  现金储备', 380, oa, T_S10 + 0.1)
+    f.text('伯克希尔手握', CX, 500, 44, 'sans_light', INK, oa, t0=T_S10 + 0.3, stag=0.06)
+    q = cl((t - b(198)) / (b(204) - b(198)))
+    q = 1 - (1 - q) ** 3
+    full = f'{K["q3"]:,}'
+    big = 230
+    wfull = text_width('$' + full, 'bebas', big) + text_width('亿美元', 'sans_black', 58) + 10
+    x0 = CX - wfull / 2
+    ca = oa * cl((t - b(197.5)) / 0.4)
+    land = math.exp(-max(t - b(204), 0) / 0.35) * (t >= b(204))
+    f.text(f'${K["q3"] * q:,.0f}', x0, 680, big, 'bebas', WHITE, ca, 'l', grad=[GOLD2, GOLD, GOLDD], mode='E', glow=0.35 + 0.5 * land)
+    f.text('亿美元', x0 + text_width('$' + full, 'bebas', big) + 10, 740, 58, 'sans_black', GOLD2, ca * cl((t - b(203.5)) / 0.4), 'l')
+    f.glow((CX, 680), 260, GOLD, oa * 0.10 * (1 + 2 * land), 'B')
+    f.text('现金、现金等价物及美国短期国债', CX, 850, 36, 'sans_med', WHITE, oa, t0=b(202), stag=0.03)
+    f.text('（保险及其他业务，截至 2026-09-30）', CX, 902, 26, 'sans_light', DIM, oa, t0=b(202.5), stag=0.02)
+    # 环比：Q2 → Q3
+    for k, (lab, v, col) in enumerate([('2026Q2', K['q2'], DIM), ('2026Q3', K['q3'], GOLD2)]):
+        y = 1020 + k * 90
+        p = eio((t - b(204) - k * SPB) / 0.6)
+        if p <= 0: continue
+        f.text(lab, 90, y, 28, 'mono', INK, oa * cl(p * 2), 'l')
+        L = 540 * v / K['q2'] * p
+        box(f, 250, y - 18, 250 + L, y + 18, col, oa * 0.85)
+        box(f, 250, y - 18, 250 + L, y + 18, col, oa * 0.25, buf='B')
+        f.text(f'{v:,}亿', 990, y, 34, 'sans_med', lerpc(col, WHITE, .3), oa * cl(p * 2), 'r')
+    f.text(f'环比 {MINUS}{K["q2"] - K["q3"]}亿美元', 990, 1180, 26, 'sans_light', INK, oa, 'r', t0=b(205.5))
+    chip(f, f'现金高于 {D.N_POS} 只持仓总市值 {ASSETS_Y:,.0f} 亿美元', CX, 1290, 32, GOLD2,
+         oa * cl((t - b(206)) / 0.4), 'sans_med', 0.14)
+    f.text(f'前三季度回购自家股票 {K["buyback_9m"]} 亿美元（上半年 {K["buyback_h1"]} 亿）', CX, 1400, 28, 'sans_light', INK, oa,
+           t0=b(206.5), stag=0.015)
+    f.text(f'7 月以约 {K["tmhc"]} 亿美元现金收购住宅建筑商 Taylor Morrison', CX, 1450, 28, 'sans_light', INK, oa,
+           t0=b(207), stag=0.015)
+    f.text('数据：伯克希尔 2026 Q3 / Q2 季报（10-Q）', CX, 1560, 22, 'sans_light', DIM, oa, t0=b(207))
+    implode(f, t, b(208), T_DROP2, CX, 680, [GOLD, GOLD2, WHITE], 1.0, 650)
 
 
 def sc_signals_title(f, t):
@@ -859,21 +890,21 @@ def sc_sig1(f, t):
     oa = a * (1 - eio((t - out[0]) / out[1]))
     sig_head(f, t, '01', '苹果：3 个季度一股未动', '仍是第一大持仓，市值占比超过五分之一', T_SIG1, a, out)
     h = D.HIST['AAPL']
-    t0s = [b(214 + 1.5 * i) for i in range(5)]
+    t0s = [b(222 + 1.5 * i) for i in range(5)]
     cols = [DIM] + [GOLD2] * 4
     bars_q(f, t, h, D.QUARTERS, 160, 920, 1080, 480, t0s, cols, oa, lab_fmt=lambda v: f'{v / 1e8:.2f}亿股')
-    f.text('持股数（股）', 60, 470, 24, 'sans_light', DIM, oa * cl((t - b(214)) / 0.4), 'l')
+    f.text('持股数（股）', 60, 470, 24, 'sans_light', DIM, oa * cl((t - b(222)) / 0.4), 'l')
     # 「持平」标注
-    p = eio((t - b(221)) / 0.7)
+    p = eio((t - b(229)) / 0.7)
     if p > 0:
         y = 1080 - 480 * h[1] / max(h) - 90
         f.line((350, y), (lerp(350, 970, p), y), GOLD2, oa * 0.6, 2)
-        f.text('股数持平', 660, y - 30, 30, 'sans_med', GOLD2, oa * cl((t - b(221.5)) / 0.4))
+        f.text('股数持平', 660, y - 30, 30, 'sans_med', GOLD2, oa * cl((t - b(229.5)) / 0.4))
     v = D.TOP[0][2]
     for i, (big, small) in enumerate([(f'{v:.2f}', '持仓市值 · 亿美元'), (f'{D.TOP[0][3]:.2f}%', '市值占比'),
                                       (f'+{v - D.AAPL_VALUE_PREV:.1f}', '本季市值变化 · 亿美元')]):
-        stat(f, big, small, 200 + i * 340, 1290, oa, GOLD2 if i < 2 else UP, b(224) + i * 2 * SPB)
-    f.text('市值增加完全来自股价上涨，股数没有变化', CX, 1460, 28, 'sans_light', DIM, a, t0=b(228), stag=0.02, out=out)
+        stat(f, big, small, 200 + i * 340, 1290, oa, GOLD2 if i < 2 else UP, b(232) + i * 2 * SPB)
+    f.text('市值增加完全来自股价上涨，股数没有变化', CX, 1460, 28, 'sans_light', DIM, a, t0=b(236), stag=0.02, out=out)
 
 
 
@@ -896,7 +927,7 @@ def sc_sig2(f, t):
     F = D.LEN_FORM4
     sig_head(f, t, '02', '加码美国「住房 + 出行」', '莱纳建筑本季 5 次申报，9 月下旬连续买入', T_SIG2, a, out, UP)
     # ---------------- 莱纳建筑-A：本季申报时间线（持股数，申报时点）
-    t0 = b(233)
+    t0 = b(241)
     pa = oa * eo((t - t0) / 0.5)
     f.text('莱纳建筑-A', 90, 470, 44, 'serif_black', WHITE, pa, 'l')
     f.text('LEN · 住宅建筑商 · 持股数（股），各申报时点', 90 + text_width('莱纳建筑-A', 'serif_black', 44) + 16, 476, 24, 'sans_light', DIM, pa, 'l')
@@ -915,16 +946,16 @@ def sc_sig2(f, t):
         pts.append((md, hold, tag))
     xs = [230, 470, 690, 900]
     # 9/17–9/30 Form 4 连续买入窗口（第 2–4 个点）
-    wp = eio((t - b(240)) / 0.6)
+    wp = eio((t - b(248)) / 0.6)
     if wp > 0:
         xa, xb = xs[1] - 70, xs[3] + 70
         box(f, xa, Y1 - 50, xa + (xb - xa) * wp, Y0, UP, pa * 0.07)
         box(f, xa, Y1 - 50, xa + (xb - xa) * wp, Y0, UP, pa * 0.05, buf='B')
         f.text(f'SEC Form 4：9/17–9/30 共 {F["days"]} 个交易日买入，成交价约 {F["px_lo"]:.0f}–{F["px_hi"]:.0f} 美元', CX, Y1 - 82, 24,
-               'sans_med', lerpc(UP, WHITE, .3), pa * cl((t - b(240.5)) / 0.4))
+               'sans_med', lerpc(UP, WHITE, .3), pa * cl((t - b(248.5)) / 0.4))
     for i, ((md, hold, tag), x) in enumerate(zip(pts, xs)):
         y = yv(_wan_num(hold))
-        ti = b(234 + 1.5 * i)
+        ti = b(242 + 1.5 * i)
         pp = eo((t - ti) / 0.45)
         if pp <= 0: continue
         if i:
@@ -939,9 +970,9 @@ def sc_sig2(f, t):
     h = D.HIST['LEN']
     runs(f, [('一年持股数  ', 'sans_med', 28, INK), (f'{wan(h[0])}', 'sans_med', 28, WHITE), (' → ', 'sans_light', 28, DIM),
              (f'{wan(h[-1])}股  ', 'sans_med', 28, WHITE), (f'×{h[-1] / h[0]:.1f}', 'bebas', 56, lerpc(UP, WHITE, .2))],
-         CX, 1150, oa * eo((t - b(242)) / 0.5))
+         CX, 1150, oa * eo((t - b(250)) / 0.5))
     # ---------------- 达美航空：三个季度从 0 到 6445 万股
-    t1 = b(244)
+    t1 = b(252)
     qa = oa * eo((t - t1) / 0.5)
     f.text('达美航空', 90, 1256, 44, 'serif_black', WHITE, qa, 'l')
     f.text('DAL · 航空公司 · 持股数（股），各季末', 90 + text_width('达美航空', 'serif_black', 44) + 16, 1262, 24, 'sans_light', DIM, qa, 'l')
@@ -958,7 +989,7 @@ def sc_sig2(f, t):
         if q > 0.1:
             f.text(wan(v) if v else '0', x, base - hh - 24, 24 if v else 28, 'sans_med' if v else 'bebas', WHITE, qa * q)
     f.line((100, base), (690, base), INK, qa * 0.4, 1)
-    stat(f, '0→' + wan(hd[-1]) + '股', '三个季度建仓', 860, 1460, oa, lerpc(UP, WHITE, .2), b(248), 60)
+    stat(f, '0→' + wan(hd[-1]) + '股', '三个季度建仓', 860, 1460, oa, lerpc(UP, WHITE, .2), b(256), 60)
 
 
 def sc_sig3(f, t):
@@ -972,7 +1003,7 @@ def sc_sig3(f, t):
     mx = D.JP[0][2]
     for i, (nm, tk, v, w, *_) in enumerate(D.JP):
         y = 560 + i * 120
-        ti = b(254 + 2 * i)
+        ti = b(262 + 2 * i)
         p = eo((t - ti) / 0.4)
         if p <= 0: continue
         al = oa * p
@@ -984,7 +1015,7 @@ def sc_sig3(f, t):
         runs(f, [(f'{v:.2f}', 'bebas', 50, lerpc(JPC, WHITE, .3)), ('亿', 'sans_med', 24, lerpc(JPC, WHITE, .3))], 990, y - 8, al, 'r')
         f.text(f'占比 {w:.2f}%', 990, y + 34, 22, 'sans_light', DIM, al, 'r')
     # 合计 vs 可口可乐
-    tc = b(265)
+    tc = b(273)
     ko = D.TOP[2]
     for k, (lab, v, w, col) in enumerate([('五大商社合计', jv, jw, JPC), (ko[0], ko[2], ko[3], GOLD2)]):
         y = 1230 + k * 130
@@ -999,16 +1030,17 @@ def sc_sig3(f, t):
 
 
 SUMMARY = [('核心重仓', '苹果 · 运通 · 可口可乐 纹丝不动', GOLD2), ('美股调仓', '增持莱纳 · 达美，减持美国银行等 6 只', UP),
-           ('日本商社', f'五家持有不动，合计占比 {sum(r[3] for r in D.JP):.2f}%', JPC)]
+           ('日本商社', f'五家持有不动，合计占比 {sum(r[3] for r in D.JP):.2f}%', JPC),
+           ('现金储备', f'{D.CASH["q3"]:,} 亿美元，高于 {D.N_POS} 只持仓总市值', GOLD)]
 
 def sc_outro(f, t):
     if not (T_OUTRO - 0.4 < t < T_END + 0.5): return
     a = sa(t, T_OUTRO, T_END, 0.4, 0.45)
     out = (T_END - 0.45, 0.45)
-    eyebrow(f, 'TAKEAWAY  ·  一句话总结', 520, a, T_OUTRO)
+    eyebrow(f, 'TAKEAWAY  ·  一句话总结', 440, a, T_OUTRO)
     for i, (k, v, col) in enumerate(SUMMARY):
-        ti = b(273 + i * 2)
-        y = 680 + i * 220
+        ti = b(281 + i * 1.5)
+        y = 590 + i * 200
         p = eo((t - ti) / 0.5)
         al = a * p * (1 - eio((t - out[0]) / out[1]))
         f.line((140, y - 70), (140, y + 70), col, al * 0.9, 3)
@@ -1016,11 +1048,8 @@ def sc_outro(f, t):
         f.text(k, 180 + (1 - p) * 30, y - 28, 56, 'serif_black', lerpc(col, WHITE, .35), al, 'l', glow=0.2)
         f.text(v, 180 + (1 - p) * 30, y + 40, 34, 'sans_light', INK, al, 'l')
     n, up, dn = D.Q4_NEWS
-    f.text(f'季后最新动态：2026Q4 已有 {n} 项新披露 · 增持 {up} · 减持 {dn}', CX, 1390, 30, 'sans_med', GOLD, a,
-           t0=b(279), stag=0.015, out=out)
-    f.text('数据来源：大师之道 masterstao.com（美股报告期 2026-09-30 · 日股 大量保有報告書）', CX, 1560, 22,
-           'sans_light', DIM, a * 0.9, t0=b(280), stag=0.005, out=out)
-    f.text('仅为公开信息整理，不构成任何投资建议', CX, 1600, 22, 'sans_light', DIM, a * 0.9, t0=b(280.5), stag=0.005, out=out)
+    f.text(f'季后最新动态：2026Q4 已有 {n} 项新披露 · 增持 {up} · 减持 {dn}', CX, 1460, 30, 'sans_med', GOLD, a,
+           t0=b(287), stag=0.015, out=out)
 
 
 def sc_end(f, t):
@@ -1036,11 +1065,16 @@ def sc_end(f, t):
     f.text('巴芒价值', CX, 1000, 120, 'serif_black', GOLD2, e, t0=T_END + 0.25, stag=0.12, dur=0.6,
            grad=[GOLD2, GOLD, GOLDD], mode='O', glow=0.5)
     f.text('BUFFETT · MUNGER', CX, 1096, 34, 'corm', C(214, 178, 112), e, track=0.42, t0=T_END + 0.8, stag=0.03, mode='O')
-    # 关注语：在「巴芒价值 / BUFFETT · MUNGER」下方逐字浮现
-    f.text('关注「巴芒价值」', CX, 1215, 40, 'sans_med', lerpc(GOLD2, WHITE, .3), e, track=0.12, t0=T_END + 1.4, stag=0.07,
-           dur=0.6, rise=22, glow=0.25)
-    f.text('传承大师智慧，领悟投资真谛', CX, 1285, 36, 'sans_light', lerpc(GREY, WHITE, .5), e, track=0.25, t0=T_END + 2.2,
-           stag=0.07, dur=0.6, rise=22)
+    # 关注语：在「巴芒价值 / BUFFETT · MUNGER」下方一行浮现（金色引导线先展开，文字逐字上浮）
+    tc = T_END + 1.1
+    lp = eio((t - tc + 0.3) / 0.7)
+    f.line((CX - 300 * lp, 1168), (CX + 300 * lp, 1168), GOLD, e * 0.55, 1)
+    f.glow((CX, 1168), 6, GOLD2, e * lp * 0.8, 'E')
+    runs(f, [('关注「巴芒价值」，', 'sans_med', 38, lerpc(GOLD2, WHITE, .2)), ('传承大师智慧，领悟投资真谛', 'sans_light', 36, lerpc(GREY, WHITE, .65))],
+         CX, 1232, e, glow=0.2, t0=tc, stag=0.055, rise=24)
+    # 数据来源（片尾底部）
+    f.text('持仓数据参考：MastersTao（masterstao.com）', CX, 1520, 26, 'sans_med', INK, e * 0.9, t0=T_END + 2.6, stag=0.01)
+    f.text('现金数据：伯克希尔 2026 Q3 季报 · 仅为公开信息整理，不构成投资建议', CX, 1565, 22, 'sans_light', DIM, e * 0.9, t0=T_END + 2.9, stag=0.008)
 
 
 # ============================================================== 品牌角标 + 页面框架
@@ -1057,7 +1091,7 @@ def draw_hud_post(img, t, a):
     img[:h] = (np.clip(reg, 0, 1) * 255 + 0.5).astype(np.uint8)
     return img
 
-CHAPTERS = [(0, '序'), (T_DROP1, '持仓全景'), (T_S7, '焦点'), (T_S8, '买入'), (T_S9, '卖出'), (T_DROP2, '三个信号'),
+CHAPTERS = [(0, '序'), (T_DROP1, '持仓全景'), (T_S7, '焦点'), (T_S8, '买入'), (T_S9, '卖出'), (T_S10, '现金'), (T_DROP2, '三个信号'),
             (T_OUTRO, '总结'), (T_END, '')]
 
 def draw_chrome(f, t):
@@ -1083,7 +1117,7 @@ def draw_chrome(f, t):
 
 
 SCENES = [sc_open, sc_cluster, sc_four, sc_title, sc_donut, sc_conc, sc_googl, sc_new, sc_add, sc_cut, sc_bac,
-          sc_lead, sc_signals_title, sc_sig1, sc_sig2, sc_sig3, sc_outro, sc_end]
+          sc_cash, sc_signals_title, sc_sig1, sc_sig2, sc_sig3, sc_outro, sc_end]
 
 
 def render(i):

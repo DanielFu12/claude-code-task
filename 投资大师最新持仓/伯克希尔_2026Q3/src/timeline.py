@@ -12,16 +12,16 @@
   30–35   60–72 s      轻编段（去掉拍手与开镲）        S8 新进：Bending Spoons 是做什么的
   36–39   72–80 s      主段                           S8b 增持
   40–48   80–98 s      半速段（暗色和声）              S9 减持 → 美国银行
-  49–50   98–102 s     抽空：心跳 + 蓄力              S10 「最值得关注的」引子
-  51      102 s        第二次 DROP                    S11 三个信号
-  68–70   136–142 s    尾段                           S12 总结
-  71      142 s        终止重击 + 余韵                 片尾
+  49–52   98–106 s     抽空：心跳 + 滴答 + 蓄力        S10 现金储备 3,523 亿美元
+  53      106 s        第二次 DROP                    S11 三个信号
+  70–72   140–146 s    尾段                           S12 总结
+  73      146 s        终止重击 + 余韵                 片尾
 """
 import numpy as np
 
 BPM = 120.0
 SPB = 60.0 / BPM          # 0.5 s / 拍
-DUR = 148.0
+DUR = 154.0
 BEATS = np.arange(0, DUR / SPB + 1) * SPB
 
 
@@ -33,12 +33,12 @@ def b(i):
 T_S2, T_S3, T_DROP1 = b(20), b(36), b(48)
 T_S5, T_S6, T_S7, T_S8 = b(56), b(84), b(100), b(120)
 T_ADD = b(144)
-T_S9, T_BAC, T_S10, T_DROP2 = b(160), b(180), b(196), b(204)
-T_SIG1, T_SIG2, T_SIG3 = b(212), b(232), b(252)
-T_OUTRO, T_END = b(272), b(284)
+T_S9, T_BAC, T_S10, T_DROP2 = b(160), b(180), b(196), b(212)
+T_SIG1, T_SIG2, T_SIG3 = b(220), b(240), b(260)
+T_OUTRO, T_END = b(280), b(292)
 
 IMPACTS = [(T_DROP1, 1.0), (T_DROP2, 1.0), (T_END, 0.7)]
-RISERS = [(b(44), T_DROP1), (b(200), T_DROP2)]
+RISERS = [(b(206), T_DROP2), (b(44), T_DROP1)]
 # 普通转场：画面光扫 + 音乐里的重音（tom + 低频冲击 + 镲片涌起）
 CUTS = [T_S2, T_S3, T_S5, T_S6, T_S7, T_S8, T_ADD, T_S9, T_BAC, T_S10, T_SIG1, T_SIG2, T_SIG3, T_OUTRO]
 # 三个数字逐一弹出的重音

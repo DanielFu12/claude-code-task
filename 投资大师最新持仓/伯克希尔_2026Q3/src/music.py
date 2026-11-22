@@ -132,8 +132,8 @@ BREAK = ['F', 'G', 'Am', 'Am']
 
 def chord_of(bar):
     if 40 <= bar <= 48: return BREAK[(bar - 40) % 4]
-    if 49 <= bar <= 50: return 'Am'
-    if bar >= 71: return 'Am'
+    if 49 <= bar <= 52: return ['Am', 'F', 'Am', 'G'][bar - 49]
+    if bar >= 73: return 'Am'
     return MAIN[bar % 4]
 
 def section(bar):
@@ -144,11 +144,11 @@ def section(bar):
     if 30 <= bar <= 35: return 'light'
     if bar <= 39: return 'drop1'
     if bar <= 48: return 'half'
-    if bar <= 50: return 'void'
-    if bar <= 70: return 'drop2'
+    if bar <= 52: return 'void'
+    if bar <= 72: return 'drop2'
     return 'end'
 
-NBARS = 71
+NBARS = 73
 
 # ------------------------------------------------------------------ 编排
 FILL_BEATS = {round(tc / SPB) - 1 for tc in CUTS}      # 每个转场前一拍放军鼓过门
@@ -177,10 +177,10 @@ for bar in range(NBARS + 1):
             if k == 2:
                 drums.put(tb, clap(), 0.6); verb_send.put(tb, clap(), 0.4); EV['snare'].append(tb)
             drums.put(tb, hat(), 0.07, pan=0.2); drums.put(tb + SPB / 2, hat(), 0.045, pan=0.2)
-        if sec == 'stops':
+        if sec == 'stops' or (sec == 'void' and 50 <= bar <= 51):
             for s16 in range(4):
                 drums.put(tb + s16 * SPB / 4, hat(0.04, 0.012), 0.05, pan=0.3)       # 紧张的细碎滴答
-        if sec == 'void' and bar == 49 and k in (0, 2):
+        if sec == 'void' and bar <= 51 and k in (0, 2):
             drums.put(tb, lp(kick(), 200), 0.8); drums.put(tb + 0.22, lp(kick(), 200), 0.5)   # 心跳
             EV['kick'].append(tb)
         # 过门
@@ -188,7 +188,7 @@ for bar in range(NBARS + 1):
             for s16 in range(4):
                 drums.put(tb + s16 * SPB / 4, snare_short(), 0.18 + 0.1 * s16, pan=(s16 - 1.5) * 0.2)
     # ---- 军鼓滚奏（第 8、31 小节）
-    if sec == 'build' or bar == 50:
+    if sec == 'build' or bar == 52:
         n_hits = [4, 8, 16, 16]
         for k in range(4):
             for j in range(n_hits[k]):
@@ -311,7 +311,7 @@ mix = mix + 0.25 * bp(mix, 2500, 6000)       # 轻微提亮中高频（只到 6 
 # 段落动态：前奏渐强、半速段略收、抽空段明显压低，把两次 DROP 衬托出来
 dyn = curve([(0, 0.55), (b(19.9), 0.8), (b(20), 0.9), (T_DROP1 - 0.01, 0.9), (T_DROP1, 1.0), (T_S8 - 0.05, 1.0), (T_S8 + 0.5, 0.72),
              (T_ADD - 0.05, 0.72), (T_ADD, 1.0), (T_S9 - 0.05, 1.0), (T_S9, 0.82),
-             (T_S10 - 0.05, 0.82), (T_S10 + 0.6, 0.6), (T_S10 + 1.2, 0.45), (b(200), 0.5), (T_DROP2 - 0.05, 0.85), (T_DROP2, 1.05),
+             (T_S10 - 0.05, 0.82), (T_S10 + 0.6, 0.62), (b(206), 0.62), (b(208), 0.7), (T_DROP2 - 0.05, 0.85), (T_DROP2, 1.05),
              (DUR, 1.05)])[:, None]
 mix = mix * dyn
 # 软削波 + 归一化

@@ -15,8 +15,8 @@ get Noto+Sans+SC 300 sans_light; get Noto+Sans+SC 500 sans_med; get Noto+Sans+SC
 get Cormorant+Garamond 500 corm; get Bebas+Neue 400 bebas; get JetBrains+Mono 500 mono; get Oswald 500 oswald
 # 2) 原创卡点配乐：120 BPM，按 timeline.py 的拍号逐音符合成；同时导出鼓点时间 events.json 供画面卡点
 python3 src/music.py "$WORK"
-# 3) 逐帧渲染（4 进程并行，148 s × 30 fps = 4440 帧）
-for k in 0 1 2 3; do python3 src/video.py chunk $((k*1110)) $(((k+1)*1110)) "$WORK/seg$k.mp4" & done; wait
+# 3) 逐帧渲染（4 进程并行，154 s × 30 fps = 4620 帧）
+for k in 0 1 2 3; do python3 src/video.py chunk $((k*1155)) $(((k+1)*1155)) "$WORK/seg$k.mp4" & done; wait
 printf "file '%s'\n" "$WORK"/seg{0,1,2,3}.mp4 > "$WORK/list.txt"
 ffmpeg -loglevel error -y -f concat -safe 0 -i "$WORK/list.txt" -i "$WORK/mix.wav" \
   -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart "$OUT"
