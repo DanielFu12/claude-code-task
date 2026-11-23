@@ -11,10 +11,10 @@ for k in $(seq 0 $((P-1))); do
 done
 wait
 printf "file '%s'\n" $(for k in $(seq 0 $((P-1))); do echo "$PWD/$WORK/seg$k.mp4"; done) > $WORK/list.txt
-OUT="银行赚13%_它凭什么赚30%_美国运通.mp4"
+OUT="一张支票换一句话_巴菲特与内布拉斯加家具城.mp4"
 ffmpeg -loglevel error -y -f concat -safe 0 -i $WORK/list.txt -i $WORK/mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart "$OUT"
 # 预览版：控制在 30MB 以内
 D=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$OUT")
 VB=$(python3 -c "print(int((29.0*8*1024)/$D - 96))")
-ffmpeg -loglevel error -y -i "$OUT" -vf scale=720:-2 -c:v libx264 -b:v ${VB}k -maxrate $((VB*2))k -bufsize $((VB*2))k -preset slow -c:a aac -b:a 96k -movflags +faststart "银行赚13%_它凭什么赚30%_美国运通_预览版.mp4"
+ffmpeg -loglevel error -y -i "$OUT" -vf scale=720:-2 -c:v libx264 -b:v ${VB}k -maxrate $((VB*2))k -bufsize $((VB*2))k -preset slow -c:a aac -b:a 96k -movflags +faststart "一张支票换一句话_巴菲特与内布拉斯加家具城_预览版.mp4"
 echo done; [ -s $WORK/slow.log ] && { echo "慢放镜头："; sort -u $WORK/slow.log; } || echo "无低于 0.62 倍的慢放镜头"

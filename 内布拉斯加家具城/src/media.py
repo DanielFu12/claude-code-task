@@ -1,4 +1,4 @@
-"""第四期（谷歌）沿用第三期 media.py。真实影像素材：照片（Ken Burns 推拉）与视频片段（逐帧解码），全部来自 Wikimedia Commons 的公有领域 / CC 授权素材，
+"""第八期沿用前几期的 media.py。真实影像素材：照片（Ken Burns 推拉）与视频片段（逐帧解码），来自美国国会图书馆、archive.org、Wikimedia Commons 的公有领域 / CC 授权素材与文件影像，
 作者与授权写在 assets/media/credits.json，画面上以小字署名，片尾与 SOURCES.md 汇总。
 
 两种构图：
@@ -76,7 +76,10 @@ def credit_text(name):
     if name in IA: return '影像：' + IA[name]['source']
     c = CREDITS.get(name.split('#')[0])
     if not c: return ''
-    if c.get('via'): return '图片：' + c['via']                 # 新闻图片：注明刊发媒体
+    if c.get('via'): return '影像：' + c['via']                 # 文件影像 / 新闻图片：注明出处
+    if 'loc.gov' in (c.get('page') or ''):                      # 美国国会图书馆（公有领域）
+        art = (c.get('artist') or '').split(',')[0].strip()
+        return f'{art} · 美国国会图书馆' if art else '美国国会图书馆'
     art = (c.get('artist') or '').replace('\n', ' ').strip()
     if art.startswith('http') or 'flickr.com' in art: art = (c.get('credit') or '').strip() if not (c.get('credit') or '').startswith('http') else ''
     if art.lower() in ('own work', '') or art.startswith('http'): art = ''

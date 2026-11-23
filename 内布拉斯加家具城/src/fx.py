@@ -16,6 +16,7 @@ def dust(cv, t, a=1.0, n=160, seed=1, drift=(0.0, -18.0), col=None, depth=(0.3, 
     ys = (y0 + drift[1] * t * z) % H
     tw = 0.55 + 0.45 * np.sin(t * 1.3 + ph * 3)
     c = GOLD_L if col is None else col
+    acc = np.zeros((H // 2, W // 2), np.float32)            # 三层景深在半分辨率里叠好，只放大、合成一次（渲染提速）
     for lo, hi, sz, blur in ((0.3, 0.6, 2, 0.0), (0.6, 0.85, 4, 1.5), (0.85, 1.01, 9, 4.0)):
         m = (z >= lo) & (z < hi)
         if not m.any(): continue
@@ -23,9 +24,11 @@ def dust(cv, t, a=1.0, n=160, seed=1, drift=(0.0, -18.0), col=None, depth=(0.3, 
         for x, y, w_ in zip(xs[m] / 2, ys[m] / 2, tw[m]):
             cv2.circle(layer, (int(x), int(y)), sz, float(w_), -1, cv2.LINE_AA)
         if blur: layer = cv2.GaussianBlur(layer, (0, 0), blur)
-        layer = cv2.resize(layer, (W, H))
-        cv.glow += layer[..., None] * np.asarray(c, np.float32) * a * 0.35
-        cv.img += layer[..., None] * np.asarray(c, np.float32) * a * 0.18
+        acc += layer
+    L = cv2.resize(acc, (W, H))
+    tmp = L[..., None] * (np.asarray(c, np.float32) * a)
+    cv2.scaleAdd(tmp, 0.35, cv.glow, dst=cv.glow)
+    cv2.scaleAdd(tmp, 0.18, cv.img, dst=cv.img)
 
 
 # ------------------------------------------------------------------ 横向镜头光晕（变形宽银幕镜头的拉丝光）

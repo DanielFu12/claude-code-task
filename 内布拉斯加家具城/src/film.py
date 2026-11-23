@@ -1,4 +1,4 @@
-"""第七期《银行赚 13%，它凭什么赚 30%？——巴菲特持有三十年的美国运通》渲染入口。
+"""第八期《一张支票，换一句话——巴菲特与内布拉斯加家具城》渲染入口。
 
 python3 src/film.py WORK frame 12.5s,40s out_#.jpg   # 渲染单帧（调试；# 替换为时间）
 python3 src/film.py WORK chunk 0 900 seg0.mp4         # 渲染帧区间
@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import *          # noqa
 # ------------------------------------------------------------------ 章节镜头（见 film_ch*.py）
 from sot import sot_layer
-from gg import shot_hook, shot_title, shot_ch1, shot_ch2, shot_ch3, shot_ch4, shot_ch5, shot_ch6, shot_ch7   # 第七期全部镜头
+from gg import shot_hook, shot_title, shot_ch1, shot_ch2, shot_ch3, shot_ch4, shot_ch5, shot_ch6, shot_ch7   # 第八期全部镜头
 
 
 def render(i):
@@ -59,8 +59,8 @@ if __name__ == '__main__':
         a, b, path = int(sys.argv[3]), int(sys.argv[4]), sys.argv[5]
         b = min(b, NFRAMES)
         p = subprocess.Popen(['ffmpeg', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24',
-                              '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-c:v', 'libx264', '-preset', 'medium',
-                              '-crf', '17', '-pix_fmt', 'yuv420p', path], stdin=subprocess.PIPE)
+                              '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-c:v', 'libx264', '-preset', 'fast',
+                              '-crf', '17', '-pix_fmt', 'yuv420p', '-threads', '1', path], stdin=subprocess.PIPE)
         for i in range(a, b):
             p.stdin.write(render(i).tobytes())
             if (i - a) % 150 == 0: print(path, i, flush=True)

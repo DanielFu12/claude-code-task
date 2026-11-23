@@ -129,5 +129,158 @@
   "credit": "Library of Congress, FSA/OWI Collection",
   "date": "1938-11",
   "use": "1938 年奥马哈的住宅区"
+ },
+ "loc_omaha1915": {
+  "file": "[Nebraska Clothing Co. and other stores, Omaha, Nebraska]",
+  "page": "https://www.loc.gov/item/93500591/",
+  "artist": "Detroit Publishing Co.",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "1915",
+  "use": "1915 年前后奥马哈的商店街"
+ },
+ "loc_jaws": {
+  "file": "Into the Jaws of Death: United States Troops Wading Through Water and Nazi Gunfire",
+  "page": "https://www.loc.gov/item/2021669739/",
+  "artist": "Robert F. Sargent, U.S. Coast Guard",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "1944-06-06",
+  "use": "1944 年 6 月 6 日，奥马哈海滩"
+ },
+ "loc_dday": {
+  "file": "D-Day Rescue, Omaha Beach",
+  "page": "https://www.loc.gov/item/2004681507/",
+  "artist": "U.S. Coast Guard",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "1944",
+  "use": "奥马哈海滩"
+ },
+ "loc_purple": {
+  "file": "The purple heart",
+  "page": "https://www.loc.gov/item/2004673429/",
+  "artist": "Office of War Information",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "1944",
+  "use": "紫心勋章"
+ },
+ "loc_ru1": {
+  "file": "Selo Mandryga",
+  "page": "https://www.loc.gov/item/2018678812/",
+  "artist": "Sergei Prokudin-Gorskii",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "1909",
+  "use": "俄罗斯帝国的村庄（1909，普罗库金-戈尔斯基摄）"
+ },
+ "loc_ru2": {
+  "file": "Selo Chernoe",
+  "page": "https://www.loc.gov/item/2018678756/",
+  "artist": "Sergei Prokudin-Gorskii",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "1909",
+  "use": "俄罗斯帝国的村庄（1909，普罗库金-戈尔斯基摄）"
+ },
+ "loc_ru3": {
+  "file": "Derevnia Turovo",
+  "page": "https://www.loc.gov/item/2018679033/",
+  "artist": "Sergei Prokudin-Gorskii",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "1905–1915",
+  "use": "俄罗斯帝国的村庄（普罗库金-戈尔斯基摄）"
+ },
+ "loc_seattle": {
+  "file": "[Bird's-eye view of waterfront, Seattle, Washington]",
+  "page": "https://www.loc.gov/item/92511957/",
+  "artist": "Detroit Publishing Co.",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "1904",
+  "use": "1904 年的西雅图港"
+ },
+ "loc_ks_speedway": {
+  "file": "The Kansas Speedway, Kansas City, Kansas",
+  "page": "https://www.loc.gov/item/2021756258/",
+  "artist": "Carol M. Highsmith",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "2021",
+  "use": "堪萨斯城西郊（堪萨斯赛车场一带）"
+ },
+ "loc_dallas": {
+  "file": "Skyline of Dallas, Texas, at dusk",
+  "page": "https://www.loc.gov/item/2013650759/",
+  "artist": "Carol M. Highsmith",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "2012",
+  "use": "达拉斯"
+ },
+ "loc_houston": {
+  "file": "Dusk shot of the Houston, Texas, skyline",
+  "page": "https://www.loc.gov/item/2014632689/",
+  "artist": "Carol M. Highsmith",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "2014",
+  "use": "休斯敦"
+ },
+ "loc_slc": {
+  "file": "View of downtown Salt Lake City",
+  "page": "https://www.loc.gov/item/2023697517/",
+  "artist": "Carol M. Highsmith",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "2022",
+  "use": "犹他州盐湖城"
+ },
+ "loc_boston_sky": {
+  "file": "Aerial view of the skyline of Boston, Massachusetts",
+  "page": "https://www.loc.gov/item/2019689683/",
+  "artist": "Carol M. Highsmith",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "2019",
+  "use": "波士顿（新英格兰）"
+ },
+ "loc_sa_furn": {
+  "file": "Woman in front of secondhand furniture store, San Antonio, Texas",
+  "page": "https://www.loc.gov/item/2017739413/",
+  "artist": "Russell Lee",
+  "license": "Public domain",
+  "credit": "Library of Congress, FSA/OWI Collection",
+  "date": "1939-03",
+  "use": "1939 年得州圣安东尼奥的一家二手家具店"
+ },
+ "loc_chanute": {
+  "file": "Man who operates small grocery store and secondhand furniture store in his home. Chanute, Kansas",
+  "page": "https://www.loc.gov/item/2017811310/",
+  "artist": "John Vachon",
+  "license": "Public domain",
+  "credit": "Library of Congress, FSA/OWI Collection",
+  "date": "1940",
+  "use": "1940 年堪萨斯州一家开在自家的二手家具店"
+ },
+ "loc_omaha_signs": {
+  "file": "Old advertising signs on a brick wall, Omaha, Nebraska",
+  "page": "https://www.loc.gov/item/2021757778/",
+  "artist": "Carol M. Highsmith",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "2021",
+  "use": "奥马哈老城"
+ },
+ "loc_desmoines": {
+  "file": "Capitol building, Des Moines, Iowa",
+  "page": "https://www.loc.gov/item/2011633424/",
+  "artist": "Carol M. Highsmith",
+  "license": "Public domain",
+  "credit": "Library of Congress",
+  "date": "1980s",
+  "use": "艾奥瓦州得梅因"
  }
 }

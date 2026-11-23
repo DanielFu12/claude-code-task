@@ -1,4 +1,4 @@
-"""第五期原创配乐（沿用第四期的程序作曲框架）：按时间线（work/timeline.json）直接写 MIDI，再用 FluidSynth + FluidR3 GM 音色库渲染。
+"""第八期原创配乐（沿用第四期起的程序作曲框架）：按时间线（work/timeline.json）直接写 MIDI，再用 FluidSynth + FluidR3 GM 音色库渲染。
 
 前几期的配乐素材（Lyria 生成）没有入库，本环境也无法调用该服务；本期改为程序作曲：
   · 一套统一的音乐语言：80 BPM、4/4（每小节 3 秒），D 小调为主，第五章转 D 大调；
@@ -266,22 +266,16 @@ def hit(t, name, v=100, ring=6.0, big=True):
 def build():
     T = TL['total']; title = CH['title'][0]
     c = {k: CH[k][0] for k in ('ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch6', 'ch7', 'end')}
-    # 第七期卡点：片名、各章章节号亮起（章节卡开始后 0.5s）、c1e 股价跌到“三十七美元”、c2c“闭环”、c3e“三点八美元”、
-    #             c4c“不再续约”、c5k“里子把人留下来”、logo；原声段落下只留很轻的铺底。
+    # 第八期卡点：片名、各章章节号亮起（章节卡开始后 0.5s）、c1i“现金只有五十美元”、c2e“一个字没改”、c3c“百分之十六点五”、
+    #             c4b“辞职走了”、c5d“一百八十万平方英尺”、c7e“三十三亿”、logo。本期没有原声段落。
     hc = {k: c[k] + 0.5 for k in ('ch2', 'ch3', 'ch4', 'ch5', 'ch6', 'ch7')}
-    t_crash = WT('c1e', '三十七美元'); t_loop = WT('c2c', '闭环'); t_38 = WT('c3e', '三点八美元')
-    t_cut = WT('c4c', '不再续约'); t_keep = WT('c5k', '里子把人留下来'); logo = TL['logo']
-    t_same = WT('c1g', '照用不误'); t_three = WT('c4g', '差不多三倍'); t_half = WT('c3g', '大约只有一半')
-    make_grid([title, t_crash, t_loop, t_38, t_cut, t_keep, logo] + list(hc.values()), T)
+    t_sign = WT('h4', '就签了'); t_fifty = WT('c1i', '五十美元'); t_word = WT('c2e', '一个字没改')
+    t_cost = WT('c3c', '百分之十六点五'); t_quit = WT('c4b', '辞职走了'); t_tx = WT('c5d', '一百八十万')
+    t_33 = WT('c7e', '三十三亿'); logo = TL['logo']
+    t_judge = WT('c1h', '一千四百美元'); t_motto = WT('c1k', '卖得便宜'); t_enough = WT('c2g', '就够了')
+    t_river = WT('c3g', '河底'); t_99 = WT('c4f', '九十九岁'); t_104 = WT('c4h', '一百零四岁'); t_rec = WT('c5e', '销售纪录')
+    make_grid([title, t_fifty, t_word, t_cost, t_quit, t_tx, t_33, logo] + list(hc.values()), T)
     tk = lambda cid: CH['tk_' + cid][0]
-    so_in = lambda sid: S('sot_' + sid) - SEG['sot_' + sid]['lead']
-    so_out = lambda sid: E('sot_' + sid)
-
-    def bed(sid_a, sid_b=None):
-        """原声段落：只留很轻的铺底"""
-        a, b = so_in(sid_a) - 0.3, so_out(sid_b or sid_a) + 0.3
-        section(a, b, ['F', 'Dm', 'Bb', 'C'], {'pad2', 'low', 'nomotif'}, 30, 34, tonic=5, major=True)
-        return b
 
     def bridge(prev, cid, prog, to, v=92):
         """要点卡 → 章节号：弦乐颤音 + 合唱上扬，军鼓滚奏推到章节号的重拍"""
@@ -291,70 +285,77 @@ def build():
         hit(h, to, v, ring=3.5, big=False)
         return nxtbar(h)
 
-    # ---- 开场：引子 → 巴菲特原声（铺底）→ 二十多年一股没动（温暖）→ 两个问题（固定音型起势）→ 撞进片名
-    section(0.6, so_in('open') - 0.3, ['Dm', 'Bb', 'Gm', 'A'], {'pizz', 'pad2', 'low'}, 36, 46, motif_every=4, motif_oct=62)
-    b = bed('open')
-    section(b, S('h3') - 0.2, ['F', 'C/E', 'Dm', 'Bb'], {'arp', 'pad2', 'low'}, 44, 52, tonic=5, major=True, motif_every=4)
-    section(S('h3') - 0.2, S('h4') - 0.2, ['F', 'C', 'Dm', 'Bb'], {'arp', 'pad', 'low', 'eighths'}, 50, 62, tonic=5, major=True, motif_every=0)
-    section(S('h4') - 0.2, title, ['Bb', 'Gm', 'C', 'Bb', 'Gm', 'C'], {'trem', 'low', 'ostinato', 'perc', 'nomotif'}, 60, 88)
+    # ---- 开场：1972 年的奥马哈（温暖的钢琴琶音）→ 1983 年生日那天（八分音符推进）→ 一个字没改就签了（点一下）
+    #       → 引语卡（弦乐铺底）→ 两个问题（固定音型起势）→ 撞进片名
+    section(0.6, S('h3') - 0.2, ['F', 'C/E', 'Dm', 'Bb'], {'arp', 'pad2', 'low', 'piano_chord'}, 38, 48, tonic=5, major=True, motif_every=4)
+    section(S('h3') - 0.2, t_sign, ['F', 'C', 'Dm', 'Bb'], {'arp', 'pad', 'low', 'eighths'}, 48, 60, tonic=5, major=True, motif_every=0)
+    accent(t_sign, 'F', 84)
+    section(nxtbar(t_sign), S('h6') - 0.2, ['Bb', 'F/A', 'Gm', 'C'], {'pad', 'low', 'harp'}, 46, 52, tonic=5, major=True, motif_every=4)
+    section(S('h6') - 0.2, title, ['Bb', 'Gm', 'C', 'Bb', 'Gm', 'C'], {'trem', 'low', 'ostinato', 'perc', 'nomotif'}, 58, 88)
     riser(title, 3.0, 92)
     hit(title, 'F', 110)
-    # ---- 第一章：1850 年（老照片钢琴）→ 色拉油骗局（小调心跳）→ 股价跌到 37 美元（重拍）→ 顾客照用（转大调）→ 押上四成 → 信任
-    section(nxtbar(title), S('c1c') - 0.3, ['Dm', 'Bb', 'F', 'C', 'Gm', 'Bb', 'Dm', 'C'], {'piano_chord', 'pad2', 'synth', 'low'}, 42, 52,
+    # ---- 第一章：离开俄国（小调拨弦）→ 卖得便宜、被断货、被告（心跳推进）→ 法官买地毯（转大调点一下）
+    #       → 现金只有五十美元（重拍，沉下去）→ 路易回来（圆号主题，温暖）→ 卖得便宜，说真话（合唱）
+    section(nxtbar(title), S('c1d') - 0.3, ['Dm', 'Bb', 'F', 'C', 'Gm', 'Bb', 'Dm', 'A'], {'piano_chord', 'pad2', 'low', 'pizz'}, 40, 50,
             motif_every=4, motif_oct=74)
-    section(S('c1c') - 0.3, t_crash, ['Dm', 'Bb', 'Gm', 'A'], {'pizz', 'eighths', 'pad2', 'low', 'heart'}, 46, 66, motif_every=4, motif_oct=62)
-    riser(t_crash, 1.6, 78)
-    hit(t_crash, 'Dm', 94, ring=3.0, big=False)
-    section(nxtbar(t_crash), t_same, ['Dm', 'Bb', 'Gm', 'A'], {'pad2', 'low', 'trem'}, 42, 52, motif_every=0)
-    accent(t_same, 'F', 84)
-    section(nxtbar(t_same), tk('ch1'), ['F', 'C/E', 'Dm', 'Bb', 'F/A', 'Gm', 'Bb', 'C'], {'pad', 'low', 'horn', 'arp'}, 50, 60, tonic=5, major=True,
+    section(S('c1d') - 0.3, t_judge, ['Dm', 'Bb', 'Gm', 'A'], {'pizz', 'eighths', 'pad2', 'low', 'heart'}, 46, 64, motif_every=4, motif_oct=62)
+    accent(t_judge, 'F', 82)
+    section(nxtbar(t_judge), t_fifty, ['Dm', 'Bb', 'Gm', 'A'], {'pad2', 'low', 'trem'}, 44, 54, motif_every=0)
+    riser(t_fifty, 1.6, 74)
+    hit(t_fifty, 'Dm', 90, ring=3.0, big=False)
+    section(nxtbar(t_fifty), t_motto, ['F', 'C/E', 'Dm', 'Bb', 'F/A', 'Gm', 'Bb', 'C'], {'pad', 'low', 'horn', 'arp'}, 48, 60, tonic=5, major=True,
             motif_every=4, motif_ins='horn', motif_oct=65)
+    accent(t_motto, 'F', 88, ring=4.0)
+    section(nxtbar(t_motto), tk('ch1'), ['Bb', 'F/A', 'Gm', 'C'], {'pad', 'low', 'choir'}, 48, 54, tonic=5, major=True, motif_every=0)
     s2 = bridge('ch1', 'ch2', ['Bb', 'C'], 'F')
-    # ---- 第二章：四方模式（轻快拨弦）→ “闭环”（重拍）→ 飞轮（固定音型推进）
-    section(s2, t_loop, ['F', 'Bb', 'Dm', 'C'], {'pad2', 'pizz', 'eighths', 'low'}, 44, 58, tonic=5, major=True, motif_every=4)
-    riser(t_loop, 1.8, 80)
-    hit(t_loop, 'F', 98, ring=3.0)
-    section(nxtbar(t_loop), S('c2f') - 0.3, ['F', 'C/E', 'Dm', 'Bb'], {'arp', 'pad', 'low', 'harp'}, 48, 56, tonic=5, major=True, motif_every=4)
-    section(S('c2f') - 0.3, tk('ch2'), ['F', 'C', 'Dm', 'Bb', 'F', 'C', 'Bb', 'C'], {'pad', 'low', 'ostinato', 'perc', 'eighths'}, 54, 74,
+    # ---- 第二章：一亿多美元（明亮琶音）→ 提议书（拨弦）→ 一个字没改（重拍）→ 她的一句话就够了（合唱）→ 灰熊（固定音型）
+    section(s2, S('c2d') - 0.3, ['F', 'C/E', 'Dm', 'Bb'], {'arp', 'pad', 'low', 'harp'}, 46, 56, tonic=5, major=True, motif_every=4)
+    section(S('c2d') - 0.3, t_word, ['F', 'Bb', 'Dm', 'C'], {'pad2', 'pizz', 'eighths', 'low'}, 50, 62, tonic=5, major=True, motif_every=4)
+    riser(t_word, 1.8, 80)
+    hit(t_word, 'F', 98, ring=3.0)
+    section(nxtbar(t_word), t_enough, ['Bb', 'F/A', 'Gm', 'C'], {'pad', 'low', 'harp', 'choir'}, 48, 56, tonic=5, major=True, motif_every=4)
+    accent(t_enough, 'F', 86)
+    section(nxtbar(t_enough), tk('ch2'), ['F', 'C', 'Dm', 'Bb', 'F', 'C', 'Bb', 'C'], {'pad', 'low', 'ostinato', 'perc', 'eighths'}, 52, 70,
             tonic=5, major=True, motif_every=0)
     s3 = bridge('ch2', 'ch3', ['Gm', 'C'], 'F')
-    # ---- 第三章：账本一级级搭起来 → “三点八美元”（大重拍）→ 核销只有一半（点一下）→ 代价与回购（铜管）
-    section(s3, S('c3d') - 0.3, ['F', 'C', 'Dm', 'Bb', 'F', 'C', 'Bb', 'C'], {'pad', 'low', 'ostinato', 'perc', 'eighths'}, 50, 70, tonic=5, major=True, motif_every=0)
-    section(S('c3d') - 0.3, t_38, ['Dm', 'Bb', 'Gm', 'A'], {'pizz', 'pad2', 'low', 'eighths'}, 50, 72, motif_every=4, motif_oct=67)
-    riser(t_38, 2.2, 88)
-    hit(t_38, 'F', 104, ring=3.5)
-    section(nxtbar(t_38), t_half, ['F', 'C/E', 'Dm', 'Bb'], {'pad', 'arp', 'low'}, 52, 58, tonic=5, major=True, motif_every=4)
-    accent(t_half, 'F', 86)
-    section(nxtbar(t_half), tk('ch3'), ['Bb', 'F/A', 'Gm', 'C'], {'pad', 'low', 'brass', 'brassmotif', 'nomotif'}, 52, 64, tonic=5, major=True)
+    # ---- 第三章：Levitz 对比（数字一级级推进）→ 16.5%（大重拍）→ 飞轮（固定音型）→ 河底（点一下）→ Dillard’s → 都比别人便宜（铜管）
+    section(s3, t_cost, ['F', 'C', 'Dm', 'Bb', 'F', 'C', 'Bb', 'C'], {'pad', 'low', 'ostinato', 'perc', 'eighths'}, 48, 70, tonic=5, major=True, motif_every=0)
+    riser(t_cost, 2.2, 88)
+    hit(t_cost, 'F', 104, ring=3.5)
+    section(nxtbar(t_cost), t_river, ['F', 'C/E', 'Dm', 'Bb'], {'pad', 'arp', 'low', 'eighths'}, 50, 60, tonic=5, major=True, motif_every=4)
+    accent(t_river, 'F', 84)
+    section(nxtbar(t_river), tk('ch3'), ['Bb', 'F/A', 'Gm', 'C'], {'pad', 'low', 'brass', 'brassmotif', 'nomotif'}, 52, 64, tonic=5, major=True)
     s4 = bridge('ch3', 'ch4', ['Bb', 'A'], 'Dm', 90)
-    # ---- 第四章：Costco（小调）→ “不再续约”（重拍）→ 谈不拢 → 斯奎里（转大调推进）→ 差不多三倍（点一下）→ 事后看（安静）
-    section(s4, t_cut, ['Dm', 'Bb', 'Gm', 'A'], {'pizz', 'pad2', 'low', 'heart'}, 44, 62, motif_every=4, motif_oct=62)
-    riser(t_cut, 1.8, 82)
-    hit(t_cut, 'Dm', 98, ring=3.0, big=False)
-    section(nxtbar(t_cut), S('c4f') - 0.3, ['Dm', 'Bb', 'F', 'C'], {'pad2', 'low', 'trem'}, 42, 52, motif_every=0)
-    section(S('c4f') - 0.3, t_three, ['F', 'C', 'Dm', 'Bb', 'F', 'C', 'Bb', 'C'], {'pad', 'low', 'ostinato', 'perc', 'eighths'}, 54, 80, tonic=5, major=True, motif_every=0)
-    accent(t_three, 'F', 92)
-    section(nxtbar(t_three), tk('ch4'), ['Bb', 'F/A', 'Gm', 'C'], {'pad', 'low', 'choir'}, 44, 54, tonic=5, major=True, motif_every=0)
+    # ---- 第四章：闹翻（小调心跳）→ 辞职走了（重拍）→ 开到隔壁（俏皮拨弦）→ 九十九岁签竞业（转大调）→ 一百零四岁（安静的合唱）
+    section(s4, t_quit, ['Dm', 'Bb', 'Gm', 'A'], {'pizz', 'pad2', 'low', 'heart'}, 44, 62, motif_every=4, motif_oct=62)
+    riser(t_quit, 1.8, 80)
+    hit(t_quit, 'Dm', 96, ring=3.0, big=False)
+    section(nxtbar(t_quit), t_99, ['Dm', 'Bb', 'F', 'C'], {'pad2', 'low', 'pizz', 'eighths'}, 44, 56, motif_every=4, motif_oct=67)
+    accent(t_99, 'F', 86)
+    section(nxtbar(t_99), t_104, ['F', 'C/E', 'Dm', 'Bb'], {'pad', 'low', 'harp'}, 46, 50, tonic=5, major=True, motif_every=4)
+    accent(t_104, 'Bb', 72, ring=5.0)
+    section(nxtbar(t_104), tk('ch4'), ['Bb', 'F/A', 'Gm', 'C'], {'pad', 'low', 'choir'}, 42, 50, tonic=5, major=True, motif_every=0)
     s5 = bridge('ch4', 'ch5', ['Bb', 'C'], 'F')
-    # ---- 第五章：黑卡传说（神秘的颤音）→ 年轻人（明亮琶音）→ 年费与权益（固定音型）→ “里子把人留下来”（合唱）
-    section(s5, S('c5d') - 0.3, ['Dm', 'Bb', 'Gm', 'A'], {'trem', 'pad2', 'low', 'celesta'}, 42, 54, motif_every=4, motif_oct=74)
-    section(S('c5d') - 0.3, S('c5g') - 0.3, ['F', 'C/E', 'Dm', 'Bb', 'F/A', 'Gm', 'Bb', 'C'], {'arp', 'harp', 'pad2', 'pizz'}, 46, 58, tonic=5, major=True, motif_every=4)
-    section(S('c5g') - 0.3, S('c5k') - 0.2, ['F', 'C', 'Dm', 'Bb'], {'pad', 'low', 'ostinato', 'eighths'}, 52, 66, tonic=5, major=True, motif_every=0)
-    section(S('c5k') - 0.2, tk('ch5'), ['Bb', 'C', 'Dm', 'Bb', 'F/A', 'Gm', 'Csus4', 'C'], {'pad', 'arp', 'low', 'choir'}, 50, 66, tonic=5, major=True, motif_every=2)
-    accent(t_keep, 'F', 92, ring=4.0)
+    # ---- 第五章：越开越大（明亮琶音 → 固定音型）→ 180 万平方英尺（重拍）→ 疫情下的纪录（点一下）→ 股东周（合唱）
+    section(s5, t_tx, ['F', 'C/E', 'Dm', 'Bb', 'F', 'C', 'Bb', 'C'], {'arp', 'harp', 'pad', 'low', 'eighths', 'ostinato'}, 48, 70, tonic=5, major=True, motif_every=4)
+    riser(t_tx, 2.0, 86)
+    hit(t_tx, 'F', 100, ring=3.5)
+    section(nxtbar(t_tx), t_rec, ['F', 'C', 'Dm', 'Bb'], {'pad', 'low', 'arp'}, 52, 60, tonic=5, major=True, motif_every=4)
+    accent(t_rec, 'F', 86)
+    section(nxtbar(t_rec), tk('ch5'), ['Bb', 'C', 'Dm', 'Bb', 'F/A', 'Gm', 'Csus4', 'C'], {'pad', 'arp', 'low', 'choir'}, 50, 64, tonic=5, major=True, motif_every=2)
     s6 = bridge('ch5', 'ch6', ['Bb', 'A'], 'Dm', 86)
-    # ---- 第六章：四件事（小调心跳，逐条推进）→ 三个数（铜管收束）
+    # ---- 第六章：三件事（小调心跳，逐条推进）→ 除了 NFM（铜管收束）
     section(s6, S('c6f') - 0.3, ['Dm', 'Bb', 'Gm', 'A', 'Dm', 'Bb', 'F', 'C'], {'pad2', 'low', 'heart', 'pizz'}, 42, 56, motif_every=4, motif_oct=62)
-    section(S('c6f') - 0.3, tk('ch6'), ['F', 'C', 'Dm', 'Bb'], {'pad', 'low', 'horn', 'brass', 'brassmotif', 'nomotif'}, 52, 66, tonic=5, major=True)
+    section(S('c6f') - 0.3, tk('ch6'), ['F', 'C', 'Dm', 'Bb'], {'pad', 'low', 'horn', 'brass', 'brassmotif', 'nomotif'}, 50, 64, tonic=5, major=True)
     s7 = bridge('ch6', 'ch7', ['Bb', 'C'], 'F', 92)
-    # ---- 第七章：三家公司（合唱涨起）→ 巴菲特原声（铺底）→ 六十年 → 落版字化作粒子 → logo
-    section(s7, so_in('trick') - 0.3, ['Bb', 'C', 'Dm', 'Bb', 'F/A', 'Gm', 'Csus4', 'C'], {'pad', 'arp', 'low', 'choir', 'harp'}, 48, 66,
+    # ---- 第七章：一家牵出一家（合唱涨起）→ 三十三亿（重拍）→ 卖得便宜，说真话 → 落版字化作粒子 → logo
+    section(s7, t_33, ['Bb', 'C', 'Dm', 'Bb', 'F/A', 'Gm', 'Csus4', 'C'], {'pad', 'arp', 'low', 'choir', 'harp'}, 46, 68,
             tonic=5, major=True, motif_every=2)
-    b = bed('trick')
-    t_60 = WT('c7d', '六十年')
-    section(b, t_60, ['F', 'Bb', 'F/A', 'C', 'F', 'Bb', 'Gm', 'C'], {'pad', 'choir', 'low', 'horn'}, 54, 50, tonic=5, major=True, motif_every=4,
-            motif_ins='horn', motif_oct=65)
-    section(t_60, logo, ['Bb', 'C', 'Dm', 'Bb', 'Gm', 'C'], {'pad', 'choir', 'low', 'horn', 'arp', 'nomotif'}, 58, 62, tonic=5, major=True)
+    riser(t_33, 2.0, 86)
+    hit(t_33, 'F', 100, ring=3.5)
+    section(nxtbar(t_33), S('c7g') - 0.2, ['F', 'Bb', 'F/A', 'C', 'F', 'Bb', 'Gm', 'C'], {'pad', 'choir', 'low', 'horn'}, 54, 52, tonic=5, major=True,
+            motif_every=4, motif_ins='horn', motif_oct=65)
+    section(S('c7g') - 0.2, logo, ['Bb', 'C', 'Dm', 'Bb', 'Gm', 'C'], {'pad', 'choir', 'low', 'horn', 'arp', 'nomotif'}, 56, 62, tonic=5, major=True)
     riser(logo, 3.0, 96)
     hit(logo, 'F', 110, ring=T - logo + 0.5)
     # 混响与声相
@@ -367,8 +368,8 @@ def build():
                               pm.ControlChange(7, {'horn': 92, 'timp': 100, 'choir': 70, 'pad': 70, 'spic': 84, 'brass': 88,
                                                    'trumpet': 84, 'trombone': 88, 'taiko': 110}.get(name, 100), 0.0)]
     beats = sorted(g0 + k * (g1 - g0) / 4 for g0, g1 in zip(GRID, GRID[1:]) for k in range(4) if g0 < T)
-    SOFT[:] = [t_crash, t_loop, t_38, t_cut, t_same, t_three, t_half, t_keep]     # 句中的点题：配乐只半闪避，不压字
-    return beats, [title, t_crash, t_loop, t_38, t_cut, t_keep, logo] + list(hc.values()), list(hc.values())
+    SOFT[:] = [t_fifty, t_word, t_cost, t_quit, t_tx, t_33, t_sign, t_judge, t_motto, t_enough, t_river, t_99, t_104, t_rec]   # 句中的点题：配乐只半闪避，不压字
+    return beats, [title, t_fifty, t_word, t_cost, t_quit, t_tx, t_33, logo] + list(hc.values()), list(hc.values())
 
 
 def post(wav):

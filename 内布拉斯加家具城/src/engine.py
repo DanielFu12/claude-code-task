@@ -8,6 +8,7 @@ import numpy as np, cv2
 from PIL import Image, ImageDraw, ImageFont
 
 W, H, FPS = 1080, 1920, 30
+cv2.setNumThreads(1)          # 4 个渲染进程并行：每个进程单线程，避免线程争抢
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..')
 FONT_DIR = os.path.join(ROOT, 'fonts')
@@ -380,12 +381,13 @@ def finish(cv, frame_idx, bloom_k=1.0, grain=0.018, vig=True, hud_alpha=1.0, fad
     if bloom_k > 0 and cv.glow.any():
         img = img + bloom(cv.glow, bloom_k)
     # 柔肩色调映射：高光不硬切
-    img = np.where(img > 0.82, 0.82 + 0.18 * (1 - np.exp(-(img - 0.82) / 0.18)), img)
+    hm = img > 0.82                                              # 只在高光像素上算指数（渲染提速）
+    if hm.any(): img[hm] = 0.82 + 0.18 * (1 - np.exp(-(img[hm] - 0.82) / 0.18))
     if vig: img = img * vignette()
     if grain > 0:
         g = _grain_tiles()[frame_idx % 8]
         g = cv2.resize(g, (W, H), interpolation=cv2.INTER_LINEAR)
-        lum = img.mean(2, keepdims=True)
+        lum = cv2.cvtColor(np.ascontiguousarray(img, np.float32), cv2.COLOR_RGB2GRAY)[..., None]
         img = img + g[..., None] * grain * (0.35 + 0.65 * np.sqrt(np.clip(lum, 0, 1)))
     if post is not None: post(img)
     img *= fade

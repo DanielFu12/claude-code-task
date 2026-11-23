@@ -1,0 +1,128 @@
+{
+ "tx_promo1": {
+  "source": "得州 The Colony 市政府旅游宣传片（2015，片中 NFM 得州店段落）",
+  "ia": "https://archive.org/details/tcoltx-The_Colony_Texas_THE_Lake_THE_Golf_THE_Fun_and_THE_Shopping",
+  "start": 274.97,
+  "dur": 3.1,
+  "note": "NFM 得州店外景与卖场（2015）"
+ },
+ "tx_promo2": {
+  "source": "得州 The Colony 市政府旅游宣传片（2015，片中 NFM 得州店段落）",
+  "ia": "https://archive.org/details/tcoltx-The_Colony_Texas_THE_Lake_THE_Golf_THE_Fun_and_THE_Shopping",
+  "start": 278.82,
+  "dur": 3.66,
+  "note": "NFM 得州店卖场（2015）"
+ },
+ "op_crowd": {
+  "source": "The Colony 市政府电视台：NFM 得州店开业典礼（2015-05-07）",
+  "ia": "https://archive.org/details/tcoltx-NFM_of_Texas_Grand_Opening",
+  "start": 42.6,
+  "dur": 11.0,
+  "note": "NFM 得州店开业前的员工（2015-05-07）"
+ },
+ "op_flags": {
+  "source": "The Colony 市政府电视台：NFM 得州店开业典礼（2015-05-07）",
+  "ia": "https://archive.org/details/tcoltx-NFM_of_Texas_Grand_Opening",
+  "start": 58.0,
+  "dur": 18.0,
+  "note": "NFM 得州店开业典礼（2015-05-07）"
+ },
+ "op_ribbon": {
+  "source": "The Colony 市政府电视台：NFM 得州店开业典礼（2015-05-07）",
+  "ia": "https://archive.org/details/tcoltx-NFM_of_Texas_Grand_Opening",
+  "start": 1262.0,
+  "dur": 16.0,
+  "note": "NFM 得州店开业剪彩（2015-05-07）"
+ },
+ "tx_render": {
+  "source": "The Colony 市政府电视台节目《Moving America Forward》（2014，NFM 得州店效果图）",
+  "ia": "https://archive.org/details/tcoltx-The_Colony_-_Moving_America_Forward",
+  "start": 396.2,
+  "dur": 3.5,
+  "note": "NFM 得州店效果图（2014）"
+ },
+ "cp_room": {
+  "source": "地毯宣传片《The Carpet That’s Miles Above》（约 1960，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/carpet_thats_miles_above",
+  "start": 127.2,
+  "dur": 3.9,
+  "note": "地毯（约 1960 年宣传片）"
+ },
+ "cp_sweep": {
+  "source": "地毯宣传片《The Carpet That’s Miles Above》（约 1960，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/carpet_thats_miles_above",
+  "start": 133.6,
+  "dur": 4.2,
+  "note": "地毯（约 1960 年宣传片）"
+ },
+ "cp_slipper": {
+  "source": "地毯宣传片《The Carpet That’s Miles Above》（约 1960，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/carpet_thats_miles_above",
+  "start": 183.4,
+  "dur": 4.6,
+  "note": "地毯（约 1960 年宣传片）"
+ },
+ "al_living": {
+  "source": "《American Look》（1958，Prelinger Archives）",
+  "ia": "https://archive.org/details/6383_American_Look_M04199_01_22_19_00",
+  "start": 285.5,
+  "dur": 10.0,
+  "note": "1950 年代的客厅家具（1958 年影片）"
+ },
+ "al_sideboard": {
+  "source": "《American Look》（1958，Prelinger Archives）",
+  "ia": "https://archive.org/details/6383_American_Look_M04199_01_22_19_00",
+  "start": 299.0,
+  "dur": 8.5,
+  "note": "1950 年代的家具（1958 年影片）"
+ },
+ "al_chair": {
+  "source": "《American Look》（1958，Prelinger Archives）",
+  "ia": "https://archive.org/details/6383_American_Look_M04199_01_22_19_00",
+  "start": 315.0,
+  "dur": 4.5,
+  "note": "1950 年代的家具（1958 年影片）"
+ },
+ "al_dining": {
+  "source": "《American Look》（1958，Prelinger Archives）",
+  "ia": "https://archive.org/details/6383_American_Look_M04199_01_22_19_00",
+  "start": 328.5,
+  "dur": 6.0,
+  "note": "1950 年代的餐桌椅（1958 年影片）"
+ },
+ "eu_field": {
+  "source": "公民教育片《Somewhere in Europe》（1921，搬演，Prelinger Archives）",
+  "ia": "https://archive.org/details/0963SomewhereInEuropeImmigrationPt1",
+  "start": 29.9,
+  "dur": 14.4,
+  "note": "欧洲乡村（1921 年教育片，搬演）"
+ },
+ "eu_ship": {
+  "source": "公民教育片《Somewhere in Europe》（1921，搬演，Prelinger Archives）",
+  "ia": "https://archive.org/details/0963SomewhereInEuropeImmigrationPt1",
+  "start": 247.0,
+  "dur": 10.5,
+  "note": "移民船（1921 年教育片，搬演）"
+ },
+ "eu_wait": {
+  "source": "公民教育片《Somewhere in Europe》（1921，搬演，Prelinger Archives）",
+  "ia": "https://archive.org/details/0963SomewhereInEuropeImmigrationPt1",
+  "start": 288.0,
+  "dur": 16.5,
+  "note": "移民（1921 年教育片，搬演）"
+ },
+ "lv_sofa": {
+  "source": "Levitz 家具电视广告（1999，VHS Vault 录像）",
+  "ia": "https://archive.org/details/NJY-015_132385-133284",
+  "start": 13.0,
+  "dur": 4.6,
+  "note": "Levitz 家具广告（1999）"
+ },
+ "lv_sofa2": {
+  "source": "Levitz 家具电视广告（1999，VHS Vault 录像）",
+  "ia": "https://archive.org/details/NJY-015_132385-133284",
+  "start": 17.75,
+  "dur": 1.7,
+  "note": "Levitz 家具广告（1999）"
+ }
+}

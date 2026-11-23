@@ -1,0 +1,18 @@
+{
+"loc_omaha1915": "https://tile.loc.gov/storage-services/service/pnp/cph/3c00000/3c06000/3c06600/3c06677_150px.jpg#h=120&w=150",
+"loc_dday": "https://tile.loc.gov/storage-services/service/pnp/ppmsca/13300/13373t.gif#h=119&w=150",
+"loc_purple": "https://tile.loc.gov/storage-services/service/pnp/cph/3g10000/3g12000/3g12300/3g12345_150px.jpg#h=150&w=121",
+"loc_ru1": "https://tile.loc.gov/storage-services/service/pnp/prok/01900/01947v.jpg#h=873&w=1024",
+"loc_ru2": "https://tile.loc.gov/storage-services/service/pnp/prok/01900/01909v.jpg#h=916&w=1024",
+"loc_ru3": "https://tile.loc.gov/storage-services/service/pnp/prok/01900/01979v.jpg#h=913&w=1024",
+"loc_seattle": "https://tile.loc.gov/storage-services/service/pnp/cph/3c00000/3c05000/3c05700/3c05752v.jpg#h=812&w=1024",
+"loc_ks_speedway": "https://tile.loc.gov/storage-services/service/pnp/highsm/68000/68037v.jpg#h=683&w=1024",
+"loc_dallas": "https://tile.loc.gov/image-services/iiif/service:pnp:highsm:18700:18715/full/pct:25/0/default.jpg#h=1019&w=1571",
+"loc_houston": "https://tile.loc.gov/image-services/iiif/service:pnp:highsm:28400:28489/full/pct:25/0/default.jpg#h=1165&w=1683",
+"loc_slc": "https://tile.loc.gov/storage-services/service/pnp/highsm/70800/70882v.jpg#h=683&w=1024",
+"loc_boston_sky": "https://tile.loc.gov/storage-services/service/pnp/highsm/57200/57259v.jpg#h=683&w=1024",
+"loc_sa_furn": "https://tile.loc.gov/storage-services/service/pnp/fsa/8a25000/8a25600/8a25625v.jpg#h=714&w=1024",
+"loc_chanute": "https://tile.loc.gov/storage-services/service/pnp/fsa/8c18000/8c18300/8c18321v.jpg#h=764&w=1024",
+"loc_omaha_signs": "https://tile.loc.gov/storage-services/service/pnp/highsm/69500/69557v.jpg#h=1024&w=848",
+"loc_desmoines": "https://tile.loc.gov/image-services/iiif/service:pnp:highsm:15200:15231/full/pct:25/0/default.jpg#h=1230&w=1579"
+}
