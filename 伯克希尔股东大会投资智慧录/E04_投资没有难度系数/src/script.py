@@ -13,21 +13,30 @@ SAY 里是只为发音调整的朗读文本（屏幕字幕仍用原文）。
 # ------------------------------------------------------------------ 配音参数（与前三集相同，见 CLAUDE.md 第 3 节）
 GEMINI_MODEL = 'gemini-3.8-flash-tts'
 GEMINI_VOICE = 'charon'
-GEMINI_STYLE = ('A steady authoritative male narrator for a financial documentary. '
-                'Measured and deliberate pace, calm confidence, clear enunciation, quiet gravitas.')
+# 整篇旁白一次合成（一条录音，没有接缝）；语气提示具体到人物、场景和情绪走向，并要求全程同一个人、同一种状态
+GEMINI_STYLE = ('A seasoned investor who has lived through bull and bear markets, talking late at night with a friend who has just '
+                'lost money on a stock he spent weeks researching. Genuine, warm emotion: a touch of regret when talking about '
+                'losses, a small pause and more weight at each turning point, calm certainty at the conclusions. Conversational, '
+                'with natural breaths, never a broadcast or announcer voice; brisk and crisp. Speak Mandarin Chinese. '
+                'The same person in the same state from the first sentence to the last.')
 GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/interactions'
 TEMPO = 1.07
-TTS_GROUPS = [('S1', 'S2', 'S3'), ('I1', 'I2', 'I3'), ('I5', 'I6'), ('I7', 'I8'), ('I10', 'I11'), ('M',)]
-TAGS = {'S2': '<breath>', 'S3': '<short pause>', 'I2': '<breath>', 'I3': '<short pause>', 'I5': '<breath>', 'I6': '<short pause>',
-        'I7': '<breath>', 'I8': '<short pause>', 'I10': '<breath>', 'I11': '<breath>', 'M': '<breath>'}
+# 一次请求合成全部旁白；各小节之间换段（空行），段内不插任何停顿标签
+TTS_GROUPS = [('S1', 'S2', 'S3', 'I1', 'I2', 'I3', 'I5', 'I5B', 'I6', 'I7', 'I8', 'I10', 'I11', 'I12', 'M')]
+TAGS = {}
+PARAS = ('S2', 'I1', 'I2', 'I5', 'I7', 'I10', 'M')        # 这些句子前换段
+# 时间线上可以留白、对齐配乐的“小节转场”：只有这些句子前的停顿可伸缩；其余句子与上一句首尾相接（保留录音里原本的停顿）
+VO_BREAKS = ('I2', 'I5', 'I7', 'I10')
+# 局部放慢（时长变换，保留音高，不再单独请求）：讲概念的两句、德克斯特的故事、收尾三句慢一点
+STRETCH = {'I2': 1.06, 'I3': 1.06, 'I7': 1.05, 'I8': 1.05, 'I10': 1.08, 'I11': 1.10, 'I12': 1.10}
 
 # ------------------------------------------------------------------ 冷开场（原声）：本集最有冲击力的一句
 COLD_IDS = ('A12B',)
 
 # ------------------------------------------------------------------ 开场口播（第二集起不再宣布新系列）
 INTRO = [
-    ('S1', 'hook', '选股的时候，你是不是也觉得：研究得越复杂、模型越精密，就越能赚钱？巴菲特的回答，也许会让你松一口气。', 0.35),
-    ('S2', 'pg', '1994年春天，宝洁公司因为两笔复杂的利率掉期合约，一个季度就亏掉了1.57亿美元。', 0.45),
+    ('S1', 'hook', '熬夜读研报、搭模型，你是不是也觉得：功课做得越复杂，就越该赚钱？巴菲特的回答，也许会让你松一口气。', 0.0),
+    ('S2', 'pg', '1994年春天，宝洁公司因为两笔复杂的利率掉期合约，一个季度就亏掉了1.57亿美元。', 0.0),
     ('S3', 'ask', '几周后的伯克希尔股东大会上，一位股东问：耐克、锐步这样的全球品牌，前景有哪些不确定性？', 0.0),
 ]
 
@@ -107,27 +116,31 @@ QA_OMITTED = [
 ]
 
 # ------------------------------------------------------------------ 投资启示（本片解读，旁白）
-# 逻辑链：概括原观点 → 第一性原理（市场只为结果付钱；环节越多越容易错）→ 正反同一案例：十年赌局（最简单的指数基金 vs 两百多家对冲基金）
-#        → 代价与局限：德克斯特鞋业（分辨一尺与七尺本身最难）→ 今天：三个问题与“太难”的篮子 → 收尾
+# 逻辑链：共情（越难的题分越高？）→ 概括原观点 → 第一性原理（市场只为结果付钱；环节越多越容易错）
+#        → 正反同一案例：十年赌局（头一年对冲基金全赢，之后九年整体年年落后）→ 代价与局限：德克斯特鞋厂（分辨一尺与七尺本身最难）
+#        → 今天：三个问题与“太难”的篮子 → 收尾 → 把问题留给观众（总结在高潮重拍上回答它）
+# 第四项：句后在录音原有停顿之外再加的“讲故事的停顿”（秒）；VO_BREAKS 里的句子前是可伸缩的小节转场
 INSIGHT = [
-    ('I1', 'recap', '巴菲特的意思是：投资不按难度给分。跨过一尺高的栏，和跳过七尺高的栏，拿到的回报一样。', 0.5),
-    ('I2', 'principle', '道理在于，市场只为结果付钱：回报取决于企业将来赚多少、你当初付多少，里面没有一项叫难度。', 0.4),
-    ('I3', 'principle', '判断越复杂，要同时猜对的环节就越多：就算每一环都有九成把握，十环全对的机会也只剩三成五。', 0.6),
-    ('I5', 'bet', '2008年，巴菲特打了一个十年的赌：他押最简单的标普500指数基金；对手挑了五只母基金，背后是两百多家对冲基金。', 0.4),
-    ('I6', 'bet', '十年后，指数基金累计涨了125.8%；五只母基金，最好的87.7%，最差的只有2.8%。', 0.6),
-    ('I7', 'dexter', '可最难的，恰恰是分辨哪是一尺、哪是七尺。就在这次大会上，巴菲特说自己看得懂的德克斯特鞋厂，没几年就被海外竞争击垮。', 0.4),
-    ('I8', 'dexter', '他为它付出的伯克希尔股票，到2014年价值约57亿美元——他称之为最惨痛的错误。', 0.6),
-    ('I10', 'today', '所以面对一只股票，先问三个问题：这门生意我看得懂吗？十年后它大概什么样？要猜对几件事才能赚钱？只要有一个答不上来，就把它放进“太难”的篮子。', 0.6),
-    ('I11', 'close', '巴菲特宁愿把自己看得懂的范围想得小一点，也不愿想大。因为在投资里，少犯错，比做难事重要得多。', 0.0),
+    ('I1', 'recap', '从小到大，我们都习惯了：越难的题，分数越高。可巴菲特说，投资不按难度给分——跨过一尺高的栏杆，和跳过七尺高的栏杆，拿到的回报一样。', 0.5),
+    ('I2', 'principle', '道理在于，市场只为结果付钱：回报取决于企业将来赚多少、你当初付多少，里面没有一项叫难度。', 0.0),
+    ('I3', 'principle', '而判断越复杂，要同时猜对的环节就越多：就算每一环都有九成把握，十环全对的机会，也只剩三成五。', 1.1),
+    ('I5', 'bet', '2008年，巴菲特打了一个十年的赌：他押最简单的标普500指数基金；对手挑了五只母基金，背后是两百多家对冲基金。', 0.0),
+    ('I5B', 'bet', '头一年，对冲基金这边全都跑赢了指数；可接下来九年，它们整体年年落后。', 0.5),
+    ('I6', 'bet', '十年后，指数基金涨了一倍多；五只母基金，一只也没追上，最差的只赚了2.8%。', 1.2),
+    ('I7', 'dexter', '可最难的，恰恰是分辨哪是一尺、哪是七尺。就在这次大会上，巴菲特说自己看得懂的德克斯特鞋厂，没几年就败给了海外的竞争对手。', 0.8),
+    ('I8', 'dexter', '他是用伯克希尔的股票付的账；到2014年，这些股票的价值约57亿美元。巴菲特说，这是他最惨痛的错误。', 1.3),
+    ('I10', 'today', '所以，面对一只股票，先问三个问题：我看得懂吗？十年后它会是什么样？要猜对几件事才能赚钱？答不上来，就放进“太难”的篮子。', 0.6),
+    ('I11', 'close', '巴菲特宁愿把自己看得懂的范围想得小一点。因为在投资里，少犯错，比做难事重要得多。', 1.0),
+    ('I12', 'close', '那么你呢：手里的那只股票，是一尺的栏杆，还是七尺的？', 0.0),
 ]
-SUMMARY = ('M', 'motto', '投资没有难度系数：跨过一尺的栏，就够了。', 0.0)
+SUMMARY = ('M', 'motto', '投资没有难度系数：跨过一尺的栏杆，就够了。', 0.0)
 ENDQ = None
 
 SAY = {
     'S2': '一九九四年春天，宝洁公司因为两笔复杂的利率掉期合约，一个季度就亏掉了一点五七亿美元。',
     'I5': '二零零八年，巴菲特打了一个十年的赌：他押最简单的标普五百指数基金；对手挑了五只母基金，背后是两百多家对冲基金。',
-    'I6': '十年后，指数基金累计涨了百分之一百二十五点八；五只母基金，最好的百分之八十七点七，最差的只有百分之二点八。',
-    'I8': '他为它付出的伯克希尔股票，到二零一四年价值约五十七亿美元——他称之为最惨痛的错误。',
+    'I6': '十年后，指数基金涨了一倍多；五只母基金，一只也没追上，最差的只赚了百分之二点八。',
+    'I8': '他是用伯克希尔的股票付的账；到二零一四年，这些股票的价值约五十七亿美元。巴菲特说，这是他最惨痛的错误。',
 }
 
 # ------------------------------------------------------------------ 来源（原始录像 + 事实核查）
@@ -168,6 +181,10 @@ FACTS = [
     ('I3', '“每一环九成把握，十环全对只剩三成五”：0.9 的 10 次方 ≈ 0.349（各环独立时的乘法原理；画面标注“示意”）', '概率乘法原理'),
     ('I5', '2008 年 1 月 1 日起的十年赌局：巴菲特押先锋标普 500 指数基金；对手 Protégé Partners 挑了五只母基金（funds-of-funds），“Those five funds-of-funds in turn owned interests in more than 200 hedge funds”',
      'Berkshire 2016 年、2017 年致股东信'),
+    ('I5B', '“头一年，对冲基金这边全都跑赢了指数；可接下来九年，它们整体年年落后”：“The five funds-of-funds got off to a fast start, each beating the index fund in 2008. Then the roof fell in. In every one of the nine years that followed, the funds-of-funds as a whole trailed the index fund.”',
+     'Berkshire 2017 年致股东信'),
+    ('I6', '“指数基金涨了一倍多；五只母基金，一只也没追上，最差的只赚了 2.8%”：指数基金十年累计 +125.8%（即 1 美元变成约 2.26 美元），五只母基金中最好的 C 为 +87.7%，最差的 D 为 +2.8%（D 在 2017 年清盘，按九年计）'
+     '；下一条为画面数据的完整记分', 'Berkshire 2017 年致股东信'),
     ('I6', '十年累计：标普 500 指数基金 +125.8%（年均 8.5%）；五只母基金 A +21.7%、B +42.3%、C +87.7%、D +2.8%（2017 年清盘，按九年计）、E +27.0%（年均 0.3%–6.5%）；母基金每年固定费用约 2.5%；2008 年五只全部跑赢指数，之后九年每一年整体都落后',
      'Berkshire 2017 年致股东信「Here’s the final scorecard for the bet」'),
     ('I7', '德克斯特鞋业：“What I had assessed as durable competitive advantage vanished within a few years”；“Its competitive strengths, however, were soon to evaporate because of foreign competition. And I simply didn’t see that coming.”',
@@ -175,5 +192,7 @@ FACTS = [
     ('I8', '1993 年用 25,203 股伯克希尔 A 股（当时价值 4.33 亿美元）买下德克斯特；“the shares I used for the purchase are now worth about $5.7 billion”；“The most gruesome was Dexter Shoe”；2007 年信称其为“the worst deal that I’ve made”（当时算作 35 亿美元）',
      'Berkshire 2007 年、2014 年致股东信；1993 年致股东信'),
     ('I10', '“十年后它大概什么样”对应本段原声 A20（“what it’s going to look like in 10 or 15 years”）；“太难”的篮子（too hard）对应 2005 年大会：“maybe we cast out too many things as being too hard”', 'CNBC 逐字稿 1994-M39、2005-A25'),
+    ('I1', '“越难的题，分数越高”是本片为引出原观点所做的类比（考试计分），不是巴菲特的原话', '—'),
+    ('I12', '“那么你呢：手里的那只股票，是一尺的栏杆，还是七尺的？”是本片留给观众的问题', '—'),
     ('I11', '“I’d rather have the … universe … interpret it as being a little … smaller than it really is, than being interpreted as larger than it is.”', 'CNBC 逐字稿 2005-A25'),
 ]

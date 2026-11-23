@@ -120,7 +120,7 @@ def qa_src(t):
     return QA['segs'][-1]['src_out'] if t > T_QE else QA['segs'][0]['src_in']
 
 
-I = {k: V(k) for k in ('I1', 'I2', 'I3', 'I5', 'I6', 'I7', 'I8', 'I10', 'I11')}
+I = {k: V(k) for k in ('I1', 'I2', 'I3', 'I5', 'I5B', 'I6', 'I7', 'I8', 'I10', 'I11', 'I12')}
 HOOK = TL['hook']
 
 
@@ -698,13 +698,13 @@ def txt_s1(img, t, subs):
     if ap <= 0: return
     zs = 1.0 + 0.04 * (1 - eo(t / 0.6))
     tq = wt('S1', '赚钱')
-    text(img, '研究得越复杂、模型越精密——', W / 2, 400, int(44 * zs), 'sans_med', INK2, ap, track=0.1, shadow=0.6)
-    text(img, '就越能赚钱？', W / 2, 530, int(92 * zs), 'serif_black', a=ap, gold=True,
+    text(img, '熬夜读研报、搭模型——', W / 2, 400, int(44 * zs), 'sans_med', INK2, ap, track=0.1, shadow=0.6)
+    text(img, '功课越复杂，就越该赚钱？', W / 2, 530, int(74 * zs), 'serif_black', a=ap, gold=True,
          glow=0.2 + 0.3 * math.exp(-max(t - tq, 0) / 0.8) * (t > tq), shadow=0.7)
     # 选股功课：模型曲线越堆越多，缠成一团（示意）
     x0, y0, x1, y1 = HOOK_BOX
     panel(img, x0, y0, x1, y1, ap, col=ICE, title='你的选股功课', en='your homework', fill=0.78)
-    k = 0.15 + 0.85 * eio((t - 0.1) / max(wt('S1', '精密') + 0.6, 1.0))
+    k = 0.15 + 0.85 * eio((t - 0.1) / max(wt('S1', '复杂') + 0.6, 1.0))
     xs = np.linspace(x0 + 50, x1 - 50, 60)
     yc = (y0 + 140 + y1 - 60) / 2
     nl = max(1, int(HOOK_N * k))
@@ -713,7 +713,7 @@ def txt_s1(img, t, subs):
         ys = np.clip(ys, y0 + 120, y1 - 40)
         col = (ICE, FOG, AMBER)[i % 3]
         gline(img, np.c_[xs, ys], col, ap * (0.35 + 0.4 * (i == nl - 1)), th=2, halo=4.0)
-    for j, (lab, kw) in enumerate((('研报', '研究'), ('模型', '模型'), ('变量', '精密'))):
+    for j, (lab, kw) in enumerate((('研报', '研报'), ('模型', '模型'), ('变量', '复杂'))):
         kk = ke(t, wt('S1', kw) - 0.1, 0.4)
         if kk > 0:
             rrect(img, x0 + 40 + j * 150, y0 + 70, x0 + 170 + j * 150, y0 + 110, 6, ICE, ap * kk * 0.7, 1)
@@ -1055,7 +1055,7 @@ def dia_quote(L, t):
 
 # ================================================================ 投资启示（本片解读）：与前两集同款的标题转场
 NOTE = '本片解读，非巴菲特或芒格原话'
-T_INS_END = I['I11']['t1'] + 0.6
+T_INS_END = I['I12']['t1'] + 0.6
 
 
 def sc(t, b_in, b_out):
@@ -1138,24 +1138,38 @@ def txt_i1(img, t, subs):
     if a <= 0: return
     header(img, '概括 · 巴菲特的原意', a)
     panel(img, 90, 380, 990, 1160, a, col=GOLD_C, title='投资不按难度给分', en='no points for difficulty')
+    tb = wt('I1', '巴菲特')
+    # 先是从小到大熟悉的“试卷”：越难的题，分数越高；“可巴菲特说”时整张划掉
+    ke_ = env(t, I['I1']['t0'] + 0.1, wt('I1', '一尺') - 0.3, 0.4, 0.4)
+    if ke_ > 0:
+        for x, q, sc_, stars, col, kw in ((300, '简单题', 2, 1, ICE, '越难'), (780, '难题', 20, 5, AMBER, '分数')):
+            kk = ke(t, wt('I1', kw) - 0.6, 0.4)
+            if kk <= 0: continue
+            panel(img, x - 200, 520, x + 200, 900, a * ke_ * kk, col=col, fill=0.6)
+            text(img, q, x, 590, 40, 'serif_bold', INK, a * ke_ * kk)
+            text(img, '★' * stars + '☆' * (5 - stars), x, 660, 34, 'sans_med', col, a * ke_ * kk, track=0.1)
+            fx.slam(img, f'{sc_} 分', x, 790, 96, 'corm_med', t, wt('I1', kw) - 0.3, a * ke_, gold=col is not ICE, col=ICE if col is ICE else None, glow_=0.3)
+        kx = ke(t, tb - 0.2, 0.3)
+        if kx > 0:
+            line(img, (130, 920), (130 + 820 * kx, 500), BRICK * 1.4, a * ke_, 6)
+            text(img, '投资：没有难度分', W / 2, 980, 50, 'serif_black', a=a * ke_ * kx, gold=True, glow=0.3)
     yb = 1050
     for x, hft, lab, col, kw in ((300, 1, '一尺', GOLD_C, '一尺'), (780, 7, '七尺', ICE, '七尺')):
         k = ke(t, wt('I1', kw) - 0.2, 0.6)
-        k0 = ke(t, I['I1']['t0'] + 0.3, 0.6) * 0.3
-        hurdle(img, x, yb, hft * 50, lab, col, a * max(k, k0), k=max(eio((t - wt('I1', kw) + 0.2) / 0.7), 0.15))
+        hurdle(img, x, yb, hft * 50, lab, col, a * k, k=max(eio((t - wt('I1', kw) + 0.2) / 0.7), 0.15))
         kr = ke(t, wt('I1', '回报') - 0.1, 0.5)
         ribbon(img, x, 560, 46, GOLD_HI if col is GOLD_C else ICE, a * kr)
     tq = wt('I1', '拿到')
     fx.slam(img, '＝', W / 2, 560, 90, 'serif_black', t, tq - 0.05, a, glow_=0.4)
     fx.slam(img, '回报一样', W / 2, 680, 50, 'serif_black', t, tq + 0.1, a, glow_=0.3)
     # 回声：1989 年致股东信与 1998、2005 年大会
-    ke1 = ke(t, I['I1']['t0'] + 1.0, 0.6)
+    ke1 = ke(t, wt('I1', '一尺') - 0.4, 0.6)
     panel(img, 90, 1200, 990, 1450, a * ke1, col=SUB_GOLD, title='一以贯之', en='echoes', fill=0.75)
     fx.typewriter(img, '“…one-foot hurdles that we could step over rather than … seven-footers.”', W / 2, 1300, 26, 'ebg_i', INK, a * ke1, t,
-                  I['I1']['t0'] + 1.4, cps=40)
-    text(img, '—— 巴菲特 1989 年致股东信', W / 2, 1345, 22, 'sans', INK2, a * ke(t, I['I1']['t0'] + 3.6, 0.6), track=0.06)
+                  wt('I1', '一尺') - 0.2, cps=40)
+    text(img, '—— 巴菲特 1989 年致股东信', W / 2, 1345, 22, 'sans', INK2, a * ke(t, wt('I1', '一尺') + 1.8, 0.6), track=0.06)
     text(img, '1998、2005 年大会上，他又用奥运跳水的“难度系数”讲了同一个道理', W / 2, 1400, 22, 'sans', SUB_GOLD,
-         a * ke(t, I['I1']['t0'] + 5.0, 0.6), track=0.02)
+         a * ke(t, wt('I1', '拿到') + 0.6, 0.6), track=0.02)
 
 
 # ---------------------------------------------------------------- I2–I3：第一性原理——市场只为结果付钱；环节越多，越容易错
@@ -1251,7 +1265,7 @@ def dia_bet(L, t):
         ang = rng.uniform(0, 2 * math.pi, 220); rr = np.sqrt(rng.random(220)) * 120
         xy = np.c_[770 + rr * np.cos(ang + t * 0.2) * 1.2, 660 + rr * np.sin(ang + t * 0.2) * 0.45]
         cloud(L, xy, ICE, 0.9 * a * k)
-    shock(L, (bx(10), by(BET_C['SP'][-1])), t, wt('I6', '一百二十五') - 0.05, GOLD_H, a, rmax=240, life=1.0, flatten=0.7)
+    shock(L, (bx(10), by(BET_C['SP'][-1])), t, wt('I6', '一倍多') - 0.05, GOLD_H, a, rmax=240, life=1.0, flatten=0.7)
 
 
 def txt_bet(img, t, subs):
@@ -1270,10 +1284,10 @@ def txt_bet(img, t, subs):
     if kf > 0:
         text(img, '5 只母基金', 775, 500, 40, 'serif_black', ICE, a * kf)
         text(img, '→ 两百多家对冲基金', 775, 755, 26, 'sans_med', INK2, a * ke(t, wt('I5', '两百多') - 0.1, 0.5), track=0.04)
-    # 下：十年累计（2007 年底 = 1）
-    t6 = I['I6']['t0']
-    kc = ke(t, t6 - 0.6, 0.5)
-    k0 = env(t, I['I5']['t0'] + 0.2, t6 - 0.4, 0.5, 0.4)
+    # 下：十年累计（2007 年底 = 1）。头一年对冲基金这边全赢；之后九年整体年年落后；十年后指数基金涨了一倍多
+    t5b = I['I5B']['t0']
+    kc = ke(t, t5b - 0.5, 0.5)
+    k0 = env(t, I['I5']['t0'] + 0.2, t5b - 0.3, 0.5, 0.4)
     if k0 > 0:
         fx.slam(img, '2008  →  2017', W / 2, 1060, 96, 'corm_med', t, I['I5']['t0'] + 0.2, a * k0, glow_=0.3)
         text(img, '十年之后，看谁赚得多', W / 2, 1170, 32, 'sans_med', INK2, a * k0 * ke(t, wt('I5', '十年的赌'), 0.5), track=0.12)
@@ -1285,7 +1299,8 @@ def txt_bet(img, t, subs):
         text(img, f'{v:g}', BX0 - 12, by(v), 20, 'inter', INK2, ac, 'r')
     for i, y in enumerate((2008, 2010, 2012, 2014, 2016)):
         text(img, str(y), bx(y - 2007), BYB + 28, 20, 'corm_med', INK2, ac)
-    u = eio((t - t6 - 0.2) / max(wt('I6', '最好') - t6 - 0.2, 1.0)) * 10
+    t1y, t9, tl9 = wt('I5B', '头一年'), wt('I5B', '接下来'), wt('I5B', '落后')
+    u = eio((t - t1y) / 0.9) * 1.0 + eio((t - t9) / max(tl9 - t9 + 1.6, 1.0)) * 9.0
     for key in ('A', 'B', 'C', 'D', 'E', 'SP'):
         c = BET_C[key]
         n = min(len(c), int(u) + 1)
@@ -1296,17 +1311,25 @@ def txt_bet(img, t, subs):
         if len(pts) < 2: continue
         if key == 'SP': gline(img, pts, GOLD_HI, ac, th=5, halo=9.0)
         else: gline(img, pts, ICE, ac * 0.75, th=2, halo=5.0)
-    kend = ke(t, wt('I6', '一百二十五') - 0.1, 0.4)
+    k1 = env(t, wt('I5B', '跑赢') - 0.2, t9 + 1.2, 0.3, 0.4)
+    if k1 > 0:
+        rect(img, bx(0), BYT, bx(1), BYB, ICE, ac * k1 * 0.10)
+        text(img, '2008：对冲基金这边全部跑赢', bx(1) + 14, BYT + 30, 24, 'sans_med', ICE, ac * k1, 'l')
+    k9 = ke(t, tl9 - 0.3, 0.4)
+    if k9 > 0:
+        rect(img, bx(1), BYT, bx(10), BYB, GOLD, ac * k9 * 0.05)
+        text(img, '此后九年：整体年年落后', bx(5.5), BYT + 30, 26, 'serif_bold', GOLD_C, ac * k9)
+    kend = ke(t, wt('I6', '一倍多') - 0.1, 0.4)
     if kend > 0:
         text(img, f'+{BET_FINAL["SP"]:.1f}%', bx(10) + 14, by(BET_C['SP'][-1]), 36, 'corm_med', a=ac * kend, gold=True, anchor='l', glow=0.2)
         text(img, '指数基金', bx(10) + 14, by(BET_C['SP'][-1]) + 36, 20, 'sans_med', GOLD_C, ac * kend, 'l')
-    for key, kw, dy in (('C', '最好', -10), ('D', '最差', 18)):
+    for key, kw, dy in (('C', '一只也没', -10), ('D', '最差', 18)):
         kk = ke(t, wt('I6', kw) - 0.1, 0.4)
         if kk <= 0: continue
         c = BET_C[key]; i = len(c) - 1
         circle(img, (bx(i), by(c[-1])), 7, ICE, ac * kk, fill=True)
         text(img, f'+{BET_FINAL[key]:.1f}%', bx(10) + 14, by(c[-1]) + dy, 30, 'corm_med', ICE, ac * kk, 'l')
-    text(img, '2008 年五只母基金都跑赢指数；此后九年，每一年整体都落后', W / 2, 1418, 20, 'sans', INK2, ac * ke(t, wt('I6', '最差') + 1.0, 0.6), track=0.02)
+    text(img, '母基金最好的一只 +87.7%，也没追上指数基金', W / 2, 1418, 20, 'sans', INK2, ac * ke(t, wt('I6', '一只也没') + 0.6, 0.6), track=0.02)
     text(img, '数据：伯克希尔 2017 年致股东信（母基金 D 于 2017 年清盘，按九年计）', W / 2, 1450, 16, 'sans', INK3 * 1.5, ac * 0.9)
 
 
@@ -1317,7 +1340,7 @@ def dex_a(t): return sc(t, B_DEX, B_TODAY)
 def dia_dex(L, t):
     a = dex_a(t)
     if a <= 0: return
-    shock(L, (W / 2, 900), t, wt('I7', '击垮') - 0.05, AMBER, a, rmax=520, life=1.0, flatten=0.35)
+    shock(L, (W / 2, 900), t, wt('I7', '竞争对手') - 0.05, AMBER, a, rmax=520, life=1.0, flatten=0.35)
     shock(L, (760, 1150), t, wt('I8', '五十七亿') - 0.05, AMBER, a, rmax=360, life=1.0, flatten=0.5)
 
 
@@ -1334,7 +1357,7 @@ def txt_dex(img, t, subs):
     kd = ke(t, wt('I7', '德克斯特') - 0.2, 0.5)
     if kd <= 0: return
     panel(img, 90, 810, 990, 1470, a * kd, col=AMBER, title='1993 · 德克斯特鞋厂', en='dexter shoe', fill=0.78)
-    tz = wt('I7', '击垮')
+    tz = wt('I7', '竞争对手')
     k_ok = 1 - ke(t, tz - 0.1, 0.3)
     text(img, '“我自认为看得懂”', W / 2, 905, 34, 'serif_bold', INK, a * kd * (0.35 + 0.65 * k_ok))
     text(img, '“…as well as I think I understand the position of Brown and Dexter.” —— 本段原声', W / 2, 950, 20, 'ebg_i', INK2, a * kd * k_ok)
@@ -1437,13 +1460,23 @@ def dia_close(L, t):
 
 
 def txt_close(img, t, subs):
-    """I11：宁愿把看得懂的范围想得小一点；少犯错，比做难事重要得多（星图里逐句显现）"""
-    a = env(t, I['I11']['t0'] - 0.3, I['I11']['t1'] + 1.0, 0.5, 0.6)
-    if a <= 0: return
-    for kw, s_, y, gold_, sz in (('小一点', '宁愿把看得懂的范围，想得小一点', 1290, False, 50), ('少犯错', '少犯错，比做难事重要得多', 1400, True, 60)):
-        k = eio((t - wt('I11', kw) + 0.5) / 0.9)
-        if gold_: gold_title(img, s_, W / 2, y, sz, a * k, wipe=k, glow_=0.2, track=0.06)
-        else: text(img, s_, W / 2, y, sz, 'serif_bold', INK, a * k, track=0.08, wipe=k, shadow=0.8)
+    """I11：宁愿把看得懂的范围想得小一点；少犯错，比做难事重要得多 → I12：把问题留给观众（总结在高潮重拍上回答它）"""
+    t12 = I['I12']['t0']
+    a = env(t, I['I11']['t0'] - 0.3, t12 + 0.1, 0.5, 0.5)
+    if a > 0:
+        for kw, s_, y, gold_, sz in (('小一点', '宁愿把看得懂的范围，想得小一点', 1290, False, 50), ('少犯错', '少犯错，比做难事重要得多', 1400, True, 60)):
+            t_in = I['I11']['t0'] + 0.2 if kw == '小一点' else wt('I11', kw) - 0.5
+            k = eio((t - t_in) / (1.6 if kw == '小一点' else 0.9))
+            if gold_: gold_title(img, s_, W / 2, y, sz, a * k, wipe=k, glow_=0.2, track=0.06)
+            else: text(img, s_, W / 2, y, sz, 'serif_bold', INK, a * k, track=0.08, wipe=k, shadow=0.8)
+    aq = env(t, t12 - 0.3, CLOSE_T1, 0.4, 0.15)
+    if aq <= 0: return
+    text(img, '那么你呢？', W / 2, 1180, 40, 'sans_med', INK2, aq * ke(t, t12 - 0.2, 0.4), track=0.2)
+    fx.slam(img, '手里的那只股票，', W / 2, 1280, 56, 'serif_black', t, wt('I12', '手里') - 0.2, aq, gold=False, col=INK, glow_=0.2)
+    fx.slam(img, '是一尺，还是七尺？', W / 2, 1390, 72, 'serif_black', t, wt('I12', '一尺') - 0.2, aq, glow_=0.4)
+    for x, hft, col, kw in ((300, 1, GOLD_C, '一尺'), (780, 7, ICE, '七尺')):
+        k = ke(t, wt('I12', kw) - 0.2, 0.5)
+        hurdle(img, x, 1080, hft * 22, '', col, aq * k * (0.6 + 0.4 * math.sin(t * 3.0 + x) ** 2), k=1.0, wpost=70)
 
 
 def dia_sum(L, t):
@@ -1461,14 +1494,15 @@ def dia_sum(L, t):
 
 
 # ================================================================ 一句话总结 + 品牌片尾（系列固定片尾）
-SUM_LINES = (('投资没有难度系数：', 880), ('跨过一尺的栏，就够了。', 1010))
+SUM_LINES = (('投资没有难度系数：', 880), ('跨过一尺的栏杆，就够了。', 1010))
+SUM_SIZE = 78
 
 
 def summary_masks():
     out = []
     for s, y in SUM_LINES:
-        m, w, base, pad = text_mask(s, 'serif_black', 96, 0.04)
-        out.append((m, int(W / 2 - w / 2 - pad), int(y + 96 * 0.36 - base)))
+        m, w, base, pad = text_mask(s, 'serif_black', SUM_SIZE, 0.04)
+        out.append((m, int(W / 2 - w / 2 - pad), int(y + SUM_SIZE * 0.36 - base)))
     return out
 
 
@@ -1522,8 +1556,12 @@ def txt_sum(img, t, subs):
     w1 = eo((t - VOD['M']['t0'] + 0.1) / 1.0); w2 = eo((t - wt('M', '跨过') + 0.05) / 1.0)
     sh = cl((t - VOD['M']['t1'] - 0.2) / 1.4) if VOD['M']['t1'] + 0.2 < t < VOD['M']['t1'] + 1.6 else None
     for (s, y), w in zip(SUM_LINES, (w1, w2)):
-        gold_title(img, s, W / 2, y, 96, a, wipe=w, shine=sh, track=0.04)
+        gold_title(img, s, W / 2, y, SUM_SIZE, a, wipe=w, shine=sh, track=0.04)
     text(img, '伯克希尔股东大会投资智慧录 · 第四集', W / 2, 1150, 26, 'sans', INK2, a * eo((k - 1.2) / 0.8), track=0.1)
+    kq = ke(t, VOD['M']['t1'] + 0.6, 0.6)
+    if kq > 0:
+        panel(img, 190, 1220, 890, 1330, a * kq, col=SUB_GOLD, fill=0.7)
+        text(img, '你的那只股票，是一尺还是七尺？评论区聊聊', W / 2, 1275, 30, 'sans_med', GOLD_C, a * kq, track=0.06)
 
 
 def s_end(img, t):
@@ -1600,7 +1638,7 @@ def frame(t, subs=True):
     chapter_tag(img, t, '开场 · 一个问题', env(t, V('S2')['t0'] - 0.5, T_CTX - 0.3, 0.6, 0.6))
     if subs:
         narr_sub(img, t, INTRO['subs'])
-        narr_sub(img, t, INS['subs'], hide=('I11',))
+        narr_sub(img, t, INS['subs'], hide=('I11', 'I12'))
     s_end(img, t)
     # 后期（与第一集一致）：泛光、横向光晕；有配乐的段落在重拍上推镜 / 闪光 / 色散，小节强拍轻微脉动（原声问答段减弱）
     img = fx.post(img, t, HITS, BARS, strength=0.6 if T_Q + 1 < t < T_QE else 1.0)

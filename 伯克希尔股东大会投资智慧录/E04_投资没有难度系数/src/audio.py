@@ -229,15 +229,41 @@ env = np.log10(1 + env * 4) ; env /= max(np.percentile(env[env > 0], 99), 1e-6)
 np.save(os.path.join(work, 'orig_env.npy'), np.clip(env, 0, 1.2))
 
 # ------------------------------------------------------------------ AI 口播
+# 整篇旁白是一条录音：逐句放回时间线，整条只做一个增益（不逐句归一，保留录音里的轻重起伏）
 vstem = np.zeros(N)
 LS = butter(1, 160, 'lowpass', fs=SR, output='sos')
+HP70 = butter(2, 70, 'highpass', fs=SR, output='sos')
+pieces = []
 for part in ('intro', 'insight', 'summary'):
     for v in tl[part]['vo']:
         x, sr = sf.read(os.path.join(work, 'vo', v['id'] + '.wav'))
         x = x[int(v['src_in'] * SR):int((v['src_in'] + v['t1'] - v['t0']) * SR)]
-        x = x + sosfilt(LS, x) * 0.35                  # 轻微低频温暖感（约 +2.5dB @ <160Hz）
-        x = x * db(TARGET - voiced_rms_db(x))
+        x = sosfilt(HP70, x + sosfilt(LS, x) * 0.35)   # 70Hz 高通 + 轻微低频温暖感（约 +2.5dB @ <160Hz）
+        pieces.append(x)
         put(vstem, fade(x, 0.01, 0.05), v['t0'])
+# 轻压缩 2.2:1（RMS 包络，起 20ms / 放 200ms，门限在有声电平之下 6dB）
+f = int(0.005 * SR); k = len(vstem) // f
+env_db = 10 * np.log10((vstem[:k * f].reshape(k, f) ** 2).mean(1) + 1e-12)
+thr = voiced_rms_db(np.concatenate(pieces)) - 6
+sm, prev = np.zeros(k), -120.0
+for i, e in enumerate(env_db):
+    prev += (e - prev) * (1 - np.exp(-1 / (4 if e > prev else 40)))
+    sm[i] = prev
+gr = np.where(sm > thr, (thr - sm) * (1 - 1 / 2.2), 0.0)
+gch = np.repeat(db(gr), f); vstem[:len(gch)] *= gch
+# 同一个小房间的短混响（RT60 约 0.6 秒，湿声 0.1），把整条旁白放进同一个空间
+rng = np.random.default_rng(7)
+tir = np.arange(int(0.7 * SR)) / SR
+ir = rng.normal(0, 1, len(tir)) * 10 ** (-3 * tir / 0.6)
+ir = sosfilt(butter(2, 5000, 'lowpass', fs=SR, output='sos'), ir); ir /= np.sqrt((ir ** 2).sum())
+vstem = vstem + 0.1 * fftconvolve(vstem, ir)[:N]
+vstem *= db(TARGET - voiced_rms_db(vstem[np.abs(vstem) > 1e-6]) if (np.abs(vstem) > 1e-6).any() else 0)
+from scipy.ndimage import maximum_filter1d
+pk = maximum_filter1d(np.abs(vstem), int(0.008 * SR))          # 8ms 前视的峰值限制（-4dBFS）：爆破音不顶到满幅
+gl = np.minimum(1.0, db(-4.0) / np.maximum(pk, 1e-9))
+gl = -maximum_filter1d(-gl, int(0.004 * SR))
+gl = np.convolve(gl, np.ones(int(0.004 * SR)) / int(0.004 * SR), 'same')
+vstem *= gl
 vstem = np.stack([vstem, vstem], 1)
 
 # ------------------------------------------------------------------ 背景音乐
@@ -267,13 +293,21 @@ act = (20 * np.log10(lev + 1e-9) > -42).astype(float)
 look = 15                                            # 提前 150ms 开始压
 act = np.maximum(act, np.concatenate([act[look:], np.zeros(look)]))
 g = np.zeros_like(act); s = 0.0
-for i, v in enumerate(act):                          # attack 80ms / release 650ms
-    s += (v - s) * (1 - np.exp(-1 / (8 if v > s else 65)))
+hold = 90                                            # 保持 0.9 秒：句间的短停顿不放开，配乐不“喘”
+last = -10 ** 9
+for i in range(len(act)):
+    if act[i] > 0: last = i
+    elif i - last < hold: act[i] = 1.0
+for i, v in enumerate(act):                          # attack 80ms / release 550ms
+    s += (v - s) * (1 - np.exp(-1 / (8 if v > s else 55)))
     g[i] = s
 duck_db = -11.0 * g                                  # 人声期间压低 11dB：人声清楚，配乐仍有推动力
 gain = np.repeat(db(duck_db), f)
 gain = np.concatenate([gain, np.full(N - len(gain), gain[-1])])
 mstem *= gain[:, None]
+gv = np.repeat(g, f); gv = np.concatenate([gv, np.full(N - len(gv), gv[-1])])
+band = sosfiltfilt(butter(2, [700, 4000], 'bandpass', fs=SR, output='sos'), mstem, axis=0)
+mstem += band * (db(-5.0 * gv) - 1)[:, None]         # 人声频段再让出 5dB
 for bst in tl.get('music_boost', []):                 # 指定区间整体抬高（两端 0.6 秒平滑过渡）
     g = np.ones(N); i0, i1 = int(bst['t0'] * SR), int(bst['t1'] * SR); r = int(0.6 * SR)
     g[i0:i1] = db(bst['db'])

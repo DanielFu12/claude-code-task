@@ -7,7 +7,7 @@
 import difflib, json, math, os, sys
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from script import INTRO, INSIGHT, SUMMARY, COLD_IDS, LAUGHS, QA_SEGMENTS, QA_IN_WINDOW, QA_OMITTED
+from script import INTRO, INSIGHT, SUMMARY, VO_BREAKS, COLD_IDS, LAUGHS, QA_SEGMENTS, QA_IN_WINDOW, QA_OMITTED
 
 work = sys.argv[1]
 VO = json.load(open(os.path.join(work, 'vo_index.json')))
@@ -129,13 +129,14 @@ def chunks(text, maxw=16.5, short=3.6):
 
 
 def lay_vo(items, t, anchors=None, beats=None):
-    """排口播（与第一集相同）：段内停顿保留 Gemini 的节奏；段落之间的停顿可伸缩，
-    锚点句在指定的重拍上开口，其余段落开口吸附到最近的节拍。"""
+    """排口播：整篇旁白是一条录音，句子与上一句首尾相接（录音里原有的停顿 + 少数句后的“讲故事的停顿”）；
+    只有 VO_BREAKS 里的小节转场可伸缩：锚点句在指定的重拍上开口，其余小节开口吸附到最近的节拍。"""
     anchors = anchors or {}
     ids = [it[0] for it in items]
     dur = {sid: (lambda ab: ab[1] - ab[0])(voiced(sid)) for sid in ids}
-    gap = [VO[sid].get('gap', items[k][3]) if VO[sid].get('gap') is not None else items[k][3] for k, sid in enumerate(ids[:-1])]
-    flex = [VO[sid].get('gap') is None for sid in ids[:-1]]
+    gap = [(VO[sid].get('gap') or 0.0) + items[k][3] for k, sid in enumerate(ids[:-1])]
+    flex = [ids[k + 1] in VO_BREAKS for k in range(len(ids) - 1)]
+    gap = [max(g, 0.6) if fl else g for g, fl in zip(gap, flex)]       # 小节转场至少留 0.6 秒
     LEAD = 0.04
 
     def pos(k):
@@ -150,9 +151,10 @@ def lay_vo(items, t, anchors=None, beats=None):
             if delta >= 0:
                 for j in fj: gap[j] += delta / len(fj)
             else:
-                room = sum(max(gap[j] - 0.25, 0) for j in fj)
+                room = sum(max(gap[j] - 0.45, 0) for j in fj)
                 take = min(-delta, room)
-                for j in fj: gap[j] -= max(gap[j] - 0.25, 0) / max(room, 1e-9) * take
+                for j in fj: gap[j] -= max(gap[j] - 0.45, 0) / max(room, 1e-9) * take
+                if take < -delta - 0.05: print(f'  ⚠ 锚点 {sid}: 口播比配乐长 {-delta - take:.2f}s')
         print(f'  锚点 {sid}: 调整 {delta:+.2f}s（分摊到 {len(fj)} 个段落停顿）')
         seg0 = k
     if beats is not None:
@@ -180,8 +182,8 @@ def lay_vo(items, t, anchors=None, beats=None):
             subs.append(dict(id=sid, text=txt, t0=round(t0 + ct[i0][0] - 0.12, 3), t1=round(t0 + ct[i1][1] + 0.1, 3)))
         for w0, w1, wt in VO[sid]['words']:
             words.append(dict(id=sid, w=wt, t=round(t0 + w0 - a, 3)))
-    for s0, s1 in zip(subs, subs[1:]):
-        if s1['t0'] - s0['t1'] < 0.35: s0['t1'] = s1['t0'] - 0.02
+    for s0, s1 in zip(subs, subs[1:]):                  # 句子首尾相接：每条字幕在下一条出现前 0.1 秒收掉，不叠显
+        if s1['t0'] - s0['t1'] < 0.35: s0['t1'] = s1['t0'] - 0.1
     return vo, subs, words, pos(len(ids) - 1) + dur[ids[-1]]
 
 

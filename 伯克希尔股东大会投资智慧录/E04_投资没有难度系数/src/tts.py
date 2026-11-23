@@ -17,7 +17,7 @@ import base64, difflib, hashlib, json, os, re, ssl, subprocess, sys, time, urlli
 import numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from script import (INTRO, INSIGHT, SUMMARY, ENDQ, SAY, GEMINI_MODEL, GEMINI_VOICE, GEMINI_STYLE, GEMINI_URL,
-                    TTS_GROUPS, TAGS, TEMPO)
+                    TTS_GROUPS, TAGS, TEMPO, PARAS, STRETCH)
 
 work = sys.argv[1]
 VD = os.path.join(work, 'vo'); os.makedirs(VD, exist_ok=True)
@@ -50,7 +50,7 @@ def gemini_request(text):
         headers['x-goog-api-key'] = os.environ['GEMINI_API_KEY']
     req = urllib.request.Request(GEMINI_URL, data=json.dumps(body).encode(), method='POST', headers=headers)
     ctx = ssl.create_default_context(cafile=CA if os.path.exists(CA) else None)
-    with urllib.request.urlopen(req, timeout=180, context=ctx) as r:
+    with urllib.request.urlopen(req, timeout=600, context=ctx) as r:
         resp = json.load(r)
     found = []
 
@@ -142,6 +142,49 @@ def voiced_extent(x, a, b):
     return a + max(0, i - int(0.04 * SR)), a + min(len(seg), j + int(0.10 * SR))
 
 
+def per_sentence(ids, say, rec):
+    """逐句覆盖率：每一句在识别结果里能按顺序对上的比例，返回最差的一句"""
+    num = set('0123456789零一二三四五六七八九十百千万亿两点')
+    sc = content(''.join(say[sid] for sid in ids))
+    tt, _ = align(sc, [tuple(r) for r in rec])
+    rc = [c for c, _, _ in rec]
+    sm = difflib.SequenceMatcher(None, sc, rc, autojunk=False)
+    hit = [False] * len(sc)
+    for b in sm.get_matching_blocks():
+        for j in range(b.size): hit[b.a + j] = True
+    worst, k = (1.0, ''), 0
+    for sid in ids:
+        n = len(content(say[sid]))
+        idx = [j for j in range(k, k + n) if sc[j] not in num]
+        r = sum(hit[j] for j in idx) / max(len(idx), 1)
+        if r < worst[0]: worst = (r, sid)
+        k += n
+    return worst
+
+
+def pitch_trend(x, cuts):
+    """pYIN 估整条录音的音高（半音），±25 秒滑动中位数作缓慢趋势；每句按句中点的趋势反向修正 75%（封顶 ±2 半音；趋势 < 0.15 半音时不动），保留一部分情绪起伏"""
+    import librosa
+    from scipy.signal import resample_poly
+    y = resample_poly(x, 1, 3).astype(np.float32)
+    f0, vf, _ = librosa.pyin(y, fmin=60, fmax=300, sr=16000, frame_length=1024, hop_length=320)
+    t = np.arange(len(f0)) * 0.02
+    ok = vf & np.isfinite(f0)
+    st = 12 * np.log2(f0[ok] / 100.0); tv = t[ok]
+    ref = float(np.median(st))
+    trend = np.array([np.median(st[(tv > c - 25) & (tv < c + 25)]) if ((tv > c - 25) & (tv < c + 25)).sum() > 20 else ref for c in tv])
+    mins = [float(np.median(st[(tv >= m * 60) & (tv < m * 60 + 60)])) for m in range(int(tv[-1] // 60) + 1) if ((tv >= m * 60) & (tv < m * 60 + 60)).sum() > 50]
+    print('  每分钟音高中位数（Hz）：', ' '.join(f'{100 * 2 ** (v / 12):.0f}' for v in mins), f' 首尾差 {mins[-1] - mins[0]:+.2f} 半音' if mins else '')
+    out = []
+    for i in range(len(cuts) - 1):
+        c = (cuts[i] + cuts[i + 1]) / 2 / SR
+        d = float(np.interp(c, tv, trend)) - ref
+        sh = float(np.clip(-0.75 * d, -2.0, 2.0)) if abs(d) > 0.15 else 0.0
+        out.append(round(sh, 3))
+    print('  逐句音高修正（半音）：', out)
+    return out
+
+
 def stop(gname, text, why):
     """Gemini 出错：不换引擎、不跳过、不用旧音频顶替——停下来，把出错段落和原因报告给人工处理"""
     print(f'\n[需要人工介入] Gemini TTS 在段落 {gname} 出错：{why}\n  朗读稿：{text}\n'
@@ -151,7 +194,7 @@ def stop(gname, text, why):
 
 def gemini_group(ids):
     say = {sid: SAY.get(sid, ITEMS[sid][1]) for sid in ids}
-    text = ''.join((TAGS[sid] + ' ' if sid in TAGS else '') + say[sid] for sid in ids)
+    text = ''.join(('\n\n' if sid in PARAS and sid != ids[0] else '') + (TAGS[sid] + ' ' if sid in TAGS else '') + say[sid] for sid in ids)
     plain = ''.join(say[sid] for sid in ids)
     gname = 'G_' + '_'.join(ids)
     base = os.path.join(VD, gname)
@@ -188,12 +231,14 @@ def gemini_group(ids):
             over = extra > 1.2
             print(f'  {gname} try {attempt + 1}: {len(x) / SR:.1f}s  稿子覆盖率 {sim:.2f}  识别字数/稿子字数 {extra:.2f}'
                   f'{"  [念出了标签]" if tag_read else ""}{"  [多念了内容]" if over else ""}')
-            score = sim - (0.5 if tag_read else 0) - (0.5 if over else 0)
+            worst = per_sentence(ids, say, rec)                                   # 逐句校验：每一句都要对得上，否则整条重录
+            print(f'    逐句覆盖率最低：{worst[1]} {worst[0]:.2f}')
+            score = sim - (0.5 if tag_read else 0) - (0.5 if over else 0) - (0.3 if worst[0] < 0.75 else 0)
             if best is None or score > best[0]:
                 best = (score, raw, mime, rec)
-            if sim >= 0.88 and not tag_read and not over: break
+            if sim >= 0.88 and not tag_read and not over and worst[0] >= 0.75: break
         else:
-            stop(gname, text, f'重合成 3 次后仍不达标（最好一次的得分 {best[0]:.2f}，要求稿子覆盖率 ≥ 0.88、不念出停顿标签、不多念稿子以外的内容）')
+            stop(gname, text, f'重合成 3 次后仍不达标（最好一次的得分 {best[0]:.2f}，要求稿子覆盖率 ≥ 0.88、每句 ≥ 0.75、不念出停顿标签、不多念稿子以外的内容）')
         _, raw, mime, rec = best
         x = to_wav48(raw, mime, base)
         meta = dict(key=key, text=text, rec=rec, dur=len(x) / SR)
@@ -207,12 +252,24 @@ def gemini_group(ids):
     st = [tt[a][0] for a, b in spans]; en = [tt[b][1] for a, b in spans]
     f = SR // 100
     lev = np.sqrt((x[:len(x) // f * f].reshape(-1, f) ** 2).mean(1))
+    ldb = 20 * np.log10(lev + 1e-9)
     cuts = [0]
-    for i in range(len(ids) - 1):                      # 句间：在能量最低的 10ms 处切
-        lo, hi = int((en[i] - 0.15) * 100), int((st[i + 1] + 0.15) * 100)
+    for i in range(len(ids) - 1):                      # 句间：在停顿正中切（找对齐句界 ±0.35 秒内最长的一段安静，取中点；没有就取能量最低点）
+        lo, hi = int((en[i] - 0.35) * 100), int((st[i + 1] + 0.35) * 100)
         lo, hi = max(lo, 0), max(hi, lo + 1)
-        cuts.append((lo + int(np.argmin(lev[lo:hi]))) * f)
+        q = ldb[lo:hi] < max(ldb[lo:hi].min() + 6, -50)
+        runs, r0 = [], None
+        for j, v in enumerate(list(q) + [False]):
+            if v and r0 is None: r0 = j
+            if not v and r0 is not None: runs.append((r0, j)); r0 = None
+        if runs:
+            mid = (en[i] + st[i + 1]) / 2 * 100 - lo
+            a_, b_ = max(runs, key=lambda r: (r[1] - r[0]) - 0.15 * abs((r[0] + r[1]) / 2 - mid))
+            cuts.append((lo + (a_ + b_) // 2) * f)
+        else:
+            cuts.append((lo + int(np.argmin(lev[lo:hi]))) * f)
     cuts.append(len(x))
+    shifts = pitch_trend(x, cuts)                      # 长文本越讲越高：只拉平缓慢趋势，逐句的抑扬不动
     out = {}
     ext = [voiced_extent(x, cuts[i], cuts[i + 1]) for i in range(len(ids))]
     for i, sid in enumerate(ids):
@@ -220,13 +277,14 @@ def gemini_group(ids):
         p = os.path.join(VD, sid + '.wav')
         sf.write(p + '.raw.wav', x[a:b], SR)
         # 整体提速（rubberband：保留音高与共振峰），时间信息同比缩放
-        ff('-i', p + '.raw.wav', '-af', f'rubberband=tempo={TEMPO}:pitchq=quality:formant=preserved:transients=smooth', p)
+        tp = TEMPO / STRETCH.get(sid, 1.0)
+        ff('-i', p + '.raw.wav', '-af', f'rubberband=tempo={tp:.5f}:pitch={2 ** (shifts[i] / 12):.5f}:pitchq=quality:formant=preserved:transients=smooth', p)
         os.remove(p + '.raw.wav')
         s0, s1 = spans[i]
-        words = [[round((tt[j][0] - a / SR) / TEMPO, 3), round((tt[j][1] - a / SR) / TEMPO, 3), sc[j]] for j in range(s0, s1 + 1)]
+        words = [[round((tt[j][0] - a / SR) / tp, 3), round((tt[j][1] - a / SR) / tp, 3), sc[j]] for j in range(s0, s1 + 1)]
         d = dict(words=words, dur=len(sf.read(p)[0]) / SR, say=say[sid])
         if i < len(ids) - 1:
-            d['gap'] = round((ext[i + 1][0] - ext[i][1]) / SR / TEMPO, 3)
+            d['gap'] = round((ext[i + 1][0] - ext[i][1]) / SR / tp, 3)
         out[sid] = d
     print(f'{gname}: {len(x) / SR:5.1f}s  对齐覆盖率 {ratio:.2f}  ' + ' '.join(f'{sid}={out[sid]["dur"]:.1f}s' for sid in ids))
     return out
