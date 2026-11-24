@@ -477,7 +477,7 @@ def shot_ch1(cv, t):
     t0, t1 = win2('c1f')
     a = A(t, t0, t1)
     if a > 0:
-        seq(cv, t, t0, t1, ['cp_room', 'cp_sweep'], cy=WCY, h=WH, a=a, cap='地毯（约 1960 年宣传片）')
+        seq(cv, t, t0, t1, ['cp_room', 'cp_sweep', 'al_chair'], cy=WCY, h=WH, a=a, cap='地毯与家具（约 1960 年宣传片 / 1958 年影片）')
         y = 1050
         k1 = appear(t, 'c1f', '同行'); k2 = appear(t, 'c1f', '厂商'); k3 = appear(t, 'c1f', '不许')
         node(cv, 190, y, '奥马哈同行', a * k1, col=GREY, size=30, w=250)
@@ -495,7 +495,7 @@ def shot_ch1(cv, t):
     t0, t1 = S('c1g') - 0.3, S('c1i') - 0.2
     a = A(t, t0, t1)
     if a > 0:
-        seq(cv, t, t0, t1, ['cp_slipper', 'al_living', 'cp_sweep'], cy=WCY, h=WH, a=a, cap='示意画面：地毯与客厅（约 1960 年宣传片 / 1958 年影片）')
+        seq(cv, t, t0, t1, ['cp_slipper', 'al_living', 'al_dining'], cy=WCY, h=WH, a=a, cap='示意画面：地毯与客厅（约 1960 年宣传片 / 1958 年影片）')
         kc = 1 - eo((t - S('c1h') + 0.3) / 0.4)
         if kc > 0.004:
             k = appear(t, 'c1g', '公平贸易法')
@@ -804,8 +804,8 @@ def shot_ch3(cv, t):
     a = A(t, t0, t1)
     if a > 0:
         tc = WT('c3k', '同一句话')
-        seq(cv, t, t0, tc + 0.2, ['ad01_rugs', 'ad01_lamps'], cy=WCY, h=WH, a=a, cap='NFM 电视广告（奥马哈，2001）')
-        seq(cv, t, tc - 0.25, t1, ['ad01_card'], cy=WCY, h=WH, a=a, cap='NFM 电视广告片尾（2001）')
+        tk_ = max(tc - 0.25, t1 - 2.35); seq(cv, t, t0, tk_ + 0.45, ['ad01_rugs', 'ad01_lamps'], cy=WCY, h=WH, a=a, cap='NFM 电视广告（奥马哈，2001）')
+        seq(cv, t, tk_, t1, ['ad01_card'], cy=WCY, h=WH, a=a, cap='NFM 电视广告片尾（2001）')
         k = appear(t, 'c3k', '电视广告')
         if k > 0: chip(cv, '2001 年奥马哈 · 2005 年堪萨斯的 NFM 广告', W / 2, 900, 28, a * k, col=CREAM)
         k2 = appear(t, 'c3k', '在这儿')
