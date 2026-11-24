@@ -208,7 +208,7 @@ def right_terms_chart(cv, t, a):
         if k_ <= 0: continue
         y = Y(v); L = (x1 - x0) * eo(k_)
         for xx in range(int(x0), int(x0 + L), 22): cv.line((xx, y), (min(xx + 12, x0 + L), y), col, a * k_ * 0.8, 2)
-        cv.text(lb, x1, y - 22, 24, 'sans_bold', col=col, a=a * k_, anchor='r')
+        cv.text(lb, x0 + 10, y - 22, 24, 'sans_bold', col=col, a=a * k_, anchor='l')
     bw = (x1 - x0) / 7
     cum = 0.0; pts = []
     t84 = WT('c2i', '一九八四'); tseven = WT('c2j', '买下之后')
@@ -228,7 +228,7 @@ def right_terms_chart(cv, t, a):
         for j in range(int(n) - 1 if n >= 2 else 0):
             cv.line(pts[j], pts[j + 1], GOLD_L, a * kc, 4)
         cv.glow_dot(pts[min(int(n) - 1, len(pts) - 1)], 10, GOLD_L, a * kc)
-        if kc > 0.6: cv.text('累计约 $1.14 亿', pts[-1][0] - 10, pts[-1][1] - 30, 26, 'sans_bold', col=GOLD_L, a=a * kc, anchor='r')
+        if kc > 0.6: cv.text('累计约 $1.14 亿', pts[-1][0] - 24, pts[-1][1] + 34, 26, 'sans_bold', col=GOLD_L, a=a * kc, anchor='r')
 
 
 # ======================================================================== 开场
