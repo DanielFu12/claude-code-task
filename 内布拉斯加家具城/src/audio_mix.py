@@ -7,6 +7,7 @@
   · 配乐：各章响度校平后，闪避放在最后一步（压缩之后）：人声时全频 −12 dB、人声频段（700 Hz–4 kHz）再 −5 dB；
     提前 0.15 s 开始压，保持 0.9 s（句间短停顿不放开），起 80 ms、放 550 ms；重拍前后不闪避，句中点题只半闪避；
   · 母带：线性增益到 −14 LUFS + 峰值限制（−1.0 dBFS），不用动态 loudnorm。
+  · 巴菲特原声：单独一轨，80 Hz 高通，不压缩、不加混响，响度对齐旁白；原声下配乐再压 5 dB。
 python3 src/audio_mix.py WORK
 """
 import sys, os, json
@@ -60,9 +61,13 @@ def pink(n, db, seed=5):
 if __name__ == '__main__':
     import pyloudnorm as pyln
     meter = pyln.Meter(SR)
-    voice = np.zeros(N, np.float32)
+    voice = np.zeros(N, np.float32); sot = np.zeros(N, np.float32); sotm = np.zeros(N, np.float32)
+    sot_parts = []
     for s in TL['segs']:
-        if s.get('kind') == 'sot': continue                 # 本期没有原声段落
+        if s.get('kind') == 'sot':                          # 巴菲特原声：不进旁白的压缩与房间混响（它本来就是真实录音），单独一轨
+            y, sr = sf.read(os.path.join(WORK, 'sot', s['id'][4:] + '.wav'), dtype='float32')
+            y = sosfilt(butter(2, 80, 'highpass', fs=SR, output='sos'), y).astype(np.float32)    # 80 Hz 高通：去低频嗡声
+            p = int(round((s['start'] - s['lead']) * SR)); sot_parts.append((p, y)); continue
         y, sr = sf.read(os.path.join(WORK, 'vo', s['id'] + '.wav'), dtype='float32')
         if y.ndim > 1: y = y.mean(1)
         p = int(round((s['start'] - VO[s['id']]['lead']) * SR))
@@ -72,6 +77,12 @@ if __name__ == '__main__':
     voice = compress(voice).astype(np.float32)
     voice = room(voice).astype(np.float32)
     voice += pink(N, -64.0) * (np.convolve(active, np.ones(SR // 4), 'same') > 0)     # 只在旁白段落里垫噪底（片头片尾保持干净）
+    # 原声响度对齐旁白（按旁白有声部分的积分响度），各段单独对齐；原声里的停顿保持原样
+    vact = np.abs(voice) > 10 ** (-35 / 20)
+    lv_ = meter.integrated_loudness(np.stack([voice, voice], 1)[vact][:SR * 300])
+    for p, y in sot_parts:
+        y = y * 10 ** ((lv_ - 2.0 - meter.integrated_loudness(np.stack([y, y], 1))) / 20)
+        e = min(p + len(y), N); sot[p:e] += y[:e - p]; sotm[p:e] = 1.0
     # ---- 配乐：按章节校平
     mus, sr = sf.read(os.path.join(WORK, 'music', 'score_raw.wav'), dtype='float32')
     if mus.ndim == 1: mus = np.stack([mus, mus], 1)
@@ -90,7 +101,7 @@ if __name__ == '__main__':
     mus *= 10 ** ((-20.0 - meter.integrated_loudness(mus)) / 20)
     # ---- 闪避（最后一步）：人声活动 → 提前 0.15 s、保持 0.9 s、起 80 ms / 放 550 ms
     hop = 240; rate = SR / hop; n = N // hop
-    act = (np.abs(voice[:n * hop]).reshape(-1, hop).max(1) > 10 ** (-42 / 20)).astype(np.float32)
+    act = (np.abs((voice + sot)[:n * hop]).reshape(-1, hop).max(1) > 10 ** (-42 / 20)).astype(np.float32)
     from scipy.ndimage import maximum_filter1d
     look = int(0.15 * rate); hold = int(0.9 * rate)
     act = np.roll(act, -look); act = maximum_filter1d(act, hold, origin=-(hold // 2))
@@ -100,14 +111,15 @@ if __name__ == '__main__':
     for h in BEATS['hits'] + soft:
         k = 0.5 if any(abs(h - x) < 0.01 for x in soft) else 1.0
         act *= 1 - k * np.exp(-((tt - h) / 1.0) ** 8)
-    full_db = -12.0 * act; band_db = -5.0 * act
+    sm = smooth(sotm[:n * hop].reshape(-1, hop).max(1), 0.3, 0.8, rate)
+    full_db = -12.0 * act - 5.0 * np.clip(sm * 1.2, 0, 1); band_db = -5.0 * act     # 原声下配乐再低 5 dB（原声底噪较高，要更干净的空间）
     gf = np.interp(np.arange(N), np.arange(n) * hop, 10 ** (full_db / 20)).astype(np.float32)
     gb = np.interp(np.arange(N), np.arange(n) * hop, 10 ** (band_db / 20)).astype(np.float32)
     sos_b = butter(2, [700, 4000], 'bandpass', fs=SR, output='sos')
     band = sosfilt(sos_b, mus, axis=0).astype(np.float32)
     mus_d = (mus + band * (gb - 1)[:, None]) * gf[:, None]
     np.save(os.path.join(WORK, 'music', 'leveled_gain.npy'), gf[::480])
-    mix = mus_d * 0.9 + voice[:, None]
+    mix = mus_d * 0.9 + voice[:, None] + sot[:, None]
     # ---- 母带：线性增益到 −14 LUFS，峰值限制 −1.0 dBFS（软膝）
     mix *= 10 ** ((-14.0 - meter.integrated_loudness(mix)) / 20)
     lim = 10 ** (-1.0 / 20); kn = lim * 0.85

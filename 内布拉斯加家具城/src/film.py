@@ -11,9 +11,36 @@ from sot import sot_layer
 from gg import shot_hook, shot_title, shot_ch1, shot_ch2, shot_ch3, shot_ch4, shot_ch5, shot_ch6, shot_ch7   # 第八期全部镜头
 
 
-def render(i):
+import media as MEDIA
+_LAST = [-10]
+_ZONE = None
+
+
+def _zone():
+    """氛围背景的明暗：上方画窗一带亮一些，中下部（解读图表、字幕）压得更暗，四角再收一点"""
+    global _ZONE
+    if _ZONE is None:
+        y = np.linspace(0, 1, H)[:, None]; x = np.linspace(-1, 1, W)[None, :]
+        v = np.interp(y, [0, 0.10, 0.42, 0.50, 0.78, 1.0], [0.16, 0.34, 0.34, 0.20, 0.17, 0.12])
+        _ZONE = (v * (1 - 0.35 * x ** 2)).astype(np.float32)[..., None]
+    return _ZONE
+
+
+def underlay(cv, items):
+    for small, al in items:
+        b = cv2.resize(small, (W, H), interpolation=cv2.INTER_LINEAR)
+        g = b @ np.array([0.3, 0.59, 0.11], np.float32)
+        b = (b * 0.7 + g[..., None] * 0.3) * np.array([1.04, 0.98, 0.90], np.float32) * _zone()
+        cv.over(b, np.full((H, W), min(al, 1.0) * 0.92, np.float32), 0, 0)
+
+
+def render(i, warm=False):
+    if not warm and _LAST[0] != i - 1 and i > 0: render(i - 1, warm=True)     # 块首帧：先空跑上一帧，拿到它登记的背景
+    _LAST[0] = i
     t = i / FPS
+    bd = list(MEDIA.BD); MEDIA.BD.clear()
     cv = Canvas(t, background(t))
+    underlay(cv, bd)
     if t < CH['title'][0] + 0.1: shot_hook(cv, t)
     if CH['title'][0] - 0.1 <= t < CH['ch1'][0] + 0.8: shot_title(cv, t)
     if CH['ch1'][0] <= t < CH['ch2'][0] + 0.8: shot_ch1(cv, t)
@@ -44,6 +71,7 @@ def render(i):
     fade = 1.0
     if t > TOTAL - 1.8: fade = eio((TOTAL - t) / 1.8)          # 整体淡出（含角标）
     if t < 0.4: fade = eio(t / 0.4)
+    if warm: return None
     return finish(cv, i, bloom_k=1.0, fade=fade)
 
 

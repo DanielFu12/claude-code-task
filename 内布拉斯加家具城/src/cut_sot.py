@@ -1,8 +1,6 @@
 """大师原声（SOT）切片 → 带原声的画面 + 音频。两个片源：
   cnbc        —— 仓库内 CNBC 专访（Squawk Box，2026-07-15，Becky Quick 专访巴菲特），画面只取字幕条以上 1920×752；
-  hbo_munger  —— Kunhardt Film Foundation 公开发布的 HBO 纪录片《Becoming Warren Buffett》芒格完整访谈
-                 （YouTube F6s2HAzMeL0 / archive.org youtube-F6s2HAzMeL0），由 src/fetch_ia.py 取 700–800s 一段到 work/src_dl/；
-                 画面裁掉烧录的时间码（右上）与片名水印（下方）。
+  agm94       —— 1994 年伯克希尔股东会录像（archive.org 转载件），介绍经理人环节；裁掉转载水印、烧录字幕与节目条。
 
 · 入出点先按本地语音识别定位（research/CNBC专访_20260715_转写.md），再在附近找能量最低的 60ms 切点，
   前后各留一点空气，0.12s 淡入淡出；画面与声音同一入点，口型同步，原速播放，不变速。
@@ -21,15 +19,12 @@ SRCS = {   # 片源: (文件, 文件第 0 秒对应原片的秒数, 画面裁切
     'cnbc': (glob.glob(os.path.join(ROOT, '..', '谷歌', '*CNBC专访*.mp4'))[0], 0.0, 'crop=1920:752:0:0',
              'CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声',
              'https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html'),
-    # 2022-02-16《每日期刊》年度股东会芒格答问（第三方转载件，画面混有图库镜头且烧录了字幕：只取字幕以上 1920×840；
-    # 图库镜头的时段由 sot.py 换成本片自己的档案画面，见 CUTAWAY）
-    'dj': (os.path.join(ROOT, 'work', 'src_dl', 'a21v.webm'), 0.0, 'crop=1920:840:0:0',
-           '2022 年《每日期刊》年度股东会，芒格答问（Becky Quick 代读提问）· 原声',
-           'https://archive.org/details/youtube-A21VQ4AFV5M'),
-    # ABC《20/20》2005 年 Costco 报道（4:3 画面在 x 240–1680；转载件下方水印与右下台标：只取 y < 850）
-    'abc': (os.path.join(ROOT, 'work', 'src_dl', '2020_2005.mp4'), 0.0, 'crop=1420:850:250:0',
-            'ABC News《20/20》：James Sinegal（2005）· 原声', 'https://archive.org/details/youtube-f9Iv_vdO7sw'),
+    # 1994 年伯克希尔股东会录像（第三方转载件 archive.org youtube-A2J-_BNkqm8，只取 480–540s 到 work/src_dl/agm1994_480.mp4）：
+    # 原始 4:3 画面在 x 195–1725；左上角转载水印、下方烧录字幕与节目条都裁掉，只取 y 170–780
+    'agm94': (os.path.join(ROOT, 'work', 'src_dl', 'agm1994_480.mp4'), 480.0, 'crop=1530:610:195:170',
+              '1994 年伯克希尔·哈撒韦股东大会录像 · 原声', 'https://archive.org/details/youtube-A2J-_BNkqm8'),
 }
+BROLL = {'cnbc_two1': (137.3, 9.8, 'CNBC 专访双人景（2026-07-15，无声）'), 'cnbc_two2': (277.7, 8.2, 'CNBC 专访双人景（2026-07-15，无声）')}
 WORK = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'work')
 CLIPS = os.path.join(ROOT, 'work_clips')
 SR = 48000
@@ -57,7 +52,7 @@ if __name__ == '__main__':
         x = xs[SRC]
         a = quiet_point(x, s['in'] - off, s.get('span', 0.3)); b = quiet_point(x, s['out'] - off, s.get('span', 0.3))
         y = x[int(a * SR):int(b * SR)].copy()
-        f = int(0.12 * SR); y[:f] *= np.linspace(0, 1, f); y[-f:] *= np.linspace(1, 0, f)
+        f = int(s.get('fade', 0.12) * SR); y[:f] *= np.linspace(0, 1, f); y[-f:] *= np.linspace(1, 0, f)
         sf.write(os.path.join(WORK, 'sot', sid + '.wav'), y, SR)
         # 有声起止（相对切片）
         h = int(0.02 * SR); e = np.array([np.sqrt(np.mean(y[i:i + h] ** 2)) for i in range(0, len(y) - h, h)])
@@ -91,4 +86,11 @@ if __name__ == '__main__':
     for sid, v in meta.items():
         _, _, _, nm, url = SRCS[SOTS[sid].get('src', 'cnbc')]
         m['sot_' + sid] = dict(source=nm, ia=url, start=v['src_in'], dur=v['len'], shot='close', note=SOTS[sid]['en'])
+    # 无声 B-roll：同一场专访的双人景（主持人在左、巴菲特在右），用在引出原声的旁白下面（不与原声画面重复）
+    for nm, (st, d, note) in BROLL.items():
+        out = os.path.join(CLIPS, nm + '.mp4')
+        if not os.path.exists(out):
+            subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-ss', str(st), '-i', SRCS['cnbc'][0], '-t', str(d), '-an', '-r', '30',
+                            '-vf', SRCS['cnbc'][2], '-c:v', 'libx264', '-crf', '15', '-preset', 'fast', '-pix_fmt', 'yuv420p', out], check=True)
+        m[nm] = dict(source=SRCS['cnbc'][3].replace(' · 原声', ''), ia=SRCS['cnbc'][4], start=st, dur=d, note=note)
     json.dump(m, open(p, 'w'), ensure_ascii=False, indent=1)

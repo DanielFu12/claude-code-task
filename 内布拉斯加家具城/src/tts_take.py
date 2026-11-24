@@ -15,10 +15,9 @@ from script import LINES
 URL = 'https://openspeech.bytedance.com/api/v3/tts/unidirectional'
 RESOURCE = 'seed-tts-2.0'
 SPEAKER = 'zh_male_liufei_uranus_bigtts'          # 刘飞 2.0（系列统一音色）
-SPEECH_RATE = 15                                   # 实测整篇约 5.3 字/秒（含停顿）；docs 中 25 档在本音色上偏快（约 6.2 字/秒）
-CONTEXT = ('你是一位做了几十年投资的老派讲述人，在给一位朋友讲一个真实的商业传奇：一位没上过学的移民老太太，和巴菲特的一次握手。'
-           '情绪真实饱满，讲到她吃苦创业时带着敬意，讲到数字和道理时清楚笃定，讲到转折时语气一顿再加重，讲到结尾时温暖有力；'
-           '口语化，有呼吸感，不播音腔，语速偏快、干脆利落，全程同一个人、同一种状态')
+SPEECH_RATE = 2                                    # 与第四至七期一致（tts_doubao.py SPEECH_RATE = 2）；美国运通期实测约 5.65 字/秒（不含句间停顿）
+CONTEXT = ('纪录片旁白，像在给朋友讲一个真实的投资故事：沉稳、自然、口语化，语气有起伏，重点处稍作停顿，不夸张、不播音腔。'
+           '全程同一个人、同一种状态。')            # 前几期原句 + 一句一致性要求（整篇一条录完）
 SR = 48000
 
 

@@ -41,11 +41,11 @@ def _feather_mask(w, h):
 # v4 取景：中景，保留扶手椅、台灯与房间（原片只取字幕条以上的 1920×752；整幅高度全部入画，不再放大成大头像）。
 # 每段原声一种机位运动，避免机械重复：push 推近、pull 拉远、drift 横移；幅度都很小（≤5%）。
 WIN_W, WIN_H, WIN_CY = 1000, 640, 600
-FOCUS = {'open': 0.55, 'trick': 0.55}
-MOVE = {'open': ('push', 0.0), 'trick': ('drift', 0.03)}
-# 原片在原声中途切到双人全景（主持人在左）。这段时间（片段内秒数）改取画面右侧的巴菲特，跟随原片的机位切换，
-# 不出现主持人或空沙发。munger：原片 277.58–285.95s 为双人景，片段入点 271.9s。
-REFRAME = {'open': [(0.0, 9.1, 0.86, 1.3)]}     # 原片 0–9.1s 为双人景：取画面右侧的巴菲特
+WINS = {'blumkins': (1000, 440)}               # 1994 股东会录像：宽画幅，巴菲特（左）与芒格（右）都在画里
+FOCUS = {'good': 0.55, 'attacks': 0.55, 'blumkins': 0.5}
+MOVE = {'good': ('push', 0.0), 'attacks': ('drift', 0.03), 'blumkins': ('pull', 0.0)}
+# 原片在原声中途切到双人全景（主持人在左、巴菲特在最右）：这段时间（片段内秒数）取画面右侧的巴菲特。
+REFRAME = {'good': [(5.43, 99.0, 0.9, 1.25)]}
 
 
 def _bg(src):
@@ -56,10 +56,7 @@ def _bg(src):
     return b
 
 
-# 《每日期刊》2022 片源是第三方转载件，芒格答问中间插了图库镜头：这些时段换成本片自己的档案画面（Costco 卖场），
-# 芒格出镜的时段仍用原片（口型同步）。判定：与芒格出镜参考帧的色彩直方图相关度（≥ 0.6 为出镜）。
-CUTAWAY = {'titan': ['a_floor', 'a_cans', 'a_wine'], 'culture': ['a_greet', 'a_bake2', 'a_crowd', 'a_pies'],
-           'price': ['w_ext', 'a_floor', 'a_crowd', 'a_aisle', 'a_entrance', 'a_meat', 'a_lot']}
+CUTAWAY = {}                                   # 本期原声片段都是讲话人出镜，不插画面
 _mask = {}
 
 
@@ -110,7 +107,7 @@ def footage(cv, sid, t, c0, ln, al):
     fx_ = FOCUS.get(sid, 0.53) + (dx * (p - 0.5) if kind == 'drift' else 0.0)
     for (ra, rb, rf, rz) in REFRAME.get(sid, []):
         if ra <= t - c0 < rb: fx_, z = rf, rz
-    w, h = WIN_W, WIN_H
+    w, h = WINS.get(sid, (WIN_W, WIN_H))
     img = M._crop(src, w, h, z, fx_, 0.5)
     img = M.grade(img, 0.12, 0.95)
     img = np.clip((img - 0.5) * 1.05 + 0.5 - 0.01, 0, 1)
@@ -142,6 +139,7 @@ def badge(cv, sid, t, c0, al):
 
 
 WHO = {'buffett': ('沃伦·巴菲特', 'WARREN BUFFETT · 伯克希尔·哈撒韦董事长'),
+       'buffett94': ('沃伦·巴菲特', '1994 年伯克希尔股东会 · 右为查理·芒格'),
        'sinegal': ('吉姆·辛内格尔', 'JIM SINEGAL · Costco 联合创始人、时任 CEO'),
        'munger': ('查理·芒格', 'CHARLIE MUNGER · 伯克希尔副董事长（1924–2023）')}
 
@@ -204,4 +202,4 @@ def sot_layer(cv, t):
         source(cv, src, al, y=1640)
 
 
-FIRST_SUPER = {'open', 'trick'}     # 每章第一段原声出人名条
+FIRST_SUPER = {'good', 'blumkins'}  # 第一次出现、以及 1994 年那段（换了年代）出人名条

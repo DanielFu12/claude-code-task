@@ -179,6 +179,18 @@ def full(cv, name, t, t0, t1, z0=1.04, z1=1.14, focus=(0.5, 0.5), pan=(0, 0, 0, 
     return al
 
 
+BD = []          # 本帧画窗登记的“氛围背景”（同一画面放大、虚化、压暗，铺满整屏），由 film.py 在下一帧最底层画出
+
+
+def backdrop_register(src, al, focus=(0.5, 0.5)):
+    """登记一张氛围背景：只存 1/10 分辨率的虚化小图，代价很小"""
+    if al <= 0.01 or src is None: return
+    small = _crop(src, W // 10, H // 10, 1.2, focus[0], focus[1])
+    lum = float(np.mean(small))
+    if lum > 0.5: al *= max(0.25, 1.0 - (lum - 0.5) * 2.5)       # 白底字卡、亮纸张：氛围背景减弱，免得铺出一大片发灰的虚影
+    BD.append((cv2.GaussianBlur(small, (0, 0), 3.0), float(al)))
+
+
 def frame(cv, name, t, t0, t1, cy=820, w=1000, h=680, z0=1.02, z1=1.10, focus=(0.5, 0.5), pan=(0, 0, 0, 0), a=1.0,
           fi=0.6, fo=0.6, warm=0.25, sat=0.85, src_t0=0.0, speed=1.0, bg=False, credit=True, cap=None, border=True, bw=False,
           fit='cover', hold=False):
@@ -194,6 +206,7 @@ def frame(cv, name, t, t0, t1, cy=820, w=1000, h=680, z0=1.02, z1=1.10, focus=(0
     src, isv = source_frame(name, t, t0, src_t0, speed)
     if src is None: return 0.0
     p = eio((t - t0) / max(t1 - t0, 1e-3))
+    if w >= 700 and h >= 300: backdrop_register(src, al, focus)
     if bg:
         small = _crop(src, W // 8, H // 8, 1.15, focus[0], focus[1])
         b = cv2.resize(cv2.GaussianBlur(small, (0, 0), 3.0), (W, H), interpolation=cv2.INTER_LINEAR)

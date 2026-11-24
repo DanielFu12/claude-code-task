@@ -267,7 +267,7 @@ def build():
     T = TL['total']; title = CH['title'][0]
     c = {k: CH[k][0] for k in ('ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch6', 'ch7', 'end')}
     # 第八期卡点：片名、各章章节号亮起（章节卡开始后 0.5s）、c1i“现金只有五十美元”、c2e“一个字没改”、c3c“百分之十六点五”、
-    #             c4b“辞职走了”、c5d“一百八十万平方英尺”、c7e“三十三亿”、logo。本期没有原声段落。
+    #             c4b“辞职走了”、c5d“一百八十万平方英尺”、c7e“三十三亿”、logo。三段巴菲特原声下面音乐压低（audio_mix）。
     hc = {k: c[k] + 0.5 for k in ('ch2', 'ch3', 'ch4', 'ch5', 'ch6', 'ch7')}
     t_sign = WT('h4', '就签了'); t_fifty = WT('c1i', '五十美元'); t_word = WT('c2e', '一个字没改')
     t_cost = WT('c3c', '百分之十六点五'); t_quit = WT('c4b', '辞职走了'); t_tx = WT('c5d', '一百八十万')
@@ -291,7 +291,15 @@ def build():
     section(S('h3') - 0.2, t_sign, ['F', 'C', 'Dm', 'Bb'], {'arp', 'pad', 'low', 'eighths'}, 48, 60, tonic=5, major=True, motif_every=0)
     accent(t_sign, 'F', 84)
     section(nxtbar(t_sign), S('h6') - 0.2, ['Bb', 'F/A', 'Gm', 'C'], {'pad', 'low', 'harp'}, 46, 52, tonic=5, major=True, motif_every=4)
-    section(S('h6') - 0.2, title, ['Bb', 'Gm', 'C', 'Bb', 'Gm', 'C'], {'trem', 'low', 'ostinato', 'perc', 'nomotif'}, 58, 88)
+    # 四十多年后的专访 → 巴菲特原声（只留一层很薄的铺底，给原声让路）→ 好生意、好价钱、对的人（三下点亮）
+    sg = SEG['sot_good']; sot_end = sg['start'] + sg['dur']
+    section(S('h6') - 0.2, sot_end + 0.3, ['Bb', 'Gm', 'Dm', 'C'], {'pad2', 'low', 'nomotif'}, 34, 40, motif_every=0)
+    t_p = [WT('h7', w) for w in ('好生意', '好价钱', '对的人')]
+    section(nxtbar(sot_end + 0.3) if nxtbar(sot_end + 0.3) < t_p[0] else sot_end + 0.3, S('h8') - 0.2, ['F', 'C/E', 'Dm', 'Bb'], {'arp', 'pad', 'low', 'harp'}, 48, 58,
+            tonic=5, major=True, motif_every=0)
+    for tp_, ch_ in zip(t_p, ('F', 'C', 'Dm')): accent(tp_, ch_, 74, ring=1.6)
+    accent(WT('h7', '三样都占了'), 'F', 86)
+    section(S('h8') - 0.2, title, ['Bb', 'Gm', 'C', 'Bb', 'Gm', 'C'], {'trem', 'low', 'ostinato', 'perc', 'nomotif'}, 58, 88)
     riser(title, 3.0, 92)
     hit(title, 'F', 110)
     # ---- 第一章：离开俄国（小调拨弦）→ 卖得便宜、被断货、被告（心跳推进）→ 法官买地毯（转大调点一下）
@@ -315,7 +323,13 @@ def build():
     hit(t_word, 'F', 98, ring=3.0)
     section(nxtbar(t_word), t_enough, ['Bb', 'F/A', 'Gm', 'C'], {'pad', 'low', 'harp', 'choir'}, 48, 56, tonic=5, major=True, motif_every=4)
     accent(t_enough, 'F', 86)
-    section(nxtbar(t_enough), tk('ch2'), ['F', 'C', 'Dm', 'Bb', 'F', 'C', 'Bb', 'C'], {'pad', 'low', 'ostinato', 'perc', 'eighths'}, 52, 70,
+    # 好价钱：数字一级级推进（固定音型）→ 七年利润将近两倍（点一下）→ 芒格的道理（弦乐铺底，让引语卡读完）→ 对的人 → 灰熊
+    t_two = WT('c2j', '两倍')
+    section(nxtbar(t_enough), t_two, ['F', 'C', 'Dm', 'Bb', 'F', 'C', 'Bb', 'C'], {'pad', 'low', 'ostinato', 'eighths'}, 50, 66,
+            tonic=5, major=True, motif_every=0)
+    accent(t_two, 'F', 90, ring=3.0)
+    section(nxtbar(t_two), S('c2k') - 0.2, ['Bb', 'F/A', 'Gm', 'C'], {'pad', 'low', 'harp'}, 46, 52, tonic=5, major=True, motif_every=4)
+    section(S('c2k') - 0.2, tk('ch2'), ['F', 'C', 'Dm', 'Bb', 'F', 'C', 'Bb', 'C'], {'pad', 'low', 'ostinato', 'perc', 'eighths'}, 52, 70,
             tonic=5, major=True, motif_every=0)
     s3 = bridge('ch2', 'ch3', ['Gm', 'C'], 'F')
     # ---- 第三章：Levitz 对比（数字一级级推进）→ 16.5%（大重拍）→ 飞轮（固定音型）→ 河底（点一下）→ Dillard’s → 都比别人便宜（铜管）
@@ -353,6 +367,7 @@ def build():
             tonic=5, major=True, motif_every=2)
     riser(t_33, 2.0, 86)
     hit(t_33, 'F', 100, ring=3.5)
+    accent(WT('c7h', '一次都找齐'), 'Bb', 84, ring=3.5)
     section(nxtbar(t_33), S('c7g') - 0.2, ['F', 'Bb', 'F/A', 'C', 'F', 'Bb', 'Gm', 'C'], {'pad', 'choir', 'low', 'horn'}, 54, 52, tonic=5, major=True,
             motif_every=4, motif_ins='horn', motif_oct=65)
     section(S('c7g') - 0.2, logo, ['Bb', 'C', 'Dm', 'Bb', 'Gm', 'C'], {'pad', 'choir', 'low', 'horn', 'arp', 'nomotif'}, 56, 62, tonic=5, major=True)

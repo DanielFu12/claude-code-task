@@ -124,5 +124,92 @@
   "start": 17.75,
   "dur": 1.7,
   "note": "Levitz 家具广告（1999）"
+ },
+ "ad01_lamps": {
+  "source": "奥马哈 WOWT 电视台 2001-11-27 节目录像中的 NFM 节日广告",
+  "ia": "https://archive.org/details/youtube-xzhoYUX5kqQ",
+  "start": 1215.15,
+  "dur": 1.85,
+  "note": "NFM 卖场里的灯具区（2001 年广告）"
+ },
+ "ad01_tv": {
+  "source": "奥马哈 WOWT 电视台 2001-11-27 节目录像中的 NFM 节日广告",
+  "ia": "https://archive.org/details/youtube-xzhoYUX5kqQ",
+  "start": 1219.98,
+  "dur": 1.33,
+  "note": "NFM 卖场里的电视墙（2001 年广告）"
+ },
+ "ad01_rugs": {
+  "source": "奥马哈 WOWT 电视台 2001-11-27 节目录像中的 NFM 节日广告",
+  "ia": "https://archive.org/details/youtube-xzhoYUX5kqQ",
+  "start": 1235.27,
+  "dur": 4.75,
+  "note": "NFM 地毯部（2001 年广告）"
+ },
+ "ad01_card": {
+  "source": "奥马哈 WOWT 电视台 2001-11-27 节目录像中的 NFM 节日广告",
+  "ia": "https://archive.org/details/youtube-xzhoYUX5kqQ",
+  "start": 1240.1,
+  "dur": 2.6,
+  "note": "NFM 广告片尾：“You’ll Find It Here For Less”（2001）"
+ },
+ "ad05_carpet": {
+  "source": "堪萨斯 WIBW 电视台 2005-04-12 晚间新闻录像中的 NFM 广告（本地只存 1825–1867 秒一段）",
+  "ia": "https://archive.org/details/wibw-10pm-news-apr-122005wm",
+  "start": 1846.55,
+  "dur": 4.45,
+  "note": "NFM 地毯卖场（2005 年广告）"
+ },
+ "ad05_mattress": {
+  "source": "堪萨斯 WIBW 电视台 2005-04-12 晚间新闻录像中的 NFM 广告（本地只存 1825–1867 秒一段）",
+  "ia": "https://archive.org/details/wibw-10pm-news-apr-122005wm",
+  "start": 1851.55,
+  "dur": 2.1,
+  "note": "NFM 床垫卖场（2005 年广告）"
+ },
+ "ad05_card": {
+  "source": "堪萨斯 WIBW 电视台 2005-04-12 晚间新闻录像中的 NFM 广告（本地只存 1825–1867 秒一段）",
+  "ia": "https://archive.org/details/wibw-10pm-news-apr-122005wm",
+  "start": 1858.95,
+  "dur": 2.85,
+  "note": "NFM 广告片尾：“You’ll Find It Here For Less”（2005）"
+ },
+ "sot_good": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 117.85,
+  "dur": 6.63,
+  "shot": "close",
+  "note": "The important thing is to buy a good business and to buy it on the right terms and they get the right person to run it."
+ },
+ "sot_blumkins": {
+  "source": "1994 年伯克希尔·哈撒韦股东大会录像 · 原声",
+  "ia": "https://archive.org/details/youtube-A2J-_BNkqm8",
+  "start": 510.37,
+  "dur": 10.632,
+  "shot": "close",
+  "note": "First of all, from the Nebraska Furniture Mart … Louie, Ron and Irv Blumkin. I’m not sure who’s here, but would you stand, please, any of the Blumkins that are present?"
+ },
+ "sot_attacks": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 676.891,
+  "dur": 10.359,
+  "shot": "close",
+  "note": "If you have a wonderful business, you are going to be subject to attacks. So it’s not a question of whether it was wonderful yesterday. The question is how long is it going to be wonderful?"
+ },
+ "cnbc_two1": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 137.3,
+  "dur": 9.8,
+  "note": "CNBC 专访双人景（2026-07-15，无声）"
+ },
+ "cnbc_two2": {
+  "source": "CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）· 原声",
+  "ia": "https://www.cnbc.com/2026/07/15/warren-buffett-tells-cnbc-he-initiated-berkshire-hathaways-investment-in-alphabet.html",
+  "start": 277.7,
+  "dur": 8.2,
+  "note": "CNBC 专访双人景（2026-07-15，无声）"
  }
 }

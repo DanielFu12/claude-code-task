@@ -2,7 +2,8 @@
 
 每条旁白标注出处（src），口径见 research/核实笔记.md（一手来源：伯克希尔历年致股东信、2013 年年报所附 1983 年收购提议书
 与 NFM 1946 年报表原件、伯克希尔 2025 年 10-K）。
-大师原话：本片没有找到巴菲特谈 B 太太的可公开下载原声（见核实笔记第八节），一律只用屏幕引语卡（英文原句 + 中文翻译 + 出处）。
+大师原话：巴菲特真实原声 3 段（CNBC 2026-07-15 专访 2 段、1994 年股东会 1 段），原速、不改词、不拼接，经语音识别逐句核对；
+其余原话（致股东信）只用屏幕引语卡（英文原句 + 中文翻译 + 出处）。
 旁白只用豆包刘飞音色，整篇一次合成（docs/旁白一致性与自然衔接.md），不用 AI 模仿任何真实人物的声音。
 say 为 None 且字幕含数字时，朗读文本由 cnnum.to_reading 自动生成（年份逐位读，百分数读“百分之”）；
 注意：WT 词锚点要按朗读文本写（例如“一九八三年”而不是“1983 年”）。
@@ -26,6 +27,7 @@ CHAPTERS = [
 L83, L84 = '伯克希尔 1983 年致股东信', '伯克希尔 1984 年致股东信'
 PROP = '巴菲特 1983-08-30 收购提议书原件（伯克希尔 2013 年年报第 114–115 页）'
 K25 = '伯克希尔 2025 年年报（Form 10-K）'
+L89 = '伯克希尔 1989 年致股东信'
 
 # 每条：(id, 章节, 字幕文本, 朗读文本或 None, 情绪提示, 出处)
 LINES = [
@@ -40,8 +42,12 @@ LINES = [
      '她一个字没改，就签了。伯克希尔买下九成股份，付了五千五百三十五万美元现金。没有审计，没有盘点库存，也没有查产权。', '',
      '2013 年信（“accepted my offer without changing a word”）；' + PROP + '（90%，$55,350,000 cash）；' + L84 + '（“NFM had never had an audit … did not take an inventory … did not check property titles”）'),
     ('h5', 'hook', '巴菲特后来写道：', None, '', L84 + '（引语卡 qcheck）'),
-    ('h6', 'hook', '一位没上过一天学的移民老太太，凭什么让巴菲特这样信她？一家卖家具的店，护城河又在哪里？',
-     None, '', L83 + '（“no formal education”）；本片设问'),
+    ('h6', 'hook', '四十多年后，95 岁的巴菲特在一次专访里，讲起买公司，是这样说的：',
+     '四十多年后，九十五岁的巴菲特在一次专访里，讲起买公司，是这样说的：', '', 'CNBC Squawk Box 2026-07-15 专访（原声见 SOTS good）'),
+    ('h7', 'hook', '好生意，好价钱，对的人。内布拉斯加家具城，三样都占了。',
+     None, '', '本片概括（呼应原声）'),
+    ('h8', 'hook', '可一位没上过一天学的移民老太太，凭什么让巴菲特这样信她？一家卖家具的店，护城河又在哪里？',
+     '可一位没上过一天学的移民老太太，凭什么让巴菲特这样信她？一家卖家具的店，护城河又在哪里？', '', L83 + '（“no formal education”）；本片设问'),
 
     # ---------------------------------------------------------------- 第一章：五百美元起家
     ('c1a', 'ch1', 'B 太太本名罗丝·布鲁姆金。23 岁那年，她说服边境守卫放行，离开俄国，去了美国。',
@@ -87,6 +93,15 @@ LINES = [
      None, '', L84 + '（“Our evaluation of the integrity of Mrs. B and her family was demonstrated when we purchased 90% of the business: NFM had never had an audit and we did not request one”）'),
     ('c2g', 'ch2', '十年后，他在信里又提了一次：她的一句话，对我们来说就够了。',
      None, '', '伯克希尔 1993 年信（“In short, her word was good enough for us.”）'),
+    ('c2i', 'ch2', '那这个价钱，贵不贵？按伯克希尔年报里的数字，买下后的第一个完整年度，1984 年，NFM 税前赚了 1450 万美元。',
+     None, '', L84 + '（利润表：Nebraska Furniture Mart 1984 年税前 $14,511K，100% 口径）'),
+    ('c2j', 'ch2', '而整家公司的作价，大约 6000 万，只是这一年税前利润的四倍出头。买下之后七年，税前利润加起来，将近这个作价的两倍。',
+     None, '', '2020 年信（“a business worth $60 million”）；1984–1990 年信利润表（税前 $14.5M、12.7M、17.7M、16.8M、18.4M、17.1M、17.2M，合计 $114.5M，本片计算）'),
+    ('c2l', 'ch2', '好生意，配上合理的价钱。巴菲特在 1989 年的信里说，这个道理，是芒格先想明白的：',
+     None, '', L89 + '（引语卡 qfair：“It’s far better to buy a wonderful company at a fair price … Charlie understood this early; I was a slow learner.”）'),
+    ('c2k', 'ch2', '经营的人也没换。90 多岁的 B 太太，照样每周七天，从开门干到关门。巴菲特说，她一天做的决定，比大多数 CEO 一年做的还多。',
+     '经营的人也没换。九十多岁的B太太，照样每周七天，从开门干到关门。巴菲特说，她一天做的决定，比大多数 CEO 一年做的还多。', '',
+     L84 + '（“Mrs. B, Chairman of the Board, is now 91 … at the store seven days a week, from opening to close, and probably makes more decisions in a day than most CEOs do in a year (better ones, too)”）'),
     ('c2h', 'ch2', '巴菲特评估一家公司，总会问自己：假如我有足够的钱和人手，愿不愿意跟它竞争？对 B 太太，他的回答是：',
      '巴菲特评估一家公司，总会问自己：假如我有足够的钱和人手，愿不愿意跟它竞争？对B太太，他的回答是：', '',
      L83 + '（“One question I always ask myself in appraising a business is how I would like … to compete with it.”；引语卡 qgrizzly）'),
@@ -104,6 +119,8 @@ LINES = [
      None, '', L84 + '（“saving its customers at least $30 million annually”）'),
     ('c3f', 'ch3', '顾客也愿意跑远路。据巴菲特 1990 年的信，在服务得梅因的 20 家家具店里，NFM 人气排第三；另外 19 家都在本地，NFM 却远在 130 英里外。',
      None, '', '伯克希尔 1990 年信（“NFM was Number 3 in popularity among 20 furniture retailers serving that city … 19 of those retailers are located in Des Moines, whereas our store is 130 miles away”）'),
+    ('c3k', 'ch3', '几十年后，NFM 的电视广告还在说同一句话：在这儿，你花得更少。',
+     None, '', '奥马哈 WOWT 2001-11-27 播出的 NFM 节日广告（片尾 20:41.8）、堪萨斯 WIBW 2005-04-12 播出的 NFM 广告（片尾 0:34）：片尾字幕卡 “You’ll Find It Here For Less”'),
     ('c3g', 'ch3', 'B 太太有句话：只要你的价钱最低，就算店开在河底，顾客也会找到你。',
      'B太太有句话：只要你的价钱最低，就算店开在河底，顾客也会找到你。', '',
      '伯克希尔 2003 年信（“If you have the lowest price, customers will find you at the bottom of a river.”）'),
@@ -135,14 +152,17 @@ LINES = [
      '伯克希尔 2011 年信（“worked until she was 103. (After retiring, she died the next year …)”）；维基百科 Rose Blumkin（1998-08-09 去世）'),
 
     # ---------------------------------------------------------------- 第五章：越开越大
+    ('c5z', 'ch5', '1994 年的伯克希尔股东会上，巴菲特向股东介绍旗下的经理人，第一个点到的，就是这一家：',
+     '一九九四年的伯克希尔股东会上，巴菲特向股东介绍旗下的经理人，第一个点到的，就是这一家：', '',
+     '1994 年伯克希尔股东会录像，介绍经理人环节（原声见 SOTS blumkins：“First of all, from the Nebraska Furniture Mart … Louie, Ron and Irv Blumkin”）'),
     ('c5a', 'ch5', 'B 太太的孙子罗恩和欧文，接过了这套打法，把它带出了奥马哈。',
      'B太太的孙子罗恩和欧文，接过了这套打法，把它带出了奥马哈。', '',
      '伯克希尔 2011 年信（“Louie’s sons, Ron and Irv, have taken the company to new heights, first opening the Kansas City store and now gearing up for Texas”）'),
     ('c5b', 'ch5', '2003 年，NFM 在堪萨斯城开了一家大店。店开在人口稀少的城郊，可 25 英亩的停车场，有时都停不下。巴菲特说，它成了全美销量最大的家居店。',
      None, '', '伯克希尔 2003 年信（“located in one of the area’s more sparsely populated parts … more than 25 acres of parking, the lot has at times overflowed”；“the country’s largest-volume home-furnishings store”）'),
-    ('c5c', 'ch5', '到 2007 年，奥马哈和堪萨斯城两家店，一年各卖 4 亿美元左右。2011 年，NFM 的利润创了纪录，是 1983 年的十倍还多。',
+    ('c5c', 'ch5', '到 2007 年，奥马哈和堪萨斯城两家店，一年各卖 4 亿美元左右。2011 年，NFM 的利润创下纪录，是 1983 年的十倍还多。',
      None, '', '伯克希尔 2007 年信（“our Omaha and Kansas City stores each had sales of about $400 million”）；2011 年信（“netting more than ten times what it did in 1983”）'),
-    ('c5d', 'ch5', '2015 年，第三家大店在达拉斯北郊开业。一个屋顶下面，卖场加仓库，一共 180 万平方英尺。',
+    ('c5d', 'ch5', '又过了四年，第三家大店在达拉斯北郊开业。一个屋顶下面，卖场加仓库，一共 180 万平方英尺。',
      None, '', '伯克希尔 2013 年信（“under one roof, and on a 433-acre site – 1.8 million square feet of retail and supporting warehouse space”）；维基百科（2015-05-07 开业）；足球场按 105×68 米折算（本片换算）'),
     ('c5e', 'ch5', '巴菲特在 2020 年的信里说：全美最大的三家家居店，都是 NFM 的。那一年，疫情让门店关了六个多星期，三家店照样都创了销售纪录。',
      None, '', '伯克希尔 2020 年信（“NFM now owns the three largest home-furnishings stores in the U.S. Each set a sales record in 2020 … despite the closing of NFM’s stores for more than six weeks”）'),
@@ -152,8 +172,10 @@ LINES = [
      None, '', K25 + '（“four retail complexes with almost 4.5 million square feet of retail, warehouse and administrative facilities … NFM is the largest home furnishings retailer in each of these markets”）；NFM 官网奥斯汀新店页（预计 2027 年春）'),
 
     # ---------------------------------------------------------------- 第六章：要盯住的三件事
-    ('c6a', 'ch6', '那么，这门生意是不是稳赚不赔？不是。至少有三件事，要盯住。',
-     None, '', '本片过渡'),
+    ('c6z', 'ch6', '再好的生意，也有对手盯着。还是 2026 年那次专访，巴菲特说：',
+     '再好的生意，也有对手盯着。还是二零二六年那次专访，巴菲特说：', '', 'CNBC Squawk Box 2026-07-15 专访（原声见 SOTS attacks）'),
+    ('c6a', 'ch6', '那么，NFM 这门生意，还能好多久？至少有三件事，要盯住。',
+     None, '', '本片过渡（呼应原声）'),
     ('c6b', 'ch6', '第一，家具是大件，日子一紧，换沙发、换地毯很容易往后推。伯克希尔年报说，2024 年，旗下家居零售的收入下降了 6.4%：卖得少了，价格竞争也更激烈。',
      None, '', K25 + '（“Revenues of the home furnishings businesses declined 6.4% in 2024 versus 2023, primarily attributable to lower sales volumes and increased price competition”）'),
     ('c6c', 'ch6', '第二，便宜，得一直便宜下去。巴菲特 1995 年就写过：零售是门难做的生意，对手总在模仿你，再超过你；在零售业，一停下来歇口气，就会失败。',
@@ -182,6 +204,8 @@ LINES = [
     ('c7f', 'ch7', '回头看，B 太太那句话，既是这家店的护城河，也是那笔交易的底气。卖得便宜，顾客从一百多英里外开车赶来；说真话，巴菲特不用审计，就敢开出支票。',
      '回头看，B太太那句话，既是这家店的护城河，也是那笔交易的底气。卖得便宜，顾客从一百多英里外开车赶来；说真话，巴菲特不用审计，就敢开出支票。', '',
      '本片解读（1990 年信：130 英里外的顾客；1984 年信：不审计）'),
+    ('c7h', 'ch7', '好生意，好价钱，对的人。巴菲特找了一辈子的三样东西，在奥马哈的这家家具店里，一次都找齐了。',
+     None, '', '本片结语（呼应 CNBC 2026 原声）'),
     ('c7g', 'ch7', '一张支票，换一句话。那句话，四十多年来，一直算数。',
      None, '', '本片结语（1984 年信“a check for $55 million and she gave us her word”）'),
 ]
@@ -199,8 +223,28 @@ for _k, _l in enumerate(LINES):                 # 含数字且未手写朗读文
 DROPPED = {}
 
 # 原声（SOT）：本片暂无可公开下载、可核对的巴菲特谈 B 太太原声（KFF 访谈全文转写无相关段落；C-SPAN 2018 档案为受限资源，不绕过）。
-SOT_SRC = ''
-SOTS = {}
+SOT_SRC = 'CNBC Squawk Box · Becky Quick 专访巴菲特 · 2026-07-15'
+AGM94 = '1994 年伯克希尔·哈撒韦股东大会（录像转载）'
+SOTS = {
+    'good': dict(after='h6', ch='hook', **{'in': 117.84, 'out': 124.47}, span=0.02, fade=0.06, who='buffett', src='cnbc', srcname=SOT_SRC, ts='1:58',
+                 cuts=[2.7],      # 118.36 处的低谷是 important 的 /p/ 闭塞，不是停顿；入点改在 material 与 the 之间
+                 en='The important thing is to buy a good business and to buy it on the right terms and they get the right person to run it.',
+                 ph=[('The important thing is to buy a good business', '重要的是，买一门好生意，'),
+                     ('and to buy it on the right terms and they get the right person to run it.', '价钱要合适，还要找对经营它的人。')]),
+    'blumkins': dict(after='c5z', ch='ch5', **{'in': 510.30, 'out': 521.0}, span=0.1, who='buffett94', src='agm94', srcname=AGM94, ts='8:30',
+                     cuts=[4.25, 5.55],      # 32.5–34.5s（片源时间）之间是一句听不清的旁白插话，原样保留、屏幕记作“……”，不剪不拼
+                     en='First of all, from the Nebraska Furniture Mart … Louie, Ron and Irv Blumkin. I’m not sure who’s here, but would you stand, please, any of the Blumkins that are present?',
+                     ph=[('First of all, from the Nebraska Furniture Mart …', '首先，是内布拉斯加家具城的……'),
+                         ('Louie, Ron and Irv Blumkin.', '路易、罗恩和欧文·布鲁姆金。'),
+                         ('I’m not sure who’s here, but would you stand, please, any of the Blumkins that are present?', '不知道谁来了。布鲁姆金家到场的，请站起来一下好吗？')]),
+    'attacks': dict(after='c6z', ch='ch6', **{'in': 676.85, 'out': 687.3}, span=0.08, who='buffett', src='cnbc', srcname=SOT_SRC, ts='11:17',
+                    cuts=[1.91, 3.9, 7.45],
+                    en='If you have a wonderful business, you are going to be subject to attacks. So it’s not a question of whether it was wonderful yesterday. The question is how long is it going to be wonderful?',
+                    ph=[('If you have a wonderful business,', '如果你有一门了不起的生意，'),
+                        ('you are going to be subject to attacks.', '就一定会遭到攻击。'),
+                        ('So it’s not a question of whether it was wonderful yesterday.', '所以问题不在于它昨天好不好，'),
+                        ('The question is how long is it going to be wonderful?', '而在于它还能好多久。')]),
+}
 
 # 第七期起片尾不再预告下一期：最后一句之后，落版字化作粒子汇聚成品牌 logo。
 
@@ -220,6 +264,8 @@ QUOTES = {
                  '我们不想跟他们竞争。我们觉得，他们差不多是最好的。', 'William Dillard, quoted in the 1988 Letter'),
     'qpartner': ('I have always been a fan of hers, whether she was a partner or a competitor. But believe me, partner is better.',
                  '不管她是合伙人还是对手，我一直是她的粉丝。不过相信我，还是合伙人好。', 'Warren Buffett · 1992 Letter to Shareholders'),
+    'qfair': ('It’s far better to buy a wonderful company at a fair price than a fair company at a wonderful price. Charlie understood this early; I was a slow learner.',
+              '用合理的价钱买一家了不起的公司，远胜过用便宜的价钱买一家普通的公司。查理很早就懂了，我学得慢。', 'Warren Buffett · 1989 Letter to Shareholders'),
     'qcoast': ('In retailing, to coast is to fail.', '在零售业，一停下来歇口气，就会失败。', 'Warren Buffett · 1995 Letter to Shareholders'),
     'qmore': ('Are there any more at home like you?', '家里还有像你们这样的吗？', 'Warren Buffett · 1997 Letter to Shareholders'),
 }

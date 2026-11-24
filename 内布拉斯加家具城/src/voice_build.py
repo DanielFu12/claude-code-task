@@ -21,7 +21,7 @@ from script import LINES
 import tts_take as T
 
 SR, FS, HOP = 48000, 16000, 320            # 合成采样率；特征采样率与帧移（20 ms）
-STRETCH = {'ch3': 1.14, 'c7f': 1.08, 'c7g': 1.08, '*': 1.04}   # 长文本越讲越快：全篇轻放慢 4%；讲概念的第三章再慢些；结尾两句略放慢
+STRETCH = {}                                       # v2：先不放慢，按与前几期语速对比后再定（见 report.txt）
 PUN = re.compile(r'[\s，。、：；？！“”‘’《》（）—…·,.;:?!"\'()\-]')
 
 
@@ -206,10 +206,14 @@ def build(work):
         b_ = en1 if k == len(ids) - 1 else bounds[k][0]
         spans.append((a_, b_))
     cuts = [max(spans[0][0] - 0.12, 0)] + [(spans[k][1] + spans[k + 1][0]) / 2 for k in range(len(ids) - 1)] + [min(spans[-1][1] + 0.4, len(y) / SR)]
+    for k, i in enumerate(ids):
+        if spans[k][1] - spans[k][0] < 0.3: print('  !! 退化的句段', i, spans[k], flush=True)
     # ③ 校验
     fails = []
     for k, i in enumerate(ids):
         seg = y16[int(spans[k][0] * FS):int(spans[k][1] * FS)]
+        if len(seg) < 0.3 * FS:
+            fails.append(f'{i}: 切出的长度只有 {len(seg) / FS:.2f}s（整篇录音里可能漏读了这句）'); continue
         SF_ = feats(seg)
         own = dtw_cost(RF[i], SF_)
         nb = [dtw_cost(RF[j], SF_) for j in (ids[k - 1] if k > 0 else None, ids[k + 1] if k + 1 < len(ids) else None) if j]

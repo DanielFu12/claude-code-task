@@ -282,5 +282,45 @@
   "credit": "Library of Congress",
   "date": "1980s",
   "use": "艾奥瓦州得梅因"
+ },
+ "c_nfm_kc": {
+  "file": "Nebraska Furniture Mart (KC).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Nebraska_Furniture_Mart_%28KC%29.jpg",
+  "artist": "Lectrician2",
+  "license": "CC BY-SA 4.0",
+  "use": "NFM 堪萨斯城店",
+  "date": "28 December 2021, 15:58:14"
+ },
+ "c_buffett_ku": {
+  "file": "Warren Buffett KU Visit.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Warren_Buffett_KU_Visit.jpg",
+  "artist": "Mark Hirschey",
+  "license": "CC BY-SA 2.0",
+  "use": "巴菲特",
+  "date": "6 May 2005"
+ },
+ "c_brk2015": {
+  "file": "Kathy Ireland, Warren Buffett and Bill Gates at the 2015 Berkshire Hathaway Shareholders Meeting.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kathy_Ireland%2C_Warren_Buffett_and_Bill_Gates_at_the_2015_Berkshire_Hathaway_Shareholders_Meeting.jpg",
+  "artist": "Jon Carrasco",
+  "license": "CC BY-SA 4.0",
+  "use": "2015 年伯克希尔股东会",
+  "date": "2 May 2015, 07:35:31"
+ },
+ "c_buffett_2010": {
+  "file": "Warren Buffett in 2010.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Warren_Buffett_in_2010.jpg",
+  "artist": "USA White House",
+  "license": "Public domain",
+  "use": "巴菲特（2010）",
+  "date": "2010"
+ },
+ "c_west_omaha": {
+  "file": "Above West Omaha.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Above_West_Omaha.jpg",
+  "artist": "Collinulness",
+  "license": "CC BY-SA 3.0",
+  "use": "奥马哈西区航拍",
+  "date": "30 May 2012, 18:06:14"
  }
 }
