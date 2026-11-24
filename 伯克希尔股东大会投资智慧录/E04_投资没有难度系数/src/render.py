@@ -983,7 +983,7 @@ def qa_panels(img, t, a):
             cy = 990
             circle(img, (x, cy), r, col, ka * kk, 3)
             glow(img, (x, cy), r * 1.3, col * 0.5, ka * kk * 0.5)
-            text(img, '$', x, cy + 2, int(r * 1.1), 'corm_med', col, ka * kk)
+            text(img, '$', x, cy + 2, max(2, int(r * 1.1)), 'corm_med', col, ka * kk)
         text(img, '人们以为：跳得越高，绶带越值钱', W / 2, 1300, 24, 'sans', INK2, ka * env(t, qs('A13', 3.0), tq + 0.2, 0.4, 0.3), track=0.06)
         fx.slam(img, '在投资里，完全不是这样', W / 2, 1300, 38, 'serif_black', t, tq, ka, glow_=0.3)
     # 可口可乐：几百万人都懂，只是没行动——却让伯克希尔多了 30 亿美元税前收益
@@ -1120,7 +1120,7 @@ def ribbon(img, x, y, r, col, a):
         poly(img, [(x + dx * r * 0.6, y + r * 0.7), (x + dx * r * 1.0, y + r * 2.1), (x + dx * r * 0.25, y + r * 1.75)], col, a * 0.8, 2, closed=True)
     circle(img, (x, y), r, col, a, 3)
     glow(img, (x, y), r * 1.4, col * 0.5, a * 0.5)
-    text(img, '$', x, y + 2, int(r * 1.15), 'corm_med', col, a)
+    text(img, '$', x, y + 2, max(2, int(r * 1.15)), 'corm_med', col, a)
 
 
 # ---------------------------------------------------------------- I1：投资不按难度给分——一尺与七尺，回报一样
