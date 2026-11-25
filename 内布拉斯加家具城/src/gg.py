@@ -329,7 +329,7 @@ def shot_hook(cv, t):
     t0, t1 = S('h7') - 0.4, CH['title'][0] + 0.1
     a = A(t, t0, t1, 0.4, 0.25)
     if a > 0:
-        seq(cv, t, t0, t1, ['ad01_lamps', 'ad01_tv', 'ad01_rugs'], cy=WCY, h=WH, a=a, cap='NFM 奥马哈店（2001 年电视广告画面）')
+        seq(cv, t, t0, t1, ['ad01_lamps', 'ad01_tv', 'ad01_rugs', 'ad01_card'], cy=WCY, h=WH, a=a, cap='NFM 奥马哈店（2001 年电视广告画面）')
         three_pillars(cv, t, a, [WT('h7', '好生意'), WT('h7', '好价钱'), WT('h7', '对的人')], y=1060)
         k = appear(t, 'h7', '全占了')
         if k > 0: cv.text('内布拉斯加家具城，三样全占了', W / 2, 1310, 44, 'serif_black', gold=True, a=a * k, glow=0.12)
