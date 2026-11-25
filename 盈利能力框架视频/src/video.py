@@ -202,8 +202,8 @@ def subtitles(fr, t):
     if SCENES[scene_at(t)]['id'] in ('quote', 'outro'):
         return
     for s in TL['subs']:
-        if s['start'] - 0.05 <= t < s['end'] + 0.25:
-            a = eo((t - s['start'] + 0.05) / 0.12) * (1 - eio((t - s['end']) / 0.25))
+        if s['start'] - 0.05 <= t < s['end']:
+            a = eo((t - s['start'] + 0.05) / 0.12) * (1 - eio((t - s['end'] + 0.12) / 0.12))
             txt = s['text']
             size = 40
             tw = text_width(txt, 'sans_med', size)

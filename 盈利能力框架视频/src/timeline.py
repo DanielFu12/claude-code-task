@@ -54,47 +54,52 @@ def split_subs(text, times, t0):
     return out
 
 
+# 「讲故事的停顿」：这些段落之后多停一会儿（秒）
+PAUSE_AFTER = {('hook', 2): 0.8, ('L0', 0): 0.5, ('L0', 3): 0.3, ('kitty', 0): 0.6, ('quote', 0): 0.0}
+
+
 def build():
+    """整篇一条录音：段落按原录音首尾相接，只在章节重拍处留白并对齐小节线。"""
+    vo = json.load(open(os.path.join(WORK, 'vo', 'segments.json')))
+    segs = {(g['scene'], g['ui']): g for g in vo['segs']}
+    sr = vo['sr']
     T = 0.0
-    scenes, subs, utts = [], [], []
+    scenes, subs = [], []
     for si, sc in enumerate(SCENES):
         if sc.get('sting') and si > 0:
             T = next_bar(T, 0.25)
         start = T
-        t = start + sc['lead']
-        cues = {}
-        su = []
-        for u in sc['say']:
+        t = start + (sc['lead'] if (sc.get('sting') or si == 0) else 0.0)
+        cues, su = {}, []
+        for ui, u in enumerate(sc['say']):
             text, cidx = parse(u)
-            p = wav_path(tts_text(text))
-            y, sr = sf.read(p)
-            if y.ndim > 1: y = y.mean(1)
-            y, _ = trim(y)
-            times = align(text, y)
-            dur = len(y) / SR
+            g = segs[(sc['id'], ui)]
+            n = sf.info(os.path.join(WORK, g['wav'])).frames
+            dur = n / sr
+            times = g['ct']
             for k, i in cidx.items():
-                cues[k] = t + float(times[min(i, len(text))])
+                cues[k] = t + float(times[min(i, len(times) - 1)])
             subs += split_subs(text, times, t)
-            su.append(dict(text=text, start=t, end=t + dur, wav=os.path.relpath(p, WORK),
+            su.append(dict(text=text, start=t, end=t + dur, wav=g['wav'], raw=True,
                            ct=[round(t + float(x), 3) for x in times]))
-            gap = GAP + (0.25 if text.endswith(('？', '。')) else 0.0)
-            t += dur + gap
-        if sc['say']:
-            t -= gap
-        end = t + sc['tail']
+            t += dur + PAUSE_AFTER.get((sc['id'], ui), 0.0)
+        nxt = SCENES[si + 1] if si + 1 < len(SCENES) else None
+        end = t + (sc['tail'] if (nxt is None or nxt.get('sting')) else 0.0)
         cq = {k: qtime(v) for k, v in cues.items()}
         scenes.append(dict(id=sc['id'], ch=sc['ch'], start=start, end=end, cues=cues, cq=cq, utts=su,
                            sting=bool(sc.get('sting'))))
-        utts += su
         T = end
     total = next_bar(T)
-    # 每个场景的结束时间 = 下一个场景的开始（画面连续）
     for a, b in zip(scenes, scenes[1:]):
         a['end'] = b['start']
     scenes[-1]['end'] = total
-    tl = dict(bpm=BPM, beat=BEAT, bar=BAR, total=total, scenes=scenes,
-              subs=[dict(text=s, start=a, end=b) for s, a, b in subs],
-              chapters=CHAPTERS)
+    # 字幕：每条在下一条出现前 0.1 秒收掉
+    subs.sort(key=lambda x: x[1])
+    subs2 = []
+    for i, (txt, a, b) in enumerate(subs):
+        if i + 1 < len(subs): b = min(b + 0.25, subs[i + 1][1] - 0.1)
+        subs2.append(dict(text=txt, start=a, end=max(b, a + 0.3)))
+    tl = dict(bpm=BPM, beat=BEAT, bar=BAR, total=total, scenes=scenes, subs=subs2, chapters=CHAPTERS)
     json.dump(tl, open(os.path.join(WORK, 'timeline.json'), 'w'), ensure_ascii=False, indent=1)
     return tl
 
