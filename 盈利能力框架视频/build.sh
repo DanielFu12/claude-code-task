@@ -33,9 +33,9 @@ ffmpeg -loglevel error -y -i "$WORK/inter.mp4" -i "$WORK/final_audio.wav" -map 0
   "$WORK/企业盈利能力评估框架_高清.mp4"
 
 # 7b) 仓库版：两遍编码控制在 95MB 以内（GitHub 单文件上限 100MB，仓库 LFS 额度已满）
-ffmpeg -loglevel error -y -i "$WORK/inter.mp4" -map 0:v -c:v libx264 -preset slow -tune animation -b:v 1120k \
+ffmpeg -loglevel error -y -i "$WORK/inter.mp4" -map 0:v -c:v libx264 -preset slow -tune animation -b:v 1050k \
   -pass 1 -passlogfile "$WORK/repo2pass" -an -f null /dev/null
 ffmpeg -loglevel error -y -i "$WORK/inter.mp4" -i "$WORK/final_audio.wav" -map 0:v -map 1:a \
-  -c:v libx264 -preset slow -tune animation -b:v 1120k -maxrate 4000k -bufsize 8000k -pass 2 -passlogfile "$WORK/repo2pass" \
+  -c:v libx264 -preset slow -tune animation -b:v 1050k -maxrate 4000k -bufsize 8000k -pass 2 -passlogfile "$WORK/repo2pass" \
   -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart "$ROOT/企业盈利能力评估框架.mp4"
 echo "done -> $ROOT/企业盈利能力评估框架.mp4 （高清母版：$WORK/企业盈利能力评估框架_高清.mp4）"

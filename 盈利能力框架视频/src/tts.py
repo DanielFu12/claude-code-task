@@ -9,11 +9,11 @@ import numpy as np, soundfile as sf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from script import SCENES, TTS_REPL
+from script import SCENES, TTS_REPL, STYLE
 
 VOICE = 'zh_male_ruyayichen_uranus_bigtts'   # 儒雅逸辰 2.0
 SR = 24000
-SPEECH_RATE = 15
+SPEECH_RATE = 4
 WORK = os.path.join(HERE, '..', 'work')
 CUE_RE = re.compile(r'\[([A-Za-z0-9_]+)\]')
 PUNCT = '，。；：？！、—…'
@@ -39,6 +39,7 @@ def tts_text(s):
 def synth(text, out):
     rp = {"text": text, "speaker": VOICE,
           "audio_params": {"format": "wav", "sample_rate": SR, "speech_rate": SPEECH_RATE}}
+    rp["additions"] = json.dumps({"context_texts": [STYLE]}, ensure_ascii=False)
     body = {"user": {"uid": "bmjz"}, "req_params": rp}
     for attempt in range(5):
         try:
@@ -66,7 +67,7 @@ def synth(text, out):
 
 
 def wav_path(text):
-    h = hashlib.md5((VOICE + str(SPEECH_RATE) + text).encode()).hexdigest()[:16]
+    h = hashlib.md5((VOICE + str(SPEECH_RATE) + STYLE + text).encode()).hexdigest()[:16]
     return os.path.join(WORK, 'tts', h + '.wav')
 
 

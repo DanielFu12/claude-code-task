@@ -245,3 +245,64 @@ def typeline(fr, s, x, y, size, col, a, t0, cps=14, fnt='serif_med', anchor='m',
     n = len(s)
     chars = [cl((fr.t - t0) * cps - i, 0, 1) for i in range(n)]
     return fr.text(s, x, y, size, fnt, col, a, anchor=anchor, chars_alpha=chars, glow=glow, mode=mode)
+
+
+# ---------------------------------------------------------------- 第二版新增
+import copy as _copy
+FAR = 1e9
+
+
+def remap(S, **kw):
+    """复用旧场景组件：替换/补充提示点"""
+    S2 = _copy.copy(S)
+    S2.cq = dict(S.cq)
+    S2.cq.update(kw)
+    return S2
+
+
+def slam(fr, s, t0, x, y, size, col, hold=None, fnt='serif_black', a=1.0, out=None, glow=0.45, shake=True):
+    """动态大字：从 2.4 倍砸下来，带残影、闪光与震动"""
+    t = fr.t
+    if t < t0 - 0.02: return
+    k = cl((t - t0) / 0.22)
+    sc = lerp(2.4, 1.0, eo(k))
+    al = a * cl(k * 2.5)
+    if out is not None:
+        al *= 1 - eio((t - out) / 0.35)
+    if al <= 0.003: return
+    if k < 1:
+        for g in (1.35, 1.7):
+            fr.text(s, x, y, size * sc * g, fnt, col, al * 0.12 * (1 - k), mode='E')
+    headline(fr, s, x, y, int(size * sc), col, al, fnt=fnt, glow=glow)
+    if shake:
+        p = pulse(t, t0 + 0.2, 0.09)
+        fr.shake = (fr.shake[0] + 9 * p * math.sin(t * 97), fr.shake[1] + 7 * p * math.cos(t * 83))
+        fr.ca = max(fr.ca, 6 * p)
+    fr.glow((x, y), size * 1.2, col, pulse(t, t0 + 0.2, 0.25) * al * 0.6)
+
+
+def bridge(fr, S, cue, s, col=GOLD):
+    """章节末的过渡问句：出现后慢慢推近，重拍前冲向镜头"""
+    if cue not in S.cq: return
+    t0 = S.c(cue)
+    if fr.t < t0: return
+    rush = ei(cl((fr.t - (S.sc['end'] - 0.45)) / 0.45))
+    size = 86 * (1 + 0.04 * (fr.t - t0)) * (1 + 3 * rush)
+    a = cl((fr.t - t0) / 0.4) * (1 - rush)
+    headline(fr, s, W / 2, 520, int(size), col, a, glow=0.5)
+    fr.k_dim = 1 - 0.85 * cl((fr.t - t0) / 0.5)
+
+
+def keycam(t, kf):
+    """相机关键帧：[(时刻, (目标xyz, 距离, 偏航, 俯仰, 视场)), ...]"""
+    if t <= kf[0][0]: v = kf[0][1]
+    elif t >= kf[-1][0]: v = kf[-1][1]
+    else:
+        for (t0, v0), (t1, v1) in zip(kf, kf[1:]):
+            if t <= t1:
+                x = eio((t - t0) / max(t1 - t0, 1e-6))
+                v = tuple(tuple(lerp(p, q, x) for p, q in zip(a, b)) if isinstance(a, tuple) else lerp(a, b, x)
+                          for a, b in zip(v0, v1))
+                break
+    import three
+    return three.orbit(v[0], v[1], v[2], v[3], v[4])

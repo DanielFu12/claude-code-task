@@ -126,6 +126,7 @@ class Frame:
         self.U = np.zeros((H, W, 3), np.uint8)
         self.over = []
         self.post_over = []
+        self.layers = []          # 3D 画布：(预乘颜色, alpha)
         self.k = 1.0
         self.ca = 0.0
         self.flash = 0.0
@@ -391,6 +392,9 @@ def compose(fr, bg):
     E += fr.U.astype(np.float32) * (1 / 255.0)
     out = bg + fr.L
     apply_over(out, fr.over)
+    for P, A in fr.layers:
+        out *= (1 - A)[..., None]
+        out += P
     out += E
     out += bloom(E + fr.B, fr.bloom)
     if fr.flash > 0:

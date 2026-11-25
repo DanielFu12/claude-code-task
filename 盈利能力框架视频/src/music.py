@@ -37,14 +37,13 @@ PROG = {
 }
 # 场景 -> (和声进行, 基础能量 0-5)
 SPEC = {
-    'hook': ('hook', 0), 'title': ('epic', 5), 'five': ('epic', 2), 'formula': ('epic', 3),
-    'layers': ('layer', 2), 'why': ('layer', 3), 'L0': ('dark', 3), 'stick': ('bright', 2),
-    'loom': ('bright', 2), 'who': ('epic', 3), 'moat': ('bright', 3), 'cycle': ('dark2', 2),
+    'hook': ('hook', 0), 'title': ('epic', 5), 'formula': ('epic', 2), 'block': ('layer', 3), 'map': ('epic', 3),
+    'L0': ('dark', 3), 'stick': ('bright', 2), 'loom': ('bright', 2), 'moat': ('bright', 3),
     'L2': ('calm', 2), 'L3': ('drive', 3), 'kitty': ('drive', 3), 'L4': ('tense', 3), 'gov': ('tense', 3),
     'L5': ('ether', 2), 'combo': ('epic', 5), 'proc': ('lift', 4), 'tests': ('lift', 4),
     'rules': ('finale', 4), 'quote': ('finale', 3), 'outro': ('outro', 2),
 }
-HALFTIME = {'L2', 'L5', 'quote', 'cycle'}
+HALFTIME = {'L2', 'L5', 'quote', 'formula'}
 
 # 主题动机（拍数，MIDI）——片头、组合规则、终章反复出现
 MOTIF = [
@@ -90,9 +89,11 @@ for bi in bars:
     sid, rel = bi['scene']['id'], bi['rel']
     if sid == 'title':
         bi['e'] = 5 if rel < 4 else 3
-    if sid == 'layers':
+    if sid == 'hook':
+        bi['e'] = 0 if rel < 8 else (1 if rel < 15 else 2)
+    if sid == 'map':
         n = sum(1 for k in ('l0', 'l1', 'l2', 'l3', 'l4', 'l5') if bi['scene']['cq'].get(k, 1e9) <= bi['t'] + 0.1)
-        bi['e'] = 2 if n < 2 else (3 if n < 5 else 4)
+        bi['e'] = 3 if n < 3 else 4
     if sid == 'combo':
         bi['e'] = 5
     if sid == 'quote' and rel >= 4:
@@ -106,7 +107,7 @@ for i, bi in enumerate(bars):
     p = PROG[bi['prog']]
     bi['chord'] = p[bi['rel'] % len(p)] if bi['prog'] != 'hook' else p[(bi['rel'] // 2) % len(p) * 0 + min(bi['rel'] // 2, 3) * 2]
     if bi['prog'] == 'hook':
-        bi['chord'] = ['Dm', 'Bb', 'Gm', 'A', 'Dm', 'Bb'][min(bi['rel'] // 2, 5)]
+        bi['chord'] = ['Dm', 'Bb', 'Gm', 'A'][(bi['rel'] // 2) % 4]
     if bi['prog'] == 'outro' and bi['rel'] >= 2:
         bi['chord'] = 'D'
 
@@ -292,9 +293,9 @@ hook = next(s for s in scenes if s['id'] == 'hook')
 for k in range(int(hook['end'] / BEAT)):
     tt = k * BEAT
     if tt > hook['end'] - BAR / 2: break
-    if tt >= 2 * BAR and k % 2 == 0:
+    if tt >= 15 * BAR and k % 2 == 0:
         put('fx', I.tick(0.6 if k % 4 == 0 else 0.4), tt, 0.30, 0.25)
-    if tt >= 4 * BAR and k % 4 == 0:
+    if tt >= 17 * BAR and k % 4 == 0:
         put('drums', I.heartbeat(0.9), tt, 0.5)
 hook_mel = [(2, 0, 74, 2), (2, 2, 81, 2), (3, 0, 79, 1.5), (3, 1.5, 77, 2.5), (5, 0, 77, 2), (5, 2, 76, 2), (6, 0, 74, 4),
             (8, 0, 74, 1.5), (8, 1.5, 81, 0.5), (8, 2, 81, 1), (8, 3, 79, .5), (8, 3.5, 77, .5), (9, 0, 77, 2), (9, 2, 76, 2)]
@@ -417,24 +418,23 @@ def whoosh_at(t, gain=0.4, up=False):
 
 
 ACC = {
-    'five': [('q1', 'stab'), ('q2', 'stab'), ('q3', 'stab'), ('q4', 'stab'), ('q5', 'stab')],
-    'formula': [('ep', 'blip0'), ('r', 'blip1'), ('w', 'blip2'), ('ic', 'blip3'), ('iv', 'stab'), ('pos', 'blip4'), ('neg', 'neg')],
-    'layers': [('l0', 'hit'), ('l1', 'hit'), ('l2', 'hit'), ('l3', 'hit'), ('l4', 'hit'), ('l5', 'hit')],
-    'why': [('tags', 'whoosh'), ('sort', 'stab'), ('f1', 'blip0'), ('f2', 'blip1'), ('f3', 'blip2'), ('f4', 'blip3'), ('f5', 'blip4')],
-    'L0': [('m', 'neg'), ('d1', 'hit'), ('d2', 'neg'), ('d3', 'blip0'), ('d4', 'blip1'), ('d5', 'blip2'), ('d6', 'blip3'),
-           ('d7', 'blip4'), ('air', 'neg'), ('veto', 'boom')],
-    'stick': [('wtp', 'blip4'), ('p', 'blip3'), ('c', 'blip2'), ('wts', 'blip1'), ('cs', 'stab'), ('ss', 'stab'), ('fp', 'hit'), ('av', 'braam')],
+    'hook': [('see', 'blip0'), ('see2', 'blip2'), ('see3', 'braam'), ('air', 'neg'), ('air2', 'neg'), ('vs', 'stab'), ('why', 'hit')],
+    'formula': [('ep', 'blip0'), ('ic', 'blip2'), ('sum', 'blip3'), ('iv', 'stab'), ('ps', 'blip4')],
+    'block': [('draw', 'whoosh'), ('x', 'blip0'), ('y', 'blip2'), ('z', 'blip4'), ('vol', 'braam'),
+              ('h', 'hit'), ('m', 'hit'), ('d', 'hit'), ('l', 'hit'), ('cut', 'neg')],
+    'map': [('l0', 'hit'), ('l1', 'hit'), ('l2', 'hit'), ('l3', 'hit'), ('l4', 'hit'), ('l5', 'hit')],
+    'L0': [('die', 'boom'), ('m', 'neg'), ('knife', 'whoosh'), ('k2', 'boom'), ('d1', 'hit'), ('d2', 'neg'), ('d3', 'neg'),
+           ('d4', 'neg'), ('d5', 'neg'), ('veto', 'boom')],
+    'stick': [('wtp', 'blip4'), ('wts', 'blip1'), ('cs', 'stab'), ('ss', 'stab'), ('fp', 'hit'), ('av', 'braam'), ('av2', 'neg')],
     'loom': [('loom', 'blip0'), ('down', 'whoosh'), ('pv', 'neg'), ('nv', 'stab'), ('ap', 'stab')],
-    'who': [('w1', 'blip0'), ('w2', 'blip1'), ('w3', 'blip2'), ('w4', 'blip3'), ('w5', 'blip4'), ('w6', 'blip5')],
-    'moat': [('fr1', 'stab'), ('fr2', 'stab'), ('fr3', 'stab'), ('px', 'hit'), ('rule1', 'blip1'), ('rule2', 'blip3')],
-    'cycle': [('trap', 'neg'), ('eq', 'blip2'), ('mid', 'neg')],
-    'L2': [('oe1', 'blip0'), ('oe2', 'blip2'), ('oe3', 'blip4'), ('s1', 'blip1'), ('s2', 'blip3'), ('s3', 'braam'), ('gap', 'neg')],
-    'L3': [('a1', 'stab'), ('a2', 'stab'), ('a3', 'stab'), ('k1', 'hit'), ('k2', 'hit'), ('k3', 'hit'), ('k4', 'hit'), ('k5', 'neg')],
-    'kitty': [('shot', 'scratch'), ('cow1', 'stab'), ('cow2', 'neg')],
-    'L4': [('amp', 'hit'), ('lev', 'blip2'), ('fl1', 'stab'), ('fl2', 'neg'), ('bb1', 'stab'), ('bb2', 'neg')],
+    'moat': [('moat', 'braam'), ('px', 'hit'), ('r1', 'blip1'), ('r2', 'blip3'), ('trap', 'neg'), ('base', 'stab')],
+    'L2': [('see', 'blip2'), ('oe1', 'blip0'), ('oe2', 'blip2'), ('oe3', 'blip4'), ('shave', 'whoosh'), ('fab', 'neg'), ('gap', 'neg')],
+    'L3': [('thick', 'braam'), ('a1', 'stab'), ('a2', 'stab'), ('a3', 'stab'), ('k1', 'hit'), ('k2', 'hit'), ('k5', 'neg')],
+    'kitty': [('shot', 'scratch'), ('cow1', 'stab')],
+    'L4': [('amp', 'hit'), ('lev', 'blip2'), ('risk', 'neg'), ('fl1', 'stab'), ('fl2', 'neg'), ('bb1', 'stab'), ('bb2', 'neg')],
     'gov': [('inc', 'hit'), ('inc1', 'neg'), ('inc2', 'stab'), ('cut', 'neg'), ('kr', 'boom')],
-    'L5': [('fade', 'whoosh'), ('m1', 'stab'), ('m2', 'neg'), ('m3', 'neg'), ('hard', 'blip3')],
-    'combo': [('c1', 'braam'), ('c2', 'neg'), ('c3', 'braam'), ('c4', 'neg'), ('c5', 'braam'), ('c6', 'neg'), ('c7', 'braam'), ('c8', 'neg')],
+    'L5': [('fade', 'whoosh'), ('cap', 'stab'), ('m1', 'stab'), ('m2', 'neg'), ('m3', 'neg'), ('hard', 'blip3')],
+    'combo': [('all', 'braam'), ('c1', 'braam'), ('c2', 'neg'), ('c3', 'braam'), ('c4', 'neg'), ('c5', 'braam'), ('c6', 'neg')],
     'proc': [('p1', 'blip0'), ('p2', 'blip1'), ('p3', 'blip2'), ('p4', 'blip3'), ('p5', 'blip4'), ('p6', 'blip5'), ('p7', 'blip6'), ('p8', 'hit')],
     'tests': [('t1', 'hit'), ('t2', 'hit'), ('t3', 'hit'), ('t4', 'hit'), ('t5', 'hit')],
     'rules': [('r1', 'stab'), ('r2', 'stab'), ('r3', 'stab'), ('r4', 'stab'), ('r5', 'hit')],
