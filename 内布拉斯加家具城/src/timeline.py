@@ -10,19 +10,24 @@ import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from script import LINES, SOTS
 
-HOOK_START = 1.2           # 开场心跳后第一句
-AFTER_HOOK = 0.7           # 开场设问之后的空气（随后标题重拍）
-TITLE_HOLD = 3.2           # 标题段落（含重拍）
-PRE_CARD = -0.5            # 章节卡在“本章要点”卡淡出前 0.5s 就开始接上（两卡交接，中间不掉黑）
-CHAPTER_CARD = 2.7         # 章节卡
-TAKEAWAY = 4.2             # 第一至六章结尾的“本章要点”卡
-TK_PRE = {'ch3': 0.4, 'ch6': 0.4}
-QUOTE_HOLD = {'h5': 6.2, 'c2h': 4.6, 'c2l': 7.4, 'c3h': 4.6, 'c4g': 5.8}   # 旁白引出屏幕引语卡（“巴菲特后来写道：”）：引语读完再接下一句
-STORY = {'h2': 0.6, 'h4': 0.9, 'c1h': 0.9, 'c1i': 1.0, 'c1k': 0.8, 'c2b': 0.5, 'c2e': 0.6, 'c2g': 1.1, 'c3c': 0.6, 'c3e': 0.8,
-         'c3f': 0.7, 'c3g': 1.0, 'c3i': 0.6, 'c4c': 0.6, 'c4e': 0.7, 'c4f': 0.9, 'c4h': 1.3, 'c5b': 0.5, 'c5d': 0.6, 'c5e': 0.6,
-         'c5f': 0.8, 'c6a': 0.4, 'c6b': 0.5, 'c6d': 0.6, 'c6e': 0.4, 'c7a': 0.6, 'c7b': 0.5, 'c7d': 0.5, 'c7e': 0.8, 'c7f': 1.0,
-         'h1': 0.3, 'c2c': 0.4, 'c2d': 0.4, 'c3b': 0.6, 'c4b': 0.4, 'c4d': 0.5, 'c5c': 0.5, 'c6c': 0.3, 'c6f': 0.4, 'c7c': 0.3,
-         'h7': 0.8, 'c2i': 0.5, 'c2j': 1.0, 'c2k': 0.6, 'c3k': 1.2, 'c7h': 1.0}
+HOOK_START = 0.9           # 开场：音乐起两拍后第一句
+AFTER_HOOK = 0.5           # 开场最后一句之后的空气（随后标题重拍）
+TITLE_HOLD = 2.8           # 标题段落（含重拍）
+PRE_CARD = 0.0
+CHAPTER_CARD = 2.2         # 章节卡（v3：配乐在章节号上重拍；去掉了“本章要点”卡，节奏更紧）
+TAKEAWAY = 0.0             # v3：不再插“本章要点”卡（要点并到第七章的三条收获里）
+TK_PRE = {}
+# 旁白引出屏幕引语卡（“他后来写道：”）：引语读完再接下一句（按引语长度）
+QUOTE_HOLD = {'c2f': 5.4, 'c2l': 7.0, 'c3z': 4.4, 'c3h': 4.4, 'c4g': 5.4}
+# 讲故事的停顿：只放在“该停”的地方——揭晓、转折、数字落地之后（其余句子首尾相接）
+STORY = {'h2': 0.5, 'h3': 0.7, 'h4': 0.4, 'h5': 1.0, 'h7': 0.4,
+         'c1d': 0.3, 'c1h': 0.7, 'c1j': 0.3, 'c1i': 1.1, 'c1k': 0.6,
+         'c2t': 0.4, 'c2e': 0.6, 'c2j': 0.5, 'c2m': 0.9, 'c2k': 0.4,
+         'c3c': 0.5, 'c3d': 0.4, 'c3e': 0.6, 'c3f': 0.4, 'c3i': 0.6,
+         'c4b': 1.0, 'c4c': 0.4, 'c4d': 0.5, 'c4e': 0.8, 'c4f': 0.8, 'c4h': 1.2,
+         'c5c': 0.4, 'c5d': 0.5, 'c5e': 0.4, 'c5f': 0.5,
+         'c6a': 0.3, 'c6b': 0.4, 'c6c': 0.4, 'c6e': 0.4, 'c6f': 0.5,
+         'c7b': 0.4, 'c7e': 0.8, 'c7l': 0.3, 'c7m': 0.4, 'c7n': 0.4, 'c7o': 0.9, 'c7f': 0.9}
 END_GAP = 2.0              # 最后一句之后 → 片尾
 DISSOLVE, POST_LOGO = 1.5, 5.8
 END_HOLD = 0.8             # 最后一句的落版字再停一会儿，然后化作粒子汇聚成 logo
@@ -44,7 +49,8 @@ def build(work, quiet=False):
                     t += AFTER_HOOK
                     chapters['title'] = [t, t + TITLE_HOLD]; t += TITLE_HOLD
                 else:
-                    t += 0.5 + TK_PRE.get(cur, 0); chapters['tk_' + cur] = [t, t + TAKEAWAY]; t += TAKEAWAY
+                    t += 0.6 + TK_PRE.get(cur, 0)
+                    if TAKEAWAY > 0: chapters['tk_' + cur] = [t, t + TAKEAWAY]; t += TAKEAWAY
                     t += PRE_CARD
             chapters[ch] = [0 if ch == 'hook' else t, None]
             if ch != 'hook': t += CHAPTER_CARD

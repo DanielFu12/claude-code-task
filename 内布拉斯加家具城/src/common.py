@@ -390,7 +390,7 @@ def chapter_label(cv, t):
             cv.text(title, 110, 64, 26, 'sans_med', col=CREAM, a=a * 0.85, anchor='l')
 
 
-NAV = ['起家', '握手', '护城河', '隔壁', '扩张', '风险', '口碑']
+NAV = ['对的人', '好价钱', '好生意', '隔壁', '扩张', '风险', '收获']
 TAKE = {'tk_ch1': ('01', '起家', '卖得便宜，说真话', '没有好地段、没有独家货，只有低价和信用'),
         'tk_ch2': ('02', '先看人', '她的一句话，比审计更可靠', '买下一门生意之前，先看清经营者的品格'),
         'tk_ch3': ('03', '低成本的护城河', '成本更低 → 价格更低 → 顾客更多', '营业费用约 16.5% 对 35.6%，便宜到对手不愿来'),
@@ -424,8 +424,8 @@ def interlude(t):
         if title is None: continue
         c0 = CH[cid][0]
         prev = 'tk_ch%d' % (int(cid[2]) - 1)
-        a0 = CH[prev][0] - 0.15 if prev in CH else c0
-        m = max(m, env(t, a0, c0 + 2.6, 0.5, 0.75))
+        a0 = CH[prev][0] - 0.15 if prev in CH else c0 - 0.35
+        m = max(m, env(t, a0, c0 + 2.25, 0.35, 0.5))
     return m
 
 
@@ -468,7 +468,7 @@ def chapter_card(cv, t):
     """章节卡（压暗由 interlude_dim 统一负责）。v3：编号光环从要点卡退场处升起；结束时标题向上收起，第一句旁白开口时画面已经亮起"""
     for cid, title, en in CHAPTERS:
         if title is None: continue
-        t0 = CH[cid][0]; t1 = t0 + 2.45
+        t0 = CH[cid][0]; t1 = t0 + 2.15
         a = env(t, t0, t1, 0.4, 0.55)
         if a <= 0.004: continue
         p = (t - t0)
@@ -476,17 +476,17 @@ def chapter_card(cv, t):
         dy = -60 * q + 40 * (1 - eo(p / 0.7))
         num = '0' + str(int(cid[2]))
         sc = 1 + 0.04 * p
-        kn = eo((p - 0.45) / 0.45)                      # 要点卡完全离开后，编号与光环才升起
+        kn = eo((p - 0.15) / 0.45)                      # v3：没有要点卡，编号与光环随重拍立刻升起
         cv.text(num, W / 2, 640 + dy, int(260 * sc), 'oswald', col=GOLD, a=a * 0.16 * kn, mode='add')
-        cv.text(title, W / 2, 900 + dy, 78, 'serif_black', gold=True, a=a, reveal=eo((p - 0.5) / 0.7), glow=0.25)
-        L = 300 * eo((p - 0.5) / 0.8)
+        cv.text(title, W / 2, 900 + dy, 78, 'serif_black', gold=True, a=a, reveal=eo((p - 0.2) / 0.6), glow=0.25)
+        L = 300 * eo((p - 0.2) / 0.6)
         cv.line((W / 2 - L, 990 + dy), (W / 2 + L, 990 + dy), GOLD_D, a * 0.8, 2)
-        cv.text(en, W / 2, 1040 + dy, 28, 'corm', col=GOLD, a=a * eo((p - 0.85) / 0.6), track=0.35)
-        cv.text('第' + '一二三四五六七'[int(cid[2]) - 1] + '章', W / 2, 812 + dy, 30, 'sans_light', col=CREAM, a=a * 0.8 * eo((p - 0.45) / 0.5), track=0.5)
+        cv.text(en, W / 2, 1040 + dy, 28, 'corm', col=GOLD, a=a * eo((p - 0.55) / 0.5), track=0.35)
+        cv.text('第' + '一二三四五六七'[int(cid[2]) - 1] + '章', W / 2, 812 + dy, 30, 'sans_light', col=CREAM, a=a * 0.8 * eo((p - 0.15) / 0.4), track=0.5)
         import fx                                     # 变形宽银幕光晕横扫标题 + 缓转的细环
-        fl = math.exp(-((p - 1.0) / 0.32) ** 2)
-        if fl > 0.02: fx.flare(cv, W / 2 - 380 + (p - 0.35) * 520, 900 + dy, a * fl * 0.8, length=760)
-        ring = eo((p - 0.45) / 0.6)
+        fl = math.exp(-((p - 0.6) / 0.3) ** 2)
+        if fl > 0.02: fx.flare(cv, W / 2 - 380 + (p - 0.05) * 600, 900 + dy, a * fl * 0.8, length=760)
+        ring = eo((p - 0.15) / 0.5)
         for k in range(3):
             ang = p * (0.5 + k * 0.25) * (1 if k % 2 else -1) + k * 2.1
             if ring > 0: cv.arc((W / 2, 640 + dy), (150 + 60 * ring) + k * 26, ang, ang + (1.6 + 0.4 * k) * ring, GOLD if k != 1 else GOLD_D, a * (0.5 - 0.12 * k) * ring, 2)

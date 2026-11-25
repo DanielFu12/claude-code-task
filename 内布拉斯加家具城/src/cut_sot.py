@@ -38,6 +38,23 @@ def quiet_point(x, t, span=0.3, win=0.06):
     return (a + int(np.argmin(e)) + h // 2) / SR
 
 
+def tail_check(sid, y):
+    """出点核查（第八期教训）：整段识别会把结尾抢话的主持人吞掉，所以单独识别最后 1.5 秒，
+    并看最后 1.2 秒里有没有明显高于讲话人的基频（女声主持人 170–300 Hz）。有问题直接报错，不往下走。"""
+    import librosa
+    tail = y[-int(1.5 * SR):]
+    tmp = os.path.join(WORK, 'sot', f'_tail_{sid}.wav'); sf.write(tmp, tail, SR)
+    txt = subprocess.run(['python3', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'asr_en.py'), tmp],
+                         capture_output=True, text=True).stdout.strip().split('|')[-1].strip()
+    y16 = librosa.resample(y, orig_sr=SR, target_sr=16000)
+    f0, _, _ = librosa.pyin(y16, fmin=70, fmax=400, sr=16000, frame_length=1024, hop_length=160)
+    body, end = f0[:-120], f0[-120:]
+    med = np.nanmedian(body) if np.any(~np.isnan(body)) else 120
+    v = end[~np.isnan(end)]; hi = float(np.mean(v > max(170, med * 1.6))) if len(v) else 0.0
+    print(f'  出点核查 {sid}：最后 1.5 秒识别为「{txt}」；讲话人基频中位 {med:.0f} Hz，结尾高基频帧占比 {hi:.0%}', flush=True)
+    assert hi < 0.25, f'{sid} 结尾疑似混入另一个人的声音（高基频帧 {hi:.0%}），请把出点前移'
+
+
 if __name__ == '__main__':
     os.makedirs(os.path.join(WORK, 'sot'), exist_ok=True); os.makedirs(CLIPS, exist_ok=True)
     xs = {}
@@ -50,7 +67,9 @@ if __name__ == '__main__':
                 subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', SRC, '-vn', '-ac', '1', '-ar', str(SR), tmp], check=True)
             xs[SRC] = sf.read(tmp, dtype='float32')[0]
         x = xs[SRC]
-        a = quiet_point(x, s['in'] - off, s.get('span', 0.3)); b = quiet_point(x, s['out'] - off, s.get('span', 0.3))
+        sp = s.get('span', 0.3)
+        a = quiet_point(x, s['in'] - off, sp) if sp > 0 else s['in'] - off
+        b = quiet_point(x, s['out'] - off, sp) if sp > 0 else s['out'] - off
         y = x[int(a * SR):int(b * SR)].copy()
         f = int(s.get('fade', 0.12) * SR); y[:f] *= np.linspace(0, 1, f); y[-f:] *= np.linspace(1, 0, f)
         sf.write(os.path.join(WORK, 'sot', sid + '.wav'), y, SR)
@@ -80,6 +99,7 @@ if __name__ == '__main__':
                         '-c:a', 'aac', '-b:a', '192k', os.path.join(CLIPS, 'sot_' + sid + '.mp4')], check=True)
         meta[sid] = dict(src_in=round(a + off, 3), src_out=round(b + off, 3), len=round(b - a, 3), lead=round(lead, 3), dur=round(end - lead, 3), ph=phr)
         print(sid, meta[sid], flush=True)
+        tail_check(sid, y)
     json.dump(meta, open(os.path.join(WORK, 'sot', 'sot.json'), 'w'), ensure_ascii=False, indent=1)
     p = os.path.join(ROOT, 'assets', 'media', 'ia_clips.json')
     m = json.load(open(p)) if os.path.exists(p) else {}

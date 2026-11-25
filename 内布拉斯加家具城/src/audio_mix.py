@@ -4,7 +4,7 @@
   · 旁白：每句切片的“发声起点”（vo.json 的 lead）对准时间线上的 start；段内切片首尾相接，就是原来那一条录音；
     整条旁白过 70 Hz 高通、2.2:1 轻压缩、很淡的同一个小房间短混响（RT60 约 0.6 s，湿声 0.1）、−64 dBFS 粉噪底，
     句间与插入的留白不是数字静音；
-  · 配乐：各章响度校平后，闪避放在最后一步（压缩之后）：人声时全频 −12 dB、人声频段（700 Hz–4 kHz）再 −5 dB；
+  · 配乐：保留配乐自身的起伏（各章只做 ±3 dB 内的宽松校平），闪避放在最后一步（压缩之后）：人声时全频 −12 dB、人声频段（700 Hz–4 kHz）再 −5 dB；
     提前 0.15 s 开始压，保持 0.9 s（句间短停顿不放开），起 80 ms、放 550 ms；重拍前后不闪避，句中点题只半闪避；
   · 母带：线性增益到 −14 LUFS + 峰值限制（−1.0 dBFS），不用动态 loudnorm。
   · 巴菲特原声：单独一轨，80 Hz 高通，不压缩、不加混响，响度对齐旁白；原声下配乐再压 5 dB。
@@ -87,18 +87,19 @@ if __name__ == '__main__':
     mus, sr = sf.read(os.path.join(WORK, 'music', 'score_raw.wav'), dtype='float32')
     if mus.ndim == 1: mus = np.stack([mus, mus], 1)
     mus = np.pad(mus, ((0, max(N - len(mus), 0)), (0, 0)))[:N]
-    TARGET = {'hook': -24.0, 'title': -20.0, 'end': -20.0, 'ch7': -22.5}
+    # v3：配乐本身已按故事写好了起伏（score.py），这里不再按章节校平，只把各章拉到一个宽松的范围里（±3 dB 以内）
+    TARGET = {}
     keys = [k for k in TL['chapters'] if not k.startswith('tk_')]
     spans = sorted((TL['chapters'][k][0], TL['chapters'][k][1], k) for k in keys)
     t_all = np.arange(N) / SR; gdb = np.zeros(N, np.float32); wsum = np.zeros(N, np.float32)
     for a, b, k in spans:
         seg = mus[int(a * SR):int(min(b, N / SR) * SR)]
         if len(seg) < SR * 3: continue
-        d = float(np.clip(TARGET.get(k, -23.0) - meter.integrated_loudness(seg), -12, 16))
+        d = float(np.clip(TARGET.get(k, -20.5) - meter.integrated_loudness(seg), -3, 3))
         w = np.clip((t_all - a + 1.5) / 3.0, 0, 1) * np.clip((b + 1.5 - t_all) / 3.0, 0, 1)
         gdb += w * d; wsum += w
     mus *= (10 ** (gdb / np.maximum(wsum, 1e-3) / 20))[:, None]
-    mus *= 10 ** ((-20.0 - meter.integrated_loudness(mus)) / 20)
+    mus *= 10 ** ((-21.0 - meter.integrated_loudness(mus)) / 20)
     # ---- 闪避（最后一步）：人声活动 → 提前 0.15 s、保持 0.9 s、起 80 ms / 放 550 ms
     hop = 240; rate = SR / hop; n = N // hop
     act = (np.abs((voice + sot)[:n * hop]).reshape(-1, hop).max(1) > 10 ** (-42 / 20)).astype(np.float32)
@@ -107,12 +108,11 @@ if __name__ == '__main__':
     act = np.roll(act, -look); act = maximum_filter1d(act, hold, origin=-(hold // 2))
     act = smooth(act, 0.08, 0.55, rate)
     tt = np.arange(n) / rate
-    soft = BEATS.get('soft', [])
-    for h in BEATS['hits'] + soft:
-        k = 0.5 if any(abs(h - x) < 0.01 for x in soft) else 1.0
-        act *= 1 - k * np.exp(-((tt - h) / 1.0) ** 8)
+    # v3：只有大重拍短暂放开闪避（重拍前后约 0.35 s，冲一下就收回）；落在字上的轻点不放开，旁白始终在上面
+    for h in BEATS['hits']:
+        act *= 1 - 0.6 * np.exp(-((tt - h - 0.1) / 0.35) ** 8)
     sm = smooth(sotm[:n * hop].reshape(-1, hop).max(1), 0.3, 0.8, rate)
-    full_db = -12.0 * act - 5.0 * np.clip(sm * 1.2, 0, 1); band_db = -5.0 * act     # 原声下配乐再低 5 dB（原声底噪较高，要更干净的空间）
+    full_db = -9.0 * act - 4.0 * np.clip(sm * 1.2, 0, 1); band_db = -5.5 * act     # v3：配乐更饱满，人声下多压一些；原声下再低 4 dB
     gf = np.interp(np.arange(N), np.arange(n) * hop, 10 ** (full_db / 20)).astype(np.float32)
     gb = np.interp(np.arange(N), np.arange(n) * hop, 10 ** (band_db / 20)).astype(np.float32)
     sos_b = butter(2, [700, 4000], 'bandpass', fs=SR, output='sos')

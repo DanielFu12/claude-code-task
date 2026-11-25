@@ -21,13 +21,20 @@ RED_X = C(225, 70, 60)
 def A(t, t0, t1, fi=0.4, fo=0.4): return env(t, t0, t1, fi, fo)
 
 
-def win2(i, j=None, pre=0.3, post=0.2):
-    """从 i 句开口前 pre 秒，到 j（或 i）句之后的下一句开口前 post 秒"""
+def CHE(cid):
+    """本章画面结束时刻：下一章（章节卡）开始后 0.2 秒；第七章为片尾开始后 0.4 秒"""
+    k = int(cid[2])
+    return CH['ch%d' % (k + 1)][0] + 0.2 if k < 7 else CH['end'][0] + 0.4
+
+
+def win2(i, j=None, pre=0.45, post=-0.1):
+    """从 i 句开口前 pre 秒，到 j（或 i）句之后的下一句开口后 0.1 秒。
+    v3：前后两个镜头各有 0.4 秒淡入淡出、互相重叠 0.55 秒，叠化过去，不在句与句之间掉黑"""
     j = j or i
     nx = nxt(j)
     end = (S(nx) - post) if nx else E(j) + 0.6
     if nx and SEG[nx]['ch'] != SEG[j]['ch']:
-        end = CH['tk_' + SEG[j]['ch']][0] + 0.2 if 'tk_' + SEG[j]['ch'] in CH else CH['end'][0] + 0.4
+        end = CHE(SEG[j]['ch'])
     return S(i) - pre, end
 
 
@@ -196,7 +203,7 @@ def right_terms_chart(cv, t, a):
     x0, x1, yb, ytop = 150, 960, 780, 330
     vmax = 12000.0
     def Y(v): return yb - (yb - ytop) * v / vmax
-    ka = eo((t - S('c2i') - 0.1) / 0.6)
+    ka = eo((t - S('c2i') + 0.45) / 0.6)
     if ka <= 0: return
     cv.rrect(60, 262, 1020, 822, 14, (0.05, 0.045, 0.04), a * ka * 0.85)
     cv.rrect(60, 262, 1020, 822, 14, GOLD_D, a * ka * 0.5, fill=False, th=2)
@@ -204,14 +211,14 @@ def right_terms_chart(cv, t, a):
     cv.text('NFM 税前利润（万美元，全公司）', 90, 292, 22, 'sans_med', col=GREY, a=a * ka, anchor='l')
     # 作价线与两倍线
     kp = appear(t, 'c2j', '作价')
-    for v, lb, k_, col in ((6000, '作价 ≈ $6000 万', kp, CREAM), (12000, '作价 × 2', appear(t, 'c2j', '两倍'), GOLD_L)):
+    for v, lb, k_, col in ((6000, '作价 ≈ $6000 万', kp, CREAM), (12000, '作价 × 2', appear(t, 'c2m', '两倍'), GOLD_L)):
         if k_ <= 0: continue
         y = Y(v); L = (x1 - x0) * eo(k_)
         for xx in range(int(x0), int(x0 + L), 22): cv.line((xx, y), (min(xx + 12, x0 + L), y), col, a * k_ * 0.8, 2)
         cv.text(lb, x0 + 10, y - 22, 24, 'sans_bold', col=col, a=a * k_, anchor='l')
     bw = (x1 - x0) / 7
     cum = 0.0; pts = []
-    t84 = WT('c2i', '一九八四'); tseven = WT('c2j', '买下之后')
+    t84 = WT('c2i', '一九八四'); tseven = WT('c2m', '买下之后')
     for j, (yr, v) in enumerate(NFM_PRETAX):
         tj = t84 if j == 0 else tseven + 0.15 * j
         e = eexp((t - tj) / 0.7)
@@ -219,10 +226,10 @@ def right_terms_chart(cv, t, a):
         cx = x0 + bw * (j + 0.5)
         gbar(cv, cx - bw * 0.3, Y(v * e), cx + bw * 0.3, yb, GOLD if j == 0 else GOLD * 0.75, a, glow=0.1, reflect=False)
         cv.text(str(yr), cx, yb + 24, 22, 'oswald', col=CREAM, a=a * min(1, e * 2))
-        if j == 0 or appear(t, 'c2j', '加起来') > 0:
+        if j == 0 or appear(t, 'c2m', '加起来') > 0:
             cv.text(f'{v:,}', cx, Y(v * e) - 18, 20, 'sans_med', col=GOLD_L, a=a * min(1, e * 2))
         cum += v * e; pts.append((cx, Y(cum)))
-    kc = appear(t, 'c2j', '加起来')
+    kc = appear(t, 'c2m', '加起来')
     if kc > 0 and len(pts) > 1:
         n = 1 + (len(pts) - 1) * eo(kc)
         for j in range(int(n) - 1 if n >= 2 else 0):
@@ -238,72 +245,71 @@ def shot_hook(cv, t):
         L = 420 * eo(t / 1.1); hb = math.exp(-max(t - 0.25, 0) * 6) * (t >= 0.25)
         cv.line((W / 2 - L, 960), (W / 2 + L, 960), GOLD, a0 * (0.5 + 0.5 * hb), 2)
         cv.glow_dot((W / 2, 960), 30 + 40 * hb, GOLD, a0 * 0.6)
-    # h1–h2：《超级金钱》里的一幕
-    t0, t1 = S('h1') - 0.3, S('h3') - 0.2
-    a = A(t, t0, t1, 0.6, 0.4)
+    # h1：1983-08-30，生日那天，一页多纸的提议书，九成、5535 万
+    t0, t1 = S('h1') - 0.4, S('h2') + 0.1
+    a = A(t, t0, t1, 0.5, 0.3)
     if a > 0:
-        photo_win(cv, 'loc_omaha_a', t, t0, t1, cy=WCY, h=WH, a=a, cap='奥马哈（1938 年）', z0=1.02, z1=1.10)
-        # 书（示意）
-        k = eo((t - t0 - 0.3) / 0.6)
-        bx, by = 250, 1080
-        cv.rrect(bx - 110, by - 150, bx + 110, by + 150, 8, C(70, 40, 30), a * k)
-        cv.rrect(bx - 110, by - 150, bx + 110, by + 150, 8, GOLD_D, a * k * 0.8, fill=False, th=2)
-        cv.text('SUPERMONEY', bx, by - 60, 30, 'playfair', col=GOLD_L, a=a * k, track=0.08)
-        cv.text('《超级金钱》', bx, by, 30, 'serif_semi', col=CREAM, a=a * k)
-        cv.text('1972', bx, by + 70, 34, 'oswald', col=GOLD, a=a * k)
-        cv.text('书（示意）', bx, by + 182, 20, 'sans_light', col=GREY, a=a * k)
-        # 对话
-        lines = [('h1', '这是门好生意', '“That’s a really good business.”', 960),
-                 ('h2', '那你怎么不买', '', 1060), ('h2', '它是私人公司', '“It’s privately held.”', 1150),
-                 ('h2', '说不定哪天', '“I might buy it anyway … Someday.”', 1260)]
-        for i, sub, en, y in lines:
-            kk = appear(t, i, sub)
-            if kk <= 0: continue
-            who = '作者' if sub == '那你怎么不买' else '巴菲特'
-            txt = {'这是门好生意': '“这是门好生意。”', '那你怎么不买': '“那你怎么不买？”', '它是私人公司': '“它是私人公司。”',
-                   '说不定哪天': '“说不定哪天，我还是会买下来。”'}[sub]
-            cv.text(who, 430, y - 16, 24, 'sans_light', col=GOLD if who == '巴菲特' else GREY, a=a * kk, anchor='l')
-            cv.text(txt, 500 if who == '巴菲特' else 490, y - 16, 34 if len(txt) < 12 else 30, 'serif_semi', col=CREAM if who != '巴菲特' else GOLD_L, a=a * kk, anchor='l')
-            if en: cv.text(en, 500, y + 26, 21, 'corm', col=GREY, a=a * kk, anchor='l')
-        source(cv, 'Adam Smith《Supermoney》（1972），伯克希尔 2013 年致股东信卷首引用', a, y=1462)
-    # h3：1983-08-30，生日那天，一页多纸的提议
-    t0, t1 = S('h3') - 0.3, S('h4') - 0.2
-    a = A(t, t0, t1)
-    if a > 0:
-        tb = WT('h3', '他带着')
+        tb = WT('h1', '一页多纸')
         photo_win(cv, 'buffett_2015', t, t0, tb + 0.4, cy=WCY, h=WH, a=a, cap='沃伦·巴菲特（2015 年）')
-        docview(cv, 'doc_proposal1', t, tb - 0.1, t1 + 0.4, [(tb, 0.5, 0.30, 0.95), (t1, 0.45, 0.18, 0.62)],
-                hls=[(0.585, 0.082, 0.74, 0.101, WT('h3', '去见店主') - 0.3)], a=a, cap='1983-08-30 收购提议书')
-        k = appear(t, 'h3', '一九八三年')
+        tm = WT('h1', '五千五百')
+        docview(cv, 'doc_proposal1', t, tb - 0.1, t1 + 0.6, [(tb, 0.5, 0.30, 0.95), (tm - 0.8, 0.40, 0.272, 0.58), (tm + 1.2, 0.47, 0.272, 0.42)],
+                hls=[(0.142, 0.262, 0.19, 0.283, WT('h1', '九成') - 0.2), (0.44, 0.260, 0.565, 0.284, tm - 0.1)],
+                a=a, cap='1983-08-30 收购提议书第 1 页：买下 90%，现金 $55,350,000')
+        k = appear(t, 'h1', '一九八三年'); kf = 1 - appear(t, 'h1', '五千五百', d=0.35, lead=0.5)
         if k > 0:
-            cv.text('1983 · 8 · 30', W / 2, 1000, 96, 'oswald', col=GOLD_L, a=a * k, glow=0.15)
-        k2 = appear(t, 'h3', '五十三岁')
-        if k2 > 0: chip(cv, '巴菲特 53 岁生日', W / 2, 1110, 34, a * k2, col=GOLD)
-        k3 = appear(t, 'h3', '八十九岁')
-        if k3 > 0:
-            cv.text('店主：B 太太，89 岁', W / 2, 1230, 46, 'serif_black', gold=True, a=a * k3, glow=0.1)
-        source(cv, '伯克希尔 2013 年信（“August 30, 1983 – my birthday … a 1 1⁄4-page purchase proposal”）；提议书原件见 2013 年年报第 114–115 页', a, y=1462)
-    # h4：一个字没改；90%；$55,350,000；没有审计
-    t0, t1 = S('h4') - 0.3, S('h5') + 0.1
-    a = A(t, t0, t1, 0.3, 0.5)
+            cv.text('1983 · 8 · 30', W / 2, 960, 104, 'oswald', col=GOLD_L, a=a * k * kf, glow=0.15)
+            chip(cv, '巴菲特 53 岁生日', W / 2, 1080, 34, a * appear(t, 'h1', '五十三岁') * kf, col=GOLD)
+            chip(cv, '一页多纸的收购提议书', W / 2, 1170, 34, a * appear(t, 'h1', '一页多纸') * kf, col=CREAM)
+        money(cv, t, tm, '$5535 万', W / 2, 1010, 120, a, sub='买下 90% 股份 · 全部现金')
+        source(cv, '伯克希尔 2013 年信（“August 30, 1983 – my birthday … a 1 1⁄4-page purchase proposal”）；提议书原件（2013 年年报第 114 页）', a, y=1462)
+    # h2：没有审计、没有盘点、没有查产权
+    t0, t1 = S('h2') - 0.4, S('h3') + 0.1
+    a = A(t, t0, t1, 0.25, 0.3)
     if a > 0:
-        tm = WT('h4', '五千五百')
-        docview(cv, 'doc_proposal1', t, t0 - 0.5, t1, [(t0, 0.45, 0.18, 0.62), (tm - 0.6, 0.38, 0.272, 0.55), (tm + 1.5, 0.47, 0.272, 0.40)],
-                hls=[(0.142, 0.262, 0.19, 0.283, WT('h4', '九成') - 0.2), (0.44, 0.260, 0.565, 0.284, tm - 0.1)],
-                a=a, cap='提议书第 1 页：买下 90%，现金 $55,350,000', fi=0.01)
-        k = appear(t, 'h4', '一个字没改')
-        if k > 0: chip(cv, '一个字没改，就签了', W / 2, 900, 34, a * k, col=GOLD_L)
-        money(cv, t, tm, '$5535 万', W / 2, 1010, 80, a, sub='买下 90% 股份 · 现金')
-        check_list(cv, t, [('没有审计', WT('h4', '没有审计')), ('没有盘点库存', WT('h4', '没有盘点')), ('没有查产权', WT('h4', '也没有查'))],
-                   400, 1160, 70, a, size=38)
-        source(cv, '收购提议书原件（伯克希尔 2013 年年报第 114 页）；1984 年信（“never had an audit … did not take an inventory … did not check property titles”）', a, y=1462)
-    # h5：引语卡——一张支票，换一句话
-    t0, t1 = S('h5') - 0.2, S('h6') - 0.25
-    a = A(t, t0, t1, 0.4, 0.4)
+        docview(cv, 'doc_proposal2', t, t0 - 0.3, t1 + 0.3, [(t0, 0.5, 0.45, 0.95), (t1, 0.45, 0.55, 0.75)], a=a, cap='提议书签字页（1983-08-30）', fi=0.2)
+        for j, (txt, tw) in enumerate((('没有审计', '没有审计'), ('没有盘点库存', '没有盘点'), ('没有查产权', '也没有查'))):
+            k = eo((t - WT('h2', tw) + 0.12) / 0.3)
+            if k <= 0: continue
+            y = 960 + j * 120
+            cv.text(txt, W / 2 + 40, y, 64, 'serif_black', col=CREAM, a=a * k, scale=1.15 - 0.15 * k)
+            cross(cv, W / 2 - text_size(txt, 'serif_black', 64)[0] / 2 - 20, y, 28, a * eo((t - WT('h2', tw) - 0.15) / 0.25), th=8)
+        source(cv, '伯克希尔 1984 年信（“NFM had never had an audit … we did not take an inventory … we did not check property titles”）', a, y=1462)
+    # h3：卖家——89 岁、没上过一天学的俄国移民
+    t0, t1 = S('h3') - 0.4, S('h4') + 0.1
+    a = A(t, t0, t1, 0.3, 0.35)
     if a > 0:
-        docview(cv, 'doc_proposal2', t, t0, t1, [(t0, 0.5, 0.62, 0.9), (t1, 0.42, 0.66, 0.78)], cy=520, a=a * 0.55,
-                cap='提议书第 2 页（签字页）')
-        qcard(cv, 'qcheck', t, t0 + 0.5, t1, cy=1130, en=30, cn=36, a=a, typing=1.8, w=960)
+        photo_win(cv, 'loc_ru1', t, t0, t1, cy=WCY, h=WH, a=a, cap='俄罗斯帝国的村庄（1909）——她出生的那片土地', z0=1.0, z1=1.12)
+        k = appear(t, 'h3', '八十九岁', lead=0.15)
+        if k > 0:
+            cv.text('89', W / 2 - 50, 1010, 190, 'oswald', col=GOLD_L, a=a * k, glow=0.2, scale=1.2 - 0.2 * k)
+            cv.text('岁', W / 2 + 110, 1050, 60, 'serif_black', col=CREAM, a=a * k)
+        chip(cv, '没上过一天学', W / 2 - 190, 1220, 36, a * appear(t, 'h3', '没上过'), col=RED_X)
+        chip(cv, '俄国移民', W / 2 + 190, 1220, 36, a * appear(t, 'h3', '俄国移民'), col=CREAM)
+        source(cv, '伯克希尔 2013 年信（“Mrs. B was 89 at the time”）；1983 年信（“no formal education”）', a, y=1462)
+    # h4：六年后，她辞职出走，在隔壁开店抢生意
+    t0, t1 = S('h4') - 0.4, S('h5') + 0.1
+    a = A(t, t0, t1, 0.25, 0.3)
+    if a > 0:
+        seq(cv, t, t0, t1, ['tx_promo1', 'tx_promo2', 'op_crowd'], cy=WCY, h=WH, a=a, cap='今天的 NFM：得州店（2015）')
+        k = appear(t, 'h4', '六年后', lead=0.15)
+        if k > 0: cv.text('1989', W / 2, 935, 96, 'oswald', col=RED_X, a=a * k, glow=0.1, scale=1.25 - 0.25 * k)
+        store_box(cv, 300, 1130, 0.85, a * appear(t, 'h4', '辞职出走'), 'NFM', col=GOLD, sub='她亲手创办的家具城')
+        k2 = appear(t, 'h4', '在隔壁')
+        if k2 > 0:
+            store_box(cv, 780, 1130 + 30 * (1 - k2), 0.85, a * k2, "MRS. B'S", col=RED_X, sub='她的新店', glow=0.25)
+            cv.text('隔壁', W / 2, 1050, 32, 'sans_bold', col=CREAM, a=a * k2)
+            arrow(cv, (470, 1090), (610, 1090), a * k2, RED_X, k=k2)
+        k3 = appear(t, 'h4', '抢生意')
+        if k3 > 0: cv.text('抢生意', W / 2, 1330, 64, 'serif_black', col=RED_X, a=a * k3, glow=0.15, scale=1.2 - 0.2 * k3)
+        cv.text('示意', 990, 1250, 20, 'sans_light', col=GREY, a=a * appear(t, 'h4', '在隔壁'))
+        source(cv, '伯克希尔 1989 年信（“she has started a new business”）；1992 年信（“opened up her own operation next door”）', a, y=1462)
+    # h5：看走了眼，还是看得太准？
+    t0, t1 = S('h5') - 0.4, S('h6') + 0.1
+    a = A(t, t0, t1, 0.3, 0.35)
+    if a > 0:
+        photo_win(cv, first_have(['c_buffett_ku', 'buffett_2010']), t, t0, t1, cy=WCY, h=WH, a=a, cap='沃伦·巴菲特（2005 年）', focus=(0.5, 0.35))
+        big_q(cv, t, '看走了眼？', 1000, WT('h5', '看走了眼'), 86, a, col=CREAM)
+        big_q(cv, t, '还是看得太准？', 1150, WT('h5', '还是'), 86, a)
     # h6：四十多年后的专访（引出原声）
     t0, t1 = S('h6') - 0.3, S('h6') + SEG['h6']['dur'] + 0.9
     a = A(t, t0, t1, 0.4, 0.3)
@@ -316,26 +322,47 @@ def shot_hook(cv, t):
             cv.text('2026', 780, 960, 84, 'oswald', col=GOLD_L, a=a * appear(t, 'h6', '九十五岁'), glow=0.15)
         k2 = appear(t, 'h6', '专访')
         if k2 > 0: chip(cv, 'CNBC 专访 · 2026 年 7 月 15 日', W / 2, 1100, 32, a * k2, col=GOLD)
-        k3 = appear(t, 'h6', '买公司')
+        k3 = appear(t, 'h6', '说出了答案')
         if k3 > 0: cv.text('95 岁的巴菲特，讲起买公司', W / 2, 1230, 46, 'serif_black', col=CREAM, a=a * k3)
         source(cv, 'CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）', a, y=1462)
-    # h7：好生意，好价钱，对的人——全片主线
-    t0, t1 = S('h7') - 0.4, S('h8') - 0.2
-    a = A(t, t0, t1, 0.4, 0.4)
+    # h7：好生意，好价钱，对的人——全片主线；故事要从这位老太太说起
+    t0, t1 = S('h7') - 0.4, CH['title'][0] + 0.1
+    a = A(t, t0, t1, 0.4, 0.25)
     if a > 0:
         seq(cv, t, t0, t1, ['ad01_lamps', 'ad01_tv', 'ad01_rugs'], cy=WCY, h=WH, a=a, cap='NFM 奥马哈店（2001 年电视广告画面）')
         three_pillars(cv, t, a, [WT('h7', '好生意'), WT('h7', '好价钱'), WT('h7', '对的人')], y=1060)
-        k = appear(t, 'h7', '三样都占了')
-        if k > 0: cv.text('内布拉斯加家具城，三样都占了', W / 2, 1310, 44, 'serif_black', gold=True, a=a * k, glow=0.12)
+        k = appear(t, 'h7', '全占了')
+        if k > 0: cv.text('内布拉斯加家具城，三样全占了', W / 2, 1310, 44, 'serif_black', gold=True, a=a * k, glow=0.12)
         source(cv, 'CNBC 2026-07-15 专访原话（“buy a good business … on the right terms … the right person to run it”）；本片概括', a, y=1462)
-    # h8：两个问题
-    t0, t1 = S('h8') - 0.3, CH['title'][0] + 0.1
-    a = A(t, t0, t1, 0.4, 0.2)
-    if a > 0:
-        seq(cv, t, t0, t1 - 0.2, ['tx_promo1', 'tx_promo2', 'op_crowd'], cy=WCY, h=WH, a=a, cap='今天的 NFM：得州店（2015）')
-        big_q(cv, t, '凭什么这样信她？', 1000, WT('h8', '凭什么'), 64, a)
-        big_q(cv, t, '护城河在哪里？', 1140, WT('h8', '护城河'), 64, a)
-        source(cv, '伯克希尔 1983 年信（“She had no formal education”）', a * 0.7, y=1462)
+
+
+def supermoney(cv, t):
+    """第二章开头：1972 年《超级金钱》里的一幕（原在开场）"""
+    t0, t1 = S('c2s') - 0.45, S('c2a') + 0.1
+    a = A(t, t0, t1, 0.6, 0.4)
+    if a <= 0: return
+    photo_win(cv, 'loc_omaha_a', t, t0, t1, cy=WCY, h=WH, a=a, cap='奥马哈（1938 年）', z0=1.02, z1=1.10)
+    k = eo((t - t0 - 0.3) / 0.6)
+    bx, by = 230, 1100
+    cv.rrect(bx - 110, by - 150, bx + 110, by + 150, 8, C(70, 40, 30), a * k)
+    cv.rrect(bx - 110, by - 150, bx + 110, by + 150, 8, GOLD_D, a * k * 0.8, fill=False, th=2)
+    cv.text('SUPERMONEY', bx, by - 60, 30, 'playfair', col=GOLD_L, a=a * k, track=0.08)
+    cv.text('《超级金钱》', bx, by, 30, 'serif_semi', col=CREAM, a=a * k)
+    cv.text('1972', bx, by + 70, 34, 'oswald', col=GOLD, a=a * k)
+    cv.text('书（示意）', bx, by + 182, 20, 'sans_light', col=GREY, a=a * k)
+    lines = [('c2s', '这是门好生意', '“That’s a really good business.”', 960),
+             ('c2t', '那你怎么不买', '', 1065), ('c2t', '它是私人公司', '“It’s privately held.”', 1155),
+             ('c2t', '说不定哪天', '“I might buy it anyway … Someday.”', 1265)]
+    for i, sub, en, y in lines:
+        kk = appear(t, i, sub)
+        if kk <= 0: continue
+        who = '作者' if sub == '那你怎么不买' else '巴菲特'
+        txt = {'这是门好生意': '“这是门好生意。”', '那你怎么不买': '“那你怎么不买？”', '它是私人公司': '“它是私人公司。”',
+               '说不定哪天': '“说不定哪天，我还是会买。”'}[sub]
+        cv.text(who, 410, y - 16, 26, 'sans_light', col=GOLD if who == '巴菲特' else GREY, a=a * kk, anchor='l')
+        cv.text(txt, 490, y - 16, 40 if len(txt) < 12 else 34, 'serif_semi', col=CREAM if who != '巴菲特' else GOLD_L, a=a * kk, anchor='l')
+        if en: cv.text(en, 490, y + 30, 22, 'corm', col=GREY, a=a * kk, anchor='l')
+    source(cv, 'Adam Smith《Supermoney》（1972），伯克希尔 2013 年致股东信卷首引用', a, y=1462)
 
 
 PILLARS = [('好生意', 'A GOOD BUSINESS'), ('好价钱', 'THE RIGHT TERMS'), ('对的人', 'THE RIGHT PERSON')]
@@ -394,7 +421,7 @@ def shot_ch1(cv, t):
             cv.text('· B 太太', W / 2 + 110, 1040, 28, 'sans_med', col=GOLD, a=a * k)
         k2 = appear(t, 'c1a', '二十三岁')
         if k2 > 0: chip(cv, '23 岁 · 说服边境守卫放行', W / 2, 1150, 34, a * k2, col=CREAM)
-        k3 = appear(t, 'c1a', '离开俄国')
+        k3 = appear(t, 'c1a', '从俄国')
         if k3 > 0:
             node(cv, 300, 1290, '俄国', a * k3, col=CREAM, size=36, w=220)
             arrow(cv, (430, 1290), (650, 1290), a * k3, GOLD, k=appear(t, 'c1a', '去了美国', d=0.6))
@@ -460,7 +487,7 @@ def shot_ch1(cv, t):
     a = A(t, t0, t1)
     if a > 0:
         photo_win(cv, 'loc_chanute', t, t0, t1, cy=WCY, h=WH, a=a, cap='开在自家门口的旧家具店（堪萨斯州，1940，仅示意年代）')
-        k = appear(t, 'c1e', '自家')
+        k = appear(t, 'c1e', '自己家里')
         if k > 0:
             hx, hy = 330, 1110
             cv.fillpoly([(hx - 120, hy - 20), (hx, hy - 120), (hx + 120, hy - 20)], GOLD * 0.5, a * k)
@@ -479,7 +506,7 @@ def shot_ch1(cv, t):
     if a > 0:
         seq(cv, t, t0, t1, ['cp_room', 'cp_sweep', 'al_chair'], cy=WCY, h=WH, a=a, cap='地毯与家具（约 1960 年宣传片 / 1958 年影片）')
         y = 1050
-        k1 = appear(t, 'c1f', '同行'); k2 = appear(t, 'c1f', '厂商'); k3 = appear(t, 'c1f', '不许')
+        k1 = appear(t, 'c1f', '同行'); k2 = appear(t, 'c1f', '厂商'); k3 = appear(t, 'c1f', '不给她')
         node(cv, 190, y, '奥马哈同行', a * k1, col=GREY, size=30, w=250)
         arrow(cv, (320, y), (420, y), a * k1, GREY, k=k2)
         node(cv, 560, y, '家具、地毯厂商', a * k2, col=CREAM, size=30, w=270)
@@ -492,7 +519,7 @@ def shot_ch1(cv, t):
             cv.text('她从别处进货，照样降价', W / 2, 1250, 44, 'serif_black', gold=True, a=a * k4, glow=0.1)
         source(cv, '伯克希尔 1983 年信（“pressured furniture and carpet manufacturers not to sell to her. But by various strategies she obtained merchandise and cut prices sharply”）', a, y=1462)
     # c1g–c1h：被告上法庭；法官买地毯
-    t0, t1 = S('c1g') - 0.3, S('c1i') - 0.2
+    t0, t1 = S('c1g') - 0.45, S('c1e') + 0.1
     a = A(t, t0, t1)
     if a > 0:
         seq(cv, t, t0, t1, ['cp_slipper', 'al_living', 'al_dining'], cy=WCY, h=WH, a=a, cap='示意画面：地毯与客厅（约 1960 年宣传片 / 1958 年影片）')
@@ -502,11 +529,11 @@ def shot_ch1(cv, t):
             if k > 0:
                 cv.text('“公平贸易法”', W / 2, 920, 48, 'serif_black', col=CREAM, a=a * k * kc)
                 cv.text('允许厂商规定最低零售价', W / 2, 990, 30, 'sans_med', col=GREY, a=a * k * kc)
-            k2 = appear(t, 'c1g', '最低零售价')
+            k2 = appear(t, 'c1g', '最低价')
             price_tag(cv, 360, 1170, 1.0, a * k2 * kc, '最低价', sub='厂商规定', col=GREY)
-            k3 = appear(t, 'c1g', '比这还低')
+            k3 = appear(t, 'c1g', '还低')
             price_tag(cv, 760, 1190, 1.1, a * k3 * kc, '更低', sub='B 太太', col=COST_R, rot=0.05)
-        k4 = appear(t, 'c1h', '官司全赢')
+        k4 = appear(t, 'c1h', '赢了所有官司')
         if k4 > 0: cv.text('官司全赢', W / 2, 980, 96, 'serif_black', gold=True, a=a * k4, glow=0.25)
         k5 = appear(t, 'c1h', '一千四百', lead=0.25)
         if k5 > 0:
@@ -517,20 +544,17 @@ def shot_ch1(cv, t):
     t0, t1 = win2('c1i')
     a = A(t, t0, t1)
     if a > 0:
-        t72 = WT('c1i', '七万'); t50 = WT('c1i', '五十美元')
+        t50 = WT('c1i', '五十美元'); t72 = t50 - 1.6
         docview(cv, 'doc_bs1946', t, t0, t1, [(t0, 0.5, 0.14, 0.75), (t72 - 0.6, 0.58, 0.70, 0.62), (t50 - 0.7, 0.5, 0.21, 0.55)],
                 hls=[(0.725, 0.712, 0.865, 0.738, t72), (0.155, 0.194, 0.31, 0.214, t50 - 0.25), (0.585, 0.194, 0.725, 0.214, t50)],
                 a=a, cap='NFM 1946 年资产负债表')
-        money(cv, t, t72, '$72,264', 300, 1030, 72, a, sub='1946 年底净资产')
-        money(cv, t, t50, '$50', 780, 1030, 96, a, col=RED_X, sub='现金')
-        k = appear(t, 'c1i', '起步')
-        if k > 0: cv.text('起步是真的难', W / 2, 1240, 44, 'serif_semi', col=CREAM, a=a * k)
+        money(cv, t, t50, '$50', W / 2, 1060, 170, a, col=RED_X, sub='1946 年底 · 账上现金')
         source(cv, 'NFM 1946 年资产负债表原件（伯克希尔 2013 年年报第 116 页：Cash on Hand $50.00；Balance $72,264.41）', a, y=1462)
     # c1j：路易从战场回来
     t0, t1 = win2('c1j')
     a = A(t, t0, t1)
     if a > 0:
-        tw = WT('c1j', '从此')
+        tw = WT('c1j', '母子俩')
         photo_win(cv, 'loc_jaws', t, t0, tw + 0.3, cy=WCY, h=WH, a=a, cap='1944 年 6 月 6 日，诺曼底奥马哈海滩', z0=1.0, z1=1.08)
         photo_win(cv, 'loc_dday', t, tw - 0.1, t1, cy=WCY, h=WH, a=a, cap='奥马哈海滩（1944）')
         k = appear(t, 'c1j', '一九四五')
@@ -544,7 +568,7 @@ def shot_ch1(cv, t):
         if k2 > 0: cv.text('母子俩没日没夜地干', W / 2, 1360, 34, 'sans_bold', col=GOLD_L, a=a * k2)
         source(cv, '伯克希尔 2020 年信（Omaha Beach、Purple Heart、Battle of the Bulge、“sailed home in November 1945”）', a, y=1462)
     # c1k：卖得便宜，说真话
-    t0, t1 = S('c1k') - 0.3, CH['tk_ch1'][0] + 0.2
+    t0, t1 = S('c1k') - 0.45, CHE('ch1')
     a = A(t, t0, t1)
     if a > 0:
         seq(cv, t, t0, t1, ['al_sideboard'], cy=WCY, h=WH, a=a, cap='家具（1958 年影片）')
@@ -554,47 +578,38 @@ def shot_ch1(cv, t):
 
 # ======================================================================== 第二章：一页多纸
 def shot_ch2(cv, t):
+    supermoney(cv, t)
     # c2a–c2b：一家店，一亿多美元，比全城同行加起来还多
-    t0, t1 = S('c2a') - 0.3, S('c2c') - 0.2
+    t0, t1 = S('c2a') - 0.45, S('c2c') + 0.1
     a = A(t, t0, t1)
     if a > 0:
         seq(cv, t, t0, t1, ['al_dining', 'al_chair', 'al_living'], cy=WCY, h=WH, a=a, cap='示意画面：家具（1958 年影片）')
         k = appear(t, 'c2a', '一亿多')
         if k > 0:
-            store_box(cv, 260, 1010, 0.9, a * k, 'NFM', sub='奥马哈 · 一家店')
+            store_box(cv, 260, 1010, 0.9, a * k, 'NFM', sub='奥马哈 · 1983')
             cv.text(counter(0, 100, t, WT('c2a', '一亿多'), 1.0, lambda v: f'${v:.0f}00 万+' if v < 100 else '$1 亿+'), 720, 980, 90, 'sans_bold', gold=True, a=a * k, glow=0.15)
             cv.text('1983 年销售额', 720, 1070, 30, 'sans_med', col=CREAM, a=a * k)
-        k2 = appear(t, 'c2a', '没有第二家')
-        if k2 > 0: cv.text('全美没有第二家家居店能做到', W / 2, 1180, 36, 'sans_bold', col=GOLD_L, a=a * k2 * (1 - appear(t, 'c2b', '比奥马哈')))
-        k3 = appear(t, 'c2b', '比奥马哈')
+        k2 = appear(t, 'c2a', '全靠')
+        if k2 > 0: chip(cv, '全靠奥马哈一家店', W / 2, 1160, 32, a * k2 * (1 - appear(t, 'c2a', '比全城')), col=GOLD)
+        k3 = appear(t, 'c2a', '比全城')
         if k3 > 0:
-            e = eexp((t - WT('c2b', '比奥马哈')) / 1.0)
+            e = eexp((t - WT('c2a', '比全城')) / 1.0)
             gbar(cv, 220, 1300 - 150 * e, 400, 1300, GOLD, a * k3, glow=0.2)
             gbar(cv, 600, 1300 - 120 * e, 860, 1300, BLUE_L * 0.5, a * k3)
             cv.text('NFM 一家店', 310, 1340, 26, 'sans_bold', col=GOLD_L, a=a * k3)
             cv.text('奥马哈所有同行合计', 730, 1340, 26, 'sans_med', col=CREAM, a=a * k3)
             cv.text('示意', 960, 1340, 20, 'sans_light', col=GREY, a=a * k3)
         source(cv, '伯克希尔 1983 年信（“over $100 million of sales annually out of one 200,000 square-foot store … more … than do all Omaha competitors combined”）', a, y=1462)
-    # c2c：89 岁愿意卖；五位家人各两成
+    # c2c：89 岁，为家族的长远打算，愿意卖了
     t0, t1 = win2('c2c')
     a = A(t, t0, t1)
     if a > 0:
-        docview(cv, 'doc_proposal2', t, t0, t1, [(t0, 0.5, 0.45, 0.95), (WT('c2c', '五位家人') - 0.3, 0.55, 0.65, 0.70)],
-                hls=[(0.63, 0.515, 0.79, 0.53, WT('c2c', '每人两成')), (0.63, 0.575, 0.79, 0.59, WT('c2c', '每人两成') + 0.15),
-                     (0.63, 0.64, 0.79, 0.655, WT('c2c', '每人两成') + 0.3), (0.63, 0.70, 0.79, 0.715, WT('c2c', '每人两成') + 0.45),
-                     (0.63, 0.773, 0.79, 0.788, WT('c2c', '每人两成') + 0.6)], a=a, cap='提议书签字页：五位股东各 20%')
+        docview(cv, 'doc_proposal2', t, t0, t1, [(t0, 0.5, 0.45, 0.95), (t1, 0.55, 0.62, 0.72)], a=a, cap='提议书签字页：B 太太与家人（1983-08-30）')
         k = appear(t, 'c2c', '八十九岁')
-        if k > 0: cv.text('89 岁的 B 太太，愿意卖了', W / 2, 920, 44, 'serif_black', gold=True, a=a * k)
+        if k > 0: cv.text('89 岁的 B 太太，愿意卖了', W / 2, 960, 56, 'serif_black', gold=True, a=a * k, glow=0.1)
         k2 = appear(t, 'c2c', '长远打算')
-        if k2 > 0: chip(cv, '为家族的长远打算', W / 2, 1010, 32, a * k2, col=CREAM)
-        k3 = appear(t, 'c2c', '五位家人')
-        for j in range(5):
-            kk = eo((t - WT('c2c', '五位家人') - j * 0.15) / 0.4)
-            if kk <= 0: continue
-            x = 200 + j * 170
-            person(cv, x, 1210, 1.6, a * kk, GOLD_L if j == 0 else CREAM)
-            cv.text('20%', x, 1290, 34, 'oswald', col=GOLD_L, a=a * kk)
-        source(cv, '伯克希尔 1983 年信（“for far-sighted family reasons, was willing to sell”）；提议书签字页（五位股东各 20%）', a, y=1462)
+        if k2 > 0: chip(cv, '为家族的长远打算', W / 2, 1080, 34, a * k2, col=CREAM)
+        source(cv, '伯克希尔 1983 年信（“for far-sighted family reasons, was willing to sell”）', a, y=1462)
     # c2d：提议书——现金买九成，一成留给家族，店还交给这一家人
     t0, t1 = win2('c2d')
     a = A(t, t0, t1)
@@ -612,7 +627,7 @@ def shot_ch2(cv, t):
             cv.text('伯克希尔 · 现金', cx, cy + 44, 22, 'sans_med', col=CREAM, a=a * e)
         k3 = appear(t, 'c2d', '剩下一成')
         if k3 > 0: cv.text('10% 留给路易和儿子们', 720, 1060, 34, 'sans_bold', col=CREAM, a=a * k3)
-        k4 = appear(t, 'c2d', '店还交给')
+        k4 = appear(t, 'c2d', '店还由')
         if k4 > 0: cv.text('店，还由这一家人管', 720, 1180, 42, 'serif_black', gold=True, a=a * k4)
         source(cv, '收购提议书原件（“90% … for $55,350,000 cash. All of the 10% … retained by Mr. Louis Blumkin and his sons”）', a, y=1462)
     # c2e：签字
@@ -628,29 +643,25 @@ def shot_ch2(cv, t):
                 cv.text(s_, 300 + j * 480, 960, 38, 'sans_bold', col=CREAM, a=a * k)
                 cross(cv, 300 + j * 480 - text_size(s_, 'sans_bold', 38)[0] / 2 - 40, 960, 14, a * k)
         k = appear(t, 'c2e', '一个字没改')
-        if k > 0: cv.text('一个字没改', W / 2, 1120, 80, 'serif_black', gold=True, a=a * k, glow=0.2)
-        source(cv, '伯克希尔 2013 年信（“accepted my offer without changing a word … without the involvement of investment bankers or lawyers”）', a, y=1462)
-    # c2f：不审计 → 品格
+        if k > 0: cv.text('一个字没改', W / 2, 1090, 92, 'serif_black', gold=True, a=a * k, glow=0.2, scale=1.15 - 0.15 * k)
+        for j in range(5):
+            kk = eo((t - WT('c2e', '依次签了名') - j * 0.16) / 0.35)
+            if kk <= 0: continue
+            x = 200 + j * 170
+            person(cv, x, 1250, 1.3, a * kk, GOLD_L if j == 0 else CREAM)
+            cv.text('20%', x, 1325, 28, 'oswald', col=GOLD_L, a=a * kk)
+        source(cv, '伯克希尔 2013 年信（“accepted my offer without changing a word … without the involvement of investment bankers or lawyers”）；签字页（五位股东各 20%）', a, y=1462)
+    # c2f：从没审计，也没要求 → “一张支票，换一句话”
     t0, t1 = win2('c2f')
     a = A(t, t0, t1)
     if a > 0:
-        seq(cv, t, t0, t1, ['al_sideboard'], cy=WCY, h=WH, a=a, cap='示意画面：家具（1958 年影片）')
-        check_list(cv, t, [('从来没审计过', WT('c2f', '从来没审计')), ('也没要求审计', WT('c2f', '也没要求')), ('没盘点、没核对应收账款', WT('c2f', '也没要求') + 0.6)],
-                   330, 930, 72, a, size=36)
-        k = appear(t, 'c2f', '品格')
-        if k > 0:
-            cv.text('看的是品格', W / 2, 1240, 92, 'serif_black', gold=True, a=a * k, glow=0.25, scale=1.08 - 0.08 * k)
-        source(cv, '伯克希尔 1984 年信（“Our evaluation of the integrity of Mrs. B and her family … NFM had never had an audit and we did not request one; we did not take an inventory nor verify the receivables”）', a, y=1462)
-    # c2g：她的一句话就够了
-    t0, t1 = win2('c2g')
-    a = A(t, t0, t1)
-    if a > 0:
-        photo_win(cv, 'buffett_2010', t, t0, t1, cy=WCY, h=WH, a=a, cap='沃伦·巴菲特（2010 年）')
-        k = appear(t, 'c2g', '十年后')
-        if k > 0: chip(cv, '1993 年致股东信 · 十年后', W / 2, 910, 30, a * k, col=GOLD)
-        qcard(cv, 'qword', t, WT('c2g', '她的一句话') - 0.4, t1, cy=1130, en=32, cn=40, a=a, typing=1.0, w=920)
+        photo_win(cv, first_have(['buffett_2010', 'c_buffett_2010']), t, t0, t1, cy=WCY, h=WH, a=a, cap='沃伦·巴菲特（2010 年）')
+        kq = eo((t - E('c2f') + 0.3) / 0.4)
+        check_list(cv, t, [('从没审计过', WT('c2f', '从没审计')), ('也没要求审计', WT('c2f', '也没要求'))], 360, 930, 76, a * (1 - kq), size=40)
+        qcard(cv, 'qcheck', t, E('c2f') - 0.2, t1, cy=1110, en=31, cn=40, a=a, typing=1.8, w=960)
+        source(cv, '伯克希尔 1984 年信（“NFM had never had an audit and we did not request one … We gave Mrs. B a check for $55 million and she gave us her word”）', a, y=1462)
     # c2i：价钱贵不贵？1984 年税前 1450 万
-    t0, t1 = S('c2i') - 0.3, S('c2l') - 0.2
+    t0, t1 = S('c2i') - 0.45, S('c2l') + 0.1
     a = A(t, t0, t1, 0.4, 0.4)
     if a > 0:
         right_terms_chart(cv, t, a)
@@ -658,23 +669,23 @@ def shot_ch2(cv, t):
         if k > 0 and t < S('c2j'): big_q(cv, t, '这个价钱，贵不贵？', 940, WT('c2i', '贵不贵'), 60, a * (1 - appear(t, 'c2i', '一千四百')))
         k2 = appear(t, 'c2i', '一千四百', lead=0.25)
         if k2 > 0:
-            kf = 1 - appear(t, 'c2j', '作价', d=0.4)
+            kf = 1 - appear(t, 'c2j', '作价', d=0.3, lead=0.6)
             cv.text(counter(0, 1451, t, WT('c2i', '一千四百'), 1.0, lambda v: f'${v:,.0f} 万'), W / 2, 1000, 104, 'sans_bold', gold=True, a=a * k2 * kf, glow=0.15)
             cv.text('1984 年 · NFM 税前利润（全公司）', W / 2, 1100, 32, 'sans_med', col=CREAM, a=a * k2 * kf)
-        k3 = appear(t, 'c2j', '作价')
+        k3 = appear(t, 'c2j', '作价', lead=-0.05)
         if k3 > 0:
-            kf = 1 - appear(t, 'c2j', '买下之后', d=0.3, lead=0.45)
+            kf = 1 - appear(t, 'c2m', '买下之后', d=0.3, lead=0.45)
             cv.text('作价 ≈ $6000 万', W / 2, 960, 60, 'serif_black', col=CREAM, a=a * k3 * kf)
             cv.text('≈ 当年税前利润 × 4', W / 2, 1060, 72, 'serif_black', gold=True, a=a * appear(t, 'c2j', '四倍') * kf, glow=0.15)
-        k4 = appear(t, 'c2j', '买下之后', d=0.4, lead=-0.1)
+        k4 = appear(t, 'c2m', '买下之后', d=0.4, lead=-0.1)
         if k4 > 0:
             cv.text('1984–1990 · 七年税前利润合计', W / 2, 950, 34, 'sans_med', col=CREAM, a=a * k4)
-            cv.text(counter(0, 1.1448, t, WT('c2j', '加起来'), 1.0, lambda v: f'约 ${v:.2f} 亿'), W / 2, 1050, 96, 'sans_bold', gold=True, a=a * appear(t, 'c2j', '加起来', lead=0.25), glow=0.15)
-            cv.text('≈ 作价 × 1.9', W / 2, 1150, 48, 'serif_black', col=GOLD_L, a=a * appear(t, 'c2j', '两倍'))
+            cv.text(counter(0, 1.1448, t, WT('c2m', '加起来'), 1.0, lambda v: f'约 ${v:.2f} 亿'), W / 2, 1050, 96, 'sans_bold', gold=True, a=a * appear(t, 'c2m', '加起来', lead=0.25), glow=0.15)
+            cv.text('≈ 作价 × 1.9', W / 2, 1150, 48, 'serif_black', col=GOLD_L, a=a * appear(t, 'c2m', '两倍'))
         cv.text('口径：NFM 全公司税前利润；作价按 2020 年信“价值 6000 万美元”', W / 2, 1380, 20, 'sans_light', col=GREY, a=a * appear(t, 'c2j', '作价'))
         source(cv, '伯克希尔 1984–1990 年信利润表（NFM 税前：1984 $14.5M … 1990 $17.2M，七年合计 $114.5M 为本片加总）；2020 年信（“a business worth $60 million”）', a, y=1462)
     # c2l：合理的价钱——芒格先想明白的
-    t0, t1 = S('c2l') - 0.3, S('c2k') - 0.2
+    t0, t1 = S('c2l') - 0.45, S('c2k') + 0.1
     a = A(t, t0, t1, 0.4, 0.4)
     if a > 0:
         nm = first_have(['c_buffett_munger', 'c_munger', 'buffett_2010'])
@@ -688,9 +699,9 @@ def shot_ch2(cv, t):
     a = A(t, t0, t1)
     if a > 0:
         seq(cv, t, t0, t1, ['op_crowd', 'tx_promo2'], cy=WCY, h=WH, a=a, cap='NFM 得州店的员工（2015-05-07 开业当天）')
-        k = appear(t, 'c2k', '没换')
+        k = appear(t, 'c2k', '对的人')
         if k > 0: chip(cv, '对的人：经营的人没换', W / 2, 900, 32, a * k, col=GOLD)
-        k2 = appear(t, 'c2k', '九十多岁')
+        k2 = appear(t, 'c2k', '九十一岁')
         if k2 > 0:
             cv.text('每周 7 天', 300, 1030, 72, 'serif_black', gold=True, a=a * k2, glow=0.1)
             cv.text('从开门干到关门', 300, 1110, 32, 'sans_med', col=CREAM, a=a * appear(t, 'c2k', '开门'))
@@ -704,22 +715,23 @@ def shot_ch2(cv, t):
         k4 = appear(t, 'c2k', '一年做的还多')
         if k4 > 0: cv.text('“better ones, too.” —— 还做得更好', W / 2, 1300, 32, 'corm', col=GOLD_L, a=a * eo((t - E('c2k') + 0.2) / 0.4))
         source(cv, '伯克希尔 1984 年信（“Mrs. B, Chairman of the Board, is now 91 … at the store seven days a week, from opening to close, and probably makes more decisions in a day than most CEOs do in a year (better ones, too)”）', a, y=1462)
-    # c2h：愿不愿意跟它竞争？ → 灰熊
-    t0, t1 = S('c2h') - 0.3, CH['tk_ch2'][0] + 0.2
+
+
+# ======================================================================== 第三章：好生意——便宜的护城河
+def shot_ch3(cv, t):
+    # c3z：愿不愿意跟它竞争？ → 灰熊
+    t0, t1 = S('c3z') - 0.45, S('c3a') + 0.1
     a = A(t, t0, t1)
     if a > 0:
         seq(cv, t, t0, t1, ['tx_promo1', 'tx_promo2', 'op_crowd'], cy=WCY, h=WH, a=a, cap='今天的 NFM：得州店（2015）')
-        kq = appear(t, 'c2h', '他的回答')
-        big_q(cv, t, '假如我有足够的钱和人手，', 960, WT('c2h', '假如'), 44, a * (1 - kq), col=CREAM)
-        big_q(cv, t, '愿不愿意跟它竞争？', 1060, WT('c2h', '愿不愿意'), 60, a * (1 - kq))
-        qcard(cv, 'qgrizzly', t, E('c2h') - 0.1, t1, cy=1100, en=32, cn=40, a=a, typing=1.4, w=940)
+        kq = appear(t, 'c3z', '他的回答')
+        big_q(cv, t, '假如我有足够的钱和人手，', 960, WT('c3z', '假如'), 44, a * (1 - kq), col=CREAM)
+        big_q(cv, t, '愿不愿意跟它竞争？', 1060, WT('c3z', '愿不愿意'), 60, a * (1 - kq))
+        qcard(cv, 'qgrizzly', t, E('c3z') - 0.1, t1, cy=1100, en=32, cn=40, a=a, typing=1.4, w=940)
         source(cv, '伯克希尔 1983 年信（“One question I always ask myself in appraising a business is how I would like … to compete with it”）', a * (1 - kq * 0.5), y=1462)
 
-
-# ======================================================================== 第三章：便宜的护城河
-def shot_ch3(cv, t):
     # c3a–c3b：Levitz 毛利率 44.4%，NFM 一半多一点
-    t0, t1 = S('c3a') - 0.3, S('c3c') - 0.2
+    t0, t1 = S('c3a') - 0.45, S('c3c') + 0.1
     a = A(t, t0, t1)
     if a > 0:
         seq(cv, t, t0, t1, ['lv_sofa', 'lv_sofa2', 'tx_promo1', 'tx_promo2', 'al_living'], cy=WCY, h=WH, a=a, cap='Levitz 电视广告（1999）/ NFM 得州店（2015）')
@@ -730,7 +742,7 @@ def shot_ch3(cv, t):
             node(cv, 280, 1050, 'Levitz', a * k * (1 - kb), col=BLUE_L, size=40, sub='全美最大的独立家具商')
             cv.text('VS', W / 2, 1050, 40, 'oswald', col=GOLD, a=a * k * (1 - kb))
             node(cv, 800, 1050, 'NFM', a * k * (1 - kb), col=GOLD, size=40, sub='奥马哈 · 一家店')
-        k2 = appear(t, 'c3b', '进价')
+        k2 = appear(t, 'c3b', '百分之四十四')
         if k2 > 0:
             price_tag(cv, 840, 1000, 0.75, a * k2, '$100', sub='Levitz 售价', col=BLUE_L * 0.8)
             cv.text('进价 $55.6', 840, 1090, 26, 'sans_med', col=CREAM, a=a * k2)
@@ -756,11 +768,11 @@ def shot_ch3(cv, t):
     a = A(t, t0, t1)
     if a > 0:
         labels = ['成本低', '价格低', '顾客多', '进货量大']
-        ks = [appear(t, 'c3d', '成本低'), appear(t, 'c3d', '价格就能低'), appear(t, 'c3d', '顾客就多'), appear(t, 'c3d', '进货量')]
+        ks = [appear(t, 'c3d', '成本低'), appear(t, 'c3d', '价格就低'), appear(t, 'c3d', '顾客就多'), appear(t, 'c3d', '进货就能')]
         ring_cycle(cv, t, W / 2, 640, 230, labels, a, ks, col=GOLD, size=40)
-        k = appear(t, 'c3d', '压低进价')
+        k = appear(t, 'c3d', '压价')
         if k > 0:
-            chip(cv, '压低进价', 330, 1030, 32, a * k, col=CREAM); chip(cv, '品种更全', 750, 1030, 32, a * appear(t, 'c3d', '品种'), col=CREAM)
+            chip(cv, '压低进价', 330, 1030, 32, a * k, col=CREAM); chip(cv, '品种更全', 750, 1030, 32, a * appear(t, 'c3d', '成本又更低'), col=CREAM)
         k2 = appear(t, 'c3d', '轮子')
         if k2 > 0: cv.text('轮子越转越快', W / 2, 1200, 72, 'serif_black', gold=True, a=a * k2, glow=0.2)
         source(cv, '伯克希尔 1984 年信（“unparalleled efficiency and astute volume purchasing”）；1989 年信（成功公式）；飞轮为本片概括', a, y=1462)
@@ -780,7 +792,7 @@ def shot_ch3(cv, t):
     if a > 0:
         photo_win(cv, 'loc_desmoines', t, t0, t1, cy=WCY, h=WH, a=a, cap='艾奥瓦州得梅因（Carol M. Highsmith 摄）')
         mx, my, sc = 560, 1150, 150
-        km = eo((t - WT('c3f', '另外') + 0.3) / 0.6)
+        km = eo((t - WT('c3f', '可它远在') + 0.3) / 0.6)
         if km > 0:
             usmap(cv, mx, my, sc, a * km, lat0=41.4, lon0=-94.8, box=(60, 900, 1020, 1400))
             city(cv, '奥马哈', mx, my, sc, a, km, lat0=41.4, lon0=-94.8, anchor='r', sub='NFM 唯一的店')
@@ -799,20 +811,6 @@ def shot_ch3(cv, t):
         if km > 0 and appear(t, 'c3f', '排第三') > 0:
             chip(cv, '人气第 3', 280, 1300, 32, a * km, col=GOLD)
         source(cv, '伯克希尔 1990 年信（“NFM was Number 3 in popularity among 20 furniture retailers serving that city … our store is 130 miles away”）', a, y=1462)
-    # c3k：几十年后，广告还是这句话（NFM 自己的电视广告）
-    t0, t1 = win2('c3k')
-    a = A(t, t0, t1)
-    if a > 0:
-        tc = WT('c3k', '同一句话')
-        tk_ = max(tc - 0.25, t1 - 2.35); seq(cv, t, t0, tk_ + 0.45, ['ad01_rugs', 'ad01_lamps'], cy=WCY, h=WH, a=a, cap='NFM 电视广告（奥马哈，2001）')
-        seq(cv, t, tk_, t1, ['ad01_card'], cy=WCY, h=WH, a=a, cap='NFM 电视广告片尾（2001）')
-        k = appear(t, 'c3k', '电视广告')
-        if k > 0: chip(cv, '2001 年奥马哈 · 2005 年堪萨斯的 NFM 广告', W / 2, 900, 28, a * k, col=CREAM)
-        k2 = appear(t, 'c3k', '在这儿')
-        if k2 > 0:
-            cv.text('“You’ll Find It Here For Less.”', W / 2, 1030, 54, 'corm_med', col=CREAM, a=a * k2, reveal=eo((t - WT('c3k', '在这儿')) / 0.8))
-            cv.text('在这儿，你花得更少', W / 2, 1140, 64, 'serif_black', gold=True, a=a * appear(t, 'c3k', '花得更少'), glow=0.15)
-        source(cv, 'NFM 电视广告片尾字幕卡：WOWT（奥马哈）2001-11-27 节目录像、WIBW（堪萨斯）2005-04-12 晚间新闻录像（archive.org）', a, y=1462)
     # c3g：河底也找得到
     t0, t1 = win2('c3g')
     a = A(t, t0, t1)
@@ -820,7 +818,7 @@ def shot_ch3(cv, t):
         seq(cv, t, t0, t1, ['tx_promo2', 'op_crowd'], cy=WCY, h=WH, a=a, cap='今天的 NFM：得州店（2015）')
         qcard(cv, 'qriver', t, t0 + 0.4, t1, cy=1110, en=30, cn=38, a=a, typing=1.4, w=940)
     # c3h：Dillard's 不卖家具 → 引语
-    t0, t1 = S('c3h') - 0.3, S('c3i') - 0.2
+    t0, t1 = S('c3h') - 0.45, S('c3i') + 0.1
     a = A(t, t0, t1)
     if a > 0:
         kq = eo((t - E('c3h') + 0.2) / 0.4)
@@ -830,7 +828,7 @@ def shot_ch3(cv, t):
             cv.text('Dillard’s 百货进军奥马哈', W / 2, 905, 40, 'sans_bold', col=CREAM, a=a * k)
             store_box(cv, 300, 1060, 0.9, a * k, '别的城市', col=CREAM)
             chip(cv, '卖家具', 300, 1220, 30, a * k, col=CREAM)
-            ka = appear(t, 'c3h', '在这里')
+            ka = appear(t, 'c3h', '在这儿')
             store_box(cv, 780, 1060, 0.9, a * k * ka, '奥马哈', col=GOLD)
             if ka > 0:
                 chip(cv, '不卖家具', 780, 1220, 30, a * k * ka, col=RED_X)
@@ -839,7 +837,7 @@ def shot_ch3(cv, t):
         qcard(cv, 'qdillard', t, E('c3h') - 0.1, t1, cy=1110, en=32, cn=40, a=a, typing=1.4, w=940)
         source(cv, '伯克希尔 1988 年信（“In many of its stores, Dillards runs a full furniture department … his new store would not sell furniture”）', a * (1 - kq * 0.5), y=1462)
     # c3i：每天、每样东西，都比别人便宜
-    t0, t1 = S('c3i') - 0.3, CH['tk_ch3'][0] + 0.2
+    t0, t1 = S('c3i') - 0.45, CHE('ch3')
     a = A(t, t0, t1)
     if a > 0:
         seq(cv, t, t0, t1, ['tx_promo1', 'tx_promo2', 'op_flags'], cy=WCY, h=WH, a=a, cap='今天的 NFM：得州店（2015）')
@@ -857,8 +855,8 @@ def shot_ch3(cv, t):
 
 # ======================================================================== 第四章：开到隔壁
 def shot_ch4(cv, t):
-    # c4a–c4c：1989 年，闹翻；地毯 −17%
-    t0, t1 = S('c4a') - 0.3, S('c4d') - 0.2
+    # c4b–c4c：1989 年，闹翻；地毯 −17%
+    t0, t1 = S('c4b') - 0.45, S('c4d') + 0.1
     a = A(t, t0, t1)
     if a > 0:
         seq(cv, t, t0, t1, ['cp_sweep', 'cp_slipper', 'cp_room', 'al_living', 'al_chair'], cy=WCY, h=WH, a=a, cap='示意画面：地毯与家具（约 1960 年宣传片 / 1958 年影片）')
@@ -941,7 +939,7 @@ def shot_ch4(cv, t):
                 cv.text('大楼和土地卖给家具城', W / 2, 1240, 34, 'sans_bold', col=CREAM, a=a * k2 * kb)
             else:
                 store_box(cv, 780, 1080, 0.85, a * k * kb, "MRS. B'S", col=RED_X)
-            k3 = appear(t, 'c4f', '继续卖地毯')
+            k3 = appear(t, 'c4f', '接着卖地毯')
             if k3 > 0: chip(cv, 'B 太太留在原地，继续卖地毯', W / 2, 1320, 30, a * k3 * kb, col=CREAM)
         k4 = appear(t, 'c4f', '主动签了')
         if k4 > 0: cv.text('主动签下竞业禁止协议', W / 2, 1020, 50, 'serif_black', gold=True, a=a * k4)
@@ -957,7 +955,7 @@ def shot_ch4(cv, t):
         photo_win(cv, first_have(['c_buffett_2010', 'buffett_2010']), t, t0, t1, cy=WCY, h=WH, a=a, cap='沃伦·巴菲特（2010 年）')
         qcard(cv, 'qpartner', t, t0 + 0.3, t1, cy=1110, en=32, cn=40, a=a, typing=2.0, w=960)
     # c4h：干到 103 岁，104 岁去世
-    t0, t1 = S('c4h') - 0.3, CH['tk_ch4'][0] + 0.2
+    t0, t1 = S('c4h') - 0.45, CHE('ch4')
     a = A(t, t0, t1)
     if a > 0:
         xa, xb, y = 110, 970, 1000
@@ -1031,32 +1029,23 @@ def shot_ch5(cv, t):
         k3 = appear(t, 'c5b', '全美销量最大')
         if k3 > 0: chip(cv, '全美销量最大的家居店', 780, 1340, 28, a * k3, col=GOLD)
         source(cv, '伯克希尔 2003 年信（“sparsely populated parts … more than 25 acres of parking, the lot has at times overflowed”；“the country’s largest-volume home-furnishings store”）', a, y=1462)
-    # c5c：两家店各 4 亿；利润十倍
+    # c5c：2011 年利润是 1983 年的十倍还多
     t0, t1 = win2('c5c')
     a = A(t, t0, t1)
     if a > 0:
         nm = first_have(['c_west_omaha', 'c_omaha_dt', 'c_omaha_sky'])
         if nm: photo_win(cv, nm, t, t0, t1, cy=WCY, h=WH, a=a, cap={'c_west_omaha': '奥马哈西区航拍', 'c_omaha_dt': '奥马哈市中心', 'c_omaha_sky': '奥马哈天际线'}[nm])
         else: seq(cv, t, t0, t1, ['tx_promo2', 'tx_promo1', 'op_ribbon'], cy=WCY, h=WH, a=a, cap='NFM 得州店（2015）')
-        kc = 1 - eo((t - WT('c5c', '二零一一') + 0.3) / 0.4)
-        e = eexp((t - WT('c5c', '四亿') + 0.1) / 1.0)
-        if e > 0 and kc > 0:
-            for j, nm in enumerate(('奥马哈', '堪萨斯城')):
-                x = 340 + j * 400
-                gbar(cv, x - 90, 1300 - 220 * e, x + 90, 1300, GOLD if j == 0 else GOLD * 0.8, a * kc, sheen_t=t)
-                cv.text('~$4 亿', x, 1300 - 220 * e - 44, 50, 'sans_bold', gold=True, a=a * kc * min(1, e * 2))
-                cv.text(nm, x, 1340, 30, 'sans_med', col=CREAM, a=a * kc)
-            cv.text('2007 年 · 各自一年的销售额', W / 2, 900, 32, 'sans_med', col=CREAM, a=a * kc)
         k2 = appear(t, 'c5c', '二零一一')
         if k2 > 0:
-            cv.text('2011 年利润', W / 2, 950, 40, 'sans_bold', col=CREAM, a=a * k2)
-            cv.text('> 1983 年 × 10', W / 2, 1070, 96, 'oswald', col=GOLD_L, a=a * appear(t, 'c5c', '十倍'), glow=0.2)
+            cv.text('2011 年 · NFM 利润创纪录', W / 2, 950, 40, 'sans_bold', col=CREAM, a=a * k2)
+            cv.text('1983 年的 10 倍还多', W / 2, 1070, 84, 'serif_black', gold=True, a=a * appear(t, 'c5c', '十倍'), glow=0.2)
             for j in range(10):
                 kk = eo((t - WT('c5c', '十倍') - j * 0.06) / 0.3)
                 if kk > 0: cv.rect(190 + j * 72, 1200, 250 + j * 72, 1260, GOLD * 0.75, a * kk, glow=0.05)
             cv.rect(190, 1290, 250, 1350, GOLD * 0.4, a * appear(t, 'c5c', '十倍'))
             cv.text('← 1983 年', 340, 1320, 24, 'sans_light', col=GREY, a=a * appear(t, 'c5c', '十倍'))
-        source(cv, '伯克希尔 2007 年信（“our Omaha and Kansas City stores each had sales of about $400 million”）；2011 年信（“netting more than ten times what it did in 1983”）', a, y=1462)
+        source(cv, '伯克希尔 2011 年信（“NFM … netting more than ten times what it did in 1983”）', a, y=1462)
     # c5d：达拉斯，180 万平方英尺
     t0, t1 = win2('c5d')
     a = A(t, t0, t1)
@@ -1112,26 +1101,10 @@ def shot_ch5(cv, t):
             cv.text('平时一周', 330, base + 40, 26, 'sans_med', col=CREAM, a=a * min(1, e1 * 2))
         if e2 > 0: cv.text('奥马哈店', 900, 1100, 26, 'sans_light', col=GREY, a=a * e2)
         source(cv, '伯克希尔 2016 年信（“the Omaha store recording one-week volume of $45.5 million”）；2014、2015 年信（“An average week for NFM’s Omaha store is about $9 million”）', a, y=1462)
-    # c5g：今天：四座城市；奥斯汀 2027
-    t0, t1 = S('c5g') - 0.3, CH['tk_ch5'][0] + 0.2
-    a = A(t, t0, t1)
-    if a > 0:
-        photo_win(cv, 'loc_dallas', t, t0, t1, cy=WCY, h=WH, a=a, cap='达拉斯（Carol M. Highsmith 摄，2012）')
-        mx, my, sc = 560, 1150, 40
-        usmap(cv, mx, my, sc, a * 0.9, lat0=36.0, lon0=-96.0, box=(60, 950, 1020, 1400))
-        for j, (nm, sub) in enumerate((('奥马哈', '1937'), ('得梅因', '克莱夫'), ('堪萨斯城', '2003'), ('达拉斯', '2015'))):
-            kk = eo((t - t0 - 0.2 - j * 0.25) / 0.4)
-            city(cv, nm, mx, my, sc, a, kk, lat0=36.0, lon0=-96.0, sub=sub, size=26, anchor='l' if nm not in ('奥马哈',) else 'r')
-        k = appear(t, 'c5g', '奥斯汀')
-        city(cv, '奥斯汀', mx, my, sc, a, k, col=CREAM, lat0=36.0, lon0=-96.0, sub='预计 2027 年春', hollow=True, size=26)
-        k2 = appear(t, 'c5g', '当地最大')
-        if k2 > 0: chip(cv, '每个市场都是当地最大', 300, 900, 28, a * k2, col=GOLD)
-        if k2 > 0: chip(cv, '近 450 万平方英尺', 790, 900, 28, a * k2, col=CREAM)
-        source(cv, '伯克希尔 2025 年 10-K（“four retail complexes with almost 4.5 million square feet … the largest home furnishings retailer in each of these markets”）；NFM 官网（奥斯汀新店预计 2027 年春）', a, y=1462)
 
 
 # ======================================================================== 第六章：要盯住的三件事
-RISKS = [('大件消费，可买可不买', '2024 年家居零售收入 −6.4%'), ('便宜，得一直便宜下去', '比价越来越容易，对手抄得越来越快'), ('靠人：一家人守在店里', '第四代已进公司，能传多少代？')]
+RISKS = [('大件消费，可买可不买', '2024 年家居零售收入 −6.4%'), ('便宜，必须一直便宜下去', '比价越来越容易，对手抄得越来越快'), ('靠人：一家人守在店里', '第四代已进公司，能传多少代？')]
 
 
 def risk_list(cv, t, a, cur, ks):
@@ -1157,7 +1130,7 @@ def shot_ch6(cv, t):
         k2 = appear(t, 'c6z', '那次专访')
         if k2 > 0: chip(cv, 'CNBC 专访 · 2026 年 7 月 15 日', W / 2, 1130, 32, a * k2, col=CREAM)
         source(cv, 'CNBC Squawk Box：Becky Quick 专访巴菲特（2026-07-15）', a, y=1462)
-    t0, t1 = S('c6a') - 0.3, S('c6f') - 0.2
+    t0, t1 = S('c6a') - 0.45, S('c6f') + 0.1
     a = A(t, t0, t1)
     if a > 0:
         cur = 2 if t >= S('c6e') - 0.2 else 1 if t >= S('c6c') - 0.2 else 0 if t >= S('c6b') - 0.2 else -1
@@ -1169,24 +1142,24 @@ def shot_ch6(cv, t):
             if k > 0: cv.text('至少有三件事，要盯住', W / 2, 1120, 46, 'sans_bold', col=GOLD_L, a=a * k)
         else:
             if cur == 0:
-                seq(cv, t, S('c6b') - 0.3, S('c6c') - 0.2, ['al_living', 'al_chair'], cy=WCY, h=WH, a=a * (1 - appear(t, 'c6b', '伯克希尔年报')), cap='示意画面：家具（1958 年影片）')
-                k = appear(t, 'c6b', '伯克希尔年报')
+                seq(cv, t, S('c6b') - 0.45, S('c6c') + 0.1, ['al_living', 'al_chair'], cy=WCY, h=WH, a=a * (1 - appear(t, 'c6b', '二零二四')), cap='示意画面：家具（1958 年影片）')
+                k = appear(t, 'c6b', '二零二四')
                 if k > 0:
                     cv.text('2024 年', W / 2, 360, 40, 'sans_bold', col=CREAM, a=a * k)
                     if appear(t, 'c6b', '百分之六点四', lead=0.25) > 0: cv.text(counter(0, -6.4, t, WT('c6b', '百分之六点四'), 0.9, lambda v: f'{v:.1f}%'), W / 2, 500, 140, 'sans_bold', col=RED_X, a=a * k, glow=0.15)
                     cv.text('伯克希尔旗下家居零售收入', W / 2, 620, 32, 'sans_med', col=CREAM, a=a * k)
-                    cv.text('卖得少了 · 价格竞争更激烈', W / 2, 700, 34, 'sans_bold', col=GOLD_L, a=a * appear(t, 'c6b', '卖得少了'))
+                    cv.text('卖得少了 · 价格竞争更激烈', W / 2, 700, 34, 'sans_bold', col=GOLD_L, a=a * appear(t, 'c6b', '百分之六点四'))
             elif cur == 1:
-                if t < S('c6d') - 0.2:
-                    qcard(cv, 'qcoast', t, S('c6c') - 0.1, S('c6d') - 0.2, cy=520, en=34, cn=42, a=a, typing=1.0, w=900)
+                if t < WT('c6c', '如今点几下') - 0.2:
+                    qcard(cv, 'qcoast', t, WT('c6c', '巴菲特写过') - 0.1, WT('c6c', '如今点几下') - 0.2, cy=520, en=34, cn=42, a=a, typing=1.0, w=900)
                 else:
                     # 手机比价（示意）
-                    k = eo((t - S('c6d') + 0.1) / 0.5)
+                    k = eo((t - WT('c6c', '如今点几下') + 0.1) / 0.5)
                     px, py = W / 2, 540
                     cv.rrect(px - 150, py - 260, px + 150, py + 260, 30, (0.06, 0.06, 0.07), a * k)
                     cv.rrect(px - 150, py - 260, px + 150, py + 260, 30, GREY, a * k, fill=False, th=3)
                     for j, (nm, pr) in enumerate((('A 店', '$899'), ('B 店', '$849'), ('C 店', '$829'), ('D 店', '$799'))):
-                        kk = eo((t - S('c6d') - 0.3 - j * 0.25) / 0.3)
+                        kk = eo((t - WT('c6c', '如今点几下') - 0.3 - j * 0.25) / 0.3)
                         y = py - 170 + j * 110
                         cv.rrect(px - 120, y - 40, px + 120, y + 40, 10, (0.12, 0.12, 0.13), a * kk)
                         cv.text(nm, px - 95, y, 28, 'sans_med', col=CREAM, a=a * kk, anchor='l')
@@ -1206,56 +1179,72 @@ def shot_ch6(cv, t):
                1: '伯克希尔 1995 年信（“Retailing is a tough business … In retailing, to coast is to fail.”）；比价为本片解读',
                2: '伯克希尔 1989 年信（家族成员始终在场）；2011 年信（第四代已加入 NFM）'}.get(cur, '本片过渡')
         source(cv, src, a, y=1462)
-    # c6f：不单独披露；除了 NFM
-    t0, t1 = S('c6f') - 0.3, CH['tk_ch6'][0] + 0.3
+    # c6f：不单独披露；2025 年年报：除了 NFM
+    t0, t1 = S('c6f') - 0.45, CHE('ch6')
     a = A(t, t0, t1)
     if a > 0:
+        nm = first_have(['c_brk2015', 'c_kiewit'])
+        if nm: photo_win(cv, nm, t, t0, t1, cy=WCY, h=WH, a=a, cap='伯克希尔股东会（2015 年）')
         k = appear(t, 'c6f', '不单独公布')
         if k > 0:
-            cv.text('NFM 营收、利润：不单独公布', W / 2, 400, 46, 'serif_black', col=CREAM, a=a * k)
-            cv.text('?', W / 2, 560, 140, 'serif_black', col=GREY, a=a * k * (1 - appear(t, 'c6f', '比如')))
-        doc_page(cv, t, WT('c6f', '比如') - 0.2, t1, 'BERKSHIRE HATHAWAY · 2025 FORM 10-K',
+            cv.text('NFM 的营收、利润：不单独公布', W / 2, 920, 46, 'serif_black', col=CREAM, a=a * k)
+        doc_page(cv, t, WT('c6f', '只说了一句') - 0.2, t1, 'BERKSHIRE HATHAWAY · 2025 FORM 10-K',
                  ['With the exception of NFM, our retailing', 'businesses generated flat or lower earnings', 'in 2025 compared to the prior year.'],
-                 cy=760, w=900, size=32, hl='With the exception of NFM', hl_t=WT('c6f', '除了') - 0.1, a=a)
+                 cy=1145, w=900, size=32, hl='With the exception of NFM', hl_t=WT('c6f', '除了') - 0.1, a=a)
         k2 = appear(t, 'c6f', '除了')
-        if k2 > 0: cv.text('零售板块里，除了 NFM，其他公司的利润都持平或下降', W / 2, 1000, 32, 'sans_bold', col=GOLD_L, a=a * k2)
+        if k2 > 0: cv.text('零售板块里，除了 NFM，其他公司利润都持平或下降', W / 2, 1330, 32, 'sans_bold', col=GOLD_L, a=a * k2)
         source(cv, '伯克希尔 2025 年 10-K（MD&A，零售板块）', a, y=1462)
-
 
 # ======================================================================== 第七章：家里还有吗
 CHAIN = [('NFM', '奥马哈 · 1983', '奥马哈', None), ('R.C. Willey', '犹他 · 1995', '盐湖城', 'c7c'), ('Star Furniture', '休斯敦 · 1997', '休斯敦', 'c7d'),
          ("Jordan’s", '新英格兰 · 1999', '波士顿', 'c7d')]
 
 
+LESSONS = [('好生意', '护城河，可以就是低成本', '营业费用 16.5% 对 35.6%：每天便宜一点，就是对手追不上的距离'),
+           ('好价钱', '好价钱，不靠捡便宜', '约 4 倍税前利润，买下一门还在长大的好生意'),
+           ('对的人', '看人比看报表更要紧', '可该写进合同的，一条也不能少（竞业禁止）')]
+
+
+def lesson_list(cv, t, a, ks, cur):
+    for j, (tag_, head, sub) in enumerate(LESSONS):
+        k = ks[j]
+        if k <= 0: continue
+        y = 1010 + j * 136 + 24 * (1 - k); on = j == cur
+        cv.rrect(80, y - 58, 1000, y + 58, 16, (0.08, 0.065, 0.045) if on else (0.05, 0.045, 0.04), a * k * 0.92)
+        cv.rrect(80, y - 58, 1000, y + 58, 16, GOLD if on else GOLD_D, a * k * (0.95 if on else 0.45), fill=False, th=2, glow=0.15 if on else 0)
+        cv.text(f'0{j + 1}', 140, y, 44, 'oswald', col=GOLD_L if on else GOLD_D, a=a * k)
+        chip(cv, tag_, 250, y - 22, 24, a * k, col=GOLD if on else GOLD_D)
+        cv.text(head, 320, y - 22, 36, 'serif_black', col=CREAM if on else GREY, a=a * k, anchor='l')
+        cv.text(sub, 200, y + 28, 23, 'sans_med', col=CREAM if on else GREY, a=a * k, anchor='l')
+
+
 def shot_ch7(cv, t):
-    # c7a–c7b：家里还有像你们这样的吗？
-    t0, t1 = S('c7a') - 0.3, S('c7c') - 0.2
+    # c7b：最大的回报也许不在 NFM 本身——家里还有像你们这样的吗？
+    t0, t1 = S('c7b') - 0.45, S('c7c') + 0.1
     a = A(t, t0, t1)
     if a > 0:
         if M.have('c_buffett_ku'): photo_win(cv, 'c_buffett_ku', t, t0, t1, cy=WCY, h=WH, a=a, cap='沃伦·巴菲特（2005 年）')
         else: seq(cv, t, t0, t1, ['tx_promo1', 'op_crowd'], cy=WCY, h=WH, a=a, cap='NFM 得州店（2015）')
-        k = appear(t, 'c7a', '也许')
-        if k > 0 and t < S('c7b'): cv.text('最大的回报，也许不在 NFM 本身', W / 2, 1000, 44, 'serif_black', gold=True, a=a * k)
-        qcard(cv, 'qmore', t, WT('c7b', '家里还有') - 0.3, t1, cy=1000, en=40, cn=48, a=a, typing=0.9, w=900)
-        k2 = appear(t, 'c7b', '推荐了')
-        if k2 > 0: cv.text('1983 年，布鲁姆金一家推荐了另外三家家具零售商', W / 2, 1280, 30, 'sans_bold', col=CREAM, a=a * k2)
-        source(cv, '伯克希尔 1997 年信（“I always ask our new partners, ‘Are there any more at home like you?’ … the Blumkin family told me about three outstanding furniture retailers”）', a, y=1462)
+        k = appear(t, 'c7b', '也许') * (1 - appear(t, 'c7b', '家里还有', d=0.3, lead=0.4))
+        if k > 0: cv.text('最大的回报，也许不在 NFM 本身', W / 2, 1000, 48, 'serif_black', gold=True, a=a * k)
+        qcard(cv, 'qmore', t, WT('c7b', '家里还有') - 0.3, t1, cy=1060, en=42, cn=50, a=a, typing=0.9, w=900)
+        source(cv, '伯克希尔 1997 年信（“I always ask our new partners, ‘Are there any more at home like you?’”）', a, y=1462)
     # c7c–c7e：一家牵出一家 → 33 亿
-    t0, t1 = S('c7c') - 0.3, S('c7f') - 0.2
+    t0, t1 = S('c7c') - 0.45, S('c7l') + 0.1
     a = A(t, t0, t1)
     if a > 0:
-        tz = WT('c7d', '一九九九')
-        if t < S('c7d') - 0.1: photo_win(cv, 'loc_slc', t, t0, S('c7d') + 0.2, cy=WCY, h=WH, a=a, cap='犹他州盐湖城（Carol M. Highsmith 摄，2022）')
-        elif t < tz: photo_win(cv, 'loc_houston', t, S('c7d') - 0.3, tz + 0.3, cy=WCY, h=WH, a=a, cap='休斯敦（Carol M. Highsmith 摄，2014）')
-        elif t < S('c7e') - 0.1: photo_win(cv, 'loc_boston_sky', t, tz - 0.2, S('c7e') + 0.2, cy=WCY, h=WH, a=a, cap='波士顿（新英格兰）（Carol M. Highsmith 摄，2019）')
+        t95, t97, t99 = WT('c7c', '一九九五年的'), WT('c7c', '一九九七年的'), WT('c7c', '一九九九年的')
+        if t < t97: photo_win(cv, 'loc_slc', t, t0, t97 + 0.3, cy=WCY, h=WH, a=a, cap='犹他州盐湖城：R.C. Willey 的大本营（Carol M. Highsmith 摄，2022）')
+        elif t < t99: photo_win(cv, 'loc_houston', t, t97 - 0.3, t99 + 0.3, cy=WCY, h=WH, a=a, cap='休斯敦：Star Furniture 的大本营（Carol M. Highsmith 摄，2014）')
+        elif t < S('c7e') - 0.1: photo_win(cv, 'loc_boston_sky', t, t99 - 0.3, S('c7e') + 0.2, cy=WCY, h=WH, a=a, cap='波士顿：Jordan’s 所在的新英格兰（Carol M. Highsmith 摄，2019）')
         else:
-            mx, my, sc = 540, 530, 15.5
+            mx, my, sc = 540, 540, 15.5
             km = eo((t - S('c7e') + 0.2) / 0.5)
-            usmap(cv, mx, my, sc, a * km, lat0=37.5, lon0=-96.5, box=(40, 280, 1040, 800))
+            usmap(cv, mx, my, sc, a * km, lat0=37.5, lon0=-96.5, box=(40, 280, 1040, 810))
             for nm, sub, cty, _ in CHAIN:
                 city(cv, cty, mx, my, sc, a, km, lat0=37.5, lon0=-96.5, sub=nm, size=24, anchor='r' if cty in ('盐湖城',) else 'l')
         ys = [910, 1030, 1150, 1270]
-        tws = [S('c7c') - 0.1, WT('c7c', '伯克希尔买下'), WT('c7d', '休斯敦'), WT('c7d', '新英格兰')]
+        tws = [S('c7c') - 0.1, t95, t97, t99]
         kf = 1 - appear(t, 'c7e', '三十三亿', d=0.35, lead=0.3)
         for j, ((nm, sub, cty, _), y, tw) in enumerate(zip(CHAIN, ys, tws)):
             k = eo((t - tw + 0.1) / 0.45) * kf
@@ -1265,24 +1254,31 @@ def shot_ch7(cv, t):
             else:
                 node(cv, x + 120, y, nm, a * k, col=CREAM, size=32, w=420, sub=sub)
                 arrow(cv, (395, ys[0] + 180), (x + 120 - 215, y), a * k, GOLD_D, th=2, k=k)
-        k = appear(t, 'c7c', '欧文')
-        if k > 0 and t < S('c7d'): chip(cv, '欧文·布鲁姆金牵线', 240, 1350, 26, a * k, col=GOLD)
-        k2 = appear(t, 'c7d', '两个小时')
-        if k2 > 0 and t < tz: chip(cv, '谈了两个小时就定下', 240, 1350, 26, a * k2, col=GOLD)
-        k3 = appear(t, 'c7d', '一起推荐')
-        if k3 > 0 and t < S('c7e'): chip(cv, '几家老板一起推荐', 240, 1350, 26, a * k3, col=GOLD)
+        k3 = appear(t, 'c7c', '一家牵出一家')
+        if k3 > 0: chip(cv, '一家牵出一家', 240, 1350, 28, a * k3 * kf, col=GOLD)
         k4 = appear(t, 'c7e', '三十三亿')
         if k4 > 0:
-            cv.text(counter(0, 33, t, WT('c7e', '三十三亿'), 1.0, lambda v: f'约 ${v:.0f} 亿'), W / 2, 1020, 110, 'sans_bold', gold=True, a=a * k4, glow=0.2)
-            cv.text('四家家具零售商 · 2025 年合计营收（业界媒体估算）', W / 2, 1130, 30, 'sans_med', col=CREAM, a=a * k4)
-            k5 = appear(t, 'c7e', '要谢谢')
-            if k5 > 0:
-                cv.text('“My thanks go to Louie, Ron and Irv Blumkin', W / 2, 1240, 28, 'typewriter', col=CREAM, a=a * k5)
-                cv.text('for getting me started in the furniture business.”', W / 2, 1285, 28, 'typewriter', col=CREAM, a=a * k5)
-                cv.text('谢谢布鲁姆金一家，把我领进了家具这一行 · 1999 年信', W / 2, 1350, 26, 'serif_semi', col=GOLD_L, a=a * k5)
-        srcs = '伯克希尔 1995 年信（R.C. Willey，“It was Nebraska Furniture Mart’s Irv Blumkin who did the walking around”）；1997 年信（Star，“a single, two-hour session”）；1999 年信（Jordan’s）'
-        if t >= S('c7e') - 0.2: srcs = 'Home News Now 2026-06-22（伯克希尔家居零售板块 2025 年营收约 $3.34B，业界媒体估算）；伯克希尔 1999 年信'
+            cv.text(counter(0, 33, t, WT('c7e', '三十三亿'), 1.0, lambda v: f'约 ${v:.0f} 亿'), W / 2, 1040, 130, 'sans_bold', gold=True, a=a * k4, glow=0.25)
+            cv.text('四家家具零售商 · 2025 年合计营收（业界媒体估算）', W / 2, 1160, 30, 'sans_med', col=CREAM, a=a * k4)
+        srcs = '伯克希尔 1995 年信（R.C. Willey，“It was Nebraska Furniture Mart’s Irv Blumkin who did the walking around”）；1997 年信（Star）；1999 年信（Jordan’s）'
+        if t >= S('c7e') - 0.2: srcs = 'Home News Now 2026-06-22（伯克希尔家居零售板块 2025 年营收约 $3.34B，业界媒体估算）'
         source(cv, srcs, a, y=1462)
+    # c7l–c7o：带走三件事
+    t0, t1 = S('c7l') - 0.45, S('c7f') + 0.1
+    a = A(t, t0, t1)
+    if a > 0:
+        tm, tn, to = S('c7m'), S('c7n'), S('c7o')
+        if t < tn - 0.1: seq(cv, t, t0, tn + 0.3, ['tx_promo2', 'tx_promo1', 'op_flags'], cy=WCY, h=WH, a=a, cap='NFM 得州店（2015）')
+        elif t < to - 0.1: photo_win(cv, first_have(['c_munger', 'buffett_2010']), t, tn - 0.3, to + 0.3, cy=WCY, h=WH, a=a, cap='查理·芒格（2010 年）')
+        else: docview(cv, 'doc_proposal1', t, to - 0.3, t1, [(to - 0.3, 0.5, 0.45, 0.95), (t1, 0.5, 0.62, 0.8)], a=a, cap='1983 年提议书：没有竞业禁止条款')
+        k0 = appear(t, 'c7l', '三件事')
+        if k0 > 0: cv.text('回头看这笔交易 · 带走三件事', W / 2, 900, 40, 'serif_black', gold=True, a=a * k0)
+        ks = [appear(t, 'c7m', '第一'), appear(t, 'c7n', '第二'), appear(t, 'c7o', '第三')]
+        cur = 2 if t >= to - 0.2 else 1 if t >= tn - 0.2 else 0
+        lesson_list(cv, t, a, ks, cur)
+        source(cv, {0: '本片解读（1984 年信：营业费用率 16.5% 对 35.6%；1990 年信：130 英里外的顾客）',
+                    1: '本片解读（1984–1990 年信利润表；1989 年信“a wonderful company at a fair price”）',
+                    2: '本片解读（1984 年信：没有审计；1992 年信：竞业禁止上“incautious”）'}[cur], a, y=1462)
     # c7f：两句话
     t0, t1 = win2('c7f')
     a = A(t, t0, t1)
@@ -1298,19 +1294,9 @@ def shot_ch7(cv, t):
             cv.text('说真话', 790, 950, 56, 'serif_black', gold=True, a=a * k2)
             cv.text('不审计，就开出支票', 790, 1030, 28, 'sans_med', col=CREAM, a=a * k2)
             cv.text('→ 那笔交易的底气', 790, 1080, 28, 'sans_bold', col=GOLD_L, a=a * k2)
-        k3 = appear(t, 'c7f', '回头看')
+        k3 = appear(t, 'c7f', '前一句')
         if k3 > 0: cv.line((W / 2, 900), (W / 2, 1110), GOLD_D, a * k3 * 0.6, 2)
         source(cv, '本片解读（1990 年信：130 英里外的顾客；1984 年信：没有审计）', a * 0.7, y=1462)
-    # c7h：三样东西，一次找齐
-    t0, t1 = win2('c7h')
-    a = A(t, t0, t1)
-    if a > 0:
-        seq(cv, t, t0, t1, ['op_ribbon', 'tx_promo2'], cy=WCY, h=WH, a=a, cap='NFM 得州店开业剪彩与卖场（2015）')
-        tws = [WT('c7h', '好生意'), WT('c7h', '好价钱'), WT('c7h', '对的人')]
-        three_pillars(cv, t, a, tws, y=1020, checks=[WT('c7h', '三样东西') + 0.15 * j for j in range(3)])
-        k = appear(t, 'c7h', '一次都找齐')
-        if k > 0: cv.text('在奥马哈的这家家具店里，一次找齐', W / 2, 1260, 42, 'serif_black', gold=True, a=a * k, glow=0.12)
-        source(cv, '本片结语（呼应巴菲特 CNBC 2026-07-15 原话）', a * 0.7, y=1462)
     # c7g：落版字
     t0, t1 = S('c7g') - 0.3, CH['end'][0] + 0.4
     a = A(t, t0, t1, 0.4, 0.6)
