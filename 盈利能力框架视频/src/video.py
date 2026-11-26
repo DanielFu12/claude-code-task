@@ -102,7 +102,7 @@ def stars(fr, t):
     tw = 0.55 + 0.45 * np.sin(t * 1.3 + ST_TW)
     al = np.clip((1.1 - zz) * 0.55, 0, 0.8) * tw
     fade = cl(t / 3.0) * (0.6 if fr.t > SC['outro']['start'] else 1.0)
-    fr.splat(x, y, ST_COL, al * fade * 0.85, 'L')
+    fr.splat(x, y, ST_COL, al * fade * 0.85, 'G')
     big = zz < 0.32
     fr.dots(x[big], y[big], ST_COL[big], al[big] * fade * 0.5, 1, 'E')
 
@@ -226,8 +226,9 @@ def _sub_bg(w):
 
 
 # ---------------------------------------------------------------- frame
-def render(t, stage_only=False):
+def render(t, stage_only=False, vertical=False):
     fr = Frame(t)
+    fr.vertical = vertical
     i = scene_at(t)
     s = SCENES[i]
     bg = background(t)
@@ -246,12 +247,13 @@ def render(t, stage_only=False):
     if s['id'] in DRAW:
         DRAW[s['id']](fr, Ctx(s, t, HANDOFF[i]))
     fr.k = 1.0
-    chapter_card(fr, t)
+    if not vertical:
+        chapter_card(fr, t)
     sting_fx(fr, t)
     out = compose(fr, bg)
     if stage_only:
         apply_over(out, fr.post_over)
-        return out
+        return (out, fr.callouts) if vertical else out
     # 镜头之外的层：UI、字幕、角标
     fr2 = Frame(t)
     ui(fr2, t)

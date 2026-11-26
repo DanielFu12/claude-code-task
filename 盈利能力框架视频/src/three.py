@@ -138,7 +138,7 @@ def text3d(fr, s, P, cam, size, fnt='sans_black', col=WHITE, a=1.0, mode='L', gl
     """把文字放在 3D 点上，按透视缩放（ref 为参考距离，在此距离时字号 = size）"""
     p, z = cam.project(np.asarray(P)[None])
     if z[0] <= 0.5: return
-    sz = size * ref / z[0]
+    sz = min(size * ref / z[0], 110)
     if sz < 6: return
     fr.text(s, p[0][0], p[0][1], sz, fnt, col, a, anchor=anchor, mode=mode, glow=glow)
 
@@ -255,6 +255,22 @@ def draw_block(fr, cam, B, t=0.0, origin=(0, 0, 0), n=None, particles=True, edge
         cv.face(P2, Z.mean() - 0.02, shade(tuple(v * 0.5 for v in c), (-1 if j == 0 else 1, 0, 0), light, 0.6),
                 0.9 * B.alpha, lerpc(c, WHITE, 0.5), B.alpha, 2, glow=0.25 if cut_face else 0.08)
     cv.flush()
+    # 扫光：一道亮光沿时间轴扫过价值体（每 5 秒一次）
+    Lc = min(L, B.cut)
+    ph = (t / 5.0) % 1.0
+    xs_ = ph * (Lc + 4) - 2
+    if 0 <= xs_ <= Lc:
+        hh = float(B.h(np.array([xs_]))[0]); dd = float(B.d(np.array([xs_]))[0]) / 2
+        Q, Z = cam.project(np.array([(ox + xs_, oy, oz + dd), (ox + xs_, oy + hh, oz + dd), (ox + xs_, oy + hh, oz - dd)]))
+        if (Z > 0.3).all():
+            al = 0.8 * B.alpha * math.sin(math.pi * xs_ / max(Lc, 1e-3))
+            fr.poly(Q, lerpc(B.col, WHITE, 0.7), al, 3)
+            fr.glow(tuple(Q[1]), 22, lerpc(B.col, WHITE, 0.5), al * 0.8)
+    # 地面光晕（像倒影）
+    for xg in np.linspace(0, Lc, 7)[1:-1]:
+        Q, Z = cam.project(np.array([(ox + xg, oy, oz)]))
+        if Z[0] > 0.3:
+            fr.glow(tuple(Q[0]), 900 / max(Z[0], 5), B.col, 0.10 * B.alpha * math.exp(-B.disc * xg))
     # 截断后的碎片：被切掉的未来化为粒子坠落
     if B.cut < L and B.shatter > 0:
         rng = np.random.default_rng(5)

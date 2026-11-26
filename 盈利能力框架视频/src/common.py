@@ -237,6 +237,11 @@ def draw_line_chart(fr, xs, ys, col, a=1.0, th=3, prog=1.0, head=True, glow=0.0)
 def headline(fr, s, x, y, size, col, a=1.0, t0=None, fnt='serif_black', glow=0.35, anchor='m', stag=0.04, track=0.02):
     """金色渐变大标题"""
     grad = [lerpc(col, WHITE, 0.55), col, lerpc(col, (0.5, 0.3, 0.1), 0.25)]
+    if getattr(fr, 'vertical', False):
+        # 竖版：标题交给竖屏用原生大字号排版
+        if a * fr.k > 0.02:
+            fr.callouts.append((s, col, a * fr.k, size, fnt))
+        return 0
     return fr.text(s, x, y, size, fnt, col, a, anchor=anchor, mode='L', glow=glow, grad=grad, t0=t0, stag=stag, track=track)
 
 

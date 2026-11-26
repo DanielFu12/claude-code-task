@@ -89,6 +89,18 @@ def glyph(ch, name, size):
     return m, adv, pad, pad + asc
 
 
+@lru_cache(30000)
+def _shadow(ch, name, size):
+    """字形的深色外描边 + 柔和阴影（预先模糊、缓存）"""
+    m, adv, pad, bl = glyph(ch, name, size)
+    so = max(2, int(size * 0.12))
+    mm = np.pad(m, so)
+    k = max(3, int(size * 0.10) | 1)
+    dil = cv2.dilate(mm, np.ones((k, k), np.uint8))
+    sh = np.clip(cv2.GaussianBlur(dil, (0, 0), size * 0.07) * 1.4, 0, 1)
+    return sh.astype(np.float32), so
+
+
 def text_width(s, name, size, track=0.0):
     return sum(glyph(ch, name, size)[1] for ch in s) + track * size * max(len(s) - 1, 0)
 
@@ -121,12 +133,17 @@ class Frame:
     def __init__(self, t):
         self.t = t
         self.L = np.zeros((H, W, 3), np.float32)
+        self.G = np.zeros((H, W, 3), np.float32)   # 背景层（星空），在 3D 画布之下
         self.E = np.zeros((H, W, 3), np.float32)
         self.B = np.zeros((H, W, 3), np.float32)
         self.U = np.zeros((H, W, 3), np.uint8)
         self.over = []
         self.post_over = []
         self.layers = []          # 3D 画布：(预乘颜色, alpha)
+        self.min_size = 28        # 最小字号（保证可读）
+        self.auto_shadow = 0.7    # 中小号文字自动加深色阴影
+        self.vertical = False
+        self.callouts = []
         self.k = 1.0
         self.ca = 0.0
         self.flash = 0.0
@@ -260,13 +277,16 @@ class Frame:
     # ------------------------------------------------ text
     def text(self, s, x, y, size, fnt='sans_med', col=WHITE, a=1.0, anchor='m', track=0.0,
              mode='L', glow=0.0, grad=None, t0=None, stag=0.035, dur=0.45, rise=18, out=None,
-             chars_alpha=None, scale=1.0, shadow=0.0):
+             chars_alpha=None, scale=1.0, shadow=None):
         """单行文字。anchor: m 居中 / l 左 / r 右；y 为视觉中心。
         mode: L 加色清晰 / E 加色+辉光 / O 实心覆盖"""
         a *= self.k
         if a <= 0.003 or not s: return 0
         size = int(round(size * scale))
         if size < 2: return 0
+        if mode != 'P' and size < self.min_size: size = self.min_size
+        if shadow is None:
+            shadow = self.auto_shadow if size < 100 else 0.35
         tw = text_width(s, fnt, size, track)
         xs = x - tw / 2 if anchor == 'm' else (x if anchor == 'l' else x - tw)
         base = y + size * 0.36
@@ -287,9 +307,10 @@ class Frame:
                 ai *= chars_alpha[i] if i < len(chars_alpha) else 1
             if ai > 0.003 and ch != ' ':
                 colc = grad_color(grad, (cx + adv / 2 - xs) / max(tw, 1)) if grad is not None else col
-                if shadow > 0:
-                    self.over.append((cv2.GaussianBlur(m, (0, 0), size * 0.08) * 0.85, int(round(cx - pad + 2)),
-                                      int(round(base - bl + dy + 3)), np.zeros(3, np.float32), ai * shadow))
+                if shadow > 0 and mode != 'P':
+                    sm, so = _shadow(ch, fnt, size)
+                    self.over.append((sm, int(round(cx - pad - so + 1)), int(round(base - bl + dy - so + 2)),
+                                      np.zeros(3, np.float32), min(ai * shadow, 0.9)))
                 self._blit(m, cx - pad, base - bl + dy, colc, ai, mode, glow)
             cx += adv + track * size
         return tw
@@ -390,11 +411,12 @@ def apply_over(out, lst):
 def compose(fr, bg):
     E = fr.E
     E += fr.U.astype(np.float32) * (1 / 255.0)
-    out = bg + fr.L
-    apply_over(out, fr.over)
-    for P, A in fr.layers:
+    out = bg + fr.G
+    for P, A in fr.layers:            # 3D 画布
         out *= (1 - A)[..., None]
         out += P
+    apply_over(out, fr.over)          # 底板、阴影
+    out += fr.L                       # 文字和清晰的加色元素在最上
     out += E
     out += bloom(E + fr.B, fr.bloom)
     if fr.flash > 0:

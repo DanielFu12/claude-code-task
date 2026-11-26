@@ -15,9 +15,9 @@ from common import TL, SCENES, CHAP, LAYERS, LAYER_COL, TOTAL, kick_pulse
 from brand import Hud
 
 VW, VH = 1080, 1920
-CROPX = 80                   # 横版左右各裁 80px，舞台略放大
-SW, SH = 1080, 663           # 舞台尺寸
-SY = 610                     # 舞台顶边
+CROPX = 100                  # 横版左右各裁 100px，舞台放大
+SW, SH = 1080, 694           # 舞台尺寸
+SY = 690                     # 舞台顶边
 HUDV = Hud(scale=1.0, frame_w=VW)
 NFR = int(round(TOTAL * FPS))
 _FEATHER = None
@@ -115,8 +115,31 @@ def subtitle_block(img, t):
             a = eo((t - s['start'] + 0.05) / 0.12) * (1 - eio((t - s['end'] + 0.12) / 0.12))
             rows = wrap(s['text'])
             for i, r in enumerate(rows):
-                vtext(img, r, VW / 2, 1400 + (i - (len(rows) - 1) / 2) * 84, 58, 'sans_bold', (0.98, 0.98, 0.98), a, shadow=0.9)
+                vtext(img, r, VW / 2, 1640 + (i - (len(rows) - 1) / 2) * 80, 56, 'sans_bold', (0.98, 0.98, 0.98), a, shadow=0.9)
             break
+
+
+def fit_size(s, fnt, size, maxw=1000):
+    w = text_width(s, fnt, int(size))
+    return size * min(1.0, maxw / max(w, 1))
+
+
+def callout_block(img, callouts):
+    """场景标题：舞台上方一行主标题，舞台下方一行副标题（竖屏原生字号）"""
+    if not callouts: return
+    cs = sorted(callouts, key=lambda c: -c[3] * min(c[2], 1))
+    seen, picked = set(), []
+    for c in cs:
+        if c[0] in seen: continue
+        seen.add(c[0]); picked.append(c)
+        if len(picked) == 2: break
+    s, col, a, size, fnt = picked[0]
+    sz = fit_size(s, fnt, min(max(size * 0.9, 64), 92))
+    vtext(img, s, VW / 2, 610, sz, fnt, col, min(a, 1), glow=0.3, shadow=0.9)
+    if len(picked) > 1:
+        s, col, a, size, fnt = picked[1]
+        sz = fit_size(s, fnt, min(max(size * 0.75, 48), 64))
+        vtext(img, s, VW / 2, 1490, sz, fnt, col, min(a, 1), glow=0.25, shadow=0.9)
 
 
 def bottom_block(img, t):
@@ -129,7 +152,7 @@ def bottom_block(img, t):
 
 
 def render_v(t):
-    st = V.render(t, stage_only=True)                     # 横版舞台（float，1920×1080）
+    st, callouts = V.render(t, stage_only=True, vertical=True)   # 横版舞台 + 场景标题
     small = cv2.resize(st[:, CROPX:1920 - CROPX], (SW, SH), interpolation=cv2.INTER_AREA)
     # 背景：同一帧的模糊放大
     bgsrc = cv2.resize(st, (480, 270), interpolation=cv2.INTER_AREA)
@@ -143,6 +166,7 @@ def render_v(t):
     reg *= (1 - f)
     reg += small * f
     top_block(img, t)
+    callout_block(img, callouts)
     subtitle_block(img, t)
     bottom_block(img, t)
     HUDV.draw(img, t)
