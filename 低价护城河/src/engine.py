@@ -164,6 +164,7 @@ def S(x): return int(round(x * 16))  # cv2 亚像素坐标（shift=4）
 
 
 def line(lay, p0, p1, w=3, v=1.0):
+    if abs(p1[0] - p0[0]) + abs(p1[1] - p0[1]) < 1.0: return   # 零长度不画（否则会留一个点）
     cv2.line(lay, (S(p0[0]), S(p0[1])), (S(p1[0]), S(p1[1])), v, max(1, int(w)), cv2.LINE_AA, 4)
 
 
@@ -216,7 +217,7 @@ def bloom(cv, thr=0.72, k=0.35):
     cv += cv2.resize(b, (W, H)) * k
 
 
-def finish(cv, fi, grain=0.028, vig=True):
+def finish(cv, fi, grain=0.022, vig=True):
     bloom(cv)
     if vig: cv *= VIG
     cv += GRAIN[fi % len(GRAIN)][..., None] * grain * (0.4 + 0.6 * np.sqrt(np.clip(cv.mean(2, keepdims=True), 0, 1)))

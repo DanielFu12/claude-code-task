@@ -181,7 +181,7 @@ def sc_intuition(cv, t):
     n = 6; cols = [GOLD, (0.60, 0.70, 0.85), (0.75, 0.62, 0.85), (0.55, 0.80, 0.75), (0.85, 0.60, 0.55), (0.70, 0.70, 0.70)]
     for j in range(n):
         st = tw + j * 0.18 - (0.6 if j == 0 else 0)
-        if j == 0: st = SP('b1') + 0.3
+        if j == 0: st = T('b1') - 0.2
         k = lin(t, st, SE('b2') + 0.4)
         if k <= 0: continue
         drops = np.cumsum(rng.random(9) * 0.12 + 0.03); drops = drops / drops[-1] * (0.80 + 0.12 * rng.random())
@@ -197,7 +197,7 @@ def sc_intuition(cv, t):
             L = layer(); poly(L, pts, 4 if j == 0 else 3); stroke_layer(cv, L, cols[j], 0.95 if j == 0 else 0.7, glow=1.0)
             px, py = pts[-1]
             price = 100 - 70 * (py - y0 - 40) / (y1 - y0 - 80)
-            label(cv, '¥%d' % max(1, price), px + 12, py - 26, 30 if j == 0 else 24, cols[j], 0.95, 'oswald', anchor='l')
+            if j == 0: label(cv, '¥%d' % max(1, price), px + 12, py - 26, 34, cols[j], 0.95, 'oswald', anchor='l')
     big(cv, '谁都能降', W / 2, 300, 96, a=ease(lin(t, tw, tw + 0.4)), color=WHITE, glow=0.2)
     # 墙：「低价」挡不住任何人
     tb = WT('b2', '挡不住')
@@ -242,7 +242,7 @@ def sc_test(cv, t):
     L = layer()
     for x in range(120, int(120 + 840 * kp), 28): line(L, (x, py), (x + 16, py), 3)
     stroke_layer(cv, L, WHITE, 0.9, glow=0.6)
-    label(cv, '售价 ¥90', 124, py - 34, 34, WHITE, kp, 'sans_bold', anchor='l')
+    label(cv, '售价 ¥90', 540, py - 34, 34, WHITE, kp, 'sans_bold')
     bars = [('A', 340, 75, GOLD, WT('c2', '七十五'), WT('c2', '赚十五'), '+15', TEAL),
             ('B', 740, 95, RED, WT('c3', '九十五'), WT('c3', '亏五块'), '−5', RED)]
     for nm, cx, cost, col, tc, tr, res, rc in bars:
@@ -779,8 +779,8 @@ SUBS = build_subs()
 
 def subtitle(cv, t):
     for t0, t1, s in SUBS:
-        if t0 - 0.1 <= t <= t1 + 0.1:
-            a = ease(lin(t, t0 - 0.1, t0 + 0.08)) * (1 - ease(lin(t, t1, t1 + 0.1)))
+        if t0 - 0.04 <= t <= t1:
+            a = ease(lin(t, t0 - 0.04, t0 + 0.1)) * (1 - ease(lin(t, t1 - 0.1, t1)))
             n = sum(0.55 if ch.isdigit() or ch in '.%' else 1 for ch in s)
             size = 52 if n <= 16 else int(52 * 16 / n)
             w = text_w(s, 'sans_bold', size) + 70
@@ -820,7 +820,7 @@ if __name__ == '__main__':
     elif mode == 'chunk':
         f0, f1, out = int(sys.argv[3]), min(int(sys.argv[4]), NF), sys.argv[5]
         p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '%dx%d' % (W, H), '-r', str(FPS),
-                              '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-crf', '17', '-pix_fmt', 'yuv420p', out], stdin=subprocess.PIPE)
+                              '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-crf', '20', '-pix_fmt', 'yuv420p', out], stdin=subprocess.PIPE)
         for fi in range(f0, f1):
             p.stdin.write(to8(render(fi)).tobytes())
             if (fi - f0) % 150 == 0: print('chunk', f0, fi, flush=True)
