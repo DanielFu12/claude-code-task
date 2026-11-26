@@ -226,7 +226,7 @@ def _sub_bg(w):
 
 
 # ---------------------------------------------------------------- frame
-def render(t):
+def render(t, stage_only=False):
     fr = Frame(t)
     i = scene_at(t)
     s = SCENES[i]
@@ -249,6 +249,9 @@ def render(t):
     chapter_card(fr, t)
     sting_fx(fr, t)
     out = compose(fr, bg)
+    if stage_only:
+        apply_over(out, fr.post_over)
+        return out
     # 镜头之外的层：UI、字幕、角标
     fr2 = Frame(t)
     ui(fr2, t)

@@ -41,3 +41,15 @@ ffmpeg -loglevel error -y -i "$WORK/inter.mp4" -i "$WORK/final_audio.wav" -map 0
   -c:v libx264 -preset slow -tune animation -b:v 1080k -maxrate 4000k -bufsize 8000k -pass 2 -passlogfile "$WORK/repo2pass" \
   -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart "$ROOT/企业盈利能力评估框架.mp4"
 echo "done -> $ROOT/企业盈利能力评估框架.mp4 （高清母版：$WORK/企业盈利能力评估框架_高清.mp4）"
+
+# 8) 竖版（1080×1920，旁白 / 配乐 / 时间轴与横版相同）：VERTICAL=1 ./build.sh
+if [ "${VERTICAL:-0}" = "1" ]; then
+  for ((k=0; k<JOBS; k++)); do python3 src/vertical.py chunk $((k*Q)) $(((k+1)*Q)) "$WORK/vseg$k.mp4" & done; wait
+  : > "$WORK/vlist.txt"; for ((k=0; k<JOBS; k++)); do echo "file '$WORK/vseg$k.mp4'" >> "$WORK/vlist.txt"; done
+  ffmpeg -loglevel error -y -f concat -safe 0 -i "$WORK/vlist.txt" -c copy "$WORK/vinter.mp4"
+  ffmpeg -loglevel error -y -i "$WORK/vinter.mp4" -map 0:v -c:v libx264 -preset slow -tune animation -b:v 1080k \
+    -pass 1 -passlogfile "$WORK/v2pass" -an -f null /dev/null
+  ffmpeg -loglevel error -y -i "$WORK/vinter.mp4" -i "$WORK/final_audio.wav" -map 0:v -map 1:a \
+    -c:v libx264 -preset slow -tune animation -b:v 1080k -maxrate 4000k -bufsize 8000k -pass 2 -passlogfile "$WORK/v2pass" \
+    -pix_fmt yuv420p -c:a aac -b:a 128k -shortest -movflags +faststart "$ROOT/企业盈利能力评估框架_竖版.mp4"
+fi
