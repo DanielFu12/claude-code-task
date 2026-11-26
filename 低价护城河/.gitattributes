@@ -1,0 +1,2 @@
+# 仓库 LFS 额度已满：本目录的成片按普通二进制文件入库（GitHub 单文件上限 100MB，成片控制在 95MB 内）
+*.mp4 -filter binary
