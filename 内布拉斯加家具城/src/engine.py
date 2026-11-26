@@ -229,7 +229,7 @@ class Canvas:
             self.add(col_img, m * a, x0, y0, glow)
         else:
             self.over(col_img, m * a, x0, y0)
-            if glow: self.add(col_img, m * a * 0, x0, y0); self._glow(col_img, m * a * glow, x0, y0)
+            if glow: self._glow(col_img, m * a * glow * 0.45, x0, y0)          # v4：文字辉光减半，字更利落
         return w
 
     def _glow(self, rgb, a, x0, y0):
@@ -364,14 +364,14 @@ def bloom(src, k=1.0):
     s2 = cv2.resize(src, (W // 2, H // 2), interpolation=cv2.INTER_AREA)
     s8 = cv2.resize(s2, (W // 8, H // 8), interpolation=cv2.INTER_AREA)
     s32 = cv2.resize(s8, (W // 32, H // 32), interpolation=cv2.INTER_AREA)
-    b = cv2.resize(cv2.GaussianBlur(s2, (0, 0), 3), (W, H)) * 0.35 \
-        + cv2.resize(cv2.GaussianBlur(s8, (0, 0), 3), (W, H)) * 0.45 \
+    b = cv2.resize(cv2.GaussianBlur(s2, (0, 0), 3), (W, H)) * 0.12 \
+        + cv2.resize(cv2.GaussianBlur(s8, (0, 0), 3), (W, H)) * 0.32 \
         + cv2.resize(cv2.GaussianBlur(s32, (0, 0), 2.5), (W, H)) * 0.35
     return b * k
 
 
 HUD = None
-def finish(cv, frame_idx, bloom_k=1.0, grain=0.018, vig=True, hud_alpha=1.0, fade=1.0, post=None):
+def finish(cv, frame_idx, bloom_k=1.0, grain=0.0, vig=True, hud_alpha=1.0, fade=1.0, post=None):
     """合成：线条层 + 辉光 + 色调映射 + 暗角 + 颗粒 + 品牌角标 → uint8"""
     global HUD
     img = cv.img

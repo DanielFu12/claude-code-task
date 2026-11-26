@@ -717,10 +717,37 @@ def shot_ch2(cv, t):
         source(cv, '伯克希尔 1984 年信（“Mrs. B, Chairman of the Board, is now 91 … at the store seven days a week, from opening to close, and probably makes more decisions in a day than most CEOs do in a year (better ones, too)”）', a, y=1462)
 
 
-# ======================================================================== 第三章：好生意——便宜的护城河
+# ======================================================================== 第三章：好生意——商业模式与低成本护城河
+GATES = [('第一关', '优势是真的', 'REAL'), ('第二关', '对手长期学不来', 'HARD TO COPY')]
+FORMULA = [('一处地方，品种最全', '一处地方'), ('量最大，进货最精', '量最大'), ('费用最低', '费用最低'),
+           ('价格远低于对手', '价格远低于'), ('家里人永远在店里', '家里人')]
+BARRIERS = [('规模', '一家店的销量 ≈ 全美任何同行的两倍', 'c3n5', '第一是'), ('人', '一家人守在店里，精打细算、当场拍板', 'c3n6', '第二是'),
+            ('甘愿少赚', '对手靠四成多毛利过日子，跟降就是自断财路', 'c3n7', '第三是')]
+
+
+def gate_tag(cv, n, a, y=860):
+    """小标：第一关 / 第二关"""
+    if a <= 0.004: return
+    g, txt, en = GATES[n - 1]
+    chip(cv, f'{g}：{txt}', W / 2, y, 30, a, col=GOLD_L)
+
+
+def two_gates(cv, t, a, ks, y=1110, hl=None):
+    for j, (g, txt, en) in enumerate(GATES):
+        k = ks[j]
+        if k <= 0: continue
+        x = 300 + j * 480; yy = y + 30 * (1 - k)
+        on = hl is None or hl == j
+        cv.rrect(x - 215, yy - 120, x + 215, yy + 120, 18, (0.075, 0.06, 0.045), a * k * 0.94)
+        cv.rrect(x - 215, yy - 120, x + 215, yy + 120, 18, GOLD if on else GOLD_D, a * k * (0.95 if on else 0.5), fill=False, th=3, glow=0.12 if on else 0)
+        cv.text(g, x, yy - 62, 34, 'sans_bold', col=GOLD_L if on else GREY, a=a * k)
+        cv.text(txt, x, yy + 6, 44 if j == 0 else 40, 'serif_black', col=CREAM if on else GREY, a=a * k)
+        cv.text(en, x, yy + 74, 22, 'sans_med', col=GOLD_D, a=a * k, track=0.12)
+
+
 def shot_ch3(cv, t):
     # c3z：愿不愿意跟它竞争？ → 灰熊
-    t0, t1 = S('c3z') - 0.45, S('c3a') + 0.1
+    t0, t1 = S('c3z') - 0.45, S('c3m1') + 0.1
     a = A(t, t0, t1)
     if a > 0:
         seq(cv, t, t0, t1, ['tx_promo1', 'tx_promo2', 'op_crowd'], cy=WCY, h=WH, a=a, cap='今天的 NFM：得州店（2015）')
@@ -730,62 +757,89 @@ def shot_ch3(cv, t):
         qcard(cv, 'qgrizzly', t, E('c3z') - 0.1, t1, cy=1100, en=32, cn=40, a=a, typing=1.4, w=940)
         source(cv, '伯克希尔 1983 年信（“One question I always ask myself in appraising a business is how I would like … to compete with it”）', a * (1 - kq * 0.5), y=1462)
 
-    # c3a–c3b：Levitz 毛利率 44.4%，NFM 一半多一点
-    t0, t1 = S('c3a') - 0.45, S('c3c') + 0.1
+    # c3m1：商业模式——巴菲特总结的五条打法（1989 年信）
+    t0, t1 = S('c3m1') - 0.45, S('c3m2') + 0.1
     a = A(t, t0, t1)
     if a > 0:
-        seq(cv, t, t0, t1, ['lv_sofa', 'lv_sofa2', 'tx_promo1', 'tx_promo2', 'al_living'], cy=WCY, h=WH, a=a, cap='Levitz 电视广告（1999）/ NFM 得州店（2015）')
-        chip(cv, '巴菲特 1984 年致股东信', W / 2, 900, 28, a * eo((t - t0 - 0.3) / 0.5), col=GOLD)
-        k = appear(t, 'c3a', 'Levitz')
-        kb = appear(t, 'c3b', '毛利率')
-        if k > 0 and kb < 1:
-            node(cv, 280, 1050, 'Levitz', a * k * (1 - kb), col=BLUE_L, size=40, sub='全美最大的独立家具商')
-            cv.text('VS', W / 2, 1050, 40, 'oswald', col=GOLD, a=a * k * (1 - kb))
-            node(cv, 800, 1050, 'NFM', a * k * (1 - kb), col=GOLD, size=40, sub='奥马哈 · 一家店')
-        k2 = appear(t, 'c3b', '百分之四十四')
-        if k2 > 0:
-            price_tag(cv, 840, 1000, 0.75, a * k2, '$100', sub='Levitz 售价', col=BLUE_L * 0.8)
-            cv.text('进价 $55.6', 840, 1090, 26, 'sans_med', col=CREAM, a=a * k2)
-        if kb > 0: cv.text('毛利率', 200, 990, 32, 'sans_bold', col=CREAM, a=a * kb, anchor='l')
-        pct_bars(cv, t, [('Levitz', 44.4, '44.4%', WT('c3b', '百分之四十四'), BLUE_L * 0.7),
-                         ('NFM', 24.0, '一半多一点', WT('c3b', '一半多'), GOLD)], a, x0=330, x1=780, y0=1170, dy=110, vmax=50, size=38, lab=30)
-        if appear(t, 'c3b', '一半多') > 0: cv.text('NFM 柱长为示意（原信：“not much more than half”）', W / 2, 1360, 20, 'sans_light', col=GREY, a=a * appear(t, 'c3b', '一半多'))
-        source(cv, '伯克希尔 1984 年信（引 Levitz 1984 财年 10-K：毛利率 44.4%；“The gross margin at NFM is not much more than half of that”）', a, y=1462)
-    # c3c：营业费用 35.6% vs 16.5%
-    t0, t1 = win2('c3c')
+        seq(cv, t, t0, t1, ['op_crowd', 'tx_promo2', 'cp_room', 'tx_promo1'], cy=WCY - 40, h=480, a=a, cap='NFM 得州店（2015）/ 地毯宣传片（约 1960）')
+        k0 = eo((t - t0 - 0.2) / 0.5)
+        cv.text('它靠什么赚钱？', W / 2, 865, 50, 'serif_black', gold=True, a=a * k0)
+        for j, (txt, w_) in enumerate(FORMULA):
+            k = appear(t, 'c3m1', w_)
+            if k <= 0: continue
+            y = 960 + j * 92 + 20 * (1 - k)
+            cur = j == max([i for i, (_, ww) in enumerate(FORMULA) if t >= WT('c3m1', ww) - 0.1] or [0])
+            cv.rrect(110, y - 38, 970, y + 38, 14, (0.08, 0.065, 0.045) if cur else (0.05, 0.045, 0.04), a * k * 0.92)
+            cv.rrect(110, y - 38, 970, y + 38, 14, GOLD if cur else GOLD_D, a * k * (0.9 if cur else 0.4), fill=False, th=2)
+            cv.text(f'{j + 1}', 165, y, 40, 'oswald', col=GOLD_L if cur else GOLD_D, a=a * k)
+            cv.text(txt, 220, y, 38, 'sans_bold', col=CREAM if cur else (0.78, 0.76, 0.72), a=a * k, anchor='l')
+        source(cv, '伯克希尔 1989 年信（成功公式：“unparalleled depth and breadth of merchandise at one location; the lowest operating costs …”）', a, y=1462)
+
+    # c3m2：薄利多销，省下的钱让给顾客 → 每年至少 3000 万
+    t0, t1 = win2('c3m2')
     a = A(t, t0, t1)
     if a > 0:
-        seq(cv, t, t0, t1, ['al_dining', 'al_chair', 'al_sideboard'], cy=WCY, h=WH, a=a, cap='示意画面：家具（1958 年影片）')
-        k = appear(t, 'c3c', '成本')
-        if k > 0: cv.text('秘诀在成本', W / 2, 920, 56, 'serif_black', gold=True, a=a * k)
-        k2 = appear(t, 'c3c', '工资')
-        if k2 > 0: cv.text('营业费用（工资、房租、广告……）占销售额', W / 2, 1010, 28, 'sans_med', col=CREAM, a=a * k2)
-        pct_bars(cv, t, [('Levitz', 35.6, '35.6%', WT('c3c', '百分之三十五'), BLUE_L * 0.7),
-                         ('NFM', 16.5, '约 16.5%', WT('c3c', '百分之十六'), GOLD)], a, x0=300, x1=900, y0=1130, dy=130, vmax=40, size=50, lab=34)
-        source(cv, '伯克希尔 1984 年信（“operating expenses (payroll, occupancy, advertising, etc.) are about 16.5% of sales versus 35.6% at Levitz”）', a, y=1462)
+        seq(cv, t, t0, t1, ['op_flags', 'op_ribbon'], cy=WCY, h=WH, a=a, cap='NFM 得州店开业那天的顾客（2015-05-07）')
+        k = appear(t, 'c3m2', '每件货')
+        k2 = appear(t, 'c3m2', '薄利')
+        k3 = appear(t, 'c3m2', '三千万', lead=0.25)
+        if k > 0 and k3 < 1:
+            aa = a * (1 - k3)
+            cv.text('不靠每件货多赚', 300, 930, 38, 'sans_bold', col=GREY, a=aa * k)
+            cross(cv, 300, 930, 34, aa * k2 * 0.8, th=4)
+            cv.text('薄利多销', 780, 930, 52, 'serif_black', gold=True, a=aa * k2, glow=0.15)
+            ka = appear(t, 'c3m2', '让给顾客')
+            if ka > 0:
+                arrow(cv, (420, 1080), (660, 1080), aa * ka, GOLD, k=ka)
+                node(cv, 280, 1080, '省下的钱', aa * ka, col=CREAM, size=34)
+                node(cv, 820, 1080, '顾客', aa * ka, col=GOLD, size=40)
+        if k3 > 0:
+            cv.text(counter(0, 3000, t, WT('c3m2', '三千万'), 1.2, lambda v: f'≥ ${v:,.0f} 万'), W / 2, 990, 104, 'sans_bold', gold=True, a=a * k3, glow=0.12)
+            cv.text('每年替顾客省下（巴菲特 1984 年估算）', W / 2, 1095, 32, 'sans_med', col=CREAM, a=a * k3)
+            kr = appear(t, 'c3m2', '资本回报')
+            if kr > 0:
+                chip(cv, '自己的资本回报：照样出色', W / 2, 1200, 36, a * kr, col=GOLD_L)
+                cv.text('“excellent returns on capital”', W / 2, 1275, 28, 'serif_reg', col=CREAM, a=a * kr)
+        source(cv, '伯克希尔 1983 年信（“pass on to their customers much of the savings”）；1984 年信（“earn excellent returns on capital while saving its customers at least $30 million annually”）', a, y=1462)
+
     # c3d：飞轮
     t0, t1 = win2('c3d')
     a = A(t, t0, t1)
     if a > 0:
-        labels = ['成本低', '价格低', '顾客多', '进货量大']
-        ks = [appear(t, 'c3d', '成本低'), appear(t, 'c3d', '价格就低'), appear(t, 'c3d', '顾客就多'), appear(t, 'c3d', '进货就能')]
+        labels = ['价格低', '顾客多', '进货量大', '成本更低']
+        ks = [appear(t, 'c3d', '价格低'), appear(t, 'c3d', '顾客就多'), appear(t, 'c3d', '进货就能'), appear(t, 'c3d', '成本更低')]
         ring_cycle(cv, t, W / 2, 640, 230, labels, a, ks, col=GOLD, size=40)
-        k = appear(t, 'c3d', '压价')
+        k = appear(t, 'c3d', '摊到')
         if k > 0:
-            chip(cv, '压低进价', 330, 1030, 32, a * k, col=CREAM); chip(cv, '品种更全', 750, 1030, 32, a * appear(t, 'c3d', '成本又更低'), col=CREAM)
+            chip(cv, '压低进价', 300, 1030, 32, a * appear(t, 'c3d', '压价'), col=CREAM); chip(cv, '摊薄房租、工资、广告', 720, 1030, 32, a * k, col=CREAM)
         k2 = appear(t, 'c3d', '轮子')
-        if k2 > 0: cv.text('轮子越转越快', W / 2, 1200, 72, 'serif_black', gold=True, a=a * k2, glow=0.2)
+        if k2 > 0: cv.text('轮子越转越快', W / 2, 1200, 72, 'serif_black', gold=True, a=a * k2, glow=0.15)
         source(cv, '伯克希尔 1984 年信（“unparalleled efficiency and astute volume purchasing”）；1989 年信（成功公式）；飞轮为本片概括', a, y=1462)
-    # c3e：每年替顾客省 3000 万
-    t0, t1 = win2('c3e')
+    # c3s：尼克·斯利普的“规模经济分享”
+    t0, t1 = win2('c3s')
     a = A(t, t0, t1)
     if a > 0:
-        seq(cv, t, t0, t1, ['op_flags'], cy=WCY, h=WH, a=a, cap='NFM 得州店开业那天的顾客（2015-05-07）')
-        k = appear(t, 'c3e', '三千万', lead=0.25)
-        if k > 0:
-            cv.text(counter(0, 3000, t, WT('c3e', '三千万'), 1.2, lambda v: f'≥ ${v:,.0f} 万'), W / 2, 1040, 104, 'sans_bold', gold=True, a=a * k, glow=0.2)
-            cv.text('每年替顾客省下（巴菲特 1984 年估算）', W / 2, 1150, 32, 'sans_med', col=CREAM, a=a * k)
-        source(cv, '伯克希尔 1984 年信（“saving its customers at least $30 million annually”）', a, y=1462)
+        k0 = eo((t - t0 - 0.2) / 0.5)
+        cv.text('规模经济分享', W / 2, 330, 72, 'serif_black', gold=True, a=a * appear(t, 'c3s', '规模经济分享'), glow=0.12)
+        cv.text('SCALE ECONOMIES SHARED', W / 2, 410, 26, 'sans_med', col=GOLD_D, a=a * appear(t, 'c3s', '规模经济分享'), track=0.18)
+        chip(cv, '投资人 尼克·斯利普（Nomad 合伙人信）', W / 2, 250, 28, a * k0, col=CREAM)
+        steps = [('成本优势', '规模经济分享'), ('让利 → 低价', '长期分给'), ('顾客更多', '长期分给'), ('规模更大', '他举的'), ('成本更低', '他举的')]
+        for j, (lb, w_) in enumerate(steps):
+            k = appear(t, 'c3s', w_, lead=0.1 - j * 0.25)
+            if k <= 0: continue
+            y = 530 + j * 92
+            node(cv, W / 2, y + 12 * (1 - k), lb, a * k, col=GOLD if j in (0, 4) else CREAM, size=32, w=330)
+            if j < 4 and appear(t, 'c3s', steps[j + 1][1], lead=0.1 - (j + 1) * 0.25) > 0: arrow(cv, (W / 2, y + 34), (W / 2, y + 58), a, GOLD_D, head=10)
+        kb = appear(t, 'c3s', '不是短期')
+        if kb > 0:
+            cv.text('不是短期贴钱抢市场', 300, 1060, 32, 'sans_bold', col=GREY, a=a * kb)
+            cross(cv, 300, 1060, 30, a * kb * 0.7, th=4)
+            cv.text('而是长期分享规模效率', 780, 1060, 34, 'sans_bold', col=GOLD_L, a=a * appear(t, 'c3s', '长期分给'))
+        kc = appear(t, 'c3s', '他举的')
+        if kc > 0:
+            chip(cv, 'Costco', 380, 1190, 40, a * kc, col=GOLD); chip(cv, '亚马逊 Amazon', 720, 1190, 40, a * kc, col=GOLD)
+            cv.text('NFM 早在几十年前就是这样做的', W / 2, 1290, 30, 'sans_med', col=CREAM, a=a * kc)
+        source(cv, 'Nomad Investment Partnership 合伙人信（Nick Sleep、Qais Zakaria，2001–2013）：“scale economics shared”，以 Costco、Amazon 为例', a, y=1462)
     # c3f：得梅因，130 英里外的第三名
     t0, t1 = win2('c3f')
     a = A(t, t0, t1)
@@ -817,8 +871,148 @@ def shot_ch3(cv, t):
     if a > 0:
         seq(cv, t, t0, t1, ['tx_promo2', 'op_crowd'], cy=WCY, h=WH, a=a, cap='今天的 NFM：得州店（2015）')
         qcard(cv, 'qriver', t, t0 + 0.4, t1, cy=1110, en=30, cn=38, a=a, typing=1.4, w=940)
+    # c3n1：低价是策略，低成本才是优势；低成本要成为护城河，得过两关
+    t0, t1 = win2('c3n1')
+    a = A(t, t0, t1)
+    if a > 0:
+        seq(cv, t, t0, t1, ['tx_promo1', 'tx_render'], cy=WCY, h=WH, a=a, cap='NFM 得州店（2015）')
+        kg = appear(t, 'c3n1', '还得过两关')
+        k1 = appear(t, 'c3n1', '低价只是') * (1 - kg)
+        if k1 > 0:
+            cv.rrect(90, 900, 520, 1230, 18, (0.05, 0.045, 0.04), a * k1 * 0.92)
+            cv.rrect(90, 900, 520, 1230, 18, GOLD_D, a * k1 * 0.5, fill=False, th=2)
+            cv.text('低价', 305, 975, 56, 'serif_black', col=CREAM, a=a * k1)
+            cv.text('= 竞争策略', 305, 1060, 38, 'sans_bold', col=GREY, a=a * k1)
+            cv.text('谁都可以降价', 305, 1150, 30, 'sans_med', col=GREY, a=a * appear(t, 'c3n1', '谁都可以') * (1 - kg))
+            k2 = appear(t, 'c3n1', '低成本才是') * (1 - kg)
+            if k2 > 0:
+                cv.rrect(560, 900, 990, 1230, 18, (0.08, 0.065, 0.045), a * k2 * 0.94)
+                cv.rrect(560, 900, 990, 1230, 18, GOLD, a * k2 * 0.95, fill=False, th=3, glow=0.12)
+                cv.text('低成本', 775, 975, 56, 'serif_black', gold=True, a=a * k2)
+                cv.text('= 竞争优势', 775, 1060, 38, 'sans_bold', col=GOLD_L, a=a * k2)
+                cv.text('撑得起长期低价', 775, 1150, 30, 'sans_med', col=CREAM, a=a * k2)
+        if kg > 0:
+            cv.text('低成本要成为护城河', W / 2, 900, 52, 'serif_black', gold=True, a=a * kg, glow=0.1)
+            two_gates(cv, t, a * kg, [appear(t, 'c3n1', '第一'), appear(t, 'c3n1', '第二')], y=1130)
+        source(cv, '本片分析框架：低价是竞争策略，低成本是竞争优势；低成本优势须真实存在，且对手难以长期复制', a, y=1462)
+    # c3a–c3b：Levitz 毛利率 44.4%，NFM 一半多一点
+    t0, t1 = S('c3a') - 0.45, S('c3c') + 0.1
+    a = A(t, t0, t1)
+    if a > 0:
+        seq(cv, t, t0, t1, ['lv_sofa', 'lv_sofa2', 'tx_promo1', 'tx_promo2', 'al_living'], cy=WCY, h=WH, a=a, cap='Levitz 电视广告（1999）/ NFM 得州店（2015）')
+        gate_tag(cv, 1, a * eo((t - t0 - 0.3) / 0.5))
+        chip(cv, '巴菲特 1984 年致股东信', W / 2, 905, 26, a * eo((t - t0 - 0.3) / 0.5), col=GOLD_D)
+        k = appear(t, 'c3a', 'Levitz')
+        kb = appear(t, 'c3b', '毛利率')
+        if k > 0 and kb < 1:
+            node(cv, 280, 1050, 'Levitz', a * k * (1 - kb), col=BLUE_L, size=40, sub='全美最大的独立家具商')
+            cv.text('VS', W / 2, 1050, 40, 'oswald', col=GOLD, a=a * k * (1 - kb))
+            node(cv, 800, 1050, 'NFM', a * k * (1 - kb), col=GOLD, size=40, sub='奥马哈 · 一家店')
+        k2 = appear(t, 'c3b', '百分之四十四')
+        if k2 > 0:
+            price_tag(cv, 840, 1000, 0.75, a * k2, '$100', sub='Levitz 售价', col=BLUE_L * 0.8)
+            cv.text('进价 $55.6', 840, 1090, 26, 'sans_med', col=CREAM, a=a * k2)
+        if kb > 0: cv.text('毛利率', 200, 990, 32, 'sans_bold', col=CREAM, a=a * kb, anchor='l')
+        pct_bars(cv, t, [('Levitz', 44.4, '44.4%', WT('c3b', '百分之四十四'), BLUE_L * 0.7),
+                         ('NFM', 24.0, '一半多一点', WT('c3b', '一半多'), GOLD)], a, x0=330, x1=780, y0=1170, dy=110, vmax=50, size=38, lab=30)
+        if appear(t, 'c3b', '一半多') > 0: cv.text('NFM 柱长为示意（原信：“not much more than half”）', W / 2, 1360, 20, 'sans_light', col=GREY, a=a * appear(t, 'c3b', '一半多'))
+        source(cv, '伯克希尔 1984 年信（引 Levitz 1984 财年 10-K：毛利率 44.4%；“The gross margin at NFM is not much more than half of that”）', a, y=1462)
+    # c3c：营业费用（第一关） 35.6% vs 16.5%
+    t0, t1 = win2('c3c')
+    a = A(t, t0, t1)
+    if a > 0:
+        seq(cv, t, t0, t1, ['al_dining', 'al_chair', 'al_sideboard'], cy=WCY, h=WH, a=a, cap='示意画面：家具（1958 年影片）')
+        k = appear(t, 'c3c', '成本')
+        if k > 0: cv.text('秘诀在成本', W / 2, 920, 56, 'serif_black', gold=True, a=a * k)
+        k2 = appear(t, 'c3c', '工资')
+        if k2 > 0: cv.text('营业费用（工资、房租、广告……）占销售额', W / 2, 1010, 28, 'sans_med', col=CREAM, a=a * k2)
+        pct_bars(cv, t, [('Levitz', 35.6, '35.6%', WT('c3c', '百分之三十五'), BLUE_L * 0.7),
+                         ('NFM', 16.5, '约 16.5%', WT('c3c', '百分之十六'), GOLD)], a, x0=300, x1=900, y0=1130, dy=130, vmax=40, size=50, lab=34)
+        source(cv, '伯克希尔 1984 年信（“operating expenses (payroll, occupancy, advertising, etc.) are about 16.5% of sales versus 35.6% at Levitz”）', a, y=1462)
+    # c3n3：算一笔账——Levitz 压到 NFM 的价钱会怎样
+    t0, t1 = win2('c3n3')
+    a = A(t, t0, t1)
+    if a > 0:
+        gate_tag(cv, 1, a)
+        cv.text('假如 Levitz 卖 NFM 的价钱', W / 2, 330, 50, 'serif_black', gold=True, a=a * eo((t - t0 - 0.2) / 0.5))
+        cv.text('每 $100 销售额', W / 2, 410, 30, 'sans_med', col=CREAM, a=a * eo((t - t0 - 0.2) / 0.5))
+        base, top = 1040, 500
+        def Y(v): return base - (base - top) * v / 40.0
+        km = appear(t, 'c3n3', '毛利只剩')
+        if km > 0:
+            h = 24 * km
+            gbar(cv, 170, Y(h), 390, base, GOLD, a, glow=0.12, sheen_t=t - WT('c3n3', '毛利只剩'))
+            cv.text('毛利', 280, base + 50, 34, 'sans_bold', col=CREAM, a=a * km)
+            cv.text('约 $22–26', 280, Y(h) - 40, 40, 'sans_bold', col=GOLD_L, a=a * km)
+        kf = appear(t, 'c3n3', '费用却要')
+        if kf > 0:
+            h = 35.6 * kf
+            gbar(cv, 430, Y(h), 650, base, BLUE_L * 0.7, a, glow=0.06, sheen_t=t - WT('c3n3', '费用却要'))
+            cv.text('Levitz 的费用', 540, base + 50, 34, 'sans_bold', col=CREAM, a=a * kf)
+            cv.text('$35.6', 540, Y(h) - 40, 40, 'sans_bold', col=CREAM, a=a * kf)
+        kl = appear(t, 'c3n3', '倒贴')
+        if kl > 0:
+            gbar(cv, 690, Y(0), 910, Y(0) + (base - top) * 10.0 / 40 * kl, COST_R, a, glow=0.15, reflect=False)
+            cv.text('约 −$10', 800, Y(0) - 50, 56, 'sans_bold', col=COST_R, a=a * kl, glow=0.12)
+            cv.text('每卖 $100 倒贴', 800, base + 50 + 120, 30, 'sans_bold', col=CREAM, a=a * kl)
+        cv.line((130, base), (950, base), GREY, a * 0.7, 2)
+        if kl > 0: cv.text('按 1984 年信的约数推算；未计利息与税', W / 2, 1300, 22, 'sans_med', col=GREY, a=a * kl)
+        source(cv, '本片推算：Levitz 毛利率 44.4% 的“一半多一点”≈ 22%–26%，减去 Levitz 营业费用率 35.6%（伯克希尔 1984 年信）', a, y=1462)
+
+    # c3n4：第二关——差距六年后反而拉大
+    t0, t1 = win2('c3n4')
+    a = A(t, t0, t1)
+    if a > 0:
+        gate_tag(cv, 2, a * eo((t - t0 - 0.2) / 0.5), y=1000)
+        cv.text('营业费用率（占销售额）', W / 2, 270, 30, 'sans_bold', col=CREAM, a=a * eo((t - t0 - 0.2) / 0.5))
+        base, top = 820, 330
+        def Y(v): return base - (base - top) * v / 42.0
+        groups = [('1984', 16.5, 35.6, WT('c3n4', '学不学得来') - 0.1, '约 16.5%', '35.6%'), ('1990', 15.0, 40.0, WT('c3n4', '费用率'), '15%', '约 40%')]
+        for g, (yr, vn, vl, ts, tn, tl) in enumerate(groups):
+            e = eexp((t - ts) / 0.9)
+            if e <= 0: continue
+            xc = 300 + g * 480
+            for j, (v, col, lb, tx) in enumerate(((vn, GOLD, 'NFM', tn), (vl, BLUE_L * 0.7, 'Levitz', tl))):
+                x0 = xc - 150 + j * 160
+                gbar(cv, x0, Y(v * e), x0 + 130, base, col, a, glow=0.12 if j == 0 else 0.05, sheen_t=t - ts)
+                cv.text(tx, x0 + 65, Y(v * e) - 34, 34, 'sans_bold', col=GOLD_L if j == 0 else CREAM, a=a * e)
+                cv.text(lb, x0 + 65, base + 34, 26, 'sans_med', col=CREAM, a=a * e)
+            cv.text(f'{yr} 年', xc, base + 84, 36, 'oswald', col=GOLD_L, a=a * e)
+        cv.line((100, base), (980, base), GREY, a * 0.6, 2)
+        kg = appear(t, 'c3n4', '反而拉大了')
+        if kg > 0:
+            cv.text('差距：19 个点 → 25 个点', W / 2, 1110, 46, 'sans_bold', col=CREAM, a=a * kg)
+            cv.text('没缩小，反而拉大了', W / 2, 1220, 70, 'serif_black', gold=True, a=a * kg, glow=0.15)
+        source(cv, '伯克希尔 1984 年信（16.5% 对 35.6%）；1990 年信（“operating costs are rock-bottom - 15% in 1990 against about 40% for Levitz”）', a, y=1462)
+
+    # c3n5–c3n7：学不来的三个原因
+    t0, t1 = S('c3n5') - 0.45, S('c3h') + 0.1
+    a = A(t, t0, t1)
+    if a > 0:
+        cur = 2 if t >= WT('c3n7', '第三是') - 0.1 else (1 if t >= WT('c3n6', '第二是') - 0.1 else 0)
+        names = [['op_crowd', 'tx_promo2'], ['cp_sweep', 'cp_room'], ['lv_sofa', 'lv_sofa2']]
+        caps = ['NFM 得州店开业（2015）', '地毯宣传片里的店员（约 1960，仅示意）', 'Levitz 电视广告（1999）']
+        for j in range(3):
+            s0 = t0 if j == 0 else WT(BARRIERS[j][2], BARRIERS[j][3]) - 0.45
+            s1 = t1 if j == 2 else WT(BARRIERS[j + 1][2], BARRIERS[j + 1][3]) + 0.1
+            if s0 - 0.1 <= t <= s1 + 0.1: seq(cv, t, s0, s1, names[j], cy=WCY - 70, h=430, a=a, cap=caps[j])
+        k0 = appear(t, 'c3n5', '学不来')
+        cv.text('为什么学不来？', W / 2, 840, 50, 'serif_black', gold=True, a=a * k0)
+        for j, (tg, sub, ln, w_) in enumerate(BARRIERS):
+            k = appear(t, ln, w_)
+            if k <= 0: continue
+            y = 960 + j * 140 + 20 * (1 - k); on = j == cur
+            cv.rrect(80, y - 60, 1000, y + 60, 16, (0.08, 0.065, 0.045) if on else (0.05, 0.045, 0.04), a * k * 0.92)
+            cv.rrect(80, y - 60, 1000, y + 60, 16, GOLD if on else GOLD_D, a * k * (0.95 if on else 0.45), fill=False, th=2, glow=0.12 if on else 0)
+            cv.text(f'0{j + 1}', 140, y, 44, 'oswald', col=GOLD_L if on else GOLD_D, a=a * k)
+            cv.text(tg, 200, y - 22, 40, 'serif_black', col=CREAM if on else GREY, a=a * k, anchor='l')
+            cv.text(sub, 200, y + 30, 27, 'sans_med', col=CREAM if on else GREY, a=a * k, anchor='l')
+        srcs = ['伯克希尔 1990 年信（“NFM does close to double the volume of any other home furnishings store in the country”）；1989 年信（进货量大、买得最精）',
+                '伯克希尔 1984 年信（布鲁姆金家的秘诀：干劲、在能力圈内当机立断）；1989 年信（“family members on hand at all times”）',
+                '伯克希尔 1984 年信（Levitz 毛利率 44.4%）；“跟降就是自断财路”为本片推论']
+        source(cv, srcs[cur], a, y=1462)
     # c3h：Dillard's 不卖家具 → 引语
-    t0, t1 = S('c3h') - 0.45, S('c3i') + 0.1
+    t0, t1 = S('c3h') - 0.45, S('c3n8') + 0.1
     a = A(t, t0, t1)
     if a > 0:
         kq = eo((t - E('c3h') + 0.2) / 0.4)
@@ -836,21 +1030,50 @@ def shot_ch3(cv, t):
             cv.text('示意', 990, 1300, 20, 'sans_light', col=GREY, a=a * k)
         qcard(cv, 'qdillard', t, E('c3h') - 0.1, t1, cy=1110, en=32, cn=40, a=a, typing=1.4, w=940)
         source(cv, '伯克希尔 1988 年信（“In many of its stores, Dillards runs a full furniture department … his new store would not sell furniture”）', a * (1 - kq * 0.5), y=1462)
-    # c3i：每天、每样东西，都比别人便宜
+    # c3n8：大连锁绕开奥马哈；Levitz 后来破产、清算
+    t0, t1 = win2('c3n8')
+    a = A(t, t0, t1)
+    if a > 0:
+        kl = appear(t, 'c3n8', '而当年')
+        if kl < 1:
+            photo_win(cv, 'loc_omaha_signs', t, t0, WT('c3n8', '而当年') + 0.4, cy=WCY, h=WH, a=a, cap='奥马哈街景（1938，仅示意）')
+        if kl > 0:
+            seq(cv, t, WT('c3n8', '而当年') - 0.3, t1, ['lv_sofa', 'lv_sofa2'], cy=WCY, h=WH, a=a, cap='Levitz 电视广告（1999）')
+        k = appear(t, 'c3n8', '大连锁店')
+        if k > 0 and kl < 1:
+            cv.text('“major chains … steer clear of Omaha”', W / 2, 950, 36, 'serif_reg', col=CREAM, a=a * k * (1 - kl))
+            cv.text('大连锁店干脆绕开奥马哈', W / 2, 1040, 52, 'serif_black', gold=True, a=a * k * (1 - kl))
+        if kl > 0:
+            ev = [('1984', '被巴菲特拿来对比', '而当年'), ('1997', '申请破产保护', '申请破产'), ('2007', '第三次破产，随后清算', '清算')]
+            cv.line((150, 1100), (930, 1100), GOLD_D, a * kl, 3)
+            for j, (yr, txt, w_) in enumerate(ev):
+                kk = appear(t, 'c3n8', w_)
+                if kk <= 0: continue
+                x = 200 + j * 340
+                cv.glow_dot((x, 1100), 10, COST_R if j else GOLD, a * kk)
+                cv.text(yr, x, 1040, 44, 'oswald', col=COST_R if j else GOLD_L, a=a * kk)
+                cv.text(txt, x, 1165, 28, 'sans_bold', col=CREAM, a=a * kk)
+            cv.text('Levitz', W / 2, 940, 50, 'sans_bold', col=BLUE_L, a=a * kl)
+        source(cv, '伯克希尔 1990 年信（“major chains, knowing what they will face, steer clear of Omaha”）；Levitz 破产：1997-09 美联社报道、Wikipedia', a, y=1462)
+
+    # c3i：护城河不是低价本身，而是学不来的低成本（及其换来的顾客与规模）
     t0, t1 = S('c3i') - 0.45, CHE('ch3')
     a = A(t, t0, t1)
     if a > 0:
         seq(cv, t, t0, t1, ['tx_promo1', 'tx_promo2', 'op_flags'], cy=WCY, h=WH, a=a, cap='今天的 NFM：得州店（2015）')
-        for j, (s_, tw) in enumerate((('不是专利', '不是专利'), ('不是名牌', '名牌'))):
-            k = appear(t, 'c3i', tw)
-            if k > 0:
-                cv.text(s_, 330 + j * 420, 950, 40, 'sans_bold', col=GREY, a=a * k)
-                cross(cv, 330 + j * 420, 950, 30, a * k * 0.7, th=4)
-        k = appear(t, 'c3i', '每天')
+        k = appear(t, 'c3i', '不是低价本身')
         if k > 0:
-            cv.text('每天、每样东西，', W / 2, 1110, 64, 'serif_black', col=CREAM, a=a * k)
-            cv.text('都比别人便宜', W / 2, 1220, 80, 'serif_black', gold=True, a=a * appear(t, 'c3i', '都比别人'), glow=0.25)
-        source(cv, '本片解读', a * 0.6, y=1462)
+            cv.text('护城河 ≠ 低价本身', W / 2, 920, 46, 'sans_bold', col=CREAM, a=a * k)
+        k2 = appear(t, 'c3i', '学不来的低成本')
+        if k2 > 0: cv.text('而是对手学不来的低成本', W / 2, 1020, 60, 'serif_black', gold=True, a=a * k2, glow=0.15)
+        labels = [('撑得起长期低价', '撑得起'), ('照样赚钱', '照样赚钱'), ('换来顾客和规模', '换来的'), ('成本更低', '又让成本')]
+        for j, (lb, w_) in enumerate(labels):
+            kk = appear(t, 'c3i', w_)
+            if kk <= 0: continue
+            x = 150 + j * 260
+            node(cv, x, 1160 + 10 * (1 - kk), lb, a * kk, col=GOLD if j == 3 else CREAM, size=26, w=228)
+            if j < 3 and appear(t, 'c3i', labels[j + 1][1]) > 0: arrow(cv, (x + 116, 1160), (x + 144, 1160), a, GOLD_D, head=9)
+        source(cv, '本片解读（1984 年信：低价与“excellent returns on capital”并存；1984、1990 年信费用率对比；1988、1990 年信对手的反应）', a * 0.7, y=1462)
 
 
 # ======================================================================== 第四章：开到隔壁
@@ -1200,7 +1423,7 @@ CHAIN = [('NFM', '奥马哈 · 1983', '奥马哈', None), ('R.C. Willey', '犹�
          ("Jordan’s", '新英格兰 · 1999', '波士顿', 'c7d')]
 
 
-LESSONS = [('好生意', '护城河，可以就是低成本', '营业费用 16.5% 对 35.6%：每天便宜一点，就是对手追不上的距离'),
+LESSONS = [('好生意', '低价不是护城河，学不来的低成本才是', '费用率 16.5% 对 35.6%，六年后 15% 对约 40%：靠规模、一家人、甘愿少赚'),
            ('好价钱', '好价钱，不靠捡便宜', '约 4 倍税前利润，买下一门还在长大的好生意'),
            ('对的人', '看人比看报表更要紧', '可该写进合同的，一条也不能少（竞业禁止）')]
 
@@ -1288,13 +1511,13 @@ def shot_ch7(cv, t):
         if k > 0:
             cv.text('卖得便宜', 290, 950, 56, 'serif_black', gold=True, a=a * k)
             cv.text('顾客从 130 英里外开车来', 290, 1030, 28, 'sans_med', col=CREAM, a=a * k)
-            cv.text('→ 这家店的护城河', 290, 1080, 28, 'sans_bold', col=GOLD_L, a=a * k)
+            cv.text('→ 靠学不来的低成本', 290, 1080, 28, 'sans_bold', col=GOLD_L, a=a * appear(t, 'c7f', '学不来'))
         k2 = appear(t, 'c7f', '说真话')
         if k2 > 0:
             cv.text('说真话', 790, 950, 56, 'serif_black', gold=True, a=a * k2)
             cv.text('不审计，就开出支票', 790, 1030, 28, 'sans_med', col=CREAM, a=a * k2)
             cv.text('→ 那笔交易的底气', 790, 1080, 28, 'sans_bold', col=GOLD_L, a=a * k2)
-        k3 = appear(t, 'c7f', '前一句')
+        k3 = appear(t, 'c7f', '说真话，是')
         if k3 > 0: cv.line((W / 2, 900), (W / 2, 1110), GOLD_D, a * k3 * 0.6, 2)
         source(cv, '本片解读（1990 年信：130 英里外的顾客；1984 年信：没有审计）', a * 0.7, y=1462)
     # c7g：落版字

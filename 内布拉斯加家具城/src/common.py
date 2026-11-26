@@ -136,9 +136,9 @@ def chip(cv, s, x, y, size=30, a=1.0, col=GOLD, fill=(0.08, 0.06, 0.05), fnt='sa
 
 def source(cv, s, a=1.0, y=1392):
     if a <= 0.004: return
-    lines = split_balanced(s, 'sans_light', 24, 980)
+    lines = split_balanced(s, 'sans_med', 24, 980)
     for i, l in enumerate(lines):
-        cv.text(l, W / 2, y + (i - (len(lines) - 1) / 2) * 32, 24, 'sans_light', col=(0.55, 0.53, 0.52), a=a * 0.95)
+        cv.text(l, W / 2, y + (i - (len(lines) - 1) / 2) * 33, 24, 'sans_med', col=(0.70, 0.68, 0.65), a=a * 0.95)
 
 
 def wrap(s, fnt, size, maxw):

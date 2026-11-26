@@ -99,7 +99,7 @@ if __name__ == '__main__':
         w = np.clip((t_all - a + 1.5) / 3.0, 0, 1) * np.clip((b + 1.5 - t_all) / 3.0, 0, 1)
         gdb += w * d; wsum += w
     mus *= (10 ** (gdb / np.maximum(wsum, 1e-3) / 20))[:, None]
-    mus *= 10 ** ((-21.0 - meter.integrated_loudness(mus)) / 20)
+    mus *= 10 ** ((-20.0 - meter.integrated_loudness(mus)) / 20)
     # ---- 闪避（最后一步）：人声活动 → 提前 0.15 s、保持 0.9 s、起 80 ms / 放 550 ms
     hop = 240; rate = SR / hop; n = N // hop
     act = (np.abs((voice + sot)[:n * hop]).reshape(-1, hop).max(1) > 10 ** (-42 / 20)).astype(np.float32)
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     for h in BEATS['hits']:
         act *= 1 - 0.6 * np.exp(-((tt - h - 0.1) / 0.35) ** 8)
     sm = smooth(sotm[:n * hop].reshape(-1, hop).max(1), 0.3, 0.8, rate)
-    full_db = -9.0 * act - 4.0 * np.clip(sm * 1.2, 0, 1); band_db = -5.5 * act     # v3：配乐更饱满，人声下多压一些；原声下再低 4 dB
+    full_db = -9.0 * act - 4.0 * np.clip(sm * 1.2, 0, 1); band_db = -3.0 * act          # v4：说话时中频少压一点，配乐不发闷     # v3：配乐更饱满，人声下多压一些；原声下再低 4 dB
     gf = np.interp(np.arange(N), np.arange(n) * hop, 10 ** (full_db / 20)).astype(np.float32)
     gb = np.interp(np.arange(N), np.arange(n) * hop, 10 ** (band_db / 20)).astype(np.float32)
     sos_b = butter(2, [700, 4000], 'bandpass', fs=SR, output='sos')

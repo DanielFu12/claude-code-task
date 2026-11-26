@@ -102,7 +102,14 @@ def _crop(src, w, h, z, fx, fy, px=0.0, py=0.0):
     cw, chh = w / s, h / s
     ox = cl(fx * iw - cw / 2 + px * iw, 0, max(iw - cw, 0)); oy = cl(fy * ih - chh / 2 + py * ih, 0, max(ih - chh, 0))
     M = np.array([[s, 0, -ox * s], [0, s, -oy * s]], np.float32)
-    return cv2.warpAffine(src, M, (int(w), int(h)), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    if s <= 1.15:
+        return cv2.warpAffine(src, M, (int(w), int(h)), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    # v4：低清素材放大时用 Lanczos 插值 + 按放大倍数的反锐化，画面不发糊
+    out = cv2.warpAffine(src, M, (int(w), int(h)), flags=cv2.INTER_LANCZOS4, borderMode=cv2.BORDER_REFLECT)
+    if w >= 300:
+        sig = min(0.6 + 0.5 * s, 2.2); amt = min(0.35 + 0.18 * s, 0.9)
+        out = np.clip(out + (out - cv2.GaussianBlur(out, (0, 0), sig)) * amt, 0, 1)
+    return out
 
 
 _grad = {}

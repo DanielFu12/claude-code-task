@@ -84,9 +84,9 @@ THEME_B = [(4, 1.0), (5, 0.5), (4, 0.5), (2, 1.0), (0, 1.0), (1, 1.5), (2, 0.5),
 
 # ------------------------------------------------------------------ 乐器（GM 音色号）
 INS = {'piano': 0, 'epiano': 4, 'celesta': 8, 'glock': 9, 'marimba': 12, 'strings': 48, 'slowstr': 49, 'synstr': 50,
-       'choir': 52, 'orchhit': 55, 'trumpet': 56, 'trombone': 57, 'tuba': 58, 'horn': 60, 'brass': 61, 'pizz': 45,
-       'harp': 46, 'timp': 47, 'contra': 43, 'cello': 42, 'fbass': 33, 'sbass': 38, 'pad': 89, 'sweep': 95,
-       'lead': 81, 'taiko': 116, 'revcym': 119, 'pluck': 25}
+       'choir': 52, 'orchhit': 48, 'trumpet': 56, 'trombone': 57, 'tuba': 58, 'horn': 60, 'brass': 61, 'pizz': 45,
+       'harp': 46, 'timp': 47, 'contra': 43, 'cello': 42, 'fbass': 33, 'sbass': 33, 'pad': 48, 'sweep': 49,
+       'lead': 46, 'taiko': 116, 'revcym': 119, 'pluck': 25}
 MID = pm.PrettyMIDI(initial_tempo=120)
 TR = {}
 MUTES = []                       # (a, b)：这段时间里不起新音、旧音截断（重拍前的“抽空”）
@@ -117,7 +117,11 @@ DR = {'kick': 36, 'snare': 38, 'rim': 37, 'clap': 39, 'hat': 42, 'phat': 44, 'oh
       'tom1': 50, 'tom2': 47, 'tom3': 43, 'tamb': 54, 'shaker': 70, 'splash': 55, 'crash2': 57}
 
 
+NOISY = {'hat', 'phat', 'ohat', 'shaker', 'tamb', 'ride', 'crash', 'crash2', 'splash', 'snare', 'clap', 'rim'}   # v4：不要沙沙声、刷声（用户要求）
+
+
 def drum(n, t, v, force=False):
+    if n in NOISY: return
     note('drums', DR[n], t, t + 0.12, v, force)
 
 
@@ -138,10 +142,7 @@ def impact(size=1.0):
     n = int(2.4 * SR); tt = np.arange(n) / SR
     f = 30 + 45 * np.exp(-tt * 7)
     sub = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * (2.2 / size))
-    nz = RNG.standard_normal(n) * np.exp(-tt * 9)
-    body = sosfilt(butter(2, 220, 'lowpass', fs=SR, output='sos'), nz) * 2.2
-    click = sosfilt(butter(2, 2500, 'highpass', fs=SR, output='sos'), RNG.standard_normal(n)) * np.exp(-tt * 60) * 0.35
-    y = (sub * 0.9 + body + click) * size
+    y = sub * 0.8 * size                                   # v4：只留次低频“咚”，去掉噪声爆破和高频瞬态
     return np.stack([y, y * 0.97], 1).astype(np.float32)
 
 
@@ -180,10 +181,12 @@ def hit(t, key, mode, rn='i', size=1.0, dark=False):
     if size >= 0.7:
         drum('crash', t, 80 + 30 * size, True)
         if not dark: drum('crash2', t, 70 + 30 * size, True)
-        for p in voice(pcs, 36, 3): note('brass', p, t, t + 1.6 + size, 62 + 36 * size, True)
-        for p in voice(pcs, 48, 4): note('strings', p, t, t + 2.0 + size, 60 + 40 * size, True)
+        for p in voice(pcs, 53, 3): note('brass', p, t, t + 1.6 + size, 62 + 36 * size, True)
+        for p in voice(pcs, 60, 4): note('strings', p, t, t + 2.0 + size, 60 + 40 * size, True)
+        for p in voice(pcs, 72, 3): note('strings', p, t, t + 2.0 + size, 50 + 40 * size, True)
         note('contra', pitch_near(root, 28), t, t + 2.5, 90, True)
-        if size >= 1.1: note('orchhit', pitch_near(root, 60), t, t + 0.6, 90, True)
+        if size >= 1.1:
+            for p in voice(pcs, 72, 3): note('glock', p, t, t + 1.2, 80, True)
     else:
         for p in voice(pcs, 60, 3): note('harp', p, t, t + 1.5, 60, True)
 
@@ -193,14 +196,19 @@ def drop(t, length):
     MUTES.append((t - length, t - 0.002))
 
 
-def rise(t_end, dur, snare=True):
-    fx_add(t_end - dur, riser(dur), 0.42)
-    note('revcym', 60, t_end - min(dur, 2.4), t_end, 85, True)
-    if snare:                                             # 军鼓滚奏，越来越密、越来越响
-        n = int(dur * 8); t0 = t_end - dur
-        for k in range(n):
-            u = k / max(n, 1); tt = t0 + dur * (u ** 0.8)
-            if tt < t_end - 0.05: drum('snare', tt, 30 + 70 * u, True)
+def rise(t_end, dur, snare=True, key='D', mode='major'):
+    """v4：纯乐音的上扬——弦乐十六分音符沿音阶爬升、渐强 + 定音鼓滚奏 + 铜管长音渐强；不用噪声、反向镲"""
+    beat = 0.125; n = int(dur / beat); t0 = t_end - n * beat
+    for k in range(n):
+        u = k / max(n - 1, 1); tt = t0 + k * beat
+        deg = int(u * 9)
+        note('strings', scale_pitch(key, mode, deg, 64), tt, tt + beat * 0.9, 40 + 70 * u, True)
+        note('strings', scale_pitch(key, mode, deg, 76), tt, tt + beat * 0.9, 30 + 60 * u, True)
+        if snare: note('timp', scale_pitch(key, mode, 0, 38), tt, tt + beat, 30 + 75 * u, True)
+    root = scale_pitch(key, mode, 4, 55)
+    for j in range(4):
+        tt = t_end - dur + j * dur / 4
+        note('brass', root, tt, tt + dur / 4, 45 + 18 * j, True)
 
 
 # ------------------------------------------------------------------ 织体（每小节调用一次）
@@ -259,7 +267,7 @@ def st_pulse(sec, b, beat, rn, e, k):
     if e > 0.55 and k % 4 == 3:
         for j, n in enumerate(('tom1', 'tom2', 'tom3', 'tom3')): drum(n, b + 3 * beat + j * beat / 4, 70 + 40 * e)
     # 高音钢琴：主音/五音的冷峻点子
-    hi = voice(pcs, 72, 3)
+    hi = voice(pcs, 76, 3)
     for j, bt in enumerate((0, 1.5, 3)):
         note('piano', hi[(k + j) % 3], b + bt * beat, b + bt * beat + beat * 0.8, 35 + 35 * e)
     if sec.get('theme') and e > 0.35 and k % 4 >= 2: theme_bar(sec, b, beat, k, sec.get('theme_ins', 'piano'), 72, 50 + 35 * e)
@@ -356,7 +364,9 @@ def st_anthem(sec, b, beat, rn, e, k):
         arp = voice(pcs, 72, 6)
         for j in range(16): note('lead', arp[(j + k) % 6], b + j * beat / 4, b + j * beat / 4 + beat * 0.2, 25 + 30 * e)
         for p in voice(pcs, 60, 3): note('choir', p, b, b + 4 * beat, 35 + 40 * e)
-    if sec.get('theme') and k % 4 >= 2: theme_bar(sec, b, beat, k, sec.get('theme_ins', 'horn'), 60, 70 + 40 * e)
+    if sec.get('theme'):
+        theme_bar(sec, b, beat, k, 'strings', 72, 62 + 40 * e)
+        if k % 4 >= 2: theme_bar(sec, b, beat, k, sec.get('theme_ins', 'horn'), 60, 70 + 40 * e)
 
 
 def st_emotional(sec, b, beat, rn, e, k):
@@ -422,7 +432,7 @@ def build():
     section(S('h6') - 0.35, g1 + 0.25, 'F', 'major', 92, 'pad', 0.3, 0.3, prog='major4')
     section(g1 + 0.25, title, 'F', 'major', 100, 'groove', 0.5, 0.78, prog='major', theme=True, theme_ins='glock')
     for w, rn in (('好生意', 'I'), ('好价钱', 'V'), ('对的人', 'vi')): hit(WT('h7', w), 'F', 'major', rn, 0.55)
-    rise(title, 2.4)
+    rise(title, 2.4, key='F')
     # ======== 片名：重拍 + 铜管主题
     hit(title, 'F', 'major', 'I', 1.3)
     section(title, chs['ch1'], 'F', 'major', 100, 'emotional', 0.75, 0.6, theme_ins='brass')
@@ -440,7 +450,7 @@ def build():
     section(t50, S('c1k') - 0.25, 'A', 'minor', 84, 'pad', 0.25, 0.25)
     section(S('c1k') - 0.25, chs['ch2'], 'C', 'major', 84, 'emotional', 0.45, 0.62, prog='major3')
     hit(WT('c1k', '卖得便宜'), 'C', 'major', 'I', 0.5)
-    rise(chs['ch2'], 1.8)
+    rise(chs['ch2'], 1.8, key='F')
     # ======== 第二章 好价钱：律动（F 大调 100）→“一个字没改”重拍 → 引语卡铺底 → 图表层层加码 →“两倍”重拍 → 芒格引语铺底 → 对的人
     hit(chs['ch2'], 'F', 'major', 'I', 1.0)
     section(chs['ch2'], S('c2f') - 0.1, 'F', 'major', 100, 'groove', 0.42, 0.62, prog='major', theme=True, theme_ins='glock')
@@ -452,23 +462,51 @@ def build():
     drop(t2, 0.4); hit(t2, 'F', 'major', 'I', 1.0)
     section(t2, S('c2k') - 0.2, 'F', 'major', 100, 'pad', 0.32, 0.3, prog='major4', theme=True, theme_ins='piano')
     section(S('c2k') - 0.2, chs['ch3'], 'F', 'major', 100, 'groove', 0.55, 0.7, prog='major3')
-    rise(chs['ch3'], 2.0)
-    # ======== 第三章 好生意：灰熊之问（脉冲）→ Levitz 对比（驱动弦乐 D 小调 112）→“16.5%”重拍 → 飞轮（F 大调全速）
-    #          → 河底（喘口气）→ Dillard’s（律动）→“都比别人便宜”（颂歌）
-    hit(chs['ch3'], 'D', 'minor', 'i', 1.0, dark=True)
-    section(chs['ch3'], S('c3a') - 0.2, 'D', 'minor', 112, 'pulse', 0.42, 0.5, prog='minor')
+    rise(chs['ch3'], 2.0, key='D', mode='minor')
+    # ======== 第三章 好生意（v4：商业模式 + 护城河两关）
+    #   灰熊之问（脉冲 D 小调）→ 五条打法（明亮律动 F 大调 108）→ 三千万 → 飞轮（驱动全速，“轮子”重拍）→ 河底（深情）
+    #   → “两关”抽空重拍 → 第一关 Levitz（驱动弦乐 D 小调 112，“16.5%”重拍）→ 算账“倒贴”（暗重拍）
+    #   → 第二关“反而拉大了”（大重拍转 F 大调）→ 三个原因（颂歌，逐条点）→ Dillard’s 引语铺底 → Levitz 清算（暗）→ 结论（颂歌）
+    hit(chs['ch3'], 'D', 'minor', 'i', 0.9, dark=True)
+    section(chs['ch3'], S('c3m1') - 0.2, 'D', 'minor', 104, 'pulse', 0.42, 0.5, prog='minor')
+    section(S('c3m1') - 0.2, S('c3d') - 0.2, 'F', 'major', 108, 'groove', 0.5, 0.66, prog='major', theme=True, theme_ins='glock')
+    hit(S('c3m1') - 0.2, 'F', 'major', 'I', 0.75)
+    for w in ('一处地方', '量最大', '费用最低', '价格远低于', '家里人'): hit(WT('c3m1', w), 'F', 'major', 'IV' if w == '量最大' else 'I', 0.4)
+    hit(WT('c3m2', '三千万'), 'F', 'major', 'IV', 0.6)
+    tw = WT('c3d', '轮子')
+    section(S('c3d') - 0.2, tw, 'F', 'major', 108, 'drive', 0.66, 0.95, prog='major', theme=True, theme_ins='horn')
+    drop(tw, 0.35); hit(tw, 'F', 'major', 'I', 1.0)
+    section(tw, S('c3s') - 0.2, 'F', 'major', 108, 'emotional', 0.5, 0.55, prog='major4', theme_ins='piano')
+    ts_ = WT('c3s', '规模经济分享')                      # 尼克·斯利普：规模经济分享（点名处重拍，转入明亮律动）
+    section(S('c3s') - 0.2, S('c3f') - 0.2, 'F', 'major', 108, 'groove', 0.55, 0.75, prog='major2', theme=True, theme_ins='glock')
+    drop(ts_, 0.35); hit(ts_, 'F', 'major', 'I', 0.85)
+    hit(WT('c3s', '他举的'), 'F', 'major', 'IV', 0.5)
+    section(S('c3f') - 0.2, S('c3n1') - 0.25, 'F', 'major', 108, 'emotional', 0.45, 0.55, prog='major4', theme_ins='piano')
+    t2 = WT('c3n1', '两关')
+    hit(WT('c3n1', '低成本才是'), 'D', 'minor', 'III', 0.5)
+    section(S('c3n1') - 0.25, t2, 'D', 'minor', 112, 'pulse', 0.45, 0.6, prog='minor2')
+    drop(t2, 0.45); hit(t2, 'D', 'minor', 'i', 0.9, dark=True)
     t165 = WT('c3c', '百分之十六点五')
-    section(S('c3a') - 0.2, t165, 'D', 'minor', 112, 'drive', 0.55, 0.74, prog='minor3')
+    section(t2, t165, 'D', 'minor', 112, 'drive', 0.55, 0.78, prog='minor3')
     hit(WT('c3b', '百分之四十四'), 'D', 'minor', 'VI', 0.5)
-    drop(t165, 0.4); hit(t165, 'F', 'major', 'I', 1.0)
-    section(t165, S('c3g') - 0.2, 'F', 'major', 112, 'drive', 0.68, 0.95, prog='major', theme=True, theme_ins='horn')
-    hit(WT('c3e', '三千万'), 'F', 'major', 'IV', 0.6)
-    section(S('c3g') - 0.2, S('c3h') - 0.2, 'D', 'minor', 112, 'pad', 0.3, 0.3, prog='minor')
-    section(S('c3h') - 0.2, S('c3i') - 0.2, 'D', 'minor', 112, 'groove', 0.5, 0.6, prog='minor2')
-    tc = WT('c3i', '都比别人便宜')
-    section(S('c3i') - 0.2, chs['ch4'], 'F', 'major', 112, 'anthem', 0.62, 0.92, prog='major', theme=True)
+    drop(t165, 0.4); hit(t165, 'D', 'minor', 'III', 0.95)
+    tl = WT('c3n3', '倒贴')
+    section(t165, tl, 'D', 'minor', 112, 'pulse', 0.5, 0.66, prog='minor')
+    drop(tl, 0.4); hit(tl, 'D', 'minor', 'i', 0.9, dark=True)
+    tg = WT('c3n4', '反而拉大了')
+    section(tl + 0.6, tg, 'D', 'minor', 112, 'drive', 0.5, 0.75, prog='minor2')
+    drop(tg, 0.45); hit(tg, 'F', 'major', 'I', 1.15)
+    section(tg, S('c3h') - 0.2, 'F', 'major', 112, 'anthem', 0.6, 0.85, prog='major', theme=True)
+    for ln, w in (('c3n5', '第一是'), ('c3n6', '第二是'), ('c3n7', '第三是')): hit(WT(ln, w), 'F', 'major', 'I', 0.6)
+    section(S('c3h') - 0.2, S('c3n8') - 0.2, 'D', 'minor', 112, 'pad', 0.32, 0.32, prog='minor')
+    tq = WT('c3n8', '清算')
+    section(S('c3n8') - 0.2, S('c3i') - 0.25, 'D', 'minor', 112, 'pulse', 0.45, 0.6, prog='minor3')
+    hit(tq, 'D', 'minor', 'i', 0.7, dark=True)
+    tc = WT('c3i', '学不来的便宜')
+    section(S('c3i') - 0.25, chs['ch4'], 'F', 'major', 112, 'anthem', 0.7, 0.92, prog='major', theme=True)
+    hit(S('c3i') - 0.25, 'F', 'major', 'I', 0.8)
     hit(tc, 'F', 'major', 'I', 1.1)
-    rise(chs['ch4'], 1.6, snare=False)
+    rise(chs['ch4'], 1.6, snare=False, key='C', mode='minor')
     # ======== 第四章 开到隔壁：阴暗心跳（C 小调 76）→“辞职走了”抽空重拍 → 数字（脉冲）→ 隔壁新店（俏皮拨弦 Eb 大调 96）
     #          → 竞业禁止（阴暗）→“九十九岁”转降 A 大调 → 引语与“一百零四岁”（深情）
     hit(chs['ch4'], 'C', 'minor', 'i', 0.9, dark=True)
@@ -482,7 +520,7 @@ def build():
     hit(t99, 'Ab', 'major', 'I', 0.8)
     section(t99, chs['ch5'], 'Ab', 'major', 76, 'emotional', 0.45, 0.62, prog='major')
     hit(WT('c4h', '一百零四岁'), 'Ab', 'major', 'I', 0.5)
-    rise(chs['ch5'], 2.0)
+    rise(chs['ch5'], 2.0, key='D')
     # ======== 第五章 越开越大：原声下铺底 → 律动起势 → 颂歌（D 大调 118），数字落地处重拍
     hit(chs['ch5'], 'D', 'major', 'I', 1.0)
     b0, b1 = sot['blumkins']
@@ -493,14 +531,14 @@ def build():
         tt = WT(ln, w)
         if sz >= 0.8: drop(tt, 0.35)
         hit(tt, 'D', 'major', 'I', sz)
-    rise(chs['ch6'], 1.6, snare=False)
+    rise(chs['ch6'], 1.6, snare=False, key='B', mode='minor')
     # ======== 第六章 还能好多久：原声下铺底 → 低沉脉冲（B 小调 88），三件事各点一下
     hit(chs['ch6'], 'B', 'minor', 'i', 0.85, dark=True)
     a0, a1 = sot['attacks']
     section(chs['ch6'], a1 + 0.25, 'B', 'minor', 88, 'pad', 0.3, 0.3, prog='minor')
     section(a1 + 0.25, chs['ch7'], 'B', 'minor', 88, 'pulse', 0.42, 0.6, prog='minor3')
     for ln, w in (('c6b', '第一'), ('c6c', '第二'), ('c6e', '第三')): hit(WT(ln, w), 'B', 'minor', 'i', 0.55, dark=True)
-    rise(chs['ch7'], 2.0)
+    rise(chs['ch7'], 2.0, key='D')
     # ======== 第七章 带走什么：深情（D 大调 100）→ 一家牵出一家（律动）→“三十三亿”重拍 → 三条收获（颂歌）
     #          → 两句话（钢琴 + 合唱）→ 落版字 → logo
     hit(chs['ch7'], 'D', 'major', 'I', 0.9)
@@ -515,16 +553,24 @@ def build():
     tg = WT('c7g', '一张支票')
     section(S('c7g') - 0.3, logo, 'D', 'major', 100, 'anthem', 0.7, 0.95, prog='major', theme=True, theme_ins='brass')
     hit(tg, 'D', 'major', 'I', 0.9)
-    rise(logo, 2.2)
+    rise(logo, 2.2, key='D')
     hit(logo, 'D', 'major', 'I', 1.3)
     section(logo, T_END - 0.2, 'D', 'major', 100, 'emotional', 0.6, 0.35, prog='major4', theme_ins='piano')
+
+
+def peq(y, f0, gain_db, q):
+    """RBJ 峰值均衡"""
+    A_ = 10 ** (gain_db / 40); w0 = 2 * np.pi * f0 / SR; al = np.sin(w0) / (2 * q)
+    b_ = np.array([1 + al * A_, -2 * np.cos(w0), 1 - al * A_]); a_ = np.array([1 + al / A_, -2 * np.cos(w0), 1 - al / A_])
+    from scipy.signal import lfilter
+    return lfilter(b_ / a_[0], a_ / a_[0], y, axis=0)
 
 
 def render():
     os.makedirs(os.path.join(WORK, 'music'), exist_ok=True)
     mid = os.path.join(WORK, 'music', 'score.mid'); raw = os.path.join(WORK, 'music', 'score_midi.wav')
     MID.write(mid)
-    subprocess.run(['fluidsynth', '-ni', '-g', '0.45', '-r', str(SR), '-o', 'synth.reverb.room-size=0.62', '-o', 'synth.reverb.level=0.55',
+    subprocess.run(['fluidsynth', '-ni', '-g', '0.45', '-r', str(SR), '-o', 'synth.reverb.room-size=0.5', '-o', 'synth.reverb.level=0.32',
                     '-F', raw, SF, mid], check=True, capture_output=True)
     x, sr = sf.read(raw, dtype='float32')
     n = int((T_END + 0.5) * SR)
@@ -535,7 +581,10 @@ def render():
     ir = RNG.standard_normal(ir_n) * np.exp(-tt * 5); ir = sosfilt(butter(1, 3000, 'lowpass', fs=SR, output='sos'), ir); ir /= np.sqrt((ir ** 2).sum())
     fxw = np.stack([fftconvolve(fx[:, c], ir)[:n] for c in range(2)], 1) * 0.25
     y = x + fx + fxw
-    y = sosfilt(butter(2, 28, 'highpass', fs=SR, output='sos'), y, axis=0)
+    y = sosfilt(butter(2, 32, 'highpass', fs=SR, output='sos'), y, axis=0)
+    # v4 均衡：220–450 Hz 去闷（-3 dB），1.8–4 kHz 提亮（+2.5 dB），10 kHz 以上滚降（不要沙沙声）
+    y = peq(y, 70, -3.0, 0.7); y = peq(y, 320, -3.0, 1.0); y = peq(y, 2700, 2.5, 0.9)
+    y = sosfilt(butter(2, 10000, 'lowpass', fs=SR, output='sos'), y, axis=0)
     # 母线：轻压缩 + 软限幅，保留起伏
     import pyloudnorm as pyln
     meter = pyln.Meter(SR)
