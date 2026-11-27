@@ -502,7 +502,7 @@ def build():
     tq = WT('c3n8', '清算')
     section(S('c3n8') - 0.2, S('c3i') - 0.25, 'D', 'minor', 112, 'pulse', 0.45, 0.6, prog='minor3')
     hit(tq, 'D', 'minor', 'i', 0.7, dark=True)
-    tc = WT('c3i', '学不来的便宜')
+    tc = WT('c3i', '又让成本')
     section(S('c3i') - 0.25, chs['ch4'], 'F', 'major', 112, 'anthem', 0.7, 0.92, prog='major', theme=True)
     hit(S('c3i') - 0.25, 'F', 'major', 'I', 0.8)
     hit(tc, 'F', 'major', 'I', 1.1)

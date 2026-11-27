@@ -175,7 +175,15 @@ def build(work):
         refts[l[0]] = [(w[0], w[1] - a) for w in map_one(say(l), rj)]       # 参考音频自己的逐字时间（相对参考的发声起点）
     RF = {k: feats(v) for k, v in refs.items()}
     st0, en1 = voiced_span(y, SR)
-    pos = max(st0 - 0.05, 0); bounds = []; starts = [st0]
+    CHUNK_END = {}                                           # 分章合成：每段最后一句 → 段间静音的 (起, 止)
+    if hasattr(T, 'take_chunks'):
+        tc = 0.0
+        for k_, ch_ in enumerate(T.take_chunks()):
+            cp = T.take_path(work)[:-4] + f'.chunk{k_}.wav'
+            if not os.path.exists(cp): CHUNK_END = {}; break
+            tc += sf.info(cp).duration
+            CHUNK_END[ch_[-1][0]] = (tc, tc + T.CHUNK_GAP); tc += T.CHUNK_GAP
+        pos = max(st0 - 0.05, 0); bounds = []; starts = [st0]
     for k, i in enumerate(ids[:-1]):
         nx = ids[k + 1]
         tmpl = np.concatenate([refs[i], refs[nx][:int(1.5 * FS)]])
@@ -187,6 +195,8 @@ def build(work):
         endi = [q for p_, q in wp if p_ <= Li - 1][-1]
         est = w0 + endi * fr
         cand = [p for p in pauses(db, hop, est - 0.35, est + 0.35, floor) if p[1] - p[0] >= 0.10]
+        if i in CHUNK_END:                                   # v4：分章合成的段间静音就是句界，直接用
+            cand = [CHUNK_END[i]]
         if cand:
             best = max(cand, key=lambda p: (p[1] - p[0]) - 0.6 * abs((p[0] + p[1]) / 2 - est))
             # 停顿两端：向外扩到真正的有声处（停顿可能延伸到搜索窗外）

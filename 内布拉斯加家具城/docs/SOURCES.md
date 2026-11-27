@@ -1,6 +1,6 @@
 # 《一张支票，换一句话——巴菲特与内布拉斯加家具城》出处与口径
 
-片长 9:54.4。一手来源：伯克希尔历年致股东信原文、伯克希尔 2013 年年报所附 1983-08-30 收购提议书与 NFM 1946 年报表原件、伯克希尔 2025 年年报（Form 10-K）；详细核实过程与流行说法的勘误见 `research/核实笔记.md`。
+片长 11:50.0。一手来源：伯克希尔历年致股东信原文、伯克希尔 2013 年年报所附 1983-08-30 收购提议书与 NFM 1946 年报表原件、伯克希尔 2025 年年报（Form 10-K）；详细核实过程与流行说法的勘误见 `research/核实笔记.md`。
 
 **口径原则**：凡巴菲特信里有原话的一律以原信为准；“握手成交、一页纸合同”这类流行说法改为原件所示的“一页多纸的提议书、五位股东签字”；500 美元与 1937 年按 1983–2011 年历封信（2020 年信另记作 1936 年、2500 美元，见核实笔记）；NFM 近年的营收与利润伯克希尔不单独披露，片中不报（只引用 1984–1990 年信利润表里列出的 NFM 税前利润）；四家家具零售商合计营收为业界媒体估算，不说成 NFM 一家。
 
@@ -11,167 +11,185 @@
 
 - `0:00.9` 1983 年 8 月 30 日，巴菲特 53 岁生日这天，用一页多纸的提议书，谈下了一家家具店九成的股份，作价 5535 万美元现金。
   - 出处：伯克希尔 2013 年信（“August 30, 1983 – my birthday … carrying a 1 1⁄4-page purchase proposal”；“Mrs. B was 89 at the time”）；巴菲特 1983-08-30 收购提议书原件（伯克希尔 2013 年年报第 114–115 页）（90%，$55,350,000 cash）
-- `0:12.1` 没有审计，没有盘点库存，也没有查产权。
+- `0:11.6` 没有审计，没有盘点库存，也没有查产权。
   - 出处：伯克希尔 1984 年致股东信（“NFM had never had an audit and we did not request one; we did not take an inventory nor verify the receivables; we did not check property titles”）
-- `0:16.2` 卖家，是一位 89 岁、没上过一天学的俄国移民老太太。
+- `0:16.0` 卖家，是一位 89 岁、没上过一天学的俄国移民老太太。
   - 出处：伯克希尔 2013 年信（“Mrs. B was 89 at the time”）；伯克希尔 1983 年致股东信（“no formal education”；“to leave Russia for America”）
-- `0:21.6` 六年后，她却和家人闹翻，辞职出走，在隔壁开了一家新店，跟她亲手创办的家具城抢生意。
+- `0:21.8` 六年后，她却和家人闹翻，辞职出走，在隔壁开了一家新店，跟她亲手创办的家具城抢生意。
   - 出处：伯克希尔 1989 年信（“quit in May … she has started a new business selling - what else? - carpet and furniture”）；1992 年信（“opened up her own operation next door”）
-- `0:29.7` 巴菲特是看走了眼，还是看得太准？
+- `0:29.6` 巴菲特是看走了眼，还是看得太准？
   - 出处：本片设问
-- `0:33.8` 四十多年后，95 岁的他在一次专访里，说出了答案：
+- `0:33.7` 四十多年后，95 岁的他在一次专访里，说出了答案：
   - 出处：CNBC Squawk Box 2026-07-15 专访（原声见 SOTS good）
-- `0:44.9` 好生意，好价钱，对的人。这三样，内布拉斯加家具城全占了。故事，要从这位老太太说起。
+- `0:45.0` 好生意，好价钱，对的人。这三样，内布拉斯加家具城全占了。故事，要从这位老太太说起。
   - 出处：本片概括（呼应原声）
 
 ### 对的人
 
-- `0:58.1` 罗丝·布鲁姆金，大家叫她 B 太太。23 岁那年，她说服边境守卫放行，从俄国去了美国。
+- `0:57.8` 罗丝·布鲁姆金，大家叫她 B 太太。23 岁那年，她说服边境守卫放行，从俄国去了美国。
   - 出处：伯克希尔 1983 年致股东信（“Mrs. Blumkin, then 23, talked her way past a border guard to leave Russia for America”）
 - `1:05.8` 她没上过一天学，也不会英语，是大女儿每天放学回家，一个词一个词教会她的。
   - 出处：伯克希尔 1983 年致股东信（“no formal education … knew no English … her older daughter taught her, every evening, the words she had learned in school”）
-- `1:12.2` 她靠卖旧衣服攒钱。1937 年，她拿出 500 美元，在奥马哈开了一家家具店：内布拉斯加家具城，简称 NFM。
+- `1:12.0` 她靠卖旧衣服攒钱。1937 年，她拿出 500 美元，在奥马哈开了一家家具店：内布拉斯加家具城，简称 NFM。
   - 出处：伯克希尔 1983 年致股东信（“In 1937, after many years of selling used clothing, Mrs. Blumkin had saved $500”）；2020 年信（落脚奥马哈）
-- `1:21.8` 没有好地段，没有独家的货，对手都是有钱的老店。她只有一招：卖得便宜。
+- `1:21.3` 没有好地段，没有独家的货，对手都是有钱的老店。她只有一招：卖得便宜。
   - 出处：伯克希尔 1983 年致股东信（“no locational or product advantage goes up against rich, long-entrenched competition”）；“办法只有一个”为本片概括
-- `1:28.0` 同行坐不住了，逼着厂商不给她供货。她就想方设法从别处进货，照样降价。
+- `1:27.6` 同行坐不住了，逼着厂商不给她供货。她就想方设法从别处进货，照样降价。
   - 出处：伯克希尔 1983 年致股东信（“pressured furniture and carpet manufacturers not to sell to her. But by various strategies she obtained merchandise and cut prices sharply”）
-- `1:34.2` 她还被告上法庭，理由是她卖得比厂商规定的最低价还低，违反了当时的“公平贸易法”。
+- `1:33.8` 她还被告上法庭，理由是她卖得比厂商规定的最低价还低，违反了当时的“公平贸易法”。
   - 出处：伯克希尔 1983 年致股东信（“hauled into court for violation of Fair Trade laws”）；公平贸易法即转售价格维持法（允许厂商规定最低零售价），本片解释
-- `1:41.0` 她赢了所有官司。有一场审完，法官还从她那儿买走了 1400 美元的地毯。
+- `1:40.5` 她赢了所有官司。有一场审完，法官还从她那儿买走了 1400 美元的地毯。
   - 出处：伯克希尔 1983 年致股东信（“She not only won all the cases … she sold the judge $1400 worth of carpet”）
-- `1:47.5` 最难的时候，她把自己家里的家具和电器都卖了，按约定一分不少地还了债。
+- `1:47.0` 最难的时候，她把自己家里的家具和电器都卖了，按约定一分不少地还了债。
   - 出处：伯克希尔 1983 年致股东信（“she simply sold the furniture and appliances from her home in order to pay creditors precisely as promised”）
-- `1:53.5` 1945 年底，她唯一的儿子路易从战场回来。他在诺曼底的奥马哈海滩登陆，负过伤，得过紫心勋章。母子俩没日没夜地干。
+- `1:53.0` 1945 年底，她唯一的儿子路易从战场回来。他在诺曼底的奥马哈海滩登陆，负过伤，得过紫心勋章。母子俩没日没夜地干。
   - 出处：伯克希尔 2020 年信（“Louie fought at Normandy’s Omaha Beach … Purple Heart … Battle of the Bulge … sailed home in November 1945 … worked days, nights and weekends”）
-- `2:03.5` 可 1946 年底的账本上，现金只有 50 美元。
+- `2:03.0` 可 1946 年底的账本上，现金只有 50 美元。
   - 出处：NFM 1946 年资产负债表原件（伯克希尔 2013 年年报第 116 页：Cash on Hand $50.00；Balance $72,264.41）；2020 年信
-- `2:08.6` B 太太把做生意的道理，归成一句话：卖得便宜，说真话。
+- `2:08.0` B 太太把做生意的道理，归成一句话：卖得便宜，说真话。
   - 出处：伯克希尔 1984 年致股东信（“Mrs. B boils it down to ‘sell cheap and tell the truth’”；引语卡 qmotto）
 
 ### 好价钱
 
-- `2:16.0` 1972 年出版的《超级金钱》里记着：巴菲特指着这家店说，这是门好生意。
+- `2:15.7` 1972 年出版的《超级金钱》里记着：巴菲特指着这家店说，这是门好生意。
   - 出处：《Supermoney》（Adam Smith，1972），伯克希尔 2013 年信卷首引用：“See that store … That’s a really good business.”
-- `2:21.5` 作者问：那你怎么不买？他说，它是私人公司；又补了一句：说不定哪天，我还是会买。
+- `2:21.2` 作者问：那你怎么不买？他说，它是私人公司；又补了一句：说不定哪天，我还是会买。
   - 出处：同上：“Why don’t you buy it?” … “It’s privately held,” … “I might buy it anyway,” Warren said. “Someday.”
-- `2:29.1` 十一年后，NFM 一年卖出一亿多美元，全靠奥马哈一家店，比全城同行加起来还多。
+- `2:28.3` 十一年后，NFM 一年卖出一亿多美元，全靠奥马哈一家店，比全城同行加起来还多。
   - 出处：伯克希尔 1983 年致股东信（“over $100 million of sales annually out of one 200,000 square-foot store. No other home furnishings store in the country comes close”）；伯克希尔 1983 年致股东信（“sells more furniture, carpets, and appliances than do all Omaha competitors combined”）
-- `2:36.7` 89 岁的 B 太太，为了家族的长远打算，愿意卖了。
+- `2:35.3` 89 岁的 B 太太，为了家族的长远打算，愿意卖了。
   - 出处：伯克希尔 1983 年致股东信（“for far-sighted family reasons, was willing to sell the business”）；巴菲特 1983-08-30 收购提议书原件（伯克希尔 2013 年年报第 114–115 页）签字页（五位股东各 20%）
-- `2:40.6` 巴菲特的提议书只有一页多：现金买下九成，剩下一成留给路易和他的儿子们，店还由这一家人管。
+- `2:39.0` 巴菲特的提议书只有一页多：现金买下九成，剩下一成留给路易和他的儿子们，店还由这一家人管。
   - 出处：巴菲特 1983-08-30 收购提议书原件（伯克希尔 2013 年年报第 114–115 页）（“90% … for $55,350,000 cash. All of the 10% … not sold to Berkshire will be retained by Mr. Louis Blumkin and his sons”）；伯克希尔 1983 年致股东信
-- `2:48.3` 没有投资银行，也没有律师。B 太太一个字没改，五位家人依次签了名。
+- `2:46.9` 没有投资银行，也没有律师。B 太太一个字没改，五位家人依次签了名。
   - 出处：2013 年信（“without the involvement of investment bankers or lawyers”）；巴菲特 1983-08-30 收购提议书原件（伯克希尔 2013 年年报第 114–115 页）签字页
-- `2:54.7` 店里从没审计过，巴菲特也没要求。他后来写道：
+- `2:52.9` 店里从没审计过，巴菲特也没要求。他后来写道：
   - 出处：伯克希尔 1984 年致股东信（“Our evaluation of the integrity of Mrs. B and her family was demonstrated when we purchased 90% of the business: NFM had never had an audit and we did not request one”）；伯克希尔 1984 年致股东信（引语卡 qcheck）
-- `3:04.0` 这个价钱，贵不贵？买下后的第一个完整年度，1984 年，NFM 税前赚了 1450 万美元。
+- `3:02.2` 这个价钱，贵不贵？买下后的第一个完整年度，1984 年，NFM 税前赚了 1450 万美元。
   - 出处：伯克希尔 1984 年致股东信（利润表：Nebraska Furniture Mart 1984 年税前 $14,511K，100% 口径）
-- `3:12.1` 整家公司作价约 6000 万，只是这一年税前利润的四倍出头。
+- `3:09.9` 整家公司作价约 6000 万，只是这一年税前利润的四倍出头。
   - 出处：2020 年信（“a business worth $60 million”）；1984–1990 年信利润表（税前 $14.5M、12.7M、17.7M、16.8M、18.4M、17.1M、17.2M，合计 $114.5M，本片计算）
-- `3:18.0` 买下之后七年，税前利润加起来，将近这个作价的两倍。
+- `3:15.0` 买下之后七年，税前利润加起来，将近这个作价的两倍。
   - 出处：2020 年信（“a business worth $60 million”）；1984–1990 年信利润表（税前 $14.5M、12.7M、17.7M、16.8M、18.4M、17.1M、17.2M，合计 $114.5M，本片计算）
-- `3:23.5` 好生意，配上合理的价钱。巴菲特说，这个道理，是芒格先想明白的：
+- `3:20.2` 好生意，配上合理的价钱。巴菲特说，这个道理，是芒格先想明白的：
   - 出处：伯克希尔 1989 年致股东信（引语卡 qfair：“It’s far better to buy a wonderful company at a fair price … Charlie understood this early; I was a slow learner.”）
-- `3:36.0` 而对的人，也一直在店里。91 岁的 B 太太，照样每周七天，从开门干到关门。巴菲特说，她一天做的决定，比大多数 CEO 一年做的还多。
+- `3:32.3` 而对的人，也一直在店里。91 岁的 B 太太，照样每周七天，从开门干到关门。巴菲特说，她一天做的决定，比大多数 CEO 一年做的还多。
   - 出处：伯克希尔 1984 年致股东信（“Mrs. B, Chairman of the Board, is now 91 … at the store seven days a week, from opening to close, and probably makes more decisions in a day than most CEOs do in a year (better ones, too)”）
 
 ### 好生意
 
-- `3:49.6` 巴菲特评估一家公司，总会问自己：假如我有足够的钱和人手，愿不愿意跟它竞争？对 B 太太，他的回答是：
+- `3:45.6` 巴菲特评估一家公司，总会问自己：假如我有足够的钱和人手，愿不愿意跟它竞争？对 B 太太，他的回答是：
   - 出处：伯克希尔 1983 年致股东信（“One question I always ask myself in appraising a business is how I would like … to compete with it.”；引语卡 qgrizzly）
-- `4:02.2` 她凭什么这么难打？巴菲特拿 NFM 和全美最大的独立家具零售商 Levitz 比了一比。
-  - 出处：伯克希尔 1984 年致股东信（“the largest independent specialty retailer of home furnishings in the country, Levitz Furniture”）
-- `4:09.5` Levitz 自称比一般家具店便宜，毛利率却有 44.4%。NFM 的毛利率，只有它的一半多一点。
-  - 出处：伯克希尔 1984 年致股东信（Levitz 1984 财年 10-K：“prices … generally lower”；gross margin 44.4%；“The gross margin at NFM is not much more than half of that.”）
-- `4:17.5` 卖得这么便宜还能赚钱，靠的是成本：工资、房租、广告这些费用，Levitz 要花掉销售额的 35.6%，NFM 只花 16.5% 左右。
-  - 出处：伯克希尔 1984 年致股东信（“operating expenses (payroll, occupancy, advertising, etc.) are about 16.5% of sales versus 35.6% at Levitz”）
-- `4:29.1` 成本低，价格就低；价格低，顾客就多；卖得多，进货就能压价，成本又更低。轮子越转越快。
+- `3:57.9` 先拆开看，它靠什么赚钱。巴菲特把它的打法总结成五条：一处地方，品种最全；量最大，进货最精；费用最低；价格远低于对手；家里人永远在店里。
+  - 出处：伯克希尔 1989 年致股东信（“(1) unparalleled depth and breadth of merchandise at one location; (2) the lowest operating costs in the business; (3) the shrewdest of buying, made possible in part by the huge volumes purchased; (4) gross margins, and therefore prices, far below competitors’; and (5) friendly personalized service with family members on hand at all times”）
+- `4:12.0` 说白了，它不靠每件货多赚，而是薄利多销，把省下的钱大把让给顾客。巴菲特写道：它每年至少替顾客省下 3000 万美元，自己的资本回报照样出色。
+  - 出处：伯克希尔 1983 年致股东信（“they then pass on to their customers much of the savings”）；1984 年信（“NFM is able to earn excellent returns on capital while saving its customers at least $30 million annually”）
+- `4:24.5` 价格低，顾客就多；卖得多，进货就能压价，房租、工资、广告摊到每件货上也更少；成本更低，价格还能再降。轮子越转越快。
   - 出处：伯克希尔 1984 年致股东信（“unparalleled efficiency and astute volume purchasing”）；1989 年信（成功公式五条）；飞轮为本片概括
-- `4:38.0` 巴菲特估算，单靠低价，NFM 每年至少替顾客省下 3000 万美元。
-  - 出处：伯克希尔 1984 年致股东信（“saving its customers at least $30 million annually”）
-- `4:44.4` 顾客也愿意跑远路。在得梅因的 20 家家具店里，NFM 人气排第三，可它远在 130 英里外。
+- `4:35.6` 投资人尼克·斯利普，后来给这种打法起了个名字：规模经济分享。不是短期贴钱抢市场，而是把规模带来的效率，长期分给顾客。他举的代表，是 Costco 和亚马逊。
+  - 出处：Nomad Investment Partnership 合伙人信（Nick Sleep、Qais Zakaria，2001–2013）：“scale efficiencies shared”，后称 “scale economics shared”，以 Costco 为原型，亦以 Amazon 为例；综述见 Morningstar Australia《My favourite lessons from Nick Sleep’s famous investing letters》
+- `4:48.9` 顾客也愿意跑远路。在得梅因的 20 家家具店里，NFM 人气排第三，可它远在 130 英里外。
   - 出处：伯克希尔 1990 年信（“NFM was Number 3 in popularity among 20 furniture retailers serving that city … 19 of those retailers are located in Des Moines, whereas our store is 130 miles away”）
-- `4:52.9` B 太太有句话：只要你的价钱最低，就算店开在河底，顾客也会找到你。
+- `4:57.0` B 太太有句话：只要你的价钱最低，就算店开在河底，顾客也会找到你。
   - 出处：伯克希尔 2003 年信（“If you have the lowest price, customers will find you at the bottom of a river.”）
-- `4:59.2` 连对手都服了。Dillard’s 百货进军奥马哈，别的城市都卖家具，在这儿偏偏不卖。它的董事长说：
+- `5:03.8` 但要分清：低价只是一种策略，谁都可以降价；低成本才是一种优势。低成本要成为护城河，还得过两关：第一，优势是真的；第二，对手很难长期复制。
+  - 出处：本片分析框架（低价是竞争策略，低成本是竞争优势；低成本优势须真实存在，且竞争对手难以长期复制）
+- `5:17.0` 先看第一关：是不是真的。巴菲特拿 NFM 和全美最大的独立家具零售商 Levitz 比了一比。
+  - 出处：伯克希尔 1984 年致股东信（“the largest independent specialty retailer of home furnishings in the country, Levitz Furniture”）
+- `5:24.4` Levitz 自称比一般家具店便宜，毛利率却有 44.4%。NFM 的毛利率，只有它的一半多一点。
+  - 出处：伯克希尔 1984 年致股东信（Levitz 1984 财年 10-K：“prices … generally lower”；gross margin 44.4%；“The gross margin at NFM is not much more than half of that.”）
+- `5:32.7` 卖得这么便宜还能赚钱，靠的是成本：工资、房租、广告这些费用，Levitz 要花掉销售额的 35.6%，NFM 只花 16.5% 左右。
+  - 出处：伯克希尔 1984 年致股东信（“operating expenses (payroll, occupancy, advertising, etc.) are about 16.5% of sales versus 35.6% at Levitz”）
+- `5:44.4` 算一笔账：Levitz 要是把价钱压到 NFM 的水平，毛利只剩二十几个点，费用却要三十五点六。每卖 100 美元的货，就要倒贴十美元上下。
+  - 出处：本片按 1984 年信的约数推算：Levitz 毛利率 44.4% 的“一半多一点”约 22%–26%，减去 Levitz 营业费用率 35.6%，约亏 10–14 美元／每 100 美元销售额（未计税、利息）
+- `5:56.4` 再看第二关：学不学得来。到了 1990 年，NFM 的费用率是 15%，Levitz 约 40%。差距没有缩小，反而拉大了。
+  - 出处：伯克希尔 1990 年致股东信（“operating costs are rock-bottom - 15% in 1990 against about 40% for Levitz”）；1984 年信（16.5% 对 35.6%）
+- `6:07.4` 学不来，有三个原因。第一是规模：巴菲特估计，NFM 这一家店的销量，接近全美任何一家家居店的两倍。新对手量小，进货就贵，跟它比价，只能赔钱。
+  - 出处：伯克希尔 1990 年信（“we believe NFM does close to double the volume of any other home furnishings store in the country”）；1989 年信（“the shrewdest of buying, made possible in part by the huge volumes purchased”）；“新对手只能赔钱”为本片据上述数字的推论
+- `6:20.6` 第二是人：低费用靠的不是一套系统，而是一家人天天守在店里，精打细算，当场拍板。这股劲头，很难靠工资雇来。
+  - 出处：伯克希尔 1984 年信（布鲁姆金家的秘诀：“apply themselves with an enthusiasm and energy …”；“act decisively on all matters within it”）；1989 年信（“family members on hand at all times”）；末句为本片解读
+- `6:30.5` 第三是甘愿少赚：对靠四成多毛利过日子的连锁店来说，跟着降价，就等于自断财路。
+  - 出处：伯克希尔 1984 年信（Levitz 毛利率 44.4%）；“跟着降价就等于自断财路”为本片据此的推论
+- `6:38.2` 结果，对手算过账，就不来了。Dillard’s 百货进军奥马哈，别的城市都卖家具，在这儿偏偏不卖。它的董事长说：
   - 出处：伯克希尔 1988 年信（“In many of its stores, Dillards runs a full furniture department … his new store would not sell furniture”；引语卡 qdillard）
-- `5:11.1` 这条护城河不是专利，也不是名牌，而是一件说起来简单、做起来极难的事：每天、每样东西，都比别人便宜。
-  - 出处：本片解读
+- `6:51.4` 巴菲特写道，大连锁店知道来了要面对什么，干脆绕开奥马哈。而当年被拿来比较的 Levitz，1997 年申请破产保护，2007 年第三次破产后清算。
+  - 出处：伯克希尔 1990 年信（“major chains, knowing what they will face, steer clear of Omaha”）；Levitz：1997-09-05 申请破产保护（Las Vegas Sun 1997-09-05 美联社报道），2005 年再次申请，2007 年 10 月第三次申请后清算（Wikipedia “Levitz Furniture”）
+- `7:04.2` 所以，护城河不是低价本身，而是对手学不来的低成本：它撑得起长期低价，还照样赚钱；低价换来的顾客和规模，又让成本更低。
+  - 出处：本片解读（1984 年信：低价与“excellent returns on capital”并存；1984、1990 年信费用率对比；1988、1990 年信对手的反应）
 
 ### 开到隔壁
 
-- `5:22.4` 可就连 B 太太自己，也和家人闹翻了。1989 年 5 月，95 岁的她，为了地毯部怎么装修、怎么经营，和家人意见不合，辞职走了。
+- `7:17.2` 可就连 B 太太自己，也和家人闹翻了。1989 年 5 月，95 岁的她，为了地毯部怎么装修、怎么经营，和家人意见不合，辞职走了。
   - 出处：伯克希尔 1989 年信（“quit in May, after disagreeing with other members of the Blumkin family/management about the remodeling and operation of the carpet department”）；B 太太生于 1893-12-03
-- `5:33.7` 这一次，巴菲特站在家人一边：过去三年，店里其他部门的销售涨了 24%，地毯却跌了 17%。
+- `7:28.1` 这一次，巴菲特站在家人一边：过去三年，店里其他部门的销售涨了 24%，地毯却跌了 17%。
   - 出处：伯克希尔 1989 年信（“while the store’s other departments increased sales by 24%, carpet sales declined by 17%”）
-- `5:42.3` B 太太没有回家养老。几个月后，她在家具城隔壁、自己早年买下的大楼里，开了一家新店，卖的还是地毯和家具。
+- `7:36.6` B 太太没有回家养老。几个月后，她在家具城隔壁、自己早年买下的大楼里，开了一家新店，卖的还是地毯和家具。
   - 出处：伯克希尔 1989 年信（“she has started a new business selling - what else? - carpet and furniture”）；1992 年信（“opened up her own operation next door in a large building that she had owned for several years”）
-- `5:51.7` 原来，1983 年那份提议书里，少了一条：竞业禁止。巴菲特后来承认，自己在这一点上不够小心。
+- `7:45.8` 原来，1983 年那份提议书里，少了一条：竞业禁止。巴菲特后来承认，自己在这一点上不够小心。
   - 出处：伯克希尔 1992 年信（“having been incautious on this point when she was 89”）
-- `6:00.6` 1992 年底，B 太太把大楼和土地卖给了家具城，自己留下来接着卖地毯，还主动签了竞业禁止协议。那一年，她 99 岁。
+- `7:54.9` 1992 年底，B 太太把大楼和土地卖给了家具城，自己留下来接着卖地毯，还主动签了竞业禁止协议。那一年，她 99 岁。
   - 出处：伯克希尔 1992 年信（“Mrs. B decided to sell her building and land to NFM … graciously offered to sign a non-compete agreement … Signing a non-compete at 99”）
-- `6:11.4` 巴菲特说：
+- `8:05.9` 巴菲特说：
   - 出处：伯克希尔 1992 年信（引语卡 qpartner）
-- `6:17.7` 她一直干到 103 岁，退休后第二年去世，享年 104 岁。
+- `8:12.2` 她一直干到 103 岁，退休后第二年去世，享年 104 岁。
   - 出处：伯克希尔 2011 年信（“worked until she was 103. (After retiring, she died the next year …)”）；维基百科 Rose Blumkin（1998-08-09 去世）
 
 ### 越开越大
 
-- `6:25.3` 1994 年的伯克希尔股东会上，巴菲特介绍旗下的经理人，第一个点到的，就是这一家：
+- `8:20.2` 1994 年的伯克希尔股东会上，巴菲特介绍旗下的经理人，第一个点到的，就是这一家：
   - 出处：1994 年伯克希尔股东会录像，介绍经理人环节（原声见 SOTS blumkins：“First of all, from the Nebraska Furniture Mart … Louie, Ron and Irv Blumkin”）
-- `6:42.6` B 太太的孙子罗恩和欧文，把这套打法带出了奥马哈。
+- `8:37.8` B 太太的孙子罗恩和欧文，把这套打法带出了奥马哈。
   - 出处：伯克希尔 2011 年信（“Louie’s sons, Ron and Irv, have taken the company to new heights, first opening the Kansas City store and now gearing up for Texas”）
-- `6:46.9` 2003 年，堪萨斯城店开业。店开在人烟稀少的城郊，25 英亩的停车场有时都停不下，成了全美销量最大的家居店。
+- `8:42.3` 2003 年，堪萨斯城店开业。店开在人烟稀少的城郊，25 英亩的停车场有时都停不下，成了全美销量最大的家居店。
   - 出处：伯克希尔 2003 年信（“located in one of the area’s more sparsely populated parts … more than 25 acres of parking, the lot has at times overflowed”；“the country’s largest-volume home-furnishings store”）
-- `6:56.4` 到 2011 年，NFM 的利润创下纪录，是 1983 年的十倍还多。
+- `8:52.5` 到 2011 年，NFM 的利润创下纪录，是 1983 年的十倍还多。
   - 出处：伯克希尔 2007 年信（“our Omaha and Kansas City stores each had sales of about $400 million”）；2011 年信（“netting more than ten times what it did in 1983”）
-- `7:02.0` 又过了四年，达拉斯北郊的第三家大店开业，一个屋顶下面，足足 180 万平方英尺。
+- `8:58.7` 又过了四年，达拉斯北郊的第三家大店开业，一个屋顶下面，足足 180 万平方英尺。
   - 出处：伯克希尔 2013 年信（“under one roof, and on a 433-acre site – 1.8 million square feet of retail and supporting warehouse space”）；维基百科（2015-05-07 开业）；足球场按 105×68 米折算（本片换算）
-- `7:09.0` 2020 年，疫情让门店关了六个多星期，三家店照样都创了销售纪录。巴菲特说，全美最大的三家家居店，都是 NFM 的。
+- `9:06.4` 2020 年，疫情让门店关了六个多星期，三家店照样都创了销售纪录。巴菲特说，全美最大的三家家居店，都是 NFM 的。
   - 出处：伯克希尔 2020 年信（“NFM now owns the three largest home-furnishings stores in the U.S. Each set a sales record in 2020 … despite the closing of NFM’s stores for more than six weeks”）
-- `7:19.4` 每年股东会那一周，奥马哈店给股东员工价。2016 年那一周，它卖了 4550 万美元，平时一周大约 900 万。
+- `9:17.3` 每年股东会那一周，奥马哈店给股东员工价。2016 年那一周，它卖了 4550 万美元，平时一周大约 900 万。
   - 出处：伯克希尔 2016 年信（“the Omaha store recording one-week volume of $45.5 million”）；2014、2015 年信（“An average week for NFM’s Omaha store is about $9 million”）；1997 年信起（员工折扣）
 
 ### 还能好多久
 
-- `7:30.6` 可再好的生意，也有对手盯着。还是那次专访，巴菲特说：
+- `9:29.3` 可再好的生意，也有对手盯着。还是那次专访，巴菲特说：
   - 出处：CNBC Squawk Box 2026-07-15 专访（原声见 SOTS attacks）
-- `7:46.0` NFM 还能好多久？至少有三件事，要盯住。
+- `9:45.1` NFM 还能好多久？至少有三件事，要盯住。
   - 出处：本片过渡（呼应原声）
-- `7:50.4` 第一，家具是大件，日子一紧，换沙发、换地毯很容易往后推。2024 年，伯克希尔旗下家居零售的收入降了 6.4%。
+- `9:48.9` 第一，家具是大件，日子一紧，换沙发、换地毯很容易往后推。2024 年，伯克希尔旗下家居零售的收入降了 6.4%。
   - 出处：伯克希尔 2025 年年报（Form 10-K）（“Revenues of the home furnishings businesses declined 6.4% in 2024 versus 2023, primarily attributable to lower sales volumes and increased price competition”）
-- `8:00.8` 第二，便宜，必须一直便宜下去。巴菲特写过：在零售业，一停下来歇口气，就会失败。如今点几下手机就能比价，这条护城河，得靠每天的效率去守。
+- `9:58.5` 第二，便宜，必须一直便宜下去。巴菲特写过：在零售业，一停下来歇口气，就会失败。如今点几下手机就能比价，低成本这条护城河，得靠每天的效率去守。
   - 出处：伯克希尔 1995 年信（“Retailing is a tough business … Your competitor is always copying and then topping whatever you do … In retailing, to coast is to fail.”）；比价为本片解读
-- `8:14.1` 第三，这是一门靠人的生意。B 太太的秘诀，是一家人天天守在店里。如今第四代已经进了公司，还能传多少代，谁也不敢打包票。
+- `10:11.2` 第三，这是一门靠人的生意。B 太太的秘诀，是一家人天天守在店里。如今第四代已经进了公司，还能传多少代，谁也不敢打包票。
   - 出处：伯克希尔 1989 年信（“friendly personalized service with family members on hand at all times”）；2011 年信（“several members of the fourth Blumkin generation have joined NFM”）
-- `8:24.4` 还有一点：伯克希尔不单独公布 NFM 的营收和利润。2025 年年报只说了一句：零售板块里，除了 NFM，其他公司的利润都持平或下降。
+- `10:21.1` 还有一点：伯克希尔不单独公布 NFM 的营收和利润。2025 年年报只说了一句：零售板块里，除了 NFM，其他公司的利润都持平或下降。
   - 出处：伯克希尔 2025 年年报（Form 10-K）（“With the exception of NFM, our retailing businesses generated flat or lower earnings in 2025 compared to the prior year.”）
 
 ### 带走什么
 
-- `8:38.1` 这笔投资最大的回报，也许不在 NFM 本身。巴菲特每进一个陌生的行业，都会问新伙伴一句：家里还有像你们这样的吗？
+- `10:34.0` 这笔投资最大的回报，也许不在 NFM 本身。巴菲特每进一个陌生的行业，都会问新伙伴一句：家里还有像你们这样的吗？
   - 出处：伯克希尔 1997 年信（“I always ask our new partners, ‘Are there any more at home like you?’ Upon our purchase of Nebraska Furniture Mart in 1983, therefore, the Blumkin family told me about three outstanding furniture retailers”；引语卡 qmore）
-- `8:47.3` 布鲁姆金一家给他指了路：1995 年的 R.C. Willey，1997 年的 Star Furniture，1999 年的 Jordan’s，一家牵出一家。
+- `10:43.2` 布鲁姆金一家给他指了路：1995 年的 R.C. Willey，1997 年的 Star Furniture，1999 年的 Jordan’s，一家牵出一家。
   - 出处：伯克希尔 1995 年信（“It was Nebraska Furniture Mart’s Irv Blumkin who did the walking around in the case of R.C. Willey, long the leading home furnishings business in Utah”）；伯克希尔 1997 年信（“made a deal in a single, two-hour session”）；1999 年信（“Their invariable answer was the Tatelman brothers of New England and their remarkable furniture business, Jordan’s”）
-- `8:56.6` 据业界媒体估算，这四家家具零售商，2025 年合起来卖了约 33 亿美元。
+- `10:52.2` 据业界媒体估算，这四家家具零售商，2025 年合起来卖了约 33 亿美元。
   - 出处：Home News Now 2026-06-22（伯克希尔家居零售板块 2025 年营收约 $3.34B，业界媒体估算）；伯克希尔 1999 年信（“My thanks go to Louie, Ron and Irv Blumkin for getting me started in the furniture business”）
-- `9:03.8` 回头看这笔交易，至少能带走三件事。
+- `10:58.8` 回头看这笔交易，至少能带走三件事。
   - 出处：本片总结
-- `9:07.1` 第一，好生意的护城河，可以就是低成本：每天比别人便宜一点，日积月累，就是对手追不上的距离。
-  - 出处：本片解读（1984 年信：营业费用率 16.5% 对 35.6%；1990 年信：130 英里外的顾客）
-- `9:15.5` 第二，好价钱不靠捡便宜：用四倍左右的税前利润，买下一门还在长大的好生意，比便宜买一家平庸的公司强得多。
+- `11:01.9` 第一，低价不是护城河，学不来的低成本才是：优势要真，对手要长期学不来。NFM 靠的是规模、一家人，和甘愿少赚。
+  - 出处：本片解读（1984 年信：营业费用率 16.5% 对 35.6%、资本回报出色；1990 年信：15% 对约 40%、销量约为同行两倍、大连锁绕开奥马哈）
+- `11:12.6` 第二，好价钱不靠捡便宜：用四倍左右的税前利润，买下一门还在长大的好生意，比便宜买一家平庸的公司强得多。
   - 出处：本片解读（1984 年信利润表；1989 年信“wonderful company at a fair price”）
-- `9:25.2` 第三，看人比看报表更要紧；可该写进合同的，一条也不能少。
+- `11:21.6` 第三，看人比看报表更要紧；可该写进合同的，一条也不能少。
   - 出处：本片解读（1984 年信：没有审计；1992 年信：竞业禁止“incautious”）
-- `9:31.8` 卖得便宜，说真话。前一句，是这家店的护城河；后一句，是那笔交易的底气。
+- `11:27.7` 卖得便宜，说真话。能一直卖得便宜，靠的是学不来的低成本；说真话，是那笔交易的底气。
   - 出处：本片解读（1990 年信：130 英里外的顾客；1984 年信：不审计）
-- `9:39.4` 一张支票，换一句话。那句话，四十多年来，一直算数。
+- `11:35.7` 一张支票，换一句话。那句话，四十多年来，一直算数。
   - 出处：本片结语（1984 年信“a check for $55 million and she gave us her word”）
 
 ### 片尾
 
-- `9:46.3` 无旁白：落版字“一张支票，换一句话”化作粒子，汇聚成「巴芒价值」logo（第七期起不再预告下一期）
+- `11:41.9` 无旁白：落版字“一张支票，换一句话”化作粒子，汇聚成「巴芒价值」logo（第七期起不再预告下一期）
 
 ## 原声
 
@@ -179,9 +197,9 @@
 
 - `0:38.1` 🔊 **巴菲特原声**：“The important thing is to buy a good business and to buy it on the right terms and they get the right person to run it.” —— 重要的是，买一门好生意，价钱要合适，还要找对经营它的人。
   - 出处：CNBC Squawk Box · Becky Quick 专访巴菲特 · 2026-07-15，片中 1:58（切点见 `src/cut_sot.py`、`work/sot/sot.json`）
-- `6:31.7` 🔊 **巴菲特（1994）原声**：“First of all, from the Nebraska Furniture Mart … Louie, Ron and Irv Blumkin. I’m not sure who’s here, but would you stand, please, any of the Blumkins that are present?” —— 首先，是内布拉斯加家具城的……路易、罗恩和欧文·布鲁姆金。不知道谁来了。布鲁姆金家到场的，请站起来一下好吗？
+- `8:26.9` 🔊 **巴菲特（1994）原声**：“First of all, from the Nebraska Furniture Mart … Louie, Ron and Irv Blumkin. I’m not sure who’s here, but would you stand, please, any of the Blumkins that are present?” —— 首先，是内布拉斯加家具城的……路易、罗恩和欧文·布鲁姆金。不知道谁来了。布鲁姆金家到场的，请站起来一下好吗？
   - 出处：1994 年伯克希尔·哈撒韦股东大会（录像转载），片中 8:30（切点见 `src/cut_sot.py`、`work/sot/sot.json`）
-- `7:35.1` 🔊 **巴菲特原声**：“If you have a wonderful business, you are going to be subject to attacks. So it’s not a question of whether it was wonderful yesterday. The question is how long is it going to be wonderful?” —— 如果你有一门了不起的生意，就一定会遭到攻击。所以问题不在于它昨天好不好，而在于它还能好多久。
+- `9:34.2` 🔊 **巴菲特原声**：“If you have a wonderful business, you are going to be subject to attacks. So it’s not a question of whether it was wonderful yesterday. The question is how long is it going to be wonderful?” —— 如果你有一门了不起的生意，就一定会遭到攻击。所以问题不在于它昨天好不好，而在于它还能好多久。
   - 出处：CNBC Squawk Box · Becky Quick 专访巴菲特 · 2026-07-15，片中 11:17（切点见 `src/cut_sot.py`、`work/sot/sot.json`）
 - 1994 年股东会一段：转载件中 32.5–34.5 秒（片源秒数）有一句听不清的插话，原样保留，屏幕记作“……”；画面裁掉了转载水印与烧录字幕。
 - 引出原声的旁白下面用同一场 CNBC 专访的无声双人景（不与原声画面重复）。
@@ -296,7 +314,7 @@
 
 ## 声音
 
-- 旁白：豆包语音合成 2.0（刘飞音色），语速与第四至七期一致（speech_rate 2，语气提示沿用前几期原句），按 `docs/旁白一致性与自然衔接.md` **整篇一次合成、一条录完**（`src/tts_take.py`）；整篇录了 4 条（`src/take_rolls.py`），逐条对齐并做逐句中文识别（`src/eval_rolls.sh`），选差异最少、没有漏读与口误的一条，不拼接。另逐句合成参考音频，只用于对齐与校验。拉平长文本的音高漂移（pYIN 估趋势 + Praat PSOLA），逐句子序列 DTW 切句并在停顿正中下刀（`src/voice_build.py`），段内首尾相接不插停顿，只在引语卡、原声、揭晓与数字之后留白（`src/timeline.py` 的 STORY / QUOTE_HOLD）。对齐校验全部通过；每分钟音高中位数首尾差 0.81 个半音。
+- 旁白（第四版）：豆包语音合成 3.0（doubao-seed-tts-3.0，刘飞 3.0 音色 multi_male_liufei2_v3_uranus_bigtts，用户指定；原 2.0 接口自 2026-11-26 起不可用），`src/tts_take.py`。3.0 音色在长文本里音高一路上扬（整篇一条录完的三条试录，十分钟内升 5–8 个半音），改为**每章一条录完**（第三章分两条）：每段仍是一次请求、段内不拼接，段与段只在章节卡处相接。另逐句合成参考音频，只用于对齐与校验。拉平剩余音高漂移（pYIN 估趋势 + Praat PSOLA），逐句子序列 DTW 切句并在停顿正中下刀，分段处直接用段间静音（`src/voice_build.py`）；段内首尾相接不插停顿，只在引语卡、原声、揭晓与数字之后留白（`src/timeline.py` 的 STORY / QUOTE_HOLD）。对齐校验全部通过；修正后每分钟音高中位数首尾差 1.2 个半音；有声语速 5.0–5.7 字/秒，与前几期相当。逐句中文识别（`src/check_vo.py`）只剩同音字与识别器的写法差异（“这一家”读作“zhèi 家”的连读、个别“事儿”的儿化）。
 - 巴菲特原声：单独一轨，80 Hz 高通，不压缩、不加混响，响度对齐旁白；原声下配乐再压 4 dB。出点逐段核查最后 1.5 秒（单独识别 + 基频查有没有混入主持人），见 `src/cut_sot.py`。
-- 配乐（第三版重写，`src/score.py`）：本片原创，程序作曲，MuseScore General 音色库 + 程序合成的电影音效层（重拍、上扬）。每章换调、换速度、换织体：开场 D 小调 92 的紧张脉冲 → 片名 F 大调铜管主题 → 第一章 A 小调 84 温暖钢琴（官司全赢处转 C 大调） → 第二章 F 大调 100 律动 → 第三章 D 小调 112 驱动弦乐、飞轮处转 F 大调全速 → 第四章 C 小调 76 心跳、隔壁新店处降 E 大调拨弦、九十九岁处转降 A 大调 → 第五章 D 大调 118 颂歌 → 第六章 B 小调 88 脉冲 → 第七章 D 大调 100 层层推进。同一条主题旋律换配器出现（钢琴、铜管、钟琴、圆号、合唱）。卡点（先抽空再重拍）：“六年后”“现金只有五十美元”“一个字没改”“将近两倍”“百分之十六点五”“辞职走了”“一百八十万”“三十三亿”与片尾 logo；章节号亮起时重拍。
-- 混音（`src/audio_mix.py`）：旁白 70 Hz 高通、2.2:1 轻压缩、很淡的短混响与 −64 dBFS 噪底；配乐保留自身起伏（各章只做 ±3 dB 内的校平）；闪避放在最后一步（−9 dB，人声频段再 −5.5 dB，只有大重拍短暂放开），说话时旁白比配乐高约 11 LU；线性增益到 −14 LUFS 并限峰。旁白不模仿、不合成任何真实人物的声音。
+- 配乐（第四版，`src/score.py`）：本片原创，程序作曲，MuseScore General 音色库；按用户要求**去掉一切沙沙声**——不用踩镲、沙锤、军鼓、镲片、噪声上扬与“刷”的转场音效；上扬改用弦乐音阶爬升 + 定音鼓滚奏 + 铜管渐强，重拍只留次低频与乐队和弦；旋律放在小提琴、圆号的中高音区；均衡去闷（320 Hz −3 dB）、提亮（2.7 kHz +2.5 dB）、10 kHz 以上滚降，混响变干。实测：500 Hz–6 kHz 能量占比由 22.5% 升到约 42%，6 kHz 以上的噪声成分降到原来的约 1/15。每章换调、换速度、换织体：开场 D 小调 92 的紧张脉冲 → 片名 F 大调铜管主题 → 第一章 A 小调 84 温暖钢琴（官司全赢处转 C 大调） → 第二章 F 大调 100 律动 → 第三章：五条打法处 F 大调 108 明亮律动、飞轮全速、规模经济分享处重拍，两关处转 D 小调 112 驱动弦乐，“差距反而拉大了”转 F 大调颂歌 → 第四章 C 小调 76 心跳、隔壁新店处降 E 大调拨弦、九十九岁处转降 A 大调 → 第五章 D 大调 118 颂歌 → 第六章 B 小调 88 脉冲 → 第七章 D 大调 100 层层推进。同一条主题旋律换配器出现（钢琴、铜管、钟琴、圆号、合唱）。卡点（先抽空再重拍）：“六年后”“现金只有五十美元”“一个字没改”“将近两倍”“百分之十六点五”“倒贴”“反而拉大了”“辞职走了”“一百八十万”“三十三亿”与片尾 logo；章节号亮起时重拍。
+- 混音（`src/audio_mix.py`）：旁白 70 Hz 高通、2.2:1 轻压缩、很淡的短混响与 −64 dBFS 噪底；配乐保留自身起伏（各章只做 ±3 dB 内的校平）；闪避放在最后一步（−9 dB，人声频段再 −3 dB，只有大重拍短暂放开），说话时旁白比配乐高约 11 LU；线性增益到 −14 LUFS 并限峰。旁白不模仿、不合成任何真实人物的声音。

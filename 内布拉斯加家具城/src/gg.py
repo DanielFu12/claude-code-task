@@ -933,7 +933,7 @@ def shot_ch3(cv, t):
     t0, t1 = win2('c3n3')
     a = A(t, t0, t1)
     if a > 0:
-        gate_tag(cv, 1, a)
+        gate_tag(cv, 1, a, y=1370)
         cv.text('假如 Levitz 卖 NFM 的价钱', W / 2, 330, 50, 'serif_black', gold=True, a=a * eo((t - t0 - 0.2) / 0.5))
         cv.text('每 $100 销售额', W / 2, 410, 30, 'sans_med', col=CREAM, a=a * eo((t - t0 - 0.2) / 0.5))
         base, top = 1040, 500
@@ -977,7 +977,7 @@ def shot_ch3(cv, t):
                 gbar(cv, x0, Y(v * e), x0 + 130, base, col, a, glow=0.12 if j == 0 else 0.05, sheen_t=t - ts)
                 cv.text(tx, x0 + 65, Y(v * e) - 34, 34, 'sans_bold', col=GOLD_L if j == 0 else CREAM, a=a * e)
                 cv.text(lb, x0 + 65, base + 34, 26, 'sans_med', col=CREAM, a=a * e)
-            cv.text(f'{yr} 年', xc, base + 84, 36, 'oswald', col=GOLD_L, a=a * e)
+            cv.text(f'{yr} 年', xc, base + 84, 36, 'serif_black', col=GOLD_L, a=a * e)
         cv.line((100, base), (980, base), GREY, a * 0.6, 2)
         kg = appear(t, 'c3n4', '反而拉大了')
         if kg > 0:
@@ -1044,7 +1044,7 @@ def shot_ch3(cv, t):
             cv.text('“major chains … steer clear of Omaha”', W / 2, 950, 36, 'serif_reg', col=CREAM, a=a * k * (1 - kl))
             cv.text('大连锁店干脆绕开奥马哈', W / 2, 1040, 52, 'serif_black', gold=True, a=a * k * (1 - kl))
         if kl > 0:
-            ev = [('1984', '被巴菲特拿来对比', '而当年'), ('1997', '申请破产保护', '申请破产'), ('2007', '第三次破产，随后清算', '清算')]
+            ev = [('1984', '被巴菲特拿来对比', '而当年'), ('1997', '申请破产保护', '申请破产'), ('2007', '第三次破产，随后清算', '第三次')]
             cv.line((150, 1100), (930, 1100), GOLD_D, a * kl, 3)
             for j, (yr, txt, w_) in enumerate(ev):
                 kk = appear(t, 'c3n8', w_)
