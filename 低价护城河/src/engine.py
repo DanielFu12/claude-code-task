@@ -217,7 +217,7 @@ def bloom(cv, thr=0.72, k=0.35):
     cv += cv2.resize(b, (W, H)) * k
 
 
-def finish(cv, fi, grain=0.022, vig=True):
+def finish(cv, fi, grain=0.016, vig=True):
     bloom(cv)
     if vig: cv *= VIG
     cv += GRAIN[fi % len(GRAIN)][..., None] * grain * (0.4 + 0.6 * np.sqrt(np.clip(cv.mean(2, keepdims=True), 0, 1)))

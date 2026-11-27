@@ -114,111 +114,130 @@ HITS = {}   # name -> time（画面用）
 SUBS = []   # (t, gain, kind)
 
 # ─────────────────────────── 时刻表 ───────────────────────────
-H1 = tl.T('h1'); TITLE = tl.SE('h5') + 0.55
-HITS['title'] = TITLE
-B1 = grid(tl.S('b1') - BEAT); C1 = grid(tl.S('c1') - BEAT); D1 = grid(tl.S('d1') - BEAT); E1 = grid(tl.S('e1') - BEAT)
-F1 = grid(tl.S('f1') - BEAT); G1 = grid(tl.S('g1') - BEAT); Q1 = grid(tl.S('q1') - BEAT); Z1 = grid(tl.S('z1') - BEAT)
-END = tl.SE('z3') + 0.9; HITS['logo'] = END
+TITLE = tl.SE('o10') + 0.55; HITS['title'] = TITLE
+G = lambda lid: grid(tl.S(lid) - BEAT)
+END = tl.SE('z4') + 1.0; HITS['logo'] = END
 
-# 0 冷开场：低音铺底 + 钢琴主题（D–A–F–E），讲到排队退押金时转暗
-note('pad', 38, 0.0, TITLE - 0.3, 34); note('pad', 45, 0.0, TITLE - 0.3, 26)
-ramp('pad', 0.0, 2.0, 30, 100)
-piano_motif(H1 + 0.05, 62, 60)
-note('piano', 50, H1 + 0.05, H1 + 3.0, 44)
-piano_motif(tl.T('h2'), 60, 54)                         # 主题下移：寒意
-note('cello', 38, tl.T('h3'), tl.SE('h4'), 52); note('cello', 45, tl.T('h3'), tl.SE('h4'), 44)
-ramp('cello', tl.T('h3'), tl.SE('h4'), 50, 110)
-for p in voicing('Dm', 50): note('slow', p, tl.T('h4'), TITLE, 40)
-for p in voicing('Bb', 50): note('slow', p - 12 + 12, tl.WT('h4', '一个成了坟墓'), TITLE, 0)
-ramp('slow', tl.T('h4'), TITLE - 0.05, 30, 120)          # 「差别到底在哪」→ 弦乐渐强到片名
-note('piano', 74, tl.WT('h5', '哪'), tl.WT('h5', '哪') + 2, 50)
-SUBS.append((TITLE, 1.0, 'boom')); timp(TITLE, 38, 112, roll=1.4)
+# 引子 · 内卷：低音弦乐脉动 + 轻鼓，像新闻快讯；o5 加码；o6 发问时抽空
+note('pad', 38, 0.0, tl.T('o7'), 30); ramp('pad', 0.0, 2.0, 30, 100)
+prI = ['Dm', 'Dm', 'Bb', 'A']
+ostinato(tl.T('o2') - BEAT, tl.T('o6'), prI, 46, step=BEAT / 2)
+pulse(tl.T('o2') - BEAT, tl.T('o6'), 34)
+pad(tl.T('o2') - BEAT, tl.T('o6'), prI, 34, name='strings', bassname=None)
+arp(tl.T('o3'), tl.T('o6'), prI, 36, lo=64)
+for c, s_, e_ in bars(tl.T('o5'), tl.T('o6'), ['Bb', 'A']):
+    for p in voicing(c, 50, 3): note('brass', p, s_, e_, 46)
+t_q = tl.WT('o6', '谁建起了护城河'); HITS['q_moat'] = t_q
+note('piano', 62, t_q, t_q + 3, 56); note('piano', 50, t_q, t_q + 3, 44)
+# 热狗（暖）/ 小黄车（冷）/ 差别在哪 → 片名
+piano_motif(tl.T('o7') + 0.1, 65, 58, major=True)
+pad(tl.T('o7'), tl.T('o8'), ['F', 'C'], 38, name='slow', bassname=None)
+piano_motif(tl.T('o8') + 0.1, 62, 52)
+note('cello', 38, tl.T('o8'), tl.SE('o9'), 50); ramp('cello', tl.T('o8'), tl.SE('o9'), 50, 110)
+for p in voicing('Dm', 50): note('slow', p, tl.T('o9'), TITLE, 40)
+ramp('slow', tl.T('o9'), TITLE - 0.05, 30, 120)
+note('piano', 74, tl.WT('o10', '哪'), tl.WT('o10', '哪') + 2, 50)
+SUBS.append((TITLE, 1.0, 'boom')); timp(TITLE, 38, 112, roll=1.4); SUBS.append((TITLE - 1.6, 0.5, 'swell'))
 for p in voicing('Dm', 38, 3) + voicing('Dm', 62, 3): note('brass', p, TITLE, TITLE + 2.6, 84)
 for p in voicing('Dm', 50, 4): note('choir', p, TITLE, TITLE + 3.2, 60)
-SUBS.append((TITLE - 1.6, 0.5, 'swell'))
 
-# 1 直觉 + 2 试金石：脉动起，钢琴分解，c4「失血」重音
-pr = ['Dm', 'Bb', 'F', 'C']
-pad(B1, C1, pr, 40, name='strings'); arp(B1, C1, pr, 40)
-ostinato(C1, tl.T('c4'), ['Dm', 'Bb', 'Gm', 'A'], 48); pad(C1, tl.T('c4'), ['Dm', 'Bb', 'Gm', 'A'], 38, name='strings', bassname=None)
-pulse(C1, tl.T('c4'), 34)
-arp(C1, tl.T('c4'), ['Dm', 'Bb', 'Gm', 'A'], 42, lo=64)
-t_blood = tl.WT('c4', '失血'); HITS['blood'] = t_blood
+# 01 第一性原理：钢琴 + 铺底，思考感；纺织厂段落怀旧（慢弦 + 钢片琴）；检验段脉动
+P1 = G('p1')
+pad(P1, tl.T('p6'), ['Dm', 'Bb', 'F', 'C'], 38, name='strings'); arp(P1, tl.T('p6'), ['Dm', 'Bb', 'F', 'C'], 38, lo=62)
+t_zero = tl.WT('p5', '挤到零'); HITS['zero'] = t_zero; timp(t_zero, 38, 70)
+pad(tl.T('p6'), tl.T('p10'), ['Gm', 'Dm', 'Bb', 'A'], 42, name='slow')
+arp(tl.T('p6'), tl.T('p10'), ['Gm', 'Dm', 'Bb', 'A'], 34, lo=70, name='celesta', step=BEAT)
+t_buy = tl.WT('p8', '买家的口袋'); HITS['buyer'] = t_buy
+for p in voicing('Bb', 62): note('choir', p, t_buy, t_buy + 3, 44)
+prT = ['Dm', 'Bb', 'Gm', 'A']
+ostinato(tl.T('p10'), tl.T('p12'), prT, 48); pad(tl.T('p10'), tl.T('p12'), prT, 36, name='strings', bassname=None)
+pulse(tl.T('p10'), tl.T('p12'), 34); arp(tl.T('p10'), tl.T('p12'), prT, 40, lo=64)
+t_blood = tl.WT('p12', '失血'); HITS['blood'] = t_blood
 timp(t_blood, 38, 96); SUBS.append((t_blood, 0.7, 'boom'))
-for p in voicing('Dm', 50): note('strings', p, t_blood, D1 + 0.2, 36)
-note('piano', 50, t_blood, t_blood + 3, 50)
+for p in voicing('Dm', 50): note('strings', p, t_blood, G('d1') + 0.2, 34)
 
-# 3 巴菲特的用词：温暖，F 大调色彩；「成本最低」上弦乐亮起
-pr = ['Bbmaj7', 'F', 'C', 'Dm'] if False else ['Bb', 'F', 'C', 'Dm']
-pad(D1, E1, pr, 44, name='slow'); arp(D1, E1, pr, 36, lo=65, name='harp', step=BEAT / 2)
-t_cost = tl.WT('d2', '成本最低'); HITS['lowcost'] = t_cost
-for p in voicing('F', 62): note('choir', p, t_cost, E1, 48)
-note('celesta', 77, t_cost, t_cost + 1.5, 60); note('celesta', 81, t_cost + 0.375, t_cost + 2, 54)
+# 02 两位大师：巴菲特（温暖铜管）↔ 段永平（对撞重拍）→ 和解（大调）→ 渐强到「三个条件」
+D1 = G('d1')
+pad(D1, tl.T('d3'), ['Bb', 'F', 'C', 'Dm'], 42, name='slow')
+for c, s_, e_ in bars(tl.T('d2'), tl.T('d3'), ['Bb', 'F']):
+    for p in voicing(c, 55, 3): note('horn', p, s_, e_, 54)
+t_clash = tl.S('d3'); HITS['clash'] = t_clash
+timp(t_clash, 38, 104, roll=0.8); SUBS.append((t_clash, 0.8, 'boom'))
+pad(tl.T('d3'), tl.T('d5'), ['Dm', 'Gm', 'Dm', 'A'], 40, name='strings')
+ostinato(tl.T('d3'), tl.T('d5'), ['Dm', 'Gm', 'Dm', 'A'], 46, step=BEAT / 2, name='pizz', oct_=50)
+t_bm = tl.WT('d5', '商业模式'); HITS['bizmodel'] = t_bm
+pad(tl.T('d5'), tl.T('d8'), ['F', 'C', 'Bb', 'F'], 44, name='slow'); arp(tl.T('d5'), tl.T('d8'), ['F', 'C', 'Bb', 'F'], 38, lo=65, name='harp')
+t_pp = tl.WT('d6', '定价权'); HITS['pricing'] = t_pp
+for p in voicing('F', 62): note('choir', p, t_pp, t_pp + 3, 52)
+note('celesta', 77, t_pp, t_pp + 1.5, 60)
+pad(tl.T('d8'), G('k1'), ['Bb', 'C'], 44, name='strings'); ramp('strings', tl.T('d8'), G('k1'), 60, 120)
+SUBS.append((tl.S('k1') - 1.6, 0.6, 'swell'))
 
-# 4 三个来源：每个「第一/第二/第三」一记太鼓；前两个小调，第三个转大调抬起来
-pad(E1, tl.T('e4'), ['Dm', 'Dm', 'Bb', 'A'], 38, name='strings')
-for lid, key in (('e2', '第一'), ('e3', '第二'), ('e4', '第三')):
-    t = tl.WT(lid, key); HITS[lid] = t
-    note('taiko', 45, t, t + 1.0, 96); SUBS.append((t, 0.45, 'boom'))
-ostinato(tl.T('e3'), tl.T('e4'), ['Gm', 'A'], 46, step=BEAT / 2)
-t_eff = tl.WT('e4', '效率'); HITS['eff'] = t_eff
-pad(tl.T('e4'), F1, ['D', 'G', 'D', 'A'], 46, name='slow'); piano_motif(t_eff + 0.1, 62, 62, major=True)
-for p in voicing('D', 62): note('choir', p, t_eff, t_eff + 3.5, 50)
-
-# 5 飞轮：D 大调推进，弦乐八分音符固定音型 + 钢琴分解 + 轻鼓，逐段加码
+# 03 三个条件：每个条件一记太鼓 + 低频；条件二起飞轮推进；Costco 证据段温暖大调；会合处合唱
+for lid in ('k1', 'k5', 'k8'):
+    t = tl.WT(lid, '条件'); HITS['cond_' + lid] = t
+    note('taiko', 45, t, t + 1.0, 100); timp(t, 38, 92); SUBS.append((t, 0.6, 'boom'))
+prK1 = ['Dm', 'Bb', 'Gm', 'A']
+pad(tl.T('k1'), tl.T('k5'), prK1, 40, name='strings'); ostinato(tl.T('k1'), tl.T('k5'), prK1, 46, step=BEAT / 2)
+pulse(tl.T('k1'), tl.T('k5'), 34)
 prF = ['D', 'A', 'Bm', 'G']
-pad(F1, tl.T('f5'), prF, 46, name='strings'); arp(F1, tl.T('f5'), prF, 44, lo=62)
-ostinato(tl.T('f2'), tl.T('f5'), prF, 50, step=BEAT / 2)
-pulse(tl.T('f2'), tl.T('f5'), 42); pulse(tl.T('f3'), tl.T('f5'), 30, every=BEAT / 2)
-ramp('strings', F1, tl.T('f5'), 70, 115)
-for c, s, e in bars(tl.T('f3'), tl.T('f5'), prF):
-    for p in voicing(c, 55, 3): note('horn', p, s, e, 52)
-t_share = tl.WT('f4', '规模经济分享'); HITS['share'] = t_share
-for p in voicing('D', 62): note('choir', p, t_share, tl.T('f5'), 56)
-t_scale = tl.WT('f5', '先拥有'); HITS['scale'] = t_scale
-note('slow', 62, tl.T('f5'), t_scale, 0)
-timp(t_scale, 38, 104); SUBS.append((t_scale, 0.85, 'boom'))
-for p in voicing('D', 38, 3) + voicing('D', 62, 3): note('brass', p, t_scale, t_scale + 2.4, 80)
-for p in voicing('D', 50, 4): note('slow', p, t_scale, G1 + 0.3, 50)
+pad(tl.T('k5'), tl.T('k8'), prF, 46, name='strings'); arp(tl.T('k5'), tl.T('k8'), prF, 44, lo=62)
+ostinato(tl.T('k6'), tl.T('k8'), prF, 50, step=BEAT / 2); pulse(tl.T('k6'), tl.T('k8'), 42)
+ramp('strings', tl.T('k5'), tl.T('k8'), 70, 115)
+t_gas = tl.WT('k7', '油门踩到底'); HITS['gas'] = t_gas; timp(t_gas, 38, 86)
+prK3 = ['Bm', 'G', 'D', 'A']
+pad(tl.T('k8'), tl.T('k10'), prK3, 44, name='slow'); ostinato(tl.T('k8'), tl.T('k10'), prK3, 44, step=BEAT / 2, name='pizz', oct_=50)
+t_fuel = tl.WT('k9', '燃料'); HITS['fuel'] = t_fuel
+for p in voicing('G', 55, 3): note('brass', p, t_fuel, t_fuel + 2.2, 62)
+prC = ['D', 'G', 'Bm', 'A']
+pad(tl.T('k10'), tl.T('k14'), prC, 44, name='strings'); arp(tl.T('k10'), tl.T('k14'), prC, 42, lo=62)
+pulse(tl.T('k11'), tl.T('k14'), 36)
+t_fee = tl.WT('k11', '六十五美元'); HITS['fee'] = t_fee; note('timp', 38, t_fee, t_fee + 1.5, 80)
+t_pw = tl.WT('k13', '定价权'); HITS['power'] = t_pw
+for c, s_, e_ in bars(tl.T('k13'), G('g1'), ['G', 'D']):
+    for p in voicing(c, 55, 3): note('horn', p, s_, e_, 58)
+t_meet = tl.WT('k14', '会合'); HITS['meet'] = t_meet
+for p in voicing('D', 62): note('choir', p, t_meet - 0.6, G('g1') + 0.5, 58)
+timp(t_meet, 38, 96); SUBS.append((t_meet, 0.7, 'boom'))
+for p in voicing('D', 38, 3) + voicing('D', 62, 3): note('brass', p, t_meet, t_meet + 2.4, 74)
 
-# 6 中国考题：紧张，D 小调；拨弦滴答 + 低铜管；拼多多段换成马林巴质感的钢琴高音
-prG = ['Dm', 'Bb', 'Gm', 'A']
-pad(G1, tl.T('g5'), prG, 40, name='strings'); ostinato(tl.T('g2'), tl.T('g5'), prG, 52, step=BEAT / 2, name='pizz', oct_=50)
-pulse(tl.T('g2'), tl.T('g8'), 36)
-for c, s, e in bars(tl.T('g3'), tl.T('g5'), prG):
-    note('brass', root(c, 38), s, e, 50)
-t60 = tl.WT('g4', '六十天'); HITS['d60'] = t60; note('timp', 38, t60, t60 + 1.5, 76)
+# 04 中国考题：紧张，拨弦滴答 + 低铜管；「内卷」处暗重拍
+G1 = G('g1'); prG = ['Dm', 'Bb', 'Gm', 'A']
+pad(G1, tl.T('g5'), prG, 40, name='strings'); ostinato(tl.T('g2'), tl.T('g5'), prG, 50, step=BEAT / 2, name='pizz', oct_=50)
+pulse(tl.T('g2'), tl.T('g8'), 34)
+for c, s_, e_ in bars(tl.T('g3'), tl.T('g5'), prG): note('brass', root(c, 38), s_, e_, 48)
+t60 = tl.WT('g3', '六十天'); HITS['d60'] = t60; note('timp', 38, t60, t60 + 1.5, 76)
 pad(tl.T('g5'), tl.T('g8'), ['Gm', 'Dm', 'Bb', 'A'], 40, name='strings')
-arp(tl.T('g5'), tl.T('g8'), ['Gm', 'Dm', 'Bb', 'A'], 40, lo=70, name='celesta', step=BEAT / 2)
-ostinato(tl.T('g6'), tl.T('g8'), ['Gm', 'Dm', 'Bb', 'A'], 48, step=BEAT / 2)
-pad(tl.T('g8'), Q1, ['Bb', 'C', 'Dm', 'Dm'], 46, name='slow')
-ramp('slow', tl.T('g8'), tl.SE('g8'), 70, 118)
-t_draw = tl.WT('g8', '透支'); HITS['overdraw'] = t_draw; timp(t_draw, 38, 90); SUBS.append((t_draw, 0.6, 'boom'))
+arp(tl.T('g5'), tl.T('g8'), ['Gm', 'Dm', 'Bb', 'A'], 38, lo=70, name='celesta', step=BEAT / 2)
+ostinato(tl.T('g6'), tl.T('g8'), ['Gm', 'Dm', 'Bb', 'A'], 46, step=BEAT / 2)
+pad(tl.T('g8'), G('q1'), ['Bb', 'A', 'Dm', 'Dm'], 46, name='slow'); ramp('slow', tl.T('g8'), tl.SE('g8'), 70, 118)
+t_inv = tl.WT('g8', '这就是内卷'); HITS['involution'] = t_inv; timp(t_inv, 38, 96); SUBS.append((t_inv, 0.7, 'boom'))
 
-# 7 底线：飞轮倒转——下行低音、半音摩擦，越来越暗；「值不值」前全停
+# 05 底线：飞轮倒转——下行低音、半音摩擦；「值不值」前全停
 for i, p in enumerate([50, 49, 48, 47, 46, 45, 44, 43]):
     t = tl.T('q1') + i * BAR / 2
     if t < tl.T('q3'): note('cello', p - 12, t, t + BAR / 2 + 0.05, 58); note('bass', p - 24, t, t + BAR / 2, 56)
 for p in (62, 63): note('strings', p, tl.T('q1'), tl.T('q3'), 34)
-ramp('strings', tl.T('q1'), tl.T('q3'), 60, 105)
-pulse(tl.T('q2'), tl.T('q3'), 46, every=BEAT)
+ramp('strings', tl.T('q1'), tl.T('q3'), 60, 105); pulse(tl.T('q2'), tl.T('q3'), 46)
 t_worth = tl.WT('q3', '值不值'); HITS['worth'] = t_worth
 note('piano', 62, t_worth, t_worth + 3.5, 62); note('piano', 50, t_worth, t_worth + 3.5, 50); SUBS.append((t_worth, 0.5, 'boom'))
 
-# 8 答案：D 大调全编制；z1 四句每句一小节，z3 抽到只剩钢琴；片尾 logo 一记落地
-prZ = ['D', 'Bm', 'G', 'A']
-pad(Z1, tl.T('z3'), prZ, 50, name='strings'); arp(Z1, tl.T('z3'), prZ, 46, lo=62)
-ostinato(tl.T('z1'), tl.T('z3'), prZ, 50, step=BEAT / 2); pulse(tl.T('z1'), tl.T('z3'), 40)
-for c, s, e in bars(tl.T('z1'), tl.T('z3'), prZ):
-    for p in voicing(c, 55, 3): note('horn', p, s, e, 56)
-for c, s, e in bars(tl.T('z2'), tl.T('z3'), prZ):
-    for p in voicing(c, 62, 4): note('choir', p, s, e, 52)
-piano_motif(tl.T('z3') + 0.1, 62, 54, major=True)
-for p in voicing('Gmaj7', 55): note('slow', p, tl.T('z3'), END, 40)
+# 06 答案：D 大调全编制；z3 三句各一记；z4 抽到钢琴；片尾 logo 落地
+Z1 = G('z1'); prZ = ['D', 'Bm', 'G', 'A']
+pad(Z1, tl.T('z4'), prZ, 50, name='strings'); arp(Z1, tl.T('z4'), prZ, 46, lo=62)
+ostinato(tl.T('z2'), tl.T('z4'), prZ, 50, step=BEAT / 2); pulse(tl.T('z2'), tl.T('z4'), 40)
+for c, s_, e_ in bars(tl.T('z2'), tl.T('z4'), prZ):
+    for p in voicing(c, 55, 3): note('horn', p, s_, e_, 56)
+for k_, key in enumerate(('一种选择', '一种能力', '才是护城河')):
+    t = tl.WT('z3', key); HITS['z3_%d' % k_] = t; note('timp', 38, t, t + 1.4, 70 + 12 * k_)
+    if k_ == 2: SUBS.append((t, 0.6, 'boom'))
+for p in voicing('D', 62, 4): note('choir', p, tl.WT('z3', '定价权'), tl.T('z4') + 0.3, 56)
+piano_motif(tl.T('z4') + 0.1, 62, 54, major=True)
+for p in voicing('Gmaj7', 55): note('slow', p, tl.T('z4'), END, 40)
 timp(END, 38, 100, roll=1.2); SUBS.append((END, 0.9, 'boom'))
-for p in voicing('D', 38, 3) + voicing('Dadd9' if False else 'D', 62, 4): note('brass', p, END, END + 4.5, 70)
+for p in voicing('D', 38, 3) + voicing('D', 62, 4): note('brass', p, END, END + 4.5, 70)
 for p in voicing('D', 50, 4): note('strings', p, END, TOTAL, 60)
-ramp('strings', END + 1.0, TOTAL, 110, 0)
+ramp('strings', END + 2.0, TOTAL, 110, 0)
 
 # ─────────────────────────── 渲染 ───────────────────────────
 os.makedirs(os.path.join(WORK, 'music'), exist_ok=True)

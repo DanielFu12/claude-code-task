@@ -57,5 +57,17 @@
   "page": "https://commons.wikimedia.org/wiki/File:HK_SKD_TKO_將軍澳_Tseung_Kwan_O_坑口_Hang_Hau_南豐廣場_Nan_Fung_Plaza_mall_shop_拼多多_PinDuoDuo_自提點_Storage_boxes_logistics_pick_up_point_最後一公里_last_one_mile_March_2026_N13P_01.jpg",
   "license": "CC0",
   "artist": "Wikimedia Commons"
+ },
+ "weave_room": {
+  "file": "File:General view of weave room, Cornell Mill (Lewis Hine, 1912).jpg",
+  "page": "https://commons.wikimedia.org/wiki/Category:Cornell_Mill",
+  "license": "Public domain",
+  "artist": "Lewis Hine（1912，美国国会图书馆）"
+ },
+ "solar_wall": {
+  "file": "File:Building a Great Solar Wall in China (153759 - 2 20241208 lrg).jpg",
+  "page": "https://earthobservatory.nasa.gov/images/153759",
+  "license": "Public domain",
+  "artist": "NASA Earth Observatory"
  }
 }

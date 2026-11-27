@@ -8,11 +8,11 @@ from script import LINES, BREAK
 
 BPM = 80.0; BEAT = 60 / BPM; BAR = 4 * BEAT
 INTRO = 1.5            # 冷开场：第一句前的环境声 + 画面起
-OUTRO = 6.0            # 最后一句后：片尾卡
+OUTRO = 7.5            # 最后一句后：片尾卡
 CHAPTERS = [  # (起始句, 章节标签, 英文)
-    ('h1', '', ''), ('b1', '01 · 直觉', 'INTUITION'), ('c1', '02 · 试金石', 'THE TEST'),
-    ('d1', '03 · 用词', 'THE WORD'), ('e1', '04 · 来源', 'THREE SOURCES'), ('f1', '05 · 飞轮', 'THE FLYWHEEL'),
-    ('g1', '06 · 中国考题', 'CHINA'), ('q1', '07 · 底线', 'QUALITY'), ('z1', '08 · 答案', 'THE ANSWER')]
+    ('o1', '', ''), ('p1', '01 · 第一性原理', 'FIRST PRINCIPLES'), ('d1', '02 · 两位大师', 'THE CLASH'),
+    ('k1', '03 · 三个条件', 'THREE CONDITIONS'), ('g1', '04 · 中国考题', 'CHINA'), ('q1', '05 · 底线', 'QUALITY'),
+    ('z1', '06 · 答案', 'THE ANSWER')]
 SNAP = {c[0] for c in CHAPTERS[1:]}
 
 

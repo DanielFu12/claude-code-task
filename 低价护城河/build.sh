@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 一键重建《低价格，不是护城河》竖屏短视频（1080×1920 · 30fps）
+# 一键重建《便宜≠护城河：低成本成为护城河的三个条件》竖屏短视频（1080×1920 · 30fps）
 # 依赖：ffmpeg、fluidsynth + FluidR3_GM、python3（numpy opencv-python-headless pillow soundfile scipy pretty_midi pyloudnorm fonttools）
 # 旁白：豆包 Seed-TTS 3.0（voice.cn-beijing.volces.com，X-Api-Key 由环境代理注入）；品牌角标取自仓库根目录 brand/
 set -euo pipefail
@@ -16,9 +16,9 @@ for k in $(seq 0 $((P-1))); do python3 src/video.py $WORK chunk $((k*STEP)) $(((
 printf "file '%s'\n" seg0.mp4 seg1.mp4 seg2.mp4 seg3.mp4 > $WORK/list.txt
 ffmpeg -v error -y -f concat -safe 0 -i $WORK/list.txt -i $WORK/mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -ar 48000 \
   -shortest $WORK/master_crf20.mp4
-# 成片：两遍编码到约 92MB（仓库 LFS 额度已满，按普通文件入库，须小于 100MB）；预览版 CRF 27 约 25MB
-(cd $WORK && ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 3800k -pass 1 -passlogfile p2 -an -f null /dev/null && \
-  ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 3800k -maxrate 7000k -bufsize 9000k -pass 2 -passlogfile p2 \
-  -c:a copy -movflags +faststart "../低价格不是护城河.mp4")
-ffmpeg -v error -y -i $WORK/master_crf20.mp4 -c:v libx264 -preset slow -crf 27 -c:a aac -b:a 160k -movflags +faststart "低价格不是护城河_预览版.mp4"
-echo "done -> 低价格不是护城河.mp4"
+# 成片：两遍编码到约 90MB（5 分半，约 2 Mbps）（仓库 LFS 额度已满，按普通文件入库，须小于 100MB）；预览版 CRF 27 约 25MB
+(cd $WORK && ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 2000k -pass 1 -passlogfile p2 -an -f null /dev/null && \
+  ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 2000k -maxrate 4500k -bufsize 6000k -pass 2 -passlogfile p2 \
+  -c:a aac -b:a 160k -movflags +faststart "../便宜不等于护城河.mp4")
+ffmpeg -v error -y -i $WORK/master_crf20.mp4 -c:v libx264 -preset slow -crf 27 -c:a aac -b:a 160k -movflags +faststart "便宜不等于护城河_预览版.mp4"
+echo "done -> 便宜不等于护城河.mp4"

@@ -1,32 +1,40 @@
-# 低价格，不是护城河 · 竖屏短视频
+# 便宜≠护城河：低成本成为护城河的三个条件 · 竖屏短视频（v2）
 
-- 成片：`低价格不是护城河.mp4`（1080×1920 · 30fps · 3:02 · H.264 3.8 Mbps + AAC 256k · 响度 −14.1 LUFS · 峰值 −1.0 dBFS · 约 93MB）
-- 预览版：`低价格不是护城河_预览版.mp4`（约 25MB，方便手机转发）
+- 成片：`便宜不等于护城河.mp4`（1080×1920 · 30fps · 5:35 · H.264 两遍编码约 2 Mbps + AAC · 响度 −14 LUFS · 约 90MB）
+- 预览版：`便宜不等于护城河_预览版.mp4`（CRF 27，方便手机转发）
+- 右上角全程挂「巴芒价值」角标（`../brand/`，带流光）；片尾品牌卡：大号 logo + 金色「巴芒价值」+「BUFFETT · MUNGER」+ 口号「关注「巴芒价值」，传承大师智慧，领悟投资真谛」。片尾不再有评论区互动。
+- 旁白：豆包 Seed-TTS 3.0，音色 `multi_male_liufei2_v3_uranus_bigtts`，1860 字**整篇一次合成**，按逐字时间戳切句、对字幕、卡画面。
+- 配乐：原创程序作曲（MIDI → FluidSynth + FluidR3 GM），80 BPM；23 个重拍全部取自旁白里某个字的发声时刻。无镲片、无高频扫频。
+- 事实核查：`docs/核实笔记.md`；发布文案：`发布文案.md`。
 - 仓库 LFS 额度已满，本目录用 `.gitattributes` 把 mp4 按普通文件入库（单文件 < 100MB）。
-- 右上角全程挂「巴芒价值」品牌角标（`../brand/`，带流光）；片尾是大号 logo + 金色「巴芒价值」+「BUFFETT · MUNGER」。
-- 旁白：豆包 Seed-TTS 3.0，音色 `multi_male_liufei2_v3_uranus_bigtts`，**整篇一次合成**（没有段落接缝），按接口返回的逐字时间戳切句、对字幕、卡画面。
-- 配乐：原创程序作曲（MIDI → FluidSynth + FluidR3 GM），80 BPM，D 小调 → D 大调；每个重拍都取自旁白里某个字的发声时刻。没有镲片和高频扫频，转场只用低频轰鸣、弦乐渐强和低通气声。
-- 事实核查与来源：`docs/核实笔记.md`；发布标题与正文：`发布文案.md`。
+
+## 标题为什么这样定
+
+**便宜 ≠ 护城河**——“低价格”永远只是一个决定，谁都能做，所以它本身从来不是护城河；
+**低成本成为护城河的三个条件**——真正可能成立的是“低成本”，但它要同时满足三个条件。
+标题本身就是全片的第一性原理结论：区分“价格（决定）”和“成本（结构）”，再给出成立条件。
 
 ## 一句话主线
 
-**低价格只是策略，低成本才是护城河的地基。** 让出去的钱只可能来自三处：补贴、转移、效率——只有效率撑得起护城河；质量是底线，上下游能不能活下去是检验。
+利润 = 价格 − 成本。价格是决定，成本是结构；内卷是大家都在动价格，没人动得了成本。
+巴菲特说低成本生产者是屏障，段永平说没见过成本优势能成护城河——两人并不矛盾：
+**低成本要成为护城河，必须对手买不到（结构性）、差距越拉越大（可持续）、还能换来定价权（可转化）。**
+低价是一种选择，低成本是一种能力，定价权才是护城河。
 
 ## 结构
 
 | 时间 | 章节 | 叙事 | 画面 |
 |---|---|---|---|
-| 0:00–0:17 | 冷开场 | 1.5 美元的热狗卖了 40 年 vs 一千多万人排队退押金：同样是便宜，一个成了护城河，一个成了坟墓。差别在哪？ | 热狗实拍暖调推近 + $1.50 与年份滚动；ofo 实拍冷调 + 排队人数计数与点阵；上下分屏「护城河 / 坟墓」 |
-| 0:17 | 片名 | **低价格 · 不是护城河** | 冲击波 + 金色护城河光环碎裂，第一个重拍 |
-| 0:20 | 01 直觉 | 价格谁都能降，挡不住任何人 | 多条价格线竞相下探，穿过「低价」这堵墙 |
-| 0:30 | 02 试金石 | 当对手也降到同一个价格，谁还活着？A 成本 75 赚 15，B 成本 95 亏 5 | 两家店价格牌降到 ¥90 → 柱图 +15 / −5，B 柱滴血；「武器 / 失血」重拍 |
-| 0:48 | 03 用词 | 巴菲特 2007 年信：不是价格最低，而是**成本最低的生产者** | 巴菲特照片 + 信纸打字机原文，高亮 low-cost producer |
-| 0:58 | 04 来源 | 让出去的钱来自补贴 / 转移 / 效率 | 价格柱被切下一块 → 三块来源卡片依次点亮：烧钱火星、供应商被挤压、齿轮 + 护城河光环 |
-| 1:17 | 05 飞轮 | Costco：加价 ≤14%（据报道）→ 低价 → 会员 → 采购量 → 成本 的飞轮；会员费≈一半经营利润、续费率 89.8%；规模经济分享；先拥有它的规模 | ABC 2005 年档案画面 + 飞轮动画 + 两个环形数据卡 + 大字标题卡 |
-| 1:44 | 06 中国考题 | 比亚迪：垂直整合、2025 年约 460 万辆；10% 年降目标、账期、60 天付款承诺。拼多多：低价心智 + 商家竞争，收入来自商家；商家还赚得到钱吗；千亿扶持。低价里多少是效率、多少是让利——护城河在加宽还是透支 | 海豹棚拍 / 海鸥实拍 + 供应链与账期时钟；拼多多自提柜门店实拍 → 双边平台粒子图；天平 + 城堡护城河加宽 / 干涸 |
-| 2:27 | 07 底线 | 偷工减料让飞轮倒转：质量下滑 → 信任流失 → 复购减少 → 再降价；消费者买的不是便宜，是值不值 | 金色飞轮反转变红；「值 = 效用 − 价格 − 麻烦」 |
-| 2:40 | 08 答案 | 低价吸引、质量留住、效率支撑、规模强化；真正的护城河是“在这里，我总能用更少的钱，买到靠得住的东西”；哪家公司的低价才是真护城河？ | 四句排印逐句点亮；金句大字；评论区提问 |
-| 2:57 | 片尾 | 品牌 | 大号 logo + 巴芒价值 + BUFFETT · MUNGER |
+| 0:00 | 引子 · 内卷 | 价签一刀刀划掉 → 2024 光伏组件跌到成本线附近、协会提醒低于成本投标涉嫌违法 → 汽车价格战、外卖 0 元购 → 越卖越亏 → 2024.07 政治局会议“防止内卷式恶性竞争”、2025.07 价格法首次修订 → **价格战打到最后，谁建起了护城河？** | 价签动画；NASA 卫星图“光伏长城”+ 价格曲线与成本线；价格战卡片；价格/利润双线；两份红头文件 |
+| 0:33 | 反差 | Costco 热狗 1.5 美元卖了 40 年 vs ofo 一千多万人排队退押金：一个成了护城河，一个成了坟墓 | 热狗实拍 + $1.50 与年份滚动；ofo 总部冷调 + 排队计数点阵；上下分屏 |
+| 0:51 | 片名 | **便宜 ≠ 护城河｜低成本成为护城河的三个条件** | 冲击波 + 金色护城河光环碎裂 |
+| 0:55 | 01 第一性原理 | 利润 = 价格 − 成本；价格是决定，成本是结构；内卷 = 动价格不动成本，利润被挤到零；巴菲特 1985 年纺织厂复盘（单独合理、合起来抵消）；芒格：更好的机器把省下的钱送给了买家；你能买到的效率对手也能买到；检验：对手降到同价你还赚钱吗（A/B 两家店） | 公式逐项点亮、价格滑杆瞬间拨动 vs 成本积木逐块搭建；五家公司价格一起下压；1912 年 Fall River 织布车间（Lewis Hine）+ 1985 年信原文打字机；金币从织机流向买家；A/B 柱图 |
+| 1:57 | 02 两位大师 | 巴菲特 2007：低成本生产者是屏障 vs 段永平 2010：没见过成本优势成护城河、性价比是低价的借口 → 线索：GEICO、Costco 靠的是商业模式；护城河 ≈ 定价权 → 并不矛盾 → 三个条件 | 左右对峙面板 + 两张引语卡（对撞处震屏重拍）；“商业模式”“护城河≈定价权”大字；和解双卡 |
+| 2:45 | 03 三个条件 | ① 结构性：新织布机谁都能买所以不算；GEICO 直销，靠代理人的对手先得拆掉销售体系；规模/流程/资源/网络密度 ② 可持续：Costco 飞轮；巴菲特“油门踩到底”，一停下优势就成行业标配 ③ 可转化：会员锁定/品牌心智/网络效应 → 定价权；低成本是燃料不是城墙。证据：热狗 40 年不涨、加价 ≤14%（据报道），2024.09 会员费 60→65 美元，续费率仍近九成、会员费约占经营利润一半——商品不涨价、会员费能涨价，巴菲特的低成本与段永平的定价权在此会合 | 每个条件一张大标题卡；直销 vs 代理人链路；成本曲线差距拉大；燃料火星托起四块城砖；Costco 双车道图（热狗平线、会员费台阶）；两个环形数据；双圆会合成“护城河” |
+| 4:02 | 04 中国考题 | 比亚迪：结构性 ✓，可持续/可转化待验证（10% 年降目标、账期、60 天付款承诺）；拼多多：网络效应 ✓，最难的题是商家能否赚钱、千亿扶持；只会降价的行业三个条件全 ✗ → 这就是内卷 | 海豹棚拍 / 海鸥实拍 + 三条件体检表；拼多多自提柜门店实拍 → 双边平台粒子图；全 × 体检表 |
+| 4:53 | 05 底线 | 偷工减料让飞轮倒转；消费者买的不是便宜，是值不值 | 金色飞轮反转变红；值 = 效用 − 价格 − 麻烦 |
+| 5:07 | 06 答案 | 便宜 ≠ 护城河；三个条件同时满足；低价是选择、低成本是能力、定价权才是护城河；真正的护城河是：哪天它涨价了，你还是愿意留下 | 三条 ✓ 卡片；三级台阶；Costco 卖场金句 |
+| 5:28 | 片尾 | 品牌卡 + 口号 | 大号 logo + 巴芒价值 + BUFFETT · MUNGER + 关注「巴芒价值」，传承大师智慧，领悟投资真谛 |
 
 ## 重新生成
 
@@ -34,30 +42,31 @@
 ./build.sh
 ```
 
-依赖：ffmpeg、fluidsynth（FluidR3_GM 音色库）、python3（numpy、opencv-python-headless、pillow、soundfile、scipy、pretty_midi、pyloudnorm、fonttools）。旁白请求 `voice.cn-beijing.volces.com`，API Key 由环境的网络代理注入；合成结果按文本哈希缓存在 `work/vo/`。
+依赖：ffmpeg、fluidsynth（FluidR3_GM 音色库）、python3（numpy、opencv-python-headless、pillow、soundfile、scipy、pretty_midi、pyloudnorm、fonttools）。
+旁白请求 `voice.cn-beijing.volces.com`，API Key 由环境网络代理注入；合成结果按文本哈希缓存在 `work/vo/`。
 
 | 文件 | 作用 |
 |---|---|
 | `src/script.py` | 旁白脚本：配音文本（数字口语化）、字幕文本、句前留白、语速 |
 | `src/tts.py` / `src/tts_take.py` | Seed-TTS 3.0 调用；整篇一次合成，按逐字时间戳在停顿能量最低点切句 |
-| `src/timeline.py` | 句子排布，章节句首对齐 80 BPM 节拍网格；提供 `WT(句, '词')` 取某个词的发声时刻 |
-| `src/music.py` | 程序作曲 + 低频冲击 + 卷积混响 + 电平均衡；输出重拍时刻 `hits.json` 给画面 |
+| `src/timeline.py` | 句子排布、章节句首对齐 80 BPM 节拍；`WT(句, '词')` 取某个词的发声时刻 |
+| `src/music.py` | 程序作曲 + 低频冲击 + 卷积混响 + 电平均衡；输出重拍时刻 `hits.json` |
 | `src/mix.py` | 旁白处理、配乐闪避（−11 dB）、−14 LUFS、真峰 −1.2 dBTP |
 | `src/engine.py` / `src/video.py` | 竖屏动态图形引擎与全部分镜 |
-| `src/commons_search.py` / `src/fetch_media.py` | Wikimedia Commons 检索与下载（记录作者、许可） |
+| `src/commons_search.py` / `src/fetch_media.py` / `src/fetch_clips.sh` | 素材检索与下载（记录作者、许可） |
 
 ## 素材与授权
 
 | 素材 | 作者 | 许可 |
 |---|---|---|
+| “光伏长城”卫星图（库布其沙漠） | NASA Earth Observatory | Public domain |
+| Cornell Mill 织布车间（Fall River，1912） | Lewis Hine（美国国会图书馆） | Public domain |
 | [Costco 热狗（浜松）](https://commons.wikimedia.org/wiki/File:20251023_171645_Hamamatsu_Costco_Hot_Dog_and_drink.jpg) | Saimmx | CC0 |
-| [ofo 单车（江宁路站）](https://commons.wikimedia.org/wiki/File:201703_ofo_bicycles_near_the_exit_1_of_Jiangning_Road_Station.jpg) | MNXANL | CC BY-SA 4.0 |
-| [ofo 北京总部](https://commons.wikimedia.org/wiki/File:Beijing_Zhongguancun_ofo_HQ_June-2017.jpg) | Stomatapoll | CC BY-SA 4.0 |
+| [ofo 单车](https://commons.wikimedia.org/wiki/File:201703_ofo_bicycles_near_the_exit_1_of_Jiangning_Road_Station.jpg) / [ofo 北京总部](https://commons.wikimedia.org/wiki/File:Beijing_Zhongguancun_ofo_HQ_June-2017.jpg) | MNXANL / Stomatapoll | CC BY-SA 4.0 |
 | [巴菲特（2015 SelectUSA）](https://commons.wikimedia.org/wiki/File:Warren_Buffett_at_the_2015_SelectUSA_Investment_Summit.jpg) | USA International Trade Administration | Public domain |
-| [比亚迪海豹](https://commons.wikimedia.org/wiki/File:BYD_Seal_IAA_2023_1X7A0026.jpg) | Alexander-93 | CC BY-SA 4.0 |
-| [比亚迪海鸥](https://commons.wikimedia.org/wiki/File:BYD_Seagull_009.jpg) | Quzhouliulian | CC0 |
+| [比亚迪海豹](https://commons.wikimedia.org/wiki/File:BYD_Seal_IAA_2023_1X7A0026.jpg) / [比亚迪海鸥](https://commons.wikimedia.org/wiki/File:BYD_Seagull_009.jpg) | Alexander-93 / Quzhouliulian | CC BY-SA 4.0 / CC0 |
 | 拼多多自提柜门店（香港将军澳，2026-03） | Wikimedia Commons | CC0 |
 | [Costco 内湖店](https://commons.wikimedia.org/wiki/File:Costco_Neihu_Warehouse_1st_Floor_Food_Area_20160320b.jpg) | 玄史生 | CC0 |
 | [ABC News《20/20》Costco 报道（2005）](https://archive.org/details/youtube-f9Iv_vdO7sw) | ABC News | 档案片段，评论性引用，每段不超过 6 秒 |
 
-字体：Noto Serif SC / Noto Sans SC / Cormorant Garamond / Oswald / Playfair Display / Special Elite（均为 OFL / Apache）。
+段永平没有可用的开放授权照片，片中用排印面板呈现。字体：Noto Serif SC / Noto Sans SC / Cormorant Garamond / Oswald / Playfair Display / Special Elite（OFL / Apache）。
