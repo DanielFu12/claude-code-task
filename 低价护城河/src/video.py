@@ -322,14 +322,19 @@ def sc_first(cv, t):
     base = 1180; top = 400; n = 5; k = eout(lin(t, T('p5') + 0.3, HIT['zero'] + 0.3))
     label(cv, '内卷', W / 2, 300, 96, RED, ease(lin(t, T('p5'), T('p5') + 0.4)), 'serif_black', glow=0.4)
     for i in range(n):
-        cx = 170 + i * 185; cost = 0.62 + 0.04 * math.sin(i * 1.7)
-        price = 0.95 - (0.95 - cost - 0.005) * k + 0.015 * math.sin(i * 2.3)
+        cx = 170 + i * 185; cost = 0.70 - 0.14 * k + 0.012 * math.sin(i * 1.7)   # 大家一起降成本，差距拉不开
+        price = 0.97 - (0.97 - cost - 0.004) * k + 0.012 * math.sin(i * 2.3)       # 价格降得更快，利润被挤到零
         yc = base - (base - top) * cost; yp = base - (base - top) * price
         L = layer(); rect(L, cx - 60, yc, cx + 60, base, r=6); fill(cv, L, (0.42, 0.50, 0.62), 0.9)
         gap = yc - yp
         L = layer(); rect(L, cx - 60, min(yp, yc), cx + 60, max(yp, yc) + 1, r=4); fill(cv, L, mix(TEAL, RED, k), 0.75)
         L = layer(); line(L, (cx - 80, yp), (cx + 80, yp), 4); stroke_layer(cv, L, WHITE, 0.95, glow=0.8)
         label(cv, '公司%s' % 'ABCDE'[i], cx, base + 46, 28, GREY, 1, 'sans_med')
+    y70 = base - (base - top) * 0.70; L = layer()
+    for x in range(90, 990, 24): line(L, (x, y70), (x + 12, y70), 2)
+    stroke_layer(cv, L, (0.62, 0.78, 0.95), 0.55 * ease(lin(t, T('p5') + 0.8, T('p5') + 1.3)))
+    label(cv, '起点成本', 980, y70 - 26, 24, (0.62, 0.78, 0.95), ease(lin(t, T('p5') + 0.8, T('p5') + 1.3)), 'sans_med', anchor='r')
+    tg = WT('p5', '拉不开差距'); label(cv, '成本也在降，但大家一起降，差距拉不开', W / 2, 1350, 32, (0.62, 0.78, 0.95), ease(lin(t, tg - 0.6, tg)), 'sans_bold')
     label(cv, '— 价格', 900, 1290, 28, WHITE, 1, 'sans_med', anchor='r'); label(cv, '■ 成本', 700, 1290, 28, (0.62, 0.78, 0.95), 1, 'sans_med', anchor='r')
     s, o = pop(t, HIT['zero'] - 0.1)
     big(cv, '利润 → 0', W / 2, 440, 84, a=o, scale=0.9 + 0.1 * s, grad=REDG, glow=0.5)
@@ -354,11 +359,11 @@ def sc_textile(cv, t):
         label(cv, '— Warren Buffett, 1985 Letter', 970, 880, 28, (0.35, 0.28, 0.2), o * ease(lin(t, SE('p7') - 0.5, SE('p7'))), 'corm_med', anchor='r')
         ts = WT('p7', '单独看'); tc = WT('p7', '放在一起看')
         label(cv, '单独看：都很合理', W / 2, 980, 46, (0.10, 0.45, 0.40), o * ease(lin(t, ts, ts + 0.3)), 'sans_black')
-        label(cv, '放在一起：互相抵消', W / 2, 1060, 46, (0.70, 0.12, 0.10), o * ease(lin(t, tc, tc + 0.3)), 'sans_black')
+        label(cv, '放在一起：互相抵消，反而不理性', W / 2, 1060, 42, (0.70, 0.12, 0.10), o * ease(lin(t, tc, tc + 0.3)), 'sans_black')
     if t > T('p8') - 0.2:
         o = ease(lin(t, T('p8') - 0.2, T('p8') + 0.3)) * (1 - ease(lin(t, T('p9') - 0.2, T('p9') + 0.2)))
         label(cv, '芒格：', 90, 560, 44, GOLD, o, 'serif_black', anchor='l')
-        quote_block(cv, ['纺织厂换上更好的机器，', '省下的钱，最后全部', '流进了买家的口袋。'], 90, 650, 56, o, 'serif_semi', WHITE, 1.4,
+        quote_block(cv, ['在同质化的生意里，', '换上更好的机器，', '省下的钱，最后全部', '流进了买家的口袋。'], 90, 650, 52, o, 'serif_semi', WHITE, 1.4,
                     reveal=lin(t, T('p8') + 0.2, T('p8') + 0.65 * (SE('p8') - T('p8'))))
         # 金币从织机流向买家
         tb = HIT['buyer']; kb = ease(lin(t, tb - 1.2, tb))
@@ -396,7 +401,7 @@ def sc_test(cv, t):
         label(cv, '同一个价格', W / 2, 1080, 44, GOLD_HI, ease(lin(t, tq + 0.1, tq + 0.5)), 'sans_bold')
         tw = WT('p10', '你还赚钱吗'); s2, o2 = pop(t, tw, 0.5)
         big(cv, '你还赚钱吗？', W / 2, 1230, 112, a=o2, scale=0.9 + 0.1 * s2, color=WHITE, glow=0.3)
-        label(cv, '真正的检验只有一个', W / 2, 330, 46, GREY, fade(t, SP('p10'), tw, 0.4, 0.4), 'sans_med')
+        label(cv, '第一道检验', W / 2, 330, 46, GREY, fade(t, SP('p10'), tw, 0.4, 0.4), 'sans_med')
         return
     pa = ease(lin(t, T('p11'), T('p11') + 0.5))
     L = layer(); line(L, (120, base), (960, base), 2); stroke_layer(cv, L, GREY, 0.6 * pa)
@@ -667,7 +672,7 @@ def sc_cond3(cv, t):
                 circle(L, (x + math.sin(life * 8 + ph * 5) * 10, 1180 - life * 110), 2 + 4 * (1 - life), v=1 - life, fill=True)
             stroke_layer(cv, L, (1.0, 0.55, 0.20), kf, glow=1.6, add=True)
             label(cv, '低成本 = 燃料', W / 2, 1250, 46, (1.0, 0.7, 0.4), kf, 'sans_black')
-            tw = WT('k9', '城墙'); label(cv, '不是城墙本身', W / 2, 1320, 40, WHITE, ease(lin(t, tw - 0.3, tw + 0.2)), 'sans_bold')
+            tw = WT('k9', '才是城墙'); label(cv, '它换来的东西，才是城墙', W / 2, 1320, 40, WHITE, ease(lin(t, tw - 0.6, tw)), 'sans_bold')
         return
     # k10–k14：Costco 的证据
     cond_header(cv, t, 2, 0, compact=True)
@@ -710,8 +715,8 @@ def sc_cond3(cv, t):
         DUST.draw(cv, t, GOLD, 0.3)
         a = ease(lin(t, T('k13') - 0.1, T('k13') + 0.4))
         card(cv, 90, 420, 520, 720, (0.12, 0.13, 0.16), 0.92 * a, GREY); card(cv, 560, 420, 990, 720, (0.20, 0.16, 0.08), 0.92 * a, GOLD)
-        label(cv, '商品', 305, 500, 44, GREY, a, 'sans_bold'); big(cv, '不涨价', 305, 620, 72, a=a, color=WHITE, glow=0.1)
-        tf = WT('k13', '会员费能涨价'); o = ease(lin(t, tf - 0.2, tf + 0.3))
+        label(cv, '商品', 305, 500, 44, GREY, a, 'sans_bold'); big(cv, '坚持薄利', 305, 620, 72, a=a, color=WHITE, glow=0.1)
+        tf = WT('k13', '却能涨价'); o = ease(lin(t, tf - 0.4, tf + 0.1))
         label(cv, '会员费', 775, 500, 44, GOLD, o, 'sans_bold'); big(cv, '能涨价', 775, 620, 72, a=o, grad=GOLDG, glow=0.4)
         s, oo = pop(t, HIT['power'] - 0.2, 0.5)
         big(cv, '= 低成本换来的定价权', W / 2, 900, 80, a=oo, scale=0.9 + 0.1 * s, grad=GOLDG, glow=0.7)
@@ -837,7 +842,7 @@ def sc_china(cv, t):
         return
     # g8：只会降价的行业——三个条件一个都不满足
     a = ease(lin(t, T('g8') - 0.2, T('g8') + 0.3))
-    label(cv, '只会降价的行业', W / 2, 360, 64, WHITE, a, 'serif_black')
+    label(cv, '只会降价的公司', W / 2, 360, 64, WHITE, a, 'serif_black')
     rows = [('结构性', '✗', '设备谁都能买', WT('g8', '设备')), ('可持续', '✗', '补贴谁都能发', WT('g8', '补贴')), ('可转化', '✗', '换不来定价权', WT('g8', '一个都不满足'))]
     scorecard(cv, t, 70, 460, rows, a)
     s, o = pop(t, HIT['involution'] - 0.15, 0.5)
@@ -885,7 +890,7 @@ def sc_answer(cv, t):
             label(cv, d, 930, y, 46, WHITE, o, 'serif_semi', anchor='r')
         return
     if t < T('z4') - 0.1:
-        steps = [('低价', '一种选择', '一种选择', (0.75, 0.75, 0.78)), ('低成本', '一种能力', '一种能力', (0.85, 0.75, 0.55)), ('定价权', '才是护城河', '才是护城河', GOLD)]
+        steps = [('低价', '一种选择', '一种选择', (0.75, 0.75, 0.78)), ('低成本', '一种能力', '一种能力', (0.85, 0.75, 0.55)), ('定价权', '才是护城河', '变成定价权', GOLD)]
         for i, (n, d, key, col) in enumerate(steps):
             s, o = pop(t, WT('z3', key) - 0.3, 0.5)
             x0 = 90 + i * 300; y1 = 1220; h = 260 + i * 230
@@ -904,23 +909,134 @@ def sc_answer(cv, t):
         big(cv, l, W / 2, 860 + i * 150, 84, a=oo, grad=GOLDG, glow=0.6)
 
 
-LOGO = load_logo(300)
+LOGO_PX = 340; LOGO_Y = 720
+LOGO = load_logo(LOGO_PX)
+
+
+def shimmer_text(cv, s_, x, y, fname, size, a, grad=None, color=WHITE, track=0.0, scale=1.0, sweep=-1.0, glow=0.5):
+    """文字 + 一道斜向流光（sweep 0→1 从左扫到右；<0 不扫）"""
+    if a <= 0.003: return
+    rgb, al = text_patch(s_, fname, int(size), tuple(color), track, 0, grad)
+    if 0 <= sweep <= 1:
+        h, w = al.shape; xs = np.arange(w, dtype=np.float32)[None, :]; ys = np.arange(h, dtype=np.float32)[:, None]
+        pos = (-0.25 + 1.5 * sweep) * w
+        band = np.exp(-(((xs + 0.35 * ys) - pos) / (0.06 * w + 8)) ** 2)[..., None]
+        rgb = np.clip(rgb + (np.asarray((1.0, 0.97, 0.88), np.float32) - rgb) * band * 0.9, 0, 1)
+        g = cv2.GaussianBlur(al * band[..., 0], (0, 0), size * 0.15)
+        blit(cv, np.ones_like(rgb) * np.asarray((1.0, 0.9, 0.7), np.float32), g, x, y, alpha=a * 0.9, scale=scale, add=True)
+    sh = cv2.GaussianBlur(al, (0, 0), size * 0.12)
+    blit(cv, np.zeros_like(rgb), np.clip(sh * 1.3, 0, 1), x, y + size * 0.04, alpha=a * 0.6, scale=scale)
+    if glow > 0: blit(cv, rgb, cv2.GaussianBlur(al, (0, 0), size * 0.25), x, y, alpha=a * glow, scale=scale, add=True)
+    blit(cv, rgb, al, x, y, alpha=a, scale=scale)
+
+
+class Gather:
+    """片尾粒子：从上一画面的金句字形出发，旋转汇聚成官方 logo"""
+    def __init__(self, n=3200, seed=5):
+        rng = np.random.default_rng(seed)
+        lrgb, lal = LOGO
+        ys, xs = np.nonzero(lal > 0.5)
+        pick = rng.choice(len(xs), n, replace=len(xs) < n)
+        self.tx = xs[pick] + W / 2 - lal.shape[1] / 2 + rng.normal(0, 0.6, n)
+        self.ty = ys[pick] + LOGO_Y - lal.shape[0] / 2 + rng.normal(0, 0.6, n)
+        self.tc = lrgb[ys[pick], xs[pick]].astype(np.float32)
+        # 起点：z4 金句的两行字形 + 少量来自整幅画面的尘埃
+        src = []
+        for line_, yy in (('而是：哪天它涨价了，', 860), ('你还是愿意留下。', 1010)):
+            rgb, al = text_patch(line_, 'serif_black', 84, GOLD, 0.02, 0, GOLDG)
+            py, px = np.nonzero(al > 0.5)
+            src.append(np.stack([px + W / 2 - al.shape[1] / 2, py + yy - al.shape[0] / 2], 1))
+        src = np.concatenate(src); k = int(n * 0.85)
+        sp = src[rng.choice(len(src), k)]
+        dust = np.stack([rng.random(n - k) * W, rng.random(n - k) * H], 1)
+        st = np.concatenate([sp, dust]); rng.shuffle(st)
+        self.sx, self.sy = st[:, 0], st[:, 1]
+        self.delay = rng.random(n) * 0.45 + (np.hypot(self.sx - W / 2, self.sy - LOGO_Y) / 1400) * 0.3
+        self.swirl = (rng.random(n) - 0.5) * 2.2 + 1.1
+        self.size = rng.random(n) * 1.2 + 0.6
+
+    def draw(self, cv, u, dur):
+        """u：距汇聚开始的秒数"""
+        k = np.clip((u - self.delay) / dur, 0, 1)
+        e = np.where(k < 0.5, 4 * k ** 3, 1 - (-2 * k + 2) ** 3 / 2)
+        dx, dy = self.tx - self.sx, self.ty - self.sy
+        ang = self.swirl * np.sin(np.pi * k) * 0.9
+        ca, sa = np.cos(ang), np.sin(ang)
+        # 绕 logo 中心旋转的弧线轨迹
+        cx, cy = self.sx + dx * e - W / 2, self.sy + dy * e - LOGO_Y
+        x = W / 2 + cx * ca - cy * sa; y = LOGO_Y + cx * sa + cy * ca
+        m = (e ** 3)[:, None]   # 飞行途中保持金色，接近落点才变成 logo 的蓝
+        col = np.asarray(GOLD, np.float32)[None] * (1 - m) + self.tc * m
+        bright = (0.45 + 0.55 * np.sin(np.pi * k)) * np.clip(u / 0.25, 0, 1)
+        acc = np.zeros((H, W, 3), np.float32)
+        xi = np.clip(x.astype(int), 0, W - 2); yi = np.clip(y.astype(int), 0, H - 2)
+        v = col * (bright * self.size)[:, None]
+        for ox, oy, wgt in ((0, 0, 1.0), (1, 0, 0.5), (0, 1, 0.5), (1, 1, 0.3)):
+            np.add.at(acc, (yi + oy, xi + ox), v * wgt)
+        # 拖尾：沿速度方向再打两点
+        k2 = np.clip((u - 0.05 - self.delay) / dur, 0, 1); e2 = np.where(k2 < 0.5, 4 * k2 ** 3, 1 - (-2 * k2 + 2) ** 3 / 2)
+        ang2 = self.swirl * np.sin(np.pi * k2) * 0.9; c2, s2 = np.cos(ang2), np.sin(ang2)
+        cx2, cy2 = self.sx + dx * e2 - W / 2, self.sy + dy * e2 - LOGO_Y
+        x2 = np.clip((W / 2 + cx2 * c2 - cy2 * s2).astype(int), 0, W - 1); y2 = np.clip((LOGO_Y + cx2 * s2 + cy2 * c2).astype(int), 0, H - 1)
+        np.add.at(acc, (y2, x2), v * 0.45)
+        acc = cv2.GaussianBlur(acc, (0, 0), 1.1)
+        glow = cv2.resize(cv2.GaussianBlur(cv2.resize(acc, (W // 4, H // 4), interpolation=cv2.INTER_AREA), (0, 0), 5), (W, H))
+        cv += acc * 1.25 + glow * 1.3
+
+
+GATHER = None
 
 
 def sc_end(cv, t):
-    bg(cv, t, (0.07, 0.07, 0.09)); DUST.draw(cv, t, GOLD, 0.45)
-    t0 = HIT['logo']; u = t - t0
-    a = ease(lin(u, 0, 0.8)) * (1 - ease(lin(t, TOTAL - 0.8, TOTAL)))
-    rgb, al = LOGO
-    blit(cv, rgb.astype(np.float32), al.astype(np.float32), W / 2, 700, alpha=a, scale=0.94 + 0.06 * eout(lin(u, 0, 1.2)))
-    if 0 <= u < 1.0:
-        L = layer(); circle(L, (W / 2, 700), 170 + 500 * eout(u), 4 * (1 - u) + 1); stroke_layer(cv, L, (0.5, 0.75, 1.0), (1 - u) * 0.6, glow=2, add=True)
-    big(cv, '巴芒价值', W / 2, 970, 110, a=a * ease(lin(u, 0.3, 1.0)), grad=((1.0, 0.95, 0.78), (0.88, 0.62, 0.24)), glow=0.6, track=0.12)
-    label(cv, 'BUFFETT · MUNGER', W / 2, 1070, 40, (0.84, 0.70, 0.44), a * ease(lin(u, 0.5, 1.2)), 'corm_med', track=0.32)
-    ks = a * ease(lin(u, 1.0, 1.8))
-    L = layer(); line(L, (W / 2 - 260 * ks, 1150), (W / 2 + 260 * ks, 1150), 2); stroke_layer(cv, L, GOLD, ks * 0.6, glow=0.8)
-    label(cv, '关注「巴芒价值」', W / 2, 1230, 46, WHITE, ks, 'serif_semi', track=0.08)
-    label(cv, '传承大师智慧，领悟投资真谛', W / 2, 1305, 42, (0.92, 0.82, 0.62), ks, 'serif_semi', track=0.12)
+    global GATHER
+    if GATHER is None: GATHER = Gather()
+    bg(cv, t, (0.07, 0.07, 0.09))
+    t0, land, brand, slogan, fade_t = HIT['logo'], HIT['logo_land'], HIT['brand'], HIT['slogan'], HIT['fade']
+    u = t - t0; out = 1 - ease(lin(t, fade_t, TOTAL - 0.15))
+    DUST.draw(cv, t, GOLD, 0.35 * out)
+    # 1 汇聚
+    dur = land - t0 - 0.55
+    pk = 1 - ease(lin(t, land - 0.15, land + 0.55))
+    if pk > 0:
+        tmp = np.zeros_like(cv); GATHER.draw(tmp, u, dur); cv += tmp * pk
+    # 2 logo 落定：清晰浮现 + 柔光 + 一圈淡蓝光环
+    la = ease(lin(t, land - 0.35, land + 0.35)) * out
+    if la > 0:
+        rgb, al = LOGO; sc = 1.0 + 0.05 * (1 - eout(lin(t, land - 0.35, land + 1.2)))
+        P = 60; g = cv2.GaussianBlur(np.pad(al.astype(np.float32), P), (0, 0), 16)
+        blit(cv, np.ones((g.shape[0], g.shape[1], 3), np.float32) * np.asarray((0.43, 0.69, 1.0), np.float32), g, W / 2, LOGO_Y,
+             alpha=la * (0.35 + 0.08 * math.sin(t * 2.2)), scale=sc, add=True)
+        blit(cv, rgb.astype(np.float32), al.astype(np.float32), W / 2, LOGO_Y, alpha=la, scale=sc)
+    v = t - land
+    if 0 <= v < 1.1:
+        f = (1 - v / 1.1) ** 2
+        cv += np.asarray((0.55, 0.75, 1.0), np.float32) * (np.exp(-(((_XX - W / 2) ** 2 + (_YY - LOGO_Y) ** 2) / (2 * 260.0 ** 2))))[..., None] * f * 0.55
+        L = layer(); circle(L, (W / 2, LOGO_Y), 190 + 420 * eout(v / 1.1), 3 * (1 - v / 1.1) + 1); stroke_layer(cv, L, (0.55, 0.78, 1.0), f * 0.8, glow=2, add=True)
+    # 3 重拍：金色「巴芒价值」+ 流光；BUFFETT · MUNGER 紧随
+    w_ = t - brand
+    if w_ > -0.05:
+        a1 = ease(lin(w_, -0.05, 0.2)) * out; s1 = 1.10 - 0.10 * eout(lin(w_, -0.05, 0.6))
+        shimmer_text(cv, '巴芒价值', W / 2, 1010, 'serif_black', 118, a1, grad=((1.0, 0.95, 0.78), (0.88, 0.62, 0.24)), track=0.12,
+                     scale=s1, sweep=lin(w_, 0.15, 1.35) if w_ < 1.4 else -1, glow=0.6)
+        a2 = ease(lin(w_, 0.25, 0.6)) * out
+        tw = text_w('巴芒价值', 'serif_black', 118, 0.12); tr_ = max(0.1, (tw - text_w('BUFFETT · MUNGER', 'corm_med', 40)) / (40 * 15))
+        shimmer_text(cv, 'BUFFETT · MUNGER', W / 2, 1112, 'corm_med', 40, a2, color=(0.84, 0.70, 0.44), track=tr_,
+                     sweep=lin(w_, 0.45, 1.5) if w_ < 1.6 else -1, glow=0.25)
+        if 0 <= w_ < 0.5:
+            cv += np.asarray((1.0, 0.82, 0.5), np.float32) * (np.exp(-(((_XX - W / 2) / 420.0) ** 2 + ((_YY - 1010) / 140.0) ** 2)))[..., None] * (1 - w_ / 0.5) ** 2 * 0.2
+    # 4 细金线引出关注语
+    z = t - slogan
+    if z > -0.6:
+        kl = eout(lin(z, -0.6, 0.3)); a3 = out
+        L = layer(); line(L, (W / 2 - 290 * kl, 1185), (W / 2 + 290 * kl, 1185), 2); stroke_layer(cv, L, GOLD, 0.85 * a3, glow=1.0)
+        L = layer(); circle(L, (W / 2 - 290 * kl, 1185), 3, fill=True); circle(L, (W / 2 + 290 * kl, 1185), 3, fill=True); stroke_layer(cv, L, GOLD_HI, kl * a3, glow=1.5, add=True)
+        o1 = ease(lin(z, 0.05, 0.6)) * a3; o2 = ease(lin(z, 0.35, 0.9)) * a3
+        text(cv, '关注「巴芒价值」', W / 2, 1262 + 14 * (1 - o1), 'serif_semi', 48, (0.96, 0.94, 0.90), alpha=o1, track=0.10, shadow=0.6)
+        text(cv, '传承大师智慧，领悟投资真谛', W / 2, 1340 + 14 * (1 - o2), 'serif_semi', 42, (0.93, 0.82, 0.60), alpha=o2, track=0.14, shadow=0.6, glow=0.25)
+    if t > fade_t: cv *= out
+
+
+_YY, _XX = np.mgrid[0:H, 0:W].astype(np.float32)
 
 
 # ═══════════════════════════ 编排 ═══════════════════════════
@@ -939,6 +1055,7 @@ SC = [  # (start, end, fn)
     (T('k5') - 0.3, T('k8') - 0.3, sc_cond2), (T('k8') - 0.3, T('g1') - 0.25, sc_cond3), (T('g1') - 0.25, T('q1') - 0.3, sc_china),
     (T('q1') - 0.3, T('z1') - 0.3, sc_quality), (T('z1') - 0.3, HIT['logo'], sc_answer), (HIT['logo'], TOTAL + 1, sc_end)]
 XF = 0.45   # 场景间交叉溶解
+XF_END = 1.0
 HARD = {HIT['title']}  # 硬切
 
 
@@ -1021,7 +1138,8 @@ def render(fi):
     t = fi / FPS; cv = np.zeros((H, W, 3), np.float32)
     act = []
     for s0, s1, fn in SC:
-        lead = 0 if s0 in HARD else XF / 2; tail = 0 if s1 in HARD else XF / 2
+        xf0 = XF_END if s0 == HIT['logo'] else XF; xf1 = XF_END if s1 == HIT['logo'] else XF
+        lead = 0 if s0 in HARD else xf0 / 2; tail = 0 if s1 in HARD else xf1 / 2
         if s0 - lead <= t < s1 + tail:
             w = 1.0
             if t < s0 + lead and lead: w = min(w, ease((t - (s0 - lead)) / (2 * lead)))

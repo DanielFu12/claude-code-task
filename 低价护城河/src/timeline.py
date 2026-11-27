@@ -8,7 +8,7 @@ from script import LINES, BREAK
 
 BPM = 80.0; BEAT = 60 / BPM; BAR = 4 * BEAT
 INTRO = 1.5            # 冷开场：第一句前的环境声 + 画面起
-OUTRO = 7.5            # 最后一句后：片尾卡
+OUTRO = 12.0           # 最后一句后：片尾品牌动画
 CHAPTERS = [  # (起始句, 章节标签, 英文)
     ('o1', '', ''), ('p1', '01 · 第一性原理', 'FIRST PRINCIPLES'), ('d1', '02 · 两位大师', 'THE CLASH'),
     ('k1', '03 · 三个条件', 'THREE CONDITIONS'), ('g1', '04 · 中国考题', 'CHINA'), ('q1', '05 · 底线', 'QUALITY'),

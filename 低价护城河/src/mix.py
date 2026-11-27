@@ -50,6 +50,11 @@ aa, ar = np.exp(-1 / (0.08 * SR / 48)), np.exp(-1 / (0.55 * SR / 48))
 for i in range(0, N, 48):
     x = act2[i]; cur = x + (cur - x) * (aa if x > cur else ar); duck[i:i + 48] = cur
 mus = mus * (10 ** (-11 * duck / 20))[:, None]
+# 片尾品牌动画的重拍不要比旁白响：logo 落定前 0.5 秒起配乐整体 −3.5 dB（0.8 秒内平滑过渡）
+HT = json.load(open(os.path.join(WORK, 'hits.json')))
+if 'logo_land' in HT:
+    tt = np.arange(N) / SR; k = np.clip((tt - (HT['logo_land'] - 0.5)) / 0.8, 0, 1)
+    mus = mus * (10 ** (-3.5 * k / 20))[:, None]
 mix = mus * 0.9 + vo[:, None]
 L = meter.integrated_loudness(mix); mix *= 10 ** ((-14.0 - L) / 20)
 # 峰值限制：逐样本所需增益 → 5ms 最小值滤波 → 平滑（真峰按 4 倍过采样估计，目标 −1.2 dBTP）

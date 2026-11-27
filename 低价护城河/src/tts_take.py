@@ -18,7 +18,12 @@ if not os.path.exists(wj):
 words = json.load(open(wj))
 wav = mp3.replace('.mp3', '.wav')
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', mp3, '-ac', '1', '-ar', '48000', wav], check=True)
-y, sr = sf.read(wav)
+# 长录音会越讲越高：拉平慢趋势（PSOLA，逐句抑扬不动），结果按哈希缓存
+flat = wav.replace('.wav', '_flat.wav')
+if not os.path.exists(flat):
+    from detrend import detrend
+    detrend(wav, flat, 126.0, 0.9)
+y, sr = sf.read(flat)
 
 # 时间戳可能分句给出且各自从 0 开始：检测回退并累加偏移
 seq = []; off = 0.0; last = 0.0

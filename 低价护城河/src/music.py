@@ -116,7 +116,11 @@ SUBS = []   # (t, gain, kind)
 # ─────────────────────────── 时刻表 ───────────────────────────
 TITLE = tl.SE('o10') + 0.55; HITS['title'] = TITLE
 G = lambda lid: grid(tl.S(lid) - BEAT)
-END = tl.SE('z4') + 1.0; HITS['logo'] = END
+END = tl.SE('z4') + 0.8; HITS['logo'] = END                   # 片尾动画开始：画面元素开始汇聚
+LAND = grid(END + 2.25); HITS['logo_land'] = LAND            # logo 成形落定
+BRAND = LAND + 2 * BEAT; HITS['brand'] = BRAND               # 重拍：金色「巴芒价值」
+SLOGAN = BRAND + 3 * BEAT; HITS['slogan'] = SLOGAN           # 细金线引出关注语
+FADE = TOTAL - 1.8; HITS['fade'] = FADE                      # 整体淡出
 
 # 引子 · 内卷：低音弦乐脉动 + 轻鼓，像新闻快讯；o5 加码；o6 发问时抽空
 note('pad', 38, 0.0, tl.T('o7'), 30); ramp('pad', 0.0, 2.0, 30, 100)
@@ -233,11 +237,22 @@ for k_, key in enumerate(('一种选择', '一种能力', '才是护城河')):
     if k_ == 2: SUBS.append((t, 0.6, 'boom'))
 for p in voicing('D', 62, 4): note('choir', p, tl.WT('z3', '定价权'), tl.T('z4') + 0.3, 56)
 piano_motif(tl.T('z4') + 0.1, 62, 54, major=True)
-for p in voicing('Gmaj7', 55): note('slow', p, tl.T('z4'), END, 40)
-timp(END, 38, 100, roll=1.2); SUBS.append((END, 0.9, 'boom'))
-for p in voicing('D', 38, 3) + voicing('D', 62, 4): note('brass', p, END, END + 4.5, 70)
-for p in voicing('D', 50, 4): note('strings', p, END, TOTAL, 60)
-ramp('strings', END + 2.0, TOTAL, 110, 0)
+for p in voicing('Gmaj7', 55): note('slow', p, tl.T('z4'), END + 0.4, 40)
+# 片尾：汇聚 → 落定 → 重拍 → 关注语 → 淡出
+for p in voicing('D', 50, 4): note('slow', p, END, LAND + 0.1, 40)
+ramp('slow', END, LAND, 25, 118)                                      # 弦乐渐强托起汇聚
+for i, p in enumerate([74, 78, 81, 83, 86, 90, 93]):                  # 钢片琴上行闪光（只到 F#6，不刺耳）
+    t = END + 0.35 + i * (LAND - END - 0.5) / 7; note('celesta', p, t, t + 0.9, 44 + 4 * i)
+SUBS.append((LAND - 1.6, 0.55, 'swell'))
+timp(LAND, 38, 92); SUBS.append((LAND, 0.75, 'boom'))
+for p in voicing('D', 62, 4): note('choir', p, LAND, FADE + 1.0, 50)
+for p in voicing('D', 50, 4): note('strings', p, LAND, TOTAL, 52)
+timp(BRAND, 38, 108, roll=0.5); SUBS.append((BRAND, 1.0, 'boom'))      # 主重拍
+for p in voicing('D', 38, 3) + voicing('D', 62, 4): note('brass', p, BRAND, BRAND + 3.2, 78)
+note('bass', 26, BRAND, TOTAL, 60)
+for i, p in enumerate((62, 66, 69, 74)): note('harp', p, SLOGAN + i * BEAT / 2, SLOGAN + 3, 54)
+piano_motif(SLOGAN + 2 * BEAT, 74, 48, major=True)
+ramp('strings', FADE - 0.5, TOTAL, 110, 0); ramp('choir', FADE - 0.5, TOTAL, 110, 0); ramp('brass', FADE - 1.5, TOTAL, 100, 0)
 
 # ─────────────────────────── 渲染 ───────────────────────────
 os.makedirs(os.path.join(WORK, 'music'), exist_ok=True)
