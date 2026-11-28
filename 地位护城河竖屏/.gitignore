@@ -1,0 +1,6 @@
+work/
+__pycache__/
+fonts/
+fonts_src/
+media_raw/
+media/clips/
