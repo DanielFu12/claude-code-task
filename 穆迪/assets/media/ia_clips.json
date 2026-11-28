@@ -38,5 +38,124 @@
   "dur": 5.12,
   "shot": "close",
   "note": "I made a mistake in that it got to very lofty heights and we didn’t sell."
+ },
+ "rr_loco": {
+  "source": "《Freight Train》（爱迪生公司，1898，美国国会图书馆，公有领域）",
+  "ia": "https://archive.org/details/loc-film-00694211-freight-train",
+  "start": 13.2,
+  "dur": 9.5,
+  "note": "蒸汽机车牵引货车（1898 年影片）"
+ },
+ "rr_cars": {
+  "source": "《Freight Train》（爱迪生公司，1898，美国国会图书馆，公有领域）",
+  "ia": "https://archive.org/details/loc-film-00694211-freight-train",
+  "start": 24.0,
+  "dur": 22.0,
+  "note": "铁路货车（1898 年影片）"
+ },
+ "rr_station": {
+  "source": "《Overland Express Arriving at Helena, Mont.》（爱迪生公司，1897，美国国会图书馆，公有领域）",
+  "ia": "https://archive.org/details/loc-film-00694263-overland-express-arriving-at-helena-mont",
+  "start": 13.5,
+  "dur": 26.0,
+  "note": "火车进站（1897 年影片）"
+ },
+ "rr_elev": {
+  "source": "《Elevated Railroad, New York》（1903，美国国会图书馆，公有领域）",
+  "ia": "https://archive.org/details/loc-film-00694393-elevated-railroad-new-york",
+  "start": 15.0,
+  "dur": 40.0,
+  "note": "纽约高架铁路（1903 年影片）"
+ },
+ "db_book": {
+  "source": "《Work of the Stock Exchange》（1941，芝加哥证券交易所，Prelinger Archives）",
+  "ia": "https://archive.org/details/0552_Work_of_the_Stock_Exchange_10_39_27_00",
+  "start": 546.4,
+  "dur": 9.0,
+  "note": "邓白氏《参考手册》（1941 年影片）"
+ },
+ "bond_cert": {
+  "source": "《Work of the Stock Exchange》（1941，芝加哥证券交易所，Prelinger Archives）",
+  "ia": "https://archive.org/details/0552_Work_of_the_Stock_Exchange_10_39_27_00",
+  "start": 266.0,
+  "dur": 17.5,
+  "note": "债券凭证（1941 年影片）"
+ },
+ "cx_floor": {
+  "source": "《Work of the Stock Exchange》（1941，芝加哥证券交易所，Prelinger Archives）",
+  "ia": "https://archive.org/details/0552_Work_of_the_Stock_Exchange_10_39_27_00",
+  "start": 704.0,
+  "dur": 18.5,
+  "note": "交易所交易大厅（1941 年影片）"
+ },
+ "cx_board": {
+  "source": "《Work of the Stock Exchange》（1941，芝加哥证券交易所，Prelinger Archives）",
+  "ia": "https://archive.org/details/0552_Work_of_the_Stock_Exchange_10_39_27_00",
+  "start": 723.0,
+  "dur": 18.0,
+  "note": "交易所报价（1941 年影片）"
+ },
+ "cx_quote": {
+  "source": "《Work of the Stock Exchange》（1941，芝加哥证券交易所，Prelinger Archives）",
+  "ia": "https://archive.org/details/0552_Work_of_the_Stock_Exchange_10_39_27_00",
+  "start": 741.4,
+  "dur": 10.4,
+  "note": "交易所报价板（1941 年影片）"
+ },
+ "ny_floor": {
+  "source": "《Vista Stock Shots: New York Stock Exchange》（纽约证券交易所资料片，Prelinger Archives）",
+  "ia": "https://archive.org/details/0803_Vista_Stock_Shots_New_York_Stock_Exchange_13_00_55_00",
+  "start": 420.0,
+  "dur": 80.0,
+  "note": "纽约证券交易所交易大厅（资料片）"
+ },
+ "ny_floor2": {
+  "source": "《Vista Stock Shots: New York Stock Exchange》（纽约证券交易所资料片，Prelinger Archives）",
+  "ia": "https://archive.org/details/0803_Vista_Stock_Shots_New_York_Stock_Exchange_13_00_55_00",
+  "start": 1130.6,
+  "dur": 30.0,
+  "note": "纽约证券交易所交易大厅（资料片）"
+ },
+ "ny_ticker": {
+  "source": "《Vista Stock Shots: New York Stock Exchange》（纽约证券交易所资料片，Prelinger Archives）",
+  "ia": "https://archive.org/details/0803_Vista_Stock_Shots_New_York_Stock_Exchange_13_00_55_00",
+  "start": 1205.0,
+  "dur": 30.0,
+  "note": "纽约证券交易所报价带（资料片）"
+ },
+ "s1_amex": {
+  "source": "第一季 · 美国运通《银行赚13%，它凭什么赚30%》（本系列）",
+  "ia": "本系列成片：美国运通/银行赚13%_它凭什么赚30%_美国运通_预览版.mp4",
+  "start": 213.4,
+  "dur": 9.0,
+  "note": "第一季回顾"
+ },
+ "s1_amex_end": {
+  "source": "第一季 · 美国运通《银行赚13%，它凭什么赚30%》（本系列）",
+  "ia": "本系列成片：美国运通/银行赚13%_它凭什么赚30%_美国运通_预览版.mp4",
+  "start": 681.8,
+  "dur": 9.0,
+  "note": "第一季回顾"
+ },
+ "s1_sees": {
+  "source": "第一季 · 喜诗糖果《一盒糖的学费》（本系列）",
+  "ia": "本系列成片：喜诗糖果/一盒糖的学费_芒格怎样改变了巴菲特_预览版.mp4",
+  "start": 287.5,
+  "dur": 7.0,
+  "note": "第一季回顾"
+ },
+ "s1_coke": {
+  "source": "第一季 · 可口可乐《38年一股未卖》（本系列）",
+  "ia": "本系列成片：巴菲特与可口可乐/38年一股未卖_巴菲特与可口可乐_预览版.mp4",
+  "start": 280.4,
+  "dur": 7.0,
+  "note": "第一季回顾"
+ },
+ "s1_apple": {
+  "source": "第一季 · 苹果《十年苹果》（本系列）",
+  "ia": "本系列成片：巴菲特与苹果/十年苹果_巴菲特为什么卖掉了大半_预览版.mp4",
+  "start": 266.5,
+  "dur": 9.0,
+  "note": "第一季回顾"
  }
 }

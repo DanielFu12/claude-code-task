@@ -82,8 +82,39 @@ def on_camera(sid):
     return _mask[sid]
 
 
+AUDIO_PHOTO = {'pricing': 'c_buffett_2010', 'unwilling': 'c_obama_buffett', 'duopoly': 'c_buffett_2010', 'delusion': 'c_obama_buffett', 'mistake': 'c_buffett_2010'}
+
+
+def audio_card(cv, sid, t, c0, ln, al):
+    """纯录音的原声（FCIC 访谈录音没有画面）：同年的照片缓慢推近 + 大号声纹 + “录音”字样；不配假口型"""
+    nm = AUDIO_PHOTO.get(sid)
+    if not (nm and M.have(nm)): nm = next((x for x in ('c_buffett_2010', 'c_obama_buffett') if M.have(x)), None)
+    w, h = WIN_W, 560; x0, y0 = (W - w) // 2, WIN_CY - 40 - h // 2
+    if nm:
+        src = M.img(nm)
+        b = M.grade(_bg(src), 0.1, 0.9) * 0.28
+        cv.over(b, np.full((H, W), al, np.float32), 0, 0)
+        p = eio(cl((t - c0) / max(ln, 0.1)))
+        img = M._crop(src, w, h, 1.0 + 0.06 * p, 0.6 if nm == 'c_obama_buffett' else 0.5, 0.4)
+        img = M.grade(img, 0.10, 0.85)
+        cv.over(img, _feather_mask(w, h) * al, x0, y0)
+        cv.rrect(x0 - 1, y0 - 1, x0 + w + 1, y0 + h + 1, 3, GOLD_D, al * 0.45, fill=False, th=2)
+        cv.text('照片：' + ('白宫官方照片（2010-07-14）' if nm == 'c_obama_buffett' else '巴菲特（2010 年）'), x0 + w - 10, y0 + 22, 18, 'sans_light', col=GREY, a=al * 0.8, anchor='r')
+    # 大号声纹（录音的响度驱动）
+    e = _envelope(sid); k = int((t - c0) * FPS)
+    yc = y0 + h - 70                                  # 声纹压在照片下沿（人名条在 y≈990，字幕从 1150 起）
+    for j in range(60):
+        kk = k - (59 - j)
+        v = e[kk] if 0 <= kk < len(e) else 0.0
+        hh = 6 + 70 * v
+        xx = 120 + j * 14
+        cv.rect(xx, yc - hh / 2, xx + 8, yc + hh / 2, GOLD_L if j > 50 else GOLD * 0.75, al * (0.25 + 0.75 * j / 59))
+    cv.text('录音 · FCIC 工作人员访谈（2010-05-26，奥马哈）', W / 2, y0 + h + 40, 22, 'sans_med', col=CREAM, a=al * 0.85)
+
+
 def footage(cv, sid, t, c0, ln, al):
     """c0：片段第 0 秒对应的时间线时刻（= 原声入点）"""
+    if SOTS[sid].get('src') == 'fcic': return audio_card(cv, sid, t, c0, ln, al)
     name = 'sot_' + sid
     fr = M.vframe(name, max(t - c0, 0.0))
     if fr is None: return
@@ -138,7 +169,7 @@ def badge(cv, sid, t, c0, al):
         cv.rect(xx, y - hh / 2, xx + 6, y + hh / 2, GOLD_L if j > 16 else GOLD * 0.8, al * (0.35 + 0.65 * j / 21))
 
 
-WHO = {'buffett': ('沃伦·巴菲特', 'WARREN BUFFETT · 伯克希尔·哈撒韦董事长'),
+WHO = {'buffett': ('沃伦·巴菲特', 'WARREN BUFFETT · 时任伯克希尔·哈撒韦董事长兼 CEO'),
        'buffett94': ('沃伦·巴菲特', '1994 年伯克希尔股东会 · 右为查理·芒格'),
        'sinegal': ('吉姆·辛内格尔', 'JIM SINEGAL · Costco 联合创始人、时任 CEO'),
        'munger': ('查理·芒格', 'CHARLIE MUNGER · 伯克希尔副董事长（1924–2023）')}
@@ -202,4 +233,4 @@ def sot_layer(cv, t):
         source(cv, src, al, y=1640)
 
 
-FIRST_SUPER = {'good', 'blumkins'}  # 第一次出现、以及 1994 年那段（换了年代）出人名条
+FIRST_SUPER = {'pricing'}  # 第一次出现出人名条

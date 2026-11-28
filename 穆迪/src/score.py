@@ -1,4 +1,4 @@
-"""第八期配乐（第三版，整体重写）：按旁白时间线写 MIDI + 程序合成的电影音效层，MuseScore General 音色库渲染。
+"""第二季第一期（穆迪）配乐（沿用第八期第四版作曲引擎）：按旁白时间线写 MIDI + 程序合成的电影音效层，MuseScore General 音色库渲染。
 
 为什么重写：第二版全片一个速度（80 BPM）、一个调（D 小调）、一个四音动机循环，听感单调、催眠。这一版的原则：
   · 跟着故事走：每章有自己的调、速度和织体（开场的紧张脉冲、身世的温暖钢琴、交易的律动、护城河的驱动弦乐、
@@ -412,147 +412,120 @@ def section(t0, t1, key, mode, bpm, style, e0, e1, prog=None, bpc=None, **kw):
                 n.end = t1 + 0.05
 
 
-# ------------------------------------------------------------------ 全片编排
+# ------------------------------------------------------------------ 全片编排（第二季第一期：穆迪）
 def build():
     title = CH['title'][0]; logo = TL['logo']
     chs = {k: CH[k][0] for k in ('ch1', 'ch2', 'ch3', 'ch4', 'ch5', 'ch6', 'ch7', 'end')}
     sot = {s['id'][4:]: (s['start'] - s.get('lead', 0), s['start'] + s['dur']) for s in TL['segs'] if s.get('kind') == 'sot'}
 
-    # ======== 开场：紧张的脉冲（D 小调 92）→“六年后”抽空重拍 → 驱动 → 设问后静一拍 → 原声下铺底 → 三块牌子的律动 → 片名
-    t6 = WT('h4', '六年后')
-    section(0.15, t6, 'D', 'minor', 92, 'pulse', 0.4, 0.56, prog='minor2', theme=True, theme_ins='piano')
-    for w in ('没有审计', '没有盘点', '也没有查'): hit(WT('h2', w), 'D', 'minor', 'i', 0.5, dark=True)
-    hit(WT('h1', '五千五百'), 'D', 'minor', 'VI', 0.45)
-    drop(t6, 0.55); hit(t6, 'D', 'minor', 'i', 1.0, dark=True)
-    q_end = E('h5') + 0.15
-    section(t6, q_end, 'D', 'minor', 92, 'drive', 0.62, 0.8, prog='minor3')
-    hit(WT('h5', '还是'), 'D', 'minor', 'V', 0.5)
-    MUTES.append((q_end, S('h6') - 0.35))
-    g0, g1 = sot['good']
-    section(S('h6') - 0.35, g1 + 0.25, 'F', 'major', 92, 'pad', 0.3, 0.3, prog='major4')
-    section(g1 + 0.25, title, 'F', 'major', 100, 'groove', 0.5, 0.78, prog='major', theme=True, theme_ins='glock')
-    for w, rn in (('好生意', 'I'), ('好价钱', 'V'), ('对的人', 'vi')): hit(WT('h7', w), 'F', 'major', rn, 0.55)
-    rise(title, 2.4, key='F')
-    # ======== 片名：重拍 + 铜管主题
+    # ======== 开场：承接第一季（温暖钢琴 F 大调）→ 冲突（脉冲 D 小调 96，“六家”“百分之八十三”重拍）→ 设问静一拍
+    #          → 利润率与阿贝尔（明亮律动 F 大调）→“凭什么”抽空 → 上扬进片名
+    t3 = WT('h3', '二零零零年')
+    section(0.15, t3 - 0.2, 'F', 'major', 96, 'warm', 0.3, 0.42, prog='major4', theme=True, theme_ins='piano')
+    hit(t3 - 0.2, 'D', 'minor', 'i', 0.8, dark=True)
+    t6 = WT('h3', '只有六家')
+    section(t3 - 0.2, S('h6') - 0.15, 'D', 'minor', 96, 'pulse', 0.48, 0.72, prog='minor2')
+    hit(WT('h3', '四点五万'), 'D', 'minor', 'VI', 0.5)
+    drop(t6, 0.4); hit(t6, 'D', 'minor', 'i', 0.95, dark=True)
+    t83 = WT('h4', '百分之八十三'); drop(t83, 0.35); hit(t83, 'D', 'minor', 'i', 0.9, dark=True)
+    hit(WT('h4', '关键齿轮'), 'D', 'minor', 'III', 0.55)
+    hit(WT('h5', '八点六四亿'), 'D', 'minor', 'VI', 0.7)
+    MUTES.append((E('h6') + 0.1, S('h7') - 0.3))
+    section(S('h7') - 0.3, S('h9') - 0.2, 'F', 'major', 100, 'groove', 0.5, 0.78, prog='major', theme=True, theme_ins='glock')
+    hit(WT('h7', '六十四美元'), 'F', 'major', 'I', 0.85)
+    hit(WT('h8', '点了名'), 'F', 'major', 'IV', 0.6)
+    tq = WT('h9', '凭什么')
+    section(S('h9') - 0.2, title, 'D', 'minor', 100, 'drive', 0.6, 0.8, prog='minor3')
+    drop(tq, 0.45); hit(tq, 'D', 'minor', 'i', 0.9, dark=True)
+    rise(title, 2.2, key='F')
+    # ======== 片名
     hit(title, 'F', 'major', 'I', 1.3)
     section(title, chs['ch1'], 'F', 'major', 100, 'emotional', 0.75, 0.6, theme_ins='brass')
-    # ======== 第一章 对的人：温暖钢琴（A 小调 84）→ 被断货、被告（脉冲）→ 赢官司（转 C 大调律动）→ 困境与路易（深情）
-    #          → “现金只有五十美元”抽空 → 卖得便宜、说真话（合唱）
+    # ======== 第一章 打分的生意：老派的温暖（A 小调 84）→ 规矩倒过来（转 C 大调律动 96）→ 两块生意（数字落地）
     hit(chs['ch1'], 'A', 'minor', 'i', 0.55)
-    section(chs['ch1'] + 0.05, S('c1f') - 0.2, 'A', 'minor', 84, 'warm', 0.25, 0.42, theme=True)
-    tw = WT('c1h', '赢了所有官司')
-    section(S('c1f') - 0.2, tw, 'A', 'minor', 84, 'pulse', 0.45, 0.66, prog='minor2')
-    hit(tw, 'C', 'major', 'I', 0.75)
-    section(tw, S('c1e') - 0.15, 'C', 'major', 84, 'groove', 0.5, 0.55, prog='major2')
-    t50 = WT('c1i', '五十美元')
-    section(S('c1e') - 0.15, t50, 'A', 'minor', 84, 'emotional', 0.35, 0.6, theme_ins='horn')
-    drop(t50, 0.7); hit(t50, 'A', 'minor', 'i', 0.72, dark=True)
-    section(t50, S('c1k') - 0.25, 'A', 'minor', 84, 'pad', 0.25, 0.25)
-    section(S('c1k') - 0.25, chs['ch2'], 'C', 'major', 84, 'emotional', 0.45, 0.62, prog='major3')
-    hit(WT('c1k', '卖得便宜'), 'C', 'major', 'I', 0.5)
+    hit(WT('c1a', '一九零九年'), 'A', 'minor', 'i', 0.5)
+    section(chs['ch1'] + 0.05, S('c1d') - 0.2, 'A', 'minor', 84, 'warm', 0.28, 0.45, theme=True)
+    td = WT('c1d', '倒了过来')
+    section(S('c1d') - 0.2, td, 'A', 'minor', 84, 'pulse', 0.4, 0.55, prog='minor2')
+    drop(td, 0.35); hit(td, 'C', 'major', 'I', 0.8)
+    section(td, chs['ch2'], 'C', 'major', 96, 'groove', 0.5, 0.66, prog='major2', theme=True, theme_ins='glock')
+    for ln, w in (('c1e', '一九七五年'), ('c1f', '四十一亿'), ('c1f', '三十六亿'), ('c1g', '三分之二')): hit(WT(ln, w), 'C', 'major', 'I' if w != '三十六亿' else 'IV', 0.5)
     rise(chs['ch2'], 1.8, key='F')
-    # ======== 第二章 好价钱：律动（F 大调 100）→“一个字没改”重拍 → 引语卡铺底 → 图表层层加码 →“两倍”重拍 → 芒格引语铺底 → 对的人
-    hit(chs['ch2'], 'F', 'major', 'I', 1.0)
-    section(chs['ch2'], S('c2f') - 0.1, 'F', 'major', 100, 'groove', 0.42, 0.62, prog='major', theme=True, theme_ins='glock')
-    hit(WT('c2a', '一亿多'), 'F', 'major', 'V', 0.5)
-    tz = WT('c2e', '一个字没改'); drop(tz, 0.45); hit(tz, 'F', 'major', 'I', 0.85)
-    section(S('c2f') - 0.1, S('c2i') - 0.2, 'F', 'major', 100, 'pad', 0.32, 0.32, theme=True, theme_ins='piano')
-    t2 = WT('c2m', '两倍')
-    section(S('c2i') - 0.2, t2, 'F', 'major', 100, 'groove', 0.5, 0.9, prog='major2')
-    drop(t2, 0.4); hit(t2, 'F', 'major', 'I', 1.0)
-    section(t2, S('c2k') - 0.2, 'F', 'major', 100, 'pad', 0.32, 0.3, prog='major4', theme=True, theme_ins='piano')
-    section(S('c2k') - 0.2, chs['ch3'], 'F', 'major', 100, 'groove', 0.55, 0.7, prog='major3')
+    # ======== 第二章 他看中了什么：轻快拨弦（F 大调 92）→ 原声下只留铺底 → 回顾喜诗（钢琴）→ 原声铺底 → 管理层（律动）
+    hit(chs['ch2'], 'F', 'major', 'I', 0.9)
+    p0, p1 = sot['pricing']; u0, u1 = sot['unwilling']
+    section(chs['ch2'], p0 - 0.2, 'F', 'major', 92, 'pizz', 0.45, 0.58, prog='major')
+    hit(WT('c2c', '没有团队'), 'F', 'major', 'V', 0.55)
+    section(p0 - 0.2, p1 + 0.3, 'F', 'major', 92, 'pad', 0.28, 0.28, prog='major4')
+    section(p1 + 0.3, u0 - 0.2, 'F', 'major', 92, 'emotional', 0.4, 0.5, prog='major4', theme=True, theme_ins='piano')
+    section(u0 - 0.2, u1 + 0.3, 'F', 'major', 92, 'pad', 0.28, 0.28, prog='major3')
+    tn = WT('c2g', '离不开')
+    hit(tn, 'D', 'minor', 'VI', 0.6)
+    section(u1 + 0.3, chs['ch3'], 'F', 'major', 92, 'groove', 0.45, 0.62, prog='major2')
     rise(chs['ch3'], 2.0, key='D', mode='minor')
-    # ======== 第三章 好生意（v4：商业模式 + 护城河两关）
-    #   灰熊之问（脉冲 D 小调）→ 五条打法（明亮律动 F 大调 108）→ 三千万 → 飞轮（驱动全速，“轮子”重拍）→ 河底（深情）
-    #   → “两关”抽空重拍 → 第一关 Levitz（驱动弦乐 D 小调 112，“16.5%”重拍）→ 算账“倒贴”（暗重拍）
-    #   → 第二关“反而拉大了”（大重拍转 F 大调）→ 三个原因（颂歌，逐条点）→ Dillard’s 引语铺底 → Levitz 清算（暗）→ 结论（颂歌）
+    # ======== 第三章 护城河：两关（驱动 D 小调 108）→“百分之九十四”重拍 → 第二关（脉冲）→ 原声铺底 → “大家都认它”颂歌（F 大调）
     hit(chs['ch3'], 'D', 'minor', 'i', 0.9, dark=True)
-    section(chs['ch3'], S('c3m1') - 0.2, 'D', 'minor', 104, 'pulse', 0.42, 0.5, prog='minor')
-    section(S('c3m1') - 0.2, S('c3d') - 0.2, 'F', 'major', 108, 'groove', 0.5, 0.66, prog='major', theme=True, theme_ins='glock')
-    hit(S('c3m1') - 0.2, 'F', 'major', 'I', 0.75)
-    for w in ('一处地方', '量最大', '费用最低', '价格远低于', '家里人'): hit(WT('c3m1', w), 'F', 'major', 'IV' if w == '量最大' else 'I', 0.4)
-    hit(WT('c3m2', '三千万'), 'F', 'major', 'IV', 0.6)
-    tw = WT('c3d', '轮子')
-    section(S('c3d') - 0.2, tw, 'F', 'major', 108, 'drive', 0.66, 0.95, prog='major', theme=True, theme_ins='horn')
-    drop(tw, 0.35); hit(tw, 'F', 'major', 'I', 1.0)
-    section(tw, S('c3s') - 0.2, 'F', 'major', 108, 'emotional', 0.5, 0.55, prog='major4', theme_ins='piano')
-    ts_ = WT('c3s', '规模经济分享')                      # 尼克·斯利普：规模经济分享（点名处重拍，转入明亮律动）
-    section(S('c3s') - 0.2, S('c3f') - 0.2, 'F', 'major', 108, 'groove', 0.55, 0.75, prog='major2', theme=True, theme_ins='glock')
-    drop(ts_, 0.35); hit(ts_, 'F', 'major', 'I', 0.85)
-    hit(WT('c3s', '他举的'), 'F', 'major', 'IV', 0.5)
-    section(S('c3f') - 0.2, S('c3n1') - 0.25, 'F', 'major', 108, 'emotional', 0.45, 0.55, prog='major4', theme_ins='piano')
-    t2 = WT('c3n1', '两关')
-    hit(WT('c3n1', '低成本才是'), 'D', 'minor', 'III', 0.5)
-    section(S('c3n1') - 0.25, t2, 'D', 'minor', 112, 'pulse', 0.45, 0.6, prog='minor2')
-    drop(t2, 0.45); hit(t2, 'D', 'minor', 'i', 0.9, dark=True)
-    t165 = WT('c3c', '百分之十六点五')
-    section(t2, t165, 'D', 'minor', 112, 'drive', 0.55, 0.78, prog='minor3')
-    hit(WT('c3b', '百分之四十四'), 'D', 'minor', 'VI', 0.5)
-    drop(t165, 0.4); hit(t165, 'D', 'minor', 'III', 0.95)
-    tl = WT('c3n3', '倒贴')
-    section(t165, tl, 'D', 'minor', 112, 'pulse', 0.5, 0.66, prog='minor')
-    drop(tl, 0.4); hit(tl, 'D', 'minor', 'i', 0.9, dark=True)
-    tg = WT('c3n4', '反而拉大了')
-    section(tl + 0.6, tg, 'D', 'minor', 112, 'drive', 0.5, 0.75, prog='minor2')
-    drop(tg, 0.45); hit(tg, 'F', 'major', 'I', 1.15)
-    section(tg, S('c3h') - 0.2, 'F', 'major', 112, 'anthem', 0.6, 0.85, prog='major', theme=True)
-    for ln, w in (('c3n5', '第一是'), ('c3n6', '第二是'), ('c3n7', '第三是')): hit(WT(ln, w), 'F', 'major', 'I', 0.6)
-    section(S('c3h') - 0.2, S('c3n8') - 0.2, 'D', 'minor', 112, 'pad', 0.32, 0.32, prog='minor')
-    tq = WT('c3n8', '清算')
-    section(S('c3n8') - 0.2, S('c3i') - 0.25, 'D', 'minor', 112, 'pulse', 0.45, 0.6, prog='minor3')
-    hit(tq, 'D', 'minor', 'i', 0.7, dark=True)
-    tc = WT('c3i', '又让成本')
-    section(S('c3i') - 0.25, chs['ch4'], 'F', 'major', 112, 'anthem', 0.7, 0.92, prog='major', theme=True)
-    hit(S('c3i') - 0.25, 'F', 'major', 'I', 0.8)
-    hit(tc, 'F', 'major', 'I', 1.1)
+    t2 = WT('c3a', '两关')
+    section(chs['ch3'], S('c3b') - 0.2, 'D', 'minor', 108, 'pulse', 0.42, 0.55, prog='minor')
+    drop(t2, 0.4); hit(t2, 'D', 'minor', 'i', 0.85, dark=True)
+    t94 = WT('c3b', '百分之九十四')
+    section(S('c3b') - 0.2, S('c3d') - 0.2, 'D', 'minor', 108, 'drive', 0.55, 0.8, prog='minor3')
+    drop(t94, 0.4); hit(t94, 'D', 'minor', 'III', 1.0)
+    hit(WT('c3b', '百分之九十二'), 'D', 'minor', 'VI', 0.6)
+    hit(WT('c3c', '无穷大'), 'D', 'minor', 'III', 0.75)
+    d0, d1 = sot['duopoly']
+    section(S('c3d') - 0.2, d0 - 0.2, 'D', 'minor', 108, 'pulse', 0.45, 0.62, prog='minor2')
+    hit(WT('c3d', '怪就怪在'), 'D', 'minor', 'VI', 0.5)
+    section(d0 - 0.2, d1 + 0.3, 'D', 'minor', 108, 'pad', 0.28, 0.28, prog='minor')
+    tk = WT('c3g', '大家都认它')
+    section(d1 + 0.3, chs['ch4'], 'F', 'major', 108, 'anthem', 0.55, 0.85, prog='major', theme=True)
+    drop(tk, 0.4); hit(tk, 'F', 'major', 'I', 1.1)
     rise(chs['ch4'], 1.6, snare=False, key='C', mode='minor')
-    # ======== 第四章 开到隔壁：阴暗心跳（C 小调 76）→“辞职走了”抽空重拍 → 数字（脉冲）→ 隔壁新店（俏皮拨弦 Eb 大调 96）
-    #          → 竞业禁止（阴暗）→“九十九岁”转降 A 大调 → 引语与“一百零四岁”（深情）
+    # ======== 第四章 关键齿轮：阴暗心跳（C 小调 76）→“三十只”→ 原声铺底 →“八成”抽空暗重拍 → 多德-弗兰克（脉冲）
     hit(chs['ch4'], 'C', 'minor', 'i', 0.9, dark=True)
-    tq = WT('c4b', '辞职走了')
-    section(chs['ch4'], tq, 'C', 'minor', 76, 'dark', 0.4, 0.62, prog='minor2')
-    drop(tq, 0.6); hit(tq, 'C', 'minor', 'i', 1.0, dark=True)
-    section(tq + 1.2, S('c4d') - 0.2, 'C', 'minor', 76, 'pulse', 0.4, 0.5, prog='minor')
-    section(S('c4d') - 0.2, S('c4e') - 0.2, 'Eb', 'major', 96, 'pizz', 0.5, 0.6, prog='major2')
-    t99 = WT('c4f', '九十九岁')
-    section(S('c4e') - 0.2, t99, 'C', 'minor', 76, 'dark', 0.42, 0.58, prog='minor3')
-    hit(t99, 'Ab', 'major', 'I', 0.8)
-    section(t99, chs['ch5'], 'Ab', 'major', 76, 'emotional', 0.45, 0.62, prog='major')
-    hit(WT('c4h', '一百零四岁'), 'Ab', 'major', 'I', 0.5)
-    rise(chs['ch5'], 2.0, key='D')
-    # ======== 第五章 越开越大：原声下铺底 → 律动起势 → 颂歌（D 大调 118），数字落地处重拍
-    hit(chs['ch5'], 'D', 'major', 'I', 1.0)
-    b0, b1 = sot['blumkins']
-    section(chs['ch5'], b1 + 0.25, 'D', 'major', 118, 'pad', 0.3, 0.3, prog='major4')
-    section(b1 + 0.25, S('c5b') - 0.2, 'D', 'major', 118, 'groove', 0.5, 0.6, prog='major')
-    section(S('c5b') - 0.2, chs['ch6'], 'D', 'major', 118, 'anthem', 0.6, 0.95, prog='major3', theme=True)
-    for w, ln, sz in (('十倍', 'c5c', 0.85), ('一百八十万', 'c5d', 1.0), ('销售纪录', 'c5e', 0.55), ('四千五百', 'c5f', 0.85)):
-        tt = WT(ln, w)
-        if sz >= 0.8: drop(tt, 0.35)
-        hit(tt, 'D', 'major', 'I', sz)
+    l0, l1 = sot['delusion']
+    hit(WT('c4a', '大跟头'), 'C', 'minor', 'i', 0.8, dark=True)
+    section(chs['ch4'], S('c4c') - 0.2, 'C', 'minor', 76, 'dark', 0.38, 0.55, prog='minor2')
+    section(S('c4c') - 0.2, l0 - 0.2, 'C', 'minor', 76, 'pulse', 0.45, 0.66, prog='minor3')
+    hit(WT('c4c', '三十只'), 'C', 'minor', 'VI', 0.75)
+    section(l0 - 0.2, l1 + 0.3, 'C', 'minor', 76, 'pad', 0.28, 0.28, prog='minor')
+    t8 = WT('c4f', '八成')
+    section(l1 + 0.3, t8, 'C', 'minor', 76, 'dark', 0.45, 0.66, prog='minor2')
+    drop(t8, 0.5); hit(t8, 'C', 'minor', 'i', 1.0, dark=True)
+    section(t8 + 0.6, chs['ch5'], 'C', 'minor', 76, 'pulse', 0.38, 0.5, prog='minor')
+    rise(chs['ch5'], 2.0, key='Eb')
+    # ======== 第五章 信誉崩了，生意还在：设问静一拍 →“没有”重拍（转降 E 大调 100）→ 原声铺底 → 回购（律动）→“五十一倍”大重拍（颂歌）
+    m0, m1 = sot['mistake']
+    hit(chs['ch5'], 'Eb', 'major', 'I', 0.85)
+    section(chs['ch5'], E('c5a') + 0.05, 'C', 'minor', 88, 'pad', 0.32, 0.32, prog='minor')
+    MUTES.append((E('c5a') + 0.05, S('c5b') - 0.05))
+    tn = WT('c5b', '没有')
+    section(S('c5b') - 0.05, m0 - 0.2, 'Eb', 'major', 100, 'groove', 0.55, 0.72, prog='major', theme=True, theme_ins='glock')
+    hit(tn, 'Eb', 'major', 'I', 1.0)
+    hit(WT('c5d', '护城河却还在'), 'Eb', 'major', 'IV', 0.8)
+    section(m0 - 0.2, m1 + 0.3, 'Eb', 'major', 100, 'pad', 0.28, 0.28, prog='major4')
+    t51 = WT('c5i', '五十一倍')
+    section(m1 + 0.3, S('c5i') - 0.2, 'Eb', 'major', 100, 'groove', 0.5, 0.7, prog='major2')
+    hit(WT('c5h', '百分之十三点九'), 'Eb', 'major', 'V', 0.6)
+    section(S('c5i') - 0.2, chs['ch6'], 'Eb', 'major', 100, 'anthem', 0.65, 0.92, prog='major3', theme=True)
+    drop(t51, 0.45); hit(t51, 'Eb', 'major', 'I', 1.2)
     rise(chs['ch6'], 1.6, snare=False, key='B', mode='minor')
-    # ======== 第六章 还能好多久：原声下铺底 → 低沉脉冲（B 小调 88），三件事各点一下
+    # ======== 第六章 还能好多久：低沉脉冲（B 小调 88），三件事各点一下
     hit(chs['ch6'], 'B', 'minor', 'i', 0.85, dark=True)
-    a0, a1 = sot['attacks']
-    section(chs['ch6'], a1 + 0.25, 'B', 'minor', 88, 'pad', 0.3, 0.3, prog='minor')
-    section(a1 + 0.25, chs['ch7'], 'B', 'minor', 88, 'pulse', 0.42, 0.6, prog='minor3')
-    for ln, w in (('c6b', '第一'), ('c6c', '第二'), ('c6e', '第三')): hit(WT(ln, w), 'B', 'minor', 'i', 0.55, dark=True)
+    section(chs['ch6'], chs['ch7'], 'B', 'minor', 88, 'pulse', 0.4, 0.6, prog='minor3')
+    for ln, w in (('c6b', '第一'), ('c6c', '第二'), ('c6d', '第三')): hit(WT(ln, w), 'B', 'minor', 'i', 0.55, dark=True)
     rise(chs['ch7'], 2.0, key='D')
-    # ======== 第七章 带走什么：深情（D 大调 100）→ 一家牵出一家（律动）→“三十三亿”重拍 → 三条收获（颂歌）
-    #          → 两句话（钢琴 + 合唱）→ 落版字 → logo
+    # ======== 第七章 带走什么：三条收获（颂歌 D 大调 100）→ 结语（钢琴 + 合唱）→ 下期预告（驱动，铁路的节奏）→ logo
     hit(chs['ch7'], 'D', 'major', 'I', 0.9)
-    section(chs['ch7'], S('c7c') - 0.2, 'D', 'major', 100, 'emotional', 0.38, 0.5, prog='major4')
-    t33 = WT('c7e', '三十三亿')
-    section(S('c7c') - 0.2, t33, 'D', 'major', 100, 'groove', 0.55, 0.82, prog='major', theme=True, theme_ins='glock')
-    for w in ('一九九五年的', '一九九七年的', '一九九九年的'): hit(WT('c7c', w), 'D', 'major', 'V', 0.45)
-    drop(t33, 0.5); hit(t33, 'D', 'major', 'I', 1.2)
-    section(t33, S('c7f') - 0.25, 'D', 'major', 100, 'anthem', 0.6, 0.88, prog='major3', theme=True)
-    for ln, w in (('c7m', '第一'), ('c7n', '第二'), ('c7o', '第三')): hit(WT(ln, w), 'D', 'major', 'I', 0.6)
-    section(S('c7f') - 0.25, S('c7g') - 0.3, 'D', 'major', 100, 'emotional', 0.45, 0.55, prog='major4')
-    tg = WT('c7g', '一张支票')
-    section(S('c7g') - 0.3, logo, 'D', 'major', 100, 'anthem', 0.7, 0.95, prog='major', theme=True, theme_ins='brass')
-    hit(tg, 'D', 'major', 'I', 0.9)
+    section(chs['ch7'], S('c7e') - 0.25, 'D', 'major', 100, 'anthem', 0.55, 0.85, prog='major3', theme=True)
+    for ln, w in (('c7b', '第一'), ('c7c', '第二'), ('c7d', '第三')): hit(WT(ln, w), 'D', 'major', 'I', 0.6)
+    te = WT('c7e', '没得选')
+    section(S('c7e') - 0.25, S('p1') - 0.2, 'D', 'major', 100, 'emotional', 0.5, 0.6, prog='major4', theme_ins='piano')
+    hit(te, 'D', 'major', 'I', 0.9)
+    tp = WT('p2', '下一期')
+    section(S('p1') - 0.2, logo, 'A', 'major', 112, 'drive', 0.55, 0.85, prog='major', theme=True, theme_ins='horn')
+    hit(S('p1') - 0.2, 'A', 'major', 'I', 0.7)
+    drop(tp, 0.35); hit(tp, 'A', 'major', 'I', 1.0)
     rise(logo, 2.2, key='D')
     hit(logo, 'D', 'major', 'I', 1.3)
     section(logo, T_END - 0.2, 'D', 'major', 100, 'emotional', 0.6, 0.35, prog='major4', theme_ins='piano')

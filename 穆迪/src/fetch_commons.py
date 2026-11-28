@@ -9,28 +9,17 @@ MDIR = os.path.join(ROOT, 'assets', 'media')
 UA = {'User-Agent': 'ClaudeCode-video-research/1.0 (https://code.claude.com/docs; documentary image credits) python-urllib/3'}
 OK = ('cc0', 'public domain', 'pd', 'cc by', 'cc-by', 'no restrictions')
 PHOTOS = {   # 名称: (Commons 文件名, 用途)
-    'c_nfm_kc': ('Nebraska Furniture Mart (KC).jpg', 'NFM 堪萨斯城店'),
-    'c_brk2015': ('Kathy Ireland, Warren Buffett and Bill Gates at the 2015 Berkshire Hathaway Shareholders Meeting.jpg', '2015 年伯克希尔股东会'),
-    'c_buffett_munger': ('Buffett & Munger.jpg', '巴菲特与芒格'),
-    'c_munger': ('Charlie Munger.jpg', '查理·芒格（2010）'),
-    'c_buffett_ku': ('Warren Buffett KU Visit.jpg', '巴菲特'),
+    'c_moody1903': ('John Moody (financial analyst) 1903.jpg', '约翰·穆迪（1903）'),
+    'c_rrgroups': ('Greater Steam Railroad Groups, 1904.jpg', '约翰·穆迪《托拉斯真相》里的美国铁路集团图（1904）'),
+    'c_obama_buffett': ('President Barack Obama and Warren Buffett in the Oval Office, July 14, 2010.jpg', '巴菲特在白宫（2010-07-14，白宫官方照片）'),
     'c_buffett_2010': ('Warren Buffett in 2010.jpg', '巴菲特（2010）'),
-    'c_kiewit': ('Kiewit Plaza Omaha.jpg', '伯克希尔总部所在的基威特广场'),
-    'c_grandscape': ('Grandscape - The Colony, Texas.jpg', '得州 The Colony 的 Grandscape 商圈（NFM 得州店所在地）'),
-    'c_west_omaha': ('Above West Omaha.jpg', '奥马哈西区航拍'),
-    'c_omaha1995': ('1995 Omaha, Nebraska.jpg', '1995 年的奥马哈'),
-    'c_omaha_dt': ('Downtown Omaha view.jpg', '奥马哈市中心'),
-    'c_omaha1970': ('Interstate 480 - Exit Ramp (Omaha, Nebraska, 1970).jpg', '1970 年的奥马哈'),
-    'c_farnam1906': ('14th & Farnam 1906.jpg', '1906 年奥马哈法纳姆街'),
-    'c_rose': ('Rose Blumkin Performing Arts Center Omaha, Nebraska.jpg', '罗丝·布鲁姆金表演艺术中心（B 太太出资保下的老剧院）'),
-    'c_rose2': ('Rose Blumkin Performing Arts Center 2025.jpg', '罗丝·布鲁姆金表演艺术中心'),
-    'c_star1926': ('Star Furinture in 1926.jpg', '1926 年的 Star Furniture'),
-    'c_jordans': ('Jordans Furniture, Reading MA.jpg', 'Jordan’s 家具店（马萨诸塞州雷丁）'),
-    'c_jordans2': ("Jordan's Maine Mall.jpg", 'Jordan’s 家具店（缅因州）'),
-    'c_rcwilley': ('2019 RC Willey Car show.jpg', 'R.C. Willey 门店'),
-    'c_ks_speedway': ('Kansas Speedway aerial.jpg', '堪萨斯城西郊航拍'),
-    'c_desmoines': ('Skyline downtown Des Moines.jpg', '得梅因'),
-    'c_omaha_sky': ('Omaha skyline, Omaha, Nebraska (66660).jpg', '奥马哈天际线'),
+    'c_7wtc': ('7 World Trade Center 2024.jpg', '纽约世贸中心七号楼（穆迪总部所在）'),
+    'c_7wtc2': ('A627, One World Trade Center and 7 World Trade Center, Manhattan, July 2019.jpg', '世贸中心一号楼与七号楼（2019）'),
+    'c_foreclosure': ('Foreclosure sign.jpeg', '止赎房屋的告示牌'),
+    'c_foreclosure2': ('Sign of the Times-Foreclosure.jpg', '止赎房屋'),
+    'c_deserted': ('Foreclosure Deserted House.jpeg', '止赎后空置的房子'),
+    'c_lehman': ('Lehman Brothers-NYC-20080915.jpg', '雷曼兄弟总部（2008-09-15）'),
+    'c_nyse_floor': ('No Known Restrictions Trading Floor, New York Stock Exchange (Highsmith LOC) (6718386525).jpg', '纽约证券交易所交易大厅（Carol M. Highsmith 摄）'),
 }
 
 
