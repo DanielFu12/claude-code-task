@@ -740,24 +740,23 @@ def sc_math(cv, t):
         V.ring_stat(cv, (1200, 540), 170, f2, '%d%%' % round(f2 * 100), '经营利润率', ease(lin(t, WT('m2', '经营利润率') - 0.3, WT('m2', '经营利润率'))))
         source(cv, '爱马仕 2025 年度业绩：毛利率 71.1%，经常性经营利润率 41%', a)
         return
+    if t < T('m3b') - 0.1:
+        V.apple_share(cv, t, ease(lin(t, T('m3') - 0.2, T('m3') + 0.3)), W / 2, 190, 285, 360, 1560, (470, 690), SRC_Y)
+        return
     if t < T('m4') - 0.1:
-        a = ease(lin(t, T('m3') - 0.2, T('m3') + 0.3))
-        big(cv, 'COSTCO', 620, 400, 100, a=a, fname='oswald', color=(0.62, 0.78, 0.95), track=0.1)
-        label(cv, '另一种认同：精明', 620, 520, 38, WHITE, a, 'sans_bold')
-        label(cv, '商品只赚薄利', 620, 580, 34, GREY, a, 'sans_med')
-        f = 0.506 * eout(lin(t, WT('m3', '一半') - 0.6, WT('m3', '会员费', end=True)))
-        V.ring_stat(cv, (1300, 470), 210, f, '%d%%' % round(f * 100), '会员费 ÷ 经营利润', ease(lin(t, WT('m3', '经营利润') - 0.3, WT('m3', '经营利润'))))
-        source(cv, 'Costco 2026 财年 10-K：会员费 59.07 亿美元 ÷ 经营利润 116.85 亿美元', a)
+        V.why_more(cv, t, ease(lin(t, T('m3b') - 0.2, T('m3b') + 0.3)), W / 2, 210, 380, 300, 455, 610, 760)
         return
     if t > T('m5') - 0.3:
         V.acquire(cv, t, ease(lin(t, T('m5') - 0.3, T('m5') + 0.2)), (640, 1280), 300, 790)
         return
     a = ease(lin(t, T('m4') - 0.2, T('m4') + 0.3))
-    label(cv, '价格', 640, 250, 48, GOLD, a, 'sans_black'); label(cv, '会员费', 1280, 250, 48, (0.62, 0.78, 0.95), a, 'sans_black')
-    k = eout(lin(t, T('m4'), WT('m4', '完全不同', end=True)))
-    L = layer(); line(L, (640, 300), (640 + 320 * k, 300 + 250 * k), 5); line(L, (1280, 300), (1280 - 320 * k, 300 + 250 * k), 5)
+    label(cv, '爱马仕', 640, 220, 48, GOLD, a, 'serif_black'); label(cv, '苹果', 1280, 220, 48, (0.85, 0.88, 0.95), a, 'serif_black')
+    o1 = ease(lin(t, WT('m4', '少数人') - 0.2, WT('m4', '少数人') + 0.3)); o2_ = ease(lin(t, WT('m4', '很多人') - 0.2, WT('m4', '很多人') + 0.3))
+    label(cv, '少数人 · 付很高的价', 640, 278, 30, WHITE, o1, 'sans_med'); label(cv, '很多人 · 都多付一些', 1280, 278, 30, WHITE, o2_, 'sans_med')
+    k = eout(lin(t, WT('m4', '少数人') - 0.2, WT('m4', '多付一些', end=True)))
+    L = layer(); line(L, (640, 320), (640 + 320 * k, 320 + 230 * k), 5); line(L, (1280, 320), (1280 - 320 * k, 320 + 230 * k), 5)
     stroke_layer(cv, L, GOLD, a, glow=1.0)
-    s, o = pop(t, WT('m4', '完全不同') - 0.1, 0.5)
+    s, o = pop(t, WT('m4', '多付一些', end=True) - 0.1, 0.5)
     chip(cv, '定价权', W / 2, 620, o, GOLD, 54, (0.16, 0.13, 0.08))
     o2 = ease(lin(t, WT('m4', '热闹') - 0.3, WT('m4', '热闹')))
     label(cv, '认同留不住钱  =  热闹  ≠  护城河', W / 2, 790, 42, (1.0, 0.65, 0.58), o2, 'sans_bold')

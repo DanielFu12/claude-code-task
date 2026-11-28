@@ -200,7 +200,7 @@ hit('sam', 'k22', '炸了锅', 80, 0.5)
 prM = ['F', 'C', 'Bb', 'F']
 pad(G('m1'), G('g1'), prM, 46, name='slow'); arp(G('m1'), G('g1'), prM, 44, lo=65, name='harp'); pulse(tl.T('m2'), tl.T('m4'), 34)
 hit('margin', 'm2', '七十一', 72)
-hit('fee', 'm3', '会员费', 64)
+hit('fee', 'm3', '六成', 64)
 
 # 04 中国考题：悬疑（小调钢琴 + 低弦），段永平处一次逆向的上行
 G1 = G('g1'); prG = ['Dm', 'Gm', 'Bb', 'A']

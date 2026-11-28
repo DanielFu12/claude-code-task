@@ -925,26 +925,55 @@ def sc_math(cv, t):
         ring_stat(cv, (780, 800), 170, f2, '%d%%' % round(f2 * 100), '经营利润率', ease(lin(t, WT('m2', '经营利润率') - 0.3, WT('m2', '经营利润率'))))
         source(cv, '爱马仕 2025 年度业绩：毛利率 71.1%，经常性经营利润率 41%', a, y=1250)
         return
-    if t < T('m4') - 0.1:
+    if t < T('m3b') - 0.1:
         a = ease(lin(t, T('m3') - 0.2, T('m3') + 0.3))
-        big(cv, 'COSTCO', W / 2, 360, 90, a=a, fname='oswald', color=(0.62, 0.78, 0.95), track=0.1)
-        label(cv, '另一种认同：精明 · 商品只赚薄利', W / 2, 460, 36, WHITE, a, 'sans_bold')
-        f = 0.506 * eout(lin(t, WT('m3', '一半') - 0.6, WT('m3', '会员费', end=True)))
-        ring_stat(cv, (W / 2, 820), 210, f, '%d%%' % round(f * 100), '会员费 ÷ 经营利润', ease(lin(t, WT('m3', '经营利润') - 0.3, WT('m3', '经营利润'))))
-        source(cv, 'Costco 2026 财年 10-K：会员费 59.07 亿美元 ÷ 经营利润 116.85 亿美元', a, y=1250)
+        apple_share(cv, t, a, W / 2, 360, 460, 120, 960, (700, 920), 1250)
+        return
+    if t < T('m4') - 0.1:
+        why_more(cv, t, ease(lin(t, T('m3b') - 0.2, T('m3b') + 0.3)), W / 2, 420, 620, 240, 700, 900, 1040)
         return
     if t > T('m5') - 0.3:
         acquire(cv, t, ease(lin(t, T('m5') - 0.3, T('m5') + 0.2)), (300, 780), 520, 1000)
         return
     a = ease(lin(t, T('m4') - 0.2, T('m4') + 0.3))
-    label(cv, '价格', 260, 520, 48, GOLD, a, 'sans_black'); label(cv, '会员费', 820, 520, 48, (0.62, 0.78, 0.95), a, 'sans_black')
-    k = eout(lin(t, T('m4'), WT('m4', '完全不同', end=True)))
-    L = layer(); line(L, (260, 570), (260 + (540 - 260) * k, 570 + 280 * k), 5); line(L, (820, 570), (820 + (540 - 820) * k, 570 + 280 * k), 5)
+    label(cv, '爱马仕', 260, 490, 48, GOLD, a, 'serif_black'); label(cv, '苹果', 820, 490, 48, (0.85, 0.88, 0.95), a, 'serif_black')
+    o1 = ease(lin(t, WT('m4', '少数人') - 0.2, WT('m4', '少数人') + 0.3)); o2 = ease(lin(t, WT('m4', '很多人') - 0.2, WT('m4', '很多人') + 0.3))
+    label(cv, '少数人 · 付很高的价', 260, 548, 30, WHITE, o1, 'sans_med'); label(cv, '很多人 · 都多付一些', 820, 548, 30, WHITE, o2, 'sans_med')
+    k = eout(lin(t, WT('m4', '少数人') - 0.2, WT('m4', '多付一些', end=True)))
+    L = layer(); line(L, (260, 600), (260 + (540 - 260) * k, 600 + 260 * k), 5); line(L, (820, 600), (820 + (540 - 820) * k, 600 + 260 * k), 5)
     stroke_layer(cv, L, GOLD, a, glow=1.0)
-    s, o = pop(t, WT('m4', '完全不同') - 0.1, 0.5)
+    s, o = pop(t, WT('m4', '多付一些', end=True) - 0.1, 0.5)
     chip(cv, '定价权', W / 2, 920, o, GOLD, 54, (0.16, 0.13, 0.08))
     o2 = ease(lin(t, WT('m4', '热闹') - 0.3, WT('m4', '热闹')))
     label(cv, '认同留不住钱  =  热闹  ≠  护城河', W / 2, 1150, 42, (1.0, 0.65, 0.58), o2, 'sans_bold')
+
+
+def apple_share(cv, t, a, cx, y_title, y_sub, x0, x1, ys, y_src):
+    """m3 苹果：2025 年第四季度，出货量约占全球四分之一，收入却将近六成（Counterpoint）"""
+    if a <= 0.003: return
+    big(cv, 'iPhone', cx, y_title, 96, a=a, fname='playfair', color=(0.92, 0.93, 0.96), glow=0.2)
+    label(cv, '另一条路 · 2025 年第四季度 · 全球手机', cx, y_sub, 34, WHITE, a, 'sans_bold')
+    for (name, frac, col, key, val), y in zip((('出货量份额', 0.25, COLD, '四分之一', '≈ 25%'), ('收入份额', 0.59, GOLD, '六成', '≈ 59%')), ys):
+        tk = WT('m3', key); k = eout(lin(t, tk - 0.6, tk + 0.3)); o = ease(lin(t, tk - 0.8, tk - 0.4)) * a
+        label(cv, name, x0, y - 62, 36, WHITE, o, 'sans_bold', anchor='l')
+        L = layer(); rect(L, x0, y - 24, x1, y + 24, r=24); fill(cv, L, (0.20, 0.21, 0.24), 0.9 * o)
+        if k > 0.01:
+            L = layer(); rect(L, x0, y - 24, x0 + (x1 - x0) * frac * k, y + 24, r=24); fill(cv, L, col, 0.95 * o)
+        label(cv, val, x1, y - 62, 44, col, ease(lin(t, tk - 0.1, tk + 0.3)) * a, 'oswald', anchor='r')
+    source(cv, 'Counterpoint 2025 Q4：出货量份额约 25%（IDC 24.2%），收入份额约 59%', a, y=y_src)
+
+
+def why_more(cv, t, a, cx, y_title, y_chips, dx, y_note, y_big, y_end):
+    """m3b 多出来的钱：产品、生态、身份（只是其中一份）× 一年两亿多部 = 另一种定价权"""
+    if a <= 0.003: return
+    label(cv, '多出来的钱，为什么付？', cx, y_title, 48, WHITE, a, 'serif_black')
+    for i, (w_, col, key, nth) in enumerate((('产品', (0.62, 0.66, 0.74), '产品', 0), ('生态', (0.62, 0.66, 0.74), '生态', 0), ('身份', GOLD, '身份', 1))):
+        s, o = pop(t, WT('m3b', key, nth=nth) - 0.15, 0.45)
+        chip(cv, w_, cx + (i - 1) * dx, y_chips, o * a, col, 44, (0.10, 0.10, 0.12) if i < 2 else (0.16, 0.13, 0.08))
+    label(cv, '只是其中一份', cx + dx, y_note, 30, GOLD_HI, ease(lin(t, WT('m3b', '其中一份') - 0.2, WT('m3b', '其中一份') + 0.2)) * a, 'sans_med')
+    s, o = pop(t, WT('m3b', '两亿多部') - 0.2, 0.5)
+    big(cv, '× 一年两亿多部', cx, y_big, 76, a=o * a, scale=0.92 + 0.08 * s, color=WHITE, glow=0.2)
+    label(cv, '= 另一种定价权', cx, y_end, 50, GOLD, ease(lin(t, WT('m3b', '定价权') - 0.3, WT('m3b', '定价权') + 0.1)) * a, 'serif_black', glow=0.3)
 
 
 def acquire(cv, t, a, xs, y_head, y_floor):
