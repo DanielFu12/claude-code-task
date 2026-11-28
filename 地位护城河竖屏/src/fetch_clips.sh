@@ -10,3 +10,5 @@ done
 clip() { [ -f "media/clips/$2.mp4" ] || ffmpeg -v error -y -ss $3 -i "media_raw/$1.webm" -t $4 -an -vf "$5,scale=1080:608:flags=lanczos,setsar=1" -c:v libx264 -crf 14 -preset fast "media/clips/$2.mp4"; }
 clip v_airport airport ${AIRPORT_SS:-0.2} 5.6 "crop=iw*0.44:iw*0.44*608/1080:iw*0.28:0"
 clip v_peacock peacock ${PEACOCK_SS:-25.5} 7 "crop=iw:ih:0:0"
+# 横版：孔雀片段保留 1280×720 原分辨率
+[ -f media/clips/peacock_h.mp4 ] || ffmpeg -v error -y -ss ${PEACOCK_SS:-25.5} -i media_raw/v_peacock.webm -t 7 -an -c:v libx264 -crf 14 -preset fast media/clips/peacock_h.mp4

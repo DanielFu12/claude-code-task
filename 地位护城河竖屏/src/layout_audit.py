@@ -1,7 +1,8 @@
 """版面审计：读 video.py audit 的记录，找 ① 两段可见文字互相重叠；② 文字跨在卡片边界上（半在卡内半在卡外）；③ 文字超出画面安全区。
 python3 src/layout_audit.py audit0.json audit1.json ..."""
 import sys, json, collections
-W, H = 1080, 1920
+import os
+W, H = (1920, 1080) if os.environ.get('ORIENT') == 'h' else (1080, 1920)
 def inter(a, b):
     x0, y0 = max(a[1], b[1]), max(a[2], b[2]); x1, y1 = min(a[3], b[3]), min(a[4], b[4])
     return max(0, x1 - x0) * max(0, y1 - y0)

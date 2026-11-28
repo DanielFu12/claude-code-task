@@ -1,10 +1,11 @@
-"""竖屏 1080×1920 动态图形小引擎：文字、图片、线条、辉光、调色、颗粒。画布为 float32 RGB 0..1。"""
+"""动态图形小引擎（竖屏 1080×1920；环境变量 ORIENT=h 时为横版 1920×1080）：文字、图片、线条、辉光、调色、颗粒。画布为 float32 RGB 0..1。"""
 import os, math, functools
 import numpy as np, cv2
 cv2.setNumThreads(1)
 from PIL import Image, ImageDraw, ImageFont
 
-W, H, FPS = 1080, 1920, 30
+W, H = (1920, 1080) if os.environ.get('ORIENT') == 'h' else (1080, 1920)
+FPS = 30
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 FONTS = os.path.join(ROOT, 'fonts'); MEDIA = os.path.join(ROOT, 'media')
 
