@@ -6,13 +6,20 @@ WORK = sys.argv[1]
 FPS, P = 30, 4
 N = int(round(json.load(open(os.path.join(WORK, 'timeline.json')))['total'] * FPS)); STEP = (N + P - 1) // P
 rngs = sorted((int(float(a) * FPS), int(float(b) * FPS)) for a, b in (r.split('-') for r in sys.argv[2:]))
-procs = []; jobs = []
+jobs = []; cmds = []
 for i, (a, b) in enumerate(rngs):
     sub = [(a + (b - a) * j // 4, a + (b - a) * (j + 1) // 4) for j in range(4)]
     for j, (x, y) in enumerate(sub):
         out = os.path.join(WORK, f'patch_{i}_{j}.mp4'); jobs.append((i, out))
-        procs.append(subprocess.Popen(['python3', 'src/film.py', WORK, 'chunk', str(x), str(y), out], stdout=subprocess.DEVNULL))
-for p in procs: assert p.wait() == 0
+        cmds.append(['python3', 'src/film.py', WORK, 'chunk', str(x), str(y), out])
+running = []                                   # 同时最多 4 个渲染进程（每个进程内存占用大）
+for c in cmds:
+    while len(running) >= 4:
+        for p in running[:]:
+            if p.poll() is not None: assert p.returncode == 0; running.remove(p)
+        if len(running) >= 4: import time; time.sleep(0.5)
+    running.append(subprocess.Popen(c, stdout=subprocess.DEVNULL))
+for p in running: assert p.wait() == 0
 def enc(src, fa, fb, out):
     subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', src, '-vf', f'trim=start_frame={fa}:end_frame={fb},setpts=PTS-STARTPTS',
                     '-c:v', 'libx264', '-preset', 'fast', '-crf', '17', '-pix_fmt', 'yuv420p', out], check=True)

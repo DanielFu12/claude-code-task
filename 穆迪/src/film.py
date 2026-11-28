@@ -150,15 +150,16 @@ def landscape(snap, t, i, fade):
     small = cv2.resize(v[300:1500], (96, 54), interpolation=cv2.INTER_AREA)
     out[:] = cv2.resize(cv2.GaussianBlur(small, (0, 0), 2.0), (HW, HH), interpolation=cv2.INTER_LINEAR) * 0.42
     wc = _card_w(t)
-    if wc < 0.999:                                          # 常规：左画窗 + 右解读
-        a = 1 - wc
+    a_split = cl(1 - 2 * wc); a_card = cl(2 * wc - 1)          # 两种排版之间先淡出、再淡入（不叠在一起出现重影）
+    if a_split > 0.001:                                      # 常规：左画窗 + 右解读
+        a = a_split
         L = _block(v, 246, 870, 0.955)                      # 画窗 + 署名（竖版 y 246–870，整宽，署名不截断）
         R = _block(v, 852, 1500, 0.86, 40, 1040)            # 解读 + 出处（竖版 y 852–1500、x 40–1040）
         _paste(out, L, 20, 176, a)
         _paste(out, R, HW - R.shape[1] - 20, 176 + (L.shape[0] - R.shape[0]) // 2, a)
-    if wc > 0.001:                                          # 片名、章节卡、片尾：中央大块
+    if a_card > 0.001:                                      # 片名、章节卡、片尾：中央大块
         C_ = _block(v, 400, 1500, 0.88)
-        _paste(out, C_, (HW - C_.shape[1]) // 2, 70, wc)
+        _paste(out, C_, (HW - C_.shape[1]) // 2, 70, a_card)
     # 字幕（底部）与导航（左上）
     ol = _overlay_layer(t, i)
     sub = ol[1450:1720]
