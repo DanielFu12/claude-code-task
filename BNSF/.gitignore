@@ -1,0 +1,10 @@
+work/
+__pycache__/
+work_clips/
+fonts/
+fonts_src/
+research/raw/*.pdf
+research/raw/*.json
+research/raw/*.htm
+*.mp4
+配乐小样*.m4a
