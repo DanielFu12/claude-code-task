@@ -243,10 +243,11 @@ def sc_title(cv, t):
         arc(L, (W / 2 + dx, cy + dy), R + 14 * brk, a0 + 6 * brk * ((i % 2) - 0.5), a1 - 3 * brk, 5)
     stroke_layer(cv, L, GOLD, ease(lin(u, 0, 0.5)) * (1 - 0.45 * brk), glow=1.6, add=True)
     s, o = pop(t, t0, 0.5); sc_ = 1.12 - 0.12 * s + 0.02 * u / 3
-    big(cv, '多付的钱，买的是什么', W / 2, cy - 60, 112, a=o, scale=sc_, grad=GOLDG, glow=0.7, track=0.04)
+    big(cv, '多付的钱，', W / 2, cy - 140, 112, a=o, scale=sc_, grad=GOLDG, glow=0.7, track=0.04)
+    big(cv, '买的是什么', W / 2, cy - 5, 112, a=o, scale=sc_, grad=GOLDG, glow=0.7, track=0.04)
     s2, o2 = pop(t, t0 + 0.6, 0.5)
-    big(cv, '身份成为护城河的三道关', W / 2, cy + 80, 56, a=o2, scale=0.9 + 0.1 * s2, color=WHITE, fname='serif_semi', glow=0.15, track=0.08)
-    label(cv, 'STATUS AS A MOAT · FIRST PRINCIPLES', W / 2, cy + 165, 26, GOLD, o2 * 0.85, 'corm_med', track=0.25)
+    big(cv, '身份成为护城河的三道关', W / 2, cy + 120, 54, a=o2, scale=0.9 + 0.1 * s2, color=WHITE, fname='serif_semi', glow=0.15, track=0.08)
+    label(cv, 'STATUS AS A MOAT · FIRST PRINCIPLES', W / 2, cy + 200, 24, GOLD, o2 * 0.85, 'corm_med', track=0.25)
     if 0 <= u < 0.35: cv += np.asarray((1.0, 0.85, 0.6), np.float32) * (1 - u / 0.35) ** 2 * 0.55
 
 
@@ -377,7 +378,7 @@ def sc_paradox(cv, t):
     rng = np.random.default_rng(3); n = int(160 * ease(lin(t, WT('p17', '很多人') - 0.3, WT('p17', '知道'))))
     L = layer()
     for i in range(160):
-        x = lx + rng.normal(0, 100); y = cy + rng.normal(0, 95)
+        x = lx + rng.normal(0, 105); y = cy + rng.normal(0, 62)
         if i < n: circle(L, (x, y), 5, fill=True)
     stroke_layer(cv, L, COLD, 0.9, glow=0.6)
     o1 = ease(lin(t, WT('p17', '认出来') - 0.2, WT('p17', '认出来') + 0.3))
@@ -803,7 +804,7 @@ class FireworksH(V.Fireworks):
     def __init__(self, seed=11):
         r = np.random.default_rng(seed); self.b = []
         for i in range(30):
-            self.b.append((r.uniform(260, 1660), r.uniform(300, 470), i * 0.38 + r.uniform(0, 0.25), r.uniform(0, 6.28)))
+            self.b.append((r.uniform(260, 1660), r.uniform(430, 520), i * 0.38 + r.uniform(0, 0.25), r.uniform(0, 6.28)))
         self.dirs = r.normal(0, 1, (140, 2)); self.dirs /= np.linalg.norm(self.dirs, axis=1, keepdims=True); self.sp = r.uniform(0.55, 1.0, 140)
 
 
