@@ -5,7 +5,7 @@ SEC 评级办公室 2025 年 1 月 NRSRO 年度报告、金融危机调查委员
 大师原话：巴菲特真实原声（FCIC 工作人员访谈录音，2011 年公开），原速、不改词、不拼接，经语音识别逐句核对；
 其余原话只用屏幕引语卡（英文原句 + 中文翻译 + 出处）。
 旁白只用豆包刘飞音色，按章整录（docs/旁白一致性与自然衔接.md），不用 AI 模仿任何真实人物的声音。
-第二季起：开场承接上一期（第一季美国运通），片尾预告下一期（BNSF）；和第一季有关联处做简短回顾（屏幕标「第一季 · 某期」）。
+第二版：开场直接进入冲突（不承接、不报季数期数）；片尾预告下一期（BNSF）；片中与已播各期有关联处做简短回顾（屏幕标「回顾 · 某期」）。定稿见 视频脚本.md。
 say 为 None 且字幕含数字时，朗读文本由 cnnum.to_reading 自动生成（年份逐位读，百分数读“百分之”）；
 注意：WT 词锚点要按朗读文本写（例如“一九零九年”而不是“1909 年”）。
 """
@@ -35,24 +35,20 @@ DOJ = '美国司法部新闻稿 17-070（2017-01-13，穆迪和解）'
 
 # 每条：(id, 章节, 字幕文本, 朗读文本或 None, 情绪提示, 出处)
 LINES = [
-    # ---------------------------------------------------------------- 开场：承接第一季 → 冲突 → 设问
-    ('h1', 'hook', '第一季最后一期，我们讲了美国运通：信任，可以做成一门好生意。',
-     None, '', '第一季 · 美国运通（本片回顾）'),
-    ('h2', 'hook', '第二季第一期，这家公司的生意更直接：给别人的信用打分。',
-     None, '', '本片过渡'),
-    ('h3', 'hook', '2000 年到 2007 年，它给近 4.5 万只房贷证券，打了最高的三A。而到 2010 年初，全美国拿到三A 的私营公司，只有 6 家。',
-     None, '', FCR + '（“From 2000 to 2007, Moody’s rated nearly 45,000 mortgage-related securities as triple-A. This compares with six private-sector companies in the United States that carried this coveted rating in early 2010.”）'),
-    ('h4', 'hook', '2006 年评为三A 的那批房贷证券，最后 83% 被下调。危机调查委员会说，评级机构是这场金融破坏的“关键齿轮”。',
-     None, '', FCR + '（“83% of the mortgage securities rated triple-A that year ultimately were downgraded”；“essential cogs in the wheel of financial destruction”）'),
-    ('h5', 'hook', '2017 年，它付了近 8.64 亿美元，和美国司法部、21 个州及华盛顿特区和解。',
-     None, '', DOJ + '（“nearly $864 million settlement … the Department, 21 states and the District of Columbia”）'),
-    ('h6', 'hook', '照理说，信誉扫地的评级公司，生意也该完了。',
+    # ---------------------------------------------------------------- 开场：直接进入冲突 → 反转 → 设问（第二版：不承接上一季、不报季数期数）
+    ('h1', 'hook', '2006 年，美国每个工作日，平均有 30 只房贷证券拿到最高的三A评级。打分的，是同一家公司。',
+     None, '', FCR + '（“In 2006 alone, Moody’s put its triple-A stamp of approval on 30 mortgage-related securities every working day.”）'),
+    ('h2', 'hook', '后来房价崩盘。那一年评为三A的房贷证券，83% 最终被下调。',
+     None, '', FCR + '（“The results were disastrous: 83% of the mortgage securities rated triple-A that year ultimately were downgraded.”）'),
+    ('h3', 'hook', '美国金融危机调查委员会认定：评级机构是这场金融破坏的“关键齿轮”。2017 年，这家公司付出近 8.64 亿美元，和美国司法部、21 个州及华盛顿特区和解。',
+     None, '', FCR + '（“essential cogs in the wheel of financial destruction”）；' + DOJ + '（“nearly $864 million settlement … the Department, 21 states and the District of Columbia”）'),
+    ('h4', 'hook', '照理说，信誉扫地的评级公司，生意也该完了。',
      None, '', '本片设问'),
-    ('h7', 'hook', '可是到了 2025 年，它的评级业务每收 100 美元，调整后的营业利润有将近 64 美元。',
+    ('h5', 'hook', '可是到了 2025 年，它的评级业务每收 100 美元，调整后的营业利润将近 64 美元。',
      None, '', MCO25 + '（MIS 调整后营业利润率 63.6%）'),
-    ('h8', 'hook', '伯克希尔新任 CEO 阿贝尔在他的第一封股东信里，把它和苹果、美国运通、可口可乐一起点了名。',
-     None, '', L25 + '（“a small number of American companies such as Apple, American Express, Coca-Cola, and Moody’s – businesses we understand well … expect will compound over decades”；署名 Gregory E. Abel）'),
-    ('h9', 'hook', '这家公司，叫穆迪。信誉崩了，生意却没丢，凭什么？',
+    ('h6', 'hook', '伯克希尔手里这部分股票，成本 2.48 亿美元，2025 年底值 126 亿。新任 CEO 阿贝尔在他的第一封股东信里，把它和苹果、美国运通、可口可乐一起点了名。',
+     None, '', L25 + '（成本 248、市值 12,603，百万美元；“a small number of American companies such as Apple, American Express, Coca-Cola, and Moody’s”；署名 Gregory E. Abel）'),
+    ('h7', 'hook', '这家公司叫穆迪。信誉崩了，生意却没丢，凭什么？',
      None, '', '本片设问'),
 
     # ---------------------------------------------------------------- 第一章：打分的生意
@@ -60,7 +56,7 @@ LINES = [
      None, '', 'Imperial College Business School《Credit ratings: where they come from and why they matter》；Wilson（2011）Financial History Review；NBER 工作论文（1909 年 4 月，铁路债券，近 1300 只）'),
     ('c1b', 'ch1', '那时候，铁路是美国最大的发债人。普通人看不懂铁路公司的账，一个字母，就替他们省了功夫。',
      None, '', '同上（铁路是当时主要发债人）；“省了功夫”为本片解读'),
-    ('c1c', 'ch1', '后来有了标普和惠誉，字母越分越细：三A 最稳，往下是双A、A、三B；再往下，就是投机级，俗称垃圾债。',
+    ('c1c', 'ch1', '后来有了标普和惠誉，字母越分越细：三A最稳，往下是双A、A、三B；再往下，就是投机级，俗称垃圾债。',
      '后来有了标普和惠誉，字母越分越细：三A最稳，往下是双A、A、三B；再往下，就是投机级，俗称垃圾债。', '', 'Poor’s 1916 年、Fitch 1924 年开始出售评级（同上）；评级符号为本片解释（穆迪写作 Aaa、Aa、A、Baa）'),
     ('c1d', 'ch1', '一开始，评级是卖给投资人的，谁想看谁买手册。大约 1970 年代初，规矩倒了过来：发债的公司付钱，请评级机构给自己打分。',
      None, '', 'Lawrence J. White，Mercatus 政策简报《A Brief History of Credit Rating Agencies》；White 2009 年参议院证词（约 1970 年代初由投资者付费转为发行人付费）'),
@@ -80,8 +76,8 @@ LINES = [
      None, '', FCIC + '（“There is no staff. I make all the investment decisions and I do all my own analysis … And I never met with anybody.”）'),
     ('c2d', 'ch2', '他看的，是这门生意的经济特性。他说：',
      None, '', FCIC + '（“it was an evaluation … of the economics of their business”）；原声见 SOTS pricing'),
-    ('c2e', 'ch2', '第一季讲喜诗糖果时说过：定价权，来自顾客的喜爱。',
-     None, '', '第一季 · 喜诗糖果（本片回顾：“定价权来自顾客的喜爱”）'),
+    ('c2e', 'ch2', '我们讲喜诗糖果时说过：定价权，来自顾客的喜爱。',
+     None, '', '回顾 · 喜诗糖果（本系列：“定价权来自顾客的喜爱”）'),
     ('c2f', 'ch2', '穆迪的定价权，来路不一样。伯克希尔旗下的公司发债，也要找穆迪评级。巴菲特说，这门生意他是从两边看的：',
      None, '', FCIC + '（“we’re a customer of Moody’s too so I see this from both sides”）；原声见 SOTS unwilling'),
     ('c2g', 'ch2', '顾客不情愿，却离不开。这样的生意，管理层要紧吗？巴菲特说，他不认识穆迪的管理层；非凡的生意，不需要很好的管理。',
@@ -90,8 +86,8 @@ LINES = [
      None, '', FCIC + '（“I’d never been in Moody’s offices. I don’t think I’ve ever initiated a call to them.”；“Have you pressed for the election of any Board members … No, I have no interest in it.”）'),
 
     # ---------------------------------------------------------------- 第三章：护城河（两关）
-    ('c3a', 'ch3', '顾客离不开，算不算护城河？还是用同一套标准，过两关：第一，优势是不是真的；第二，对手能不能长期学会。',
-     None, '', '本片分析框架（与第一季、内布拉斯加家具城一期相同的两关标准）'),
+    ('c3a', 'ch3', '顾客离不开，算不算护城河？用两关来检验：第一，优势是不是真的；第二，对手能不能长期学会。',
+     None, '', '本片分析框架（两关：优势真实存在、对手难以长期复制）'),
     ('c3b', 'ch3', '先看第一关。美国证监会登记的评级机构，一共 10 家。可到 2023 年底，所有有效的评级里，标普、穆迪、惠誉三家占了 94%；收入，占了 92%。',
      None, '', SEC25 + '（截至 2024-12-31 共 10 家 NRSRO；Chart 3：截至 2023-12-31 三家合计占存续评级 94.15%；Chart 12：2023 财年三家占收入 91.9%）'),
     ('c3c', 'ch3', '赚钱的本事也是真的。巴菲特说，穆迪的有形资产回报，“几乎是无穷大”。',
@@ -110,8 +106,8 @@ LINES = [
      None, '', '本片过渡'),
     ('c4b', 'ch4', '本世纪初，美国房价连年上涨。华尔街把成千上万笔房贷打包成证券，再请评级机构打分。拿到三A，这些证券才好卖。',
      None, '', FCR + '（“The mortgage-related securities at the heart of the crisis could not have been marketed and sold without their seal of approval.”）'),
-    ('c4c', 'ch4', '光是 2006 年，穆迪每个工作日，就给 30 只房贷证券评三A。',
-     None, '', FCR + '（“In 2006 alone, Moody’s put its triple-A stamp of approval on 30 mortgage-related securities every working day.”）'),
+    ('c4c', 'ch4', '2000 年到 2007 年，穆迪给近 4.5 万只房贷证券评了三A；而到 2010 年初，全美国拿到三A的私营公司，只有 6 家。',
+     None, '', FCR + '（“From 2000 to 2007, Moody’s rated nearly 45,000 mortgage-related securities as triple-A. This compares with six private-sector companies in the United States that carried this coveted rating in early 2010.”）'),
     ('c4d', 'ch4', '委员会列出了它出错的原因：模型有缺陷，一心抢市场份额，付钱请它评级的金融公司施加压力，监管也形同虚设。',
      None, '', FCR + '（“the flawed computer models, the pressure from financial firms that paid for the ratings, the relentless drive for market share … the absence of meaningful public oversight”）'),
     ('c4e', 'ch4', '巴菲特当时仍是穆迪的大股东。他认为评级机构有责任，可掉进同一个错觉的，不只是它们：',
@@ -128,19 +124,18 @@ LINES = [
      None, '', SEC25 + ' Chart 12（Large NRSROs：2020 年 94.1%，2023 年 91.9%）'),
     ('c5c', 'ch5', '中型评级机构的份额，从 5.1% 涨到 6.7%，在追，可大局没变。',
      None, '', SEC25 + ' Chart 12（Medium NRSROs：2020 年 5.1%，2023 年 6.7%）'),
-    ('c5d', 'ch5', '第一季可口可乐那期，列过几种让长期持有失败的情况，其中一种，是护城河被攻破。穆迪的信誉被攻破了，护城河却还在。',
-     None, '', '第一季 · 可口可乐（本片回顾：“买得太贵、借钱被迫卖出、恐慌中离场，或者护城河被攻破”）；本片解读'),
+    ('c5d', 'ch5', '讲可口可乐时，我们列过几种让长期持有失败的情况，其中一种，是护城河被攻破。穆迪的信誉被攻破了，护城河却还在。',
+     None, '', '回顾 · 可口可乐（本系列：“买得太贵、借钱被迫卖出、恐慌中离场，或者护城河被攻破”）；本片解读'),
     ('c5e', 'ch5', '那伯克希尔呢？2009 年，它卖掉了一部分穆迪。股东信里写了原因：年初为买陶氏化学和瑞士再保险筹钱，年底为一笔大收购筹钱。',
      None, '', '伯克希尔 2009 年信（“In 2009, our largest sales were in ConocoPhillips, Moody’s … We made some sales early in 2009 to raise cash for our Dow and Swiss Re purchases and late in the year made other sales in anticipation of our BNSF purchase.”）'),
     ('c5f', 'ch5', '2010 年，巴菲特对调查委员会说：',
      None, '', FCIC + '；原声见 SOTS mistake'),
     ('c5g', 'ch5', '他说的错，是股价涨到很高时没卖。到 2013 年，持股降到 2467 万股，此后一股没动。',
      None, '', FCIC + '（“it got to very lofty heights and we didn’t sell”）；伯克希尔 2013 年信持股表（24,669,778 股）；2025 年持股表股数相同'),
-    ('c5h', 'ch5', '穆迪年年回购股票，伯克希尔没花一分钱，持股比例就从 2013 年的 11.5%，升到了 2025 年的 13.9%。第一季苹果那期讲过：回购，替股东增持。',
-     None, '', '伯克希尔 2013 年信持股表（11.5%）；' + L25 + '（13.9%）；第一季 · 苹果（本片回顾：“苹果的回购替我们做到了”）'),
-    ('c5i', 'ch5', '2025 年底，这部分持股的成本是 2.48 亿美元，市值 126 亿，约 51 倍。光是 2025 年一年的分红，就有 9300 万美元。',
+    ('c5h', 'ch5', '穆迪年年回购股票，伯克希尔没花一分钱，持股比例就从 2013 年的 11.5%，升到了 2025 年的 13.9%。讲苹果时说过：回购，替股东增持。',
+     None, '', '伯克希尔 2013 年信持股表（11.5%）；' + L25 + '（13.9%）；回顾 · 苹果（本系列：“苹果的回购替我们做到了”）'),
+    ('c5i', 'ch5', '开头说的 2.48 亿美元成本，2025 年底值 126 亿，约 51 倍。光是 2025 年一年的分红，就有 9300 万美元。',
      None, '', L25 + '（成本 248、市值 12,603、2025 年分红 93，单位百万美元）；51 倍为本片推算（不含已卖出部分与历年分红）'),
-
     # ---------------------------------------------------------------- 第六章：还能好多久
     ('c6a', 'ch6', '这条护城河，还能守多久？有三件事要盯住。',
      None, '', '本片过渡'),
@@ -164,8 +159,8 @@ LINES = [
      None, '', '本片结语（FCIC 访谈“an unwilling customer, but we’re a customer nevertheless”）'),
     ('p1', 'ch7', '最后留个线索：穆迪最早打分的，是铁路债券；2009 年伯克希尔卖掉一部分穆迪，有一部分钱，是为了买下一家铁路公司。',
      None, '', '1909 年铁路债券评级（同 c1a 出处）；伯克希尔 2009 年信（“in anticipation of our BNSF purchase”）'),
-    ('p2', 'ch7', '下一期，我们就讲这家铁路公司：BNSF。护城河最宽的生意，为什么回报却很一般？巴菲特又为什么说，买下它，是押注美国的未来？',
-     '下一期，我们就讲这家铁路公司：B N S F。护城河最宽的生意，为什么回报却很一般？巴菲特又为什么说，买下它，是押注美国的未来？', '', '下期预告（第二季片单，docs/第二季规划.md）；“押注美国的未来”出处待 BNSF 一期核实笔记确认后定稿'),
+    ('p2', 'ch7', '下一期，我们讲这家铁路公司：BNSF。护城河最宽的生意，为什么回报却很一般？巴菲特又为什么说，买下它，是全押美国经济的未来？',
+     '下一期，我们讲这家铁路公司：B N S F。护城河最宽的生意，为什么回报却很一般？巴菲特又为什么说，买下它，是全押美国经济的未来？', '', '伯克希尔与 BNSF 联合新闻稿（2009-11-03，SEC 8-K 附件 99.1：“it’s an all-in wager on the economic future of the United States”）'),
 ]
 
 for _k, _l in enumerate(LINES):                 # 含数字且未手写朗读文本的句子，自动生成读法
