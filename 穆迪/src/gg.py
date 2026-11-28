@@ -5,7 +5,7 @@
   · archive.org：1897–1903 年爱迪生公司等铁路影片（美国国会图书馆，公有领域）rr_*；1941 年《Work of the Stock Exchange》cx_* / db_book / bond_cert；
     纽约证券交易所资料片 ny_*（Prelinger Archives）；
   · 维基共享资源：约翰·穆迪 1903 年肖像、1904 年铁路集团图、世贸中心七号楼（穆迪总部）、止赎房屋、雷曼兄弟总部、巴菲特（2010）等；
-  · 第一季成片片段（本系列）：s1_*，画面标「第一季 · 某期」；
+  · 第一季成片片段（本系列）：s1_*，画面标「回顾 · 某期」；
   · 其余为股东信、年报、SEC 报告、FCIC 报告数据的图表与示意动画（示意处标注“示意”）。自绘图形不画任何公司的商标。
 时间全部挂在旁白句子与词锚点上（WT 用朗读文本）。
 """
@@ -50,11 +50,11 @@ def cross(cv, x, y, r, a, col=RED_X, th=6):
 
 # ======================================================================== 通用构件（本期）
 def recap(cv, t, t0, t1, clip, label, a=1.0):
-    """第一季回顾：本系列成片（竖屏）整幅放进画窗，像一块手机屏幕；左上角金色「回顾 · 第一季 · 某期」标签"""
+    """第一季回顾：本系列成片（竖屏）整幅放进画窗，像一块手机屏幕；左上角金色「回顾 · 某期」标签"""
     al = env(t, t0, t1, 0.45, 0.45) * a
     if al <= 0.004: return
     M.frame(cv, clip, t, t0, t1, cy=WCY, w=1000, h=WH, z0=1.0, z1=1.0, a=al, fit='contain', warm=0.0, sat=1.0,
-            cap='本系列第一季成片片段', hold=False)
+            cap='本系列成片片段', hold=False)
     k = eo((t - t0 - 0.2) / 0.5)
     chip(cv, '回顾 · ' + label, 90, 300, 28, al * k, col=GOLD_L, anchor='l')
 
@@ -195,120 +195,109 @@ def shot_hook(cv, t):
         L = 420 * eo(t / 1.1); hb = math.exp(-max(t - 0.25, 0) * 6) * (t >= 0.25)
         cv.line((W / 2 - L, 960), (W / 2 + L, 960), GOLD, a0 * (0.5 + 0.5 * hb), 2)
         cv.glow_dot((W / 2, 960), 30 + 40 * hb, GOLD, a0 * 0.6)
-    # h1：承接第一季（美国运通）
+    # h1：2006 年，每个工作日 30 个三A；打分的是同一家公司
     t0, t1 = win2('h1')
-    a = A(t, t0 + 0.4, t1, 0.5, 0.4)
-    if a > 0:
-        recap(cv, t, t0, t1, 's1_amex', '第一季 · 美国运通', a=a)
-        k = appear(t, 'h1', '信任')
-        if k > 0:
-            cv.text('信任，', W / 2, 980, 70, 'serif_black', col=CREAM, a=a * k)
-            cv.text('也能做成一门好生意', W / 2, 1090, 64, 'serif_black', gold=True, a=a * appear(t, 'h1', '可以做成'), glow=0.12)
-        chip(cv, '第一季 · 第 7 期 · 美国运通', W / 2, 1220, 30, a * appear(t, 'h1', '美国运通'), col=GOLD)
-        source(cv, '第一季 · 美国运通《银行赚13%，它凭什么赚30%》（本系列）', a, y=1462)
-    # h2：第二季第一期：给别人的信用打分
-    t0, t1 = win2('h2')
-    a = A(t, t0, t1)
-    if a > 0:
-        n, cap = ph(['c_7wtc'], 'ny_floor', '纽约世贸中心七号楼：穆迪总部所在', '纽约证券交易所交易大厅（资料片）')
-        window(cv, t, t0, t1, [n], cap, a)
-        chip(cv, '第二季 · 第 1 期', W / 2, 920, 32, a * appear(t, 'h2', '第二季'), col=GOLD_L)
-        k = appear(t, 'h2', '信用打分')
-        if k > 0: cv.text('给别人的信用打分', W / 2, 1040, 76, 'serif_black', gold=True, a=a * k, glow=0.15, scale=1.06 - 0.06 * k)
-        for j, s in enumerate(['三A', '双A', 'A', '三B', '…']):
-            kk = eo((t - WT('h2', '信用打分') - 0.3 - j * 0.12) / 0.3)
-            if kk > 0: chip(cv, s, W / 2 - 300 + j * 150, 1180, 34, a * kk, col=GOLD if j < 4 else GREY)
-        source(cv, '本片过渡', a * 0.6, y=1462)
-    # h3：4.5 万只三A 对 6 家公司
-    t0, t1 = win2('h3')
-    a = A(t, t0, t1)
+    a = A(t, t0 + 0.3, t1, 0.5, 0.4)
     if a > 0:
         seq(cv, t, t0, t1, ['bond_cert'], cy=WCY, h=WH, a=a, cap='债券凭证（1941 年影片）')
-        k = appear(t, 'h3', '四点五万', lead=0.2)
-        if k > 0:
-            cv.text(counter(0, 45000, t, WT('h3', '四点五万') - 0.2, 1.0, lambda v: f'{v:,.0f}'), 300, 1010, 104, 'oswald', col=GOLD_L, a=a * k, glow=0.12)
-            cv.text('只房贷相关证券', 300, 1100, 30, 'sans_med', col=CREAM, a=a * k)
-            cv.text('被穆迪评为三A（2000–2007）', 300, 1145, 24, 'sans_light', col=GREY, a=a * k)
-        k2 = appear(t, 'h3', '只有六家', lead=0.15)
-        if k2 > 0:
-            cv.text('VS', W / 2, 1040, 34, 'sans_bold', col=GREY, a=a * appear(t, 'h3', '而到'))
-            cv.text('6', 790, 1010, 150, 'oswald', col=RED_X, a=a * k2, glow=0.15, scale=1.25 - 0.25 * k2)
-            cv.text('家美国私营公司', 790, 1100, 30, 'sans_med', col=CREAM, a=a * k2)
-            cv.text('拿到三A（2010 年初）', 790, 1145, 24, 'sans_light', col=GREY, a=a * k2)
-        source(cv, 'FCIC 最终报告“结论”第 xxv 页（“Moody’s rated nearly 45,000 mortgage-related securities as triple-A … six private-sector companies … in early 2010”）', a, y=1462)
-    # h4：83% 被下调；关键齿轮
-    t0, t1 = win2('h4')
+        k = appear(t, 'h1', '二零零六年', lead=0.2)
+        if k > 0: cv.text('2006', W / 2, 900, 64, 'oswald', col=GOLD_L, a=a * k)
+        tw = WT('h1', '三十只')
+        for j in range(30):
+            kk = eo((t - tw + 0.5 - j * 0.04) / 0.22)
+            if kk <= 0: continue
+            x = 180 + (j % 10) * 80; y = 1010 + (j // 10) * 80
+            cv.circle((x, y), 30 * (1.4 - 0.4 * kk), GOLD, a * kk, 2)
+            cv.text('AAA', x, y, 18, 'oswald', col=GOLD_L, a=a * kk)
+        k2 = appear(t, 'h1', '每个工作日')
+        if k2 > 0: cv.text('每个工作日，30 个三A', W / 2, 1290, 44, 'serif_black', col=CREAM, a=a * k2)
+        k3 = appear(t, 'h1', '同一家')
+        if k3 > 0: chip(cv, '打分的，是同一家公司', W / 2, 1380, 32, a * k3, col=GOLD_L)
+        source(cv, 'FCIC 最终报告“结论”第 xxv 页（“In 2006 alone, Moody’s put its triple-A stamp of approval on 30 mortgage-related securities every working day.”）', a, y=1462)
+    # h2：房价崩盘；83% 最终被下调
+    t0, t1 = win2('h2')
     a = A(t, t0, t1)
     if a > 0:
         n, cap = ph(['c_foreclosure', 'c_foreclosure2'], 'cx_board', '美国一处待售的房子', '交易所报价（1941 年影片）')
         window(cv, t, t0, t1, [n], cap, a)
-        tq = WT('h4', '危机调查委员会')
-        kq = eo((t - tq + 0.2) / 0.4)
-        k = appear(t, 'h4', '百分之八十三', lead=0.2)
-        if k > 0 and kq < 1:
-            cv.text(counter(0, 83, t, WT('h4', '百分之八十三') - 0.2, 0.9, lambda v: f'{v:.0f}%'), W / 2, 1040, 170, 'oswald', col=RED_X, a=a * k * (1 - kq), glow=0.15)
-            cv.text('2006 年评为三A的房贷证券，最后被下调', W / 2, 1170, 34, 'sans_med', col=CREAM, a=a * k * (1 - kq))
-        qcard(cv, 'qcogs', t, tq - 0.2, t1, cy=1110, en=30, cn=40, a=a, typing=1.2, w=940)
+        k0 = appear(t, 'h2', '房价崩盘')
+        if k0 > 0: cv.text('房价崩盘', W / 2, 920, 44, 'serif_black', col=CREAM, a=a * k0)
+        k = appear(t, 'h2', '百分之八十三', lead=0.15)
+        if k > 0:
+            cv.text(counter(0, 83, t, WT('h2', '百分之八十三') - 0.15, 0.8, lambda v: f'{v:.0f}%'), W / 2, 1060, 190, 'oswald', col=RED_X, a=a * k, glow=0.15, scale=1.15 - 0.15 * k)
+            cv.text('2006 年评为三A的房贷证券，最终被下调', W / 2, 1210, 34, 'sans_med', col=CREAM, a=a * k)
         source(cv, 'FCIC 最终报告“结论”第 xxv 页（“83% of the mortgage securities rated triple-A that year ultimately were downgraded”）', a, y=1462)
-    # h5：8.64 亿美元和解
+    # h3：关键齿轮；2017 年 8.64 亿美元和解
+    t0, t1 = win2('h3')
+    a = A(t, t0, t1)
+    if a > 0:
+        ts = WT('h3', '二零一七年')
+        if t < ts:
+            n, cap = ph(['c_lehman'], 'cx_quote', '雷曼兄弟总部外（2008-09-15）', '交易所报价板（1941 年影片）')
+            window(cv, t, t0, ts + 0.4, [n], cap, a)
+        if t >= ts - 0.45:
+            n, cap = ph(['c_7wtc'], 'ny_floor2', '纽约世贸中心七号楼：穆迪总部所在', '纽约证券交易所交易大厅（资料片）')
+            window(cv, t, ts - 0.45, t1, [n], cap, a)
+        qcard(cv, 'qcogs', t, t0 + 0.2, ts - 0.1, cy=1100, en=30, cn=40, a=a, typing=1.2, w=940)
+        if t >= ts - 0.2:
+            chip(cv, '2017 年 1 月', W / 2, 930, 32, a * appear(t, 'h3', '二零一七年'), col=GOLD)
+            money(cv, t, WT('h3', '八点六四亿'), '近 $8.64 亿', W / 2, 1050, 120, a, sub='和解金额')
+            for j, s_ in enumerate(['美国司法部', '21 个州', '华盛顿特区']):
+                chip(cv, s_, W / 2 - 300 + j * 300, 1240, 32, a * eo((t - WT('h3', '美国司法部') - j * 0.25) / 0.35), col=CREAM)
+        source(cv, 'FCIC 最终报告“结论”（“essential cogs in the wheel of financial destruction”）；美国司法部新闻稿 17-070（2017-01-13）', a, y=1462)
+    # h4：生意也该完了？
+    t0, t1 = win2('h4')
+    a = A(t, t0, t1)
+    if a > 0:
+        n, cap = ph(['c_deserted', 'c_foreclosure2'], 'cx_quote', '金融危机后空置的房子', '交易所报价板（1941 年影片）')
+        window(cv, t, t0, t1, [n], cap, a)
+        big_q(cv, t, '信誉扫地的评级公司', 1000, WT('h4', '信誉扫地'), 58, a, col=CREAM)
+        big_q(cv, t, '生意也该完了？', 1110, WT('h4', '生意也该'), 72, a)
+    # h5：每收 100 美元，调整后营业利润将近 64 美元
     t0, t1 = win2('h5')
     a = A(t, t0, t1)
     if a > 0:
-        n, cap = ph(['c_7wtc2', 'c_7wtc'], 'ny_floor2', '纽约世贸中心一号楼与七号楼（2019）', '纽约证券交易所交易大厅（资料片）')
-        window(cv, t, t0, t1, [n], cap, a)
-        chip(cv, '2017 年 1 月', W / 2, 930, 32, a * appear(t, 'h5', '二零一七年'), col=GOLD)
-        money(cv, t, WT('h5', '八点六四亿'), '近 $8.64 亿', W / 2, 1040, 120, a, sub='和解金额')
-        k = appear(t, 'h5', '美国司法部')
-        if k > 0:
-            for j, s in enumerate(['美国司法部', '21 个州', '华盛顿特区']):
-                chip(cv, s, W / 2 - 300 + j * 300, 1230, 32, a * eo((t - WT('h5', '美国司法部') - j * 0.25) / 0.35), col=CREAM)
-        source(cv, '美国司法部新闻稿 17-070（2017-01-13：“nearly $864 million settlement”）', a, y=1462)
-    # h6：信誉扫地，生意也该完了？
-    t0, t1 = win2('h6')
-    a = A(t, t0, t1)
-    if a > 0:
-        n, cap = ph(['c_deserted', 'c_lehman'], 'cx_quote', '止赎后空置的房子', '交易所报价板（1941 年影片）')
-        window(cv, t, t0, t1, [n], cap, a)
-        big_q(cv, t, '信誉扫地的评级公司', 1000, WT('h6', '信誉扫地'), 58, a, col=CREAM)
-        big_q(cv, t, '生意也该完了？', 1110, WT('h6', '生意也该'), 72, a)
-    # h7：每收 100 美元，调整后营业利润将近 64 美元
-    t0, t1 = win2('h7')
-    a = A(t, t0, t1)
-    if a > 0:
         seq(cv, t, t0, t1, ['ny_floor'], cy=WCY, h=WH, a=a, cap='纽约证券交易所交易大厅（资料片）')
-        chip(cv, '2025 年 · 穆迪评级业务', W / 2, 920, 30, a * appear(t, 'h7', '二零二五年'), col=GOLD)
-        k = appear(t, 'h7', '一百美元')
+        chip(cv, '2025 年 · 穆迪评级业务', W / 2, 920, 30, a * appear(t, 'h5', '二零二五年'), col=GOLD)
+        k = appear(t, 'h5', '一百美元')
         if k > 0:
             x0, x1, y = 140, 940, 1080
             cv.rrect(x0, y - 50, x1, y + 50, 12, (0.12, 0.12, 0.14), a * k)
             cv.text('每收 $100', x0, y - 82, 32, 'sans_bold', col=CREAM, a=a * k, anchor='l')
-            e = eexp((t - WT('h7', '六十四美元') + 0.2) / 0.9)
+            e = eexp((t - WT('h5', '六十四美元') + 0.2) / 0.9)
             if e > 0:
-                gbar(cv, x0, y - 50, x0 + (x1 - x0) * 0.636 * e, y + 50, GOLD, a, horizontal=True, glow=0.2, sheen_t=t - WT('h7', '六十四美元'))
-                cv.text(counter(0, 63.6, t, WT('h7', '六十四美元') - 0.2, 0.9, lambda v: f'${v:.1f}'), x0 + (x1 - x0) * 0.636 * e / 2, y, 52, 'sans_bold', col=INK, a=a * e)
+                gbar(cv, x0, y - 50, x0 + (x1 - x0) * 0.636 * e, y + 50, GOLD, a, horizontal=True, glow=0.2, sheen_t=t - WT('h5', '六十四美元'))
+                cv.text(counter(0, 63.6, t, WT('h5', '六十四美元') - 0.2, 0.9, lambda v: f'${v:.1f}'), x0 + (x1 - x0) * 0.636 * e / 2, y, 52, 'sans_bold', col=INK, a=a * e)
                 cv.text('调整后营业利润', x0 + (x1 - x0) * 0.318, y + 82, 28, 'sans_med', col=GOLD_L, a=a * e)
         source(cv, '穆迪 2025 年全年业绩新闻稿（2026-02-18；MIS 调整后营业利润率 63.6%）', a, y=1462)
-    # h8：阿贝尔第一封股东信点了名
-    t0, t1 = win2('h8')
+    # h6：成本 2.48 亿 → 126 亿；阿贝尔第一封股东信点了名
+    t0, t1 = win2('h6')
     a = A(t, t0, t1)
     if a > 0:
+        tn = WT('h6', '新任')
         seq(cv, t, t0, t1, ['cx_floor'], cy=WCY, h=WH, a=a, cap='交易所交易大厅（1941 年影片）')
-        doc_page(cv, t, t0 + 0.2, t1, 'BERKSHIRE HATHAWAY · 2025 LETTER · GREG ABEL',
+        kn = eo((t - tn + 0.2) / 0.4)
+        if kn < 1:
+            money(cv, t, WT('h6', '二点四八亿'), '$2.48 亿', 300, 1060, 84, a * (1 - kn), col=CREAM, sub='伯克希尔这部分持股的成本')
+            k = appear(t, 'h6', '一百二十六亿')
+            if k > 0: arrow(cv, (470, 1060), (600, 1060), a * k * (1 - kn), col=GOLD, k=k)
+            money(cv, t, WT('h6', '一百二十六亿'), '$126 亿', 790, 1060, 100, a * (1 - kn), sub='2025 年底市值')
+        doc_page(cv, t, tn - 0.2, t1, 'BERKSHIRE HATHAWAY · 2025 LETTER · GREG ABEL',
                  ['A large portion of our portfolio is concentrated in', 'a small number of American companies such as Apple,',
                   'American Express, Coca-Cola, and Moody’s – businesses', 'we understand well … and expect will compound over decades.'],
-                 cy=1120, w=960, size=27, hl='Moody’s', hl_t=WT('h8', '点了名') - 0.2, a=a)
-        source(cv, '伯克希尔 2025 年致股东信第 15 页（署名 Gregory E. Abel）', a, y=1462)
-    # h9：这家公司叫穆迪；凭什么？
-    t0, t1 = S('h9') - 0.45, CH['title'][0] + 0.2
+                 cy=1120, w=960, size=27, hl='Moody’s', hl_t=WT('h6', '点了名') - 0.2, a=a)
+        source(cv, '伯克希尔 2025 年年报持股表（成本 248、市值 12,603，百万美元）；2025 年致股东信第 15 页（署名 Gregory E. Abel）', a, y=1462)
+    # h7：这家公司叫穆迪；凭什么？
+    t0, t1 = S('h7') - 0.45, CH['title'][0] + 0.2
     a = A(t, t0, t1, 0.4, 0.25)
     if a > 0:
         n, cap = ph(['c_7wtc'], 'ny_floor2', '纽约世贸中心七号楼：穆迪总部所在', '纽约证券交易所交易大厅（资料片）')
         window(cv, t, t0, t1, [n], cap, a)
-        k = appear(t, 'h9', '叫穆迪', lead=0.2)
+        k = appear(t, 'h7', '叫穆迪', lead=0.2)
         if k > 0:
             cv.text('穆迪', W / 2, 1000, 120, 'serif_black', gold=True, a=a * k, glow=0.25, scale=1.1 - 0.1 * k)
             cv.text('MOODY’S', W / 2, 1100, 34, 'corm_med', col=GOLD, a=a * k, track=0.4)
-        big_q(cv, t, '信誉崩了，生意却没丢，凭什么？', 1230, WT('h9', '信誉崩了'), 46, a, col=CREAM)
+        big_q(cv, t, '信誉崩了，生意却没丢，凭什么？', 1230, WT('h7', '信誉崩了'), 46, a, col=CREAM)
 
 
 def shot_title(cv, t):
@@ -330,7 +319,6 @@ def shot_title(cv, t):
     cv.text('顾客', W / 2, 1135, 128, 'serif_black', gold=True, a=a * eo((p - 0.35) / 0.6), glow=0.3)
     cv.text('巴菲特与穆迪', W / 2, 1270, 52, 'serif_semi', col=CREAM, a=a * eo((p - 0.7) / 0.6))
     cv.text('AN UNWILLING CUSTOMER', W / 2, 1360, 26, 'corm', col=GOLD, a=a * eo((p - 1.0) / 0.6), track=0.35)
-    chip(cv, SEASON, W / 2, 1450, 26, a * eo((p - 1.1) / 0.5), col=GOLD_D)
 
 
 # ======================================================================== 第一章：打分的生意
@@ -494,13 +482,13 @@ def shot_ch2(cv, t):
     t0, t1 = win2('c2e')
     a = A(t, t0, t1)
     if a > 0:
-        recap(cv, t, t0, t1, 's1_sees', '第一季 · 喜诗糖果', a=a)
+        recap(cv, t, t0, t1, 's1_sees', '喜诗糖果', a=a)
         k = appear(t, 'c2e', '定价权')
         if k > 0:
             cv.text('定价权', W / 2 - 200, 1060, 64, 'serif_black', gold=True, a=a * k)
             arrow(cv, (W / 2 - 80, 1060), (W / 2 + 40, 1060), a * appear(t, 'c2e', '来自'), col=GOLD)
             cv.text('顾客的喜爱', W / 2 + 190, 1060, 56, 'serif_black', col=CREAM, a=a * appear(t, 'c2e', '顾客的喜爱'))
-        source(cv, '第一季 · 喜诗糖果《一盒糖的学费》（本系列）', a, y=1462)
+        source(cv, '本系列《一盒糖的学费》（喜诗糖果）', a, y=1462)
     # c2f：从两边看：股东 + 顾客
     t0, t1 = S('c2f') - 0.45, S('c2f') + SEG['c2f']['dur'] + 0.6
     a = A(t, t0, t1, 0.4, 0.3)
@@ -685,22 +673,23 @@ def shot_ch4(cv, t):
         k4 = appear(t, 'c4b', '才好卖')
         if k4 > 0: cv.text('拿到三A，才好卖', W / 2, 1260, 44, 'serif_black', gold=True, a=a * k4)
         source(cv, 'FCIC 最终报告“结论”（“could not have been marketed and sold without their seal of approval”）；流程为示意', a, y=1462)
-    # c4c：每个工作日 30 只
+    # c4c：2000–2007 年近 4.5 万只三A，对比 2010 年初只有 6 家公司拿到三A
     t0, t1 = win2('c4c')
     a = A(t, t0, t1)
     if a > 0:
         seq(cv, t, t0, t1, ['bond_cert'], cy=WCY, h=WH, a=a, cap='债券凭证（1941 年影片）')
-        chip(cv, '2006 年', W / 2, 900, 32, a * appear(t, 'c4c', '二零零六年'), col=GOLD)
-        tw = WT('c4c', '三十只')
-        for j in range(30):
-            kk = eo((t - tw + 0.4 - j * 0.035) / 0.25)
-            if kk <= 0: continue
-            x = 180 + (j % 10) * 80; y = 1010 + (j // 10) * 80
-            cv.circle((x, y), 30, GOLD, a * kk, 2)
-            cv.text('AAA', x, y, 18, 'oswald', col=GOLD_L, a=a * kk)
-        k = appear(t, 'c4c', '每个工作日')
-        if k > 0: cv.text('每个工作日，30 只', W / 2, 1290, 48, 'serif_black', col=CREAM, a=a * k)
-        source(cv, 'FCIC 最终报告“结论”（“In 2006 alone, Moody’s put its triple-A stamp of approval on 30 mortgage-related securities every working day.”）', a, y=1462)
+        k = appear(t, 'c4c', '四点五万', lead=0.2)
+        if k > 0:
+            cv.text(counter(0, 45000, t, WT('c4c', '四点五万') - 0.2, 1.0, lambda v: f'{v:,.0f}'), 300, 1010, 104, 'oswald', col=GOLD_L, a=a * k, glow=0.12)
+            cv.text('只房贷证券评为三A', 300, 1100, 30, 'sans_med', col=CREAM, a=a * k)
+            cv.text('2000–2007 年', 300, 1145, 24, 'sans_light', col=GREY, a=a * k)
+        k2 = appear(t, 'c4c', '只有六家', lead=0.15)
+        if k2 > 0:
+            cv.text('VS', W / 2, 1040, 34, 'sans_bold', col=GREY, a=a * appear(t, 'c4c', '而到'))
+            cv.text('6', 790, 1010, 150, 'oswald', col=RED_X, a=a * k2, glow=0.15, scale=1.25 - 0.25 * k2)
+            cv.text('家美国私营公司拿到三A', 790, 1100, 30, 'sans_med', col=CREAM, a=a * k2)
+            cv.text('2010 年初', 790, 1145, 24, 'sans_light', col=GREY, a=a * k2)
+        source(cv, 'FCIC 最终报告“结论”第 xxv 页（“nearly 45,000 mortgage-related securities as triple-A … six private-sector companies … in early 2010”）', a, y=1462)
     # c4d：委员会列出的原因
     t0, t1 = win2('c4d')
     a = A(t, t0, t1)
@@ -801,12 +790,12 @@ def shot_ch5(cv, t):
     t0, t1 = win2('c5d')
     a = A(t, t0, t1)
     if a > 0:
-        recap(cv, t, t0, t1, 's1_coke', '第一季 · 可口可乐', a=a)
+        recap(cv, t, t0, t1, 's1_coke', '可口可乐', a=a)
         k = appear(t, 'c5d', '穆迪的信誉')
         if k > 0:
             cv.text('信誉：被攻破了', W / 2, 1020, 52, 'serif_black', col=RED_X, a=a * k)
             cv.text('护城河：还在', W / 2, 1140, 64, 'serif_black', gold=True, a=a * appear(t, 'c5d', '护城河却还在'), glow=0.2)
-        source(cv, '第一季 · 可口可乐《38年一股未卖》（本系列）；本片解读', a, y=1462)
+        source(cv, '本系列《38年一股未卖》（可口可乐）；本片解读', a, y=1462)
     # c5e：2009 年卖出一部分
     t0, t1 = win2('c5e')
     a = A(t, t0, t1)
@@ -843,17 +832,17 @@ def shot_ch5(cv, t):
     t0, t1 = win2('c5h')
     a = A(t, t0, t1)
     if a > 0:
-        tr = WT('c5h', '第一季苹果')
+        tr = WT('c5h', '讲苹果')
         if t < tr - 0.2:
             seq(cv, t, t0, tr + 0.3, ['cx_quote'], cy=WCY, h=WH, a=a, cap='交易所报价板（1941 年影片）')
         else:
-            recap(cv, t, tr - 0.45, t1, 's1_apple', '第一季 · 苹果', a=a)
+            recap(cv, t, tr - 0.45, t1, 's1_apple', '苹果', a=a)
         k = appear(t, 'c5h', '回购股票')
         if k > 0:
             gauge(cv, 330, 1110, 120, lerp(0.115, 0.139, eexp((t - WT('c5h', '百分之十三点九') + 0.2) / 0.9)), a * k, label='伯克希尔持股比例', fmt='{:.1f}%', size=50)
             cv.text('没花一分钱', 780, 1050, 52, 'serif_black', gold=True, a=a * appear(t, 'c5h', '没花一分钱'))
             cv.text('2013 年 11.5% → 2025 年 13.9%', 780, 1140, 30, 'sans_med', col=CREAM, a=a * appear(t, 'c5h', '百分之十三点九'))
-        source(cv, '伯克希尔 2013 年信持股表（11.5%）；2025 年年报持股表（13.9%）；第一季 · 苹果《十年苹果》（本系列）', a, y=1462)
+        source(cv, '伯克希尔 2013 年信持股表（11.5%）；2025 年年报持股表（13.9%）；本系列《十年苹果》（苹果）', a, y=1462)
     # c5i：成本 2.48 亿，市值 126 亿，约 51 倍；分红 9300 万
     t0, t1 = S('c5i') - 0.45, CHE('ch5')
     a = A(t, t0, t1)
@@ -861,7 +850,7 @@ def shot_ch5(cv, t):
         n, cap = ph(['c_7wtc'], 'ny_floor', '纽约世贸中心七号楼：穆迪总部所在', '纽约证券交易所交易大厅（资料片）')
         window(cv, t, t0, t1, [n], cap, a)
         chip(cv, '2025 年底 · 这部分持股', W / 2, 890, 28, a * appear(t, 'c5i', '二零二五年底'), col=GOLD)
-        vbars(cv, t, [('成本', 2.48, WT('c5i', '成本'), GREY, None), ('市值', 126.03, WT('c5i', '市值'), GOLD, None)], a,
+        vbars(cv, t, [('成本', 2.48, WT('c5i', '成本'), GREY, None), ('市值', 126.03, WT('c5i', '一百二十六亿'), GOLD, None)], a,
               x0=250, x1=830, base=1330, hmax=340, fmt=lambda v: f'${v:,.2f} 亿' if v < 10 else f'${v:,.0f} 亿', size=40, lab=28)
         k = appear(t, 'c5i', '五十一倍', lead=0.2)
         if k > 0: cv.text('≈51×', 850, 990, 80, 'oswald', col=GOLD_L, a=a * k, glow=0.2, scale=1.2 - 0.2 * k)
@@ -913,16 +902,16 @@ def shot_ch7(cv, t):
     if a > 0:
         cur = 2 if t >= S('c7d') - 0.2 else 1 if t >= S('c7c') - 0.2 else 0 if t >= S('c7b') - 0.2 else -1
         nm = {-1: ['ny_floor'], 0: ['s1_sees'], 1: ['c_7wtc'], 2: ['cx_quote']}[cur]
-        cap = {-1: '纽约证券交易所交易大厅（资料片）', 0: '本系列第一季成片片段（喜诗糖果）', 1: '纽约世贸中心七号楼：穆迪总部所在', 2: '交易所报价板（1941 年影片）'}[cur]
+        cap = {-1: '纽约证券交易所交易大厅（资料片）', 0: '本系列成片片段（喜诗糖果）', 1: '纽约世贸中心七号楼：穆迪总部所在', 2: '交易所报价板（1941 年影片）'}[cur]
         ta = {-1: t0, 0: S('c7b') - 0.45, 1: S('c7c') - 0.45, 2: S('c7d') - 0.45}[cur]
         tb = {-1: S('c7b') + 0.1, 0: S('c7c') + 0.1, 1: S('c7d') + 0.1, 2: t1}[cur]
         if nm[0].startswith('c_') and not M.have(nm[0]): nm = ['ny_floor2']
-        if nm[0].startswith('s1_'): recap(cv, t, ta, tb, nm[0], '第一季 · 喜诗糖果', a=a)
+        if nm[0].startswith('s1_'): recap(cv, t, ta, tb, nm[0], '喜诗糖果', a=a)
         else: window(cv, t, ta, tb, nm, cap, a)
         k = appear(t, 'c7a', '三件事')
         if k > 0: cv.text('从穆迪身上，带走三件事', W / 2, 890, 40, 'serif_black', gold=True, a=a * k)
         item_list(cv, t, a, LESSONS, [appear(t, 'c7b', '第一'), appear(t, 'c7c', '第二'), appear(t, 'c7d', '第三')], cur, y0=1000, dy=130)
-        source(cv, {0: '第一季 · 喜诗糖果；FCIC 访谈“unwilling customer”（本片解读）', 1: 'SEC 2025 年报告 Chart 12；多德-弗兰克法案第 939A 条（本片解读）',
+        source(cv, {0: '本系列 · 喜诗糖果；FCIC 访谈“unwilling customer”（本片解读）', 1: 'SEC 2025 年报告 Chart 12；多德-弗兰克法案第 939A 条（本片解读）',
                     2: 'MCO 月线；FCIC 访谈；伯克希尔 2025 年年报持股表（本片解读）'}.get(cur, '本片总结'), a, y=1462)
     # c7e：结语
     t0, t1 = S('c7e') - 0.45, S('p1') + 0.1
@@ -970,8 +959,8 @@ def shot_ch7(cv, t):
             cv.text('伯灵顿北方圣太菲铁路', W / 2, 1110, 34, 'sans_med', col=CREAM, a=a * appear(t, 'p2', 'B N S F'))
         k2 = appear(t, 'p2', '护城河最宽')
         if k2 > 0: cv.text('护城河最宽的生意，为什么回报却很一般？', W / 2, 1220, 34, 'serif_black', col=CREAM, a=a * k2)
-        k3 = appear(t, 'p2', '押注美国')
-        if k3 > 0: cv.text('为什么说，买下它是押注美国的未来？', W / 2, 1300, 34, 'serif_black', gold=True, a=a * k3)
+        k3 = appear(t, 'p2', '全押美国')
+        if k3 > 0: cv.text('为什么说，买下它是全押美国经济的未来？', W / 2, 1300, 34, 'serif_black', gold=True, a=a * k3)
         k4 = eo((t - E('p2') - 0.2) / 0.5)              # 落版字：片尾接住它，化作粒子汇成 logo（common.shot_end）
         if k4 > 0: cv.text(END_L, W / 2, END_Y, END_SZ, 'serif_black', gold=True, a=a * k4, glow=0.15)
         source(cv, '第二季片单（docs/第二季规划.md）', a * 0.7 * (1 - k4), y=1462)

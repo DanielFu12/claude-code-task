@@ -637,6 +637,7 @@ def shot_end(cv, t):
         fa = eo((t - hit - 1.9) / 0.7)
         if fa > 0:
             gold_line_text(cv, t, '关注「巴芒价值」，传承大师智慧，领悟投资真谛', W / 2, 1300, 36, fa, hit + 2.7)
+            cv.text('配乐：Kevin MacLeod（incompetech.com）· CC BY 4.0', W / 2, 1380, 22, 'sans_light', col=GREY, a=fa * 0.9)
 
 
 _gt = {}

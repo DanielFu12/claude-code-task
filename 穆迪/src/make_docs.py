@@ -67,10 +67,31 @@ w('\n## 声音\n')
 w('- 旁白：豆包语音合成 3.0（刘飞 3.0 音色 multi_male_liufei2_v3_uranus_bigtts），每章一条录完（段内不拼接），另逐句合成参考音频只用于对齐；拉平音高漂移、逐句 DTW 切句（`src/tts_take.py`、`src/voice_build.py`）。'
   '对齐校验全部通过；修正后每分钟音高中位数首尾差 1.1 个半音；有声语速 5.0–5.9 字/秒。逐句中文识别（`src/check_vo.py`）只剩同音字差异（穆迪/目的、它/他等）。')
 w('- 巴菲特原声：单独一轨，响度对齐旁白；原声下配乐只留铺底。出点逐段核查最后 1.5 秒（`src/cut_sot.py`）。')
-w('- 配乐（`src/score.py`，沿用第八期第四版引擎）：本片原创，程序作曲，MuseScore General 音色库；不用踩镲、沙锤、军鼓、镲片、噪声上扬与“刷”的转场音效。'
-  '每章换调、换速度、换织体：开场先是承接第一季的温暖钢琴（F 大调），冲突处转 D 小调 96 脉冲 → 片名铜管 → 第一章 A 小调 84 温暖、规矩倒过来处转 C 大调律动 → 第二章 F 大调 92 拨弦'
-  ' → 第三章 D 小调 108 驱动、“大家都认它”转 F 大调颂歌 → 第四章 C 小调 76 心跳 → 第五章降 E 大调 100 → 第六章 B 小调 88 脉冲 → 第七章 D 大调 100 颂歌，下期预告转 A 大调 112 驱动。'
-  '卡点（先抽空再重拍）：“只有六家”“百分之八十三”“凭什么”“倒了过来”“两关”“百分之九十四”“大家都认它”“八成”“没有”“五十一倍”“下一期”与片尾 logo。')
+w('- 成片：竖版 1080×1920 与横版 1920×1080 两条（同一次渲染、同一条音轨；横版按区域重新排版，见 `src/film.py` 的 landscape）。不再输出预览版，成片不入库。')
+# 配乐：授权音乐按叙事剪辑卡点（src/score_cues.py）
+import score_cues as SC
+SC.CUES.clear(); SC.HITS.clear(); SC.plan()
+_hn = [('h2', '百分之八十三', '“百分之八十三”'), ('h5', '六十四美元', '“六十四美元”'), ('c1d', '倒了过来', '“规矩倒了过来”'), ('c2g', '离不开', '“却离不开”'),
+       ('c3b', '百分之九十四', '“百分之九十四”'), ('c3g', '大家都认它', '“大家都认它”'), ('c4f', '八成', '“跌了约八成”'), ('c5b', '没有', '“没有”'),
+       ('c5d', '护城河却还在', '“护城河却还在”'), ('c5i', '五十一倍', '“约五十一倍”'), ('c7e', '没得选', '“没得选”'), ('p2', '下一期', '“下一期”')]
+HITNAME = {round(SC.WT(i, w_), 3): lab for i, w_, lab in _hn}
+HITNAME.update({round(TL['chapters']['title'][0], 3): '片名', round(TL['logo'], 3): '片尾 logo'})
+HITNAME.update({round(TL['chapters'][c][0], 3): '第' + '一二三四五六七'[int(c[2]) - 1] + '章章节卡' for c in ('ch2', 'ch4', 'ch6', 'ch7')})
+used = sorted({c['name'] for c in SC.CUES})
+w('- 配乐（第二版，`src/score_cues.py`）：第一版程序作曲被评为“灾难”（重复单调、不卡点、没有唤醒情绪），改用高质量授权音乐，按旁白重新剪辑、卡点。曲目全部出自 **Kevin MacLeod（incompetech.com），授权 CC BY 4.0**（可商用，需署名；片尾已署名）：'
+  + '、'.join('《' + SC.TRACKS[n][0][:-4] + '》' for n in used) + '。')
+w('  - 做法：每段把曲子的某一段放到时间线上；两个锚点之间最多变速 ±3%（ffmpeg atempo），让曲子里的齐奏或段落进入正好落在关键词、章节卡和片尾 logo 上；'
+  '重拍前留 0.4–0.6 秒真正的静默；设问处整段静默；原声下只留钢琴铺底（《Despair and Triumph》每次取不同段落）；同一首曲子的同一段不重复使用。')
+w('  - 自检：全片配乐按 2 秒窗口统计能量，没有连续 20 秒起伏小于 2 dB 的平直段（`docs/配乐能量曲线.png`）；说话时旁白比配乐高约 10 LU。')
+w('\n### 配乐分段表\n')
+w('| 时间线 | 曲目 | 曲中段落 | 变速 |'); w('|---|---|---|---|')
+for c in SC.CUES:
+    w(f"| {ts(c['Ta'])}–{ts(c['Tb'])} | {SC.TRACKS[c['name']][0][:-4]} | {c['ta']:.1f}–{c['tb']:.1f} s | {(c['rate'] - 1) * 100:+.1f}% |")
+w('\n### 卡点表（重拍与画面同帧）\n')
+w('| 时间 | 落点 |'); w('|---|---|')
+for h in sorted(set(SC.HITS)):
+    w(f'| {ts(h)} | {HITNAME.get(round(h, 3), "")} |')
+w('')
 w('- 混音（`src/audio_mix.py`）：旁白 70 Hz 高通、2.2:1 轻压缩、很淡的短混响与 −64 dBFS 噪底；配乐保留自身起伏（各章只做 ±3 dB 内的校平）；'
   '闪避放在最后一步（−9 dB，人声频段再 −3 dB，只有大重拍短暂放开），说话时旁白比配乐高约 11 LU；线性增益到 −14 LUFS 并限峰。'
   '旁白不模仿、不合成任何真实人物的声音。')
@@ -98,3 +119,19 @@ w(f'\n## 片尾（{ts(TL["chapters"]["end"][0])}）\n')
 w('- 无旁白：下期预告的落版字化作粒子，汇聚成「巴芒价值」logo。')
 open(os.path.join(ROOT, 'docs', '脚本.md'), 'w').write('\n'.join(o) + '\n')
 print('docs/脚本.md', len(o), 'lines')
+
+
+# ------------------------------------------------------------------ 配乐能量曲线（制作宪章 三.3：自检要量化）
+import numpy as np, soundfile as sf
+import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
+m, sr = sf.read(os.path.join(work, 'music', 'score_raw.wav')); m = m.mean(1) if m.ndim > 1 else m
+tt = np.arange(0, len(m) / sr - 2, 1.0)
+db = [20 * np.log10(np.sqrt(np.mean(m[int(t * sr):int((t + 2) * sr)] ** 2)) + 1e-6) for t in tt]
+fig, ax = plt.subplots(figsize=(14, 3.2), dpi=120)
+ax.plot(tt, db, color='#d9a441', lw=1.4)
+for h in sorted(set(SC.HITS)): ax.axvline(h, color='#c0392b', lw=0.8, alpha=0.6)
+for k, (a_, b_) in TL['chapters'].items():
+    ax.axvspan(a_, a_ + 0.01, color='#555'); ax.text(a_ + 1, max(db) + 1, k, fontsize=7, color='#333')
+ax.set_xlim(0, tt[-1]); ax.set_ylim(-45, max(db) + 4); ax.set_xlabel('s'); ax.set_ylabel('dB (2 s RMS)')
+ax.set_title('Music energy curve (red lines = hit points)')
+fig.tight_layout(); fig.savefig(os.path.join(ROOT, 'docs', '配乐能量曲线.png')); print('docs/配乐能量曲线.png')
