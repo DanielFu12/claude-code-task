@@ -163,8 +163,8 @@ def landscape(snap, t, i, fade):
     ol = _overlay_layer(t, i)
     sub = ol[1450:1720]
     alpha = np.clip(sub.max(2) * 1.4, 0, 1)
-    if alpha.max() > 0.01:
-        ys, xs = np.nonzero(alpha > 0.02)
+    ys, xs = np.nonzero(alpha > 0.02)
+    if len(xs) > 0:
         x0s, x1s = max(xs.min() - 40, 0), min(xs.max() + 40, W); y0s, y1s = max(ys.min() - 20, 0), min(ys.max() + 20, sub.shape[0])
         sw = x1s - x0s; sh_ = y1s - y0s
         X0 = (HW - sw) // 2; Y0 = 1040 - sh_
@@ -175,7 +175,7 @@ def landscape(snap, t, i, fade):
         reg *= (1 - band)[..., None]; reg += sub[y0s:y1s, x0s:x1s] * band[..., None] / np.maximum(band[..., None], 1e-3) * band[..., None]
     navl = ol[150:250]
     na = np.clip(navl.max(2) * 1.6, 0, 1)
-    if na.max() > 0.01:
+    if na.max() > 0.02:
         nv = cv2.resize(navl, (int(W * 0.95), int(100 * 0.95)), interpolation=cv2.INTER_AREA)
         nal = cv2.resize(na, (nv.shape[1], nv.shape[0]), interpolation=cv2.INTER_AREA)
         reg = out[38:38 + nv.shape[0], 30:30 + nv.shape[1]]
