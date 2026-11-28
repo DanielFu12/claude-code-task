@@ -135,5 +135,13 @@
   "license": "CC BY-SA 4.0",
   "use": "BNSF 集装箱列车（蒙大拿州，2018）",
   "date": "8 May 2018"
+ },
+ "c_bnsf_bridge2": {
+  "file": "BNSF train crosses bridge west of Luverne, North Dakota.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:BNSF_train_crosses_bridge_west_of_Luverne%2C_North_Dakota.jpg",
+  "artist": "Jerry Huddleston from Hampton, Minnesota, US",
+  "license": "CC BY 2.0",
+  "use": "BNSF 列车过桥（北达科他州）",
+  "date": "17 September 2009, 17:47"
  }
 }
