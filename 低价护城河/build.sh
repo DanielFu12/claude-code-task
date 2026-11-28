@@ -9,6 +9,7 @@ src/fetch_clips.sh
 python3 src/tts_single.py $WORK 6      # 整篇一次合成（无接缝）6 条候选，选音高最平的一条，残余漂移 ≤2 半音平滑修正（有缓存）
 python3 src/voice_qc_single.py $WORK   # 旁白一致性验收：60 秒窗音高、斜率、响度、谐噪比
 python3 src/timeline.py $WORK
+python3 ../视频脚本/export_script.py . 02 "便宜≠护城河｜低成本成为护城河的三个条件"   # 定稿脚本单独存档：视频脚本/02_*.md
 python3 src/music.py $WORK
 python3 src/mix.py $WORK
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
@@ -17,9 +18,8 @@ for k in $(seq 0 $((P-1))); do python3 src/video.py $WORK chunk $((k*STEP)) $(((
 printf "file '%s'\n" seg0.mp4 seg1.mp4 seg2.mp4 seg3.mp4 > $WORK/list.txt
 ffmpeg -v error -y -f concat -safe 0 -i $WORK/list.txt -i $WORK/mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -ar 48000 \
   -shortest $WORK/master_crf20.mp4
-# 成片：两遍编码到约 93MB（6 分钟，约 1.85 Mbps）（仓库 LFS 额度已满，按普通文件入库，须小于 100MB）；预览版 CRF 24
+# 成片：两遍编码到约 93MB（6 分钟，约 1.85 Mbps）（仓库 LFS 额度已满，按普通文件入库，须小于 100MB）；只出成片，不出预览版
 (cd $WORK && ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 1850k -tune animation -pass 1 -passlogfile p2 -an -f null /dev/null && \
   ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 1850k -tune animation -maxrate 4500k -bufsize 6000k -pass 2 -passlogfile p2 \
   -c:a aac -b:a 160k -movflags +faststart "../便宜不等于护城河.mp4")
-ffmpeg -v error -y -i $WORK/master_crf20.mp4 -c:v libx264 -preset slow -crf 24 -tune animation -c:a aac -b:a 160k -movflags +faststart "便宜不等于护城河_预览版.mp4"
 echo "done -> 便宜不等于护城河.mp4"
