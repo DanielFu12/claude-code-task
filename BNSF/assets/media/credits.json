@@ -127,5 +127,13 @@
   "license": "CC BY-SA 4.0",
   "use": "BNSF 运煤列车（得州沃斯堡）",
   "date": "10 October 2021"
+ },
+ "c_bnsf_im2": {
+  "file": "BNSF Intermodal Train passing by the Izaak Walton Inn (May 2018).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:BNSF_Intermodal_Train_passing_by_the_Izaak_Walton_Inn_%28May_2018%29.jpg",
+  "artist": "Ryancasey93",
+  "license": "CC BY-SA 4.0",
+  "use": "BNSF 集装箱列车（蒙大拿州，2018）",
+  "date": "8 May 2018"
  }
 }
