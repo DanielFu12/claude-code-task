@@ -63,5 +63,13 @@
   "license": "CC BY 4.0",
   "use": "BNSF 集装箱列车（科罗拉多州）",
   "date": "21 March 2026, 14:27:59"
+ },
+ "c_bnsf_bridge": {
+  "file": "BNSF Railway train passing over the Canyon Diablo Railroad Bridge - August 2016.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:BNSF_Railway_train_passing_over_the_Canyon_Diablo_Railroad_Bridge_-_August_2016.jpg",
+  "artist": "Bill Morrow",
+  "license": "CC BY 2.0",
+  "use": "BNSF 列车通过亚利桑那州暗黑峡谷铁路桥（2016）",
+  "date": "7 August 2016, 13:31:42"
  }
 }

@@ -224,7 +224,7 @@
 | 0:52.7–1:23.5 | Hiding Your Reality | 0.0–30.8 s | +0.0% |
 | 1:23.9–1:55.8 | Hiding Your Reality | 71.5–103.4 s | +0.0% |
 | 1:55.4–2:41.8 | Ascending the Vale | 16.4–62.5 s | -0.6% |
-| 2:41.6–2:54.3 | Blue Feather | 101.1–113.8 s | +0.0% |
+| 2:41.6–2:54.3 | Blue Feather | 129.0–141.7 s | +0.0% |
 | 2:53.9–3:19.2 | Prelude and Action | 11.0–36.3 s | +0.0% |
 | 3:19.4–3:34.4 | Prelude and Action | 63.4–78.4 s | +0.0% |
 | 3:38.9–3:57.8 | Interloper | 35.4–53.8 s | -2.9% |
