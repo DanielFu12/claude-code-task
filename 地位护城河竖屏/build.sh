@@ -19,8 +19,8 @@ for k in $(seq 0 $((P-1))); do python3 src/video.py $WORK chunk $((k*STEP)) $(((
 printf "file '%s'\n" seg0.mp4 seg1.mp4 seg2.mp4 seg3.mp4 > $WORK/list.txt
 ffmpeg -v error -y -f concat -safe 0 -i $WORK/list.txt -i $WORK/mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -ar 48000 \
   -shortest $WORK/master_crf20.mp4
-# 成片：两遍编码到约 92MB（6 分 34 秒，约 1.70 Mbps）（仓库 LFS 额度已满，按普通文件入库，须小于 100MB）；只出成片，不出预览版
-(cd $WORK && ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 1700k -tune animation -pass 1 -passlogfile p2 -an -f null /dev/null && \
-  ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 1700k -tune animation -maxrate 4500k -bufsize 6000k -pass 2 -passlogfile p2 \
+# 成片：两遍编码到约 93MB（7 分 30 秒，约 1.48 Mbps）（仓库 LFS 额度已满，按普通文件入库，须小于 100MB）；只出成片，不出预览版
+(cd $WORK && ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 1480k -tune animation -pass 1 -passlogfile p2 -an -f null /dev/null && \
+  ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 1480k -tune animation -maxrate 4500k -bufsize 6000k -pass 2 -passlogfile p2 \
   -c:a aac -b:a 160k -movflags +faststart "../多付的钱买的是什么.mp4")
 echo "done -> 多付的钱买的是什么.mp4"

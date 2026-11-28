@@ -167,7 +167,7 @@ hit('costly', 'p11', '装不起', 96, 0.7)
 pad(tl.T('p14'), tl.T('p16'), ['F', 'C', 'Dm', 'Bb'], 40, name='strings'); arp(tl.T('p14'), tl.T('p16'), ['F', 'C', 'Dm', 'Bb'], 36, lo=67, name='piano')
 for p in (62, 63): note('strings', p, tl.T('p16'), tl.SE('p18'), 40)
 ramp('strings', tl.T('p16'), tl.SE('p18'), 60, 118); pulse(tl.T('p17'), tl.SE('p18'), 40, BEAT / 2)
-hit('paradox', 'p18', '矛盾', 96, 0.75)
+hit('paradox', 'p18', '三角', 96, 0.75)
 
 # 02 一把尺子：巴菲特（铜管低声部，稳重）
 D1 = G('d1'); prD = ['Bb', 'F', 'Gm', 'D']
@@ -233,7 +233,7 @@ note('pad', 38, Z1, tl.T('z3'), 24)
 pad(tl.T('z3'), tl.T('z4'), ['F', 'C'], 40, name='slow', bassname=None); piano_motif(tl.T('z3') + 0.2, 65, 50, major=True)
 prZ = ['Bb', 'F', 'G', 'D']
 pad(tl.T('z4'), tl.T('z6'), prZ, 48, name='strings'); arp(tl.T('z4'), tl.T('z6'), prZ, 44, lo=62)
-ostinato(tl.T('z5'), tl.T('z6'), prZ, 50, step=BEAT / 2); pulse(tl.T('z5'), tl.T('z6'), 40)
+ostinato(tl.T('z5'), tl.T('z5b'), prZ, 50, step=BEAT / 2); pulse(tl.T('z5'), tl.T('z5b'), 40)   # z5b（它代表我之前的那句）收一点，留给金句
 hit('answer', 'z5', '护城河', 90, 0.6)
 t_last = hit('last', 'z6', '代表我', 110, 1.0)
 for p in voicing('D', 62, 4): note('choir', p, t_last, END + 0.3, 56)
