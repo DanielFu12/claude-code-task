@@ -124,7 +124,7 @@ def sc_involution(cv, t):
     big(cv, '价格战打到最后，', W / 2, 410, 88, a=a, color=WHITE, glow=0.1)
     tq = HIT['q_moat']; s, o = pop(t, tq - 0.1, 0.5)
     big(cv, '谁建起了护城河？', W / 2, 560, 100, a=o, scale=0.9 + 0.1 * s, grad=GOLDG, glow=0.7)
-    L = layer(); circle(L, (W / 2, 470), 420 + 8 * math.sin(t * 2), 4); stroke_layer(cv, L, GOLD, o * 0.35, glow=1.4)
+    L = layer(); circle(L, (W / 2, 470), 470 + 8 * math.sin(t * 2), 4); stroke_layer(cv, L, GOLD, o * 0.35, glow=1.4)
 
 
 def sc_open(cv, t):
@@ -168,7 +168,7 @@ def sc_split(cv, t):
     cv[:, :W // 2] = np.roll(left, -off, 0) * k; cv[:, W // 2:] = np.roll(right, off, 0) * k
     dim_ = 1 - 0.72 * ease(lin(t, T('o10') - 0.1, T('o10') + 0.5)); dim(cv, dim_)
     hide = 1 - ease(lin(t, T('o10') - 0.15, T('o10') + 0.25))
-    L = layer(); line(L, (W / 2, 0), (W / 2, H * k), 3); stroke_layer(cv, L, GOLD, 0.9 * hide, glow=1.5)
+    L = layer(); line(L, (W / 2, 0), (W / 2, 880 * k), 3); stroke_layer(cv, L, GOLD, 0.9 * hide, glow=1.5)
     s, o = pop(t, WT('o9', '护城河')); big(cv, '护城河', W / 4, CY, 128, a=o * hide, scale=0.9 + 0.1 * s, grad=GOLDG)
     s2, o2 = pop(t, WT('o9', '坟墓')); big(cv, '坟　墓', W * 3 / 4, CY, 128, a=o2 * hide, scale=0.9 + 0.1 * s2, color=(0.72, 0.78, 0.86), glow=0.15)
     if t > T('o10') - 0.1:
@@ -182,11 +182,11 @@ def sc_title(cv, t):
     if 0 <= u < 1.2:
         L = layer(); circle(L, (W / 2, cy), 60 + 1100 * eout(u / 1.2), 6 * (1 - u / 1.2) + 1)
         stroke_layer(cv, L, GOLD_HI, (1 - u / 1.2) * 0.8, glow=2.0, add=True)
-    L = layer(); R = 420; brk = ease(lin(u, 0.9, 2.6))
+    L = layer(); R = 480; brk = ease(lin(u, 0.9, 2.6))
     for i in range(12):
         a0 = i * 30 + 3; a1 = a0 + 24
-        dx = math.sin(math.radians(a0 + 12)) * 60 * brk; dy = -math.cos(math.radians(a0 + 12)) * 60 * brk
-        arc(L, (W / 2 + dx, cy + dy), R + 14 * brk, a0 + 6 * brk * ((i % 2) - 0.5), a1 - 3 * brk, 5)
+        dx = math.sin(math.radians(a0 + 12)) * 50 * brk; dy = -math.cos(math.radians(a0 + 12)) * 50 * brk
+        arc(L, (W / 2 + dx, cy + dy), R + 10 * brk, a0 + 6 * brk * ((i % 2) - 0.5), a1 - 3 * brk, 5)
     stroke_layer(cv, L, GOLD, ease(lin(u, 0, 0.5)) * (1 - 0.45 * brk), glow=1.6, add=True)
     s, o = pop(t, t0, 0.5)
     big(cv, '便宜 ≠ 护城河', W / 2, cy - 60, 124, a=o, scale=1.12 - 0.12 * s + 0.02 * u / 3, grad=GOLDG, glow=0.7, track=0.04)
@@ -355,17 +355,17 @@ def master_panel(cv, t, side, a, hl=0.0):
     x0 = 0 if side == 0 else W // 2; hw = W // 2
     if side == 0:
         img = graded('buffett_2015.jpg', sat=0.25, warm=0.5, contrast=1.1, gain=0.8)
-        ph = cover(img, hw - 80, 560, 1.15, 0.36, 0.36)
-        cv[130:690, x0 + 40:x0 + hw - 40] = cv[130:690, x0 + 40:x0 + hw - 40] * (1 - a) + ph * a
+        ph = cover(img, hw - 80, 540, 1.15, 0.36, 0.36)
+        cv[160:700, x0 + 40:x0 + hw - 40] = cv[160:700, x0 + 40:x0 + hw - 40] * (1 - a) + ph * a
         label(cv, '巴菲特', x0 + hw / 2, 750, 50, GOLD, a, 'serif_black')
         label(cv, 'Warren Buffett', x0 + hw / 2, 805, 28, GREY, a, 'corm_med', track=0.1)
     else:
-        L = layer(); rect(L, x0 + 40, 130, x0 + hw - 40, 690, r=14); fill(cv, L, (0.14, 0.10, 0.10), 0.95 * a)
-        big(cv, '段', x0 + hw / 2, 410, 300, a=a * 0.9, color=(0.85, 0.40, 0.32), fname='serif_black', glow=0.3)
+        L = layer(); rect(L, x0 + 40, 160, x0 + hw - 40, 700, r=14); fill(cv, L, (0.14, 0.10, 0.10), 0.95 * a)
+        big(cv, '段', x0 + hw / 2, 430, 300, a=a * 0.9, color=(0.85, 0.40, 0.32), fname='serif_black', glow=0.3)
         label(cv, '段永平', x0 + hw / 2, 750, 50, (1.0, 0.55, 0.45), a, 'serif_black')
         label(cv, 'Duan Yongping', x0 + hw / 2, 805, 28, GREY, a, 'corm_med', track=0.1)
     if hl > 0:
-        L = layer(); rect(L, x0 + 24, 114, x0 + hw - 24, 850, fill=False, w=4, r=16)
+        L = layer(); rect(L, x0 + 24, 146, x0 + hw - 24, 856, fill=False, w=4, r=16)
         stroke_layer(cv, L, GOLD if side == 0 else RED, a * hl, glow=1.5)
 
 
@@ -390,12 +390,12 @@ def sc_clash(cv, t):
             o = qd; dx = shake; x0 = 40 + dx
             card(cv, x0, 150, x0 + 880, 690, (0.20, 0.08, 0.07), 0.95 * o, RED, glow=0.8)
             if t < T('d4'):
-                quote_block(cv, wrap('“还没见过成本优势可以成‘护城河’的，很少有企业能长期维持低成本的，制造业好像没见过。”', 17), x0 + 40, 250, 44, o, 'serif_semi', WHITE, 1.5,
+                quote_block(cv, ['“还没见过成本优势可以成‘护城河’的，', '很少有企业能长期维持低成本的，', '制造业好像没见过。”'], x0 + 40, 330, 42, o, 'serif_semi', WHITE, 1.5,
                             reveal=lin(t, T('d3') + 0.2, T('d3') + 0.8 * (SE('d3') - T('d3'))))
                 label(cv, '— 段永平，2010（答网友：比亚迪的成本优势是不是护城河）', x0 + 850, 650, 22, (1, 0.8, 0.75), o, 'sans_light', anchor='r')
             else:
                 oo = ease(lin(t, T('d4') - 0.1, T('d4') + 0.3))
-                quote_block(cv, wrap('“追求‘性价比’的公司，大多是在为自己的低价找借口。”', 15), x0 + 40, 280, 52, o * oo, 'serif_semi', WHITE, 1.5,
+                quote_block(cv, ['“追求‘性价比’的公司，', '大多是在为自己的低价找借口。”'], x0 + 40, 360, 46, o * oo, 'serif_semi', WHITE, 1.5,
                             reveal=lin(t, T('d4') + 0.2, T('d4') + 0.75 * (SE('d4') - T('d4'))))
                 label(cv, '— 段永平（据 2018 年斯坦福交流整理）', x0 + 850, 650, 22, (1, 0.8, 0.75), o * oo, 'sans_light', anchor='r')
         if 0 <= u < 0.25: cv += np.asarray((1.0, 0.5, 0.4), np.float32) * (1 - u / 0.25) ** 2 * 0.35
