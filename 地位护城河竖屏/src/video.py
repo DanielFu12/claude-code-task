@@ -126,6 +126,19 @@ def vpanel(cv, clip, t, t0, x0, y0, x1, y1, a=1.0, zoom=1.0, z1=None, dur=6.0, e
         L = layer(); rect(L, x0, y0, x1, y1, fill=False, w=2); stroke_layer(cv, L, edge, 0.75 * a, glow=0.4)
 
 
+def vframe(cv, clip, t, t0, y0, a=1.0, z0=1.0, z1=1.06, dur=6.0, **g):
+    """横屏视频竖排：背后铺同一画面的虚化放大版，中间放 16:9 清晰画面（不放大低清素材）"""
+    if a <= 0.003: return
+    f = grade(clip.get(t - t0), **g); zz = z0 + (z1 - z0) * ease(lin(t, t0, t0 + dur))
+    small = cover(f, W // 6, H // 6, 1.0)
+    bg = cv2.resize(cv2.GaussianBlur(small, (0, 0), 7), (W, H), interpolation=cv2.INTER_LINEAR) * 0.42
+    cv *= (1 - a); cv += bg * a
+    h = int(round(W * f.shape[0] / f.shape[1])); fr = cover(f, W, h, zz)
+    sub = cv[y0:y0 + h]; sub *= (1 - a); sub += fr * a
+    L = layer(); L[max(0, y0 - 1):y0 + 1] = 1; L[y0 + h - 1:y0 + h + 1] = 1
+    stroke_layer(cv, L, GOLD, 0.35 * a)
+
+
 def source(cv, s, a=1.0, y=1330):
     text(cv, s, 56, y, 'sans_light', 24, GREY, anchor='l', alpha=0.8 * a)
 
@@ -187,9 +200,8 @@ def sc_intro(cv, t):
         # 7 米 Labubu（香港机场）
         if t > 1.9:
             a = ease(lin(t, 1.9, 2.5)) * (1 - ease(lin(t, WT('o1', '门店') - 0.5, WT('o1', '门店'))))
-            vpanel(cv, CLIPS['airport'], t, 1.9, 0, 0, W, H, a, zoom=1.0, z1=1.12, dur=4, edge=None, sat=0.95, warm=0.2, contrast=1.08, gain=0.9)
-            shade(cv, 0.35, 0.85, 0.1)
-            label(cv, '香港国际机场 · 7 米高的特别版 LABUBU', W / 2, 1250, 30, WHITE, a * 0.9, 'sans_med')
+            vframe(cv, CLIPS['airport'], t, 1.9, 560, a, 1.0, 1.08, 4, sat=0.95, warm=0.2, contrast=1.08, gain=0.95)
+            label(cv, '2025.09 · 香港国际机场 · 7 米高的特别版 LABUBU', W / 2, 1250, 30, WHITE, a * 0.9, 'sans_med')
             credit(cv, 'v_airport', a)
         tq = WT('o1', '门店') - 0.5
         if t > tq:
@@ -460,8 +472,7 @@ def sc_signal(cv, t):
         return
     # p12：孔雀开屏（实拍）
     a = ease(lin(t, T('p12') - 0.15, T('p12') + 0.3))
-    vpanel(cv, CLIPS['peacock'], t, T('p12') - 0.15, 0, 0, W, H, a, zoom=1.0, z1=1.08, dur=6, edge=None, sat=1.0, warm=0.1, contrast=1.08, gain=0.9)
-    shade(cv, 0.45, 0.85, 0.08)
+    vframe(cv, CLIPS['peacock'], t, T('p12') - 0.15, 560, a, 1.25, 1.35, 6, sat=1.0, warm=0.1, contrast=1.08, gain=0.95)
     for i, (w_, key) in enumerate((('又长', '又长'), ('又重', '又重'), ('招惹天敌', '天敌'))):
         s, o = pop(t, WT('p12', key) - 0.1, 0.4)
         chip(cv, w_, (250, 470, 760)[i], 300, o, WHITE, 38, (0.06, 0.06, 0.08))
@@ -764,7 +775,7 @@ def sc_gate3(cv, t):
         return
     if t < T('k21') - 0.1:
         a = ease(lin(t, T('k20') - 0.2, T('k20') + 0.3))
-        panel(cv, 'sams_sz.jpg', 0, 0, W, H, a, 1.15, 0.5, 0.5, sat=0.7, warm=0.2, gain=0.32)
+        panel(cv, 'sams_sz.jpg', 0, 0, W, H, a, 1.15, 0.29, 0.5, sat=0.7, warm=0.2, gain=0.32)
         s, o = pop(t, WT('k20', '会员卡') - 0.2, 0.5)
         cx = W / 2 + 260 * (1 - eout(lin(t, WT('k20', '会员卡') - 0.2, WT('k20', '会员卡') + 0.5)))
         card(cv, cx - 260, 560, cx + 260, 880, (0.16, 0.13, 0.08), 0.95 * o, GOLD, r=24, glow=1.0)
@@ -1194,7 +1205,7 @@ CLIPS = {}
 
 
 def load_clips():
-    CLIPS['airport'] = Clip('airport.mp4', 1080, 0.5)
+    CLIPS['airport'] = Clip('airport.mp4', 1080, 0.5)   # 1080×608，已在 fetch_clips 里裁掉烧录字幕
     CLIPS['peacock'] = Clip('peacock.mp4', 1080, 0.5)
     for k in ('crowd', 'car', 'turn'): CLIPS['dfd_' + k] = Clip('dfd_%s.mp4' % k, 640, 0.5)
 

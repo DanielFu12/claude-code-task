@@ -29,9 +29,7 @@ WANT = {
     'gold_bracelet': 'Gold bracelet MET DT333008edited3.jpg',
     # 视频
     'v_airport': '7米高特别版LABUBU亮相香港国际机场.webm',
-    'v_hard': '一“Bu”难求没关系 拉萨八廓街超多藏式手办也很“香”.webm',
     'v_peacock': 'Peacock displaying in Sri Lanka.webm',
-    'v_peacock2': 'Indian peacock (Pavo cristatus) displaying for peahen.webm',
 }
 def api(params):
     url = 'https://commons.wikimedia.org/w/api.php?' + urllib.parse.urlencode(params)
@@ -50,7 +48,7 @@ info = {}
 keys = list(todo)
 for i in range(0, len(keys), 20):
     titles = '|'.join('File:' + todo[k] for k in keys[i:i + 20])
-    d = api({'action': 'query', 'format': 'json', 'titles': titles, 'prop': 'imageinfo', 'iiprop': 'url|size|extmetadata|mime',
+    d = api({'action': 'query', 'format': 'json', 'titles': titles, 'prop': 'imageinfo', 'iiprop': 'url|size|extmetadata|mime|derivatives',
              'iiextmetadatafilter': 'LicenseShortName|Artist|DateTimeOriginal'})
     norm = {n['to']: n['from'] for n in d['query'].get('normalized', [])}
     for p in d['query']['pages'].values():
@@ -62,17 +60,22 @@ for k in keys:
     if not hit: print('MISS', k); continue
     title, ii = hit; m = ii.get('extmetadata', {})
     if k.startswith('v_'):
-        p = os.path.join(RAW, k + '.webm'); ok = os.path.exists(p) or dl(ii['url'], p)
+        p = os.path.join(RAW, k + '.webm'); url = ii['url'].split('?')[0]
+        der = sorted([x for x in ii.get('derivatives', []) if x.get('transcodekey', '').endswith('.webm') and x.get('height', 0) <= 1080],
+                     key=lambda x: -x.get('height', 0))
+        if der: url = der[0]['src']   # 转码版（≤1080p）比原文件更不容易被限流
+        ok = os.path.exists(p) or dl(url, p)
     else:
         url = ii['url'].split('?')[0]
-        if ii['width'] > 1920:
+        std = [s for s in (1920, 1280, 960) if s < ii['width']]   # 原图常被限流，只取 Commons 标准缩略图尺寸
+        if std:
             a, b = url.split('/wikipedia/commons/'); name = b.split('/')[-1]
-            url = a + '/wikipedia/commons/thumb/' + b + '/1920px-' + name + ('.png' if name.lower().endswith(('.png', '.svg')) else '')
+            url = a + '/wikipedia/commons/thumb/' + b + '/%dpx-' % std[0] + name + ('.png' if name.lower().endswith(('.png', '.svg')) else '')
         p = os.path.join(OUT, k + '.jpg'); tmp = p + '.tmp'; ok = dl(url, tmp)
         if ok:
             from PIL import Image; Image.open(tmp).convert('RGB').save(p, quality=94); os.remove(tmp)
     if not ok: print('FAIL', k); continue
     cred[k] = dict(file=title, page=ii.get('descriptionurl'), license=m.get('LicenseShortName', {}).get('value'),
-                   artist=re.sub('<[^>]+>', '', m.get('Artist', {}).get('value', '')).strip(), date=m.get('DateTimeOriginal', {}).get('value', ''))
+                   artist=re.sub(r'\s+', ' ', re.sub('<[^>]+>', '', m.get('Artist', {}).get('value', ''))).strip(), date=m.get('DateTimeOriginal', {}).get('value', ''))
     json.dump(cred, open(cp, 'w'), ensure_ascii=False, indent=1)
     print('ok', k, cred[k]['license'], cred[k]['artist'][:40], flush=True); time.sleep(25)
