@@ -58,7 +58,7 @@ def seq(cv, t, t0, t1, names, cy=560, w=1000, h=420, focus=None, xfade=0.45, cap
                     hold=s1 < t1 - 1e-6)
 
 
-PORTRAIT = {'buffett_2010', 'buffett_2015', 'buffett_ku', 'munger', 'munger2', 'sinegal', 'c_munger', 'c_buffett_ku', 'c_buffett_2010'}      # 人像照片：整幅入窗，不放大成大头像
+PORTRAIT = {'c_moody1903', 'buffett_2010', 'buffett_2015', 'buffett_ku', 'munger', 'munger2', 'sinegal', 'c_munger', 'c_buffett_ku', 'c_buffett_2010'}      # 人像照片：整幅入窗，不放大成大头像
 
 
 def photo_win(cv, name, t, t0, t1, cy=560, w=1000, h=562, focus=(0.5, 0.5), cap=None, a=1.0, z0=1.02, z1=1.12, pan=(0, 0, 0, 0)):

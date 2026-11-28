@@ -18,7 +18,7 @@
  "c_obama_buffett": {
   "file": "President Barack Obama and Warren Buffett in the Oval Office, July 14, 2010.jpg",
   "page": "https://commons.wikimedia.org/wiki/File:President_Barack_Obama_and_Warren_Buffett_in_the_Oval_Office%2C_July_14%2C_2010.jpg",
-  "artist": "Pete Souza（白宫官方摄影）",
+  "artist": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;c",
   "license": "Public domain",
   "use": "巴菲特在白宫（2010-07-14，白宫官方照片）",
   "date": "Taken on 14 July 2010, 11:21"
@@ -29,6 +29,56 @@
   "artist": "USA White House",
   "license": "Public domain",
   "use": "巴菲特（2010）",
-  "date": "2010"
+  "date": "2010",
+  "note": "裁掉右上角的白宫视频台标"
+ },
+ "c_7wtc": {
+  "file": "7 World Trade Center 2024.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:7_World_Trade_Center_2024.jpg",
+  "artist": "Kidfly182",
+  "license": "CC BY 4.0",
+  "use": "纽约世贸中心七号楼（穆迪总部所在）",
+  "date": "9 August 2024, 10:59:34",
+  "note": "只取楼体上半部分（裁掉下方树木）"
+ },
+ "c_foreclosure": {
+  "file": "Foreclosure sign.jpeg",
+  "page": "https://commons.wikimedia.org/wiki/File:Foreclosure_sign.jpeg",
+  "artist": "Casey Serin",
+  "license": "CC BY 2.0",
+  "use": "美国一处待售的房子",
+  "date": "December 2006"
+ },
+ "c_foreclosure2": {
+  "file": "Sign of the Times-Foreclosure.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Sign_of_the_Times-Foreclosure.jpg",
+  "artist": "respres",
+  "license": "CC BY 2.0",
+  "use": "止赎房屋",
+  "date": "31 May 2008"
+ },
+ "c_deserted": {
+  "file": "Foreclosure Deserted House.jpeg",
+  "page": "https://commons.wikimedia.org/wiki/File:Foreclosure_Deserted_House.jpeg",
+  "artist": "Joguldi",
+  "license": "CC BY 2.0",
+  "use": "止赎后空置的房子",
+  "date": "August 2008"
+ },
+ "c_lehman": {
+  "file": "Lehman Brothers-NYC-20080915.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Lehman_Brothers-NYC-20080915.jpg",
+  "artist": "Robert Scoble",
+  "license": "CC BY 2.0",
+  "use": "雷曼兄弟总部（2008-09-15）",
+  "date": "15 September 2008"
+ },
+ "c_nyse_floor": {
+  "file": "No Known Restrictions Trading Floor, New York Stock Exchange (Highsmith LOC) (6718386525).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:No_Known_Restrictions_Trading_Floor%2C_New_York_Stock_Exchange_%28Highsmith_LOC%29_%286718386525%29.jpg",
+  "artist": "Carol M. Highsmith（美国国会图书馆）",
+  "license": "Public domain",
+  "use": "纽约证券交易所交易大厅（Carol M. Highsmith 摄）",
+  "date": "10 July 2011, 20:03"
  }
 }

@@ -238,7 +238,7 @@ def shot_hook(cv, t):
     t0, t1 = win2('h4')
     a = A(t, t0, t1)
     if a > 0:
-        n, cap = ph(['c_foreclosure', 'c_foreclosure2'], 'cx_board', '止赎房屋的告示牌（金融危机期间）', '交易所报价（1941 年影片）')
+        n, cap = ph(['c_foreclosure', 'c_foreclosure2'], 'cx_board', '美国一处待售的房子', '交易所报价（1941 年影片）')
         window(cv, t, t0, t1, [n], cap, a)
         tq = WT('h4', '危机调查委员会')
         kq = eo((t - tq + 0.2) / 0.4)
@@ -536,8 +536,7 @@ def shot_ch2(cv, t):
     t0, t1 = S('c2h') - 0.45, CHE('ch2')
     a = A(t, t0, t1)
     if a > 0:
-        n, cap = ph(['c_7wtc'], 'ny_floor2', '纽约世贸中心七号楼：穆迪总部所在', '纽约证券交易所交易大厅（资料片）')
-        window(cv, t, t0, t1, [n], cap, a)
+        seq(cv, t, t0, t1, ['ny_floor2'], cy=WCY, h=WH, a=a, cap='纽约证券交易所交易大厅（资料片）')
         for j, (s, w) in enumerate((('没进过穆迪的办公室', '办公室'), ('没主动打过一个电话', '电话'), ('没要过一个董事席位', '董事席位'))):
             kk = appear(t, 'c2h', w)
             if kk <= 0: continue
