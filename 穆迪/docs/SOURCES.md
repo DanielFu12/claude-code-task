@@ -207,15 +207,21 @@
 - `ny_ticker`：《Vista Stock Shots: New York Stock Exchange》（纽约证券交易所资料片，Prelinger Archives）（片源起点 1205.0s，30.0s）—— 纽约证券交易所报价带（资料片），https://archive.org/details/0803_Vista_Stock_Shots_New_York_Stock_Exchange_13_00_55_00
 - `s1_amex`：第一季 · 美国运通《银行赚13%，它凭什么赚30%》（本系列）（片源起点 213.4s，9.0s）—— 第一季回顾，本系列成片：美国运通/银行赚13%_它凭什么赚30%_美国运通_预览版.mp4
 - `s1_amex_end`：第一季 · 美国运通《银行赚13%，它凭什么赚30%》（本系列）（片源起点 681.8s，9.0s）—— 第一季回顾，本系列成片：美国运通/银行赚13%_它凭什么赚30%_美国运通_预览版.mp4
-- `s1_sees`：第一季 · 喜诗糖果《一盒糖的学费》（本系列）（片源起点 287.5s，7.0s）—— 第一季回顾，本系列成片：喜诗糖果/一盒糖的学费_芒格怎样改变了巴菲特_预览版.mp4
-- `s1_coke`：第一季 · 可口可乐《38年一股未卖》（本系列）（片源起点 280.4s，7.0s）—— 第一季回顾，本系列成片：巴菲特与可口可乐/38年一股未卖_巴菲特与可口可乐_预览版.mp4
+- `s1_sees`：第一季 · 喜诗糖果《一盒糖的学费》（本系列）（片源起点 285.0s，13s）—— 第一季回顾，本系列成片：喜诗糖果/一盒糖的学费_芒格怎样改变了巴菲特_预览版.mp4
+- `s1_coke`：第一季 · 可口可乐《38年一股未卖》（本系列）（片源起点 278.0s，14s）—— 第一季回顾，本系列成片：巴菲特与可口可乐/38年一股未卖_巴菲特与可口可乐_预览版.mp4
 - `s1_apple`：第一季 · 苹果《十年苹果》（本系列）（片源起点 266.5s，9.0s）—— 第一季回顾，本系列成片：巴菲特与苹果/十年苹果_巴菲特为什么卖掉了大半_预览版.mp4
 
 影像只取画面、不用原声，画面上逐镜署名；第一季回顾片段取自本系列成片（只取画面，裁掉原片角标）。照片：
 - `c_moody1903`：John Moody (financial analyst) 1903.jpg，Scherer, New York，Public domain，https://commons.wikimedia.org/wiki/File:John_Moody_%28financial_analyst%29_1903.jpg
 - `c_rrgroups`：Greater Steam Railroad Groups, 1904.jpg，John Moody，Public domain，https://commons.wikimedia.org/wiki/File:Greater_Steam_Railroad_Groups%2C_1904.jpg
-- `c_obama_buffett`：President Barack Obama and Warren Buffett in the Oval Office, July 14, 2010.jpg，Pete Souza（白宫官方摄影），Public domain，https://commons.wikimedia.org/wiki/File:President_Barack_Obama_and_Warren_Buffett_in_the_Oval_Office%2C_July_14%2C_2010.jpg
+- `c_obama_buffett`：President Barack Obama and Warren Buffett in the Oval Office, July 14, 2010.jpg，.mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;c，Public domain，https://commons.wikimedia.org/wiki/File:President_Barack_Obama_and_Warren_Buffett_in_the_Oval_Office%2C_July_14%2C_2010.jpg
 - `c_buffett_2010`：Warren Buffett in 2010.jpg，USA White House，Public domain，https://commons.wikimedia.org/wiki/File:Warren_Buffett_in_2010.jpg
+- `c_7wtc`：7 World Trade Center 2024.jpg，Kidfly182，CC BY 4.0，https://commons.wikimedia.org/wiki/File:7_World_Trade_Center_2024.jpg
+- `c_foreclosure`：Foreclosure sign.jpeg，Casey Serin，CC BY 2.0，https://commons.wikimedia.org/wiki/File:Foreclosure_sign.jpeg
+- `c_foreclosure2`：Sign of the Times-Foreclosure.jpg，respres，CC BY 2.0，https://commons.wikimedia.org/wiki/File:Sign_of_the_Times-Foreclosure.jpg
+- `c_deserted`：Foreclosure Deserted House.jpeg，Joguldi，CC BY 2.0，https://commons.wikimedia.org/wiki/File:Foreclosure_Deserted_House.jpeg
+- `c_lehman`：Lehman Brothers-NYC-20080915.jpg，Robert Scoble，CC BY 2.0，https://commons.wikimedia.org/wiki/File:Lehman_Brothers-NYC-20080915.jpg
+- `c_nyse_floor`：No Known Restrictions Trading Floor, New York Stock Exchange (Highsmith LOC) (6718386525).jpg，Carol M. Highsmith（美国国会图书馆），Public domain，https://commons.wikimedia.org/wiki/File:No_Known_Restrictions_Trading_Floor%2C_New_York_Stock_Exchange_%28Highsmith_LOC%29_%286718386525%29.jpg
 
 照片来自维基共享资源（逐张核对授权，作者与协议见上表；`src/fetch_commons.py` 逐张间隔下载原图）。
 
