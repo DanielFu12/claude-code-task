@@ -8,8 +8,9 @@ WORK = sys.argv[1]; ids = [l[0] for l in LINES]
 T = []; F = []; D = []; ys = []; t = 0.0
 for lid in ids:
     y, sr = sf.read(os.path.join(WORK, 'vo', lid + '.wav')); ys.append(y)
-    p = call(parselmouth.Sound(y, sr), 'To Pitch (cc)', 0.01, 65, 15, 'no', 0.03, 0.45, 0.01, 0.35, 0.14, 240).selected_array['frequency']
-    T.append(t + len(y) / sr / 2); F.append(np.median(p[p > 0])); D.append(20 * np.log10(np.sqrt(np.mean(y ** 2)))); t += len(y) / sr
+    p = call(parselmouth.Sound(y, sr), 'To Pitch', 0.01, 70, 260).selected_array['frequency']; p = p[p > 0]
+    lo, hi = np.percentile(p, [20, 80]); f = float(np.exp(np.mean(np.log(p[(p >= lo) & (p <= hi)]))))   # 与 tts_single.line_pitch 相同
+    T.append(t + len(y) / sr / 2); F.append(f); D.append(20 * np.log10(np.sqrt(np.mean(y ** 2)))); t += len(y) / sr
 T, F, D = map(np.array, (T, F, D)); st = 12 * np.log2(F / np.median(F))
 win = [(a, np.median(st[(T >= a) & (T < a + 60)]), np.median(D[(T >= a) & (T < a + 60)])) for a in np.arange(0, T[-1] - 20, 30)]
 print('全片逐句音高中位数 %.1f Hz' % np.median(F))

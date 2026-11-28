@@ -251,7 +251,7 @@ def sc_orange(cv, t):
         panel(cv, 'hermes_ginza.jpg', W // 2, 0, W, H, k, 1.1, 0.5, 0.5, sat=0.95, warm=0.3, gain=0.8)
         shade(cv, 0.35, 0.85, 0.12)
         L = layer(); line(L, (W / 2, 0), (W / 2, 1290 * k), 3); stroke_layer(cv, L, ORANGE, 0.9, glow=1.4)
-        o = ease(lin(t, WT('o4', '皮具品牌') - 0.2, WT('o4', '皮具品牌') + 0.3))
+        o = ease(lin(t, WT('o4', '奢侈品牌') - 0.2, WT('o4', '奢侈品牌') + 0.3))
         label(cv, 'iPhone', W / 4, 1150, 52, WHITE, 1, 'playfair')
         label(cv, 'HERMÈS', W * 3 / 4, 1150, 52, ORANGE, o, 'playfair', track=0.1)
         label(cv, '手机', W / 4, 1220, 30, GREY, 1, 'sans_med'); label(cv, '东京银座 · 爱马仕之家', W * 3 / 4, 1220, 30, GREY, o, 'sans_med')
@@ -261,7 +261,7 @@ def sc_orange(cv, t):
     # o5：一张价签，三截；最上面一截变成金色，打上问号
     a = ease(lin(t, T('o5') - 0.1, T('o5') + 0.4)); x0, x1, yb = 330, 750, 1180
     segs = [(0.0, 0.42, (0.36, 0.38, 0.42), '东西本身'), (0.42, 0.70, (0.40, 0.52, 0.66), ''), (0.70, 1.0, GOLD, '这一截？')]
-    tg = WT('o5', '有一截'); hh = 820
+    tg = WT('o5', '有一部分'); hh = 820
     for i, (s0, s1, col, lab) in enumerate(segs):
         y0 = yb - hh * s1; y1 = yb - hh * s0
         c = col if i < 2 else mix((0.40, 0.52, 0.66), GOLD, ease(lin(t, tg - 0.2, tg + 0.5)))
@@ -273,18 +273,18 @@ def sc_orange(cv, t):
 
 
 def sc_halves(cv, t):
-    """o6 一分为二 → o7 泡泡玛特 → o8 老铺黄金 → o9 爱马仕 → o10 1 年 vs 189 年"""
+    """o6 一分为二 → o7 泡泡玛特 → o8 老铺黄金 → o9 iPhone 收入 +21% → o10 一年就退潮 vs 越卖越多"""
     bg(cv, t, (0.07, 0.06, 0.07))
     if t < T('o7') - 0.1:
         k = eout(lin(t, T('o6') - 0.1, T('o6') + 0.8)); off = int((1 - k) * 260)
         left = cover(graded('nyc_store.jpg', sat=0.35, warm=-0.6, contrast=1.15, gain=0.55), W // 2, H, 1.25, 0.5, 0.5)
-        right = cover(graded('birkin.jpg', sat=1.0, warm=0.5, contrast=1.1, gain=0.85), W // 2, H, 1.2, 0.5, 0.5)
+        right = cover(graded('iphone_orange.jpg', sat=1.0, warm=0.2, contrast=1.1, gain=0.85), W // 2, H, 1.25, 0.5, 0.45)
         cv[:, :W // 2] = np.roll(left, off, 0) * k; cv[:, W // 2:] = np.roll(right, -off, 0) * k
         shade(cv, 0.3, 0.8, 0.1)
         L = layer(); line(L, (W / 2, 0), (W / 2, 1290 * k), 3); stroke_layer(cv, L, GOLD, 0.9, glow=1.5)
         s, o = pop(t, WT('o6', '两半'))
         label(cv, '泡泡玛特 · 老铺黄金', W / 4, 1200, 34, (1.0, 0.70, 0.62), o, 'sans_black')
-        label(cv, '爱马仕', W * 3 / 4, 1200, 34, GOLD_HI, o, 'sans_black')
+        label(cv, 'iPhone', W * 3 / 4, 1200, 38, GOLD_HI, o, 'sans_black')
         return
     if t < T('o8') - 0.1:
         photo(cv, 'nyc_store.jpg', t, T('o7') - 0.3, T('o8'), 1.1, 1.2, 0.5, 0.5, 0.5, 0.5, sat=0.35, warm=-0.5, contrast=1.1, gain=0.35)
@@ -328,37 +328,35 @@ def sc_halves(cv, t):
         credit(cv, 'gold_bracelet', a, y=1380)
         return
     if t < T('o10') - 0.1:
-        photo(cv, 'birkin.jpg', t, T('o9') - 0.3, T('o10'), 1.08, 1.2, 0.5, 0.5, 0.5, 0.5, sat=1.0, warm=0.45, contrast=1.08, gain=0.62)
+        ip = img('iphone17_launch', 'iphone_line.jpg')
+        photo(cv, ip, t, T('o9') - 0.3, T('o10'), 1.08, 1.2, 0.5, 0.5, 0.5, 0.5, sat=0.9, warm=0.1, contrast=1.05, gain=0.38)
         shade(cv, 0.4, 0.85, 0.15)
         a = ease(lin(t, T('o9') - 0.1, T('o9') + 0.4))
-        big(cv, 'HERMÈS', W / 2, 300, 110, a=a, fname='playfair', grad=GOLDG, glow=0.5, track=0.12)
-        t1 = WT('o9', '百分之十三'); s, o = pop(t, t1 - 0.25, 0.5)
-        stat(cv, W / 2, 760, '+13%', '', o, size=210, grad=GOLDG)
-        label(cv, '2025 年 · 皮具与马具 · 销售增长（固定汇率）', W / 2, 920, 34, WHITE, ease(lin(t, T('o9'), T('o9') + 0.5)), 'sans_bold')
-        source(cv, '爱马仕 2025 年度业绩公告（2026.02.12）', a)
-        credit(cv, 'birkin', a, y=1380)
+        big(cv, 'iPhone', W / 2, 300, 120, a=a, fname='playfair', color=(0.94, 0.95, 0.98), glow=0.3)
+        t1 = WT('o9', '百分之二十一'); s, o = pop(t, t1 - 0.25, 0.5)
+        stat(cv, W / 2, 760, '+21%', '', o, size=210, grad=GOLDG)
+        label(cv, 'iPhone 收入 · 苹果 2026 财年（截至 9 月）', W / 2, 920, 34, WHITE, ease(lin(t, T('o9'), T('o9') + 0.5)), 'sans_bold')
+        source(cv, '苹果 2026 财年年报（10-K）：iPhone 收入 2,541 亿美元，上年 2,096 亿美元', a)
+        credit(cv, cred_key('iphone17_launch', 'iphone_line.jpg'), a, y=1380)
         return
-    # o10：1 年 vs 189 年
+    # o10：一年就退潮 vs 越卖越多
     a = ease(lin(t, T('o10') - 0.1, T('o10') + 0.4))
     panel(cv, 'nyc_store.jpg', 0, 0, W // 2, H, a, 1.3, sat=0.3, warm=-0.6, gain=0.28)
-    panel(cv, 'birkin.jpg', W // 2, 0, W, H, a, 1.3, sat=0.9, warm=0.5, gain=0.4)
+    panel(cv, img('iphone17_launch', 'iphone_line.jpg'), W // 2, 0, W, H, a, 1.3, sat=0.9, warm=0.1, gain=0.4)
     L = layer(); line(L, (W / 2, 140), (W / 2, 1270), 3); stroke_layer(cv, L, GOLD, 0.8 * a, glow=1.2)
     t1 = WT('o10', '一年'); s1, o1 = pop(t, t1 - 0.15)
     stat(cv, W / 4, 640, '1', '年', o1, col=(1.0, 0.62, 0.55), size=200, usize=70)
     label(cv, '就退潮', W / 4, 820, 44, WHITE, o1, 'sans_black')
-    t2 = WT('o10', '两百年'); s2, o2 = pop(t, t2 - 0.15)
-    yrs = int(round(189 * eout(lin(t, t2 - 0.3, t2 + 0.5))))
-    stat(cv, W * 3 / 4, 640, '%d' % yrs, '年', o2, size=200, usize=70, grad=GOLDG)
-    label(cv, '还在涨价', W * 3 / 4, 820, 44, WHITE, ease(lin(t, WT('o10', '涨价') - 0.2, WT('o10', '涨价') + 0.2)), 'sans_black')
-    label(cv, '创立于 1837 年', W * 3 / 4, 890, 28, GREY, o2, 'sans_med')
-    label(cv, '2026.01 铂金包提价约 6%~9%', W * 3 / 4, 940, 28, GREY, ease(lin(t, WT('o10', '涨价'), WT('o10', '涨价') + 0.4)), 'sans_med')
-    source(cv, '提价幅度：Sotheby’s、Pursebop 等对美国 / 欧洲门店价格的整理', ease(lin(t, WT('o10', '涨价'), WT('o10', '涨价') + 0.4)))
-
-
+    label(cv, '泡泡玛特 · 老铺黄金', W / 4, 890, 28, GREY, o1, 'sans_med')
+    t2 = WT('o10', '越卖越多'); s2, o2 = pop(t, t2 - 0.2)
+    big(cv, '越卖', W * 3 / 4, 560, 110, a=o2, scale=0.9 + 0.1 * s2, grad=GOLDG, glow=0.5)
+    big(cv, '越多', W * 3 / 4, 700, 110, a=o2, scale=0.9 + 0.1 * s2, grad=GOLDG, glow=0.5)
+    label(cv, 'iPhone', W * 3 / 4, 820, 44, WHITE, o2, 'sans_black')
+    label(cv, '让人多付钱的身份', W / 2, 1100, 40, WHITE, a, 'serif_semi')
 def sc_question(cv, t):
     bg(cv, t, (0.08, 0.07, 0.06)); DUST.draw(cv, t, GOLD, 0.3)
     a = ease(lin(t, T('o11') - 0.1, T('o11') + 0.4)) * (1 - ease(lin(t, T('o12') - 0.3, T('o12'))))
-    label(cv, '一个更老的问题', W / 2, CY, 56, GREY, a, 'serif_semi', track=0.1)
+    label(cv, '一个更基本的问题', W / 2, CY, 56, GREY, a, 'serif_semi', track=0.1)
     s, o = pop(t, T('o12') - 0.1, 0.6)
     big(cv, '多付的那部分钱，', W / 2, CY - 90, 92, a=o, color=WHITE, glow=0.2, scale=0.95 + 0.05 * s)
     big(cv, '到底买到了什么？', W / 2, CY + 60, 92, a=ease(lin(t, WT('o12', '到底') - 0.2, WT('o12', '到底') + 0.3)), grad=GOLDG, glow=0.5)
@@ -390,15 +388,26 @@ def sc_title(cv, t):
 RC = (W / 2, 720)
 
 
+def img(key, fallback):
+    """优先用 v3 新下载的素材，没下载成功就用已有的替代图"""
+    return key + '.jpg' if os.path.exists(os.path.join(MEDIA, key + '.jpg')) else fallback
+
+
+def cred_key(key, fallback):
+    return key if os.path.exists(os.path.join(MEDIA, key + '.jpg')) else fallback.replace('.jpg', '')
+
+
 def sc_three(cv, t):
-    """p1–p5 三个问题：功能 / 认同 / 地位 三个同心环"""
+    """p1–p6 三个问题：功能 / 认同 / 地位 三个同心环；不全是虚荣 → 只讲“别人怎么看我”"""
     bg(cv, t, (0.06, 0.07, 0.10))
     rings = [(150, '功能', 'FUNCTION', COLD, 'p2'), (290, '认同', 'IDENTITY', TEAL, 'p3'), (430, '地位', 'STATUS', GOLD, 'p4')]
-    hl = ease(lin(t, T('p5') - 0.1, T('p5') + 0.5))
-    hl2 = ease(lin(t, T('p5') - 0.1, T('p5') + 0.25))
+    hl = ease(lin(t, T('p5') - 0.1, T('p5') + 0.5)); hl2 = ease(lin(t, T('p5') - 0.1, T('p5') + 0.25))
+    fo = ease(lin(t, WT('p6', '第三个问题') - 0.3, WT('p6', '第三个问题') + 0.3))
     for i, (r, n, en, col, lid) in enumerate(rings):
         s, o = pop(t, WT(lid, '这是') - 0.1, 0.5)
         dimk = (1 - 0.6 * hl) if i == 0 else (1 + 0.4 * hl)
+        if i == 1: dimk *= 1 - 0.6 * fo
+        if i == 2: dimk *= 1 + 0.5 * fo
         L = layer(); circle(L, RC, r * (0.85 + 0.15 * s), 4 if i else 5)
         stroke_layer(cv, L, col, o * min(1, dimk), glow=0.8 * dimk)
         if i == 0:
@@ -406,48 +415,49 @@ def sc_three(cv, t):
             label(cv, en, RC[0], RC[1] + 44, 22, GREY, o * min(1, dimk), 'corm_med', track=0.2)
         else:
             yy = RC[1] - (r - 70)
-            label(cv, n, RC[0], yy - 6, 52, col, o, 'sans_black', glow=0.3 * hl)
-            label(cv, en, RC[0], yy + 44, 22, GREY, o, 'corm_med', track=0.2)
+            label(cv, n, RC[0], yy - 6, 52, col, o * min(1, dimk), 'sans_black', glow=0.3 * hl)
+            label(cv, en, RC[0], yy + 44, 22, GREY, o * min(1, dimk), 'corm_med', track=0.2)
     a = ease(lin(t, T('p1') - 0.2, T('p1') + 0.4))
     label(cv, '人买东西，在回答三个问题', W / 2, 1250, 36, WHITE, a * (1 - ease(lin(t, T('p5') - 0.45, T('p5') - 0.15))), 'sans_med')
     label(cv, '品牌溢价，很大一部分来自外面两圈', W / 2, 1250, 38, GOLD_HI, hl2, 'sans_bold')
-    # p5b：不全是虚荣（认同圈：归属、审美、生活方式）→ 只看“别人怎样看我”
-    tf = WT('p5b', '最微妙'); off = ease(lin(t, tf - 0.3, tf + 0.2))
-    for i, w_ in enumerate(('归属感', '审美', '生活方式')):
-        tw = WT('p5b', w_); s, o = pop(t, tw - 0.15, 0.4)
-        chip(cv, w_, (300, 540, 780)[i], 1340, o * (1 - off), TEAL, 34)
-    s, o = pop(t, tf, 0.5)
-    label(cv, '这一期：别人怎样看我', W / 2, 1340, 40, GOLD, o, 'serif_black', glow=0.3)
+    off = fo
+    for i, w_ in enumerate(('归属感', '审美')):
+        tw = WT('p6', w_); s, o = pop(t, tw - 0.15, 0.4)
+        chip(cv, w_, (400, 680)[i], 1340, o * (1 - off), TEAL, 34)
+    s, o = pop(t, WT('p6', '第三个问题'), 0.5)
+    label(cv, '这一期：别人怎么看我', W / 2, 1340, 40, GOLD, o, 'serif_black', glow=0.3)
 
 
 def sc_envy(cv, t):
-    """p6–p7 芒格：驱动世界的是嫉妒；p8 1956 年车展人群围着新车"""
+    """p7–p8 芒格：驱动世界的是嫉妒；p9 1956 年车展人群围着新车"""
     bg(cv, t, (0.07, 0.065, 0.06))
-    if t < T('p8') - 0.1:
-        a = ease(lin(t, T('p6') - 0.2, T('p6') + 0.5))
+    if t < T('p9') - 0.1:
+        a = ease(lin(t, T('p7') - 0.2, T('p7') + 0.5))
         panel(cv, 'munger.jpg', 0, 0, W, 900, a, 1.15, 0.5, 0.32, sat=0.2, warm=0.45, contrast=1.1, gain=0.75)
         y = np.linspace(0, 1, 900, dtype=np.float32)[:, None, None]; cv[:900] *= (1 - 0.9 * np.clip((y - 0.55) / 0.45, 0, 1))
         label(cv, '查理 · 芒格', 80, 820, 46, GOLD, a, 'serif_black', anchor='l')
         label(cv, 'Charlie Munger', 80, 872, 26, GREY, a, 'corm_med', anchor='l', track=0.1)
-        tq = T('p7'); o = ease(lin(t, tq - 0.1, tq + 0.4))
+        tq = T('p8'); o = ease(lin(t, tq - 0.1, tq + 0.4))
+        o7 = ease(lin(t, T('p7') - 0.2, T('p7') + 0.3)) * (1 - ease(lin(t, tq - 0.3, tq)))
+        label(cv, '人为什么这么在乎', W / 2, 1080, 54, WHITE, o7, 'serif_black')
+        label(cv, '别人的眼光？', W / 2, 1160, 54, GOLD_HI, o7, 'serif_black')
         card(cv, 80, 950, 1000, 1290, (0.10, 0.09, 0.08), 0.92 * o, GOLD, glow=0.4)
         label(cv, '“The world is not driven by greed.', 120, 1010, 34, GREY, o, 'playfair', anchor='l')
         label(cv, ' It’s driven by envy.”', 120, 1060, 34, GREY, o, 'playfair', anchor='l')
-        o2 = ease(lin(t, WT('p7', '不是贪婪') - 0.2, WT('p7', '不是贪婪') + 0.2)); o3 = ease(lin(t, WT('p7', '嫉妒') - 0.2, WT('p7', '嫉妒') + 0.2))
+        o2 = ease(lin(t, WT('p8', '不是贪婪') - 0.2, WT('p8', '不是贪婪') + 0.2)); o3 = ease(lin(t, WT('p8', '嫉妒') - 0.2, WT('p8', '嫉妒') + 0.2))
         label(cv, '驱动这个世界的，不是贪婪，', 120, 1140, 46, WHITE, o2, 'serif_semi', anchor='l')
         label(cv, '而是嫉妒。', 120, 1210, 46, GOLD_HI, o3, 'serif_black', anchor='l')
         source(cv, '芒格 · 2022 年 Daily Journal 股东会', o, y=1330)
         credit(cv, 'munger', a, y=1380)
         return
-    # p8：1956 年通用汽车 Motorama：人群围着新车
-    a = ease(lin(t, T('p8') - 0.2, T('p8') + 0.3))
-    tsw = WT('p8', '在乎地位') - 0.3
-    clip, t0 = (CLIPS['dfd_crowd'], T('p8') - 0.2) if t < tsw else (CLIPS['dfd_car'], tsw)
+    a = ease(lin(t, T('p9') - 0.2, T('p9') + 0.3))
+    tsw = WT('p9', '在乎地位') - 0.3
+    clip, t0 = (CLIPS['dfd_crowd'], T('p9') - 0.2) if t < tsw else (CLIPS['dfd_car'], tsw)
     vpanel(cv, clip, t, t0, 60, 260, 1020, 980, a, zoom=1.02, z1=1.1, dur=5, edge=(0.75, 0.66, 0.50), sat=0.85, warm=0.35, contrast=1.08, gain=0.95)
     label(cv, '1956 · 通用汽车 Motorama 车展', W / 2, 1030, 32, WHITE, a, 'sans_bold')
-    for i, (w_, key) in enumerate((('合作', '合作'), ('机会', '机会'), ('资源', '资源'))):
-        s, o = pop(t, WT('p8', key) - 0.1, 0.4)
-        chip(cv, w_, 300 + i * 240, 1150, o, GOLD, 40)
+    for i, (w_, key) in enumerate((('被高看一眼', '高看一眼'), ('机会', '机会'), ('资源', '资源'))):
+        s, o = pop(t, WT('p9', key) - 0.1, 0.4)
+        chip(cv, w_, (270, 600, 840)[i], 1150, o, GOLD, 40)
     source(cv, '影片：Design for Dreaming（1956），Prelinger Archives，公有领域', a)
 
 
@@ -459,123 +469,196 @@ def silhouette(lay, cx, cy, s=1.0):
 
 
 def sc_signal(cv, t):
-    """p9 地位看不见 → p10 信号 → p11 装不起 → p12 孔雀开屏"""
+    """p10 地位看不见 → p11 信号 → p12 信号要有代价 → p13 孔雀开屏"""
     bg(cv, t, (0.06, 0.06, 0.09))
-    if t < T('p12') - 0.15:
-        a = ease(lin(t, T('p9') - 0.2, T('p9') + 0.4))
+    if t < T('p13') - 0.15:
+        a = ease(lin(t, T('p10') - 0.2, T('p10') + 0.4))
         L = layer(); silhouette(L, W / 2, 760); stroke_layer(cv, L, (0.70, 0.74, 0.82), a * 0.85, glow=0.4)
         for i, w_ in enumerate(('收入', '能力', '品位')):
-            tw = WT('p9', w_); o = ease(lin(t, tw - 0.1, tw + 0.3)) * (1 - 0.85 * ease(lin(t, WT('p9', '藏在'), WT('p9', '藏在') + 0.8)))
+            tw = WT('p10', w_); o = ease(lin(t, tw - 0.1, tw + 0.3)) * (1 - 0.85 * ease(lin(t, WT('p10', '藏在'), WT('p10', '藏在') + 0.8)))
             label(cv, w_, W / 2, 700 + i * 90, 42, GOLD_HI, o, 'sans_bold')
-        k = lin(t, T('p10') - 0.1, T('p11'))
+        k = lin(t, T('p11') - 0.1, T('p12'))
         if k > 0:
             for j in range(3):
                 ph = (k * 1.6 + j / 3) % 1
                 L = layer(); circle(L, (W / 2, 510), 30 + 380 * ph, 3); stroke_layer(cv, L, GOLD, (1 - ph) * 0.8 * ease(k * 4), glow=1.2)
             L = layer(); circle(L, (W / 2, 510), 18, fill=True); stroke_layer(cv, L, GOLD_HI, ease(k * 4), glow=2)
-            label(cv, '信号', W / 2, 1150, 64, GOLD, ease(lin(t, WT('p10', '信号') - 0.2, WT('p10', '信号') + 0.2)) * (1 - ease(lin(t, HIT['costly'] - 0.4, HIT['costly'] - 0.15))), 'serif_black', glow=0.4)
+            label(cv, '信号', W / 2, 1150, 64, GOLD, ease(lin(t, WT('p11', '信号') - 0.2, WT('p11', '信号') + 0.2)) * (1 - ease(lin(t, HIT['costly'] - 0.4, HIT['costly'] - 0.15))), 'serif_black', glow=0.4)
         s, o = pop(t, HIT['costly'] - 0.1, 0.5)
         if o > 0:
             dim(cv, 1 - 0.55 * o)
-            big(cv, '装不起', W / 2, 1150, 150, a=o, scale=0.9 + 0.1 * s, grad=GOLDG, glow=0.7)
+            big(cv, '有代价', W / 2, 1120, 150, a=o, scale=0.9 + 0.1 * s, grad=GOLDG, glow=0.7)
+            label(cv, '谁都能轻松发出的信号，没人当真', W / 2, 1290, 36, WHITE, ease(lin(t, WT('p12', '谁都能') - 0.2, WT('p12', '谁都能') + 0.3)), 'sans_bold')
         return
-    # p12：孔雀开屏（实拍）
-    a = ease(lin(t, T('p12') - 0.15, T('p12') + 0.3))
-    vframe(cv, CLIPS['peacock'], t, T('p12') - 0.15, 560, a, 1.25, 1.35, 6, sat=1.0, warm=0.1, contrast=1.08, gain=0.95)
-    for i, (w_, key) in enumerate((('又长', '又长'), ('又重', '又重'), ('招惹天敌', '天敌'))):
-        s, o = pop(t, WT('p12', key) - 0.1, 0.4)
+    a = ease(lin(t, T('p13') - 0.15, T('p13') + 0.3))
+    vframe(cv, CLIPS['peacock'], t, T('p13') - 0.15, 560, a, 1.25, 1.35, 6, sat=1.0, warm=0.1, contrast=1.08, gain=0.95)
+    for i, (w_, key) in enumerate((('又长', '又长'), ('又重', '又重'), ('招来天敌', '天敌'))):
+        s, o = pop(t, WT('p13', key) - 0.1, 0.4)
         chip(cv, w_, (250, 470, 760)[i], 300, o, WHITE, 38, (0.06, 0.06, 0.08))
-    o = ease(lin(t, WT('p12', '可信') - 0.4, WT('p12', '可信')))
+    o = ease(lin(t, WT('p13', '负担不起') - 0.3, WT('p13', '负担不起') + 0.2))
     label(cv, '扎哈维 1975 · 累赘原理（Handicap Principle）', W / 2, 1250, 30, GOLD_HI, o, 'sans_bold')
     credit(cv, 'v_peacock', a)
 
 
-def sc_price(cv, t):
-    """p14–p15 价格拆三截：成本 / 功能 / 信号；对手能复制前两截"""
-    bg(cv, t, (0.07, 0.07, 0.09))
-    yb, hh = 1180, 760
-    segs = [(0.0, 0.38, (0.36, 0.38, 0.42), '成本', '成本'), (0.38, 0.70, (0.40, 0.52, 0.66), '功能', '功能'), (0.70, 1.0, GOLD, '信号', '信号')]
-    a = ease(lin(t, T('p14') - 0.2, T('p14') + 0.3))
-    label(cv, '你的品牌', 265, 345, 40, WHITE, a, 'sans_black')
-    for i, (s0, s1, col, n, key) in enumerate(segs):
-        s, o = pop(t, WT('p14', key) - 0.1, 0.45)
-        y0 = yb - hh * s1; y1 = yb - hh * s0
-        card(cv, 150, y0 + 3, 380, y1 - 3, mix(col, INK, 0.25), 0.95 * o, col, r=8, glow=1.2 if i == 2 else 0.2)
-        label(cv, n, W / 2, (y0 + y1) / 2, 44, col if i == 2 else WHITE, o, 'sans_black')
-    t2 = T('p15'); o2 = ease(lin(t, t2 - 0.1, t2 + 0.3))
-    label(cv, '对手', 815, 345, 40, GREY, o2, 'sans_black')
-    for i, (s0, s1, col, n, key) in enumerate(segs[:2]):
-        s, o = pop(t, WT('p15', '复制') - 0.4 + 0.25 * i, 0.45)
-        y0 = yb - hh * s1; y1 = yb - hh * s0
-        card(cv, 700, y0 + 3, 930, y1 - 3, mix(col, INK, 0.35), 0.9 * o, col, r=8, glow=0.1)
-    tq = WT('p15', '最难复制'); o3 = ease(lin(t, tq - 0.2, tq + 0.3))
-    y0 = yb - hh; y1 = yb - hh * 0.70; L = layer()
-    for x in range(700, 930, 22): line(L, (x, y0 + 3), (x + 11, y0 + 3), 3); line(L, (x, y1 - 3), (x + 11, y1 - 3), 3)
-    for y in range(int(y0), int(y1), 22): line(L, (700, y), (700, y + 11), 3); line(L, (930, y), (930, y + 11), 3)
-    stroke_layer(cv, L, GOLD, o3 * 0.8, glow=0.5)
-    label(cv, '?', 815, (y0 + y1) / 2, 80, GOLD, o3, 'serif_black')
-    label(cv, '最难复制：别人看你的那一眼', W / 2, 1260, 40, GOLD_HI, ease(lin(t, WT('p15', '那一眼') - 0.3, WT('p15', '那一眼'))), 'sans_bold')
+FORCES = [('p15', '地位信号', '更有钱 · 更有品位 · 更好的圈子', GOLD, '地位信号'),
+          ('p16', '从众', '我向往的那群人，都在用', TEAL, '从众'),
+          ('p17', '门槛', '价格高一些 / 先办会员卡 · 中产仍买得起', COLD, '门槛')]
+
+
+def force_bg(cv, t, a, x0, y0, x1, y1):
+    """三股力量的背景素材：地位信号＝新机发售现场；从众＝Labubu 快闪店人潮（视频）；门槛＝会员店"""
+    t15, t16, t17 = T('p14') - 0.3, T('p16') - 0.3, T('p17') - 0.3
+    w1 = ease(lin(t, t15, t15 + 0.6)) * (1 - ease(lin(t, t16, t16 + 0.5)))
+    w2 = ease(lin(t, t16, t16 + 0.5)) * (1 - ease(lin(t, t17, t17 + 0.5)))
+    w3 = ease(lin(t, t17, t17 + 0.5))
+    g = dict(sat=0.75, warm=0.15, contrast=1.05, gain=0.40)
+    if w1 > 0.003: panel(cv, img('iphone17_launch', 'iphone_line.jpg'), x0, y0, x1, y1, a * w1, 1.1, 0.5, 0.5, **g)
+    if w2 > 0.003:
+        if 'labubu_bj' in CLIPS: vpanel(cv, CLIPS['labubu_bj'], t, t16, x0, y0, x1, y1, a * w2, zoom=1.0, z1=1.06, dur=8, edge=None, **g)
+        else: panel(cv, 'queue3.jpg', x0, y0, x1, y1, a * w2, 1.1, **g)
+    if w3 > 0.003: panel(cv, 'sams_sz.jpg', x0, y0, x1, y1, a * w3, 1.3, 0.29, 0.42, **g)
+    k = 'iphone17_launch' if w1 >= max(w2, w3) else ('v_labubu_bj' if w2 >= w3 else 'sams_sz')
+    if k == 'iphone17_launch': k = cred_key('iphone17_launch', 'iphone_line.jpg')
+    if k == 'v_labubu_bj' and 'labubu_bj' not in CLIPS: k = 'queue3'
+    return k, max(w1, w2, w3)
+
+
+def sc_forces(cv, t):
+    """p14–p17 多付的钱来自三股力量（每股配实拍）→ p18 这不是凡勃伦效应"""
+    bg(cv, t, (0.06, 0.06, 0.08))
+    if t < T('p18') - 0.2:
+        a = ease(lin(t, T('p14') - 0.2, T('p14') + 0.4))
+        k, wk = force_bg(cv, t, a, 0, 0, W, H)
+        shade(cv, 0.45, 0.85, 0.15)
+        big(cv, '多付的钱，来自三股力量', W / 2, 330, 64, a=a, color=WHITE, glow=0.2)
+        for i, (lid, n, d, col, key) in enumerate(FORCES):
+            s, o = pop(t, WT(lid, key) - 0.15, 0.45); y = 560 + i * 230
+            card(cv, 90, y - 95, 990, y + 95, (0.07, 0.07, 0.08), 0.88 * o, col, r=14, glow=0.6)
+            label(cv, '第%s股' % '一二三'[i], 150, y - 36, 26, GREY, o, 'sans_med', anchor='l')
+            label(cv, n, 150, y + 18, 50, col, o, 'sans_black', anchor='l')
+            od = ease(lin(t, WT(lid, key) + 0.3, WT(lid, key) + 0.8))
+            label(cv, d, 960, y + 18, 30, WHITE, o * od, 'sans_med', anchor='r')
+        credit(cv, k, a * wk)
+        return
+    # p18：这不是凡勃伦效应
+    a = ease(lin(t, T('p18') - 0.2, T('p18') + 0.4))
+    vk = 'veblen.jpg' if os.path.exists(os.path.join(MEDIA, 'veblen.jpg')) else None
+    if vk:
+        panel(cv, vk, 290, 230, 790, 830, a, 1.0, 0.5, 0.42, edge=(0.6, 0.55, 0.45), sat=0.0, contrast=1.1, gain=0.85)
+        credit(cv, 'veblen', a)
+    else:
+        big(cv, '这不是', W / 2, 500, 90, a=a, color=WHITE, glow=0.2)
+        big(cv, '凡勃伦效应', W / 2, 640, 100, a=a, grad=GOLDG, glow=0.5)
+    label(cv, '托斯丹 · 凡勃伦（1857–1929）', W / 2, 880, 34, WHITE, a, 'serif_semi')
+    o1 = ease(lin(t, WT('p18', '越贵越想买') - 0.3, WT('p18', '越贵越想买') + 0.2))
+    card(cv, 70, 950, 520, 1250, (0.10, 0.09, 0.10), 0.92 * o1, RED, r=14, glow=0.4)
+    label(cv, '凡勃伦效应', 295, 1010, 36, (1.0, 0.65, 0.58), o1, 'sans_black')
+    label(cv, '越贵 → 越想买', 295, 1080, 34, WHITE, o1, 'sans_bold')
+    label(cv, '贵本身就是目的', 295, 1140, 28, GREY, o1, 'sans_med')
+    kx = ease(lin(t, WT('p18', '这里') - 0.2, WT('p18', '这里') + 0.3))
+    if kx > 0:
+        L = layer(); circle(L, (505, 965), 30, fill=True); fill(cv, L, RED, kx * o1)
+        L = layer(); cx_, cy_ = 505, 965; line(L, (cx_ - 12, cy_ - 12), (cx_ + 12, cy_ + 12), 5); line(L, (cx_ - 12, cy_ + 12), (cx_ + 12, cy_ - 12), 5); fill(cv, L, WHITE, kx * o1)
+    o2 = ease(lin(t, WT('p18', '为了信号') - 0.3, WT('p18', '为了信号') + 0.2))
+    card(cv, 560, 950, 1010, 1250, (0.12, 0.10, 0.07), 0.92 * o2, GOLD, r=14, glow=0.6)
+    label(cv, '这里的溢价', 785, 1010, 36, GOLD, o2, 'sans_black')
+    label(cv, '为了信号', 785, 1080, 40, GOLD_HI, o2, 'sans_black')
+    label(cv, '不是为了贵本身', 785, 1140, 28, GREY, o2, 'sans_med')
+
+
+FACTORS = [('社会可见性', '社会可见性', COLD), ('身份识别度', '身份识别度', TEAL), ('心理溢价', '心理溢价', GOLD), ('广泛可及性', '广泛可及性', (0.85, 0.65, 0.95))]
+
+
+def factor_bars(cv, t, a, x0, x1, ys, lid, drop_lid=None, drop_i=1, vals=(0.86, 0.80, 0.90, 0.84), lab_w=250, size=40):
+    """乘法的四个因子：每项一根条；drop_lid 句里第 drop_i 项掉到接近零"""
+    kd = ease(lin(t, WT(drop_lid, '接近零') - 0.6, WT(drop_lid, '接近零') + 0.2)) if drop_lid else 0.0
+    out = 1.0
+    for i, ((n, key, col), y) in enumerate(zip(FACTORS, ys)):
+        tk = WT(lid, key); o = ease(lin(t, tk - 0.25, tk + 0.25)) * a
+        v = vals[i] * (1 - 0.94 * kd if i == drop_i else 1); out *= v if o > 0.5 else 1
+        label(cv, n, x0, y, size, col, o, 'sans_black', anchor='l')
+        bx0 = x0 + lab_w
+        L = layer(); rect(L, bx0, y - 18, x1, y + 18, r=18); fill(cv, L, (0.20, 0.21, 0.24), 0.9 * o)
+        L = layer(); rect(L, bx0, y - 18, bx0 + (x1 - bx0) * v * ease(lin(t, tk, tk + 0.5)), y + 18, r=18); fill(cv, L, col if not (i == drop_i and kd > 0.5) else RED, 0.95 * o)
+        if i < 3: label(cv, '×', x0 + lab_w / 2 - 20, y + (ys[1] - ys[0]) / 2, 40, GREY, o * 0.8, 'sans_med')
+    return kd
+
+
+def sc_formula(cv, t):
+    """p19 大众地位象征型品牌 → p20 四项相乘 → p21 一项接近零，整体接近零"""
+    bg(cv, t, (0.07, 0.065, 0.06)); DUST.draw(cv, t, GOLD, 0.25)
+    a = ease(lin(t, T('p19') - 0.2, T('p19') + 0.4))
+    label(cv, '三股力量叠在一起', W / 2, 330, 36, GREY, a, 'sans_med')
+    s, o = pop(t, WT('p19', '大众地位') - 0.15, 0.5)
+    big(cv, '大众地位象征型品牌', W / 2, 430, 70, a=o, scale=0.94 + 0.06 * s, grad=GOLDG, glow=0.5)
+    oc = ease(lin(t, WT('p20', '乘法') - 0.3, WT('p20', '乘法') + 0.2))
+    for i, (lid, n, d, col, key) in enumerate(FORCES):
+        chip(cv, n, (260, 540, 820)[i], 800, a * (1 - ease(lin(t, T('p20') - 0.4, T('p20')))), col, 40)
+    label(cv, '护城河的强弱 =', 120, 560, 38, WHITE, oc, 'sans_bold', anchor='l')
+    kd = factor_bars(cv, t, a, 120, 960, (670, 790, 910, 1030), 'p20', 'p21', 1)
+    ores = ease(lin(t, T('p21') - 0.3, T('p21') + 0.2))
+    vres = 0.53 * (1 - 0.94 * kd)
+    label(cv, '护城河', 120, 1170, 44, GOLD, ores, 'serif_black', anchor='l')
+    L = layer(); rect(L, 370, 1152, 960, 1188, r=18); fill(cv, L, (0.20, 0.21, 0.24), 0.9 * ores)
+    L = layer(); rect(L, 370, 1152, 370 + 590 * vres, 1188, r=18); fill(cv, L, mix(GOLD, RED, kd), 0.95 * ores)
+    label(cv, '任何一项接近零，整条护城河就接近零', W / 2, 1290, 36, (1.0, 0.70, 0.62), ease(lin(t, WT('p21', '整条') - 0.3, WT('p21', '整条') + 0.2)), 'sans_bold')
 
 
 def sc_paradox(cv, t):
-    """p16 地位是相对的 → p16b–p17 信号的矛盾 → p17b 第三股力：买得起 → p18 认可 · 可及 · 区分 三角"""
+    """p22 地位是相对的（人人都有＝谁都没有）→ p23 买得起的人越多，区分越薄 → p24 被认可 · 买得起 · 有区分 三角"""
     bg(cv, t, (0.07, 0.06, 0.08))
-    tb = T('p16b')
-    if t < tb + 0.2:
-        # 地位是相对的：一人出众 → 人人都有 → 谁都没有
-        a = ease(lin(t, T('p16') - 0.2, T('p16') + 0.4)) * (1 - ease(lin(t, tb - 0.3, tb + 0.1)))
-        label(cv, '地位是相对的', W / 2, 300, 72, WHITE, a, 'serif_black', glow=0.2)
-        k1 = ease(lin(t, WT('p16', '人人都有') - 0.2, WT('p16', '人人都有') + 0.4)); k2 = ease(lin(t, WT('p16', '谁都没有') - 0.2, WT('p16', '谁都没有') + 0.5))
+    if t < T('p23') + 0.1:
+        a = ease(lin(t, T('p22') - 0.2, T('p22') + 0.4)) * (1 - ease(lin(t, T('p23') - 0.3, T('p23') + 0.1)))
+        label(cv, '几项天生互相拉扯', W / 2, 330, 40, GREY, a, 'sans_med')
+        big(cv, '地位是相对的', W / 2, 430, 72, a=a * ease(lin(t, WT('p22', '相对') - 0.3, WT('p22', '相对') + 0.2)), color=WHITE, glow=0.2)
+        t1, t2 = WT('p22', '人人都有'), WT('p22', '谁都没有')
+        k1 = ease(lin(t, t1 - 0.2, t1 + 0.4)); k2 = ease(lin(t, t2 - 0.2, t2 + 0.5))
         for i in range(7):
             x = 180 + i * 120; me = i == 3
-            up = (1.0 if me else k1) * (1 - k2); y = 780 - 70 * up
+            up = (1.0 if me else k1) * (1 - k2); y = 800 - 70 * up
             col = mix(mix((0.42, 0.44, 0.50), GOLD, up), (0.42, 0.44, 0.50), k2)
             L = layer(); circle(L, (x, y - 60), 26, fill=True); rect(L, x - 30, y - 24, x + 30, y + 80, r=14)
             fill(cv, L, col, a * (0.9 if (me or k1 > 0.5) and k2 < 0.5 else 0.55))
-        t1, t2 = WT('p16', '人人都有'), WT('p16', '谁都没有')
         la = 1 - ease(lin(t, t1 - 0.5, t1 - 0.25)); lb = ease(lin(t, t1 - 0.25, t1)) * (1 - ease(lin(t, t2 - 0.5, t2 - 0.25))); lc = ease(lin(t, t2 - 0.25, t2))
-        label(cv, '一个人出众', W / 2, 1000, 40, GOLD_HI, a * la, 'sans_bold')
-        label(cv, '人人都有', W / 2, 1000, 44, GOLD, a * lb, 'sans_black')
-        label(cv, '= 谁都没有', W / 2, 1000, 44, GREY, a * lc, 'sans_black')
-        if t < tb - 0.25: return
-    a = ease(lin(t, tb - 0.2, tb + 0.4))
-    big(cv, '信号的矛盾', W / 2, 300, 84, a=a, color=WHITE, glow=0.2)
-    lx, rx, cy, bx, by = 260, 820, 620, W / 2, 1070
-    rng = np.random.default_rng(3); n = int(160 * ease(lin(t, WT('p17', '很多人') - 0.3, WT('p17', '知道'))))
-    L = layer()
-    for i in range(160):
-        x = lx + rng.normal(0, 85); y = cy + rng.normal(0, 58)
-        if i < n: circle(L, (x, y), 5, fill=True)
-    stroke_layer(cv, L, COLD, 0.9, glow=0.6)
-    o1 = ease(lin(t, WT('p17', '认出来') - 0.2, WT('p17', '认出来') + 0.3))
-    label(cv, '要被认出来', lx, 880, 44, COLD, o1, 'sans_black'); label(cv, '→ 很多人知道', lx, 945, 34, WHITE, o1, 'sans_med')
-    o2 = ease(lin(t, WT('p17', '特别') - 0.2, WT('p17', '特别') + 0.3))
-    L = layer(); circle(L, (rx, cy), 16, fill=True); stroke_layer(cv, L, GOLD_HI, o2, glow=3.0)
-    label(cv, '要显得特别', rx, 880, 44, GOLD, o2, 'sans_black'); label(cv, '→ 很少人拥有', rx, 945, 34, WHITE, o2, 'sans_med')
-    # 第三股力：要做得大，就得很多人买得起
-    o3 = ease(lin(t, WT('p17b', '做得大') - 0.3, WT('p17b', '做得大') + 0.3)); k3 = eout(lin(t, WT('p17b', '很多人') - 0.2, WT('p17b', '买得起', end=True)))
-    L = layer()
-    for i in range(45):
-        r_, c_ = divmod(i, 15); x = bx - 210 + c_ * 30; y = by - 30 + r_ * 30
-        if i < int(45 * k3): circle(L, (x, y), 6, fill=True)
-    stroke_layer(cv, L, TEAL, o3 * 0.9, glow=0.6)
-    label(cv, '要做得大', bx, 1175, 44, TEAL, o3, 'sans_black'); label(cv, '→ 很多人买得起', bx, 1240, 34, WHITE, o3, 'sans_med')
-    # 三条边：认可—区分（绷紧的弦）、认可—可及、区分—可及
-    th = HIT['paradox']; ten = ease(lin(t, T('p17'), th)); u = t - th
-    vib = 10 * math.exp(-max(0, u) * 3) * math.sin(u * 45) if u > 0 else 3 * ten * math.sin(t * 30)
-    L = layer(); pts = [(380 + (780 - 380) * i / 30, cy + vib * math.sin(math.pi * i / 30) - 40 * (1 - ten) * math.sin(math.pi * i / 30)) for i in range(31)]
-    poly(L, pts, 3 + 2 * ten); stroke_layer(cv, L, mix(GOLD, RED, ten), min(o1, o2), glow=1.0 + ten)
-    ke = eout(lin(t, T('p18') - 0.2, WT('p18', '互相拉扯', end=True)))
-    if ke > 0:
+        label(cv, '一个人出众', W / 2, 1020, 40, GOLD_HI, a * la, 'sans_bold')
+        label(cv, '人人都有', W / 2, 1020, 44, GOLD, a * lb, 'sans_black')
+        label(cv, '= 谁都没有', W / 2, 1020, 44, GREY, a * lc, 'sans_black')
+        return
+    if t < T('p24') - 0.1:
+        # 买得起的人越多，拥有的人越多；拥有的人越多，区分越薄
+        a = ease(lin(t, T('p23') - 0.1, T('p23') + 0.3))
+        k = ease(lin(t, T('p23'), SE('p23')))
+        n = int(8 + 150 * k); rng = np.random.default_rng(9)
         L = layer()
-        for (x0, y0), (x1, y1) in (((330, 700), (470, 1030)), ((750, 680), (610, 1030))):
-            line(L, (x0, y0), (x0 + (x1 - x0) * ke, y0 + (y1 - y0) * ke), 3 + 2 * ten)
-        stroke_layer(cv, L, mix(GOLD, RED, ease(lin(t, th - 0.3, th + 0.2))), ke, glow=1.0 + ten)
-    for i, (w_, col) in enumerate((('认可', COLD), ('可及', TEAL), ('区分', GOLD))):
-        s, o = pop(t, WT('p18', w_) - 0.15, 0.4)
-        label(cv, w_, W / 2 + (i - 1) * 200, 1345, 52, col, o, 'serif_black', glow=0.3, scale=0.9 + 0.1 * s)
-    od = ease(lin(t, WT('p18', '三股力') - 0.2, WT('p18', '三股力') + 0.2))
-    for x in (W / 2 - 100, W / 2 + 100): label(cv, '·', x, 1345, 52, GREY, od, 'serif_black')
+        for i in range(160):
+            x = W / 2 + rng.normal(0, 200); y = 700 + rng.normal(0, 130)
+            if i < n: circle(L, (x, y), 7, fill=True)
+        fill(cv, L, (0.66, 0.70, 0.78), 0.85 * a)
+        L = layer(); circle(L, (W / 2, 700), 20, fill=True); stroke_layer(cv, L, GOLD_HI, a * (1 - 0.8 * k), glow=3.0 * (1 - 0.8 * k))
+        label(cv, '买得起的人越多 → 拥有的人越多', W / 2, 1020, 38, TEAL, a, 'sans_bold')
+        label(cv, '→ 区分越薄', W / 2, 1090, 44, (1.0, 0.70, 0.62), ease(lin(t, WT('p23', '区分') - 0.3, WT('p23', '区分') + 0.2)), 'sans_black')
+        L = layer(); rect(L, 290, 1170, 790, 1200, r=15); fill(cv, L, (0.2, 0.21, 0.24), 0.9 * a)
+        L = layer(); rect(L, 290, 1170, 290 + 500 * (1 - 0.85 * k), 1200, r=15); fill(cv, L, GOLD, 0.95 * a)
+        label(cv, '区分', 250, 1185, 30, GOLD, a, 'sans_bold', anchor='r')
+        return
+    a = ease(lin(t, T('p24') - 0.2, T('p24') + 0.4))
+    big(cv, '要同时管好三件事', W / 2, 330, 64, a=a, color=WHITE, glow=0.2)
+    P = {'被认可': (260, 640, COLD), '有区分': (820, 640, GOLD), '买得起': (540, 1060, TEAL)}
+    ke = eout(lin(t, T('p24'), T('p24') + 1.4)); u = t - T('p24')
+    vib = 6 * math.sin(u * 30) * math.exp(-u * 1.2)
+    L = layer()
+    for p0, p1 in (('被认可', '有区分'), ('被认可', '买得起'), ('有区分', '买得起')):
+        (x0, y0, _), (x1, y1, _) = P[p0], P[p1]
+        pts = [(x0 + (x1 - x0) * s_ * ke, y0 + (y1 - y0) * s_ * ke + vib * math.sin(math.pi * s_)) for s_ in np.linspace(0, 1, 24)]
+        poly(L, pts, 4)
+    stroke_layer(cv, L, mix(GOLD, RED, 0.5), a, glow=1.2)
+    for n, (x, y, col) in P.items():
+        s, o = pop(t, WT('p24', n) - 0.15, 0.45)
+        L = layer(); circle(L, (x, y), 60, fill=True); fill(cv, L, (0.07, 0.07, 0.09), 0.95 * o)
+        L = layer(); circle(L, (x, y), 60, 4); stroke_layer(cv, L, col, o, glow=1.2)
+        label(cv, n, x, y + 110 if y > 800 else y - 110, 46, col, o, 'sans_black', scale=0.9 + 0.1 * s)
+    s, o = pop(t, WT('p24', '护城河') - 0.3, 0.5)
+    big(cv, '长期管好，才守得住', W / 2, 1300, 54, a=o, grad=GOLDG, glow=0.4)
 
 
 # ═══════════════════════ 02 · 一把尺子 ═══════════════════════
@@ -583,9 +666,9 @@ def sc_ruler(cv, t):
     bg(cv, t, (0.07, 0.07, 0.08))
     if t < T('d2') - 0.1:
         a = ease(lin(t, T('d1') - 0.2, T('d1') + 0.4))
-        big(cv, '身份', 250, CY, 110, a=a, grad=GOLDG)
-        label(cv, '→', 440, CY, 80, GREY, a, 'sans_med')
-        big(cv, '护城河？', 750, CY, 110, a=ease(lin(t, WT('d1', '护城河') - 0.2, WT('d1', '护城河') + 0.2)), color=WHITE, glow=0.2)
+        big(cv, '身份溢价', W / 2, CY - 110, 110, a=a, grad=GOLDG)
+        label(cv, '↓', W / 2, CY + 20, 80, GREY, a, 'sans_med')
+        big(cv, '护城河？', W / 2, CY + 150, 110, a=ease(lin(t, WT('d1', '护城河') - 0.2, WT('d1', '护城河') + 0.2)), color=WHITE, glow=0.2)
         return
     if t < T('d4') - 0.1:
         a = ease(lin(t, T('d2') - 0.2, T('d2') + 0.4))
@@ -599,18 +682,23 @@ def sc_ruler(cv, t):
         big(cv, '定价权', 110 + text_w('评估一家企业，最重要的是', 'serif_semi', 42) + 96, 960, 52,
             a=ease(lin(t, WT('d2', '定价权') - 0.2, WT('d2', '定价权') + 0.2)), grad=GOLDG, glow=0.4)
         o2 = ease(lin(t, T('d3') - 0.1, T('d3') + 0.3))
-        label(cv, '如果涨价十分之一美分，都得先祷告一番，', 110, 1060, 38, GREY, o2, 'serif_semi', anchor='l')
+        label(cv, '涨价十分之一美分之前，都得先祷告一番，', 110, 1060, 38, GREY, o2, 'serif_semi', anchor='l')
         label(cv, '那就是糟糕的生意。', 110, 1120, 38, (1.0, 0.65, 0.58), ease(lin(t, WT('d3', '糟糕') - 0.2, WT('d3', '糟糕') + 0.2)), 'serif_semi', anchor='l')
-        source(cv, '巴菲特 · 2010 年 5 月接受美国金融危机调查委员会（FCIC）访谈', o, y=1240)
-        credit(cv, 'buffett_2015', a, y=1330)
+        source(cv, '巴菲特 · 2010 年 5 月接受美国金融危机调查委员会（FCIC）访谈', o, y=1330)
+        credit(cv, 'buffett_2015', a, y=1375)
         return
     a = ease(lin(t, T('d4') - 0.1, T('d4') + 0.4))
     label(cv, '身份溢价', W / 2, 420, 56, WHITE, a, 'serif_black')
     o1 = ease(lin(t, WT('d4', '守住') - 0.2, WT('d4', '守住') + 0.2)); o2 = ease(lin(t, WT('d4', '往上提') - 0.2, WT('d4', '往上提') + 0.2))
     chip(cv, '长期守住', 380, 540, o1, TEAL, 38); chip(cv, '还能往上提', 700, 540, o2, GOLD, 38)
     o3 = ease(lin(t, WT('d4', '三道关') - 0.3, WT('d4', '三道关') + 0.2))
-    gates(cv, t, o3, -1, y=860)
-    label(cv, '三道关', W / 2, 1200, 64, GOLD, o3, 'serif_black', glow=0.4)
+    gates(cv, t, o3, -1, y=820)
+    label(cv, '三道关', W / 2, 1060, 60, GOLD, o3 * (1 - ease(lin(t, T('d5') - 0.3, T('d5')))), 'serif_black', glow=0.4)
+    for i, (txt, key) in enumerate((('可见性 · 识别度', '认得出'), ('溢价可不可信', '仿不了'), ('可及 vs 区分', '稀释不了'))):
+        o = ease(lin(t, WT('d5', key) - 0.2, WT('d5', key) + 0.3))
+        label(cv, txt, 210 + i * 330, 1030, 28, GOLD_HI, o, 'sans_bold')
+        L = layer(); line(L, (210 + i * 330, 990), (210 + i * 330, 1000), 2); stroke_layer(cv, L, GOLD, o * 0.0)
+    label(cv, '对应刚才的乘法', W / 2, 1150, 32, GREY, ease(lin(t, T('d5') - 0.1, T('d5') + 0.4)), 'sans_med')
 
 
 # ═══════════════════════ 03 · 三道关 ═══════════════════════
@@ -625,70 +713,88 @@ def gate_title(cv, t, i, lid, compact_after):
 
 
 def sc_gate1(cv, t):
-    """k1–k5 认得出：目光扫过；藏在家里的东西不亮；爱马仕橙"""
+    """k1–k3 认得出：目光扫过；藏在家里的东西不亮 → k4 手机一眼认出 → k5 苹果的信号 → k6 证据的边界"""
     bg(cv, t, (0.06, 0.07, 0.09))
     gate_title(cv, t, 0, 'k1', T('k2'))
     if t < T('k4') - 0.1:
         a = ease(lin(t, T('k2') + 0.1, T('k2') + 0.5))
-        # 眼睛 + 光锥
         ex, ey = W / 2, 450
         L = layer(); poly(L, [(ex - 90, ey), (ex, ey - 46), (ex + 90, ey), (ex, ey + 46)], 4, closed=True); circle(L, (ex, ey), 22, fill=True)
         stroke_layer(cv, L, WHITE, a, glow=0.8)
         sweep = math.sin((t - T('k2')) * 1.6) * 0.5
         tx = W / 2 + 330 * sweep
         L = layer(); fpoly(L, [(ex, ey + 40), (tx - 170, 1180), (tx + 170, 1180)]); fill(cv, cv2.GaussianBlur(L, (0, 0), 18), GOLD, 0.16 * a)
-        # 街上的手机与包（看得见），抽屉里的东西（看不见）
-        objs = [(220, '手机'), (420, '包')]
-        for x, n in objs:
+        for x, n in ((220, '手机'), (420, '包')):
             lit = 0.35 + 0.65 * math.exp(-((x - tx) / 160) ** 2)
             L = layer(); rect(L, x - 55, 980, x + 55, 1110, fill=False, w=4, r=12); stroke_layer(cv, L, GOLD, a * lit, glow=lit)
             label(cv, n, x, 1160, 30, WHITE, a * lit, 'sans_med')
         o3 = ease(lin(t, T('k3') - 0.2, T('k3') + 0.3))
         card(cv, 640, 940, 960, 1140, (0.05, 0.05, 0.06), 0.95 * o3, (0.30, 0.32, 0.36), r=8, glow=0.0)
         L = layer(); line(L, (760, 1040), (840, 1040), 5); stroke_layer(cv, L, (0.30, 0.32, 0.36), o3)
-        label(cv, '藏在家里', 800, 1190, 30, GREY, o3, 'sans_med')
+        label(cv, '放在家里', 800, 1190, 30, GREY, o3, 'sans_med')
         label(cv, '再贵，也没人看见', W / 2, 1270, 40, GREY, ease(lin(t, WT('k3', '再贵') - 0.2, WT('k3', '再贵') + 0.3)), 'sans_bold')
         return
     if t < T('k5') - 0.1:
         a = ease(lin(t, T('k4') - 0.2, T('k4') + 0.3))
         panel(cv, 'iphone_line.jpg', 60, 380, 1020, 1100, a, 1.05, 0.5, 0.5, edge=ORANGE, sat=0.9, warm=0.1, gain=0.85)
-        o = ease(lin(t, WT('k4', '一眼') - 0.2, WT('k4', '一眼') + 0.3))
+        o = ease(lin(t, WT('k4', '爱马仕橙') - 0.2, WT('k4', '爱马仕橙') + 0.3))
         label(cv, '一眼认出：今年的新款 Pro', W / 2, 1170, 44, ORANGE, o, 'sans_black')
-        label(cv, '有分析认为：一眼能认出新款，是“爱马仕橙”走红的原因之一', W / 2, 1240, 28, GREY, a, 'sans_med')
+        label(cv, '有分析认为：一眼能认出新款，是“爱马仕橙”走红的原因之一', W / 2, 1240, 28, GREY, ease(lin(t, WT('k4', '分析') - 0.2, WT('k4', '分析') + 0.3)), 'sans_med')
         credit(cv, 'iphone_line', a)
         return
-    a = ease(lin(t, T('k5') - 0.2, T('k5') + 0.3))
-    gates(cv, t, a, 0, y=700)
-    label(cv, '✓ 入场券', W / 2, 1060, 56, TEAL, ease(lin(t, WT('k5', '入场券') - 0.2, WT('k5', '入场券') + 0.2)), 'sans_black')
-    label(cv, '后面还有两道', W / 2, 1140, 34, GREY, a, 'sans_med')
+    if t < T('k6') - 0.1:
+        # 苹果传递的信号：不是“我很有钱”，而是体面
+        a = ease(lin(t, T('k5') - 0.2, T('k5') + 0.3))
+        panel(cv, img('iphone17_launch2', 'iphone_back.jpg'), 0, 0, W, H, a, 1.15, 0.5, 0.5, sat=0.7, warm=0.1, gain=0.30)
+        label(cv, '苹果传递的信号', W / 2, 420, 48, WHITE, a, 'serif_black')
+        o1 = ease(lin(t, WT('k5', '不是') - 0.2, WT('k5', '不是') + 0.3))
+        chip(cv, '“我很有钱”', W / 2, 560, o1, GREY, 44, (0.10, 0.10, 0.12))
+        ks = ease(lin(t, WT('k5', '而是') - 0.3, WT('k5', '而是'))); wv = text_w('“我很有钱”', 'sans_bold', 44) + 60
+        L = layer(); line(L, (W / 2 - wv / 2, 560), (W / 2 - wv / 2 + wv * ks, 560), 5); stroke_layer(cv, L, RED, ks * o1, glow=0.5)
+        for i, (w_, key) in enumerate((('有一定的消费能力', '消费能力'), ('在乎品质', '品质'), ('过着体面的生活', '体面'))):
+            s, o = pop(t, WT('k5', key) - 0.2, 0.45)
+            card(cv, 160, 700 + i * 150 - 55, 920, 700 + i * 150 + 55, (0.12, 0.10, 0.07), 0.9 * o, GOLD, r=14, glow=0.5)
+            label(cv, w_, W / 2, 700 + i * 150, 44, GOLD_HI, o, 'sans_black', scale=0.92 + 0.08 * s)
+        credit(cv, cred_key('iphone17_launch2', 'iphone_back.jpg'), a)
+        return
+    # k6：证据的边界
+    a = ease(lin(t, T('k6') - 0.2, T('k6') + 0.3))
+    label(cv, '多数人买苹果是为了面子？', W / 2, 460, 44, WHITE, a, 'sans_bold')
+    o = ease(lin(t, WT('k6', '没有证据') - 0.3, WT('k6', '没有证据') + 0.2))
+    big(cv, '没有证据', W / 2, 580, 72, a=o, color=(1.0, 0.65, 0.58), glow=0.2)
+    for i, (w_, key) in enumerate((('好用的产品', '产品'), ('生态', '生态'))):
+        s, oo = pop(t, WT('k6', key) - 0.15, 0.45)
+        chip(cv, w_, (380, 700)[i], 760, oo, (0.75, 0.78, 0.85), 40, (0.10, 0.10, 0.12))
+    s, o2 = pop(t, WT('k6', '确实存在') - 0.4, 0.5)
+    card(cv, 160, 880, 920, 1060, (0.12, 0.10, 0.07), 0.92 * o2, GOLD, r=16, glow=0.8)
+    label(cv, '能确定的：身份这份动机，确实存在', W / 2, 970, 40, GOLD_HI, o2, 'sans_black')
 
 
 def sc_gate2(cv, t):
-    """k6–k15 仿不了：挤出来的稀缺 vs 结构性的稀缺"""
+    """k7–k16 仿不了：暂时的（一时缺货、仿冒）vs 长久的（时间与手艺；苹果、山姆的积累）"""
     bg(cv, t, (0.07, 0.06, 0.07))
-    gate_title(cv, t, 1, 'k6', T('k7'))
-    if t < T('k9') - 0.1:
-        a = ease(lin(t, T('k7') - 0.2, T('k7') + 0.3))
-        o1 = ease(lin(t, WT('k7', '两种') - 0.2, WT('k7', '两种') + 0.3))
-        label(cv, '挤出来的稀缺', W / 4, 420, 42, (1.0, 0.62, 0.55), o1, 'sans_black')
-        label(cv, '结构性的稀缺', W * 3 / 4, 420, 42, GOLD, o1 * 0.45, 'sans_black')
+    gate_title(cv, t, 1, 'k7', T('k8'))
+    if t < T('k10') - 0.1:
+        a = ease(lin(t, T('k8') - 0.2, T('k8') + 0.3))
+        o1 = ease(lin(t, WT('k8', '两种') - 0.2, WT('k8', '两种') + 0.3))
+        label(cv, '暂时的', W / 4, 420, 46, (1.0, 0.62, 0.55), o1, 'sans_black')
+        label(cv, '长久的', W * 3 / 4, 420, 46, GOLD, o1 * 0.45, 'sans_black')
         L = layer(); line(L, (W / 2, 380), (W / 2, 1250), 2); stroke_layer(cv, L, GREY, o1 * 0.5)
-        o2 = ease(lin(t, T('k8') - 0.2, T('k8') + 0.3))
+        o2 = ease(lin(t, T('k9') - 0.2, T('k9') + 0.3))
         panel(cv, 'no_labubu.jpg', 50, 480, 515, 980, o2, 1.15, 0.5, 0.5, edge=RED, sat=0.8, warm=0.1, gain=0.85)
-        chip(cv, '产能跟不上', W / 4, 1060, ease(lin(t, WT('k8', '产能') - 0.2, WT('k8', '产能') + 0.2)), RED, 34, (0.14, 0.06, 0.06))
-        chip(cv, '黄牛在囤货', W / 4, 1150, ease(lin(t, WT('k8', '黄牛') - 0.2, WT('k8', '黄牛') + 0.2)), RED, 34, (0.14, 0.06, 0.06))
+        chip(cv, '产能跟不上', W / 4, 1060, ease(lin(t, WT('k9', '产能') - 0.2, WT('k9', '产能') + 0.2)), RED, 34, (0.14, 0.06, 0.06))
+        chip(cv, '黄牛在囤货', W / 4, 1150, ease(lin(t, WT('k9', '黄牛') - 0.2, WT('k9', '黄牛') + 0.2)), RED, 34, (0.14, 0.06, 0.06))
         label(cv, '门店告示：“我们不卖 Labubu”', W / 4, 1230, 24, GREY, o2, 'sans_med')
         L = layer(); rect(L, 565, 480, 1030, 980, fill=False, w=2); stroke_layer(cv, L, GREY, o1 * 0.35)
         label(cv, '？', W * 3 / 4, 730, 90, GREY, o1 * 0.4, 'serif_black')
         credit(cv, 'no_labubu', o2)
         return
-    if t < T('k10') - 0.1:
-        # 6·18 补货：二手价断崖
-        a = ease(lin(t, T('k9') - 0.2, T('k9') + 0.3))
+    if t < T('k11') - 0.1:
+        a = ease(lin(t, T('k10') - 0.2, T('k10') + 0.3))
         label(cv, '2025.6.18 · LABUBU 3.0 全渠道补货', W / 2, 420, 38, WHITE, a, 'sans_black')
         x0, x1, y0, y1 = 140, 940, 560, 1150
         L = layer(); line(L, (x0, y1), (x1, y1), 2); line(L, (x0, y0), (x0, y1), 2); stroke_layer(cv, L, GREY, a * 0.6)
-        tc = HIT['crash']; kk = eout(lin(t, T('k9') + 0.4, tc + 0.3))
+        tc = HIT['crash']; kk = eout(lin(t, T('k10') + 0.4, tc + 0.3))
         def Y(v): return y1 - (v / 3000) * (y1 - y0)
         hi = [(x0 + 20, Y(2600)), (x0 + 140, Y(2300)), (x0 + 260, Y(2750)), (x0 + 380, Y(2450)), (x0 + 460, Y(2500))]
         lo = [(x0 + 520, Y(800)), (x0 + 620, Y(720)), (x0 + 740, Y(690)), (x0 + 800, Y(660))]
@@ -705,11 +811,11 @@ def sc_gate2(cv, t):
         label(cv, '当天跌去一半以上', W / 2, 1270, 46, RED, o2, 'sans_black', glow=0.3)
         source(cv, '热门款二手成交价，据媒体统计（第一财经、财联社等）', a, y=1330)
         return
-    if t < T('k11') - 0.1:
-        a = ease(lin(t, T('k10') - 0.2, T('k10') + 0.3))
+    if t < T('k12') - 0.1:
+        a = ease(lin(t, T('k11') - 0.2, T('k11') + 0.3))
         panel(cv, 'lafufu.jpg', 60, 380, 500, 1000, a, 1.05, 0.5, 0.45, edge=RED, sat=0.85, gain=0.85)
         label(cv, '假 Labubu（俗称 Lafufu）', 280, 1040, 26, GREY, a, 'sans_med')
-        tn = WT('k10', '九成'); n = int(100 * ease(lin(t, T('k10') + 0.5, tn)))
+        tn = WT('k11', '九成'); n = int(100 * ease(lin(t, T('k11') + 0.5, tn)))
         L1 = layer(); L2 = layer()
         for i in range(100):
             x = 590 + (i % 10) * 40; y = 450 + (i // 10) * 50
@@ -722,15 +828,13 @@ def sc_gate2(cv, t):
         source(cv, '英国知识产权局（IPO）2025 年 9 月数据', a, y=1260)
         credit(cv, 'lafufu', a)
         return
-    if t < T('k12') - 0.1:
-        # 反身性循环：二手价↓ → 信号↓ → 想要的人↓ → 价格↓
-        a = ease(lin(t, T('k11') - 0.2, T('k11') + 0.3)); c = (W / 2, 800); R = 300
-        nodes = ['二手价 ↓', '信号打折', '想要的人 ↓', '更没人炒']
-        spin = (t - T('k11')) * 0.25
+    if t < T('k13') - 0.1:
+        a = ease(lin(t, T('k12') - 0.2, T('k12') + 0.3)); c = (W / 2, 800); R = 300
+        nodes = ['二手价 ↓', '信号贬值', '想要的人 ↓', '更没人炒']
         for i, n in enumerate(nodes):
             ang = -math.pi / 2 + i * math.pi / 2
             x, y = c[0] + R * math.cos(ang), c[1] + R * math.sin(ang)
-            o = ease(lin(t, T('k11') + i * 0.5, T('k11') + i * 0.5 + 0.4)) * a
+            o = ease(lin(t, T('k12') + i * 0.5, T('k12') + i * 0.5 + 0.4)) * a
             card(cv, x - 130, y - 44, x + 130, y + 44, (0.14, 0.06, 0.06), 0.95 * o, RED, r=44, glow=0.4)
             label(cv, n, x, y, 34, WHITE, o, 'sans_bold')
         L = layer()
@@ -742,55 +846,72 @@ def sc_gate2(cv, t):
         stroke_layer(cv, L, RED, a * 0.9, glow=0.8)
         label(cv, '当二手价本身就是信号', W / 2, 1250, 40, (1.0, 0.65, 0.58), a, 'sans_bold')
         return
-    # 结构性稀缺：爱马仕
-    if t < T('k14') - 0.1:
-        a = ease(lin(t, T('k12') - 0.2, T('k12') + 0.3))
-        label(cv, '结构性的稀缺', W / 2, 390, 48, GOLD, a, 'sans_black')
-        panel(cv, 'birkin2.jpg', 60, 450, 1020, 860, a, 1.1, 0.5, 0.5, edge=GOLD, sat=0.95, warm=0.45, gain=0.85)
-        t1 = WT('k13', '十八个月'); o1 = ease(lin(t, t1 - 0.4, t1))
+    if t < T('k15') - 0.1:
+        a = ease(lin(t, T('k13') - 0.2, T('k13') + 0.3))
+        label(cv, '长久的：对手短期内追不上', W / 2, 390, 44, GOLD, a, 'sans_black')
+        o0 = ease(lin(t, T('k13') + 0.4, T('k13') + 0.9))
+        panel(cv, 'birkin2.jpg', 60, 450, 1020, 860, o0, 1.1, 0.5, 0.5, edge=GOLD, sat=0.95, warm=0.45, gain=0.85)
+        t1 = WT('k14', '十八个月'); o1 = ease(lin(t, t1 - 0.4, t1))
         stat(cv, 300, 990, '18', '个月+', o1, size=110, usize=40, grad=GOLDG)
         label(cv, '工匠入职培训', 300, 1080, 30, WHITE, o1, 'sans_med')
-        t2 = WT('k13', '工坊'); o2 = ease(lin(t, t2 - 0.2, t2 + 0.3))
+        t2 = WT('k14', '工坊'); o2 = ease(lin(t, t2 - 0.2, t2 + 0.3))
         label(cv, '新皮具工坊', 780, 920, 32, WHITE, o2, 'sans_bold')
         for i, (yr, place, key) in enumerate((('2026', 'Loupes', '一座'), ('2027', 'Charleville', '一座'), ('2028', 'Colombelles', '计划'), ('2030', 'Les Andelys', '二零三零'))):
-            tt = t2 + 0.35 * i if key != '二零三零' else WT('k13', '二零三零') - 0.2
+            tt = t2 + 0.35 * i if key != '二零三零' else WT('k14', '二零三零') - 0.2
             oo = ease(lin(t, tt, tt + 0.3)) * o2
             label(cv, yr, 640, 985 + i * 62, 34, GOLD_HI, oo, 'oswald', anchor='l')
             label(cv, place, 740, 985 + i * 62, 28, GREY, oo, 'corm_med', anchor='l')
-        source(cv, '爱马仕官网（École Hermès des savoir-faire）、2025 年度业绩公告', a, y=1270)
-        credit(cv, 'birkin2', a, y=1320)
+        source(cv, '爱马仕官网（École Hermès des savoir-faire）、2025 年度业绩公告', o0, y=1270)
+        credit(cv, 'birkin2', o0, y=1320)
         return
-    if t < T('k15') - 0.1:
-        a = ease(lin(t, T('k14') - 0.2, T('k14') + 0.3))
+    if t < WT('k15', '稀缺只是结果') - 0.2:
+        a = ease(lin(t, T('k15') - 0.2, T('k15') + 0.3))
         panel(cv, 'hermes_paris.jpg', 0, 0, W, H, a, 1.2, 0.5, 0.5, sat=0.6, warm=0.4, gain=0.3)
         card(cv, 80, 560, 1000, 1080, (0.10, 0.09, 0.08), 0.92 * a, GOLD, glow=0.5)
         label(cv, '“Scarcity is not a goal for us.”', W / 2, 650, 44, GREY, a, 'playfair')
-        o = ease(lin(t, WT('k14', '稀缺') - 0.2, WT('k14', '稀缺') + 0.3))
+        o = ease(lin(t, WT('k15', '稀缺') - 0.2, WT('k15', '稀缺') + 0.3))
         big(cv, '稀缺，从来不是', W / 2, 790, 72, a=o, color=WHITE, glow=0.1)
-        big(cv, '我们的目标', W / 2, 900, 72, a=ease(lin(t, WT('k14', '目标') - 0.3, WT('k14', '目标'))), grad=GOLDG, glow=0.5)
+        big(cv, '我们的目标', W / 2, 900, 72, a=ease(lin(t, WT('k15', '目标') - 0.3, WT('k15', '目标'))), grad=GOLDG, glow=0.5)
         label(cv, '— 纪尧姆 · 德塞纳（爱马仕执行副总裁）· The National，2025.10', W / 2, 1020, 26, GREY, a, 'sans_med')
         credit(cv, 'hermes_paris', a)
         return
-    a = ease(lin(t, T('k15') - 0.2, T('k15') + 0.3))
-    big(cv, '稀缺只是结果', W / 2, 420, 84, a=a, grad=GOLDG, glow=0.4)
-    o1 = ease(lin(t, WT('k15', '想多做') - 0.2, WT('k15', '想多做') + 0.2)); o2 = ease(lin(t, WT('k15', '想仿') - 0.2, WT('k15', '想仿') + 0.2))
-    chip(cv, '想多做：快不起来', W / 2, 600, o1, GOLD, 40); chip(cv, '想仿：买不来时间', W / 2, 720, o2, GOLD, 40)
-    kk = eout(lin(t, WT('k15', '两百年') - 1.2, WT('k15', '时间', end=True)))
-    L = layer(); line(L, (140, 980), (140 + 800 * kk, 980), 5); stroke_layer(cv, L, GOLD, a * o2, glow=1.4)
-    label(cv, '1837', 140, 1040, 40, GOLD_HI, o2, 'oswald'); label(cv, '2026', 940, 1040, 40, WHITE, o2 * ease(kk * 3 - 2), 'oswald')
-    label(cv, '将近两百年', W / 2, 920, 40, WHITE, o2 * ease(kk * 2 - 1), 'sans_bold')
+    if t < T('k16') - 0.1:
+        tk = WT('k15', '稀缺只是结果'); a = ease(lin(t, tk - 0.2, tk + 0.3))
+        big(cv, '稀缺只是结果', W / 2, 420, 84, a=a, grad=GOLDG, glow=0.4)
+        o1 = ease(lin(t, WT('k15', '想多做') - 0.2, WT('k15', '想多做') + 0.2)); o2 = ease(lin(t, WT('k15', '想模仿') - 0.2, WT('k15', '想模仿') + 0.2))
+        chip(cv, '想多做：快不起来', W / 2, 600, o1, GOLD, 40); chip(cv, '想模仿：买不来积累', W / 2, 720, o2, GOLD, 40)
+        kk = eout(lin(t, WT('k15', '两百年') - 1.2, WT('k15', '积累', end=True)))
+        L = layer(); line(L, (140, 980), (140 + 800 * kk, 980), 5); stroke_layer(cv, L, GOLD, a * o2, glow=1.4)
+        label(cv, '1837', 140, 1040, 40, GOLD_HI, o2, 'oswald'); label(cv, '2026', 940, 1040, 40, WHITE, o2 * ease(kk * 3 - 2), 'oswald')
+        label(cv, '将近两百年', W / 2, 920, 40, WHITE, o2 * ease(kk * 2 - 1), 'sans_bold')
+        return
+    # k16：大众品牌也一样——苹果的积累、山姆的选品
+    a = ease(lin(t, T('k16') - 0.2, T('k16') + 0.3))
+    label(cv, '大众品牌也一样', W / 2, 390, 48, WHITE, a, 'serif_black')
+    o1 = ease(lin(t, WT('k16', '外观') - 0.2, WT('k16', '外观') + 0.3)); o2 = ease(lin(t, WT('k16', '会员费') - 0.2, WT('k16', '会员费') + 0.3))
+    panel(cv, img('iphone17_launch', 'iphone_line.jpg'), 60, 450, 1020, 830, o1, 1.1, 0.5, 0.5, edge=ORANGE, sat=0.85, warm=0.1, gain=0.55)
+    panel(cv, 'sams_sz.jpg', 60, 880, 1020, 1260, o2, 1.35, 0.29, 0.40, edge=GOLD, sat=0.75, warm=0.2, gain=0.50)
+    chip(cv, '外观：能仿', 250, 520, o1, (0.75, 0.78, 0.85), 32, (0.08, 0.08, 0.10))
+    s, o = pop(t, WT('k16', '设计') - 0.2, 0.45)
+    chip(cv, '设计 · 供应链 · 口碑：仿不来', W / 2, 770, o, GOLD, 36, (0.12, 0.10, 0.06))
+    chip(cv, '会员费：谁都能收', 290, 950, o2, (0.75, 0.78, 0.85), 32, (0.08, 0.08, 0.10))
+    s, o = pop(t, WT('k16', '很难') - 0.5, 0.45)
+    chip(cv, '“这里的东西都被挑过”：很难', W / 2, 1200, o, GOLD, 36, (0.12, 0.10, 0.06))
+    k1 = cred_key('iphone17_launch', 'iphone_line.jpg')
+    text(cv, '图：%s · %s ／ %s · %s' % (CREDIT[k1]['artist'][:16], CREDIT[k1]['license'], CREDIT['sams_sz']['artist'][:16], CREDIT['sams_sz']['license']),
+         56, 1335, 'sans_light', 22, GREY, anchor='l', alpha=0.75 * a)
 
 
 def sc_gate3(cv, t):
-    """k16–k23 稀释不了：倒 U、分层的门、会员卡、山姆选品风波"""
+    """k17–k19 稀释不了：倒 U + 投资者的问题 → k20 奢侈品少卖 → k21 大众品牌留层次 → k22 山姆的身份 → k23–k24 选品风波 → k25 区分被稀释"""
     bg(cv, t, (0.06, 0.07, 0.08))
-    gate_title(cv, t, 2, 'k16', T('k17'))
-    if t < T('k19') - 0.1:
-        a = ease(lin(t, T('k17') - 0.2, T('k17') + 0.3))
+    gate_title(cv, t, 2, 'k17', T('k18'))
+    if t < T('k20') - 0.1:
+        a = ease(lin(t, T('k18') - 0.2, T('k18') + 0.3))
         x0, x1, y0, y1 = 140, 940, 470, 1110
         L = layer(); line(L, (x0, y1), (x1, y1), 2); line(L, (x0, y0), (x0, y1), 2); stroke_layer(cv, L, GREY, a * 0.6)
         label(cv, '用户越来越多 →', x1, y1 + 40, 28, GREY, a, 'sans_med', anchor='r')
-        k = eout(lin(t, T('k17') + 0.2, WT('k17', '越少', end=True)))
+        k = eout(lin(t, T('k18') + 0.2, WT('k18', '越少', end=True)))
         def curve(f):
             return [(x0 + (x1 - x0) * u, y1 - (y1 - y0) * f(u)) for u in np.linspace(0, k, 40)]
         rec = curve(lambda u: 0.05 + 0.85 * (1 - math.exp(-3.2 * u)))
@@ -799,55 +920,70 @@ def sc_gate3(cv, t):
         if len(rec) > 1:
             for pts, col, aa in ((rec, COLD, a * 0.8), (spc, RED, a * 0.8)):
                 L = layer(); poly(L, pts, 3); stroke_layer(cv, L, col, aa, glow=0.4)
-        ov = ease(lin(t, T('k18') - 0.2, T('k18') + 0.4))
+        ov = ease(lin(t, WT('k18', '普及') - 0.2, WT('k18', '普及') + 0.4))
         if len(val) > 1 and ov > 0:
             L = layer(); poly(L, val, 6); stroke_layer(cv, L, GOLD, ov, glow=1.4)
             label(cv, '最佳区间', x0 + (x1 - x0) * 0.33, y0 + 10, 34, GOLD_HI, ease(lin(t, WT('k18', '先增强'), WT('k18', '先增强') + 0.4)), 'sans_black')
         lg = [('— 认得出的人', COLD, a), ('— 特别感', RED, a), ('— 信号价值', GOLD, ov)]
         for i, (s_, col, aa) in enumerate(lg): label(cv, s_, 170 + i * 270, 1230, 30, col, aa, 'sans_bold', anchor='l')
         label(cv, '理论示意', 940, 470, 24, GREY, a, 'sans_light', anchor='r')
-        # k18b：多一个用户，下一个人是更想要，还是更不想要？
-        oq = ease(lin(t, T('k18b') - 0.2, T('k18b') + 0.3))
+        oq = ease(lin(t, T('k19') - 0.2, T('k19') + 0.3))
         label(cv, '投资者该问：多一个用户，下一个人……', W / 2, 1330, 34, WHITE, oq, 'sans_bold')
         def V_(u): return 0.05 + 0.85 * (1 - math.exp(-3.2 * u)) * (0.92 * math.exp(-2.2 * u) + 0.03) * 2.4
-        for u0, w_, col, dy in ((0.10, '更想要 ↑', GOLD_HI, -70), (0.80, '更不想要 ↓', (1.0, 0.62, 0.55), 62)):
-            tw = WT('k18b', w_[:-2]); s_, o = pop(t, tw - 0.15, 0.4)
-            label(cv, w_, x0 + (x1 - x0) * u0, y1 - (y1 - y0) * V_(u0) + dy, 36, col, o, 'sans_black', scale=0.9 + 0.1 * s_)
+        for u0, w_, key, col in ((0.14, '更想买 ↑', '更想买', GOLD_HI), (0.52, '更不想买 ↓', '更不想买', (1.0, 0.62, 0.55))):
+            s_, o = pop(t, WT('k19', key) - 0.15, 0.4)
+            label(cv, w_, x0 + (x1 - x0) * u0, y1 + 44, 34, col, o, 'sans_black', scale=0.9 + 0.1 * s_)
         return
-    if t < T('k20') - 0.1:
-        a = ease(lin(t, T('k19') - 0.2, T('k19') + 0.3))
+    if t < T('k21') - 0.1:
+        a = ease(lin(t, T('k20') - 0.2, T('k20') + 0.3))
         panel(cv, 'hermes_lutetia.jpg', 0, 0, W, H, a, 1.15, 0.5, 0.5, sat=0.7, warm=0.4, gain=0.3)
-        tiers = [('最受追捧的包', '往往要等', WT('k19', '最受追捧'), 420, GOLD), ('丝巾 · 香水', '很多人买得到', WT('k19', '丝巾'), 820, WHITE)]
+        label(cv, '奢侈品：靠少卖守住区分', W / 2, 400, 46, WHITE, a, 'serif_black')
+        tiers = [('最受追捧的包', '往往要等', WT('k20', '最受追捧'), 420, GOLD), ('丝巾 · 香水', '很多人买得到', WT('k20', '丝巾'), 820, WHITE)]
         for n, d, ts, w_, col in tiers:
             s, o = pop(t, ts - 0.15, 0.45); y = 620 if col == GOLD else 1000
             card(cv, W / 2 - w_ / 2, y - 120, W / 2 + w_ / 2, y + 120, (0.10, 0.09, 0.08), 0.92 * o, col, r=12, glow=0.8 if col == GOLD else 0.2)
             label(cv, n, W / 2, y - 30, 44, col, o, 'sans_black'); label(cv, d, W / 2, y + 40, 32, GREY, o, 'sans_med')
-        label(cv, '把门分成几层', W / 2, 400, 48, WHITE, a, 'serif_black')
-        o = ease(lin(t, T('k19b') - 0.2, T('k19b') + 0.3))
-        label(cv, '一条路：产量跟着工匠走 · 长得慢 · 门槛一直在', W / 2, 1250, 32, GOLD_HI, o, 'sans_bold')
-        credit(cv, 'hermes_lutetia', a)
+        if os.path.exists(os.path.join(MEDIA, 'hermes_scarf.jpg')):
+            o = ease(lin(t, WT('k20', '丝巾') - 0.2, WT('k20', '丝巾') + 0.3))
+            panel(cv, 'hermes_scarf.jpg', 330, 1150, 750, 1300, o, 1.2, 0.5, 0.5, edge=(0.7, 0.65, 0.55), sat=0.9, warm=0.2, gain=0.8)
+            text(cv, '图：%s · %s ／ %s · %s' % (CREDIT['hermes_lutetia']['artist'][:16], CREDIT['hermes_lutetia']['license'], CREDIT['hermes_scarf']['artist'][:16], CREDIT['hermes_scarf']['license']),
+                 56, 1335, 'sans_light', 22, GREY, anchor='l', alpha=0.75 * a)
+        else:
+            credit(cv, 'hermes_lutetia', a)
         return
-    if t < T('k21') - 0.1:
-        # 另一条路：先让很多人买得起，再在里面留出层次
-        a = ease(lin(t, T('k20') - 0.2, T('k20') + 0.3))
-        label(cv, '另一条路', W / 2, 390, 52, WHITE, a, 'serif_black')
-        label(cv, '先让很多人买得起，再在里面留出层次', W / 2, 455, 32, GREY, a, 'sans_med')
-        o1 = ease(lin(t, WT('k20', '苹果') - 0.2, WT('k20', '苹果') + 0.3)); o2 = ease(lin(t, WT('k20', '山姆') - 0.2, WT('k20', '山姆') + 0.3))
-        panel(cv, 'iphone_line.jpg', 60, 510, 1020, 880, o1, 1.05, 0.5, 0.5, edge=ORANGE, sat=0.9, warm=0.1, gain=0.75)
-        panel(cv, 'sams_sz.jpg', 60, 920, 1020, 1290, o2, 1.35, 0.29, 0.40, edge=GOLD, sat=0.75, warm=0.2, gain=0.55)
-        s, o = pop(t, WT('k20b', 'Pro') - 0.15, 0.45)
-        chip(cv, 'Pro ｜ 标准版', W / 2, 830, o, ORANGE, 36, (0.10, 0.07, 0.05))
-        s, o = pop(t, WT('k20b', '会员卡') - 0.15, 0.45)
+    if t < T('k22') - 0.1:
+        a = ease(lin(t, T('k21') - 0.2, T('k21') + 0.3))
+        label(cv, '大众品牌：在规模里留出层次', W / 2, 400, 46, WHITE, a, 'serif_black')
+        o1 = ease(lin(t, WT('k21', '苹果') - 0.2, WT('k21', '苹果') + 0.3)); o2 = ease(lin(t, WT('k21', '山姆') - 0.2, WT('k21', '山姆') + 0.3))
+        panel(cv, 'iphone_line.jpg', 60, 480, 1020, 860, o1, 1.05, 0.5, 0.5, edge=ORANGE, sat=0.9, warm=0.1, gain=0.75)
+        panel(cv, 'sams_sz.jpg', 60, 910, 1020, 1290, o2, 1.35, 0.29, 0.40, edge=GOLD, sat=0.75, warm=0.2, gain=0.55)
+        s, o = pop(t, WT('k21', 'Pro') - 0.15, 0.45)
+        chip(cv, 'Pro ｜ 标准版', W / 2, 810, o, ORANGE, 36, (0.10, 0.07, 0.05))
+        s, o = pop(t, WT('k21', '会员卡') - 0.15, 0.45)
         chip(cv, '会员卡 · 260 元 / 年', 330, 1240, o, GOLD, 32, (0.12, 0.10, 0.06))
-        s, o = pop(t, WT('k20b', '货架') - 0.15, 0.45)
+        s, o = pop(t, WT('k21', '货架') - 0.15, 0.45)
         chip(cv, '挑过的货架', 790, 1240, o, GOLD, 32, (0.12, 0.10, 0.06))
         text(cv, '图：%s · %s ／ %s · %s' % (CREDIT['iphone_line']['artist'][:16], CREDIT['iphone_line']['license'],
                                          CREDIT['sams_sz']['artist'][:16], CREDIT['sams_sz']['license']), 56, 1335, 'sans_light', 22, GREY, anchor='l', alpha=0.75 * a)
         return
     if t < T('k23') - 0.1:
-        a = ease(lin(t, T('k21') - 0.2, T('k21') + 0.3))
+        a = ease(lin(t, T('k22') - 0.2, T('k22') + 0.3))
+        panel(cv, 'sams_bj.jpg', 0, 0, W, H, a, 1.2, 0.5, 0.5, sat=0.6, warm=0.3, gain=0.30)
+        label(cv, '山姆给会员的感觉', W / 2, 420, 46, WHITE, a, 'serif_black')
+        o1 = ease(lin(t, WT('k22', '不是') - 0.2, WT('k22', '不是') + 0.3))
+        chip(cv, '“我买得起贵东西”', W / 2, 580, o1, GREY, 42, (0.10, 0.10, 0.12))
+        ks = ease(lin(t, WT('k22', '而是') - 0.3, WT('k22', '而是'))); wv = text_w('“我买得起贵东西”', 'sans_bold', 42) + 60
+        L = layer(); line(L, (W / 2 - wv / 2, 580), (W / 2 - wv / 2 + wv * ks, 580), 5); stroke_layer(cv, L, RED, ks * o1, glow=0.5)
+        s, o2 = pop(t, WT('k22', '注重品质') - 0.4, 0.5)
+        card(cv, 100, 700, 980, 1000, (0.14, 0.11, 0.07), 0.94 * o2, GOLD, r=20, glow=1.0)
+        label(cv, '“我属于注重品质、', W / 2, 800, 50, GOLD_HI, o2, 'serif_black')
+        label(cv, '懂得挑选的城市家庭”', W / 2, 890, 50, GOLD_HI, o2, 'serif_black')
+        credit(cv, 'sams_bj', a)
+        return
+    if t < T('k25') - 0.1:
+        a = ease(lin(t, T('k23') - 0.2, T('k23') + 0.3))
         label(cv, '2025 年 7 月 · 山姆选品风波', W / 2, 400, 42, WHITE, a, 'sans_black')
-        swap = ease(lin(t, WT('k21', '换上') - 0.3, WT('k21', '零食', end=True)))
+        swap = ease(lin(t, WT('k23', '换上') - 0.3, WT('k23', '零食', end=True)))
         for i in range(24):
             r_, c_ = divmod(i, 6); x = 180 + c_ * 144; y = 520 + r_ * 120
             gone = (i * 7) % 24 < 22 * swap and i % 3 != 1
@@ -855,30 +991,25 @@ def sc_gate3(cv, t):
             card(cv, x - 55, y - 45, x + 55, y + 45, mix(col, INK, 0.6), 0.92 * a, col, r=8, glow=0.0 if gone else 0.4)
         label(cv, '■ 口碑商品', 330, 1050, 30, GOLD, a, 'sans_bold')
         label(cv, '■ 到处都买得到', 740, 1050, 30, GREY, a * swap, 'sans_bold')
-        if t > T('k22') - 0.2:
-            o = ease(lin(t, T('k22') - 0.2, T('k22') + 0.1))
+        if t > T('k24') - 0.2:
+            o = ease(lin(t, T('k24') - 0.2, T('k24') + 0.1))
             dim(cv, 1 - 0.85 * o)
-            chip(cv, '热搜 · 部分会员称要退卡', W / 2, 700, ease(lin(t, T('k22') + 0.1, T('k22') + 0.4)), RED, 40, (0.16, 0.06, 0.06))
-            o2 = ease(lin(t, WT('k22', '山姆下架') - 0.2, WT('k22', '山姆下架') + 0.3))
+            chip(cv, '热搜 · 部分会员称要退卡', W / 2, 700, ease(lin(t, T('k24') + 0.1, T('k24') + 0.4)), RED, 40, (0.16, 0.06, 0.06))
+            o2 = ease(lin(t, WT('k24', '随后') - 0.2, WT('k24', '随后') + 0.3))
             card(cv, 110, 820, 970, 1100, (0.10, 0.10, 0.12), 0.95 * o2, WHITE, glow=0.2)
             label(cv, '山姆：争议商品已下架', W / 2, 890, 38, WHITE, o2, 'sans_bold')
             label(cv, '“已关注到社交网络上的讨论，', W / 2, 965, 32, GREY, o2, 'serif_semi')
             label(cv, '将纳入后续选品策略考量”', W / 2, 1025, 32, GREY, o2, 'serif_semi')
         source(cv, '36 氪、澎湃新闻、钛媒体等 2025 年 7 月报道', a, y=1260)
         return
-    a = ease(lin(t, T('k23') - 0.2, T('k23') + 0.3))
+    a = ease(lin(t, T('k25') - 0.2, T('k25') + 0.3))
     panel(cv, 'sams_bj.jpg', 0, 0, W, H, a, 1.2, 0.5, 0.5, sat=0.6, warm=0.3, gain=0.28)
-    fo = 1 - ease(lin(t, T('k23b') - 0.45, T('k23b') - 0.1))      # 先让“挑过的生活”淡出，再推门
-    s, o = pop(t, WT('k23', '这张卡') - 0.2, 0.5)
-    card(cv, 240, 560, 840, 900, (0.16, 0.13, 0.08), 0.95 * o * fo, GOLD, r=24, glow=1.2)
-    big(cv, '“挑过的生活”', W / 2, 730, 66, a=ease(lin(t, WT('k23', '挑过') - 0.3, WT('k23', '挑过'))) * fo, grad=GOLDG, glow=0.5)
-    label(cv, '不只是一块派', W / 2, 1020, 40, WHITE, ease(lin(t, WT('k23', '一块派') - 0.2, WT('k23', '一块派') + 0.2)) * fo, 'sans_bold')
-    door(cv, t, W / 2, 800, 220, 380, ease(lin(t, T('k23b') - 0.15, T('k23b') + 0.35)), 'k23b')
+    door(cv, t, W / 2, 800, 220, 380, a, 'k25', top='会员担心的，不只是一块派', bot='而是这张卡给自己的那份区分，被稀释了')
     credit(cv, 'sams_bj', a)
 
 
 def door(cv, t, cx, cy, w, h, a, lid, top=None, bot=None):
-    """一扇门：人流从两侧进门，门里的金光随人数增加而变淡（每多一批人进门，门里人的身份就淡一点）"""
+    """一扇门：人流从两侧进门，门里的金光随人数增加而变淡"""
     if a <= 0.003: return
     dim(cv, 1 - 0.55 * a)
     t0 = T(lid); k = ease(lin(t, t0 + 0.3, SE(lid)))
@@ -893,8 +1024,8 @@ def door(cv, t, cx, cy, w, h, a, lid, top=None, bot=None):
         x = cx + side * (w / 2 + 340 * (1 - u)); y = cy + h / 2 - 30 - 40 * rr.random()
         circle(L, (x, y), 9, fill=True)
     fill(cv, L, (0.70, 0.72, 0.78), 0.85 * a)
-    label(cv, top or '这条路：市场更大，也更难走', cx, cy - h / 2 - 90, 44, WHITE, a, 'serif_black')
-    label(cv, bot or '每多一批人进门，门里人的身份就淡一点', cx, cy + h / 2 + 80, 34, (1.0, 0.70, 0.62), ease(lin(t, WT(lid, '稀释') - 0.3, WT(lid, '稀释') + 0.2)), 'sans_bold')
+    label(cv, top, cx, cy - h / 2 - 90, 44, WHITE, a, 'serif_black')
+    label(cv, bot, cx, cy + h / 2 + 80, 34, (1.0, 0.70, 0.62), ease(lin(t, WT(lid, '稀释') - 0.6, WT(lid, '稀释'))), 'sans_bold')
 
 
 def ring_stat(cv, c, r, frac, num, lab, a, col=GOLD):
@@ -906,7 +1037,7 @@ def ring_stat(cv, c, r, frac, num, lab, a, col=GOLD):
 
 
 def sc_math(cv, t):
-    """m1–m4 最后一道算术：身份 → 利润"""
+    """m1 身份 → 利润 → m2 爱马仕 → m3–m4 苹果（份额、均价约四倍）→ m5 溢价构成 → m6 两条路 → m7 认同怎么来 → m8 热闹≠护城河"""
     bg(cv, t, (0.08, 0.07, 0.06))
     if t < T('m2') - 0.1:
         a = ease(lin(t, T('m1') - 0.2, T('m1') + 0.3))
@@ -919,44 +1050,53 @@ def sc_math(cv, t):
     if t < T('m3') - 0.1:
         a = ease(lin(t, T('m2') - 0.2, T('m2') + 0.3))
         big(cv, 'HERMÈS', W / 2, 360, 90, a=a, fname='playfair', grad=GOLDG, track=0.12)
-        label(cv, '把身份变成价格 · 2025 年', W / 2, 460, 36, WHITE, a, 'sans_bold')
+        label(cv, '把身份变成很高的价格 · 2025 年', W / 2, 460, 36, WHITE, a, 'sans_bold')
         f1 = 0.711 * eout(lin(t, WT('m2', '七十一') - 0.5, WT('m2', '七十一') + 0.3)); f2 = 0.41 * eout(lin(t, WT('m2', '四十一') - 0.5, WT('m2', '四十一') + 0.3))
         ring_stat(cv, (300, 800), 170, f1, '%d%%' % round(f1 * 100), '毛利率', ease(lin(t, WT('m2', '毛利率') - 0.3, WT('m2', '毛利率'))))
         ring_stat(cv, (780, 800), 170, f2, '%d%%' % round(f2 * 100), '经营利润率', ease(lin(t, WT('m2', '经营利润率') - 0.3, WT('m2', '经营利润率'))))
         source(cv, '爱马仕 2025 年度业绩：毛利率 71.1%，经常性经营利润率 41%', a, y=1250)
         return
-    if t < T('m3b') - 0.1:
-        a = ease(lin(t, T('m3') - 0.2, T('m3') + 0.3))
-        apple_share(cv, t, a, W / 2, 360, 460, 120, 960, (700, 920), 1250, 1300)
-        return
     if t < T('m4') - 0.1:
-        why_more(cv, t, ease(lin(t, T('m3b') - 0.2, T('m3b') + 0.3)), W / 2, 420, 620, 240, 700, 900, 1040)
+        apple_share(cv, t, ease(lin(t, T('m3') - 0.2, T('m3') + 0.3)), W / 2, 360, 460, 120, 960, (700, 920), 1250, 1300)
         return
-    if t > T('m5') - 0.3:
-        acquire(cv, t, ease(lin(t, T('m5') - 0.3, T('m5') + 0.2)), (300, 780), 520, 1000)
+    if t < T('m5') - 0.1:
+        asp_bars(cv, t, ease(lin(t, T('m4') - 0.2, T('m4') + 0.3)), W / 2, 420, (330, 750), 1150, 560, 1250)
         return
-    a = ease(lin(t, T('m4') - 0.2, T('m4') + 0.3))
-    label(cv, '爱马仕', 260, 490, 48, GOLD, a, 'serif_black'); label(cv, '苹果', 820, 490, 48, (0.85, 0.88, 0.95), a, 'serif_black')
-    o1 = ease(lin(t, WT('m4', '少数人') - 0.2, WT('m4', '少数人') + 0.3)); o2 = ease(lin(t, WT('m4', '很多人') - 0.2, WT('m4', '很多人') + 0.3))
-    label(cv, '少数人 · 付很高的价', 260, 548, 30, WHITE, o1, 'sans_med'); label(cv, '很多人 · 都多付一些', 820, 548, 30, WHITE, o2, 'sans_med')
-    k = eout(lin(t, WT('m4', '少数人') - 0.2, WT('m4', '多付一些', end=True)))
-    L = layer(); line(L, (260, 600), (260 + (540 - 260) * k, 600 + 260 * k), 5); line(L, (820, 600), (820 + (540 - 820) * k, 600 + 260 * k), 5)
-    stroke_layer(cv, L, GOLD, a, glow=1.0)
-    s, o = pop(t, WT('m4', '多付一些', end=True) - 0.1, 0.5)
-    chip(cv, '定价权', W / 2, 920, o, GOLD, 54, (0.16, 0.13, 0.08))
-    o2 = ease(lin(t, WT('m4', '热闹') - 0.3, WT('m4', '热闹')))
-    label(cv, '认同留不住钱  =  热闹  ≠  护城河', W / 2, 1150, 42, (1.0, 0.65, 0.58), o2, 'sans_bold')
+    if t < T('m6') - 0.1:
+        am = ease(lin(t, T('m5') - 0.2, T('m5') + 0.3)); panel(cv, 'iphone_back.jpg', 0, 0, W, H, am, 1.1, 0.5, 0.5, sat=0.5, warm=0.1, gain=0.16)
+        why_more(cv, t, ease(lin(t, T('m5') - 0.2, T('m5') + 0.3)), W / 2, 480, 680, 240, 760)
+        text(cv, '图：%s · %s · Wikimedia Commons' % (CREDIT['iphone_back']['artist'][:34], CREDIT['iphone_back']['license']), 56, 1330, 'sans_light', 22, GREY, anchor='l', alpha=0.75 * am)
+        return
+    if t < T('m7') - 0.1:
+        a = ease(lin(t, T('m6') - 0.2, T('m6') + 0.3))
+        label(cv, '爱马仕', 260, 490, 48, GOLD, a, 'serif_black'); label(cv, '苹果', 820, 490, 48, (0.85, 0.88, 0.95), a, 'serif_black')
+        o1 = ease(lin(t, WT('m6', '少数人') - 0.2, WT('m6', '少数人') + 0.3)); o2 = ease(lin(t, WT('m6', '很多人') - 0.2, WT('m6', '很多人') + 0.3))
+        label(cv, '少数人 · 付很高的价', 260, 548, 30, WHITE, o1, 'sans_med'); label(cv, '很多人 · 多付一截', 820, 548, 30, WHITE, o2, 'sans_med')
+        k = eout(lin(t, WT('m6', '少数人') - 0.2, WT('m6', '多付一截', end=True)))
+        L = layer(); line(L, (260, 600), (260 + (540 - 260) * k, 600 + 260 * k), 5); line(L, (820, 600), (820 + (540 - 820) * k, 600 + 260 * k), 5)
+        stroke_layer(cv, L, GOLD, a, glow=1.0)
+        s, o = pop(t, WT('m6', '定价权') - 0.3, 0.5)
+        chip(cv, '定价权', W / 2, 920, o, GOLD, 54, (0.16, 0.13, 0.08))
+        label(cv, '两条路，都把身份变成了定价权', W / 2, 1080, 38, GOLD_HI, o, 'sans_bold')
+        return
+    if t < T('m8') - 0.1:
+        acquire(cv, t, ease(lin(t, T('m7') - 0.3, T('m7') + 0.2)), (300, 780), 520, 1000, 'm7')
+        return
+    a = ease(lin(t, T('m8') - 0.2, T('m8') + 0.3))
+    big(cv, '认同留不住钱', W / 2, CY - 80, 84, a=a, color=WHITE, glow=0.2)
+    s, o = pop(t, WT('m8', '热闹') - 0.2, 0.5)
+    big(cv, '= 热闹  ≠ 护城河', W / 2, CY + 70, 84, a=o, grad=REDG, glow=0.4)
 
 
 def apple_share(cv, t, a, cx, y_title, y_sub, x0, x1, ys, y_src, y_cred=1300):
     """m3 苹果：2025 年第四季度，出货量约占全球四分之一，收入却将近六成（Counterpoint）"""
     if a <= 0.003: return
-    panel(cv, 'iphone_orange.jpg', 0, 0, W, H, a, 1.15, 0.5, 0.45, sat=0.55, warm=0.1, contrast=1.05, gain=0.16)
-    c = CREDIT['iphone_orange']
+    panel(cv, img('iphone17_launch2', 'iphone_orange.jpg'), 0, 0, W, H, a, 1.15, 0.5, 0.45, sat=0.55, warm=0.1, contrast=1.05, gain=0.16)
+    kc = cred_key('iphone17_launch2', 'iphone_orange.jpg'); c = CREDIT[kc]
     text(cv, '图：%s · %s · Wikimedia Commons' % (c['artist'][:34], c['license']), 56, y_cred, 'sans_light', 22, GREY, anchor='l', alpha=0.75 * a)
     big(cv, 'iPhone', cx, y_title, 96, a=a, fname='playfair', color=(0.92, 0.93, 0.96), glow=0.2)
     label(cv, '另一条路 · 2025 年第四季度 · 全球手机', cx, y_sub, 34, WHITE, a, 'sans_bold')
-    for (name, frac, col, key, val), y in zip((('出货量份额', 0.25, COLD, '四分之一', '≈ 25%'), ('收入份额', 0.59, GOLD, '六成', '≈ 59%')), ys):
+    for (name, frac, col, key, val), y in zip((('出货量：约每四部有一部', 0.25, COLD, '每四部', '≈ 25%'), ('销售收入：将近六成', 0.59, GOLD, '六成', '≈ 59%')), ys):
         tk = WT('m3', key); k = eout(lin(t, tk - 0.6, tk + 0.3)); o = ease(lin(t, tk - 0.8, tk - 0.4)) * a
         label(cv, name, x0, y - 62, 36, WHITE, o, 'sans_bold', anchor='l')
         L = layer(); rect(L, x0, y - 24, x1, y + 24, r=24); fill(cv, L, (0.20, 0.21, 0.24), 0.9 * o)
@@ -966,41 +1106,52 @@ def apple_share(cv, t, a, cx, y_title, y_sub, x0, x1, ys, y_src, y_cred=1300):
     source(cv, 'Counterpoint 2025 Q4：出货量份额约 25%（IDC 24.2%），收入份额约 59%', a, y=y_src)
 
 
-def why_more(cv, t, a, cx, y_title, y_chips, dx, y_note, y_big, y_end):
-    """m3b 多出来的钱：产品、生态、身份（只是其中一份）× 一年两亿多部 = 另一种定价权"""
+def asp_bars(cv, t, a, cx, y_title, xs, y_base, h_max, y_src):
+    """m4 按两个份额推算：iPhone 平均售价约为其他手机的四倍"""
     if a <= 0.003: return
-    label(cv, '多出来的钱，为什么付？', cx, y_title, 48, WHITE, a, 'serif_black')
-    for i, (w_, col, key, nth) in enumerate((('产品', (0.62, 0.66, 0.74), '产品', 0), ('生态', (0.62, 0.66, 0.74), '生态', 0), ('身份', GOLD, '身份', 1))):
-        s, o = pop(t, WT('m3b', key, nth=nth) - 0.15, 0.45)
+    label(cv, '一部手机的平均售价', cx, y_title, 46, WHITE, a, 'serif_black')
+    k = eout(lin(t, T('m4') + 0.3, WT('m4', '四倍', end=True)))
+    for x, v, col, n in ((xs[0], 1.0, (0.62, 0.66, 0.74), '其他手机'), (xs[1], 4.3, GOLD, 'iPhone')):
+        hh = h_max * v / 4.3 * (k if v > 1 else min(1, k * 4))
+        L = layer(); rect(L, x - 110, y_base - hh, x + 110, y_base, r=10); fill(cv, L, col, 0.92 * a)
+        label(cv, n, x, y_base + 50, 40, col, a, 'sans_black')
+    s, o = pop(t, WT('m4', '四倍') - 0.2, 0.5)
+    big(cv, '≈ 4 倍', xs[1], y_base - h_max - 70, 90, a=o, scale=0.9 + 0.1 * s, grad=GOLDG, glow=0.6)
+    label(cv, '1×', xs[0], y_base - h_max / 4.3 - 40, 40, (0.75, 0.78, 0.85), a, 'oswald')
+    source(cv, '推算：(59% ÷ 25%) ÷ (41% ÷ 75%) ≈ 4.3（Counterpoint 2025 Q4 份额）', a, y=y_src)
+
+
+def why_more(cv, t, a, cx, y_title, y_chips, dx, y_note):
+    """m5 这份溢价：产品、生态，加上身份（其中一部分）"""
+    if a <= 0.003: return
+    label(cv, '这份溢价里，有什么？', cx, y_title, 48, WHITE, a, 'serif_black')
+    for i, (w_, col, key, nth) in enumerate((('产品', (0.62, 0.66, 0.74), '产品', 0), ('生态', (0.62, 0.66, 0.74), '生态', 0), ('身份', GOLD, '但身份', 0))):
+        s, o = pop(t, WT('m5', key, nth=nth) - 0.15, 0.45)
         chip(cv, w_, cx + (i - 1) * dx, y_chips, o * a, col, 44, (0.10, 0.10, 0.12) if i < 2 else (0.16, 0.13, 0.08))
-    label(cv, '只是其中一份', cx + dx, y_note, 30, GOLD_HI, ease(lin(t, WT('m3b', '其中一份') - 0.2, WT('m3b', '其中一份') + 0.2)) * a, 'sans_med')
-    s, o = pop(t, WT('m3b', '两亿多部') - 0.2, 0.5)
-    big(cv, '× 一年两亿多部', cx, y_big, 76, a=o * a, scale=0.92 + 0.08 * s, color=WHITE, glow=0.2)
-    label(cv, '= 另一种定价权', cx, y_end, 50, GOLD, ease(lin(t, WT('m3b', '定价权') - 0.3, WT('m3b', '定价权') + 0.1)) * a, 'serif_black', glow=0.3)
+    label(cv, '其中的一部分', cx + dx, y_note, 30, GOLD_HI, ease(lin(t, WT('m5', '一部分') - 0.2, WT('m5', '一部分') + 0.2)) * a, 'sans_med')
 
 
-def acquire(cv, t, a, xs, y_head, y_floor):
-    """m5 认同是怎么来的：左边口碑（用户自己长出来，几乎不花钱），右边广告 / 补贴（每来一个用户都掉一枚硬币）"""
+def acquire(cv, t, a, xs, y_head, y_floor, lid='m7'):
+    """认同是怎么来的：左边口碑（用户自己长出来，几乎不花钱），右边广告 / 补贴（每来一个用户都掉一枚硬币）"""
     if a <= 0.003: return
-    t0 = T('m5'); tl_ = WT('m5', '口碑'); tr_ = WT('m5', '广告')
+    tl_ = WT(lid, '口碑'); tr_ = WT(lid, '广告')
     label(cv, '认同是怎么来的？', W / 2, y_head - 130, 56, WHITE, a, 'serif_black')
-    xl, xr = xs; rr = np.random.default_rng(5)
+    xl, xr = xs
     for side, (x, head, col, ts) in enumerate(((xl, '口碑', TEAL, tl_), (xr, '广告 · 补贴', RED, tr_))):
         o = ease(lin(t, ts - 0.2, ts + 0.3)) * a
         label(cv, head, x, y_head, 46, col, o, 'sans_black')
-        n = int(24 * ease(lin(t, ts + 0.2, SE('m5'))))
+        n = int(24 * ease(lin(t, ts + 0.2, SE(lid))))
         L = layer(); Lc = layer()
         for i in range(24):
             px = x - 150 + (i % 6) * 60; py = y_head + 110 + (i // 6) * 64
             if i < n:
                 circle(L, (px, py - 12), 12, fill=True); rect(L, px - 16, py + 2, px + 16, py + 30, r=8)
-                if side == 1:
-                    circle(Lc, (px + 22, py - 30), 9, fill=True)
+                if side == 1: circle(Lc, (px + 22, py - 30), 9, fill=True)
         fill(cv, L, (0.78, 0.80, 0.86), 0.9 * o)
         if side == 1: stroke_layer(cv, Lc, GOLD_HI, 0.95 * o, glow=1.0)
-        lab = '新用户几乎不花钱' if side == 0 else '每个新用户，再花一次钱'
-        oo = ease(lin(t, (WT('m5', '几乎不花钱') if side == 0 else WT('m5', '再花一次钱')) - 0.3, (WT('m5', '几乎不花钱') if side == 0 else WT('m5', '再花一次钱')) + 0.2)) * a
-        label(cv, lab, x, y_floor, 32, col, oo, 'sans_bold')
+        key = '几乎不用花钱' if side == 0 else '再花一次钱'
+        oo = ease(lin(t, WT(lid, key) - 0.3, WT(lid, key) + 0.2)) * a
+        label(cv, '新用户几乎不用花钱去拉' if side == 0 else '每个新用户，再花一次钱', x, y_floor, 30, col, oo, 'sans_bold')
     L = layer(); line(L, (W / 2, y_head - 40), (W / 2, y_floor + 30), 2); stroke_layer(cv, L, GREY, 0.4 * a)
 
 
@@ -1016,25 +1167,56 @@ def scorecard(cv, t, x0, y0, rows, a):
             label(cv, note_, x0 + 290, y, 28, GREY, o, 'sans_med', anchor='l')
 
 
+def moutai_price(cv, t, a, x0, x1, y0, y1, ylab):
+    """g5–g6 飞天批价（只标注已核实的点，线形为示意）：2025.12 跌破 1499 → 2026.03 指导价 1539 → 2026.09 约 1740"""
+    def Y(v): return y1 - (v - 1300) / (2000 - 1300) * (y1 - y0)
+    xs = lambda u: x0 + (x1 - x0) * u
+    L = layer(); line(L, (x0, y1), (x1, y1), 2); stroke_layer(cv, L, GREY, 0.6 * a)
+    L = layer()
+    for x in range(int(x0), int(x1), 24): line(L, (x, Y(1499)), (x + 12, Y(1499)), 2)
+    stroke_layer(cv, L, (0.75, 0.78, 0.85), 0.7 * a)
+    label(cv, '1499 元 官方指导价', x0 + 10, Y(1499) - 26, 26, (0.75, 0.78, 0.85), a, 'sans_med', anchor='l')
+    pts = [(0.00, 1900), (0.18, 1780), (0.36, 1640), (0.50, 1560), (0.60, 1490), (0.68, 1495), (0.76, 1700), (0.88, 1715), (1.00, 1740)]
+    k1 = eout(lin(t, T('g5') + 0.5, WT('g5', '指导价', end=True))); k2 = eout(lin(t, WT('g6', '指导价') - 0.3, WT('g6', '上下', end=True)))
+    kk = 0.66 * k1 + 0.34 * k2
+    seg = [(xs(u), Y(v)) for u, v in pts if u <= kk + 1e-6]
+    if len(seg) > 1:
+        L = layer(); poly(L, seg, 5); stroke_layer(cv, L, mix(GOLD, RED, ease(lin(kk, 0.4, 0.62)) * (1 - ease(lin(kk, 0.7, 0.8)))), a, glow=1.0)
+    o1 = ease(lin(t, WT('g5', '跌破') - 0.2, WT('g5', '跌破') + 0.3))
+    L = layer(); circle(L, (xs(0.60), Y(1490)), 10, fill=True); stroke_layer(cv, L, RED, o1 * a, glow=1.5)
+    label(cv, '2025.12 跌破 1499', xs(0.60) + 10, Y(1490) + 50, 28, (1.0, 0.65, 0.58), o1 * a, 'sans_bold', anchor='r')
+    o2 = ease(lin(t, WT('g6', '一千五百三十九') - 0.3, WT('g6', '一千五百三十九') + 0.2))
+    L = layer(); line(L, (xs(0.72), Y(1539) - 0), (xs(0.72), Y(1539) - 0.01), 1); circle(L, (xs(0.72), Y(1539)), 9, fill=True); stroke_layer(cv, L, GOLD, o2 * a, glow=1.2)
+    label(cv, '2026.03 指导价 → 1539', xs(0.66), Y(1490) + 50, 26, GOLD_HI, o2 * a, 'sans_bold', anchor='l')
+    o3 = ease(lin(t, WT('g6', '一千七百') - 0.3, WT('g6', '一千七百') + 0.2))
+    label(cv, '2026.09 批价 ≈ 1740', xs(1.0), Y(1740) - 44, 28, GOLD_HI, o3 * a, 'sans_bold', anchor='r')
+    label(cv, '飞天茅台批发价（元 / 瓶，线形示意，只标注已核实的点）', (x0 + x1) / 2, ylab, 24, GREY, a, 'sans_light')
+
+
 def sc_china(cv, t):
     bg(cv, t, (0.09, 0.06, 0.05))
     if t < T('g2') - 0.1:
         a = ease(lin(t, T('g1') - 0.2, T('g1') + 0.3))
-        big(cv, '中国考题', W / 2, 520, 110, a=a, grad=GOLDG)
-        gates(cv, t, a * 0.9, -1, y=780)
-        label(cv, '老铺黄金  ·  泡泡玛特', W / 2, 1120, 44, WHITE, ease(lin(t, WT('g1', '两家') - 0.2, WT('g1', '两家') + 0.3)), 'sans_black')
+        big(cv, '中国考题', W / 2, 440, 110, a=a, grad=GOLDG)
+        label(cv, '三道关 + 那道乘法', W / 2, 560, 38, GREY, a, 'sans_med')
+        for i, (n, tag, key) in enumerate((('茅台', '老牌', '老牌'), ('老铺黄金', '新秀', '两家新秀'), ('泡泡玛特', '新秀', '两家新秀'))):
+            o = ease(lin(t, WT('g1', key) - 0.35 + 0.12 * i * (i > 0), WT('g1', key) + 0.1 + 0.12 * i * (i > 0)))
+            card(cv, 140, 700 + i * 170 - 65, 940, 700 + i * 170 + 65, (0.12, 0.09, 0.07), 0.9 * o, GOLD if i == 0 else (1.0, 0.65, 0.55), r=14, glow=0.5)
+            label(cv, n, 220, 700 + i * 170, 52, WHITE, o, 'serif_black', anchor='l')
+            chip(cv, tag, 840, 700 + i * 170, o, GOLD if i == 0 else (1.0, 0.65, 0.55), 30, (0.10, 0.08, 0.06))
         return
-    if t < T('g6') - 0.1:
-        a = ease(lin(t, T('g2') - 0.2, T('g2') + 0.3))
+    if t < T('g8') - 0.1:
+        return moutai(cv, t)
+    if t < T('g12') - 0.1:
+        a = ease(lin(t, T('g8') - 0.2, T('g8') + 0.3))
         panel(cv, 'gold_bracelet.jpg', 0, 0, W, H, a, 1.3, 0.5, 0.5, sat=0.8, warm=0.4, gain=0.22)
         big(cv, '老铺黄金', W / 2, 300, 88, a=a, grad=GOLDG)
-        rows = [('认得出', '✓', '商场门口排过长队', WT('g2', '认得出')),
-                ('仿不了', '?', '32 家商场里 ≥19 家也有古法金对手', WT('g3', '三十二')),
-                ('稀释不了', '?', '11 月促销，手镯立减近 2 万元', WT('g4', '手镯')),
-                ('利润', '✓', '2026 上半年利润 +88%', WT('g5', '八成'))]
+        rows = [('认得出', '✓', '商场门口排过长队', WT('g8', '能')),
+                ('仿不了', '?', '32 家商场里 ≥19 家也有古法金对手', WT('g9', '三十二')),
+                ('稀释不了', '?', '11 月促销，手镯立减近 2 万元', WT('g10', '手镯')),
+                ('利润', '✓', '2026 上半年利润 +88%', WT('g11', '八成'))]
         scorecard(cv, t, 60, 400, rows, a)
-        # 32 家商场：19 家亮起第二个品牌
-        o = ease(lin(t, WT('g3', '三十二') - 0.2, WT('g3', '三十二') + 0.3)); k = ease(lin(t, WT('g3', '十九') - 0.4, WT('g3', '十九') + 0.4))
+        o = ease(lin(t, WT('g9', '三十二') - 0.2, WT('g9', '三十二') + 0.3)); k = ease(lin(t, WT('g9', '十九') - 0.4, WT('g9', '十九') + 0.4))
         for i in range(32):
             r_, c_ = divmod(i, 16); x = 120 + c_ * 56; y = 1000 + r_ * 64
             hit_ = i % 32 in (0, 1, 3, 4, 6, 7, 9, 10, 12, 13, 15, 17, 18, 20, 22, 24, 26, 28, 30)
@@ -1042,56 +1224,144 @@ def sc_china(cv, t):
             L = layer(); rect(L, x - 20, y - 22, x + 20, y + 22, r=4); fill(cv, L, col, o * (0.85 if col == RED else 0.6))
         label(cv, '■ 进驻商场  ■ 同场有其他古法金品牌', W / 2, 1150, 26, GREY, o, 'sans_med')
         source(cv, '界面新闻（截至 2026.04）；21 世纪经济报道（2026.11）；公司 2026 中期报告', a, y=1240)
+        credit(cv, 'gold_bracelet', a, y=1300)
         return
-    if t < T('g7') - 0.1:
-        a = ease(lin(t, T('g6') - 0.2, T('g6') + 0.3))
-        panel(cv, 'nyc_store.jpg', 0, 0, W, H, a, 1.3, 0.5, 0.5, sat=0.5, warm=0.1, gain=0.22)
+    if t < T('g13') - 0.1:
+        a = ease(lin(t, T('g12') - 0.2, T('g12') + 0.3))
+        if 'labubu_hk' in CLIPS:
+            vpanel(cv, CLIPS['labubu_hk'], t, T('g12') - 0.2, 0, 0, W, H, a, zoom=1.0, z1=1.05, dur=8, edge=None, sat=0.5, warm=0.1, contrast=1.05, gain=0.24)
+        else:
+            panel(cv, 'nyc_store.jpg', 0, 0, W, H, a, 1.3, 0.5, 0.5, sat=0.5, warm=0.1, gain=0.22)
         big(cv, '泡泡玛特', W / 2, 300, 88, a=a, color=(1.0, 0.75, 0.66), glow=0.2)
-        rows = [('认得出', '✓', '全球门店排长队', T('g6') + 0.2),
-                ('仿不了', '?', '补货当天，二手价腰斩', WT('g6', '稀缺')),
-                ('稀释不了', '?', '三季度收入同比 −45%~−50%', WT('g6', '三季度'))]
+        rows = [('认得出', '✓', '全球门店排长队', T('g12') + 0.2),
+                ('仿不了', '?', '补货当天，二手价腰斩', WT('g12', '稀缺')),
+                ('稀释不了', '?', '三季度收入同比 −45%~−50%', WT('g12', '第三季度'))]
         scorecard(cv, t, 60, 400, rows, a)
-        o = ease(lin(t, WT('g6', '公司') - 0.2, WT('g6', '公司') + 0.3))
+        o = ease(lin(t, WT('g12', '公司') - 0.2, WT('g12', '公司') + 0.3))
         card(cv, 60, 840, 1020, 1060, (0.10, 0.10, 0.12), 0.95 * o, WHITE, glow=0.2)
         label(cv, '公司的解释', 100, 895, 30, GREY, o, 'sans_bold', anchor='l')
         label(cv, '去年同期基数太高；正在优化海外库存', 100, 970, 36, WHITE, o, 'sans_bold', anchor='l')
         label(cv, '预计中国市场全年仍正增长', 100, 1022, 28, GREY, o, 'sans_med', anchor='l')
         source(cv, '泡泡玛特 2026 年第三季度经营数据公告（2026.10.27）', a, y=1240)
-        credit(cv, 'nyc_store', a, y=1300)
+        credit(cv, 'v_labubu_hk' if 'labubu_hk' in CLIPS else 'nyc_store', a, y=1300)
         return
-    if t < T('g9') - 0.1:
-        a = ease(lin(t, T('g7') - 0.2, T('g7') + 0.3))
+    if t < T('g15') - 0.1:
+        a = ease(lin(t, T('g13') - 0.2, T('g13') + 0.3))
         L = layer(); rect(L, 60, 180, 1020, 760, r=16); fill(cv, L, (0.14, 0.10, 0.10), 0.95 * a)
         big(cv, '段', 300, 470, 300, a=a * 0.9, color=(0.85, 0.40, 0.32), fname='serif_black', glow=0.3)
         label(cv, '段永平', 680, 400, 56, (1.0, 0.60, 0.50), a, 'serif_black')
         label(cv, 'Duan Yongping', 680, 460, 28, GREY, a, 'corm_med', track=0.1)
-        # 股价下行线 + 一支逆向的金色箭头
         L = layer(); pts = [(560 + 400 * u, 560 + 140 * u ** 0.8 + 18 * math.sin(u * 14)) for u in np.linspace(0, 1, 30)]
         poly(L, pts, 3); stroke_layer(cv, L, RED, a * 0.8, glow=0.4)
-        kk = eout(lin(t, WT('g7', '买下') - 0.2, WT('g7', '股份', end=True)))
+        kk = eout(lin(t, WT('g13', '买入') - 0.2, WT('g13', '股份', end=True)))
         L = layer(); arrow(L, (760, 720), (760 + 120 * kk, 720 - 150 * kk), 5, 20); stroke_layer(cv, L, GOLD, a * ease(kk * 3), glow=1.2)
-        o1 = ease(lin(t, WT('g7', '百分之五') - 0.3, WT('g7', '百分之五') + 0.2))
+        o1 = ease(lin(t, WT('g13', '百分之五') - 0.3, WT('g13', '百分之五') + 0.2))
         label(cv, '2026.05 举牌 5.69% → 7 月增至 7.65%', W / 2, 850, 36, GOLD_HI, o1, 'sans_bold')
-        o2 = ease(lin(t, WT('g7', '十年') - 0.3, WT('g7', '十年') + 0.2))
+        o2 = ease(lin(t, WT('g13', '十年') - 0.3, WT('g13', '十年') + 0.2))
         label(cv, '“我猜 10 年内大概率是不会卖的。”', W / 2, 950, 42, WHITE, o2, 'serif_semi')
-        o3 = ease(lin(t, T('g8') - 0.2, T('g8') + 0.3))
+        o3 = ease(lin(t, T('g14') - 0.2, T('g14') + 0.3))
         label(cv, '看好的是：创始人王宁', W / 2, 1060, 38, WHITE, o3, 'sans_bold')
-        label(cv, '“没想到盈利如此之好”', W / 2, 1120, 34, GREY, ease(lin(t, WT('g8', '没想到') - 0.2, WT('g8', '没想到') + 0.2)), 'serif_semi')
+        label(cv, '“没想到盈利如此之好”', W / 2, 1120, 34, GREY, ease(lin(t, WT('g14', '没想到') - 0.2, WT('g14', '没想到') + 0.2)), 'serif_semi')
         source(cv, '港交所权益披露；财联社、上海证券报、中证网报道', a, y=1240)
         return
-    a = ease(lin(t, T('g9') - 0.2, T('g9') + 0.3))
-    o1 = ease(lin(t, WT('g9', '热度') - 0.2, WT('g9', '热度') + 0.3)) * (1 - 0.6 * ease(lin(t, WT('g9', '一家公司') - 0.2, WT('g9', '一家公司') + 0.3)))
+    a = ease(lin(t, T('g15') - 0.2, T('g15') + 0.3))
+    o1 = ease(lin(t, WT('g15', '热度') - 0.2, WT('g15', '热度') + 0.3)) * (1 - 0.6 * ease(lin(t, WT('g15', '一家公司') - 0.2, WT('g15', '一家公司') + 0.3)))
     label(cv, '一只玩偶的热度，会退', W / 2, 420, 48, GREY, o1, 'sans_bold')
-    o2 = ease(lin(t, WT('g9', '一次又一次') - 0.2, WT('g9', '一次又一次') + 0.3))
+    o2 = ease(lin(t, WT('g15', '一次又一次') - 0.2, WT('g15', '一次又一次') + 0.3))
     for i in range(5):
-        oo = ease(lin(t, WT('g9', '一次又一次') + i * 0.18, WT('g9', '一次又一次') + i * 0.18 + 0.3))
+        oo = ease(lin(t, WT('g15', '一次又一次') + i * 0.18, WT('g15', '一次又一次') + i * 0.18 + 0.3))
         L = layer(); circle(L, (220 + i * 160, 640), 50, 4); stroke_layer(cv, L, GOLD, oo * 0.9, glow=1.0)
         label(cv, 'IP', 220 + i * 160, 640, 30, GOLD_HI, oo, 'oswald')
     label(cv, '一次又一次，造出让人想拥有的身份', W / 2, 780, 40, WHITE, o2, 'sans_bold')
     blink = 0.6 + 0.4 * math.sin(t * 5)
-    s, o3 = pop(t, WT('g9', '答案') - 0.2, 0.5)
+    s, o3 = pop(t, WT('g15', '答案') - 0.2, 0.5)
     check(cv, W / 2, 960, '?', o3 * blink, 90)
     big(cv, '答案，交给时间', W / 2, 1150, 76, a=o3, grad=GOLDG, glow=0.5)
+
+
+def moutai(cv, t):
+    """g2–g7 茅台：宴席与送礼（认得出）→ 五年（仿不了）→ 条例：宴席上的可见性少了一块 → 批价跌破 1499、首次双降 → 毛利率、提价、批价回升 → 乘法的启示"""
+    has = lambda k: os.path.exists(os.path.join(MEDIA, k + '.jpg'))
+    if t < T('g3') - 0.1:
+        a = ease(lin(t, T('g2') - 0.2, T('g2') + 0.3))
+        if has('banquet'): photo(cv, 'banquet.jpg', t, T('g2') - 0.3, T('g3'), 1.05, 1.15, 0.5, 0.5, 0.5, 0.5, a=a, sat=0.7, warm=0.3, contrast=1.05, gain=0.30)
+        big(cv, '茅台', W / 2, 300, 110, a=a, grad=((1.0, 0.85, 0.7), (0.85, 0.30, 0.22)), glow=0.4)
+        label(cv, '中国最经典的身份消费品', W / 2, 410, 36, WHITE, a, 'sans_bold')
+        if has('moutai_bottle'):
+            panel(cv, 'moutai_bottle.jpg', 290, 470, 790, 990, a, 1.0, 0.5, 0.42, edge=GOLD, sat=0.95, warm=0.15, contrast=1.05, gain=0.9)
+        s, o = pop(t, WT('g2', '宴席') - 0.2, 0.45)
+        chip(cv, '摆上宴席 · 人人认得', W / 2, 1080, o, GOLD, 40, (0.12, 0.09, 0.06))
+        s, o = pop(t, WT('g2', '体面') - 0.4, 0.45)
+        chip(cv, '拿去送礼 · 代表体面', W / 2, 1190, o, GOLD, 40, (0.12, 0.09, 0.06))
+        ks = [k for k in ('banquet', 'moutai_bottle') if has(k)]
+        if len(ks) == 2:
+            text(cv, '图：%s · %s ／ %s · %s' % (CREDIT[ks[0]]['artist'][:16], CREDIT[ks[0]]['license'], CREDIT[ks[1]]['artist'][:16], CREDIT[ks[1]]['license']),
+                 56, 1330, 'sans_light', 22, GREY, anchor='l', alpha=0.75 * a)
+        elif ks: credit(cv, ks[0], a)
+        return
+    if t < T('g4') - 0.1:
+        a = ease(lin(t, T('g3') - 0.2, T('g3') + 0.3))
+        if has('maotai_town'):
+            photo(cv, 'maotai_town.jpg', t, T('g3') - 0.3, T('g4'), 1.05, 1.15, 0.5, 0.5, 0.5, 0.5, a=a, sat=0.8, warm=0.15, contrast=1.05, gain=0.42)
+            shade(cv, 0.45, 0.85, 0.12)
+            label(cv, '赤水河畔 · 茅台镇', W / 2, 420, 32, WHITE, a, 'sans_med')
+            credit(cv, 'maotai_town', a, y=1300)
+        label(cv, '仿不了', W / 2, 330, 64, GOLD, a, 'serif_black', glow=0.3)
+        k = eout(lin(t, WT('g3', '投料') - 0.2, WT('g3', '五年', end=True)))
+        x0, x1, y = 140, 940, 800
+        L = layer(); line(L, (x0, y), (x0 + (x1 - x0) * k, y), 6); stroke_layer(cv, L, GOLD, a, glow=1.2)
+        for i in range(6):
+            o = ease(lin(k, i / 5 - 0.05, i / 5 + 0.05)) * a
+            L = layer(); circle(L, (x0 + (x1 - x0) * i / 5, y), 12, fill=True); stroke_layer(cv, L, GOLD_HI, o, glow=1.2)
+            label(cv, ('投料', '1 年', '2 年', '3 年', '4 年', '出厂')[i], x0 + (x1 - x0) * i / 5, y + 56, 30, WHITE, o, 'sans_bold')
+        s, o = pop(t, WT('g3', '五年') - 0.1, 0.5)
+        big(cv, '至少 5 年', W / 2, 680, 80, a=o, scale=0.9 + 0.1 * s, grad=GOLDG, glow=0.5)
+        label(cv, '别人想追，也追不快', W / 2, 1000, 40, WHITE, ease(lin(t, WT('g3', '追不快') - 0.4, WT('g3', '追不快'))), 'sans_bold')
+        source(cv, '茅台官方介绍：生产周期一年，基酒贮存三年以上，勾兑后再贮存约一年', a, y=1240)
+        return
+    if t < T('g5') - 0.1:
+        a = ease(lin(t, T('g4') - 0.2, T('g4') + 0.3))
+        if has('banquet'): panel(cv, 'banquet.jpg', 0, 0, W, H, a, 1.2, 0.5, 0.5, sat=0.4, warm=0.2, gain=0.22); credit(cv, 'banquet', a, y=1300)
+        o1 = ease(lin(t, WT('g4', '社会可见性') - 0.3, WT('g4', '社会可见性') + 0.2))
+        label(cv, '乘法里的一项', W / 2, 330, 34, GREY, o1, 'sans_med')
+        big(cv, '社会可见性', W / 2, 420, 76, a=o1, color=COLD, glow=0.3)
+        o2 = ease(lin(t, WT('g4', '二零二五年') - 0.2, WT('g4', '二零二五年') + 0.3))
+        card(cv, 90, 560, 990, 980, (0.94, 0.91, 0.85), 0.95 * o2, r=10)
+        L = layer(); rect(L, 90, 560, 990, 650, r=10); fill(cv, L, (0.70, 0.10, 0.09), 0.95 * o2)
+        label(cv, '2025.05 · 新修订', W / 2, 605, 34, WHITE, o2, 'sans_black')
+        label(cv, '《党政机关厉行节约', W / 2, 730, 46, (0.15, 0.12, 0.10), o2, 'serif_black', glow=0)
+        label(cv, '反对浪费条例》', W / 2, 800, 46, (0.15, 0.12, 0.10), o2, 'serif_black', glow=0)
+        o3 = ease(lin(t, WT('g4', '工作餐') - 0.2, WT('g4', '工作餐') + 0.3))
+        label(cv, '工作餐不得提供高档酒水', W / 2, 910, 44, (0.70, 0.12, 0.10), o3, 'sans_black', glow=0)
+        source(cv, '中共中央、国务院 2025 年 5 月印发（新华社）', a, y=1240)
+        return
+    if t < T('g7') - 0.1:
+        a = ease(lin(t, T('g5') - 0.2, T('g5') + 0.3))
+        label(cv, '宴席上的那份可见性，少了一块', W / 2, 330, 40, (1.0, 0.70, 0.62), a * (1 - ease(lin(t, T('g6') - 0.3, T('g6')))), 'sans_bold')
+        label(cv, '但定价权并没有消失', W / 2, 330, 40, GOLD_HI, ease(lin(t, T('g6') - 0.1, T('g6') + 0.3)), 'sans_bold')
+        moutai_price(cv, t, a, 120, 960, 470, 900, 960)
+        o = ease(lin(t, WT('g5', '双双下降') - 0.4, WT('g5', '双双下降'))) * (1 - ease(lin(t, T('g6') - 0.3, T('g6'))))
+        card(cv, 120, 1040, 960, 1200, (0.14, 0.06, 0.06), 0.92 * o, RED, r=14, glow=0.4)
+        label(cv, '2025 年：营收 −1.21% · 净利 −4.53%', W / 2, 1095, 36, WHITE, o, 'sans_bold')
+        label(cv, '上市以来第一次双双下降', W / 2, 1150, 30, (1.0, 0.70, 0.62), o, 'sans_med')
+        o2 = ease(lin(t, WT('g6', '毛利率') - 0.3, WT('g6', '毛利率') + 0.2))
+        card(cv, 120, 1040, 960, 1200, (0.14, 0.11, 0.06), 0.92 * o2, GOLD, r=14, glow=0.6)
+        label(cv, '2025 年 · 茅台酒毛利率', 350, 1120, 34, WHITE, o2, 'sans_bold')
+        stat(cv, 760, 1110, '93.5%', '', o2, size=80, grad=GOLDG)
+        source(cv, '批价：第一财经、21 世纪经济报道等；茅台 2025 年报（2026.04.16）；2026.03.30 调价公告', a, y=1260)
+        return
+    a = ease(lin(t, T('g7') - 0.2, T('g7') + 0.3))
+    label(cv, '乘法里有一项变小 → 溢价松动', W / 2, 420, 40, (1.0, 0.70, 0.62), a, 'sans_bold')
+    vals = (0.40, 0.90, 0.78, 0.70)
+    for i, ((n, key, col), y) in enumerate(zip(FACTORS, (580, 700, 820, 940))):
+        on = ease(lin(t, WT('g7', '认得出') - 0.2, WT('g7', '认得出') + 0.3)) if i in (1, 2) else 0
+        label(cv, n, 120, y, 38, col, a, 'sans_black', anchor='l')
+        L = layer(); rect(L, 370, y - 16, 960, y + 16, r=16); fill(cv, L, (0.20, 0.21, 0.24), 0.9 * a)
+        L = layer(); rect(L, 370, y - 16, 370 + 590 * vals[i], y + 16, r=16); fill(cv, L, RED if i == 0 else col, 0.95 * a)
+        if on > 0: label(cv, '✓', 990, y, 38, TEAL, on, 'sans_black')
+    s, o = pop(t, WT('g7', '定价权') - 0.3, 0.5)
+    big(cv, '认得出、仿不了还在', W / 2, 1100, 56, a=o, color=WHITE, glow=0.2)
+    big(cv, '定价权就还在', W / 2, 1200, 64, a=o, grad=GOLDG, glow=0.5)
 
 
 # ═══════════════════════ 05 · 失守 ═══════════════════════
@@ -1153,10 +1423,25 @@ def sc_betray(cv, t):
 
 
 # ═══════════════════════ 06 · 答案 ═══════════════════════
+def blind_test(cv, t, a, cx, y_title, xs, y_base, h_max):
+    """z4 试金石：有人看见 vs 没人看见时愿意多付的钱；差得越多，身份的分量越重"""
+    label(cv, '投资者的试金石', cx, y_title, 46, WHITE, a, 'serif_black')
+    k = eout(lin(t, WT('z4', '没人看见') - 0.2, WT('z4', '降得越多', end=True)))
+    for x, v, col, n in ((xs[0], 1.0, GOLD, '有人看见时'), (xs[1], 1.0 - 0.62 * k, (0.62, 0.66, 0.74), '没人看见时')):
+        hh = h_max * v
+        L = layer(); rect(L, x - 110, y_base - hh, x + 110, y_base, r=10); fill(cv, L, col, 0.92 * a)
+        label(cv, n, x, y_base + 50, 36, col, a, 'sans_black')
+    label(cv, '愿意多付的钱', cx, y_title + 80, 30, GREY, a, 'sans_med')
+    s, o = pop(t, WT('z4', '分量') - 0.3, 0.5)
+    yg = y_base - h_max * (1 - 0.62 / 2)
+    L = layer(); line(L, (xs[1] - 130, y_base - h_max), (xs[1] - 130, y_base - h_max * 0.38), 3); stroke_layer(cv, L, GOLD_HI, o * a, glow=1.0)
+    label(cv, '差得越多', xs[1] - 150, yg - 26, 30, GOLD_HI, o * a, 'sans_bold', anchor='r')
+    label(cv, '身份分量越重', xs[1] - 150, yg + 22, 30, GOLD_HI, o * a, 'sans_bold', anchor='r')
+
+
 def sc_answer(cv, t):
     bg(cv, t, (0.07, 0.065, 0.06))
     if t < T('z3') - 0.1:
-        # 隐形测试：聚光灯下一只包，周围的目光一盏盏熄灭
         a = ease(lin(t, T('z1') - 0.2, T('z1') + 0.4))
         L = layer(); fpoly(L, [(W / 2 - 60, 120), (W / 2 + 60, 120), (W / 2 + 330, 980), (W / 2 - 330, 980)]); fill(cv, cv2.GaussianBlur(L, (0, 0), 30), (1.0, 0.92, 0.75), 0.12 * a)
         L = layer(); poly(L, [(420, 960), (440, 760), (640, 760), (660, 960)], 5, closed=True); arc(L, (540, 760), 70, 180, 360, 5)
@@ -1174,55 +1459,58 @@ def sc_answer(cv, t):
         return
     if t < T('z4') - 0.1:
         a = ease(lin(t, T('z3') - 0.2, T('z3') + 0.3))
-        for i, (q, ans, col, key) in enumerate((('愿意', '你买的是品质', TEAL, '愿意'), ('不愿意', '你买的是别人的目光', GOLD, '不愿意'))):
-            s, o = pop(t, WT('z3', key, nth=0) - 0.1, 0.45); y = 560 + i * 280
+        for i, (q, ans, col, key) in enumerate((('愿意', '你买的是品质', TEAL, '如果愿意'), ('不愿意', '你买的是别人的目光', GOLD, '不愿意'))):
+            s, o = pop(t, WT('z3', key) - 0.1, 0.45); y = 560 + i * 280
             card(cv, 110, y - 110, 970, y + 110, (0.10, 0.10, 0.11), 0.92 * o, col, glow=0.5)
             label(cv, q, 200, y, 52, col, o, 'sans_black', anchor='l')
             label(cv, ans, 930, y, 46, WHITE, o, 'serif_semi', anchor='r')
         o = ease(lin(t, WT('z3', '两种') - 0.2, WT('z3', '两种') + 0.3))
         big(cv, '两种，都没有错', W / 2, 1180, 72, a=o, color=(1.0, 0.92, 0.80), glow=0.4)
         return
-    if t < T('z5b') - 0.1:
-        a = ease(lin(t, T('z4') - 0.1, T('z4') + 0.3))
+    if t < T('z5') - 0.1:
+        blind_test(cv, t, ease(lin(t, T('z4') - 0.2, T('z4') + 0.3)), W / 2, 420, (330, 750), 1150, 480)
+        return
+    if t < T('z7') - 0.1:
+        a = ease(lin(t, T('z5') - 0.1, T('z5') + 0.3))
         label(cv, '对投资者来说', W / 2, 340, 40, GREY, a, 'sans_bold')
-        s, o = pop(t, WT('z4', '贵') - 0.1, 0.45)
+        s, o = pop(t, WT('z5', '贵') - 0.1, 0.45)
         card(cv, 340, 430, 740, 650, (0.12, 0.11, 0.10), 0.92 * o, GREY, r=16, glow=0.2)
         big(cv, '贵', W / 2, 540, 130, a=o, color=WHITE, glow=0.1)
-        k = ease(lin(t, WT('z4', '标价') - 0.1, WT('z4', '标价') + 0.3))
+        k = ease(lin(t, WT('z5', '标价') - 0.1, WT('z5', '标价') + 0.3))
         L = layer(); line(L, (330, 650), (330 + 420 * k, 430 + 0 * k), 6); stroke_layer(cv, L, RED, k * 0.9, glow=0.8)
-        label(cv, '只是一个标价，谁都能标', W / 2, 720, 40, GREY, ease(lin(t, WT('z4', '谁都能标') - 0.3, WT('z4', '谁都能标'))), 'sans_bold')
-        o2 = ease(lin(t, T('z5') - 0.2, T('z5') + 0.3))
+        label(cv, '只是一个标价，谁都能标', W / 2, 720, 40, GREY, ease(lin(t, WT('z5', '谁都能标') - 0.3, WT('z5', '谁都能标'))), 'sans_bold')
+        o2 = ease(lin(t, T('z6') - 0.2, T('z6') + 0.3))
         gates(cv, t, o2, -1, y=880, done=(0, 1, 2))
-        chip(cv, '+ 变成利润', W / 2, 1110, ease(lin(t, WT('z5', '利润') - 0.3, WT('z5', '利润'))), GOLD, 38)
+        chip(cv, '+ 变成利润', W / 2, 1110, ease(lin(t, WT('z6', '利润') - 0.3, WT('z6', '利润'))), GOLD, 38)
         s3, o3 = pop(t, HIT['answer'] - 0.1, 0.5)
         big(cv, '= 护城河', W / 2, 1240, 84, a=o3, scale=0.9 + 0.1 * s3, grad=GOLDG, glow=0.6)
         return
-    if t < T('z6') - 0.1:
-        z5b(cv, t, (W / 2, 900), 1.0, (W / 2, 330), (W / 2, 440), (W / 2, 1230))
+    if t < T('z8') - 0.1:
+        z7(cv, t, (W / 2, 840), 1.0, (W / 2, 330), (W / 2, 440), (W / 2, 1240))
         return
-    a = ease(lin(t, T('z6') - 0.1, T('z6') + 0.4)) * (1 - ease(lin(t, HIT['logo'] - 0.5, HIT['logo'])))
+    a = ease(lin(t, T('z8') - 0.1, T('z8') + 0.4)) * (1 - ease(lin(t, HIT['logo'] - 0.5, HIT['logo'])))
     DUST.draw(cv, t, GOLD, 0.35)
     label(cv, '品牌的最高境界', W / 2, 560, 48, GREY, a, 'sans_bold')
-    o1 = ease(lin(t, WT('z6', '我拥有它') - 0.3, WT('z6', '我拥有它') + 0.2)) * a / max(a, 1e-3) * (1 - ease(lin(t, HIT['logo'] - 0.5, HIT['logo'])))
+    o1 = ease(lin(t, WT('z8', '我拥有它') - 0.3, WT('z8', '我拥有它') + 0.2)) * (1 - ease(lin(t, HIT['logo'] - 0.5, HIT['logo'])))
     big(cv, '不是“我拥有它”', W / 2, FINAL_Y[0], 84, a=o1, color=(0.85, 0.85, 0.88), glow=0.1)
-    o2 = ease(lin(t, WT('z6', '它代表我') - 0.3, WT('z6', '它代表我') + 0.2)) * (1 - ease(lin(t, HIT['logo'] - 0.5, HIT['logo'])))
+    o2 = ease(lin(t, WT('z8', '它代表我') - 0.3, WT('z8', '它代表我') + 0.2)) * (1 - ease(lin(t, HIT['logo'] - 0.5, HIT['logo'])))
     big(cv, FINAL_LINE, W / 2, FINAL_Y[1], 96, a=o2, grad=GOLDG, glow=0.7)
 
 
-def z5b(cv, t, body, sc, p_lab, p_chip, p_big):
-    """z5b：品牌成了你的一部分——对手要抢走的不是一笔订单，而是你对自己的理解"""
-    a = ease(lin(t, T('z5b') - 0.2, T('z5b') + 0.4))
+def z7(cv, t, body, sc, p_lab, p_chip, p_big):
+    """z7：品牌成了你的一部分——对手要抢走的不是一笔订单，而是你对自己的理解"""
+    a = ease(lin(t, T('z7') - 0.2, T('z7') + 0.4))
     L = layer(); silhouette(L, body[0], body[1], sc); stroke_layer(cv, L, (0.62, 0.66, 0.74), a * 0.7, glow=0.3)
-    kc = ease(lin(t, WT('z5b', '一部分') - 0.3, WT('z5b', '一部分') + 0.4))
+    kc = ease(lin(t, WT('z7', '一部分') - 0.3, WT('z7', '一部分') + 0.4))
     cy_ = body[1] - 20 * sc
     L = layer(); circle(L, (body[0], cy_), 46 * sc, 5); circle(L, (body[0], cy_), 12 * sc, fill=True); stroke_layer(cv, L, GOLD, a * kc, glow=1.6)
-    o1 = ease(lin(t, WT('z5b', '对手') - 0.2, WT('z5b', '对手') + 0.3))
+    o1 = ease(lin(t, WT('z7', '对手') - 0.2, WT('z7', '对手') + 0.3))
     label(cv, '对手要抢走的', p_lab[0], p_lab[1], 42, GREY, o1, 'sans_bold')
-    s, o2 = pop(t, WT('z5b', '订单') - 0.25, 0.4)
+    s, o2 = pop(t, WT('z7', '订单') - 0.25, 0.4)
     chip(cv, '一笔订单', p_chip[0], p_chip[1], o2, WHITE, 40, (0.10, 0.10, 0.12))
-    ks = ease(lin(t, WT('z5b', '而是') - 0.2, WT('z5b', '而是') + 0.2)); w_ = text_w('一笔订单', 'sans_bold', 40) + 60
+    ks = ease(lin(t, WT('z7', '而是') - 0.2, WT('z7', '而是') + 0.2)); w_ = text_w('一笔订单', 'sans_bold', 40) + 60
     L = layer(); line(L, (p_chip[0] - w_ / 2, p_chip[1]), (p_chip[0] - w_ / 2 + w_ * ks, p_chip[1]), 5); stroke_layer(cv, L, RED, ks * o2, glow=0.6)
-    s3, o3 = pop(t, WT('z5b', '理解') - 0.4, 0.5)
+    s3, o3 = pop(t, WT('z7', '理解') - 0.4, 0.5)
     big(cv, '而是你对自己的理解', p_big[0], p_big[1], 68, a=o3, scale=0.92 + 0.08 * s3, grad=GOLDG, glow=0.6)
 
 
@@ -1368,14 +1656,17 @@ def load_clips():
     CLIPS['airport'] = Clip('airport.mp4', 1080, 0.5)   # 1080×608，已在 fetch_clips 里裁掉烧录字幕
     CLIPS['peacock'] = Clip('peacock.mp4', 1080, 0.5)
     for k in ('crowd', 'car', 'turn'): CLIPS['dfd_' + k] = Clip('dfd_%s.mp4' % k, 640, 0.5)
+    for k in ('labubu_bj', 'labubu_hk'):
+        if os.path.exists(os.path.join(MEDIA, 'clips', k + '.mp4')): CLIPS[k] = Clip(k + '.mp4', 608, 0.5)
 
 
 SC = [  # (start, end, fn)
     (0.0, T('o3') - 0.3, sc_intro), (T('o3') - 0.3, T('o6') - 0.3, sc_orange), (T('o6') - 0.3, T('o11') - 0.3, sc_halves),
     (T('o11') - 0.3, HIT['title'], sc_question), (HIT['title'], T('p1') - 0.25, sc_title),
-    (T('p1') - 0.25, T('p6') - 0.3, sc_three), (T('p6') - 0.3, T('p9') - 0.3, sc_envy), (T('p9') - 0.3, T('p14') - 0.3, sc_signal),
-    (T('p14') - 0.3, T('p16') - 0.3, sc_price), (T('p16') - 0.3, T('d1') - 0.3, sc_paradox), (T('d1') - 0.3, T('k1') - 0.3, sc_ruler),
-    (T('k1') - 0.3, T('k6') - 0.3, sc_gate1), (T('k6') - 0.3, T('k16') - 0.3, sc_gate2), (T('k16') - 0.3, T('m1') - 0.3, sc_gate3),
+    (T('p1') - 0.25, T('p7') - 0.3, sc_three), (T('p7') - 0.3, T('p10') - 0.3, sc_envy), (T('p10') - 0.3, T('p14') - 0.3, sc_signal),
+    (T('p14') - 0.3, T('p19') - 0.3, sc_forces), (T('p19') - 0.3, T('p22') - 0.3, sc_formula), (T('p22') - 0.3, T('d1') - 0.3, sc_paradox),
+    (T('d1') - 0.3, T('k1') - 0.3, sc_ruler),
+    (T('k1') - 0.3, T('k7') - 0.3, sc_gate1), (T('k7') - 0.3, T('k17') - 0.3, sc_gate2), (T('k17') - 0.3, T('m1') - 0.3, sc_gate3),
     (T('m1') - 0.3, T('g1') - 0.25, sc_math), (T('g1') - 0.25, T('q1') - 0.3, sc_china), (T('q1') - 0.3, T('z1') - 0.3, sc_betray),
     (T('z1') - 0.3, HIT['logo'], sc_answer), (HIT['logo'], TOTAL + 1, sc_end)]
 XF = 0.45   # 场景间交叉溶解
@@ -1395,7 +1686,7 @@ def chapter_tag(cv, t):
 
 
 # 字幕：按标点切成不超过 15 字的短句，按逐字时间戳显示
-NOSUB = {'o12', 'p7', 'd2', 'd3', 'k14', 'z2', 'z6'}
+NOSUB = {'o12', 'p8', 'd2', 'd3', 'z2', 'z8'}
 PUN = '，。：；？！、'
 
 
@@ -1491,7 +1782,9 @@ if __name__ == '__main__':
     mode = sys.argv[2]; load_clips()
     if mode == 'still':
         for x in sys.argv[3:]:
-            t = float(x); cv2.imwrite(os.path.join(WORK, 'still_%06.2f.png' % t), to8(render(int(round(t * FPS))))[..., ::-1]); print('still', t)
+            t = float(x)
+            try: cv2.imwrite(os.path.join(WORK, 'still_%06.2f.png' % t), to8(render(int(round(t * FPS))))[..., ::-1]); print('still', t)
+            except Exception as e: print('ERR', t, repr(e), flush=True)
     elif mode == 'chunk':
         f0, f1, out = int(sys.argv[3]), min(int(sys.argv[4]), NF), sys.argv[5]
         p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '%dx%d' % (W, H), '-r', str(FPS),

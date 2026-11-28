@@ -6,8 +6,10 @@ set -euo pipefail
 cd "$(dirname "$0")"; WORK=work; mkdir -p $WORK
 python3 src/get_fonts.py
 python3 src/fetch_titles.py   # Wikimedia Commons 图片 / 视频（限速，有缓存）
+python3 src/fetch_pages.py    # v3 补充素材：两段中新社 Labubu 新闻片等（API 限流时改从文件页取作者 / 许可）
+python3 src/fetch_embedded.py "veblen=Veblen3a.jpg"   # 只有文件页嵌入的那一张能下载的图
 src/fetch_clips.sh
-python3 src/tts_single.py $WORK 6      # 整篇一次合成（无接缝）6 条候选，选音高最平的一条，残余漂移 ≤2 半音平滑修正（有缓存）
+WIN=25 python3 src/tts_single.py $WORK 12   # 整篇一次合成（无接缝）12 条候选（不完整的跳过），按“修正后残余”选最平的一条，残余漂移逐句 ≤2 半音修正（有缓存）
 python3 src/voice_qc_single.py $WORK   # 旁白一致性验收：60 秒窗音高、斜率、响度、谐噪比
 python3 src/timeline.py $WORK
 python3 ../视频脚本/export_script.py . 01 "多付的钱，买的是什么｜身份成为护城河的三道关"   # 定稿脚本单独存档：视频脚本/01_*.md
@@ -19,8 +21,8 @@ for k in $(seq 0 $((P-1))); do python3 src/video.py $WORK chunk $((k*STEP)) $(((
 printf "file '%s'\n" seg0.mp4 seg1.mp4 seg2.mp4 seg3.mp4 > $WORK/list.txt
 ffmpeg -v error -y -f concat -safe 0 -i $WORK/list.txt -i $WORK/mix.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -ar 48000 \
   -shortest $WORK/master_crf20.mp4
-# 成片：两遍编码到约 93MB（7 分 44 秒，约 1.42 Mbps）（仓库 LFS 额度已满，按普通文件入库，须小于 100MB）；只出成片，不出预览版
-(cd $WORK && ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 1420k -tune animation -pass 1 -passlogfile p2 -an -f null /dev/null && \
-  ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 1420k -tune animation -maxrate 4500k -bufsize 6000k -pass 2 -passlogfile p2 \
+# 成片：两遍编码到约 93MB（10 分 43 秒，视频约 0.99 Mbps）（仓库 LFS 额度已满，按普通文件入库，须小于 100MB）；只出成片，不出预览版
+(cd $WORK && ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 990k -tune animation -pass 1 -passlogfile p2 -an -f null /dev/null && \
+  ffmpeg -v error -y -i master_crf20.mp4 -c:v libx264 -preset slow -b:v 990k -tune animation -maxrate 4500k -bufsize 6000k -pass 2 -passlogfile p2 \
   -c:a aac -b:a 160k -movflags +faststart "../多付的钱买的是什么.mp4")
 echo "done -> 多付的钱买的是什么.mp4"

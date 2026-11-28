@@ -116,7 +116,7 @@ SUBS = []   # (t, gain, kind)
 # ─────────────────────────── 时刻表 ───────────────────────────
 TITLE = tl.SE('o12') + 0.55; HITS['title'] = TITLE
 G = lambda lid: grid(tl.S(lid) - BEAT)
-END = tl.SE('z6') + 0.8; HITS['logo'] = END                   # 片尾动画开始：金句字形开始汇聚
+END = tl.SE('z8') + 0.8; HITS['logo'] = END                   # 片尾动画开始：金句字形开始汇聚
 LAND = grid(END + 2.25); HITS['logo_land'] = LAND            # logo 成形落定
 BRAND = LAND + 2 * BEAT; HITS['brand'] = BRAND               # 重拍：金色「巴芒价值」
 SLOGAN = BRAND + 3 * BEAT; HITS['slogan'] = SLOGAN           # 细金线引出关注语
@@ -154,20 +154,27 @@ timp(TITLE, 38, 112, roll=0.4); SUBS.append((TITLE, 1.0, 'boom'))
 for p in voicing('Dm', 38, 3) + voicing('Dm', 62, 4): note('brass', p, TITLE, TITLE + 2.6, 74)
 for p in voicing('Dm', 50, 4): note('slow', p, TITLE, G('p1'), 46)
 
-# 01 第一性原理：三个问题（竖琴三连）→ 芒格（低弦）→ 孔雀（竖琴上行 + 重拍“装不起”）→ 矛盾（弦乐绷紧）
+# 01 第一性原理：三个问题（竖琴三连）→ 芒格（低弦）→ 孔雀（竖琴上行 + 重拍“有代价”）→ 三股力量（逐股落拍）→ 凡勃伦（收）→ 乘法（升）→ 拉扯（弦乐绷紧）
 P1 = G('p1'); prP = ['Dm', 'Bb', 'F', 'C']
-pad(P1, tl.T('p6'), prP, 38, name='strings'); arp(P1, tl.T('p6'), prP, 38, lo=62, name='harp')
+pad(P1, tl.T('p7'), prP, 38, name='strings'); arp(P1, tl.T('p7'), prP, 38, lo=62, name='harp')
 for k_, lid in enumerate(('p2', 'p3', 'p4')): note('celesta', (74, 77, 81)[k_], tl.S(lid), tl.S(lid) + 1.6, 56)
-pad(tl.T('p6'), tl.T('p9'), ['Gm', 'Dm', 'Bb', 'A'], 42, name='slow'); ostinato(tl.T('p7'), tl.T('p9'), ['Gm', 'Dm', 'Bb', 'A'], 44, step=BEAT / 2)
-hit('envy', 'p7', '嫉妒', 64)
-pad(tl.T('p9'), tl.T('p11'), ['Bb', 'F'], 36, name='strings', bassname=None)
-arp(tl.T('p11'), tl.T('p14'), ['Dm', 'F', 'Bb', 'C'], 42, lo=62, name='harp', step=BEAT / 2)
-pad(tl.T('p11'), tl.T('p14'), ['Dm', 'F', 'Bb', 'C'], 40, name='slow')
-hit('costly', 'p11', '装不起', 96, 0.7)
-pad(tl.T('p14'), tl.T('p16'), ['F', 'C', 'Dm', 'Bb'], 40, name='strings'); arp(tl.T('p14'), tl.T('p16'), ['F', 'C', 'Dm', 'Bb'], 36, lo=67, name='piano')
-for p in (62, 63): note('strings', p, tl.T('p16'), tl.SE('p18'), 40)
-ramp('strings', tl.T('p16'), tl.SE('p18'), 60, 118); pulse(tl.T('p17'), tl.SE('p18'), 40, BEAT / 2)
-hit('paradox', 'p18', '三角', 96, 0.75)
+pad(tl.T('p7'), tl.T('p10'), ['Gm', 'Dm', 'Bb', 'A'], 42, name='slow'); ostinato(tl.T('p8'), tl.T('p10'), ['Gm', 'Dm', 'Bb', 'A'], 44, step=BEAT / 2)
+hit('envy', 'p8', '嫉妒', 64)
+pad(tl.T('p10'), tl.T('p12'), ['Bb', 'F'], 36, name='strings', bassname=None)
+arp(tl.T('p12'), tl.T('p14'), ['Dm', 'F', 'Bb', 'C'], 42, lo=62, name='harp', step=BEAT / 2)
+pad(tl.T('p12'), tl.T('p14'), ['Dm', 'F', 'Bb', 'C'], 40, name='slow')
+hit('costly', 'p12', '代价', 96, 0.7)
+prF = ['F', 'C', 'Dm', 'Bb']
+pad(tl.T('p14'), tl.T('p18'), prF, 40, name='strings'); arp(tl.T('p14'), tl.T('p18'), prF, 36, lo=67, name='piano'); pulse(tl.T('p15'), tl.T('p18'), 34)
+hit('force1', 'p15', '地位信号', 62); hit('force2', 'p16', '从众', 62); hit('force3', 'p17', '门槛', 62)
+pad(tl.T('p18'), tl.T('p19'), ['Gm', 'Bb'], 34, name='slow', bassname=None)
+pad(tl.T('p19'), tl.T('p22'), ['Bb', 'F', 'C', 'Dm'], 44, name='strings'); ramp('strings', tl.T('p19'), tl.T('p21'), 60, 112)
+arp(tl.T('p20'), tl.T('p22'), ['Bb', 'F', 'C', 'Dm'], 40, lo=65, name='harp', step=BEAT / 2)
+hit('formula', 'p20', '乘法', 82, 0.45)
+hit('zero', 'p21', '接近零', 70)
+for p in (62, 63): note('strings', p, tl.T('p22'), tl.SE('p24'), 40)
+ramp('strings', tl.T('p22'), tl.SE('p23'), 60, 118); pulse(tl.T('p22'), tl.SE('p24'), 40, BEAT / 2)
+hit('paradox', 'p22', '谁都没有', 96, 0.75)
 
 # 02 一把尺子：巴菲特（铜管低声部，稳重）
 D1 = G('d1'); prD = ['Bb', 'F', 'Gm', 'D']
@@ -178,39 +185,44 @@ pad(tl.T('d4'), G('k1'), ['Bb', 'C', 'Dm', 'Dm'], 44, name='strings'); ramp('str
 hit('three', 'd4', '三道关', 84, 0.5)
 
 # 03 三道关：每关开头一记定音鼓；第二关最紧张；第三关转温暖；算术段明亮
-for lid in ('k1', 'k6', 'k16'): hit('gate_' + lid, lid, '关', 90, 0.55)
+for lid in ('k1', 'k7', 'k17'): hit('gate_' + lid, lid, '关', 90, 0.55)
 prK1 = ['Dm', 'Bb', 'F', 'C']
-pad(tl.T('k1'), tl.T('k6'), prK1, 40, name='strings'); ostinato(tl.T('k1'), tl.T('k6'), prK1, 44, step=BEAT / 2, name='pizz', oct_=50)
-arp(tl.T('k4'), tl.T('k6'), prK1, 38, lo=67, name='celesta', step=BEAT / 2)
+pad(tl.T('k1'), tl.T('k7'), prK1, 40, name='strings'); ostinato(tl.T('k1'), tl.T('k7'), prK1, 44, step=BEAT / 2, name='pizz', oct_=50)
+arp(tl.T('k4'), tl.T('k7'), prK1, 38, lo=67, name='celesta', step=BEAT / 2)
 prK2 = ['Dm', 'Dm', 'Bb', 'A']
-pad(tl.T('k6'), tl.T('k12'), prK2, 44, name='strings'); ostinato(tl.T('k6'), tl.T('k12'), prK2, 52, step=BEAT / 2)
-pulse(tl.T('k7'), tl.T('k12'), 40, BEAT / 2)
-for c, s_, e_ in bars(tl.T('k8'), tl.T('k12'), prK2): note('brass', root(c, 38), s_, e_, 46)
-t_crash = hit('crash', 'k9', '一半以上', 0, 0.9)
+pad(tl.T('k7'), tl.T('k13'), prK2, 44, name='strings'); ostinato(tl.T('k7'), tl.T('k13'), prK2, 52, step=BEAT / 2)
+pulse(tl.T('k8'), tl.T('k13'), 40, BEAT / 2)
+for c, s_, e_ in bars(tl.T('k9'), tl.T('k13'), prK2): note('brass', root(c, 38), s_, e_, 46)
+t_crash = hit('crash', 'k10', '一半以上', 0, 0.9)
 for i, p in enumerate((74, 72, 70, 69, 65, 62)): note('celesta', p, t_crash + i * 0.18, t_crash + i * 0.18 + 0.5, 50 - 4 * i)
-hit('fake', 'k10', '九成', 70)
-hit('discount', 'k11', '打折', 0, 0.5)
+hit('fake', 'k11', '九成', 70)
+hit('discount', 'k12', '贬值', 0, 0.5)
 prK3 = ['F', 'C', 'Dm', 'Bb']
-pad(tl.T('k12'), tl.T('k16'), prK3, 42, name='slow'); arp(tl.T('k12'), tl.T('k16'), prK3, 40, lo=65, name='harp')
-hit('seynes', 'k14', '稀缺', 76)
+pad(tl.T('k13'), tl.T('k17'), prK3, 42, name='slow'); arp(tl.T('k13'), tl.T('k17'), prK3, 40, lo=65, name='harp')
+hit('seynes', 'k15', '稀缺', 76)
 prK4 = ['Bb', 'F', 'C', 'Dm']
-pad(tl.T('k16'), tl.T('k21'), prK4, 40, name='strings'); arp(tl.T('k16'), tl.T('k21'), prK4, 38, lo=62, name='piano')
-pad(tl.T('k21'), tl.T('m1'), ['Gm', 'Dm', 'Bb', 'A'], 42, name='strings'); ostinato(tl.T('k21'), tl.T('k23'), ['Gm', 'Dm', 'Bb', 'A'], 46, step=BEAT / 2, name='pizz', oct_=50)
-hit('sam', 'k22', '炸了锅', 80, 0.5)
+pad(tl.T('k17'), tl.T('k23'), prK4, 40, name='strings'); arp(tl.T('k17'), tl.T('k23'), prK4, 38, lo=62, name='piano')
+pad(tl.T('k23'), tl.T('m1'), ['Gm', 'Dm', 'Bb', 'A'], 42, name='strings'); ostinato(tl.T('k23'), tl.T('k25'), ['Gm', 'Dm', 'Bb', 'A'], 46, step=BEAT / 2, name='pizz', oct_=50)
+hit('sam', 'k24', '炸了锅', 80, 0.5)
 prM = ['F', 'C', 'Bb', 'F']
-pad(G('m1'), G('g1'), prM, 46, name='slow'); arp(G('m1'), G('g1'), prM, 44, lo=65, name='harp'); pulse(tl.T('m2'), tl.T('m4'), 34)
+pad(G('m1'), G('g1'), prM, 46, name='slow'); arp(G('m1'), G('g1'), prM, 44, lo=65, name='harp'); pulse(tl.T('m2'), tl.T('m7'), 34)
 hit('margin', 'm2', '七十一', 72)
 hit('fee', 'm3', '六成', 64)
+hit('asp', 'm4', '四倍', 70)
 
-# 04 中国考题：悬疑（小调钢琴 + 低弦），段永平处一次逆向的上行
+# 04 中国考题：茅台（低沉稳重，批价跌破处一沉、提价处一扬）→ 老铺 / 泡泡玛特（悬疑）→ 段永平逆向上行
 G1 = G('g1'); prG = ['Dm', 'Gm', 'Bb', 'A']
-pad(G1, tl.T('g7'), prG, 40, name='strings'); ostinato(tl.T('g2'), tl.T('g7'), prG, 48, step=BEAT / 2, name='pizz', oct_=50)
-arp(tl.T('g2'), tl.T('g7'), prG, 36, lo=69, name='piano', step=BEAT)
-pulse(tl.T('g3'), tl.T('g6'), 34)
-hit('duan', 'g7', '段永平', 86, 0.55)
-pad(tl.T('g7'), G('q1'), ['F', 'C', 'Dm', 'Bb'], 44, name='slow'); arp(tl.T('g7'), tl.T('g9'), ['F', 'C', 'Dm', 'Bb'], 40, lo=65, name='harp')
-for p in voicing('Dm', 50): note('strings', p, tl.T('g9'), G('q1'), 40)
-ramp('strings', tl.T('g9'), G('q1'), 50, 105)
+pad(G1, tl.T('g13'), prG, 40, name='strings'); ostinato(tl.T('g2'), tl.T('g13'), prG, 46, step=BEAT / 2, name='pizz', oct_=50)
+arp(tl.T('g2'), tl.T('g8'), prG, 36, lo=65, name='piano', step=BEAT)
+for c, s_, e_ in bars(tl.T('g2'), tl.T('g4'), prG): note('horn', root(c, 50), s_, e_, 40)
+pulse(tl.T('g4'), tl.T('g6'), 36)
+hit('moutai_drop', 'g5', '跌破', 80, 0.5)
+hit('moutai_up', 'g6', '一千五百三十九', 70)
+arp(tl.T('g8'), tl.T('g13'), prG, 36, lo=69, name='piano', step=BEAT); pulse(tl.T('g9'), tl.T('g12'), 34)
+hit('duan', 'g13', '段永平', 86, 0.55)
+pad(tl.T('g13'), G('q1'), ['F', 'C', 'Dm', 'Bb'], 44, name='slow'); arp(tl.T('g13'), tl.T('g15'), ['F', 'C', 'Dm', 'Bb'], 40, lo=65, name='harp')
+for p in voicing('Dm', 50): note('strings', p, tl.T('g15'), G('q1'), 40)
+ramp('strings', tl.T('g15'), G('q1'), 50, 105)
 
 # 05 失守：低铜管警示；“火药”重拍；转身离开时只留低弦
 Q1 = G('q1')
@@ -223,22 +235,22 @@ t_fire = hit('fire', 'q3', '火药', 102, 0.95)
 for p in voicing('Dm', 38, 3): note('brass', p, t_fire, t_fire + 2.4, 70)
 for p in voicing('Dm', 50, 3): note('slow', p, tl.T('q4'), G('z1'), 34)
 
-# 06 答案：隐形测试几乎静音（只有心跳低频）→ “两种都没有错”回暖 → 转 D 大调 → 金句最大重拍
+# 06 答案：隐形测试几乎静音（只有心跳低频）→ “两种都没有错”回暖 → 试金石（安静）→ 转 D 大调 → 金句最大重拍
 Z1 = G('z1')
 t = Z1
 while t < tl.T('z3') - 0.2:
     ins('drums', 0, True).notes.append(pm.Note(34, 36, float(t), float(t + 0.15)))
     ins('drums', 0, True).notes.append(pm.Note(22, 36, float(t + 0.28), float(t + 0.4))); t += 1.0
 note('pad', 38, Z1, tl.T('z3'), 24)
-pad(tl.T('z3'), tl.T('z4'), ['F', 'C'], 40, name='slow', bassname=None); piano_motif(tl.T('z3') + 0.2, 65, 50, major=True)
+pad(tl.T('z3'), tl.T('z5'), ['F', 'C', 'Dm', 'Bb'], 40, name='slow', bassname=None); piano_motif(tl.T('z3') + 0.2, 65, 50, major=True)
 prZ = ['Bb', 'F', 'G', 'D']
-pad(tl.T('z4'), tl.T('z6'), prZ, 48, name='strings'); arp(tl.T('z4'), tl.T('z6'), prZ, 44, lo=62)
-ostinato(tl.T('z5'), tl.T('z5b'), prZ, 50, step=BEAT / 2); pulse(tl.T('z5'), tl.T('z5b'), 40)   # z5b（它代表我之前的那句）收一点，留给金句
-hit('answer', 'z5', '护城河', 90, 0.6)
-t_last = hit('last', 'z6', '代表我', 110, 1.0)
+pad(tl.T('z5'), tl.T('z8'), prZ, 48, name='strings'); arp(tl.T('z5'), tl.T('z8'), prZ, 44, lo=62)
+ostinato(tl.T('z6'), tl.T('z7'), prZ, 50, step=BEAT / 2); pulse(tl.T('z6'), tl.T('z7'), 40)   # z7 收一点，留给金句
+hit('answer', 'z6', '护城河', 90, 0.6)
+t_last = hit('last', 'z8', '代表我', 110, 1.0)
 for p in voicing('D', 62, 4): note('choir', p, t_last, END + 0.3, 56)
 for p in voicing('D', 38, 3) + voicing('D', 62, 4): note('brass', p, t_last, t_last + 2.6, 72)
-for p in voicing('Gmaj7', 55): note('slow', p, tl.T('z6'), END + 0.4, 40)
+for p in voicing('Gmaj7', 55): note('slow', p, tl.T('z8'), END + 0.4, 40)
 # 片尾：汇聚 → 落定 → 重拍 → 关注语 → 淡出
 for p in voicing('D', 50, 4): note('slow', p, END, LAND + 0.1, 40)
 ramp('slow', END, LAND, 25, 118)                                      # 弦乐渐强托起汇聚

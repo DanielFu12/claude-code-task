@@ -9,7 +9,7 @@ def inter(a, b):
 def area(a): return max(1, (a[3] - a[1]) * (a[4] - a[2]))
 issues = collections.defaultdict(list)
 # 有意的叠加：删除线、划掉的价格
-ALLOW = {'贵', '“敬畏自然”', '一笔订单'}   # 有意的删除线 / 裂痕
+ALLOW = {'贵', '“敬畏自然”', '一笔订单', '“我很有钱”', '“我买得起贵东西”'}   # 有意的删除线 / 裂痕
 for f in sys.argv[1:]:
     for t, recs in json.load(open(f)):
         texts = [r for r in recs if r[0] == 'text' and r[6] >= 0.35]; cards = [r for r in recs if r[0] == 'card' and r[6] >= 0.35]
