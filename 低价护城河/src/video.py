@@ -75,6 +75,7 @@ TEALG = ((0.70, 0.98, 0.90), (0.30, 0.72, 0.64))
 
 
 def card(cv, x0, y0, x1, y1, col=(0.12, 0.13, 0.16), a=1.0, edge=None, r=16, glow=0.6):
+    import engine as _e; _e.rec_box('card', x0, y0, x1, y1, '', a)
     L = layer(); rect(L, x0, y0, x1, y1, r=r); fill(cv, L, col, a)
     if edge is not None:
         L = layer(); rect(L, x0, y0, x1, y1, fill=False, w=2, r=r); stroke_layer(cv, L, edge, a, glow=glow)
@@ -139,7 +140,7 @@ def sc_involution(cv, t):
             pts.append((x0 + fx * (x1 - x0), y0 + (y1 - y0) * (1 - v) * 0.92))
         if len(pts) > 1:
             L = layer(); poly(L, pts, 6); stroke_layer(cv, L, WHITE, 0.95, glow=1.2)
-            label(cv, '组件价格', pts[-1][0], pts[-1][1] - 40, 28, WHITE, 1, 'sans_bold')
+            label(cv, '— 组件价格', x0, y0 - 44, 30, WHITE, 1, 'sans_bold', anchor='l')
         ts = WT('o2', '涉嫌违法'); s, o = pop(t, ts - 0.3, 0.4)
         if o > 0:
             card(cv, 150, 1120, 930, 1290, (0.55, 0.08, 0.07), 0.9 * o, RED)
@@ -174,8 +175,9 @@ def sc_involution(cv, t):
         if len(pp) > 1:
             L = layer(); poly(L, pp, 6); stroke_layer(cv, L, WHITE, 0.95, glow=1)
             L = layer(); poly(L, pf, 6); stroke_layer(cv, L, RED if pf[-1][1] > yz else GOLD, 0.95, glow=1.2)
-            label(cv, '价格', pp[-1][0] - 10, pp[-1][1] - 40, 32, WHITE, 1, 'sans_bold')
-            label(cv, '利润', pf[-1][0] - 10, pf[-1][1] + 44, 32, RED if pf[-1][1] > yz else GOLD, 1, 'sans_bold')
+            kl = ease(lin(k, 0.9, 1.0))
+            label(cv, '价格', pp[-1][0] + 14, pp[-1][1], 32, WHITE, kl, 'sans_bold', anchor='l')
+            label(cv, '利润', pf[-1][0] + 14, pf[-1][1], 32, RED if pf[-1][1] > yz else GOLD, kl, 'sans_bold', anchor='l')
         s, o = pop(t, WT('o4', '越卖越亏'))
         big(cv, '越卖越亏', W / 2, 330, 120, a=o, scale=0.9 + 0.1 * s, grad=REDG, glow=0.5)
         return
@@ -193,7 +195,7 @@ def sc_involution(cv, t):
                 label(cv, b, W / 2 + dx, y0 + 190 + j * 80, 54, (0.15, 0.12, 0.10), o, 'serif_black', glow=0)
         tq = WT('o5', '低于成本倾销')
         if t > tq:
-            kk = eout(lin(t, tq, tq + 0.5)); L = layer(); line(L, (190, 330 + 470 + 300), (190 + 700 * kk, 330 + 470 + 300), 5)
+            kk = eout(lin(t, tq, tq + 0.5)); uw = text_w('价格倾销', 'serif_black', 54, 0.02) + 24; L = layer(); line(L, (W / 2 - uw / 2, 1116), (W / 2 - uw / 2 + uw * kk, 1116), 5)
             stroke_layer(cv, L, RED, 0.9)
         return
     # o6：价格战打到最后，谁建起了护城河？
@@ -203,7 +205,7 @@ def sc_involution(cv, t):
     big(cv, '价格战打到最后，', W / 2, 720, 84, a=a, color=WHITE, glow=0.1)
     tq = HIT['q_moat']; s, o = pop(t, tq - 0.1, 0.5)
     big(cv, '谁建起了护城河？', W / 2, 860, 96, a=o, scale=0.9 + 0.1 * s, grad=GOLDG, glow=0.7)
-    L = layer(); circle(L, (W / 2, 790), 330 + 10 * math.sin(t * 2), 4); stroke_layer(cv, L, GOLD, o * 0.35, glow=1.4)
+    L = layer(); circle(L, (W / 2, 790), 425 + 8 * math.sin(t * 2), 4); stroke_layer(cv, L, GOLD, o * 0.35, glow=1.4)
 
 
 def sc_open(cv, t):
@@ -246,9 +248,9 @@ def sc_split(cv, t):
     bot = cover(graded('ofo_station.jpg', sat=0.3, warm=-0.8, contrast=1.15, gain=0.7), W, H // 2, 1.2 + 0.05 * lin(t, T('o9'), T('o10')), 0.45, 0.62)
     off = int((1 - k) * 220)
     cv[:H // 2] = np.roll(top, -off, 1) * k; cv[H // 2:] = np.roll(bot, off, 1) * k
-    dim = 1 - 0.72 * ease(lin(t, T('o10') - 0.1, T('o10') + 0.5)); cv *= dim
-    L = layer(); line(L, (0, H / 2), (W * k, H / 2), 3); stroke_layer(cv, L, GOLD, 0.9, glow=1.5)
+    dim_ = 1 - 0.72 * ease(lin(t, T('o10') - 0.1, T('o10') + 0.5)); dim(cv, dim_)
     hide = 1 - ease(lin(t, T('o10') - 0.15, T('o10') + 0.25))
+    L = layer(); line(L, (0, H / 2), (W * k, H / 2), 3); stroke_layer(cv, L, GOLD, 0.9 * hide, glow=1.5)
     s, o = pop(t, WT('o9', '护城河')); big(cv, '护城河', W / 2, H / 4 + 60, 128, a=o * hide, scale=0.9 + 0.1 * s, grad=GOLDG)
     s2, o2 = pop(t, WT('o9', '坟墓')); big(cv, '坟　墓', W / 2, H * 3 / 4 - 60, 128, a=o2 * hide, scale=0.9 + 0.1 * s2, color=(0.72, 0.78, 0.86), glow=0.15)
     if t > T('o10') - 0.1:
@@ -263,14 +265,14 @@ def sc_title(cv, t):
     if 0 <= u < 1.2:
         L = layer(); circle(L, (W / 2, CY), 60 + 900 * eout(u / 1.2), 6 * (1 - u / 1.2) + 1)
         stroke_layer(cv, L, GOLD_HI, (1 - u / 1.2) * 0.8, glow=2.0, add=True)
-    L = layer(); R = 400; brk = ease(lin(u, 0.9, 2.6))
+    L = layer(); R = 480; brk = ease(lin(u, 0.9, 2.6))
     for i in range(12):
         a0 = i * 30 + 3; a1 = a0 + 24
         dx = math.sin(math.radians(a0 + 12)) * 60 * brk; dy = -math.cos(math.radians(a0 + 12)) * 60 * brk
         arc(L, (W / 2 + dx, CY + dy), R + 14 * brk, a0 + 6 * brk * ((i % 2) - 0.5), a1 - 3 * brk, 5)
     stroke_layer(cv, L, GOLD, ease(lin(u, 0, 0.5)) * (1 - 0.45 * brk), glow=1.6, add=True)
     s, o = pop(t, t0, 0.5)
-    big(cv, '便宜 ≠ 护城河', W / 2, CY - 60, 132, a=o, scale=1.12 - 0.12 * s + 0.02 * u / 3, grad=GOLDG, glow=0.7, track=0.04)
+    big(cv, '便宜 ≠ 护城河', W / 2, CY - 60, 124, a=o, scale=1.12 - 0.12 * s + 0.02 * u / 3, grad=GOLDG, glow=0.7, track=0.04)
     s2, o2 = pop(t, t0 + 0.6, 0.5)
     big(cv, '低成本成为护城河的三个条件', W / 2, CY + 100, 58, a=o2, scale=0.9 + 0.1 * s2, color=WHITE, fname='serif_semi', glow=0.15, track=0.08)
     label(cv, 'CHEAP IS NOT A MOAT · FIRST PRINCIPLES', W / 2, CY + 190, 26, GOLD, o2 * 0.85, 'corm_med', track=0.25)
@@ -308,7 +310,7 @@ def sc_first(cv, t):
                 yb = 1262 - i * 84 - (1 - s) * 40
                 card(cv, 260, yb - 37, 820, yb + 37, (0.30, 0.42, 0.58), 0.9 * oo, (0.62, 0.78, 0.95), r=8, glow=0.3)
                 label(cv, w_, 540, yb, 40, WHITE, oo, 'sans_black')
-            label(cv, '要很多年才能建起来', 820, 1290, 28, GREY, ease(lin(t, WT('p3', '很多年'), WT('p3', '很多年') + 0.3)), 'sans_med', anchor='r')
+            label(cv, '要很多年才能建起来', 920, 900, 30, GREY, ease(lin(t, WT('p3', '很多年'), WT('p3', '很多年') + 0.3)), 'sans_med', anchor='r')
         return
     if t < T('p5'):
         a = ease(lin(t, T('p4') - 0.2, T('p4') + 0.3))
@@ -333,7 +335,7 @@ def sc_first(cv, t):
     y70 = base - (base - top) * 0.70; L = layer()
     for x in range(90, 990, 24): line(L, (x, y70), (x + 12, y70), 2)
     stroke_layer(cv, L, (0.62, 0.78, 0.95), 0.55 * ease(lin(t, T('p5') + 0.8, T('p5') + 1.3)))
-    label(cv, '起点成本', 980, y70 - 26, 24, (0.62, 0.78, 0.95), ease(lin(t, T('p5') + 0.8, T('p5') + 1.3)), 'sans_med', anchor='r')
+    label(cv, '- - 起点成本', 500, 1290, 28, (0.62, 0.78, 0.95), ease(lin(t, T('p5') + 0.8, T('p5') + 1.3)), 'sans_med', anchor='r')
     tg = WT('p5', '拉不开差距'); label(cv, '成本也在降，但大家一起降，差距拉不开', W / 2, 1350, 32, (0.62, 0.78, 0.95), ease(lin(t, tg - 0.6, tg)), 'sans_bold')
     label(cv, '— 价格', 900, 1290, 28, WHITE, 1, 'sans_med', anchor='r'); label(cv, '■ 成本', 700, 1290, 28, (0.62, 0.78, 0.95), 1, 'sans_med', anchor='r')
     s, o = pop(t, HIT['zero'] - 0.1)
@@ -350,8 +352,8 @@ def sc_textile(cv, t):
     label(cv, '巴菲特 · 纺织厂', 60, 200, 40, WHITE, a, 'sans_black', anchor='l')
     big(cv, '1985', 60 + 170, 300, 96, a=ease(lin(t, WT('p6', '一九八五'), WT('p6', '一九八五') + 0.4)), fname='oswald', grad=GOLDG)
     label(cv, '他在致股东信里复盘', 360, 306, 34, WHITE, ease(lin(t, WT('p6', '一九八五'), WT('p6', '一九八五') + 0.4)), 'sans_med', anchor='l')
-    if T('p7') - 0.2 < t < T('p8') + 0.2:
-        o = fade(t, T('p7') - 0.2, T('p8') + 0.2, 0.4, 0.3)
+    if T('p7') - 0.2 < t < T('p8') - 0.05:
+        o = fade(t, T('p7') - 0.2, T('p8') - 0.05, 0.4, 0.3)
         card(cv, 70, 520, 1010, 1130, (0.93, 0.89, 0.80), 0.95 * o, r=10)
         q = ['"Viewed individually, each company\'s', 'capital investment decision appeared', 'cost-effective and reasonable; viewed', 'collectively, the decisions neutralized', 'each other and were irrational."']
         rv = lin(t, T('p7') + 0.1, T('p7') + 0.6 * (SE('p7') - T('p7')))
@@ -360,8 +362,8 @@ def sc_textile(cv, t):
         ts = WT('p7', '单独看'); tc = WT('p7', '放在一起看')
         label(cv, '单独看：都很合理', W / 2, 980, 46, (0.10, 0.45, 0.40), o * ease(lin(t, ts, ts + 0.3)), 'sans_black')
         label(cv, '放在一起：互相抵消，反而不理性', W / 2, 1060, 42, (0.70, 0.12, 0.10), o * ease(lin(t, tc, tc + 0.3)), 'sans_black')
-    if t > T('p8') - 0.2:
-        o = ease(lin(t, T('p8') - 0.2, T('p8') + 0.3)) * (1 - ease(lin(t, T('p9') - 0.2, T('p9') + 0.2)))
+    if t > T('p8'):
+        o = ease(lin(t, T('p8') + 0.0, T('p8') + 0.45)) * (1 - ease(lin(t, T('p9') - 0.2, T('p9') + 0.2)))
         label(cv, '芒格：', 90, 560, 44, GOLD, o, 'serif_black', anchor='l')
         quote_block(cv, ['在同质化的生意里，', '换上更好的机器，', '省下的钱，最后全部', '流进了买家的口袋。'], 90, 650, 52, o, 'serif_semi', WHITE, 1.4,
                     reveal=lin(t, T('p8') + 0.2, T('p8') + 0.65 * (SE('p8') - T('p8'))))
@@ -376,7 +378,7 @@ def sc_textile(cv, t):
             label(cv, '织布机', 150, 1150, 32, GREY, o * kb, 'sans_bold'); label(cv, '买家', 930, 1150, 32, GOLD_HI, o * kb, 'sans_bold')
     if t > T('p9') - 0.2:
         o = ease(lin(t, T('p9') - 0.2, T('p9') + 0.3))
-        cv *= 1 - 0.5 * o
+        dim(cv, 1 - 0.5 * o)
         big(cv, '你能买到的效率，', W / 2, 640, 76, a=o, color=WHITE, glow=0.1)
         big(cv, '对手也能买到。', W / 2, 760, 76, a=o * ease(lin(t, WT('p9', '对手'), WT('p9', '对手') + 0.3)), color=WHITE, glow=0.1)
         s, oo = pop(t, WT('p9', '留不住'))
@@ -417,7 +419,7 @@ def sc_test(cv, t):
         L0 = layer(); rect(L0, cx - 110, yv(cost), cx + 110, base, fill=False, w=2, r=6); stroke_layer(cv, L0, col, 0.25 * pa)
         L = layer(); rect(L, cx - 110, base - h, cx + 110, base, r=6); fill(cv, L, col, 0.85)
         label(cv, nm, cx, base + 60, 54, col, pa, 'oswald')
-        label(cv, '成本 ¥%d' % cost, cx, base - h + 44, 36, INK, kb, 'sans_bold')
+        label(cv, '成本 ¥%d' % cost, cx, base - h / 2, 36, INK, kb, 'sans_bold')
         kr = ease(lin(t, tr - 0.15, tr + 0.3))
         if kr > 0:
             y_a, y_b = sorted((yv(cost), py))
@@ -428,7 +430,7 @@ def sc_test(cv, t):
     if t > tb:
         L = layer(); rr = np.random.default_rng(11)
         for i in range(26):
-            ph = rr.random(); sp = 90 + rr.random() * 120; x = 640 + rr.random() * 200
+            ph = rr.random(); sp = 90 + rr.random() * 120; x = (640 + rr.random() * 28) if i % 2 else (812 + rr.random() * 28)
             y = yv(90) + ((t - tb) * sp + ph * 600) % 700
             if y < base: circle(L, (x, y), 3 + rr.random() * 3, fill=True)
         stroke_layer(cv, L, RED, 0.8 * ease(lin(t, tb, tb + 0.5)), glow=1.0)
@@ -555,7 +557,7 @@ def flywheel(cv, t, c, R, labels, tstarts, col=GOLD, spin=0.0, alpha=1.0, red=0.
                 for sg in (-1, 1):
                     line(L, pt, (pt[0] - 24 * math.sin(math.radians(a1 + 90) + sg * 0.55), pt[1] + 24 * math.cos(math.radians(a1 + 90) + sg * 0.55)), 6)
             stroke_layer(cv, L, colr, 0.9 * alpha, glow=1.3)
-        L = layer(); circle(L, p, size, fill=True); fill(cv, L, INK, 0.85 * alpha * max(0.3, on))
+        L = layer(); circle(L, p, size, fill=True); fill(cv, L, (0.05, 0.055, 0.07), 0.96 * alpha)
         L = layer(); circle(L, p, size, 4); stroke_layer(cv, L, colr, alpha * (0.3 + 0.7 * on), glow=1.4 * on)
         s, o = pop(t, ts); parts = lab.split('\n')
         for j, part in enumerate(parts):
@@ -635,9 +637,11 @@ def sc_cond2(cv, t):
         pts = you + rival[::-1]; L = layer(); fpoly(L, pts); fill(cv, L, GOLD, 0.18)
         L = layer(); poly(L, rival, 5); stroke_layer(cv, L, GREY, 0.9, glow=0.6)
         L = layer(); poly(L, you, 6); stroke_layer(cv, L, GOLD, 0.95, glow=1.3)
-        label(cv, '对手', rival[-1][0] - 10, rival[-1][1] - 36, 32, GREY, 1, 'sans_bold', anchor='r')
-        label(cv, '你', you[-1][0] - 10, you[-1][1] + 40, 36, GOLD_HI, 1, 'sans_black', anchor='r')
-        if k > 0.6: label(cv, '差距越拉越大', 700, (you[-1][1] + rival[-1][1]) / 2 - 40, 40, GOLD_HI, ease((k - 0.6) / 0.3), 'sans_black')
+        label(cv, '对手', rival[-1][0] + 14, rival[-1][1], 32, GREY, 1, 'sans_bold', anchor='l')
+        label(cv, '你', you[-1][0] + 14, you[-1][1], 36, GOLD_HI, 1, 'sans_black', anchor='l')
+        if k > 0.6:
+            fx = 0.30; xm = x0 + fx * (x1 - x0); ym = (y0 + 200 + 500 * fx ** 0.8 + y0 + 80 + 260 * fx ** 0.9) / 2
+            label(cv, '差距越拉越大', xm, ym, 38, GOLD_HI, ease((k - 0.6) / 0.3), 'sans_black')
     s, o = pop(t, HIT['gas'] - 0.15)
     big(cv, '油门踩到底', W / 2, 300, 96, a=o, scale=0.9 + 0.1 * s, grad=GOLDG, glow=0.5)
     tb = WT('k7', '行业标配'); kb = ease(lin(t, tb - 0.4, tb + 0.3))
@@ -675,34 +679,37 @@ def sc_cond3(cv, t):
             tw = WT('k9', '才是城墙'); label(cv, '它换来的东西，才是城墙', W / 2, 1320, 40, WHITE, ease(lin(t, tw - 0.6, tw)), 'sans_bold')
         return
     # k10–k14：Costco 的证据
-    cond_header(cv, t, 2, 0, compact=True)
+    if not (T('k12') - 0.45 < t < T('k13') - 0.1): cond_header(cv, t, 2, 0, compact=True)
     if t < T('k13') - 0.1:
-        x0, x1, y0, y1 = 140, 950, 420, 1060
-        yv = lambda v: 960 - (v - 60) * 18   # 会员费车道
-        yh = 600                             # 热狗车道
-        xv = lambda yr: x0 + (yr - 1985) / (2026 - 1985) * (x1 - x0)
+        x0, x1 = 140, 950
         a = ease(lin(t, T('k10') - 0.1, T('k10') + 0.4))
-        L = layer(); line(L, (x0, y1), (x1, y1), 2); stroke_layer(cv, L, GREY, 0.6 * a)
-        for yr in (1985, 2000, 2015, 2026): label(cv, str(yr), xv(yr), y1 + 36, 26, GREY, a, 'oswald')
-        # 热狗：$1.50 一条平线（放大 10 倍显示，标注）
+        # 上行：热狗套餐 1985–2026，一条平线
+        yh = 560; xh = lambda yr: x0 + (yr - 1985) / (2026 - 1985) * (x1 - x0)
+        label(cv, '热狗套餐', x0, yh - 92, 34, (1.0, 0.8, 0.5), a, 'sans_black', anchor='l')
         th = WT('k10', '热狗'); kh = eout(lin(t, th - 0.2, th + 1.0))
         L = layer(); line(L, (x0, yh), (x0 + (x1 - x0) * kh, yh), 6); stroke_layer(cv, L, (1.0, 0.75, 0.40), a, glow=1.2)
-        label(cv, '热狗套餐 $1.50（40 年未变）', x0 + 10, yh - 40, 32, (1.0, 0.8, 0.5), ease(lin(t, th, th + 0.4)), 'sans_bold', anchor='l')
-        tm = WT('k10', '百分之十四'); label(cv, '商品加价 ≤14%（据报道）', x0 + 10, yh + 46, 28, GREY, ease(lin(t, tm - 0.3, tm + 0.2)), 'sans_med', anchor='l')
-        # 会员费：$60 → $65（2024.09）
+        label(cv, '$1.50 · 40 年未变', x1, yh - 40, 32, (1.0, 0.8, 0.5), ease(lin(t, th + 0.6, th + 1.0)), 'sans_bold', anchor='r')
+        for yr in (1985, 2026): label(cv, str(yr), xh(yr), yh + 36, 26, GREY, a, 'oswald')
+        tm = WT('k10', '百分之十四'); label(cv, '普通商品加价 ≤14%（据多家媒体报道）', x0, yh + 96, 28, GREY, ease(lin(t, tm - 0.3, tm + 0.2)), 'sans_med', anchor='l')
+        # 下行：美国基础会员费 2017–2026，独立时间轴，台阶看得清
         tf = WT('k11', '六十美元'); kf = ease(lin(t, tf - 0.3, tf + 0.3))
         if kf > 0:
-            yr_now = 2016 + (2024.67 - 2016) * eout(lin(t, tf - 0.3, tf + 0.6))
-            pts = [(xv(2017), yv(60)), (xv(yr_now), yv(60))]
+            yb = 1010; xm = lambda yr: x0 + (yr - 2017) / (2026 - 2017) * (x1 - x0); ym = lambda v: yb - (v - 60) * 22
+            label(cv, '美国基础会员费', x0, ym(65) - 70, 34, GOLD, kf, 'sans_black', anchor='l')
+            yr_now = 2017 + (2024.67 - 2017) * eout(lin(t, tf - 0.3, tf + 0.6))
+            pts = [(xm(2017), ym(60)), (xm(yr_now), ym(60))]
             if t > HIT['fee'] - 0.1:
                 ku = eout(lin(t, HIT['fee'] - 0.1, HIT['fee'] + 0.4))
-                pts += [(xv(2024.67), yv(60 + 5 * ku)), (xv(2024.67 + 1.5 * ku), yv(60 + 5 * ku))]
+                pts += [(xm(2024.67), ym(60 + 5 * ku)), (xm(2024.67) + (x1 - xm(2024.67)) * ku, ym(60 + 5 * ku))]
             L = layer(); poly(L, pts, 7); stroke_layer(cv, L, GOLD, kf, glow=1.4)
-            label(cv, '会员费 $60', xv(2017), yv(60) - 44, 34, GOLD, kf, 'sans_black', anchor='l')
+            label(cv, '$60', xm(2020.5), ym(60) - 40, 36, GOLD, kf, 'oswald')
+            for yr, s_ in ((2017, '2017'), (2024.67, '2024.09'), (2026, '2026')): label(cv, s_, xm(yr), yb + 40, 26, GREY, kf, 'oswald')
             s, o = pop(t, HIT['fee'] - 0.1)
-            label(cv, '→ $65（2024.09）', xv(2024.67) - 10, yv(65) - 48, 38, GOLD_HI, o, 'sans_black', anchor='r', scale=0.9 + 0.1 * s)
-        if t > T('k12') - 0.2:
-            a2 = ease(lin(t, T('k12') - 0.2, T('k12') + 0.3)); cv *= 1 - 0.93 * a2
+            label(cv, '$65', (xm(2024.67) + x1) / 2, ym(65) - 40, 40, GOLD_HI, o, 'oswald', scale=0.9 + 0.1 * s)
+        if t > T('k12') - 0.45:
+            dim(cv, 1 - ease(lin(t, T('k12') - 0.45, T('k12') - 0.05)))     # 图表先完全淡出
+            a2 = ease(lin(t, T('k12') - 0.05, T('k12') + 0.35))               # 两个环形数据再淡入
+            cond_header(cv, t, 2, 0, compact=True)
             for x, ts_, val, frac, l1 in ((300, WT('k12', '续费率'), '89.8%', 0.898, '全球续费率（涨价后）'), (780, WT('k12', '经营利润'), '≈50%', 0.506, '会员费 / 经营利润')):
                 kk = eout(lin(t, ts_ - 0.3, ts_ + 0.9)); cy = 760
                 L = layer(); circle(L, (x, cy), 160, 20); stroke_layer(cv, L, (0.3, 0.3, 0.32), a2 * 0.8)
@@ -723,11 +730,11 @@ def sc_cond3(cv, t):
         return
     # k14：会合
     DUST.draw(cv, t, GOLD, 0.4)
-    km = eout(lin(t, T('k14'), HIT['meet']))
+    tz = WT('k14', '在这里'); km = eout(lin(t, tz - 0.35, HIT['meet']))
     for i, (n, sub, col) in enumerate((('低成本', '巴菲特', GOLD), ('定价权', '段永平', (1.0, 0.6, 0.45)))):
-        x = W / 2 + (-1 if i == 0 else 1) * (300 - 170 * km)
+        x = W / 2 + (-1 if i == 0 else 1) * 300 * (1 - km)          # 两圆完全重合成一个环，把「护城河」围在中间
         L = layer(); circle(L, (x, 760), 230, 5); stroke_layer(cv, L, col, 0.9, glow=1.3)
-        gone = 1 - ease(lin(t, HIT['meet'] - 0.5, HIT['meet'] - 0.05))
+        gone = 1 - ease(lin(t, tz - 0.75, tz - 0.35))
         label(cv, sub, x + (-1 if i == 0 else 1) * 90 * (1 - km), 680, 36, GREY, gone, 'sans_med')
         big(cv, n, x + (-1 if i == 0 else 1) * 90 * (1 - km), 770, 64, a=gone, color=col, glow=0.3)
     s, o = pop(t, HIT['meet'] - 0.1, 0.5)
@@ -1146,8 +1153,12 @@ def render(fi):
             if t > s1 - tail and tail: w = min(w, 1 - ease((t - (s1 - tail)) / (2 * tail)))
             act.append((w, fn))
     tot = sum(w for w, _ in act) or 1
+    import engine as _e
     for w, fn in act:
-        tmp = np.zeros_like(cv); fn(tmp, t); cv += tmp * (w / tot if len(act) > 1 else w)
+        _e.CUR_W = w / tot if len(act) > 1 else w
+        if _e.REC is not None: _e.SCENE_START = [len(_e.REC), len(_e.TXT_INK)]
+        tmp = np.zeros_like(cv); fn(tmp, t); cv += tmp * _e.CUR_W
+    _e.CUR_W = 1.0
     chapter_tag(cv, t)
     finish(cv, fi)
     subtitle(cv, t)
@@ -1173,3 +1184,18 @@ if __name__ == '__main__':
             if (fi - f0) % 150 == 0: print('chunk', f0, fi, flush=True)
         p.stdin.close(); p.wait()
     elif mode == 'nf': print(NF)
+    elif mode == 'audit':   # python3 src/video.py WORK audit t0 t1 step out.json：记录版面，找重叠
+        import engine as _e
+        t0, t1, step, out = float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), sys.argv[6]; res = []
+        for t in np.arange(t0, t1, step):
+            _e.REC = []; _e.GMASK = np.zeros((H, W), np.float32); _e.TXT_INK = []
+            render(int(round(t * FPS)))
+            hits = []
+            for s_, x0, y0, m, a in _e.TXT_INK:      # 文字字形落在描边图形上的像素
+                h, w = m.shape; xa, ya = max(0, x0), max(0, y0); xb, yb = min(W, x0 + w), min(H, y0 + h)
+                if xb <= xa or yb <= ya: continue
+                mm = m[ya - y0:yb - y0, xa - x0:xb - x0]; g = _e.GMASK[ya:yb, xa:xb] > 0.3
+                n = int((mm & g).sum()); tot = int(mm.sum())
+                if a >= 0.35 and (n >= 60 or n >= 0.008 * max(1, tot)) and n >= 20: hits.append(('onGraphic', s_, n, round(n / max(1, tot), 3), a))
+            res.append((round(float(t), 2), _e.REC + hits)); _e.REC = None; _e.GMASK = None; _e.TXT_INK = None
+        json.dump(res, open(out, 'w'), ensure_ascii=False)

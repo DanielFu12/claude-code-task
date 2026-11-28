@@ -77,9 +77,41 @@ def blit(cv, rgb, al, x, y, anchor='c', alpha=1.0, scale=1.0, add=False):
     else: reg *= (1 - a); reg += c * a
 
 
+REC = None        # 版面审计：不为 None 时记录 (类型, x0, y0, x1, y1, 文字, 有效不透明度)
+GMASK = None      # 版面审计：线条/圆环/点等描边图形的覆盖掩膜
+TMASK = np.zeros((H, W), np.float32)   # 本帧文字的字形掩膜：finish() 在这些像素上不加颗粒、不参与泛光，保证文字锐利
+TXT_INK = None    # 版面审计：每段文字的字形像素 (文字, x0, y0, alpha 子图, 有效不透明度)
+CUR_W = 1.0       # 当前场景在交叉溶解中的权重（由 video.render 设置）
+
+
+@functools.lru_cache(4096)
+def ink_box(s, fname, size, track, stroke, grad):
+    rgb, al = text_patch(s, fname, size, WHITE if grad is None else WHITE, track, stroke, grad)
+    ys, xs = np.nonzero(al > 0.25)
+    if len(xs) == 0: return None
+    return xs.min(), ys.min(), xs.max() + 1, ys.max() + 1, al.shape[1], al.shape[0]
+
+
+def rec_box(kind, x0, y0, x1, y1, label, a):
+    if REC is not None and a * CUR_W >= 0.35: REC.append((kind, float(x0), float(y0), float(x1), float(y1), label, a * CUR_W))
+
+
 def text(cv, s, x, y, fname='sans_med', size=48, color=WHITE, anchor='c', alpha=1.0, scale=1.0, track=0.0,
          shadow=0.0, glow=0.0, grad=None, stroke=0):
+    # 清晰度底线：细体（Light）在 36px 以下改用中等字重；任何文字不小于 24px（手机上细小字会糊）
+    if fname == 'sans_light' and size < 36: fname = 'sans_med'
+    if grad is None and sum(color) / 3 < 0.45: shadow = 0.0; glow = 0.0    # 深色字（在浅色卡片上）不加阴影，否则字边一圈灰晕显得糊
+    if size < 24: size = 24
     rgb, al = text_patch(s, fname, int(size), tuple(color), track, stroke, grad)
+    if REC is not None and alpha * CUR_W >= 0.35:
+        ib = ink_box(s, fname, int(size), track, stroke, grad)
+        if ib:
+            bx0, by0, bx1, by1, w0, h0 = ib; w0 *= scale; h0 *= scale
+            ox = {'c': x - w0 / 2, 'l': x, 'r': x - w0}.get(anchor, x); oy = y - h0 / 2 if anchor in ('c', 'l', 'r') else y
+            rec_box('text', ox + bx0 * scale, oy + by0 * scale, ox + bx1 * scale, oy + by1 * scale, s, alpha)
+            if TXT_INK is not None:
+                a_ = al if abs(scale - 1) < 1e-3 else cv2.resize(al, (max(1, int(al.shape[1] * scale)), max(1, int(al.shape[0] * scale))))
+                TXT_INK.append((s, int(round(ox)), int(round(oy)), a_ > 0.3, alpha * CUR_W))
     if shadow > 0:
         sh = cv2.GaussianBlur(al, (0, 0), size * 0.12)
         blit(cv, np.zeros_like(rgb), np.clip(sh * 1.4, 0, 1), x, y + size * 0.04, anchor, alpha * shadow, scale)
@@ -87,8 +119,19 @@ def text(cv, s, x, y, fname='sans_med', size=48, color=WHITE, anchor='c', alpha=
         g = cv2.GaussianBlur(al, (0, 0), size * 0.25)
         blit(cv, rgb, g, x, y, anchor, alpha * glow, scale, add=True)
     blit(cv, rgb, al, x, y, anchor, alpha, scale)
+    blit_mask(al, x, y, anchor, alpha * CUR_W, scale)
     h, w = al.shape
     return w * scale, h * scale
+
+
+def blit_mask(al, x, y, anchor, alpha, scale):
+    if alpha <= 0.02: return
+    if abs(scale - 1) > 1e-3: al = cv2.resize(al, (max(1, int(al.shape[1] * scale)), max(1, int(al.shape[0] * scale))))
+    h, w = al.shape
+    x0 = {'c': x - w / 2, 'l': x, 'r': x - w}.get(anchor, x); y0 = y - h / 2 if anchor in ('c', 'l', 'r') else y
+    x0, y0 = int(round(x0)), int(round(y0)); ax0, ay0 = max(0, x0), max(0, y0); ax1, ay1 = min(W, x0 + w), min(H, y0 + h)
+    if ax1 > ax0 and ay1 > ay0:
+        np.maximum(TMASK[ay0:ay1, ax0:ax1], al[ay0 - y0:ay1 - y0, ax0 - x0:ax1 - x0] * min(1.0, alpha), out=TMASK[ay0:ay1, ax0:ax1])
 
 
 def text_w(s, fname, size, track=0.0):
@@ -150,6 +193,7 @@ def layer(): return np.zeros((H, W), np.float32)
 
 
 def stroke_layer(cv, lay, color, alpha=1.0, glow=0.0, add=False):
+    if GMASK is not None and alpha * CUR_W >= 0.35: np.maximum(GMASK, np.clip(lay, 0, 1) * alpha * CUR_W, out=GMASK)
     if glow > 0:
         small = cv2.resize(lay, (W // 4, H // 4), interpolation=cv2.INTER_AREA)
         g = cv2.resize(cv2.GaussianBlur(small, (0, 0), 6), (W, H))
@@ -199,7 +243,22 @@ def rect(lay, x0, y0, x1, y1, v=1.0, fill=True, w=2, r=0):
     (fpoly if fill else poly)(lay, pts, *(() if fill else (w,)), **({'v': v} if fill else {'v': v, 'closed': True}))
 
 
+SCENE_START = [0, 0]   # 版面审计：当前场景在 REC / TXT_INK 中的起始位置
+
+
+def dim(cv, f):
+    """压暗当前场景已画的内容（同时把审计记录里的可见度按同样比例降低）"""
+    cv *= f
+    global REC, TXT_INK
+    if REC is not None:
+        REC[SCENE_START[0]:] = [r[:6] + (r[6] * f,) if r[0] in ('text', 'card') else r for r in REC[SCENE_START[0]:]]
+        TXT_INK[SCENE_START[1]:] = [x[:4] + (x[4] * f,) for x in TXT_INK[SCENE_START[1]:]]
+        np.multiply(GMASK, f, out=GMASK)
+
+
 def fill(cv, mask, color, alpha=1.0):
+    if GMASK is not None and alpha * CUR_W >= 0.6:          # 不透明填充会遮住它下面的线条
+        np.multiply(GMASK, 1 - np.clip(mask, 0, 1) * min(1.0, alpha * CUR_W), out=GMASK)
     a = np.clip(mask, 0, 1)[..., None] * alpha; cv *= (1 - a); cv += np.asarray(color, np.float32) * a
 
 
@@ -211,16 +270,19 @@ VIG = (1 - 0.55 * (((_xx - W / 2) / (W * 0.72)) ** 2 + ((_yy - H * 0.47) / (H * 
 
 
 def bloom(cv, thr=0.72, k=0.35):
-    small = cv2.resize(cv, (W // 4, H // 4), interpolation=cv2.INTER_AREA)
+    src = cv * (1 - 0.85 * np.clip(TMASK, 0, 1))[..., None]          # 文字不做泛光源，避免字边发虚
+    small = cv2.resize(src, (W // 4, H // 4), interpolation=cv2.INTER_AREA)
     hi = np.clip(small - thr, 0, None)
     b = cv2.GaussianBlur(hi, (0, 0), 7) + cv2.GaussianBlur(hi, (0, 0), 22) * 0.6
     cv += cv2.resize(b, (W, H)) * k
 
 
-def finish(cv, fi, grain=0.016, vig=True):
+def finish(cv, fi, grain=0.012, vig=True):
+    tm = cv2.GaussianBlur(np.clip(TMASK, 0, 1), (0, 0), 1.2)
     bloom(cv)
     if vig: cv *= VIG
-    cv += GRAIN[fi % len(GRAIN)][..., None] * grain * (0.4 + 0.6 * np.sqrt(np.clip(cv.mean(2, keepdims=True), 0, 1)))
+    cv += GRAIN[fi % len(GRAIN)][..., None] * grain * (0.4 + 0.6 * np.sqrt(np.clip(cv.mean(2, keepdims=True), 0, 1))) * (1 - tm)[..., None]
+    TMASK[:] = 0
     np.clip(cv, 0, 1, out=cv)
     return cv
 
