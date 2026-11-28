@@ -1,4 +1,4 @@
-"""维基共享资源照片（不走 API：API 对本环境限流）→ assets/media/<名称>.jpg，作者与授权写进 credits.json。
+"""第二季第二期（BNSF）维基共享资源照片（不走 API：API 对本环境限流）→ assets/media/<名称>.jpg，作者与授权写进 credits.json。
   · 文件页 HTML 解析授权简称（licensetpl_short）与作者（fileinfotpl_aut 一行）；只收 CC0 / 公有领域 / CC BY / CC BY-SA；
   · 图片先取 upload.wikimedia.org 原图（缩略图对本环境限流更严），本地缩到 ≤2400 像素；逐张间隔 ~50 秒，遇 429 退避。
 python3 src/fetch_commons.py            # 已入库的跳过；ONLY=a,b 只补指定几张
@@ -6,20 +6,31 @@ python3 src/fetch_commons.py            # 已入库的跳过；ONLY=a,b 只补�
 import os, re, json, time, html, hashlib, urllib.parse, urllib.request
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 MDIR = os.path.join(ROOT, 'assets', 'media')
-UA = {'User-Agent': 'ClaudeCode-video-research/1.0 (https://code.claude.com/docs; documentary image credits) python-urllib/3'}
+UA = {'User-Agent': 'ClaudeCode-video-research/1.0 (https://code.claude.com/docs; documentary image credits)'}
 OK = ('cc0', 'public domain', 'pd', 'cc by', 'cc-by', 'no restrictions')
 PHOTOS = {   # 名称: (Commons 文件名, 用途)
-    'c_moody1903': ('John Moody (financial analyst) 1903.jpg', '约翰·穆迪（1903）'),
-    'c_rrgroups': ('Greater Steam Railroad Groups, 1904.jpg', '约翰·穆迪《托拉斯真相》里的美国铁路集团图（1904）'),
     'c_obama_buffett': ('President Barack Obama and Warren Buffett in the Oval Office, July 14, 2010.jpg', '巴菲特在白宫（2010-07-14，白宫官方照片）'),
     'c_buffett_2010': ('Warren Buffett in 2010.jpg', '巴菲特（2010）'),
-    'c_7wtc': ('7 World Trade Center 2024.jpg', '纽约世贸中心七号楼（穆迪总部所在）'),
-    'c_7wtc2': ('A627, One World Trade Center and 7 World Trade Center, Manhattan, July 2019.jpg', '世贸中心一号楼与七号楼（2019）'),
-    'c_foreclosure': ('Foreclosure sign.jpeg', '止赎房屋的告示牌'),
-    'c_foreclosure2': ('Sign of the Times-Foreclosure.jpg', '止赎房屋'),
-    'c_deserted': ('Foreclosure Deserted House.jpeg', '止赎后空置的房子'),
+    'c_buffett_ku': ('Warren Buffett KU Visit.jpg', '巴菲特（2005）'),
     'c_lehman': ('Lehman Brothers-NYC-20080915.jpg', '雷曼兄弟总部（2008-09-15）'),
-    'c_nyse_floor': ('No Known Restrictions Trading Floor, New York Stock Exchange (Highsmith LOC) (6718386525).jpg', '纽约证券交易所交易大厅（Carol M. Highsmith 摄）'),
+    'c_munger': ('Charlie Munger.jpg', '查理·芒格（2010）'),
+    'c_bnsf_coal': ('BNSF train at Sheep Mountain - Montana - 2013-07-07.jpg', 'BNSF 列车经过蒙大拿州（2013）'),
+    'c_bnsf_grain': ('BNSF 7256 Leads Grain In GainesvilleTX.jpg', 'BNSF 运粮列车（得州盖恩斯维尔）'),
+    'c_bnsf_im': ('BNSF intermodal train in Greenland, CO.jpg', 'BNSF 集装箱列车（科罗拉多州）'),
+    'c_bnsf_bridge': ('BNSF Railway train passing over the Canyon Diablo Railroad Bridge - August 2016.jpg', 'BNSF 列车通过亚利桑那州暗黑峡谷铁路桥（2016）'),
+    'c_fortworth': ('Fort Worth Skyline 2025.jpg', '得州沃斯堡（BNSF 总部所在城市，2025）'),
+    'c_up_train': ('Union Pacific freight train in the Feather River Canyon-3872.jpg', '联合太平洋货运列车（加州羽毛河峡谷）'),
+    'c_ns_train': ('Norfolk Southern manifest train at Bound Brook July 2026 1.jpg', '诺福克南方货运列车（新泽西州，2026）'),
+    'c_trucks': ('Colorful Semi-Trucks.jpg', '公路上的半挂卡车'),
+    'c_abel': ('Greg Abel.jpg', '格雷格·阿贝尔'),
+    'c_bnsf_1997': ('19970427 05 BNSF Galesburg, Illinois (5800008026).jpg', '合并两年后的 BNSF 列车（伊利诺伊州盖尔斯堡，1997）'),
+    'c_bnsf_coal2': ('BNSF Coal at TW55 Fort Worth TX.jpg', 'BNSF 运煤列车（得州沃斯堡）'),
+    'c_bnsf_im2': ('BNSF Intermodal Train passing by the Izaak Walton Inn (May 2018).jpg', 'BNSF 集装箱列车（蒙大拿州，2018）'),
+    'c_bnsf_bridge2': ('BNSF train crosses bridge west of Luverne, North Dakota.jpg', 'BNSF 列车过桥（北达科他州）'),
+    'c_bnsf_locos': ('BNSF Locomotives in Wolf Point MT.jpg', 'BNSF 机车（蒙大拿州沃尔夫波因特）'),
+    'c_bnsf_winter': ('Winter train passing through Livingston.jpg', '冬天的列车（蒙大拿州利文斯顿）'),
+    'c_up_train2': ('Union Pacific freight train in Elmhurst, Illinois May 2025.jpg', '联合太平洋货运列车（伊利诺伊州，2025）'),
+    'c_tankcars': ('Tank cars, New Orleans.jpg', '铁路罐车'),
 }
 
 

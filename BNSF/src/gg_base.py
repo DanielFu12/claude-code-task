@@ -26,6 +26,12 @@ GREEN = C(110, 200, 140)
 
 
 # ======================================================================== 通用构件
+def capof(name):
+    """画面说明：影片片段取 ia_clips.json 的 note，照片取 credits.json 的 use"""
+    if name in M.IA: return M.IA[name].get('note', '')
+    return M.CREDITS.get(name, {}).get('use', '')
+
+
 def first_have(names):
     for n in names:
         if M.have(n): return n
@@ -54,7 +60,7 @@ def seq(cv, t, t0, t1, names, cy=560, w=1000, h=420, focus=None, xfade=0.45, cap
             fc = focus or ((0.56, 0.45) if nm.startswith('c_') and not nm.startswith('c_two') else (0.66, 0.5) if nm.startswith('c_two') else (0.5, 0.5))
             st = M.USABLE.get(nm, (0, 0))[0]
             hh = min(h, 420) if (nm.startswith('c_') and not nm.startswith('c_two')) else h
-            M.frame(cv, nm, t, s0, s1, cy=cy, w=w, h=hh, z0=1.0, z1=1.04, focus=fc, a=a, fi=fi, fo=fo, src_t0=st, speed=1.0, cap=cap,
+            M.frame(cv, nm, t, s0, s1, cy=cy, w=w, h=hh, z0=1.0, z1=1.04, focus=fc, a=a, fi=fi, fo=fo, src_t0=st, speed=1.0, cap=cap if cap is not None else capof(nm),
                     hold=s1 < t1 - 1e-6)
 
 

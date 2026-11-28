@@ -6,5 +6,194 @@
   "dur": 4.6,
   "shot": "close",
   "note": "We’ve got the Burlington Northern Railroad, which is certainly worth far more money."
+ },
+ "rr_loco": {
+  "source": "《Freight Train》（爱迪生公司，1898，美国国会图书馆，公有领域）",
+  "ia": "https://archive.org/details/loc-film-00694211-freight-train",
+  "start": 13.2,
+  "dur": 9.5,
+  "note": "蒸汽机车牵引货车（1898 年影片）"
+ },
+ "rr_cars": {
+  "source": "《Freight Train》（爱迪生公司，1898，美国国会图书馆，公有领域）",
+  "ia": "https://archive.org/details/loc-film-00694211-freight-train",
+  "start": 24.0,
+  "dur": 22.0,
+  "note": "铁路货车（1898 年影片）"
+ },
+ "rr_station": {
+  "source": "《Overland Express Arriving at Helena, Mont.》（爱迪生公司，1897，美国国会图书馆，公有领域）",
+  "ia": "https://archive.org/details/loc-film-00694263-overland-express-arriving-at-helena-mont",
+  "start": 13.5,
+  "dur": 26.0,
+  "note": "列车驶进蒙大拿州海伦娜（1897 年影片）"
+ },
+ "cx_floor": {
+  "source": "《Work of the Stock Exchange》（1941，芝加哥证券交易所，Prelinger Archives）",
+  "ia": "https://archive.org/details/0552_Work_of_the_Stock_Exchange_10_39_27_00",
+  "start": 704.0,
+  "dur": 18.5,
+  "note": "交易所交易大厅（1941 年影片）"
+ },
+ "cx_quote": {
+  "source": "《Work of the Stock Exchange》（1941，芝加哥证券交易所，Prelinger Archives）",
+  "ia": "https://archive.org/details/0552_Work_of_the_Stock_Exchange_10_39_27_00",
+  "start": 741.4,
+  "dur": 10.4,
+  "note": "交易所报价板（1941 年影片）"
+ },
+ "ny_floor": {
+  "source": "《Vista Stock Shots: New York Stock Exchange》（纽约证券交易所资料片，Prelinger Archives）",
+  "ia": "https://archive.org/details/0803_Vista_Stock_Shots_New_York_Stock_Exchange_13_00_55_00",
+  "start": 420.0,
+  "dur": 80.0,
+  "note": "纽约证券交易所交易大厅（资料片）"
+ },
+ "ny_ticker": {
+  "source": "《Vista Stock Shots: New York Stock Exchange》（纽约证券交易所资料片，Prelinger Archives）",
+  "ia": "https://archive.org/details/0803_Vista_Stock_Shots_New_York_Stock_Exchange_13_00_55_00",
+  "start": 1205.0,
+  "dur": 30.0,
+  "note": "纽约证券交易所报价带（资料片）"
+ },
+ "g_smoke": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 431.3,
+  "dur": 14.0,
+  "note": "编组场里冒烟的蒸汽机车（1942 年影片）"
+ },
+ "g_switch": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 467.2,
+  "dur": 12.2,
+  "note": "一片道岔（1942 年影片）"
+ },
+ "g_signal": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 797.2,
+  "dur": 6.2,
+  "note": "臂板信号机（1942 年影片）"
+ },
+ "g_tower": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 805.0,
+  "dur": 6.5,
+  "note": "列车驶近信号楼（1942 年影片）"
+ },
+ "g_pass": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 812.6,
+  "dur": 5.8,
+  "note": "列车疾驰而过（1942 年影片）"
+ },
+ "g_yard": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 957.3,
+  "dur": 5.4,
+  "note": "编组场（1942 年影片）"
+ },
+ "g_yard2": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 963.2,
+  "dur": 6.8,
+  "note": "编组场里的机车（1942 年影片）"
+ },
+ "g_bogie": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 993.2,
+  "dur": 6.2,
+  "note": "货车转向架（1942 年影片）"
+ },
+ "g_yard3": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 1047.2,
+  "dur": 6.2,
+  "note": "编组场里的货车（1942 年影片）"
+ },
+ "g_freight": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 1081.0,
+  "dur": 19.4,
+  "note": "货运站里堆满的货物（1942 年影片）"
+ },
+ "g_shop": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 1135.0,
+  "dur": 30.0,
+  "note": "机车检修车间（1942 年影片）"
+ },
+ "g_wheel": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 1235.2,
+  "dur": 15.2,
+  "note": "吊装机车动轮（1942 年影片）"
+ },
+ "g_wheels2": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 1260.2,
+  "dur": 7.6,
+  "note": "检修中的机车动轮（1942 年影片）"
+ },
+ "g_drive": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 1301.0,
+  "dur": 7.4,
+  "note": "转动的机车动轮（1942 年影片）"
+ },
+ "g_loco": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 1310.2,
+  "dur": 15.2,
+  "note": "修好的机车驶出车间（1942 年影片）"
+ },
+ "g_ballast": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 1349.2,
+  "dur": 12.2,
+  "note": "铺道砟（1942 年影片）"
+ },
+ "g_ties": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 1391.2,
+  "dur": 17.2,
+  "note": "吊运枕木（1942 年影片）"
+ },
+ "g_rails": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 1409.2,
+  "dur": 6.2,
+  "note": "堆放的枕木（1942 年影片）"
+ },
+ "g_diesel": {
+  "source": "《A Great Railroad at Work》（1942，Prelinger Archives，公有领域）",
+  "ia": "https://archive.org/details/GreatRai1942",
+  "start": 1473.6,
+  "dur": 9.4,
+  "note": "内燃机车牵引货车疾驰（1942 年影片）"
+ },
+ "s1_japan": {
+  "source": "本系列《东京下注——巴菲特与日本五大商社》成片（需 git lfs pull）",
+  "ia": "",
+  "start": 432.0,
+  "dur": 17.5,
+  "note": "本系列成片片段（日本五大商社：生意分三等）"
  }
 }

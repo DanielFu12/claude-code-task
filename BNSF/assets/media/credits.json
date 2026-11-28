@@ -1,1 +1,67 @@
-{}
+{
+ "c_buffett_2010": {
+  "file": "Warren Buffett in 2010.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Warren_Buffett_in_2010.jpg",
+  "artist": "USA White House",
+  "license": "Public domain",
+  "use": "巴菲特（2010）",
+  "date": "2010",
+  "note": "裁掉右上角的白宫视频台标"
+ },
+ "c_obama_buffett": {
+  "file": "President Barack Obama and Warren Buffett in the Oval Office, July 14, 2010.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:President_Barack_Obama_and_Warren_Buffett_in_the_Oval_Office%2C_July_14%2C_2010.jpg",
+  "artist": ".mw-parser-output .commons-creator-table{background-color:#f0f0ff;box-sizing:border-box;font-size:95%;text-align:start;c",
+  "license": "Public domain",
+  "use": "巴菲特在白宫（2010-07-14，白宫官方照片）",
+  "date": "Taken on 14 July 2010, 11:21"
+ },
+ "c_lehman": {
+  "file": "Lehman Brothers-NYC-20080915.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Lehman_Brothers-NYC-20080915.jpg",
+  "artist": "Robert Scoble",
+  "license": "CC BY 2.0",
+  "use": "雷曼兄弟总部（2008-09-15）",
+  "date": "15 September 2008"
+ },
+ "c_buffett_ku": {
+  "file": "Warren Buffett KU Visit.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Warren_Buffett_KU_Visit.jpg",
+  "artist": "Mark Hirschey",
+  "license": "CC BY-SA 2.0",
+  "use": "巴菲特",
+  "date": "6 May 2005"
+ },
+ "c_munger": {
+  "file": "Charlie Munger.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Charlie_Munger.jpg",
+  "artist": "Nick",
+  "license": "CC BY 2.0",
+  "use": "查理·芒格（2010）",
+  "date": "5 May 2010, 20:57"
+ },
+ "c_bnsf_coal": {
+  "file": "BNSF train at Sheep Mountain - Montana - 2013-07-07.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:BNSF_train_at_Sheep_Mountain_-_Montana_-_2013-07-07.jpg",
+  "artist": "Tim Evanson",
+  "license": "CC BY-SA 2.0",
+  "use": "BNSF 列车经过蒙大拿州（2013）",
+  "date": "7 July 2013"
+ },
+ "c_bnsf_grain": {
+  "file": "BNSF 7256 Leads Grain In GainesvilleTX.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:BNSF_7256_Leads_Grain_In_GainesvilleTX.jpg",
+  "artist": "CreeperBoy844",
+  "license": "CC BY-SA 4.0",
+  "use": "BNSF 运粮列车（得州盖恩斯维尔）",
+  "date": "1 March 2021"
+ },
+ "c_bnsf_im": {
+  "file": "BNSF intermodal train in Greenland, CO.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:BNSF_intermodal_train_in_Greenland%2C_CO.jpg",
+  "artist": "Quintin Soloviev",
+  "license": "CC BY 4.0",
+  "use": "BNSF 集装箱列车（科罗拉多州）",
+  "date": "21 March 2026, 14:27:59"
+ }
+}
