@@ -927,7 +927,7 @@ def sc_math(cv, t):
         return
     if t < T('m3b') - 0.1:
         a = ease(lin(t, T('m3') - 0.2, T('m3') + 0.3))
-        apple_share(cv, t, a, W / 2, 360, 460, 120, 960, (700, 920), 1250)
+        apple_share(cv, t, a, W / 2, 360, 460, 120, 960, (700, 920), 1250, 1300)
         return
     if t < T('m4') - 0.1:
         why_more(cv, t, ease(lin(t, T('m3b') - 0.2, T('m3b') + 0.3)), W / 2, 420, 620, 240, 700, 900, 1040)
@@ -948,9 +948,12 @@ def sc_math(cv, t):
     label(cv, '认同留不住钱  =  热闹  ≠  护城河', W / 2, 1150, 42, (1.0, 0.65, 0.58), o2, 'sans_bold')
 
 
-def apple_share(cv, t, a, cx, y_title, y_sub, x0, x1, ys, y_src):
+def apple_share(cv, t, a, cx, y_title, y_sub, x0, x1, ys, y_src, y_cred=1300):
     """m3 苹果：2025 年第四季度，出货量约占全球四分之一，收入却将近六成（Counterpoint）"""
     if a <= 0.003: return
+    panel(cv, 'iphone_orange.jpg', 0, 0, W, H, a, 1.15, 0.5, 0.45, sat=0.55, warm=0.1, contrast=1.05, gain=0.16)
+    c = CREDIT['iphone_orange']
+    text(cv, '图：%s · %s · Wikimedia Commons' % (c['artist'][:34], c['license']), 56, y_cred, 'sans_light', 22, GREY, anchor='l', alpha=0.75 * a)
     big(cv, 'iPhone', cx, y_title, 96, a=a, fname='playfair', color=(0.92, 0.93, 0.96), glow=0.2)
     label(cv, '另一条路 · 2025 年第四季度 · 全球手机', cx, y_sub, 34, WHITE, a, 'sans_bold')
     for (name, frac, col, key, val), y in zip((('出货量份额', 0.25, COLD, '四分之一', '≈ 25%'), ('收入份额', 0.59, GOLD, '六成', '≈ 59%')), ys):

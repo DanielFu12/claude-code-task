@@ -741,7 +741,7 @@ def sc_math(cv, t):
         source(cv, '爱马仕 2025 年度业绩：毛利率 71.1%，经常性经营利润率 41%', a)
         return
     if t < T('m3b') - 0.1:
-        V.apple_share(cv, t, ease(lin(t, T('m3') - 0.2, T('m3') + 0.3)), W / 2, 190, 285, 360, 1560, (470, 690), SRC_Y)
+        V.apple_share(cv, t, ease(lin(t, T('m3') - 0.2, T('m3') + 0.3)), W / 2, 190, 285, 360, 1560, (470, 690), SRC_Y, CRED_Y)
         return
     if t < T('m4') - 0.1:
         V.why_more(cv, t, ease(lin(t, T('m3b') - 0.2, T('m3b') + 0.3)), W / 2, 210, 380, 300, 455, 610, 760)
