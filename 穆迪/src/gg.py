@@ -12,6 +12,7 @@
 from gg_base import *          # noqa
 from gg_base import _SAY        # noqa
 import csv
+from script import SEASON
 
 WCY, WH = 540, 560          # 上方画窗 1000×560（y 260–820，在章节导航之下）
 RED_X = C(225, 70, 60)
@@ -49,10 +50,11 @@ def cross(cv, x, y, r, a, col=RED_X, th=6):
 
 # ======================================================================== 通用构件（本期）
 def recap(cv, t, t0, t1, clip, label, a=1.0):
-    """第一季回顾：本系列成片片段放进画窗，左上角金色「第一季 · 某期」标签 + 「回顾」字样"""
+    """第一季回顾：本系列成片（竖屏）整幅放进画窗，像一块手机屏幕；左上角金色「回顾 · 第一季 · 某期」标签"""
     al = env(t, t0, t1, 0.45, 0.45) * a
     if al <= 0.004: return
-    seq(cv, t, t0, t1, [clip], cy=WCY, h=WH, a=al, cap='本系列第一季成片片段')
+    M.frame(cv, clip, t, t0, t1, cy=WCY, w=1000, h=WH, z0=1.0, z1=1.0, a=al, fit='contain', warm=0.0, sat=1.0,
+            cap='本系列第一季成片片段', hold=False)
     k = eo((t - t0 - 0.2) / 0.5)
     chip(cv, '回顾 · ' + label, 90, 300, 28, al * k, col=GOLD_L, anchor='l')
 
@@ -915,7 +917,8 @@ def shot_ch7(cv, t):
         ta = {-1: t0, 0: S('c7b') - 0.45, 1: S('c7c') - 0.45, 2: S('c7d') - 0.45}[cur]
         tb = {-1: S('c7b') + 0.1, 0: S('c7c') + 0.1, 1: S('c7d') + 0.1, 2: t1}[cur]
         if nm[0].startswith('c_') and not M.have(nm[0]): nm = ['ny_floor2']
-        window(cv, t, ta, tb, nm, cap, a)
+        if nm[0].startswith('s1_'): recap(cv, t, ta, tb, nm[0], '第一季 · 喜诗糖果', a=a)
+        else: window(cv, t, ta, tb, nm, cap, a)
         k = appear(t, 'c7a', '三件事')
         if k > 0: cv.text('从穆迪身上，带走三件事', W / 2, 890, 40, 'serif_black', gold=True, a=a * k)
         item_list(cv, t, a, LESSONS, [appear(t, 'c7b', '第一'), appear(t, 'c7c', '第二'), appear(t, 'c7d', '第三')], cur, y0=1000, dy=130)
