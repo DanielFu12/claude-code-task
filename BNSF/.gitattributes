@@ -1,0 +1,2 @@
+# 预览版（30MB 以内）作为普通 Git 文件提交，不占 LFS 额度
+*_预览版.mp4 -filter -diff -merge binary
