@@ -6,7 +6,8 @@ set -euo pipefail
 cd "$(dirname "$0")"; WORK=work; mkdir -p $WORK
 python3 src/get_fonts.py
 src/fetch_clips.sh
-python3 src/tts_take.py $WORK          # 整篇一次合成 + 按逐字时间戳切句（有缓存）
+python3 src/tts_chunks.py $WORK 5      # 分段合成 + 候选择优（音高/发声/语速/接缝），按逐字时间戳切句（有缓存）
+python3 src/voice_qc.py $WORK          # 旁白一致性验收：逐句音高、发声、谐噪比、响度与接缝
 python3 src/timeline.py $WORK
 python3 src/music.py $WORK
 python3 src/mix.py $WORK
