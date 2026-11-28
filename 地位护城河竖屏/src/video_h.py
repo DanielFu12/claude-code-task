@@ -210,7 +210,7 @@ def sc_halves(cv, t):
     a = ease(lin(t, T('o10') - 0.1, T('o10') + 0.4))
     panel(cv, 'nyc_store.jpg', 0, 0, W // 2, H, a, 1.15, sat=0.3, warm=-0.6, gain=0.28)
     panel(cv, V.img('iphone17_launch', 'iphone_line.jpg'), W // 2, 0, W, H, a, 1.15, sat=0.9, warm=0.1, gain=0.4)
-    L = layer(); line(L, (W / 2, 140), (W / 2, 860), 3); stroke_layer(cv, L, GOLD, 0.8 * a, glow=1.2)
+    L = layer(); line(L, (W / 2, 140), (W / 2, 720), 3); stroke_layer(cv, L, GOLD, 0.8 * a, glow=1.2)
     t1 = WT('o10', '一年'); s1, o1 = pop(t, t1 - 0.15)
     stat(cv, W / 4, 380, '1', '年', o1, col=(1.0, 0.62, 0.55), size=200, usize=70)
     label(cv, '就退潮', W / 4, 560, 44, WHITE, o1, 'sans_black')
@@ -943,7 +943,7 @@ def moutai_h(cv, t):
         card(cv, 1280, 330, 1820, 620, (0.14, 0.11, 0.06), 0.92 * o2, GOLD, r=14, glow=0.6)
         label(cv, '2025 年 · 茅台酒毛利率', 1550, 400, 32, WHITE, o2, 'sans_bold')
         stat(cv, 1550, 520, '93.5%', '', o2, size=100, grad=GOLDG)
-        source(cv, '批价：第一财经、21 世纪经济报道等；茅台 2025 年报（2026.04.16）；2026.03.30 调价公告', a)
+        source(cv, '批价：第一财经等媒体报道；茅台 2025 年报、2026.03.30 调价公告', a)
         return
     a = ease(lin(t, T('g7') - 0.2, T('g7') + 0.3))
     label(cv, '乘法里有一项变小 → 溢价松动', 640, 230, 40, (1.0, 0.70, 0.62), a, 'sans_bold')
