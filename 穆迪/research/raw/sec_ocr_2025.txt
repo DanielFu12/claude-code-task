@@ -1,0 +1,2299 @@
+                                                                CONTENTS
+
+
+
+I.      INTRODUCTION ................................................................................................................... 1
+
+II.     STATUS OF REGISTRANTS AND APPLICANTS ............................................................. 1
+
+III.    EXAMINATIONS AND MONITORING .............................................................................. 4
+       A.        Overview ............................................................................................................................ 4
+       B.        Risk Assessment ................................................................................................................ 4
+       C.        Monitoring ......................................................................................................................... 6
+       D.        2024 Section 15E(p)(3) Examinations ............................................................................... 8
+            1.       Overview ....................................................................................................................... 8
+            2.       Terms Used in This Report............................................................................................ 8
+            3.       Summary of Essential Findings and Responses to Material Regulatory
+                     Deficiencies ................................................................................................................... 9
+            4.       Responses to Recommendations from Prior Section 15E Examinations .................... 16
+
+IV. STATE OF COMPETITION, TRANSPARENCY, AND CONFLICTS OF INTEREST.... 18
+       A.        Competition...................................................................................................................... 18
+            1.       Select NRSRO Statistics.............................................................................................. 18
+            2.       Market Share Observations in the Asset-Backed Securities Rating Category ............ 29
+            3.       Barriers to Entry .......................................................................................................... 35
+       B.        Transparency .................................................................................................................... 37
+       C.        Conflicts of Interest.......................................................................................................... 40
+
+V.      ACTIVITIES RELATING TO NRSROs .............................................................................. 42
+       A.        Commission Orders ......................................................................................................... 42
+       B.        Staff Publication............................................................................................................... 43
+
+VI. APPENDIX: SUMMARY OF STATUTORY FRAMEWORK AND RULES................... 43
+
+
+
+
+                                                                            i
+                                                              CHARTS
+
+ Chart 1. Table of NRSROs .............................................................................................................. 3
+ Chart 2. Number of Outstanding Credit Ratings as of December 31, 2023,
+          by Rating Category .......................................................................................................... 20
+ Chart 3. Percentage by Rating Category of Each NRSRO’s Outstanding Credit Ratings
+          of the Total Outstanding Credit Ratings of all NRSROs as of December 31, 2023 ........ 20
+ Chart 4. Breakdown of Ratings Reported Outstanding by Rating Category
+          as of December 31, 2023 ................................................................................................. 22
+ Chart 5. Breakdown of Ratings Reported Outstanding by NRSRO as of December 31, 2023 ..... 22
+ Chart 6. Breakdown of Non-Government Securities Ratings Reported Outstanding
+          by NRSRO as of December 31, 2023 .............................................................................. 23
+ Chart 7. Breakdown of Government Securities Ratings Reported Outstanding
+          on December 31, 2023 ..................................................................................................... 23
+ Chart 8. Total Non-Government Ratings Issued by All NRSROs (2019-2023)............................ 24
+ Chart 9. Total Non-Government Ratings Issued by Medium and Small
+          NRSROs (2019-2023)...................................................................................................... 25
+Chart 10. Total ABS Ratings Issued by All NRSROs (2019-2023) ............................................... 26
+Chart 11. NRSRO Credit Analysts and Credit Analyst Supervisors ............................................... 27
+Chart 12. NRSRO Fiscal Year Revenue as a Percentage of Aggregate Reported Revenue ........... 28
+Chart 13. Rating Agency Market Shares for Total Non-Agency U.S. CMBS Issued in 2022,
+          2023, and First Half of 2024 .......................................................................................... 30
+Chart 14. Rating Agency Market Shares for U.S. Conduit CMBS Issued in 2022, 2023,
+          and First Half of 2024 ...................................................................................................... 31
+Chart 15. Rating Agency Market Shares for U.S. Single-Borrower CMBS Issued in 2022,
+          2023, and First Half of 2024 ............................................................................................ 31
+Chart 16. Rating Agency Market Shares for Agency CMBS Issued in 2022, 2023,
+          and First Half of 2024 ...................................................................................................... 31
+Chart 17. Rating Agency Market Shares for U.S. ABS Issued in 2022, 2023,
+          and First Half of 2024 ...................................................................................................... 32
+Chart 18. Rating Agency Market Shares for U.S. MBS Issued in 2022, 2023,
+          and First Half of 2024 ...................................................................................................... 33
+Chart 19. Rating Agency Market Shares for U.S. CLOs Issued in 2022, 2023,
+          and First Half of 2024 ...................................................................................................... 33
+
+
+
+
+                                                                    ii
+I.        INTRODUCTION
+
+       The Staff of the U.S. Securities and Exchange Commission (Commission or SEC)
+provides this Report regarding nationally recognized statistical rating organizations (NRSROs)
+pursuant to Section 6 of the Credit Rating Agency Reform Act of 2006 (Rating Agency Act) 1
+and Section 15E(p)(3)(C) of the Securities Exchange Act of 1934 (Exchange Act). 2
+        Section 6 of the Rating Agency Act requires the Commission to submit an annual report
+to the Committee on Banking, Housing, and Urban Affairs of the U.S. Senate and the Committee
+on Financial Services of the U.S. House of Representatives that, with respect to the year to which
+the report relates:
+              Identifies applicants for registration as NRSROs under Section 15E;
+              Specifies the number of, and actions taken on, such applications; and
+              Specifies the views of the Commission on the state of competition, transparency, and
+               conflicts of interest among NRSROs.
+        Section 15E(p)(3)(C) requires the Commission to make available to the public an annual
+report summarizing:
+              Essential findings of all Section 15E examinations, as deemed appropriate by the
+               Commission;
+              NRSROs’ responses to any material regulatory deficiencies identified by the
+               Commission; and
+              Whether the NRSROs have appropriately addressed the recommendations of the
+               Commission contained in previous annual reports.
+       This Report addresses the items specified in Section 6 of the Rating Agency Act and
+Section 15E(p)(3). This is a report of the Staff and, as such, reflects solely the Staff’s views.
+       Information regarding the topics covered in this Report with respect to prior periods can
+be found on the Office of Credit Ratings (OCR) page of the Commission’s website under
+“Reports and Studies.”
+
+II.       STATUS OF REGISTRANTS AND APPLICANTS
+
+         In 2007, the Commission began granting registrations to credit rating agencies that
+applied to be registered as an NRSRO. Section 3(a)(62) defines a “nationally recognized
+statistical rating organization” as a credit rating agency that is registered under Section 15E and
+
+
+
+1
+      Pub. L. No. 109-291, 120 Stat. 1327 (Sept. 29, 2006).
+2
+      Unless otherwise noted, all section and rule references in this report are to the Exchange Act and rules under the
+      Exchange Act.
+
+                                                            1
+issues credit ratings certified by qualified institutional buyers, in accordance with Section
+15E(a)(1)(B)(ix), with respect to:
+      (i)    Financial institutions, brokers, or dealers;
+      (ii)   Insurance companies;
+      (iii) Corporate issuers;
+      (iv) Issuers of asset-backed securities; 3
+      (v)    Issuers of government securities, municipal securities, or securities issued by a
+             foreign government; or
+      (vi) A combination of one or more categories of obligors described in any of clauses (i)
+           through (v) above.
+        Section 15E(a) sets out registration procedures for a credit rating agency to voluntarily
+apply to be registered with the Commission as an NRSRO. As of December 31, 2024, there
+were ten credit rating agencies registered as NRSROs. Chart 1 below lists each NRSRO
+registered with the Commission as of such date, the categories of credit ratings described in
+clauses (i) through (v) of Section 3(a)(62)(A) in which each NRSRO is registered, and the
+location of each NRSRO’s principal office.
+        For the most current information disclosed by each NRSRO, refer to such NRSRO’s
+current Form NRSRO. NRSROs are required to file an annual certification on Form NRSRO,
+which includes updates to certain information, such as the number of ratings outstanding and
+performance measurement statistics. They are also required to file updates to Form NRSRO
+promptly if any information becomes materially inaccurate. Other than with respect to an initial
+application for registration, Form NRSRO filings are available on the Commission’s EDGAR
+system, and each NRSRO is required to make its current Form NRSRO publicly and freely
+available on its website.
+
+
+
+
+3
+    “Asset-backed securities” has the meaning set forth in 17 CFR 229.1101(c), as in effect on September 29, 2006
+    (the date of enactment of the Rating Agency Act).
+
+                                                        2
+                                               Chart 1. Table of NRSROs
+                     NRSRO                        Categories of Credit Ratings        Principal Office
+
+   A.M. Best Rating Services, Inc. (AMB)                (ii), (iii ), and ( iv)             U.S.
+   DBRS, Inc. (DBRS)                                     (i) thro ug h (v)                 U.S.
+   Demotech, Inc. (Demotech)                                      ( ii)                     U.S.
+   Egan-Jones Ratings Company (EJR)                      ( i) thro ug h ( iii)             U.S.
+   Fitch Ratings, Inc. (Fitch)                           ( i) thro ug h (v)                U.S.
+   HR Ratings de Mexico, S.A. de C.V. (HR)               (i), (iii ), and (v)             Mexico
+
+   Japan Credit Rating Agency, Ltd. (JCR)             ( i), ( ii ), ( iii), and (v)       Jap an
+
+   Kroll Bond Rating Agency, LLC (KBRA)                  ( i) thro ug h (v)                U.S.
+   Moody's Investors Service, Inc. (Moody's)             (i) thro ug h (v)                  U.S.
+   S&P Global Ratings (S&P)                              ( i) thro ug h (v)                U.S.
+
+
+       Solely for purposes of this Report: Fitch, Moody’s, and S&P are categorized as “large
+NRSROs;” AMB, DBRS, and KBRA are categorized as “medium NRSROs;” and Demotech,
+EJR, HR, and JCR are categorized as “small NRSROs.” These categorizations are based on
+revenue. For the percentage of total NRSRO revenues attributable to the large, medium, and
+small NRSROs over the past few years, refer to Chart 12.
+        Pursuant to Section 15E(a)(2)(C), the Commission grants registration as an NRSRO if it
+finds the requirements of Section 15E are satisfied and so long as it does not find: (1) that the
+applicant does not have adequate financial and managerial resources to produce credit ratings
+with integrity, to materially comply with its procedures and methodologies for determining credit
+ratings disclosed on Form NRSRO, and to materially comply with provisions of Section 15E
+related to the prevention of the misuse of non-public information, management of conflicts of
+interest, prohibited conduct, and designation of a compliance officer; or (2) that, if the applicant
+were to be registered, its registration would be subject to suspension or revocation.
+        Pursuant to Section 15E(a) and Rule 17g-1, applications for initial registration by a credit
+rating agency and for registration by a current NRSRO in additional rating categories are filed on
+Form NRSRO. In addition, Section 15E(b) requires NRSROs to promptly amend Form NRSRO
+if any information or document provided therein becomes materially inaccurate. A credit rating
+agency may choose not to apply for registration as an NRSRO, in which case it may issue credit
+ratings as a credit rating agency, but it may not issue credit ratings as an NRSRO. In addition, a
+credit rating agency may choose to apply for registration as an NRSRO in one or more rating
+categories. As noted in Chart 1 above, certain NRSROs are registered in all of the rating
+categories, and certain NRSROs are registered in fewer than all of the rating categories.
+       In calendar year 2024, no applications for initial registration as an NRSRO, or
+applications for registration by a current NRSRO in additional rating categories, were filed with
+the Commission.
+        The SEC oversees and, as discussed below, examines NRSROs. However, pursuant to
+Section 15E(c)(2), the Commission is prohibited from regulating the substance of credit ratings
+or the procedures and methodologies the NRSROs use to determine credit ratings. As a result,
+OCR does not assess the quality, reliability, or credibility of an NRSRO’s methodologies,
+
+                                                              3
+models, or ratings in connection with its examinations or otherwise, and registration as an
+NRSRO is not a Commission “seal of approval.” It is up to users of credit ratings to assess for
+themselves the quality, credibility, and reliability of an NRSRO’s credit ratings.
+
+III.   EXAMINATIONS AND MONITORING
+
+       A.      Overview
+
+       Section 17 authorizes the Staff to conduct examinations of NRSROs. Section 15E(p)(3)
+requires the Staff to conduct an examination of each NRSRO at least annually (Section 15E
+examinations). Generally, the purpose of these examinations is to promote compliance with
+applicable federal securities laws and rules by identifying potential instances of non-compliance
+by NRSROs with their statutory and regulatory obligations and recommending remedial action.
+Information obtained during an examination can also inform Staff of noteworthy industry
+developments.
+        To facilitate and promote compliance by NRSROs with their statutory and regulatory
+obligations, the Staff sends each NRSRO an examination summary letter that discusses the
+Staff’s findings related to that NRSRO and recommends remedial measures. When appropriate,
+Staff may refer findings to the Commission’s Division of Enforcement for investigation.
+        Section 15E(p)(3)(B) provides that each NRSRO examination shall include a review of
+the following eight topic areas (Section 15E Review Areas):
+           Whether the NRSRO conducts business in accordance with its policies, procedures,
+            and rating methodologies;
+           Management of conflicts of interest by the NRSRO;
+           Implementation of ethics policies by the NRSRO;
+           Internal supervisory controls of the NRSRO;
+           Governance of the NRSRO;
+           Activities of the Designated Compliance Officer (DCO) of the NRSRO;
+           Processing of complaints by the NRSRO; and
+           Policies of the NRSRO governing the post-employment activities of its former staff.
+       This Section III discusses the annual examinations that commenced in late 2023 and
+concluded in late September 2024 (2024 Section 15E examinations).
+
+       B.      Risk Assessment
+
+      The 2024 Section 15E examinations encompassed all of the statutorily required Section
+15E Review Areas. The Staff also determined areas of emphasis and issues of focus for each
+examination based upon an NRSRO-specific risk assessment performed by the Staff, while also
+
+
+                                                4
+considering how to limit the amount of personal data collected in the examination process. The
+NRSRO-specific risk assessments considered a number of factors, including, but not limited to:
+          The NRSRO’s rating activities and operations;
+          Staff’s findings, recommendations, and other observations from prior examinations;
+          Impact of a potential or actual internal control or compliance failure by the NRSRO;
+          Recent industry developments affecting the NRSRO and the asset classes in which
+           the NRSRO is registered;
+          The NRSRO’s filings with the Commission and public disclosures;
+          The NRSRO’s self-identified weaknesses and instances of non-compliance;
+          Relevant Tips, Complaints, and Referrals (TCRs) received by the Commission; and
+          Risks identified in a risk assessment process.
+        Through its risk assessment process in connection with the 2024 Section 15E
+examinations, the Staff identified a number of potential risks for consideration in the NRSRO-
+specific risk assessments and incorporation into the examinations, as appropriate. The risks
+identified include:
+
+          Methodology and Model Development: Each NRSRO determines its own
+           methodology and model development, review, and validation practices. The Staff
+           examined the process by which NRSROs assess whether their methodologies are
+           appropriately designed to gauge their view of the relevant credit risks as conditions
+           evolve. Among other things, the Staff examined NRSRO adherence to their policies
+           and procedures regarding the development, maintenance, and validation of
+           methodologies and models.
+          Surveillance Practices for Outstanding Ratings: NRSROs employ varying
+           approaches to the surveillance of outstanding credit ratings. As part of their
+           surveillance practices, some NRSROs require each outstanding rating to be reviewed
+           by a rating committee on a periodic basis. Other NRSROs instead perform less
+           formal periodic reviews to identify credit ratings that may need to be considered by a
+           committee. The Staff examined the surveillance practices of NRSROs to assess
+           compliance with statutory and rule requirements, such as the requirement to have an
+           effective internal control structure governing adherence to policies, procedures, and
+           methodologies for determining credit ratings.
+          Commercial Real Estate/CMBS: Many commercial real estate loans that were
+           originated in 2013 and 2014, when lending conditions were generally more favorable
+           than in 2023, were sold into CMBS vehicles. The loans were typically originated
+           with balloon payments due at maturity. Some of these loans come due over the next
+           few years and will need to be either repaid in full or refinanced. In the current
+           interest rate environment, commercial real estate borrowers with maturing loans may
+           need to contribute equity to refinance. Risks in the sector also include increased
+
+                                                5
+             vacancy rates in office buildings due to the growth of remote and hybrid work. The
+             Staff reviewed commercial real estate related rating activity of certain NRSROs to
+             examine adherence to their rating methodologies and surveillance requirements.
+            Securities Ownership: NRSROs generally take similar approaches to address and
+             manage conflicts of interest that can arise from securities ownership. Under their
+             policies and procedures governing securities ownership by employees, NRSROs
+             prohibit employees from having direct interests in issuers or obligors of credit ratings
+             they help determine. NRSROs also typically monitor securities ownership by
+             employees, although the specific processes for doing so can vary. The Staff reviewed
+             the policies and procedures of each NRSRO related to securities ownership by its
+             employees and directors to assess whether such policies and procedures are
+             reasonably designed to address and manage the related potential conflict of interests.
+
+        C.       Monitoring
+
+       To help inform its risk assessment process and examination program, the Staff in 2024
+monitored credit rating activity, industry trends and developments, NRSRO operational
+developments and plans, and relevant capital market, economic, and financial news and events.
+The Staff’s monitoring activities included communications with NRSROs and reviewing sources
+such as NRSRO publications, news reports, trade publications, academic papers, industry
+conference information, and government reports.
+        For example, the Staff’s discussions with certain NRSROs covered the evolving state of
+the commercial real estate market and its impact on CMBS ratings. NRSROs reported actively
+monitoring the sector, noting a deterioration in the commercial real estate office sector due to
+higher interest rates and vacancy rates. NRSROs conducted rating reviews, updated stress
+assumptions, and issued downgrades, as the refinancing of office loans became more challenging
+and, in some instances, loans defaulted. NRSROs indicated that they expected delinquencies to
+peak at high single digits, assuming reduced interest rates and the absence of a significant
+recession. Additionally, while office building valuations have generally been lower due to
+higher vacancy rates, some NRSROs noted that there have been few office building sales which
+could help establish valuations. There was agreement among NRSROs that the sector outlook
+will remain unclear until rents and vacancies stabilize.
+        The Staff also discussed with certain NRSROs their activities in the private credit market,
+including the launching of certain related initiatives and additions to staff. 4 These NRSROs
+noted that private credit permeates across the rating business. They reported rating a variety of
+instruments backed by collateral originated in the private credit market, including with respect to
+private credit funds, business development companies, and collateralized loan obligations. Some
+of these NRSROs also indicated that they rate certain companies, such as alternative asset
+
+
+
+
+4
+    See, e.g., Moody’s Corporation, Moody’s creates new private credit analytical franchise, appoints Ana Arsov to
+    lead (Nov. 6, 2023); KBRA, KBRA Deepens Its Funds and Private Credit Teams With Three Senior-Level
+    Hires (Sept. 9, 2024).
+
+                                                        6
+managers, that are active in the private credit markets, as well as debt extended to individual
+companies through direct lending efforts of non-bank lenders.
+        The increased activity in the private credit markets has also contributed to the
+proliferation of private ratings, which are common in the context of private debt. Private ratings
+are credit ratings that are communicated by the NRSRO to an issuer or a specified investor or
+group of investors but that are not publicly disclosed on the NRSRO’s website or included in its
+broadly disseminated data feeds.
+        Insurance companies are prominent users of private ratings. They commonly use
+NRSRO ratings, including private ratings, to determine risk-based capital charges for eligible
+investments. The National Association of Insurance Commissioners (NAIC) has noted that the
+use of private ratings by insurance companies has grown considerably and that over 80% of the
+private ratings on insurer investments are issued by small and medium NRSROs. 5 The Staff has
+observed that EJR and KBRA issue the majority of these private ratings, followed by DBRS.
+HR also issues private ratings of this type. Although it issues significantly fewer such ratings
+than EJR, KBRA, or DBRS, these ratings represent the overwhelming majority of HR’s business
+in the U.S.
+        More broadly, the NAIC has been engaged in efforts to reassess the way in which it uses
+credit ratings (both published ratings and private ratings) for regulatory purposes. In August
+2024, the NAIC Valuation of Securities Task Force adopted changes to the Purposes and
+Procedures Manual of the NAIC Investment Analysis Office to provide a process for
+determining whether an NRSRO credit rating is a “reasonable assessment of investment risk of
+the security” for the purpose of determining capital charges. 6 The NAIC is also considering
+developing a due diligence program with respect to the ongoing use of credit rating agencies for
+regulatory purposes. In a request for proposal released in November 2024, 7 the NAIC
+recognized that, given the statutory limitation on the SEC’s authority to regulate the substance of
+credit ratings, the NAIC’s current process for recognizing credit rating agencies that can be used
+for risk-based capital requirement purposes (which includes no criteria other than registration
+with the SEC as an NRSRO) may result in “blind reliance” on credit ratings without any process
+to assess whether such ratings are reasonable. Reducing or eliminating such “blind reliance” is
+an objective of the due diligence program identified in the request for proposal. As discussed in
+Section II of this Report, given the statutory limitation on the SEC’s authority, it is up to users of
+credit ratings to assess for themselves the quality, credibility, and reliability of an NRSRO’s
+credit ratings before choosing to use them.
+
+
+
+5
+    See National Association of Insurance Commissioners, Growth in Private Ratings Among U.S. Insurer Bond
+    Investments and Credit Rating Differences (Jan. 2022). In a recent publication discussing U.S. insurers and
+    private credit, Fitch noted that the percentage was reported to be almost 86%. See Fitch Ratings, US Insurers
+    and Private Credit: Not All Private Ratings are the Same (Dec. 2024).
+6
+    See National Association of Insurance Commissioners, Valuation of Securities (E) Task Force Memorandum
+    (July 30, 2024) (detailing the process by which a credit rating can be replaced with an assessment by the NAIC
+    Investment Analysis Office).
+7
+    See National Association of Insurance Commissioners, RFP #2097 Credit Rating Provider Due Diligence (Nov.
+    22, 2024).
+
+                                                         7
+        In 2024, the Staff continued to participate in meetings that involved rating agency
+regulators globally. This includes meetings of the supervisory colleges that were formed to
+enhance communication among credit rating agency regulators globally with respect to
+examinations of the largest, internationally active credit rating agencies. 8 The SEC serves as
+chair of the college for S&P, and the Staff represents the SEC in this regard. The European
+Securities and Markets Authority serves as chair of the college for Fitch, and the Financial
+Conduct Authority serves as chair of the college for Moody’s. Each college engaged in periodic
+discussions during 2024 regarding supervisory activities related to the credit rating agencies.
+The Staff also conducted additional discussions with foreign regulators, as appropriate.
+
+        D.       2024 Section 15E(p)(3) Examinations
+
+                 1.      Overview
+
+        The 2024 Section 15E examinations generally focused on the NRSROs’ activities for the
+period covering January 1, 2023, through December 31, 2023 (the Review Period). The
+examinations also reviewed certain activities or credit rating actions from outside the Review
+Period, as appropriate. For example, the Staff may review information relating to TCRs in a
+current examination, even if the referenced activities occurred outside of the Review Period.
+        The 2024 Section 15E examinations included a review of the Section 15E Review Areas
+as well as examination of each NRSRO’s compliance with Section 15E and Rules 17g-1 through
+17g-10. For example, the Staff reviewed a sample of rating actions of each NRSRO to determine
+whether the NRSRO operated in accordance with its policies, procedures, and rating
+methodologies. The Staff also reviewed rating files and documentation to evaluate whether each
+NRSRO adhered to recordkeeping requirements. As part of this review, the Staff uses a risk-
+based sampling process based upon its overall risk assessment approach described in this Report
+to select rating actions and rating files to review. The process may include factors such as the
+size of the rated asset class in the financial markets and the NRSRO’s business, the NRSRO’s
+activity in the rated asset class, and the likelihood of impact on investors if a rating was not
+determined in accordance with the NRSRO’s methodologies and procedures.
+
+                 2.      Terms Used in This Report
+
+        Pursuant to Section 15E(p)(3)(C)(i)-(iii), this Report contains a summary of, respectively,
+the essential findings of the Staff’s annual examinations, the NRSROs’ responses to any material
+regulatory deficiencies, and whether the NRSROs have appropriately addressed the
+recommendations contained in previous reports.
+        For purposes of this Report, the Staff considers an “essential finding” to be any instance
+identified by the Staff of apparent non-compliance by an NRSRO with the federal securities laws
+or related Commission rules applicable to NRSROs, except those instances attributable to a non-
+recurring and non-significant clerical or ministerial error or omission. The essential findings
+described in this Report reflect the Staff’s conclusions following examination of the NRSROs.
+
+
+8
+    See The Board of the International Organization of Securities Commissions, Supervisory Colleges for Credit
+    Rating Agencies, Final Report (July 2013).
+
+                                                       8
+The essential findings are not findings or conclusions of the Commission and have not been
+subject to adjudication.
+        For purposes of this Report, the Staff considers “material regulatory deficiencies” to be
+essential findings that involve:
+          Conduct or a deficiency that could undermine the quality of a credit rating or impair
+           the objectivity of an NRSRO’s credit rating process; or
+          Conduct that may be inconsistent with the anti-fraud provisions of the federal
+           securities laws.
+        The Staff’s determination that an NRSRO appropriately addressed a recommendation
+does not constitute its endorsement of that NRSRO or its policies, procedures, internal controls,
+or operations. In a future examination, the Staff may reevaluate the NRSRO’s response to
+recommendations that it previously deemed to be appropriately addressed by, for example,
+assessing whether the NRSRO fully implemented remedial measures and whether those remedial
+measures appear to be effective. The Staff may also review and make recommendations
+concerning the NRSRO’s policies, procedures, internal controls, or operations related to the
+general subject matter of a recommendation that it previously deemed to be appropriately
+addressed.
+        The Staff’s assessment of whether an NRSRO has appropriately addressed a
+recommendation depends on the specific facts and circumstances, including, but not limited to,
+the promptness of the NRSRO’s response, the severity of the conduct at issue, and whether the
+remedial action undertaken by the NRSRO is expected to fully resolve the Staff’s concerns. In
+addition, the determination of whether an NRSRO appropriately addressed a recommendation
+reflects solely the Staff’s view and does not necessarily reflect the views of the Commission.
+
+               3.      Summary of Essential Findings and Responses to Material Regulatory
+                       Deficiencies
+
+      For purposes of the Report, the Staff grouped the essential findings of the 2024 Section
+15E examinations by each applicable large NRSRO, medium NRSRO, and small NRSRO in a
+random ordering. The 2024 Section 15E examinations did not identify any essential findings for
+one small NRSRO and one medium NRSRO. Accordingly, the following list includes a
+summary of essential findings with respect to eight NRSROs.
+
+                       a.     Large NRSRO #1
+
+           (1) The NRSRO did not enforce certain of its policies and procedures designed to
+               address and manage conflicts of interest related to securities ownership, resulting
+               in several instances where analysts continued to own securities that they were
+               required to divest under such policies. In one of these instances, an analyst
+               participated in determining a credit rating by voting in the rating committee,
+               notwithstanding that the analyst owned securities of the obligor whose credit
+               rating was being determined. Participating in determining a credit rating under
+               such circumstances gives rise to a prohibited conflict of interest pursuant to Rule
+
+                                                 9
+   17g-5(c)(2). The Staff recommended that the NRSRO enhance its procedures and
+   controls, established pursuant to Section 15E(h)(1), to address and manage
+   conflicts of interest related to securities holdings.
+   The Staff identified this essential finding as a material regulatory deficiency.
+   In its response, the NRSRO stated that, upon discovering that an analyst had
+   voted in a committee for credit ratings of an issuer while owning securities of the
+   issuer, it self-reported the issue to the Staff and took prompt remedial actions,
+   including convening a new committee and suspending, and ultimately
+   terminating, the analyst. It also stated that it conducted a review of the securities
+   holdings and trading of rating analysts hired in 2022 and 2023 and a sample of
+   analysts who transferred between practice groups in 2022. Further, it reviewed all
+   committee participation of individuals who had securities holdings that
+   overlapped with the individuals’ area of practice and did not identify any other
+   analyst who voted in a committee while owning shares of the company under
+   review. The NRSRO stated that it has enhanced its procedures and controls to
+   address and manage conflicts of interest related to securities holdings, including
+   by implementing automated tools, hiring additional compliance personnel,
+   updating notices sent to employees regarding divestment requirements, revising
+   its applicable policy, and updating related employee training.
+(2) A non-independent director did not preclear three securities transactions or
+    subject their related brokerage accounts to monitoring by the NRSRO, both as
+    required by the NRSRO’s policies. The transactions involved shares of stock of
+    entities rated by the NRSRO. The Staff recommended the NRSRO establish,
+    maintain, and enforce written policies and procedures, as required by Section
+    15E(h)(1), reasonably designed to address and manage conflicts of interest with
+    respect to securities ownership by directors.
+
+           b.      Large NRSRO #2
+
+(1) The NRSRO’s independent directors used their personal email accounts to
+    conduct NRSRO business, which included the transmission of nonpublic
+    information, including potentially material nonpublic information. Such use of
+    personal email accounts occurred despite the directors having been provided with
+    NRSRO email addresses and despite the NRSRO’s policies prohibiting such
+    personal email use. The Staff recommended that the NRSRO implement controls
+    and procedures, including for monitoring, to enforce its policies and procedures to
+    prevent the misuse of material nonpublic information, as required by Section
+    15E(g)(1).
+(2) Prior to convening a rating committee, an analyst sent a draft rating report to an
+    issuer that inadvertently disclosed a contemplated rating action. Such disclosure
+    was contrary to the NRSRO’s policy regarding the treatment of confidential
+    information and its practice to redact material nonpublic information, including
+    contemplated rating actions, when providing draft reports to an issuer. The Staff
+    recommended that the NRSRO establish additional procedures reasonably
+
+                                    10
+   designed to prevent misuse of material nonpublic information, as required by
+   Section 15E(g)(1).
+(3) The NRSRO did not disclose complete and correct credit rating histories in its
+    Rule 17g-7(b) disclosures. For several years, the NRSRO posted disclosures that
+    did not include a significant number of credit ratings of a particular rating
+    category. Further, for several months, the NRSRO’s posted disclosures did not
+    include a significant number of credit ratings of another rating category. The
+    Staff recommended that the NRSRO implement procedures or controls to enable
+    the accurate creation, maintenance, and monitoring of its credit rating history
+    disclosures.
+
+           c.      Large NRSRO #3
+
+(1) The NRSRO did not make and retain a record of the rationale for the material
+    difference between the credit rating it assigned to a security issued as part of an
+    asset-backed securities transaction and the credit rating implied by a model that
+    was a substantial component in the process of determining the credit rating, as
+    required by Rule 17g-2(a)(2)(iii). Although the NRSRO requires records of this
+    type to be made and retained, and has internal control processes designed to help
+    the NRSRO comply with such requirement, it did not do so in this instance. In
+    addition, an internal review of documentation of other credit rating committees
+    conducted by the NRSRO found other instances of documentation shortfalls of
+    varying types. The Staff recommended that the NRSRO take measures, such as
+    providing additional training, designed to ensure that analysts provide all
+    documents required for rating committees.
+(2) The NRSRO’s policies and procedures did not require that it promptly publish on
+    its website notice of the existence of a significant error identified in a procedure
+    or methodology used to determine credit ratings that may result in a change to
+    current credit ratings, as required by Rule 17g-8(a)(4)(ii). Although the NRSRO
+    had an error procedure that covered errors involving the information used by a
+    rating committee in determining a credit rating, including errors in the application
+    of methodologies and use of models and scorecards, the procedure did not address
+    all types of errors covered by the rule and did not provide for prompt publication
+    on the NRSRO’s website of notice of such errors, as required by the rule. The
+    Staff recommended that the NRSRO establish, maintain, enforce, and document
+    the policies and procedures required by the rule.
+
+           d.      Medium NRSRO #1
+
+(1) Although the NRSRO established a process for users of credit ratings to submit
+    complaints anonymously, it was not apparent or intuitive how to do so. The
+    difficulty in submitting complaints anonymously may discourage users of credit
+    ratings from communicating complaints to the NRSRO. The Staff recommended
+    that the NRSRO establish clear and effective procedures for the submission and
+    receipt of confidential, anonymous complaints from users of credit ratings,
+    consistent with the requirements of Section 15E(j)(3).
+                                     11
+(2) The NRSRO did not enforce a policy designed to ensure adequate records are
+    made and retained to allow for an effective after-the-fact review of a rating
+    action. Although the policy required its personnel to maintain written records
+    reflecting the steps and values used in the application of the NRSRO’s analytical
+    methodology and containing sufficient details to permit an after-the-fact review,
+    the NRSRO did not enforce this control in connection with the rating action. In
+    particular, the NRSRO did not document an explanation or rationale for an
+    adjustment to a quantitative factor made during the credit rating process that was
+    outside the range specified in the published rating methodology. The Staff
+    recommended that the NRSRO, consistent with its requirements under Section
+    15E(c)(3)(A), enforce its policy regarding credit rating documentation
+    requirements.
+(3) The NRSRO’s board of directors did not approve the entirety of a methodology,
+    contrary to the policies and procedures established by the NRSRO pursuant to
+    Rule 17g-8(a)(1). In the course of approving a particular methodology, the
+    NRSRO’s board did not approve a quantitative tool that appears to be used in
+    applying the methodology and to have a significant impact on rating outcomes.
+    The Staff recommended that the NRSRO implement procedures or controls to
+    ensure that complete versions of all new or amended methodologies are approved
+    by its board of directors in accordance with its procedures.
+(4) The NRSRO did not make and retain a record of the rationale for the material
+    difference between the credit rating it assigned to a security issued as part of an
+    asset-backed securities transaction and the credit rating implied by a model that
+    was a substantial component in the process of determining the credit rating, as
+    required by Rule 17g-2(a)(2)(iii). Although the NRSRO took the view that the
+    model used in the credit rating process was not a substantial component of the
+    determination process, it appeared to the Staff, based on its review of the credit
+    rating related documentation and its interviews with NRSRO analysts involved in
+    the credit rating determination, that the model was, in fact, a substantial
+    component of the credit rating determination process. The Staff recommended
+    that the NRSRO implement controls, such as by defining when a model
+    constitutes a substantial component of the rating process and providing
+    appropriate guidance and training to analysts, designed to ensure that it makes
+    and retains records required by the rule.
+
+           e.     Medium NRSRO #2
+
+(1) The NRSRO did not apply all applicable methodologies when determining an
+    entity’s credit rating. The NRSRO did not detect its error over the course of
+    approximately five years, despite convening multiple rating committees to assess
+    the entity’s credit rating during this period. The NRSRO also published an
+    information disclosure form that did not identify the version of all methodologies
+    used, as required by Rule 17g-7(a). The Staff recommended that the NRSRO
+    enhance its internal controls required by Section 15E(c)(3)(A) that are designed to
+    ensure it applies all applicable methodologies when determining credit ratings.
+
+                                    12
+   The Staff also recommended that the NRSRO enhance its procedures that are
+   designed to ensure that it discloses in its information disclosure forms the versions
+   of the methodologies used to determine credit ratings.
+   The Staff identified this essential finding as a material regulatory deficiency.
+   In its response, the NRSRO noted that the issue was identified by the chair of the
+   rating committee held in 2023 in accordance with its error correction policy and
+   self-reported to the Staff. The NRSRO also indicated that it has enhanced its
+   internal controls in a number of ways, including designating a senior analytical
+   person to explicitly attest to the completeness of materials to be provided to the
+   relevant ratings committees and implementing an enhanced controls-checklist for
+   use by relevant ratings committees. Further, it revised materials used in rating
+   committees to standardize the process for recording the list of methodologies and
+   criteria used to determine the credit rating and the rationale for the choice of
+   relevant methodologies and criteria and to call for the review of information
+   disclosure forms by the rating committee chair. In addition, the NRSRO stated
+   that, for the affected analytical areas, it has mandated enhanced training for
+   employees who vote in rating committees and amended an applicable procedure
+   to increase the minimum number of voting participants in rating committees to
+   provide for a larger number of analysts reviewing rating committee materials.
+   The NRSRO also indicated that it has disciplined certain individuals involved in
+   the applicable rating process.
+(2) An independent director of the NRSRO used a personal email account to conduct
+    NRSRO business, including to send and receive emails containing sensitive
+    information, including potentially material nonpublic information. This occurred
+    despite the director having been provided with an NRSRO-issued electronic
+    device and email account and the director having agreed to be subject to an
+    NRSRO policy prohibiting the use of personal email for NRSRO business. The
+    Staff recommended that the NRSRO enforce its policies and procedures, as
+    required by Section 15E(g)(1), to ensure its independent directors comply with the
+    requirement to protect material nonpublic information.
+(3) In assigning certain credit ratings, the NRSRO did not conduct all analyses
+    required under its methodologies. The error occurred because NRSRO employees
+    did not properly identify and categorize the instruments to be rated. The Staff
+    recommended that the NRSRO enhance its internal controls, as required by
+    Section 15E(c)(3)(A), that are designed to ensure that it properly identifies the
+    type of security or instrument to be rated and uses the appropriate methodology.
+(4) The NRSRO’s complaints policies and procedures did not adequately address the
+    receipt, retention, and treatment of employee complaints regarding credit ratings,
+    models, and methodologies, as required by Section 15E(j)(3)(A). The Staff
+    recommended that the NRSRO amend its policies and procedures to address the
+    receipt, retention, and treatment of these types of complaints.
+
+
+
+                                    13
+           f.      Small NRSRO #1
+
+(1) The NRSRO did not appear to enforce its policy to withdraw ratings when it did
+    not receive required surveillance information. In one instance, financial
+    information needed for monitoring the ratings was not provided to the NRSRO for
+    three financial quarters, a period of time beyond what was permissible under the
+    NRSRO’s practice for the rating to be maintained. The Staff recommended that,
+    in accordance with the requirements of Section 15E(c)(3)(A), the NRSRO clarify
+    the operation of its policy and implement appropriate procedures or controls to
+    enforce the policy.
+(2) The NRSRO did not appear to have effective internal controls to ensure that
+    annual surveillance reviews were conducted on a timely basis. Staff observed
+    instances where, contrary to the NRSRO’s policies and procedures for surveilling
+    outstanding credit ratings, surveillance reviews were not conducted within the
+    required annual timeframe. The Staff recommended that, in accordance with the
+    requirements of Section 15E(c)(3)(A), the NRSRO establish, maintain, enforce,
+    and document effective controls governing adherence to its policies and
+    procedures for conducting annual surveillance reviews.
+
+           g.      Small NRSRO #2
+
+(1) A senior employee who participated in the sales and marketing of the NRSRO’s
+    ratings discussed with a credit rating analyst the need to take certain rating actions
+    with regard to numerous ratings. In apparent response to the discussion, a
+    previously unscheduled rating committee meeting was convened on an expedited
+    basis to take actions on the ratings. By seeking to influence ratings, the senior
+    employee who participated in sales and marketing activities participated in
+    determining the ratings, which is a prohibited conflict of interest under Rule 17g-
+    5(c)(8). The Staff recommended that the NRSRO enhance its controls to monitor
+    interactions between employees involved in sales and marketing activities and
+    analytical employees and consider whether enhancements to its policies are
+    necessary to avoid inappropriate participation in the determination or monitoring
+    of credit ratings.
+   The Staff identified this essential finding as a material regulatory deficiency.
+   In its response, the NRSRO disagreed that the senior employee’s communication
+   with the credit rating analyst was an attempt to influence ratings. However, the
+   NRSRO acknowledged that communications of this type could give rise to, at
+   least, an appearance of impermissible conduct. The NRSRO stated that,
+   following an investigation conducted by outside counsel, the independent
+   directors of the NRSRO put in place certain compliance and governance
+   enhancements, including issuing a warning letter to the senior employee,
+   administering additional training to the senior employee and others, enhancing the
+   NRSRO’s relevant policies and procedures, and increasing compliance/risk
+   staffing and resources. The NRSRO said it would continue to monitor diligently
+
+
+                                     14
+   controls designed and intended to prevent inappropriate participation in the
+   determination of credit ratings.
+(2) The NRSRO’s independent directors were permitted to attend, and did attend,
+    some of the NRSRO’s rating committees. However, the NRSRO’s policies and
+    procedures did not contemplate that independent directors would be involved in
+    the day-to-day operations of the NRSRO and, as a result, were not reasonably
+    designed to address and manage the corresponding conflicts of interest that can
+    arise or to prevent the misuse of material nonpublic information. The Staff
+    recommended that the NRSRO establish, maintain, document, and enforce
+    policies and procedures for its independent directors which are reasonably
+    designed, taking into account the extent of the involvement of the independent
+    directors in the day-to-day operations of the NRSRO, to address and manage
+    conflicts of interest and to prevent the misuse of material nonpublic information.
+(3) The NRSRO omitted responsive records from a request for records made by the
+    Staff. Instead of producing the actual records of model outputs used in
+    determining certain credit ratings retained by the NRSRO, the NRSRO generated
+    a summary report to provide to the Staff. In other instances, the NRSRO
+    produced records that did not contain all relevant information or were inaccurate.
+    The Staff recommended that the NRSRO promptly provide complete and current
+    copies of all records responsive to Staff requests, as required by Rule 17g-2(f),
+    and improve its recordkeeping practices, such as by instituting appropriate
+    controls, to minimize instances of incomplete or inaccurate records.
+(4) Although the NRSRO had a procedure that required rating analysts to deliver
+    internal attestations as to the absence of conflicts of interest, the procedure did not
+    apply to all NRSRO personnel who participated in the determination of credit
+    ratings. All personnel who participate in the determination of credit ratings can
+    influence the outcome of rating decisions. As a result, the NRSRO’s procedure
+    did not appear to be reasonably designed to address and manage conflicts of
+    interest that can arise from the NRSRO’s business, as required by Section
+    15E(h)(1). The Staff recommended that the NRSRO amend its policies and
+    procedures designed to address and manage conflicts of interest so that they apply
+    to all persons who participate in determining a credit rating.
+(5) Information disclosure forms accompanying certain rating actions did not adhere
+    to the requirements of Rule 17g-7(a)(1), resulting in them being in a format that
+    was not easy to use and helpful for users of credit ratings to understand the
+    information contained in them. For example, items disclosed in some of the
+    forms were not in the order required by Rule 17g-7(a)(1)(i)(A) and, in some of the
+    forms, disclosure items were included multiple times and were inconsistent from
+    one another. In some instances, the disclosures did not comprehensively address
+    all the requirements in Rule 17g-7(a)(1)(ii) and contained errors such as including
+    the wrong assigned rating and the wrong rated entity name. The Staff
+    recommended that the NRSRO implement and/or enhance controls, such as by
+    requiring an appropriate review of the forms before their release, reasonably
+
+
+                                      15
+              designed to ensure that the information therein is accurate, is presented clearly,
+              and adheres to Rule 17g-7(a).
+           (6) The NRSRO did not appear to adhere to the procedures it adopted pursuant to
+               Section 15E(j)(3) for the receipt, retention, and treatment of complaints regarding
+               credit ratings, models, methodologies, and compliance with the securities laws
+               and policies and procedures developed under Section 15E. Specifically, the
+               NRSRO did not document in its complaint log two complaints that were required
+               to be documented under its procedures. The Staff recommended that the NRSRO
+               adhere to its policies and procedures for the receipt, retention, and treatment of
+               complaints, clarify its definition of complaints, and conduct appropriate training
+               to facilitate compliance with its policies and procedures.
+
+                      h.      Small NRSRO #3
+
+           (1) The NRSRO’s board of directors did not conduct a review of the NRSRO’s
+               compensation policies and practices on an annual basis, as required under the
+               NRSRO’s policies. The Staff recommended that the NRSRO should enforce its
+               policies to ensure the board of directors fulfills its oversight responsibilities under
+               Section 15E(t)(3) regarding the NRSRO’s compensation and promotion policies
+               and practices.
+
+           (2) The NRSRO did not disclose complete and correct credit rating histories in its
+               Rule 17g-7(b) disclosures. For two consecutive months, the NRSRO posted a
+               disclosure that did not include numerous credit ratings that were required to be
+               disclosed. The Staff recommended that the NRSRO implement appropriate
+               procedures or controls to ensure complete and accurate credit rating history
+               disclosures.
+
+     Additionally, one of the NRSROs appeared to not comply with certain requirements in a
+Commission order. The Staff recommended that the NRSRO comply with these requirements.
+
+              4.      Responses to Recommendations from Prior Section 15E Examinations
+
+        To assess whether NRSROs appropriately addressed recommendations from the 2023
+Section 15E examinations, the Staff reviewed each NRSRO’s written response describing its
+planned remedial measures, participated in calls with each NRSRO to discuss its written
+response, and requested additional documentation, as appropriate. The Staff also continued to
+assess remedial measures taken to address recommendations from prior Section 15E
+examinations that had not previously been determined to have been appropriately addressed.
+       NRSROs generally addressed the recommendations by taking remedial measures such as
+adopting new or enhancing existing policies or procedures, internal controls, or systems and
+processes, and by adding personnel and other resources in areas such as compliance, information
+technology, or analytics. During the 2024 Section 15E examinations, the Staff assessed each
+NRSRO’s progress in implementing remedial measures. The Staff took into account that
+NRSROs may not be able to fully implement remedial measures and/or that the Staff may not be
+
+
+                                                 16
+able to fully assess the effectiveness of these measures during the 2024 Section 15E
+examinations.
+       The Staff determined that most recommendations from prior Section 15E examinations
+have been appropriately addressed. The recommendations that have not yet been appropriately
+addressed are described below.
+        In one instance, the Staff determined that the remedial efforts taken by a small NRSRO
+with respect to a recommendation from the Staff’s 2022 Section 15E examination did not
+appropriately address the corresponding recommendation. In 2022, the Staff found that the small
+NRSRO did not appear to acquire and analyze all material analytical facts when determining a
+credit rating. The Staff recommended that the NRSRO enhance its internal controls governing
+the implementation of and adherence to its policies, procedures, and methodologies for
+determining credit ratings as they pertain to data quality control, transaction vetting, and
+acquisition of information about its issuers. The Staff determined that the NRSRO did not
+appropriately address the 2022 recommendation because the NRSRO’s remediation did not
+enhance its internal controls around data quality, vetting new transactions, or acquiring
+information about its issuers in a way that would prevent future ratings from being issued despite
+a lack of consideration and understanding of all material analytical facts. Despite being
+informed of the Staff’s determination in the examination summary letter provided to the NRSRO
+following the Staff’s 2023 Section 15E examination, the NRSRO had not undertaken any
+additional remedial efforts as of the conclusion of the 2024 Section 15E examination.
+        The instance described above is the only remaining recommendation from examinations
+prior to the 2023 Section 15E examinations where the Staff has not yet determined its
+recommendation has been appropriately addressed. With respect to the recommendations from
+the 2023 Section 15E examinations, there were several instances where the Staff was unable to
+determine whether its recommendations have been appropriately addressed either because the
+NRSRO’s remediation is ongoing or because additional information is necessary to assess the
+remediation. These instances relate to the following findings and recommendations from the
+2023 Section 15E examinations:
+          An NRSRO appeared to not comply with certain requirements of a Commission
+           order, and the Staff recommended that the NRSRO comply with these requirements.
+           While this NRSRO did implement certain changes to related policies and procedures,
+           the Staff is continuing to evaluate whether these changes have appropriately
+           addressed the Staff’s recommendation.
+          A large NRSRO did not disclose complete and current credit rating histories in its
+           Rule 17g-7(b) disclosures, and the Staff recommended that the NRSRO implement
+           appropriate procedures or controls to ensure the accurate creation and maintenance of
+           such disclosures. In response to this recommendation, the NRSRO implemented
+           additional procedures to validate the content of its required disclosures. The Staff’s
+           review of the effectiveness of the new procedures is ongoing.
+          A medium NRSRO’s policies and procedures for addressing and managing conflicts
+           of interest related to securities holdings did not appear to be reasonably designed
+           given the exclusion of certain types of accounts from monitoring. The Staff
+
+                                               17
+            recommended that the NRSRO establish, maintain, and enforce reasonably designed
+            policies and procedures to address such conflicts of interest and that the NRSRO
+            review past account statements for the previously excluded accounts to identify any
+            instances where a prohibited conflict of interest may have existed. The NRSRO
+            implemented new procedures with respect to the previously excluded accounts in the
+            first quarter of 2024 and completed its review of past account statements in the third
+            quarter of 2024. The review of past account statements identified one instance where
+            an analyst participated in multiple rating committees, including committees held after
+            the implementation of the new procedures, while owning securities of the issuer. The
+            Staff’s review of the effectiveness of the new procedures is ongoing.
+           A small NRSRO maintained a performance measurement system which, in the Staff’s
+            view, established incentives for analysts to produce ratings as quickly as possible,
+            without regard to rating quality, and that such incentives made it difficult or
+            impossible for the NRSRO to manage certain conflicts of interest. The Staff also
+            found that the system appeared to be designed to achieve sales and marketing
+            objectives and to result in analytical employees being influenced by sales and
+            marketing considerations. The Staff recommended that the NRSRO eliminate
+            performance measures that promote sales and marketing considerations and
+            exacerbate conflicts of interest and that the NRSRO maintain adequate resources and
+            utilize those resources to implement and enforce policies, procedures, and controls
+            necessary to produce credit ratings with integrity. The NRSRO eliminated the
+            specific performance measurement system in question and indicated that its board of
+            directors would assume a more active role in the assessment of needed resources.
+            While the Staff did observe an increased focus on these issues at the board level that
+            is ongoing, the Staff also continued to observe apparent deficiencies in processes and
+            controls that could impact the production of credit ratings with integrity.
+The Staff will continue to assess the remedial efforts of the respective NRSROs with respect
+these findings and recommendations in its 2025 Section 15E examinations.
+
+IV.    STATE OF COMPETITION, TRANSPARENCY, AND CONFLICTS OF
+       INTEREST
+
+       A.      Competition
+
+                1.     Select NRSRO Statistics
+
+        Sections IV.A.1.a through 1.c below summarize and discuss certain information reported
+by NRSROs on Form NRSRO or pursuant to Rule 17g-3 that provides insight into the state of
+competition among NRSROs. While this information indicates that the large NRSROs continue
+to account for the highest percentages of outstanding ratings, it also shows that the small and
+medium NRSROs continue to compete with the large NRSROs in certain rating categories. For
+instance, the information shows that AMB has the greatest number of ratings outstanding in the
+insurance category and that DBRS and KBRA have maintained a meaningful ratings share in the
+asset-backed securities category.
+
+
+
+                                                18
+                       a.      NRSRO Credit Ratings Outstanding
+
+        Pursuant to Rule 17g-1(f), each NRSRO must file with the Commission an annual
+certification on Form NRSRO within 90 days of the end of each calendar year. Such filings are
+publicly available on EDGAR and are also required to be made publicly available without cost
+on each NRSRO’s website pursuant to Rule 17g-1(i).
+         Each NRSRO reports in Item 7A of the NRSRO’s annual certification on Form NRSRO
+the number of outstanding credit ratings, as of the end of the preceding calendar year, for each
+rating category for which it is registered. This information, for the calendar year ending
+December 31, 2023, is summarized in Charts 2 through 7 below, and Charts 8 through 10
+illustrate how the number of ratings outstanding at each NRSRO have changed over the past five
+years. This information can be useful in determining the breadth of an NRSRO’s coverage with
+respect to issuers, obligors, and securities or money market instruments within a particular rating
+category and overall.
+        While comparing the number of ratings outstanding among NRSROs provides a
+cumulative view on the state of competition over time, comparing the number of ratings issued
+by such NRSROs in a given period provides a more current picture of competition among
+NRSROs. Consequently, the information described in Charts 8 through 10 (which show changes
+in ratings outstanding over a five-year period) may provide an indication of how NRSROs have
+been competing in recent years. Additionally, the information described in Section IV.A.2 of
+this Report (relating to recent market share developments in the asset-backed securities rating
+category) may provide additional insight regarding the current competitive landscape among the
+NRSROs in the asset-backed securities rating category.
+         There are additional limitations to assessing the state of competition in each rating
+category and in the aggregate based on the number of outstanding ratings. For instance, some
+NRSROs have pursued business strategies to specialize in particular rating categories or sub-
+categories. For example, AMB has traditionally focused on rating insurance companies and their
+affiliates. Also, the reported information does not reflect any credit ratings being issued by
+NRSROs in rating categories in which they are not registered with the Commission, nor does it
+reflect ratings issued by an affiliate of an NRSRO unless the affiliate is identified as a credit
+rating affiliate on Item 3 of Form NRSRO.
+        Further, when reporting its outstanding ratings, each NRSRO makes its own
+determination of the applicable rating category into which each of its ratings falls. The
+classification of ratings into the five rating categories is not necessarily consistent across
+NRSROs.
+        Chart 2 provides the number of outstanding credit ratings reported by each NRSRO in its
+annual certification for the calendar year ending December 31, 2023, in each of the five rating
+categories identified in Section 3(a)(62)(A) for which the NRSRO was registered as of
+December 31, 2023. Chart 3 displays the percentage of each NRSRO’s outstanding credit
+ratings of the total outstanding credit ratings of all NRSROs, for each rating category in which
+the NRSRO was registered, as reported by each NRSRO in its annual certification for the
+calendar year ending December 31, 2023.
+
+
+                                                  19
+        Chart 2. Number of Outstanding Credit Ratings as of December 31, 2023, by Rating Category
+                   .     .                                       Asset-                                         Year-Over-Year Change
+   NRSRO          F1~an~1al      lnsuran~e         Corporate     Backed      Govern_n:ient    To_tal             in Total Ratin s ( 2022
+                lnst1tut1ons    Companies           Issuers     Securities    Securities     Ratings                    to 202~)
+
+Demotech           N/ R            432               N/ R          N/ R          N/ R          432                      -1.59 %
+
+EJR               5,078            817               8,354         N/ R          N/ R         14,249                    -6.98%
+
+HR                 797             N/ R              732           N/ R          469          1,998                      7.48%
+
+JCR                948             106              3,466          N/ R          401           4 ,921                   4.99%
+
+Total Small       6,823           1,355             12,552         N/R           870          21,600
+
+AMB                N/ R           7,357              984            8            N/ R         8,349                     -0.12%
+
+DBRS              9,232            229               3,125        42,751        8,100         63,437                     1.33%
+
+KBRA               1,657           182               455          18,315        9,548         30,157                    -12.22%
+
+Total Medium      10,889          7,768             4,564        61,074         17,648       101,943
+
+Fitch             37,383          3,245             21,073       36,382        165,140       263,223                    0.48%
+
+Moody's           39,543          2,707             32,669        51 ,256      544,445       670,620                    -0.14%
+
+S&P               61,360          6,967             54,545        37,720       895,230       1,055,822                  -0.84%
+
+Total Large      138,286          12,919            108,287      125,358      1,604,815      1,989,665
+
+Total            155,998          22,042            125,403      186,432      1,623,333      2,113,208                  -0.60%
+
+N/ R indicates that the NRSRO was not registered in the applicable rating category as of the reporting date.
+Percentages have been rounded to the nearest one-hundredth of one percent.
+Sources: NRSRO annual certifications for the 2022 and 2023 calendar years, Item 7 A on Form NRSRO.
+
+
+
+          Chart 3. Percentage by Rating Category of Each NRSRO’s Outstanding Credit Ratings
+             of the Total Outstanding Credit Ratings of all NRSROs as of December 31, 2023
+
+   NRSRO           Fi~an~ial         lnsuran~e                Corporate      Asset-B~~ked        Govern_n:ient           Total Ratin s
+                 lnst1tut1ons       Companies                  Issuers        Securities          Securities                        g
+
+Demotech             N/ R                 1.96%                 N/ R              N/ R                   N/ R               0.02%
+
+EJR                 3.26%                 3.71 %               6.66 %             N/ R                   N/ R                0.67%
+
+HR                  0.51 %                 N/ R                0.58%              N/ R                  0.03%               0.09%
+
+JCR                 0.61%                 0.48%                2.76%              N/ R                  0.02%                0.23%
+
+Total Small         4.37%                 6.15%                10.01%             N/R                   0.05%                1.02%
+
+AMB                  N/ R                33.38%                0.78%             <0.01%                  N/ R               0.40%
+
+DBRS                5.92%                 1.04%                2.49%             22.93%                 0.50%               3.00%
+
+KBRA                1.06%                 0.83%                0.36%             9.82%                  0.59%                1.43%
+
+Total Medium        6.98%                35.24%                3.64%             32.76%                 1.09%               4.82%
+
+Fitch              23.96%                14.72%                16.80%            19.51%                 10.17%              12.46%
+
+Moody's             25.35%                12.28%               26.05%            27.49%              33.54%                 31.73%
+
+S&P                 39.33%                31.61 %              43.50%            20.23%                 55.15%              49.96%
+
+Total Large         88.65%                58.61%               86.35%            67.24%                 98.86%              94.15%
+
+N/ R indicates that the NRSRO was not registered in the applicable rating category as of the reporting date.
+Percentages have been rounded to the nearest one-hundredth of one percent.
+Sources: NRSRO annual certifications for the 2022 and 2023 calendar years , Item 7 A on Form NRSRO.
+
+
+
+
+                                                                 20
+       The large NRSROs accounted for 94.15% of all the ratings outstanding as of December
+31, 2023—virtually unchanged from their share as of December 31, 2022. For comparison, in
+2007, the year when NRSROs began reporting outstanding ratings on Form NRSRO, the large
+NRSROs accounted for 98.8% of all outstanding ratings.
+        Charts 2 and 3 also show that AMB, a medium NRSRO, had the most credit ratings
+outstanding in the insurance category. In each of the past ten years, AMB reported more credit
+ratings outstanding in the insurance category than any other NRSRO.
+         Also of note, when compared to the corresponding information as of December 31, 2022,
+is the significant increase in the number of DBRS’ ratings outstanding in the asset-backed
+securities rating category and the similarly-sized decrease in the government securities rating
+category. These changes are largely attributable to a change in the classification of certain
+ratings by DBRS.
+       Chart 4 depicts the percentages of outstanding credit ratings attributable to each rating
+category, as reported by the NRSROs in their annual certifications for the calendar year ending
+December 31, 2023.
+        As illustrated by Chart 4, the largest proportion of the aggregate credit ratings reported to
+be outstanding were in the government securities category, which may be attributable to the large
+number of government bond issuers (e.g., issuers of municipal securities) and their multiple debt
+offerings. The government securities category accounted for 76.8% of the total number of credit
+ratings reported across all categories and, as shown on Chart 3 and Chart 7, is also the most
+concentrated rating category, with the large NRSROs accounting for 98.7% of all outstanding
+government securities ratings.
+        Chart 5 depicts the percentages of the credit ratings outstanding that are attributable to
+each NRSRO; Chart 6 depicts the percentages of the credit ratings outstanding that are
+attributable to each NRSRO other than those in the government securities category; and Chart 7
+depicts the percentages of the credit ratings outstanding that are attributable to each applicable
+NRSRO in the government securities category, in each case, as reported by each NRSRO in its
+annual certification for the calendar year ending December 31, 2023.
+
+
+
+
+                                                 21
+      Chart 4. Breakdown of Ratings Reported                  Chart 5. Breakdown of Ratings Reported
+ Outstanding by Rating Category as of December 31,         Outstanding by NRSRO as of December 31, 2023
+                       2023
+
+
+
+
+                                                                                                      •  0.4%
+                                                                                                      111 t.fvM
+                                                                                                      ~
+                                                                                                      L:~~7,~
+
+            -   Government Securit ies 76.8%                   -   S&PS 0.1%         -   EJR 0.7%
+            -   Asset-Backed Securities 8.8%                   -   MIS31.7%              AM B 0 .4%
+            -   Financial Institutions 7.4%                    -   Fitch 12.5%       -   JCR0.2%
+            -   Corporate Issuers 5.9%                         -   DBRS3.0%              HR 0 .1%
+            -   Insurance Com panies 1.0%                      -   KBRA 1.4%         -   Demotech <0.1%
+
+
+ Percentages have been rounded to the nearest          Percentages have been rounded to the nearest
+ one-tenth of one percent.                             one-tenth of one percent.
+ Sources: NRSRO annual certifi cations for the 2023    Sources: NRSRO annual certifica ti ons for the 2023
+ ca lendar year, Item 7A on Form NR SRO.               calendar year, Item 7A on Form NR SRO.
+
+
+        A comparison of Chart 5 to Chart 6 illustrates that there is less concentration in the non-
+government securities rating categories. S&P’s and Moody’s percentage share of all outstanding
+ratings declines by 17.2 and 5.9 percentage points, respectively, when government securities are
+excluded. Fitch’s percentage share of outstanding ratings, on the other hand, increases by 7.5
+percentage points when government securities are excluded. The percentage share for all the
+remaining NRSROs also increases when government securities are excluded.
+
+
+
+
+                                                      22
+ Chart 6. Breakdown of Non-Government Securities                 Chart 7. Breakdown of Government Securities
+  Ratings Reported Outstanding by NRSRO as of                    Ratings Reported Outstanding on December 31,
+                December 31, 2023                                                   2023
+
+
+
+                 200%
+
+
+
+                              . ;                  17%
+
+
+
+
+                                                ■  0.3%
+
+                                                   0 .1 %                                                    ~
+                                                                                                             L~~~~:o
+         -   S&P 32.8%           -   EJR 2.9%                       -   S& PSS.15%         -   DBRS 0.50%
+         -   MIS25.8%                AMB l.7%
+                                                                    -   MIS 33.54 %            HR 0.03%
+         -   Fitch 20.0%         -   JCR0.9%                        -   Fitch 10 .1 7%     -   JCR0.02%
+         -   DBRSll.3%               HR 0 .3%
+                                                                    -   KBRA0.59%
+         -   KBRA4.2%            -   Demotech 0.1 %
+
+                                                             Percentages have been rounded to the nearest
+ Percentages have been rounded to the nearest
+                                                             o ne-hundredth of one percent.
+ one-tenth of one percent.
+                                                             Thi s chart o nly includes the NRSROs that are regi stered
+ Sources: NRSRO annual certifi ca tion s fo r the 2023
+                                                             in th e government securities ca tegory.
+ ca lendar yea r, Item 7 A o n Fo rm NRSRO.
+                                                             Sources: NRSRO annual certifi ca tion s fo r the 2023
+                                                             ca lendar yea r, Item 7 A on Fo rm NRSRO.
+
+
+        Further, it is difficult to graphically represent the relative rating shares of EJR, AMB,
+HR, JCR, and Demotech given that they, in the aggregate, comprise less than 1.4% of all
+outstanding ratings when government securities are included. When government securities are
+excluded, a clearer picture of the relative percentage shares of the small and medium NRSROs in
+the categories in which they are active can be observed, as illustrated in Chart 6.
+        Chart 8 depicts the change in ratings outstanding over a period of five years for all ratings
+other than ratings in the government securities category reported outstanding by NRSROs, as
+reported by each NRSRO in its annual certifications for the calendar years ending December 31,
+2019, through December 31, 2023.
+
+
+
+
+                                                            23
+                      Chart 8. Total Non-Government Ratings Issued by All NRSROs (2019-2023)
+  180,000
+
+
+
+
+  160,000
+                                                                                                     S&P
+
+
+
+
+  140,000
+
+
+
+                                                                                                     Moody's
+
+  120,000
+
+
+
+
+  100,000
+                                                                                                     Fitch
+
+                  -----------------
+   80,000
+
+
+
+
+   60,000
+                                                                                                     DBRS
+
+
+
+
+   40,000
+
+
+
+
+   20,000         _ _ _ _ _ _..___                                                                   KBRA
+
+                  =                   ~ E J R
+
+                                                                        AMB
+                                                                       , - JCR
+             - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ,HR
+         0 L - - ----== =----- - -=====-- - - - -===--__,= = = = =~ - DEMOTECH
+               2019                2020                 2021                 2022                 2023
+
+Sources: NRSRO annual certifications for the 2019-2023 calendar years, Item 7A on Form NRSRO.
+         Demotech was registered as an NRSRO on July 11, 2022, and filed its first annual certification for the year
+         ending December 31, 2022. Year-over-year data is only available since 2022.
+
+
+
+
+                                                          24
+        As illustrated in Chart 8, reported non-government ratings outstanding have remained
+mostly steady across all NRSROs over the past five years and, consistent with the information
+shown in Chart 3 for the year ending December 31, 2023, the larger NRSROs have significantly
+more ratings outstanding than the medium and small NRSROs. Chart 8 shows relatively stable
+rating levels at AMB, Demotech, HR, and JCR. The chart also shows that EJR’s rating level
+appears to have stabilized following a decrease in 2021, that KBRA’s rating levels decreased this
+year following several years of increases, and that DBRS had a sharp increase in ratings
+outstanding in 2023. However, the large increase in ratings for DBRS is attributable to a change
+made by DBRS in how it classifies certain ratings. A significant number of ratings that had been
+categorized as part of the government securities rating category are now categorized as part of
+the asset-backed securities category. Moreover, the total number of DBRS ratings (including
+government ratings) did not significantly change from the previous year.
+       The changes in outstanding ratings over time for these NRSROs is more apparent when
+viewing changes in ratings outstanding on a scale that includes only the medium and small
+NRSROs, as illustrated in Chart 9.
+        Chart 9. Total Non-Government Ratings Issued by Medium and Small NRSROs (2019-2023)
+
+     60,000
+                                                                                                       DBRS
+
+     50,000
+
+
+
+     40,000
+
+
+
+     30,000
+
+
+
+     20,000              -----=                                                                        KBRA
+
+
+      10,000
+                    =                                      - -
+
+                                                                              AMB
+                                                                                          ~EJR
+
+
+                   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ __.r-- JCR
+                                                                            , HR
+                L _ ____:===========-- -----==============---~ = = = = = ~-~ DEMOTECH
+            0
+                  2019                2020                 2021                2022                2023
+
+  Sources: NRSRO annual certifications for the 2019-2023 calendar years, Item 7 A on Form NRSRO.
+           Demotech was registered as an NRSRO on July 11, 2022, and filed its first annual certification for the year
+           ending December 31, 2022. Year-over-year data is only available since 2022.
+
+
+        Chart 10 depicts the change in ratings outstanding over a period of five years for all
+ratings in the asset-backed securities rating class reported outstanding by NRSROs registered
+with the Commission in the asset-backed securities category (see Chart 1). While AMB is
+registered to rate asset-backed securities, as shown in Chart 2, it only has eight outstanding asset-
+
+
+
+
+                                                            25
+backed securities ratings as of December 31, 2023. For these reasons, Chart 10 only includes
+data from DBRS, Fitch, KBRA, Moody’s, and S&P.
+                       Chart 10. Total ABS Ratings Issued by All NRSROs (2019-2023)
+
+   60,000
+
+                                                                                                  Moody's
+   50,000
+                                                                                                  DBRS
+
+   40,000                                                                                         S&P
+                                                                                                  Fitch
+
+
+   30,000
+
+
+
+   20,000                                                                                         KBRA
+
+
+
+   10,000
+
+
+        0
+               2019                2020                2021                2022                  2023
+
+Sources: NRSRO annual certifications for the 2019-2023 calendar years, Item 7 A on Form NRSRO.
+
+
+         As discussed in more detail in Section IV.A.2, medium NRSROs have been able to gain
+market share in the asset-backed securities rating class. Chart 10 provides a graphic
+representation of changes in ratings outstanding in this rating class since 2019. The chart
+illustrates that KBRA had been steadily increasing the number of ratings reported outstanding,
+but experienced a decrease during the most recent year. During this same period, the ratings
+count for S&P has remained fairly steady. While Moody’s and Fitch had more variation than
+S&P, their ratings counts have also remained relatively stable. Compared to last year, Fitch has
+increased the number of ratings and Moody’s has experienced a slight decrease. As discussed in
+more detail above, the large increase in DBRS’ ABS ratings includes the impact of a
+reclassification of ratings that had previously been considered to be in the government securities
+rating category but are now treated as ABS ratings.
+
+                           b.       NRSRO Analytical Staffing Levels
+
+       Chart 11 reports the number of credit analysts (including credit analyst supervisors) and
+the number of credit analyst supervisors employed by each of the NRSROs, as reported on
+Exhibit 8 to Form NRSRO.
+
+
+
+
+                                                         26
+                       Chart 11. NRSRO Credit Analysts and Credit Analyst Supervisors
+       NRSRO        Credit Analysts (Including Credit Analyst Supervisors)                Credit Analyst Supervisors
+
+  Demotech                                      3
+
+  EJR                                          20                                                      9
+
+  HR                                           60                                                      9
+
+  JCR                                          65                                                     30
+
+ ITotal Small                                  148                                                    49
+  AMB                                          156                                                     47
+
+  DBRS                                         505                                                    145
+
+  KBRA                                         238                                                     61
+
+  Total Medium                                899                                                     253
+
+  Fitch                                       1,133                                                   339
+
+  Moody's                                     1,644                                                   24 3
+
+  S&P                                         1,636                                                   130
+
+  Total Large                                 4,413                                                   712
+  TOTAL                                      5,460                                                   1,014
+
+ Sources: Exhibit 8 t o Form NR SRO, in effect as of each NR SRO's annual certifica ti o n fo r the 2023 ca lendar year fil ed
+ o n o r befo re Marc h 31, 2024.
+
+
+        The large NRSROs report employing 4,413 credit analysts (including supervisors), which
+is approximately 80.8% of the total number employed by all of the NRSROs. The small and
+medium NRSROs, in the aggregate, employ approximately 19.2% of all credit analysts
+employed by NRSROs. The percentage of credit analysts employed by the small and medium
+NRSROs has increased steadily since 2014 when it was approximately 11.4% of all NRSRO
+analysts. Total NRSRO analytical staff decreased by about 7.4% compared to the information
+reported in the prior year annual certifications.
+
+                            c.         NRSRO Revenue
+
+        Chart 12 shows the percentage of total NRSRO revenues attributable to the large, medium,
+and small NRSROs since 2020. The percentage of aggregate NRSRO revenue reported by the
+large NRSROs increased in 2023 but remains below the levels reported for fiscal year 2020 and
+2021. Likewise, the revenue share of the medium NRSROs has increased from 2020, reaching a
+high of 7.3% in 2022, before decreasing to 6.7% in 2023. The small NRSROs’ share of overall
+NRSRO revenue has also increased since 2020 but experienced a small decrease in 2023, falling
+by 0.1 percentage points in fiscal year 2023 compared with 2022.
+
+
+
+
+                                                              27
+           Chart 12. NRSRO Fiscal Year Revenue as a Percentage of Aggregate Reported Revenue
+                                2023                      2022                      2021                     2020
+
+     Large NRSROs               91.9%                     91.1 %                   93.2%                     94.1%
+
+     Medium NRSROs              6.7%                      7.3%                      5.6%                      5.1%
+
+     Small NRSROs                1.5%                     1.6%                      1.1%                     0.8%
+
+    Percentages have been rounded to the nearest one-tenth of one percent.
+    Sources: Nonpublic financial reports filed with the Commission under Rule 17g-3(a)(3) for fiscal years ended 2020
+    through 2023. For the preparation of this Report, if an NRSRO reported revenue in a foreign currency, the revenue
+    was co nverted to U.S. dollars using the average exchange rate over all U.S. banking days in the fiscal yea r of such
+    NRSRO.
+
+
+       Further revenue information is available for NRSROs that are owned by public
+companies. The following discussion summarizes information described in the respective Annual
+Reports on Form 10-K for the year ended December 31, 2023: 9
+               Moody’s Corporation, which is Moody’s parent company, reported $2.9 billion in
+                Moody’s external revenue for 2023, a 6% increase from 2022. This increase was
+                attributed to increased investment grade corporate debt issuance coupled with higher
+                infrastructure finance issuance relative to activity in the prior year. The corporate
+                finance group, financial institutions group, and public, project and infrastructure
+                finance group each had an increase in revenue compared to 2022 results. The
+                structured finance group had a decrease in revenue compared to the 2022 results.
+               S&P Global Inc., which is S&P’s parent company, reported $3.3 billion in S&P’s
+                revenue for 2023, a 9% increase from 2022. This increase, according to the report,
+                was primarily due to growth in transaction revenue from corporate bond ratings and
+                bank loan ratings attributed to higher refinancing activity. Non-transaction revenue
+                also increased in 2023. The report identifies an increase in surveillance revenue as a
+                key contributor to this increase but also notes that the increase was tempered by lower
+                new entity credit rating revenue. Revenue also benefited from improved contract
+                terms across product categories and a favorable impact form foreign exchange rates.
+               Morningstar, Inc., which is DBRS’ parent company, reported $215.4 million in
+                revenue in 2023 from its Morningstar Credit reportable segment that includes DBRS, a
+                9.1% decrease in revenue from 2022. This decrease, according to the report, was
+                primarily due to a sharp decline in CMBS ratings revenue, driven by ongoing softness
+                in the U.S. CMBS ratings activity. Additionally, and to a lesser extent, declines in
+                residential mortgage-backed securities related revenue also contributed to the decrease
+
+
+
+
+9
+    See the following reports for further information:
+       (1) Moody’s Corporation, Annual Report on Form 10-K for the year ended December 31, 2023;
+       (2) S&P Global Inc., Annual Report on Form 10-K for the year ended December 31, 2023; and
+       (3) Morningstar, Inc., Annual Report on Form 10-K for the year ended December 31, 2023.
+
+                                                                 28
+                in revenue. These declines were partially offset by an increase in asset-backed
+                securities ratings revenues and modest gains in corporate ratings revenues.
+        Regulatory filings show an increase in revenues at Moody’s, DBRS, and S&P in the first
+half of 2024 compared to the same period in 2023.10 Moody’s Corporation reported $2.0 billion
+in Moody’s external revenue for the first half of 2024, a 35% increase compared with the same
+period in 2023. This increase, according to the report, reflects issuance growth across all lines of
+businesses due to tightening credit spreads and issuance ahead of potential market volatility later
+in the year.
+        S&P Global Inc. reported $2.2 billion in revenue at S&P for the first half of 2024, a 31%
+increase compared with the same period in 2023. Transaction revenue increased, according to the
+report, due to growth in corporate bond ratings revenue and bank loan ratings revenue driven by
+increased issuance volumes due to higher refinancing activity. According to the report, an
+increase in structured finance revenue driven by increased CLO issuance also contributed to
+transaction revenue growth. Non-transaction revenue increased due to an increase in surveillance
+revenue and new entity credit ratings revenue and higher revenue driven by scenario testing and
+credit rating profile evaluations.
+        Morningstar, Inc. reported $137.9 million in revenue in the first half of 2024 for its
+Morningstar Credit reportable segment, a 36.5% increase compared with the same period in 2023.
+This increase, according to the report, was supported by ratings-related revenue increasing across
+asset classes and geographies.
+
+                  2.       Market Share Observations in the Asset-Backed Securities Rating
+                           Category
+
+        As noted in Section IV.A.1.a of this Report, the number of ratings recently issued by
+NRSROs may give a clearer picture of competition than the number of ratings each NRSRO
+currently has outstanding. The market share data discussed in this Section IV.A.2 provides
+information about ratings issued in 2022, 2023, and the first half of 2024 and shows that DBRS
+and KBRA have achieved meaningful market share percentages in recent years with respect to
+certain types of asset-backed securities. Unless noted otherwise, all market share percentages in
+this Section IV.A.2 are based on dollar amounts of issuance. Additionally, this section only
+discusses observations related to DBRS, Fitch, KBRA, Moody’s, and S&P, which are the five
+NRSROs registered in the asset-backed securities category with current asset-backed securities
+rating activity.
+        Section IV.A.2.a and 2.b below discuss NRSRO market share information with respect to
+certain asset-backed securities, based on information from the databases available on Green
+
+
+
+10
+     See the following reports for further information:
+       (1) Moody’s Corporation, Quarterly Report on Form 10-Q for the period ended June 30, 2024;
+       (2) S&P Global Inc., Quarterly Report on Form 10-Q, for the period ended June 30, 2024; and
+       (3) Morningstar, Inc., Quarterly Report on Form 10-Q for the period ended June 30, 2024.
+
+                                                          29
+Street’s website. 11 Although analysis of the information from the databases may provide insight
+into recent developments regarding the state of competition among NRSROs in the asset-backed
+securities rating category, it has certain limitations. For instance, the information treats each
+transaction as one undivided whole and counts an NRSRO as having rated the entire transaction
+even if the NRSRO rated only a portion of it (e.g., the NRSRO may have rated only the most
+senior tranche, yet is treated as having rated all of them).
+
+                                a.        CMBS
+
+       Charts 13 through 16 provide information concerning U.S. CMBS ratings by NRSROs.
+NRSRO market share varies between the conduit CMBS and single-borrower CMBS segments,
+the two segments that account for most of the non-agency U.S. CMBS transactions rated by
+NRSROs. The charts include reported market share information for total non-agency U.S.
+CMBS transactions, U.S. conduit CMBS transactions, U.S. single-borrower CMBS transactions,
+and agency CMBS transactions for the first half of calendar year 2024 and calendar years 2023
+and 2022. Market share percentages are calculated for the charts using both dollar amounts of
+issuance and numbers of deals. 12
+                                Chart 13. Rating Agency Market Shares for Total Non-Agency U.S. CMBS
+                                          Issued in 2022, 2023, and First Half of 2024
+
+      lH- 2024               lH-2024     N     f   Market         2023     N     f   Market         2022     N     f   Market
+        R k      NRSRO       Issuance    do. 01    Share %      Issuance   do. 01    Share %      Issuance   do. 01    Share %
+         an                   ($Mil.)      ea s    ($)/(#)       ($Mil.)     ea s    ($)/(#)       ($Mil.)     ea s    ($)/(#)
+
+                  Fitch      25.594        32      62.5/ 54.2   27,047      38       68.8/ 62.3    38,114     37       54.3/ 4 5.7
+
+         2       Moody's      21,335       26      52.1/44.1    19,623      30       49.9/ 49.2   46,275       51      65.9/ 63.0
+
+         3        KBRA        19,711       25      48.1/42.4    24,957      34       63.4/ 55.7   28,249      28       40.2/ 34.6
+
+         4         S&P        9,597        15      23.4/ 25.4   14 ,976     22       38.1/36.1    14 ,976      21      21.3/ 25.9
+
+         5        DBRS         9,181       15      22.4/ 25.4    7,737       13      19.7/ 21.3    26,126     27       37.2/ 33.3
+
+      Total Rated Market     40,959        59                   39,333       61                   70,231       81
+
+
+     Source : Commercia l Mortgage A le rt CMBS da t abase as of A ug u st 30, 2024 .
+
+
+
+
+11
+       Green Street publishes Asset-Backed Alert and Commercial Mortgage Alert and maintains the related ABS
+       database and CMBS database. The information in Charts 13 through 16 is based on information from the
+       Commercial Mortgage Alert CMBS database as of August 30, 2024, and the information in Charts 17 through
+       19 and the accompanying discussion is based on information from the Asset-Backed Alert ABS database as of
+       August 30, 2024. For more information on the databases, including inclusion and categorization criteria, see
+       Asset-Backed Alert ABS Database Methodology and Commercial Mortgage Alert CMBS Database
+       Methodology.
+12
+        Because it is typical for more than one NRSRO to rate a particular transaction, the sum of the market share
+        percentages exceeds 100% and the sum of the amounts attributed to each NRSRO exceed the total rated market
+        amount.
+
+                                                                   30
+     Chart 14. Rating Agency Market Shares for U.S. Conduit CMBS Issued in 2022, 2023, and First Half of 2024
+
+  lH- 2024                lH-2024     No. of      Market          2023     No. of      Market         2022     No. of     Market
+                NRSRO     Issuance    d           Share%        Issuance   d           Share%       Issuance   d          Share%
+   Ran k                   ($Mil.)      ea Is     ($)/(#)        ($Mil.)     ea Is     ($)/(#)       ($Mil.)     ea Is    ($)/(#)
+
+                 Fitch     11,412       13       100.0/100.0     19,748     26       100.0/100.0    23,750       25      100.0/100.0
+
+     2          KBRA       10,221       12        89.6/92.3      19,748     26       100.0/ 100.0    17,015      18       71.6/72.0
+
+     3         Moody's     5,768        6         50.5/46.2      9,636       13       48.8/50.0      13,615      14       57.3/56.0
+
+     4           S&P       5,643        7         49.5/53.8      10,111      13       51.2/50.0      9,646       10      40.6/40.0
+
+     5          DBRS        1,191                 10.4/7.7         0         0         0.0/0.0       8,889       9        37.4/36.0
+
+  Total Rated Market       11,412       13                      19,748      26                      23,750       25
+
+
+ Source: Commercial Mortgage Alert CMBS database as of August 30, 2024.
+
+
+
+ Chart 15. Rating Agency Market Shares for U.S. Single-Borrower CMBS Issued in 2022, 2023, and First Half of 2024
+
+  lH-                      lH-2024     N     f     Market         2023     N     f     Market         2022     N     f    Market
+     2024                                  0                                   0                                   0
+                NRSRO      Issuance    do.         Share%       Issuance   do.         Share %      Issuance   do.        Share %
+    Ran k                   ($Mil.)        1
+                                         ea s      ($)/(#)       ($Mil.)       1
+                                                                             ea s      ($)/(#)       ($Mil.)       1
+                                                                                                                 ea s     ($)/(#)
+
+                Moody's    15,566        20        52.7/43.5     9,986       17       51.0/48.6     32,383      36        70.1/65.5
+
+        2         Fitch     14,182       19        48.0/41.3     7,299       12       37.3/34.3     14,364       12        31.1/21.8
+
+        3        KBRA       9,491        13        32.1/28.3     5,209       8        26.6/22.9     10,957       9        23.7/16.4
+
+        4        DBRS       7,989        14        27.0/30.4      7,737      13       39.5/37.1      17,237      18       37.3/32.7
+
+        5         S&P       3,954           8      13.4/ 17.4    4,865       9        24.8/25.7      7,943       11       17.2/20.0
+
+  Total Rated Market       29,547        46                      19,585      35                     46,204      55
+
+
+ Source: Commercial Mortgage Alert CMBS database as of August 30, 2024 .
+
+
+
+            Chart 16. Rating Agency Market Shares for Agency CMBS Issued in 2022, 2023, and First Half of 2024
+
+  lH- 2024                 lH-2024     No. of      Market         2023     No. of      Market         2022     No. of      Market
+                 NRSRO     Issuance    d           Share%       Issuance   d           Share%       Issuance   d           Share%
+    Ran k                   ($Mil.)      ea Is     ($)/(#)       ($Mil.)     ea Is     ($)/(#)       ($Mil.)     ea Is     ($)/(#)
+
+                 KBRA        1,917           2     50.6/33.3     11,898       11       78.1/57.9     15,690      13       63.0/59.1
+
+                  Fitch      1,917           2     50.6/33.3      8,224       8       54.0/42.1      14,240      12       57.1/54.5
+
+        2         S&P       1,868            4     49.4/66.7      5,159       9       33.9/47.4       696         2         2.8/9.1
+
+        3        DBRS        1,127                 29.8/16.7      1,797       2        11.8/10.5     8,539        7       34.3/31.8
+
+        4       Moody's       0              0      0.0/0.0       1,847       2        12.1/10.5     9,989        8       40.1/36.4
+
+  Total Rated Market        3,785            6                   15,230      19                     24,925       22
+
+
+ Source: Commercial Mortgage Alert CMBS database as of August 30, 2024.
+
+
+        Charts 13 through 16 show that in 2022, 2023, and the first half of 2024 the large
+NRSROs generally held a large percentage of the market shares in rating U.S. CMBS rated
+transactions, but DBRS and KBRA achieved significant market shares as well.
+
+
+
+                                                                   31
+        As illustrated in Chart 13, in the first half of 2024, KBRA had the third-highest market
+share in the non-agency U.S. CMBS segment. In 2023, KBRA had the second-highest market
+share, and in 2022, KBRA and DBRS had the third- and fourth-highest market shares,
+respectively. KBRA has consistently attained a market share over 40% by issuance amount
+since 2022, and in 2023 KBRA obtained a higher market share than each of Moody’s and S&P.
+        Since 2022, Fitch has maintained the highest market share in the U.S. conduit CMBS
+segment, rating all rated transactions. However, as illustrated in Chart 14, KBRA also rated all
+U.S. conduit CMBS rated transactions in 2022, and KBRA had the second-highest market share
+in the U.S. conduit CMBS segment in 2022 and the first half of 2024.
+       As illustrated in Chart 15, DBRS achieved significant market share in the U.S. single-
+borrower CMBS segment, achieving the second-highest market share in 2022 and 2023. DBRS
+has consistently maintained a market share in this segment over 25% since 2022.
+      As illustrated in Chart 16, KBRA had the highest market share in the agency CMBS
+segment in 2022 and 2023, and is tied for the highest market share in the first half of 2024.
+
+                               b.       ABS/MBS/CLO
+
+        Charts 17 through 19 provide information concerning U.S. ABS, U.S. MBS, and U.S.
+CLO ratings by NRSROs, based on information from the Asset-Backed Alert ABS database.
+The charts include reported market share information for these transactions for the first half of
+calendar year 2024 and calendar years 2023 and 2022. Market share percentages are calculated
+for the charts using both dollar amounts of issuance and numbers of deals. 13
+             Chart 17. Rating Agency Market Shares for U.S. ABS Issued in 2022, 2023, and First Half of 2024
+
+      lH- 2024             lH-2024     No. of    Market        2023       No. of   Market         2022     No. of   Market
+       R k       NRSRO     Issuance    d I       Share %     Issuance     d I      Share %      Issuance   d I      Share %
+        an                  ($Mil.)     ea s     ($)/(#)      ($Mil.)      ea s     ($)/(#)      ($Mil.)    ea s     ($)/(#)
+
+                  S&P       98,337      125     54.5/ 45.3   146,354      206      55.2/ 47.2   146,119     183     56.9/ 43.5
+
+         2       Moody's    94,457       11 7   52.4/ 42.4   135,167       183     50.9/ 42.0   131,383     162     51.1/ 38.5
+
+         3        Fitch     88,626       10 1   49.1/36.6    146,841       171     55.3/ 39.2   116,645     145     45.4/ 34.4
+
+         4        KBRA       36,182      87     20.1/31.5    50,740        141     19.1/32.3    54,849      149     21.3/ 35.4
+
+         5        DBRS      23,254       47     12.9/ 17.0    35,147       80      13.2/ 18.3   33,688      79      13.1/18.8
+
+      Total Rated Market    180,387     276                  265,336      436                   257,000     421
+
+
+     Source: Asset -Backed Alert A BS dat abase as of Aug ust 30, 2024.
+
+
+
+
+13
+       Because it is typical for more than one NRSRO to rate a particular transaction, the sum of the market share
+       percentages exceeds 100% and the sum of the amounts attributed to each NRSRO exceed the total rated market
+       amount.
+
+                                                               32
+        Chart 18. Rating Agency Market Shares for U.S. MBS Issued in 2022, 2023, and First Half of 2024
+      lH-2024              lH-2024     No. of    Market         2023     No. of   Market         2022     No. of   Market
+        R k      NRSRO     Issuance    d I      Share %       Issuance   d I      Share %      Issuance   d I      Share%
+         an                 ($Mil.)     ea s    ($)/(#)        ($Mil.)    ea s    ($)/(#)       ($Mil.)    ea s    ($)/(#)
+
+                  Fitch     36.383       94     62.6/60.6     43,533      121     70.0/65.4    47,508      105     43.1/39.9
+
+         2       DBRS       26,693       69     4 6.0/44. 5    27,412     84      44.1/45.4    40,633      106     36.9/4 0 .3
+
+         3       KBRA       24,659       65     42.5/ 41.9    25,639      72      41.2/38 .9   58,505      127     53.1/48.3
+
+         4        S&P        8,567       19     14.8/ 12.3     7,011      22      11.3/ 11.9    21,638     57      19.6/21.7
+
+         5      Moody's      7,475       18     12.9/11.6      4,547      13       7.3/ 7.0    37,050      72      33.6/ 27.4
+
+      Total Rated Market    58,078      155                    62,211     185                  110,190     263
+
+
+     Source: Asset-Backed A lert ABS database as of August 30, 2024 .
+
+
+
+        Chart 19. Rating Agency Market Shares for U.S. CLOs Issued in 2022, 2023, and First Half of 2024
+      lH-2024              lH-2024     No. of   Market          2023     No. of   Market         2022     No. of    Market
+        R k      NRSRO     Issuance    d I      Share %       Issuance   d I      Share %      Issuance   d I       Share%
+         an                 ($Mil.)     ea s    ($)/(#)        ($Mil.)    ea s    ($)/(#)       ($Mil.)    ea s     ($)/(#)
+
+                  S&P       94,675      229     54.4/ 53.9     74,521     184     57.2/57.0    64,815      139     41.9/41.2
+
+         2      Moody's     82,669      201     47.5/47.3     65,333      157     50.2/48.6    92,633     200      59.9/59.3
+
+         3        Fitch      71,361     165     41.0/38.8     54,563      131     41.9/40.6    74,767      156     48.4/46 .3
+
+         4       KBRA        1,266       4       0 .7/0.9      1,963       7       1.5/2.2      3,590      10       2.3/3.0
+
+         5       DBRS          0         0       0 .0/0.0        0         0       0 .0/0.0     1,047       4        0 .7/1.2
+
+      Total Rated Market    174,035     425                   130,274     323                  154,558    337
+
+
+     Source: Asset-Backed A lert ABS database as of Aug u st 30, 2024 .
+
+
+        Chart 17 shows that DBRS and KBRA have consistently achieved and maintained
+meaningful U.S. ABS rating market shares. S&P, Moody’s, and Fitch have consistently achieved
+the highest market shares based on issuance amount. KBRA has maintained market share of
+approximately 20% or higher since 2022, while DBRS has maintained market share of over 10%
+during the same period.
+        Chart 17 presents an overview of NRSRO market share for ABS overall, but an analysis
+of the data underlying the chart shows that the market shares vary considerably across various
+types of ABS products. For example, DBRS and KBRA have gained significant market share in
+some newer or less traditional types of asset-backed securities. They are significant raters of
+securities backed by unsecured consumer loans, including consumer loans originated through
+marketplace lending platforms. 14 DBRS and KBRA have maintained a competitive position
+with regards to consumer loans, achieving the two highest market shares in this category in 2022
+
+
+14
+       The Asset-Backed Alert ABS database indicates that 75 unsecured consumer loan transactions totaling $26.1
+       billion were issued in 2022, 62 unsecured consumer loan transactions totaling $23.1 billion were issued in 2023,
+       and 43 unsecured consumer loan transactions totaling $20.3 billion were issued during the first half of 2024.
+
+                                                                33
+and 2023, with each rating between 42.7% to 55.1% of the issuance amount of the rated
+transactions during this period. Comparatively, Moody’s, S&P, and Fitch each rated less than
+25.5% of the issuance amount over the same time period. For the first half of 2024, DBRS has
+maintained the highest market share, rating 46.9% of the issuance amount of the rated
+transactions during this period. Moody’s and Fitch have gained market share during the first half
+of 2024, rating 43.3% and 40.9% of the total issuance amount, respectively. Relative to 2022
+and 2023, KBRA lost market share, rating 26.0% of total issuance amount in the first half of
+2024. Another example is KBRA’s market share for rating whole business securitizations.
+KBRA had the highest market share for these transactions in 2022, 2023, and the first half of
+2024, 15 rating 92.1%, 100%, and 100%, respectively, of the issuance amount of such
+transactions.
+       DBRS and KBRA have been able to gain market share rating some types of traditional
+ABS as well. For example, DBRS rated 94.1%, 88.0%, and 94.2% of the issuance amount of
+student loan transactions during 2022, 2023, and the first half of 2024, respectively, which
+represented the highest market share during each time period. 16
+        Both DBRS and KBRA have maintained a significant market share rating subprime auto
+loan transactions. 17 In 2022, 2023, and the first half of 2024, DBRS rated 30.6%, 32.2%, and
+26.2% of subprime auto loan transactions, respectively. KBRA also maintained a significant
+market share; in 2021, 2022, and the first half of 2023, KBRA rated 37.8%, 32.6%, and 31.7% of
+the issuance amount of subprime auto loan transactions.
+        Chart 18 shows that the U.S. MBS segment remains competitive. DBRS’ market share
+by issuance amount went from 36.9% in 2022 to 44.1% in 2023 and 46.0% in the first half of
+2024, while KBRA’s market share by issuance amount decreased from 53.1% in 2022 to 41.2%
+in 2023 and 42.5% in the first half of 2024. DBRS and KBRA have also achieved notable
+market share in certain types of ABS related to the residential housing market, but not considered
+to be MBS under the Asset-Backed Alert ABS database’s criteria and therefore included within
+the data summarized in Chart 17. For example, in 2021, 2022, and the first half of 2023, DBRS
+rated 85.0%, 97.1%, and 75.7% of the issuance amount of re-performing mortgage
+transactions, 18 respectively, which represented the first- or second-highest market share in this
+category. Additionally, KBRA and DBRS have maintained a significant market share in
+
+
+15
+     The Asset-Backed Alert ABS database indicates that 14 whole-business securitization transactions totaling $6.3
+     billion were issued during 2022, 7 whole-business securitization transactions totaling $3.2 billion were issued
+     during 2023, and 10 whole business securitization transactions totaling $6.7 billion were issued during the first
+     half of 2024.
+16
+     The Asset-Backed Alert ABS database indicates that 11 student loan transactions totaling $7.5 billion were
+     issued in 2022, 17 student loan transactions totaling $8.2 billion were issued in 2023, and 13 student loan
+     transactions totaling $7.3 billion were issued during the first half of 2024.
+17
+     The Asset-Backed Alert ABS database indicates that 63 subprime auto loan transactions totaling $33.5 billion
+     were issued in 2022, 71 subprime auto loan transactions totaling $34.2 billion were issued in 2023, and 42
+     subprime auto loan transactions totaling $22.8 billion were issued during the first half of 2024.
+18
+     The Asset-Backed Alert ABS database indicates that 29 re-performing mortgage transactions totaling $14.4
+     billion were issued in 2022, 17 re-performing mortgage transactions totaling $7.8 billion were issued in 2023,
+     and 17 re-performing mortgage transactions totaling $7.5 billion were issued during the first half of 2024.
+
+                                                          34
+subprime mortgage transactions 19 and risk transfer transactions. 20 For subprime mortgage
+transactions from 2022 to the first half of 2024, KBRA rated between 32.3% and 51.9%, and
+DBRS rated between 17.6% and 31.4% of the issuance amount; for risk transfer transactions,
+KBRA rated between 50.6% and 69.7% and DBRS rated between 22.7% and 37.0% of the
+issuance amount.
+      Finally, as shown in Chart 19, although DBRS and KBRA have attained a foothold in the
+U.S. CLO segment, their individual market shares have decreased. In comparison, S&P,
+Moody’s, and Fitch have maintained the highest market shares since 2022.
+
+                3.         Barriers to Entry
+
+       Barriers to entry continue to exist in the credit ratings industry, presenting competitive
+challenges for the small and medium NRSROs.
+         The long history of investor acceptance and global nature of the largest NRSROs can
+serve as impediments to new entrants. 21 Investor acceptance has been raised as a potential
+barrier to entry by certain NRSROs in the context of the investment management contracts of
+institutional fund managers and the investment guidelines of fixed income mutual fund
+managers, pension plan sponsors, and endowment fund managers. Specifically, it is common for
+these types of contracts and guidelines to require the use of ratings of specified NRSROs. 22 The
+effect of these requirements can be to increase the demand for and liquidity of securities bearing
+the ratings of specified rating agencies, which may provide an incentive for issuers to obtain
+ratings from the specified agencies. Historically, many of these guidelines refer to the ratings
+from the large NRSROs by name (i.e., Fitch, Moody’s, and S&P).
+        The inclusion requirements of some fixed income indices may pose a similar barrier to
+entry. To be included in certain of these indices, securities must be rated by specified
+NRSROs. 23 Certain investment companies (index funds) try to closely track the performance of
+the indices by purchasing the securities included in them. Index funds have grown as a share of
+the fund market, and they can increase the demand for securities bearing the ratings of particular
+
+
+
+
+19
+     The Asset-Backed Alert ABS database indicates that 93 subprime mortgage transactions totaling $32.5 billion
+     were issued during 2022, 74 subprime mortgage transactions totaling $23.2 billion were issued during 2023, and
+     50 subprime mortgage transactions totaling $17.3 billion were issued during the first half of 2024.
+20
+     The Asset-Backed Alert ABS database indicates that 36 risk transfer transactions totaling $24.3 billion were
+     issued during 2022, 31 risk transfer transactions totaling $11.0 billion were issued during 2023, and 13 risk
+     transfer transactions totaling $6.0 billion were issued during the first half of 2024.
+21
+     See Fitch Ratings, Fitch Affirms S&P's Long-Term IDR at 'A-'; Outlook Stable (Apr. 12, 2024).
+22
+     See Statement of Jim Nadler, President and CEO, Kroll Bond Rating Agency, Bond Rating Agencies:
+     Examining the “Nationally Recognized” Statistical Rating Organizations Hearing Before the Subcommittee on
+     Investor Protection, Entrepreneurship and Capital Markets of the House Committee on Financial Services,
+     117th Congress (July 21, 2021); see also Letter from KBRA to the Commission (Aug. 19, 2014).
+23
+     See, e.g., Bloomberg Fixed Income Index Methodology, Bloomberg Fixed Income Indices (Aug. 24, 2021);
+     FTSE Fixed Income Index Guide, FTSE Russell an LSEG Business (June 2023).
+
+                                                         35
+NRSROs. 24 For instance, in 2018, Fitch announced that its ratings had been added to the J.P.
+Morgan High-Yield Bond Indices, noting that investors rely on such indices to determine which
+bonds suit their level of credit risk. 25 Similarly, KBRA testified that many companies
+benchmark to such indices for investment purposes and thus will not purchase bonds that are
+index ineligible and not rated by particular NRSROs. 26
+        Market participants and academics have identified various other barriers to entry in the
+credit rating industry, including economic and regulatory barriers. 27 For instance, when the
+Commission proposed new rules and rule amendments (the NRSRO Amendments) in accordance
+with the Dodd-Frank Wall Street Reform and Consumer Protection Act (Dodd-Frank Act), 28
+commenters expressed concerns that certain of the proposed requirements would be burdensome
+for smaller NRSROs to implement and could raise barriers to entry for credit rating agencies to
+seek to register as NRSROs. 29 In connection with the adoption of the NRSRO Amendments, the
+Commission acknowledged that, despite efforts to limit the impact on small entities, the Dodd-
+Frank Act contained requirements, including those implemented by the NRSRO Amendments,
+which impose costs on NRSROs and may consequently create barriers to entry and have negative
+impacts on competition. 30
+       At the same time, the Commission recognized substantial benefits associated with the
+NRSRO Amendments implementing Title IX, Subtitle C of the Dodd-Frank Act, which was
+designed to address the causes of certain market failures that may impair the integrity and
+
+
+
+
+24
+     See, e.g., Rating Firms Seek Changes to Index, Asset-Backed Alert, May 26, 2017; see also Investment
+     Company Institute, 2022 Investment Company Fact Book (2022), at 29 (index funds made up 21% of assets in
+     long-term funds at the end of 2011 and 43% at the end of 2021).
+25
+     See Fitch Ratings Joins J.P. Morgan High Yield Bond Indices, Fitch Ratings, June 28, 2017. In a related
+     example, DBRS announced that its ratings would be included in the determination of index credit quality
+     classifications for CAD-denominated securities in the Bloomberg Barclays Canada Aggregate Index and the
+     Global Aggregate Index, resulting in approximately 49 securities being added to the Canadian Aggregate Index.
+     See Rules Changes for the Bloomberg Barclays Canada Aggregate Index Announced (Apr. 17, 2018).
+26
+     See Written Testimony of Angela Liang, General Counsel and Executive Committee Member, Kroll Bond
+     Rating Agency, Bond Rating Agencies: Examining the “Nationally Recognized” Statistical Rating
+     Organizations Hearing Before the Subcommittee on Investor Protection, Entrepreneurship and Capital Markets
+     of the House Committee on Financial Services, 117th Congress (May 11, 2022).
+27
+     See, e.g., Section IV.C of the March 2012 Annual Report. As discussed in the March 2012 Report, economic
+     barriers to entry include issuers and market participants favoring well-established NRSROs due to their
+     reputation, and economies of scale which may allow larger NRSROs to offer advantageous services or pricing.
+     Academic literature has continued to identify these as barriers to entry. See, e.g., Sangiorgi, F. and Spatt, C.,
+     The Economics of Credit Rating Agencies, Foundations and Trends in Finance, 12, 1-116 (2017).
+28
+     Pub. L. No. 111-203, § 932, 124 Stat. 1376, 1872-83 (2010).
+29
+     See Nationally Recognized Statistical Rating Organizations, Release No. 34-72936 (Aug. 27, 2014), 79 FR
+     55078, 55220-22 (Sept. 15, 2014) (2014 Adopting Release) at 55090, 55154, 55161, and 55254-55; see also
+     Comments on Proposed Rules for Nationally Recognized Statistical Rating Organizations, Release No. 34-
+     64514; File No. S7-18-11.
+30
+     See 2014 Adopting Release, 79 FR at 55254.
+
+                                                          36
+transparency of NRSRO credit ratings. 31 For instance, certain provisions of the NRSRO
+Amendments were designed primarily to enhance the integrity of how NRSROs determine credit
+ratings by improving internal governance of NRSROs, managing potential principal-agent
+problems and conflicts of interest in the credit rating process, and promoting adherence to the
+NRSRO’s procedures and methodologies for determining credit ratings. 32 Other provisions of
+the NRSRO Amendments were designed mainly to enhance the transparency of NRSRO credit
+ratings by increasing disclosure and reducing information asymmetries that may adversely affect
+users of credit ratings. 33
+        The NRSRO Amendments as adopted by the Commission include various changes from
+the proposed amendments intended to address concerns regarding barriers to entry, including
+standards allowing NRSROs to tailor particular requirements to their business models, size, and
+rating methodologies. 34
+       Additionally, there are provisions for exemptions built into several rules and statutory
+provisions if the Commission deems that these requirements may impose an unreasonable burden
+on the NRSRO. NRSROs may also request exemptions under Section 36 to Exchange Act rules
+or provisions. For example, KBRA was granted a temporary conditional exemption from Rule
+17g-5(c)(1), which prohibits an NRSRO from issuing or maintaining a credit rating solicited by a
+person that, in the most recently ended fiscal year, provided the NRSRO with net revenue
+equaling or exceeding 10% of the total net revenue of the NRSRO for the fiscal year. The
+Commission’s orders granting exemption requests can be found under “Exemption Orders” in
+the “NRSRO Orders and Notices” section of the OCR website.
+
+         B.       Transparency
+
+        The Rating Agency Act’s preamble states that it is intended to improve ratings quality for
+the protection of investors and in the public interest “by fostering accountability, transparency,
+and competition in the credit rating agency industry.” Section 932 of the Dodd-Frank Act is
+entitled “Enhanced regulation, accountability, and transparency of NRSROs.” Both acts contain
+various provisions designed to increase the transparency—through clear disclosure open to
+public scrutiny—of, among other things, NRSROs’ credit rating procedures and methodologies,
+business practices, and credit ratings performance.
+         NRSROs are required to disclose:
+              Standardized performance statistics as Exhibit 1 to Form NRSRO;
+
+
+
+
+31
+     See id. at 55091; see also Section 931 of the Dodd-Frank Act (articulating the findings of Congress, including
+     that the activities and performance of credit rating agencies are matters of national public interest and that
+     certain market failures necessitate increased accountability on the part of credit rating agencies).
+32
+     See 2014 Adopting Release, 79 FR at 55091.
+33
+     See id.
+34
+     See Section IV.C of the December 2015 Annual Report.
+
+                                                         37
+          A general description of the procedures and methodologies used to determine credit
+           ratings as Exhibit 2 to Form NRSRO;
+          Consolidated information about credit rating histories pursuant to Rule 17g-7(b);
+          Information about material changes and significant errors in the procedures and
+           methodologies used to determine credit ratings pursuant to Rule 17g-8(a)(4);
+          Information about specific rating actions pursuant to Rule 17g-7(a); and
+          Clear definitions of each symbol, number, or score in the rating scale used by the
+           NRSRO pursuant to Rule 17g-8(b)(2).
+        In addition to the required disclosure on Exhibit 2, it is standard practice for NRSROs to
+disclose their methodologies for determining credit ratings on their websites, providing
+additional transparency into their current approach to assessing creditworthiness. From time-to-
+time, NRSROs also publish revisions and updates to their methodologies and commonly seek
+public comment on proposed updates before they are adopted. NRSROs may also at times
+publish revisions to the assumptions that are inputs to their methodologies and rating approaches,
+including changes to their economic outlooks or default rate assumptions. Revised
+methodologies and related assumptions may provide additional transparency into changes in the
+NRSROs’ credit views and analyses.
+        Pursuant to Rule 17g-7(a), NRSROs must also disclose specified information in
+connection with each rating action. Such information includes, among other things, the version
+of the procedure or methodology used to determine the credit rating, a description of the types of
+data that were relied upon for purposes of determining the credit rating, an assessment of the
+quality of information available and considered in determining the credit rating, and information
+on the sensitivity of the credit ratings to assumptions made by the NRSRO. NRSROs are
+required to make this information available to the same persons who can receive or access the
+related credit rating. As a result, there is broad market transparency with respect to published
+ratings, but the required disclosures are made to a limited group of investors in the case of
+private ratings and therefore are not generally available for public review.
+        In addition to or in connection with required disclosures, NRSROs often issue press
+releases and reports at the time of a published rating action to describe the rationale behind such
+rating action. The reports accompanying a published rating action are frequently available on a
+paid subscription basis, although some NRSROs provide access to such reports at no cost. The
+availability of underlying methodologies, together with a report discussing the analysis
+supporting the rating action, may provide additional transparency into an NRSRO’s credit
+analysis and credit rating process. While such reports are typically generated with respect to
+private ratings, they are provided to a limited audience and therefore are not generally available
+for public review.
+        NRSROs also provide transparency to the extent they publish commentaries or research.
+NRSRO commentaries and research typically include data, analyses, or projections on market
+sectors and economic outlooks, and may also make market and economic data separately
+available. These publications may be helpful to investors to understand industry trends and the
+NRSROs’ credit views.
+
+                                                38
+        For example, NRSROs published commentaries and research that provided their credit
+perspectives on banks and the banking system. Fitch reported a ‘deteriorating’ outlook for the
+U.S. banking sector, citing ongoing challenges for banks adjusting to a prolonged period of
+higher interest rates. 35 Other contributing factors include ongoing risks associated with
+weakened commercial real estate (CRE) office loan performance, which it attributes to sustained
+higher interest rates, slower economic growth in the U.S., and a secular decline in office
+demand. 36 A DBRS report noted that despite the adverse impact of CRE valuations due to
+higher interest rates, vacancies, and operating cuts, its U.S. banks credit ratings are expected to
+remain mostly stable given the staggered nature of CRE loan maturities and sound asset quality
+metrics. 37 KBRA also published a report noting that despite select regional bank failures in 2023
+and an increasing focus on banks with significant exposure to CRE, which has resulted in a wave
+of stock price and debt instrument volatility, it expects the majority of its bank ratings to remain
+largely unchanged.
+         NRSROs have continued publishing commentaries regarding the growing use of private
+credit, the performance of private credit funds, and risks to private credit fund ratings. Moody’s
+has attributed the growth of the private credit market to multiple factors, including private equity
+and alternative asset firms’ acquisition of insurance companies. 38 The recent expansion of
+private markets was viewed by Moody’s as offering potential benefits of increased portfolio
+diversification and higher yielding investments, but also introducing risks and limitations due to
+its inherently opaque nature, making it difficult to assess underlying credit risks such as liquidity
+risk and the growing deterioration of asset quality. 39 Fitch has anticipated a challenging
+environment for private credit due to elevated defaults, including a greater number of
+restructurings, increased deal origination volumes and pressure on funds to deploy capital. 40
+While origination and repayment activity is predicted to increase due to the stabilization of
+interest rates, Fitch noted that growing competition, particularly from banks and syndicated loan
+purchasers in the upper middle market, costly debt refinancing, and a rise in non-accruals may
+impact the use of private credit. 41 S&P published research presenting its view that although
+rising global defaults in corporate and middle-market credit may challenge the asset quality of
+private funds, it anticipated that most ratings on private credit funds will withstand such
+weakening asset quality and valuations. 42
+
+
+
+
+35
+     See Fitch Ratings, Lingering Questions for U.S. Banks During 'The Calm After the Storm' (July 11, 2024).
+36
+     See Fitch Ratings, US Commercial Real Estate Office Performance Will Worsen through 2025 (June 7, 2024).
+37
+     See DBRS, Commercial Real Estate Rekindles Market Volatility at U.S. Regional Banks, but a Slow Burn Most
+     Likely (Feb. 15, 2024).
+38
+     See Moody’s, Private credit rapidly evolving as regulators stay on the sidelines, at least for now (July 11,
+     2024).
+39
+     Id.
+40
+     See Fitch Ratings, What Investors Want to Know: U.S. Private Credit Growth and Challenges (Mar. 28, 2024).
+41
+     Id.
+42
+     See S&P, Rising Global Defaults Will Test Private Credit Funds In 2024 (May 1, 2024).
+
+                                                          39
+        Several of the Staff’s findings and recommendations in connection with the 2024 Section
+15E examinations related to transparency issues. These findings included disclosure and
+reporting issues implicating Rule 17g-7(a) and Rule 17g-7(b). A description of these findings
+can be found in Section III.D.3 of this report.
+
+         C.        Conflicts of Interest
+
+        NRSROs operate under one or more business models, each having conflicts of interest.
+The primary business model of the NRSROs is the “issuer-pay” model, which is subject to a
+conflict in that the credit rating agency may be influenced to determine more favorable (i.e.,
+higher) ratings than warranted in order to retain the obligors or issuers as clients. Another
+business model is the “subscriber-pay” model, under which investors pay a subscription fee to
+access an NRSRO’s ratings. This model is also subject to conflicts of interest. For example, an
+NRSRO may be aware that an influential subscriber holds a securities position (long or short)
+that could be advantaged if a credit rating upgrade or downgrade causes the market value of the
+security to increase or decrease or that a subscriber invests in newly issued bonds and may obtain
+higher yields if the bonds were to have lower ratings.
+        In addition to being paid by issuers and subscribers, it is becoming increasingly common
+for NRSROs to be paid to determine ratings by investors. Frequently these engagements
+contemplate the issuance of the credit rating on a private basis. Private ratings can also be
+solicited by an issuer in order to be provided to specific investors or a specific class of investors.
+In these cases, the NRSRO provides the credit rating directly to its client but does not publish (or
+make available to all its subscribers) the credit rating or a report detailing its credit analysis
+(although such a report may be provided to the client with the rating). This business model is
+subject to conflicts of interest, which are dependent on the objectives of the client for obtaining
+the rating. For example, an NRSRO may be aware that the client intends to use the credit rating
+to establish regulatory capital requirements for itself or its investors and would benefit from
+receiving a higher credit rating.
+        The conflicts of interest associated with NRSRO business models could potentially be
+aggravated by the process of “rating shopping,” which occurs when an issuer or user of credit
+ratings seeks the highest credit rating available from multiple credit rating agencies. Rating
+shopping has been raised as a concern by market participants and other market observers. In a
+recent example, the NAIC identified the potential for rating shopping as a concern, noting
+growing discrepancies between credit ratings of different NRSROs on the same security. 43 In
+the past, academics have also identified rating shopping and the so called “race-to-the-bottom”
+
+
+
+
+43
+     See National Association of Insurance Commissioners, Letter from Chlora Lindley-Myers, President, National
+     Association of Insurance Regulators, et al., to The Honorable Rep. Warren Davidson, Member of Congress, et
+     al. (July 25, 2023) (“Keeping in mind that the better the rating, the less capital an insurer is required to hold, the
+     potential for ‘rating shopping’ is a real concern and one with historical precedent. Indeed, because of such
+     discrepancies for residential and commercial mortgage-backed securities, revealed during the Great Financial
+     Crisis, we developed a separate credit analysis process for those securities that continues to this day.”)
+
+                                                            40
+competitive pressures it may foster as concerns. 44 The Staff believes that these competitive
+pressures are more acute in the context of private ratings given a lack of transparency to the
+broader market and the corresponding lack of outside scrutiny.
+        Section 15E and the related Commission rules address conflicts of interest, such as those
+identified above. 45 The Rating Agency Act added Section 15E to the Exchange Act, including
+Section 15E(h), which required NRSROs to establish, maintain, and enforce written policies and
+procedures reasonably designed to address and manage any conflicts of interest that can arise
+from their business and provided the Commission express authority to adopt related rules. In
+2007, the Commission adopted Rule 17g-5(c), which identifies certain conflicts of interest that
+are prohibited under all circumstances and other conflicts of interest that are prohibited unless an
+NRSRO has publicly disclosed the existence of the conflict and has implemented policies and
+procedures reasonably designed to address and manage such conflict. 46
+        In 2014, the Commission amended its rules applicable to NRSROs to implement
+provisions of the Dodd-Frank Act. In part, these amendments were designed to enhance the
+integrity of how NRSROs determine credit ratings by improving internal governance of
+NRSROs, managing potential principal-agent problems and conflicts of interest in the credit
+rating process, and promoting adherence to the procedures and methodologies for determining
+credit ratings and compliance with laws and regulations. 47 Specifically, with respect to its
+conflict of interest rules, the Commission added paragraph (c)(8) to Rule 17g-5 to implement a
+requirement of the Dodd-Frank Act. 48 Under Rule 17g-5(c)(8), an NRSRO is prohibited from
+issuing or maintaining a credit rating where a person within the NRSRO who participates in
+determining or monitoring the rating, or developing or approving procedures or methodologies
+used for determining the rating, also (i) participates in sales or marketing activities of the
+NRSRO or its affiliate, or (ii) is influenced by sales or marketing considerations. 49
+       Other conflicts of interest identified in Rule 17g-5 involve individual credit analysts or
+other employees of an NRSRO. For example, an NRSRO is prohibited from issuing or
+
+
+44
+     See, e.g., John M. Griffin, Jordan Nickerson, Dragon Yongjun Tang, Rating Shopping or Catering? An
+     Examination of the Response to Competitive Pressure for CDO Credit Ratings, Rev. Fin. St. 2270– 2310 (2013)
+     (positing that rating shopping may cause credit rating agencies to not strictly adhere to their standards in order
+     to match more lenient competitors); Patrick Bolton, Xavier Freixas, and Joel Shapiro, The Credit Ratings Game,
+     67(1) J. of Finance 85–111 (2012) (finding that competition can reduce efficiency by facilitating rating
+     shopping).
+45
+     See, e.g., Section 15E(h) and Rule 17g-5.
+46
+     See Rule 17g-5(a)(1)-(2) and Rule 17g-5(b); Instructions for Exhibits 6 and 7 to Form NRSRO. In addition,
+     Section 15E(t)(3)(B) requires an NRSRO’s board of directors to oversee the establishment, maintenance, and
+     enforcement of policies and procedures to address, manage, and disclose any conflicts of interest.
+47
+     2014 Adopting Release, 79 FR at 55091.
+48
+     See Section 15E(h)(3)(A) (requiring the Commission to issue rules to prevent sales and marketing
+     considerations of an NRSRO from influencing the production of credit ratings by the NRSRO).
+49
+     When adopting the rule, the Commission noted that the prohibition is designed to insulate credit analysts from
+     sales and marketing concerns and pressures that may arise from any channel, and that this could enhance the
+     integrity and quality of credit ratings. 2014 Adopting Release, 79 FR at 55116.
+
+                                                          41
+maintaining a credit rating where an employee of the NRSRO that participated in determining, or
+is responsible for approving, the credit rating directly owns securities of, or is an officer or
+director of, the person that would be subject to the credit rating. 50
+          Another statutory provision and related Commission rules address conflicts of interest
+that may arise when a credit analyst seeks employment outside the NRSRO. Section
+15E(h)(4)(A) requires each NRSRO to have policies and procedures in place to provide for an
+internal “look-back” review process in order to determine whether any conflict of interest of a
+former employee influenced a credit rating in certain instances. Rule 17g-8(c) requires an
+NRSRO’s policies and procedures to address instances in which a “look-back” review
+determined that a conflict of interest influenced a credit rating. Such policies and procedures are
+required to be reasonably designed to ensure that the NRSRO will promptly determine whether a
+credit rating must be revised and promptly publish a revised credit rating or an affirmation of the
+credit rating, along with certain disclosures about the existence of the conflict.
+        A number of the Staff’s findings and recommendations in connection with the 2024
+Section 15E examinations related to conflict of interest issues. Among other things, these
+findings identified certain weaknesses related to policies and procedures to address and manage
+conflicts of interest. A description of these findings and the related recommendations of the
+Staff can be found in Section III.D.3 of this report.
+
+V.       ACTIVITIES RELATING TO NRSROs
+
+         A.       Commission Orders
+
+        The Commission instituted settled administrative and cease-and-desist proceedings
+against multiple NRSROs finding violations of Exchange Act Section 17(a)(1) and Rule 17g-
+2(b)(7). The violations were in connection with the NRSROs failure to retain internal and
+external electronic communications that included discussions of initiating, determining,
+maintaining, monitoring, changing, or withdrawing credit ratings:
+             In the Matter of A.M. Best Rating Services, Inc., Release No. 34-100902 (Sept. 3,
+              2024);
+             In the Matter of Demotech, Inc., Release No. 34-100905 (Sept. 3, 2024);
+             In the Matter of Fitch Ratings, Inc., Release No. 34-100903 (Sept. 3, 2024);
+             In the Matter of HR Ratings de México, S.A. de C.V., Release No. 34-100904 (Sept. 3,
+              2024);
+             In the Matter of Moody's Investors Service, Inc., Release No. 34-100906 (Sept. 3,
+              2024); and
+             In the Matter of S&P Global Ratings, Release No. 34-100907 (Sept. 3, 2024).
+
+
+
+50
+     See Rule 17g-5(c)(2) and Rule 17g-5(c)(4).
+
+                                                  42
+       B.      Staff Publication
+
+        The Staff issued the following publication relating to NRSROs or credit ratings in general
+in calendar year 2024:
+           Staff Report on Nationally Recognized Statistical Rating Organizations, dated
+            February 2024 (the 2023 Staff Report), as required by Section 6 of the Rating Agency
+            Act and Section 15E(p)(3)(C). The 2023 Staff Report addresses the matters described
+            in the second paragraph under Section II of this Report for the period January 1,
+            2023, through December 31, 2023, and summarizes the essential findings of the
+            examinations conducted by the Staff under Section 15E(p)(3)(C) for the review
+            period January 1, 2022, to December 31, 2022.
+
+VI.    APPENDIX: SUMMARY OF STATUTORY FRAMEWORK AND RULES
+
+       Section 15E and Rules 17g-1 through 17g-10 govern the registration and oversight
+program for credit rating agencies that are registered with the Commission as NRSROs. This
+regulatory regime was established by the Rating Agency Act, Pub. L. No. 109-291, 120 Stat.
+1327 (2006), and amended by the Dodd-Frank Act, Pub. L. No. 111-203, § 932, 124 Stat. 1376,
+1872-83 (2010).
+       The Dodd-Frank Act mandated the creation of the OCR, which is responsible for
+oversight of credit rating agencies registered with the Commission as NRSROs. OCR’s Staff
+includes professionals with knowledge of and expertise in a variety of areas that relate to its
+regulatory mission, such as corporate, municipal, and structured debt finance, pursuant to Section
+15E(p)(2).
+      Pursuant to the Commission’s regulatory regime for NRSROs, an NRSRO is required to,
+among other things:
+           File with the Commission an annual certification of its Form NRSRO registration,
+            pursuant to Section 15E(b)(2) and Rule 17g-1(f), promptly update its filing in certain
+            circumstances, pursuant to Section 15E(b)(1) and Rule 17g-1(e), and make its current
+            Form NRSRO filing and most of its current Form NRSRO Exhibits available on its
+            public website, pursuant to Section 15E(a)(3) and Rule 17g-1(i).
+           Disclose certain information, including information concerning the NRSRO’s
+            performance measurement statistics and its procedures and methodologies to
+            determine ratings, pursuant to Sections 15E(a)(1)(B)(i) and (ii).
+           Establish, maintain, enforce, and document an effective internal control structure
+            governing the implementation of and adherence to policies, procedures, and
+            methodologies for determining credit ratings, pursuant to Section 15E(c)(3)(A), and
+            retain records of its internal control structure, Rule 17g-2(b)(12).
+           Consider certain factors with respect to its establishment, maintenance, enforcement,
+            and documentation of an effective internal control structure, pursuant to Rule 17g-
+            8(d)(1)-(4).
+
+
+                                                43
+             Establish, maintain, enforce, and document policies and procedures reasonably
+              designed to achieve certain objectives concerning its development and application of,
+              and disclosures related to, methodologies and models, pursuant to Rule 17g-8(a)(2)-
+              (5).
+             File an unaudited report containing an assessment by management of the
+              effectiveness during the fiscal year of the NRSRO’s internal control structure
+              governing the implementation of and adherence to policies, procedures, and
+              methodologies for determining credit ratings, pursuant to Rule 17g-3(a)(7)(i). The
+              report must be accompanied by a signed statement by the NRSRO’s chief executive
+              officer or an individual performing similar functions, pursuant to Rule 17g-3(b)(2).
+             Establish, maintain, enforce, and document policies and procedures that are
+              reasonably designed to: assess the probability that an issuer of a security or money
+              market instrument will default or fail to make required payments to investors,
+              pursuant to Rule 17g-8(b)(1), and ensure that it applies any rating symbol, number, or
+              score in a manner that is consistent for all types of obligors, securities, and money
+              market instruments for which the symbol, number, or score is used, pursuant to Rule
+              17g-8(b)(3).
+             Publish an information disclosure form when taking a rating action with respect to a
+              rating assigned to an obligor, security, or money-market instrument in a class for
+              which it is registered as an NRSRO, pursuant to Rule 17g-7(a). Rule 17g-
+              7(a)(1)(ii)(A)-(N) specifies the information that must be disclosed in the information
+              disclosure form, and with respect to the particular rating action. In addition, the
+              NRSRO must attach to the information disclosure form a signed statement by a
+              person within the NRSRO with responsibility for the rating action, pursuant to Rule
+              17g-7(a)(1)(iii).
+             Make and retain, or retain, certain records, including a record documenting its
+              established procedures and methodologies used to determine credit ratings, pursuant
+              to Rule 17g-2(a)(6), and records related to its ratings. 51 An NRSRO must promptly
+              furnish to the Commission or its representatives copies of required records, including
+              English translations of those records, upon request, pursuant to Section 15E(a) and (b)
+              and Rule 17g-2(f).
+             Establish, maintain, and enforce written policies and procedures reasonably designed
+              to prevent the misuse of material non-public information (MNPI), including the
+              inappropriate dissemination of MNPI both within and outside the NRSRO, the
+              inappropriate trading of securities using MNPI by a person within the NRSRO, and
+
+
+
+51
+     The records that an NRSRO must make and retain, or retain, with respect to its ratings include the identity of
+     certain persons who participated in determining or approving the rating, records used to form the basis of a
+     rating, external and internal communications received or sent by the NRSRO and its employees related to a
+     rating, and for ABS ratings, a record of the rationale for any material difference between the final rating
+     assigned and the rating implied by a quantitative model that was a substantial component in determining the
+     rating. Rule 17g-2(a)(2)(i), (ii), and (iii); Rule 17g-2(b)(2) and (b)(7).
+
+                                                         44
+    the inappropriate dissemination of pending credit rating actions within and outside the
+    NRSRO before issuing the rating on the Internet or through another readily accessible
+    means, pursuant to Section 15E(g) and Rule 17g-4.
+   Establish, maintain, and enforce written policies and procedures reasonably designed
+    to address and manage conflicts of interest, pursuant to Section 15E(h) and Rule 17g-
+    5. Certain conflicts of interest are expressly prohibited, pursuant to Rule 17g-5(c),
+    and for other types of conflicts of interest, the NRSRO must disclose the conflicts and
+    have policies and procedures in place to manage them, pursuant to Rule 17g-5(a)(1)-
+    (2) and Rule 17g-5(b).
+   Refrain from engaging in specified unfair, coercive, or abusive practices, pursuant to
+    Rule 17g-6.
+   Provide information on whether it has in effect a code of ethics, and if not, the
+    reasons it does not have a code of ethics, pursuant to Section 15E(a)(1)(B)(v).
+   Establish procedures for the receipt, retention, and treatment of complaints regarding
+    credit ratings, models, methodologies, and compliance with the securities laws and its
+    policies and procedures developed under this regulatory regime, and of confidential,
+    anonymous complaints, pursuant to Section 15E(j)(3).
+   Designate a compliance officer (the DCO) responsible for administering policies and
+    procedures related to MNPI and conflicts of interest, ensuring compliance with the
+    securities laws and regulations, and establishing procedures for handling complaints
+    by employees or users of credit ratings, pursuant to Section 15E(j)(1) and (3). The
+    DCO must submit an annual report to the NRSRO on the compliance of the NRSRO
+    with the securities laws and the NRSRO’s policies and procedures, and the NRSRO
+    must file the report with the Commission, pursuant to Section 15E(j)(5).
+   Have a board of directors or similar governing body (collectively, the Board), certain
+    of whose members must be independent from the NRSRO, pursuant to Section
+    15E(t)(2). An NRSRO’s Board, or members thereof, are responsible for exercising
+    oversight of specified subjects related to the NRSRO’s rating business and for
+    approving the procedures and methodologies, including qualitative and quantitative
+    data and models, that the NRSRO uses to determine ratings, pursuant to Section
+    15E(t)(3) and Rule 17g-8(a)(1).
+   Establish, maintain, enforce, and document standards of training, experience, and
+    competence for the individuals it employs to participate in the determination of credit
+    ratings that are reasonably designed to achieve the objective that the NRSRO
+    produces accurate credit ratings, and retain a record of these standards, pursuant to
+    Rule 17g-9.
+   Establish policies and procedures regarding post-employment activities of certain
+    former personnel, pursuant to Section 15E(h)(4) and (5), and Rule 17g-8(c).
+
+
+
+
+                                         45
+

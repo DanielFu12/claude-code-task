@@ -1,0 +1,612 @@
+0.12-1.58 | Okay.
+4.82-10.12 | It is 9.59 a.m. on May 26, 2010.
+10.46-15.21 | We are in Omaha, Nebraska for the interview of Warren Buffett.
+15.83-20.59 | I am Brad Bondi, B-O-N-D-I, of the Financial Crisis Inquiry Commission.
+20.76-21.68 | with you
+21.98-26.12 | in the Financial Crisis Inquiry Commission is Gary Cohen, C-O-H-E-N.
+26.71-28.52 | Chris Siefer, we're joined by
+28.98-30.03 | Mr. Warren Buffett.
+30.39-31.92 | and Tracy.
+32.25-33.68 | BRITT.
+33.91-34.44 | Thank you.
+34.97-38.99 | Mr. Buffett, we're with the staff of the Financial Crisis Inquiry Commission.
+39.35-44.27 | We were formed by Congress in 2009 to investigate the causes of the financial crisis.
+44.63-47.34 | both globally and domestically, and a dual report.
+47.58-52.36 | do at the end of this year, December 15, 2010, to the President and to Congress.
+52.92-55.37 | which we also plan to release to the American public.
+55.90-62.06 | We're tasked not only with investigating the causes of the financial crisis but looking at specific issues.
+62.33-66.19 | that Congress has enumerated in the Fraud Enforcement Recovery Act.
+66.68-69.68 | The commission is a bipartisan commission.
+70.17-72.49 | uh... six democrats and four republican
+72.79-75.69 | commissioners and we are with the staff of the commission.
+76.44-79.40 | We wanted to ask you a few questions today.
+79.96-85.39 | and get your views and your insights so that we may better understand the causes of the financial crisis.
+86.01-87.63 | In addition,
+87.83-91.66 | We would like to ask you a few questions about movies as well, since you--
+92.06-92.40 | Um...
+92.89-95.95 | are a significant shareholder in movies.
+96.18-99.02 | And if you don't mind, let's ask
+99.42-100.20 | Bushed about.
+100.76-101.68 | movies.
+102.01-104.46 | Specifically I understand sir that in
+104.92-114.57 | 1999 and in February of 2000 you invested in Dun and Bradstreet. That's correct. I don't have the dates but that sounds right. Yes, sir.
+114.97-115.37 | and
+115.77-116.84 | time and
+117.14-123.12 | Am I correct, sir, in saying that you made no purchases after Moody's spun off from Dunn and Bradstreet?
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (4 tokens for 0.79 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+123.35-124.14 | I believe that's
+125.05-127.76 | What kind of due diligence
+128.15-135.05 | did you and your staff do when you first purchased Dun & Bradstreet in 1999 and then again in 2000?
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.53 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+135.26-135.79 | Pigeon
+136.41-138.60 | There is no staff.
+139.26-142.73 | I make all the investment decisions and I do all my own.
+143.35-144.81 | analysis and
+145.18-145.55 | and
+145.88-149.48 | Basically it was an evaluation both of Dun & Bradstreet and Mlee's but...
+150.17-150.96 | of the
+151.61-153.74 | economics of the business and and uh...
+154.23-154.83 | God.
+155.29-157.04 | I never met with anybody.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.56 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+157.75-158.32 | (groans
+158.58-160.52 | Dunham-Bradstreet had a very good business.
+161.08-163.98 | and we'll be having even better business and basically
+164.60-165.13 | Uhh...
+165.50-166.76 | the second most important
+167.45-170.76 | in evaluating a business's pricing power.
+171.70-172.43 | price.
+173.72-176.75 | without losing business to a competitively, that a very good business can.
+177.18-180.43 | If you have to have a prayer session before raising the price by a tenth of a cent.
+181.02-184.36 | You've got a charitable business. I've been in both and I know the difference.
+185.18-185.87 | No, um...
+186.33-190.64 | You've described the importance of quality management in your investing.
+190.97-194.67 | decisions and I know your mentor Benjamin Graham.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (9 tokens for 1.59 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+195.13-196.72 | I happen to have read his book as well
+197.11-199.44 | has described the importance of management.
+199.70-207.88 | What attracted you to the management of Moody's when you made your initial investments? I knew nothing about the management of Moody's.
+208.63-209.20 | the
+210.62-211.63 | I've also said
+212.31-214.41 | many times in N reports and elsewhere that
+215.29-215.66 | Done.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (5 tokens for 0.92 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+216.09-217.00 | No, what else?
+217.43-217.87 | one of
+218.07-218.92 | Mattyman will
+219.26-221.07 | reputation for brilliance in a
+221.30-226.60 | gets hooked up with a business with a reputation for bad economics, it's the reputation of the business that remains intact.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (9 tokens for 1.59 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+226.97-228.56 | if you got to go to Knopf
+228.73-233.20 | You do have a Monopoly newspaper if you have a network television station. I'm talking in the past.
+233.75-236.81 | uh... you know you have to be a good one and and
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (7 tokens for 1.30 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+237.02-238.32 | You've got a really good business
+238.71-243.69 | It doesn't make any difference. It makes some difference, maybe a capital allocation or something of the sort.
+244.15-245.58 | the extraordinary business.
+246.14-247.44 | that does not require good management.
+248.86-254.89 | What in Iraq? I'm not making any reference to movies, Mattie, but I think you know them. But it really--
+255.51-260.68 | Now, if you own the only newspaper in town up until the last five years or so, who?
+260.86-265.58 | You have pricing power and you didn't have to go to the office. And do you have any opinions sir of...
+265.91-268.81 | well management of Moody's has performed.
+269.69-270.12 | up
+271.10-275.85 | It's hard to evaluate when you have a business that has that much pricing power. I mean, they have done very well.
+276.41-277.20 | in terms of
+277.82-281.84 | huge returns on tangible assets, almost infinite.
+282.30-282.83 | Oh
+283.45-284.11 | they have.
+284.76-288.52 | they have grown along with the business that generally capital markets became more active.
+288.89-290.06 | So in the end...
+290.58-292.20 | and they praised prices.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (2 tokens for 0.44 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+292.57-293.00 | Uhh
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.66 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+293.27-293.93 | We're both
+294.17-297.16 | We're a customer movie too, so I see this from both sides.
+297.37-298.67 | I'm willing custom
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (17 tokens for 2.84 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+298.97-301.80 | uh... but but but but but but but but but but but but but but but
+301.98-302.48 | And
+302.78-304.24 | what I see as a customer.
+304.60-305.23 | Yes.
+305.43-307.47 | reflected in what's happened in their financial record.
+308.82-313.96 | And I've seen in many places where you've been referred to as a passive investor on Moody's.
+314.30-315.08 | Um, so.
+315.29-322.51 | Is that a fair characterization and what sort of interactions and communications have you had with the board and with management of Moody's?
+324.02-324.88 | very started.
+325.62-328.01 | There was a fellow named Cliff Alexander with the chairman of the
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (2 tokens for 0.44 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+328.28-328.72 | the rest
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (6 tokens for 1.11 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+328.89-330.00 | while we were breaking in a
+330.58-331.15 | Bye.
+332.09-332.78 | He mapped me.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (4 tokens for 0.79 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+333.69-334.48 | I've met him
+334.81-342.89 | in connection with something else years earlier. And so we had a watch at one time. But he wasn't really an operating manager. He was there to see--
+343.13-345.16 | We'll see the breakup of the situation.
+347.03-350.89 | Since we really own stock at both Dun & Bradstreet and Moody's when they got split up.
+351.13-351.63 | Umm...
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (4 tokens for 0.79 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+354.20-354.99 | I've never been
+355.38-356.36 | Moody's offices.
+356.70-357.16 | Ah
+358.39-360.46 | don't think I've ever initiated a call to them.
+361.40-362.19 | I would say that
+363.06-368.01 | three or four times as part of a General Roadshow, their CEO and the investor relations person.
+368.60-369.84 | stop by and then
+370.26-370.73 | and
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (7 tokens for 1.27 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+371.96-373.23 | They think they have to do that
+373.43-375.88 | I have no interest in it basically in ten-ten.
+376.09-377.68 | I never requested a meeting.
+378.20-379.79 | It was part of the...
+379.99-380.68 | what they thought
+381.02-382.96 | investor relations were all about.
+383.35-385.07 | We don't believe much in that.
+385.43-385.90 | What?
+386.14-387.63 | What about any
+387.80-389.96 | board members have you
+390.42-394.00 | for the election of any board members to Moody's Board? I have no interest in it.
+395.80-396.65 | And--
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (1 tokens for 0.31 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+396.89-397.20 | [
+397.50-400.17 | We've talked about this verbal communications of you.
+400.63-401.74 | letters or
+402.23-406.09 | submitted any memos or ideas for strategy decisions.
+408.76-409.23 | Um...
+409.43-415.79 | in 2006
+416.02-421.68 | Movies began to repurchase its shares, buying back its shares that were outstanding.
+422.01-423.47 | and they did so from
+423.67-426.96 | 2006 to 2008 according to our records.
+427.42-427.88 | Um...
+428.92-431.05 | Why don't you sell back your shares?
+431.26-433.48 | movies at that time. I know subsequent
+434.07-436.62 | 2009 you've sold some shares, but
+436.82-439.21 | but from 0609 during the buyback.
+439.58-444.59 | Did you consider selling your shares back? And if so, why didn't you? No, I thought they had extraordinary business.
+444.89-445.61 | and the
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (2 tokens for 0.44 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+446.36-446.80 | (s
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (1 tokens for 0.31 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+447.29-447.60 | [
+449.14-452.65 | you know they still have an inferior business is now subject to a different
+453.46-456.01 | I'm surprised we'll get into later, aren't you?
+456.22-456.97 | What the...
+457.82-459.24 | I made a mistake in that.
+459.86-464.91 | got to very lofty heights and we didn't sell it with the main area before they were selling to them or selling in the market out.
+465.94-466.44 | uh
+468.47-470.57 | There are very few businesses that had.
+471.00-472.01 | Confederate position.
+472.50-474.92 | and Saturn, Borset, they both have the same position.
+475.10-475.92 | essentially
+476.38-478.28 | virtue businesses like that in the world there.
+478.58-485.90 | They are, it's a natural duopoly to some extent. Now that may get changed, but it's historically been a natural duopoly where
+487.32-490.19 | anybody coming in and offering to cut their price in half.
+490.87-492.14 | had no chance of success.
+492.38-492.72 | Yeah.
+493.21-494.80 | not many businesses where somebody did.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (8 tokens for 1.43 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+495.16-496.59 | in rock-and-rock preparation now
+497.02-499.12 | And somebody doesn't think about shifting.
+499.29-501.93 | But that's the nature of the ratings business.
+502.10-505.23 | And it's a naturally obtained one.
+505.69-507.02 | It's assisted by the fact.
+507.51-507.85 | that.
+508.22-508.84 | that.
+509.14-516.56 | The two of them became a standard for regulators and all of that, so it's been assisted by the governmental actions over time, but it's a natural duopoly.
+517.85-520.97 | Mr. Buffett, you've been reported as saying that
+521.27-522.48 | you don't use ratings.
+522.71-530.03 | That's right. But the world does. That's right. And my question is-- Well, but we pay for rating, which I don't like.
+530.52-534.83 | My question is one of more policy and philosophy and that is
+535.48-538.83 | Would the American economy be better off in the long run?
+539.35-539.82 | Um...
+539.99-549.80 | If credit ratings were not so embedded in our regulations and if market participants relied less on credit ratings. Well, I think it might be better off if everybody...
+550.14-550.92 | and dusted.
+551.19-552.46 | significant sums of money.
+553.37-554.54 | did their own analysis.
+555.03-557.77 | That is not the way the world works. And regulators...
+558.23-559.72 | have a terrible problem and
+560.09-562.28 | Setting capital requirements, all of that sort of thing.
+563.35-565.10 | without some kind of
+565.85-569.23 | standards that they look to even if those are far from perfect standards.
+569.94-572.94 | I can't really judge it perfectly from the regulator's standpoint.
+573.34-576.75 | From the investor standpoint, I think investors
+577.02-578.96 | to do their own analysis, and we always do.
+579.83-586.86 | would you support the removal of references to credit ratings from regulations that's a tough question you get into
+587.61-588.52 | I'll give.
+589.37-591.60 | to regulate insurance companies and banks.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (4 tokens for 0.76 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+592.22-592.97 | Uhhhhhhhhhhhh
+593.43-594.22 | We are
+594.90-595.98 | very
+596.44-598.57 | significantly in the insurance business.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.50 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+599.13-599.63 | (buzz
+599.86-600.91 | We are told that
+601.46-605.74 | on the own, triple the in above, and all kinds of different rules in different states.
+606.36-607.69 | in different countries and
+608.41-609.10 | I...
+609.66-610.76 | those may serve.
+611.06-611.76 | as a
+612.06-613.00 | Good tool!
+613.72-616.62 | to determine proper capital or
+617.05-617.74 | to prevent
+618.62-620.94 | Buccaneers are one short from
+621.40-623.82 | going on and speculating in the case of
+624.44-625.96 | banks with
+626.23-628.84 | with money that's obtained through a government guarantee.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (6 tokens for 1.11 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+629.34-630.44 | But that is not an easy
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.56 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+632.22-632.78 | Oh, um
+633.37-637.42 | As I mentioned at the outset, we're investigating the causes of the financial crisis and I would
+637.78-640.97 | like to get your opinion as to whether credit ratings
+641.43-647.88 | and their apparent failure to predict accurately credit quality of structured finance products like
+648.12-650.16 | residential mortgage-backed securities and
+650.58-652.59 | collateralized debt obligations.
+653.43-659.34 | Did that failure or apparent failure cause or contribute to the financial crisis? Didn't cause it, but it--
+659.77-660.65 | But there were
+661.30-662.16 | Stay back.
+662.58-664.68 | number of things that contributed to it.
+665.50-666.92 | The basic cause was
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.60 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+667.26-667.85 | (sigh
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (2 tokens for 0.40 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+668.25-668.65 | (expl
+668.82-672.65 | embedded partly in psychology, partly in reality.
+673.27-673.80 | out.
+674.01-675.12 | in a growing
+675.70-676.81 | Finally, probation.
+677.11-677.64 | belief.
+678.04-679.92 | But at huss prices couldn't go down.
+680.28-683.37 | virtually everybody succumb to that.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (6 tokens for 1.01 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+683.58-684.59 | The only way you get a
+684.86-686.09 | is one
+687.51-690.12 | basically a very high percentage of the population.
+690.81-692.33 | buys into
+692.92-694.99 | Some originally sound from us and
+695.32-699.02 | And it's quite interesting how that develops originally sound premise that becomes
+699.38-700.14 | distorted
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (2 tokens for 0.47 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+700.66-701.13 | (gro
+701.43-703.02 | as time passes and people
+703.51-708.20 | forget the original sound premise and start focusing solely on the price action.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (1 tokens for 0.31 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+708.38-708.68 | go
+709.21-710.03 | the media
+710.52-712.36 | investors, mortgage bankers,
+712.76-715.69 | the American public, me, my neighbor.
+716.06-717.93 | uh... rating agencies
+718.55-720.62 | Congress, you name it.
+721.62-722.09 | people.
+722.33-724.08 | overwhelmingly came to believe
+724.34-724.72 | that.
+724.92-726.86 | House prices did not fall significant.
+727.58-732.62 | And since it was the biggest asset class in the country and it was the easiest class to borrow against, it created.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (29 tokens for 4.92 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+733.34-738.25 | probably the biggest bubble in ours. It will be a bubble, it will be remembered along with the South Sea bubble and the two of Bobo
+738.65-738.99 | bubble
+740.28-745.13 | I do want to ask you some questions about the formation of that bubble.
+745.56-751.28 | if I may ask a couple more on the rating agency side and then shift to that.
+752.66-756.08 | Do I take it though that you believe that at least the failure of the ratings
+756.54-757.10 | The distributor is
+757.43-759.24 | some part to the financial crisis.
+759.51-762.48 | But I do think it was, I think, every aspect of society.
+762.68-764.40 | to a virtually.
+765.66-766.48 | Going please.
+766.94-767.47 | So
+768.25-769.23 | pray to them.
+769.72-770.83 | Sane Volusion
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.66 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+771.19-771.85 | the Excess
+772.15-778.38 | throughout the country eventually. And it meant that the models they had were no good. They didn't contemplate.
+778.84-782.60 | But neither did the models in the mines of 300 million Americans contemplate.
+783.32-783.95 | what happened
+784.76-786.32 | And similarly, sir, the
+786.90-788.11 | rating agencies
+788.44-791.69 | both Moody's and S&P downgraded securities.
+791.90-792.75 | in mass.
+793.18-794.86 | in July of 2007.
+795.26-795.60 | life.
+795.77-798.51 | roughly starting around July 10, 2007.
+798.81-801.68 | and then again in mid-October of 2007.
+801.91-804.59 | many have pointed to these downgrades as
+804.98-805.55 | contributing.
+806.55-807.18 | crisis.
+807.48-807.88 | Um
+808.38-811.76 | Do you believe that these downgrades, the sudden downgrades,
+812.34-813.26 | to.
+813.69-816.59 | uncertainty in the market or the looming crisis.
+816.92-818.83 | well and into the realization.
+819.22-820.08 | I think over
+820.34-822.12 | a bubble was starting to pop and
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (2 tokens for 0.37 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+822.30-822.67 | You know
+822.94-827.18 | everybody doesn't wake up at 6am and find it out.
+827.77-830.89 | in fronty back, fanny may, they all felt different in the middle of.
+831.26-836.65 | in the middle of 2006 or 2005. So people were watching a movie.
+836.86-838.67 | and they thought the movie had a happy ending.
+838.94-844.43 | and all of a sudden the events on the screen started telling him something different and different people in the audience picked it up.
+845.34-847.53 | different hours, different days, different weeks.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (1 tokens for 0.31 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+847.83-848.14 | What
+848.92-849.87 | at some point
+850.26-851.85 | the bubble top and and
+852.63-853.10 | Bye.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (1 tokens for 0.31 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+854.10-854.41 | [
+854.65-855.95 | And for different people it was
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (4 tokens for 0.76 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+856.15-856.91 | I think we're
+857.59-858.76 | slightly different time.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (6 tokens for 1.14 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+859.54-860.68 | You can say them idioms
+861.11-863.63 | close to two, they said the muff was popping.
+864.63-865.39 | it
+867.13-870.32 | the recognition of it by the rating agencies.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (2 tokens for 0.47 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+870.68-871.15 | May have
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (7 tokens for 1.17 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+871.38-872.56 | I just told a whole bunch of
+872.92-876.30 | that previously hadn't been paying much attention that it was happening.
+877.72-880.33 | The reports coming out of Freddie and Fatty may pull people out.
+880.82-881.45 | Ugh.
+882.01-887.08 | What was happening at Countrywide in this, I think that was the summer of 2007, certainly was selling people out.
+887.35-888.91 | So it was dawning.
+889.69-890.80 | on Big Bowl.
+891.26-892.52 | in a wave, sort of.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (2 tokens for 0.47 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+893.08-893.55 | (gro
+894.04-894.41 | stuff.
+894.94-896.59 | what they believed wasn't true.
+897.53-899.98 | I read in one of your shareholder letters
+900.57-903.72 | You appropriately set up pin lies and wait for every bubble.
+904.57-905.23 | Um...
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (6 tokens for 1.08 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+905.69-906.76 | and just fold the back spring
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.56 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+906.97-907.53 | (gasp
+908.02-909.52 | When did you...
+910.33-911.79 | realized that there was
+912.09-914.03 | mortgage meltdown coming.
+914.87-915.85 | And if so,
+916.18-917.68 | What steps did you take?
+917.85-918.89 | to prepare for it.
+919.77-920.62 | and it's not.
+922.49-924.14 | Why were you able/unable?
+924.60-925.13 | as
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.56 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+925.43-926.00 | 1 or so
+926.97-934.16 | uh... for the wisest investors in the united states why were you unable to spot this massive bubble growing
+934.42-935.15 | The answer is...
+935.64-938.51 | The first part was not soon enough.
+938.90-939.34 | and
+939.86-940.94 | It was something...
+941.21-943.72 | We talked about it in our annual meetings with them.
+943.99-944.43 | and
+944.79-949.00 | I think one point I referred to it as a bubble, I don't remember when you hear that was, but...
+949.24-952.78 | And I talk about my home and where they, where they, uh,
+953.59-957.04 | implicit value of the lamb gotten up to 30 million dollars an acre or something like that.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.66 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+957.72-958.38 | I'm that
+960.15-964.04 | The nature of bubbles is that, you know, the internet bubble, I would...
+964.25-970.22 | I was aware too, but I didn't want to short the stocks. I never shorted Internet stocks and I didn't short housing stocks. Looking back...
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (10 tokens for 1.72 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+970.58-972.30 | You know, hey, we don't short around
+973.02-973.96 | but
+974.58-978.70 | If I had seen what was coming out, I would have behaved differently, including selling movies.
+979.19-980.56 | So I'm wrong.
+981.02-983.18 | We've obviously had bubbles in the past.
+984.18-987.66 | as you pointed out with the internet bubble and others.
+987.93-988.40 | Um...
+990.42-995.69 | At least in recent times we've never had a financial crisis as severe as the one we're living through now.
+996.57-998.67 | When did it dawn on you that
+999.00-1002.09 | this bubble bursting and this financial crisis.
+1002.55-1003.98 | going to be different than
+1004.15-1005.48 | not others in recent times.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.50 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1005.69-1006.19 | Well, it
+1007.51-1010.86 | Unfortunately, it's a gradual process and you get wise too late.
+1011.29-1011.79 | Uhh...
+1012.28-1013.61 | when it really became apparent.
+1014.46-1015.63 | that this was something like
+1015.80-1018.70 | You never see it with one in September of 2008, that's when I...
+1019.26-1021.96 | I said on CNBC this is an economic world.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (8 tokens for 1.36 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1022.14-1023.50 | It was an economic pro-harbor
+1023.70-1025.23 | By definition, I meant it.
+1025.53-1029.77 | I hadn't seen it three months earlier because I didn't see a Pearl Harbor three months earlier.
+1031.03-1032.88 | There were all kinds of developments.
+1033.40-1033.74 | Bye.
+1034.46-1035.24 | (groaning)
+1035.70-1037.23 | to the degree to which it would have.
+1038.49-1040.08 | Stop the financial system.
+1040.60-1043.31 | and then with the consequent overflow into the economy.
+1044.25-1046.89 | until September of 2008 and fully realized.
+1048.57-1050.00 | What do you think it was?
+1050.23-1050.73 | if you
+1051.22-1052.08 | 0.2
+1052.57-1054.03 | One of the single drive it.
+1054.20-1056.72 | driving causes behind this bubble.
+1057.02-1059.08 | What would you say?
+1059.83-1061.48 | really interesting aspect of this which
+1062.36-1064.01 | take a minute or two to explain but it
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (1 tokens for 0.31 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1064.47-1064.78 | What
+1066.04-1067.60 | My former boss has been Graham.
+1068.18-1069.16 | an observation.
+1069.72-1070.96 | 50 or so years ago.
+1071.90-1074.51 | It's really struck in my mind and now I've seen...
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (3 tokens for 0.66 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1074.74-1075.40 | evidence of it
+1076.12-1078.51 | said you get in a whole lot more trouble in investing.
+1079.29-1080.30 | with the sound premise.
+1080.66-1081.71 | without false premise.
+1082.65-1085.52 | If you have some promise that the moon is made of green cheese or something.
+1086.68-1088.08 | It's ridiculous on its face.
+1088.57-1091.85 | If you come out with a premise that common stocks have done better than bonds.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (6 tokens for 1.11 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1092.47-1093.58 | and I wrote about this in
+1094.17-1096.33 | Fortune article in 2001 because it was
+1096.82-1098.03 | There was a famous little book.
+1098.42-1104.08 | 2001 by Edgar Orr and in 1924, I think, by Edgar Orr and Smith.
+1104.57-1106.70 | that made a study of Comestock versus Bonds.
+1106.90-1107.63 | and it showed
+1107.86-1108.75 | He started out with
+1109.24-1110.12 | the idea
+1110.71-1111.15 | that
+1112.25-1113.68 | The lines would over-perform.
+1114.04-1116.08 | during deflation and commisects with over.
+1116.38-1120.01 | over performed her inflation went back and studied a whole bunch of periods and lo and behold
+1120.60-1121.29 | original
+1121.59-1124.75 | hypothesis was wrong. He found that compensation is always over performed.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (26 tokens for 4.40 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1125.14-1129.55 | And he started thinking about it, and why was that? Well, it was because there was a retained earnings factor. They sold
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (27 tokens for 4.63 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1129.75-1134.38 | The dividend yield on stocks was the same as the yield on bonds and on top of that you had retanguring. So they over
+1135.00-1136.14 | that became
+1137.37-1138.99 | the underlying bulwark for the
+1139.45-1140.24 | 29 bubbles
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (2 tokens for 0.47 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1140.79-1141.26 | This one
+1141.66-1143.66 | stocks were to start it would be wonderful and
+1144.25-1150.19 | They forgot the limitations of the original premise, which was that if socks were yielding the same as bonds that they had, it's going to work.
+1150.42-1151.53 | So after a while...
+1151.77-1153.55 | the original premise which becomes
+1154.07-1155.28 | the impetus.
+1155.80-1156.36 | or
+1156.57-1160.56 | what later turns out to be a bubble is forgotten and the price action takes over.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (8 tokens for 1.36 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1161.40-1162.76 | and we start the same thing in housing
+1163.80-1165.20 | It's a totally sound premise.
+1165.75-1167.02 | that houses will become.
+1167.26-1168.94 | worth more overtime.
+1169.34-1173.64 | because the dollar becomes worth less. It isn't because construction costs go up.
+1173.85-1174.89 | And they're so.
+1175.74-1180.46 | It isn't because houses are so wonderful, it's because the tower becomes worth less than a house that was bought.
+1180.70-1183.05 | 40 years of close worth more today than it was then.
+1183.93-1184.36 | and
+1184.54-1187.92 | since 66 or 67% of the people want to own their own.
+1188.60-1189.10 | Home.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (39 tokens for 6.64 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1189.46-1196.11 | And because you can borrow money on it and you're dreaming of buying a home, if you really believe that houses are going to go up in value, you buy one as soon as you can
+1196.73-1197.26 | add
+1197.62-1198.16 | Stop.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (7 tokens for 1.20 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1198.94-1200.14 | And it's a very sound premise
+1200.86-1202.73 | It's related, of course, though, to--
+1202.94-1205.68 | How's it selling at something like replacement price and not par out?
+1206.10-1207.24 | of stripping inflation.
+1207.99-1209.32 | So the sound premise.
+1209.88-1210.86 | a good idea.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (22 tokens for 3.80 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1211.22-1215.02 | to buy a house this year because it will probably cost more next year if you're going to want a home
+1215.42-1215.85 | and
+1216.34-1216.91 | Ah...
+1218.14-1219.53 | the fact that you can finance it.
+1220.06-1221.80 | gets distorted over time.
+1222.62-1225.74 | Housing prices are going up 10% a year, inflation's a couple percent a year.
+1226.07-1228.72 | the price action or at some point the price action
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (45 tokens for 7.51 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1228.98-1236.49 | takes over and you want to buy three houses and five houses and you want to buy the nothing down and you want to read the payments that you can't make and all of that sort of thing because it doesn't make any
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (15 tokens for 2.64 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1236.76-1239.40 | it's going to be worth more next year and the lender feels the same
+1239.61-1243.47 | doesn't make any difference if it's a liar's loan or you don't have the income or something because
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (16 tokens for 2.71 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1243.77-1246.48 | even if that M-NEGA-O would be worth more next year.
+1246.94-1250.19 | gathers momentum and it gets reinforced by price action.
+1250.65-1252.40 | and the original premises forgotten.
+1252.79-1254.64 | which was in 1929.
+1255.61-1258.57 | The internet is the same thing. The internet was going to change our lives.
+1258.87-1264.97 | but it didn't mean that every company was worth 50 billion dollars that could dream up or prospectus and the price action becomes so important.
+1265.78-1267.50 | it takes over the...
+1267.90-1269.23 | takes over their minds and
+1270.10-1273.68 | Because housing was the largest single asset, around 22 trillion or something.
+1274.04-1274.76 | out of a
+1276.15-1278.16 | It's a total wealth of 50 or 60 trillion something.
+1278.74-1279.08 | safe.
+1279.67-1281.52 | Such a huge asset.
+1282.04-1285.84 | so understandable to the public. They might understand stocks or the internet.
+1286.78-1289.61 | might understand frugal bones, but they understood how it was.
+1289.82-1293.39 | want to buy one anyway in the financing and you could leverage up to the sky.
+1293.69-1295.37 | It created a bubble like we've never seen.
+1296.34-1298.57 | which I figured that out in 2005.
+1300.89-1301.52 | the
+1302.07-1305.64 | This bubble though has been described as different from
+1306.36-1310.64 | prior housing bubbles and certainly the forces that you've described about prices
+1311.06-1312.30 | and certainly
+1313.24-1315.40 | the types of loans that you've described.
+1315.70-1317.32 | had been around for a while.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (7 tokens for 1.27 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1319.10-1320.36 | What do you think though, maid
+1320.79-1323.18 | this particular housing bubble different.
+1323.90-1324.78 | and and
+1325.24-1329.00 | What would you point to the growth of this particular housing bubble?
+1330.20-1331.63 | Some have pointed to...
+1331.90-1332.27 | to
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (36 tokens for 6.00 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1333.30-1339.31 | some have pointed to lack of regulation in the origination business, some have pointed to lack of regulation in the origination business, some have pointed to lack of regulation in the orig
+1339.64-1341.16 | I went into the drive from
+1341.56-1342.76 | Wall Street 4.
+1343.13-1347.21 | securitized mortgages in RMBS and then as collateral for CBO's.
+1347.64-1350.35 | Others have pointed to government policy.
+1350.87-1352.11 | created the housing bubble.
+1353.27-1353.93 | Do you think
+1354.97-1358.99 | created and caused this housing bubble?
+1359.16-1359.60 | See?
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (4 tokens for 0.69 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1359.80-1360.49 | you know, why
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (6 tokens for 1.04 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1360.95-1362.00 | I don't want the j
+1362.55-1365.29 | Bubbles in 1610 or 12, but two has been around before.
+1365.53-1371.34 | and they'd always look beautiful when people had water in their tables and all that. And for some reason...
+1371.99-1373.16 | it gets to it
+1374.55-1376.46 | critical masses, critical points.
+1376.70-1377.10 | Where?
+1377.72-1381.20 | price action alone starts dominating people's minds.
+1382.10-1382.57 | and
+1382.84-1384.72 | when your neighbor has made a lot of money.
+1385.14-1386.86 | by buying internet stocks.
+1387.58-1391.05 | and your wife says that you're smarter than he is and he's richer than you are.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (7 tokens for 1.33 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1391.29-1392.62 | you know, so why aren't
+1393.02-1393.52 | Ugh.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (19 tokens for 3.25 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1393.88-1397.13 | when that gets to a point, when day trading gets going, all of that sort of thing
+1398.30-1399.44 | Very hard to point to.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (11 tokens for 1.91 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1399.80-1401.71 | What does it, I mean it, it, it
+1402.39-1407.50 | We've got hula hoops in this country, we've got pet rocks, and this is the financial manifestation of it.
+1407.74-1409.61 | a craze of sorts.
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (4 tokens for 0.82 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1411.77-1412.59 | Very hard to tell
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (2 tokens for 0.47 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1412.82-1413.29 | Oh my
+1414.14-1416.49 | all of this is named out of factors that contribute.
+1417.56-1418.25 | But the same
+1418.52-1420.94 | What is the one that this time was different that make it that?
+1421.27-1422.73 | I didn't catch fire earlier.
+1423.35-1424.14 | after.
+1424.41-1432.81 | don't make our job any easier
+1433.66-1437.39 | I think he's going to defy an astro to be perfectly honest. That doesn't mean that...
+1437.56-1439.69 | your time is wasted or anything.
+1440.63-1441.68 | understanding
+1443.70-1447.82 | You know, the pathology of bubbles is not an important...
+1448.41-1450.00 | backup. We have one.
+1450.46-1451.76 | that was more severe
+1451.93-1456.88 | In fact, there was an article in the Omaha World Herald about three months ago that described how it was more severe. We had a bubble.
+1457.05-1457.93 | the midwest.
+1458.68-1460.40 | in the early 80s in farmland.
+1460.89-1471.66 | that created much more financial dislocation, but it was limited to the farm bill, than this particular bubble has, which has not hit us hard in terms of housing in the Midwest. So Nebraska was much harder hit.
+1473.24-1476.17 | and the farline bubble had the same logic to it.
+1476.60-1480.59 | inflation was out of control. Boker hadn't really come in with his
+1480.82-1485.16 | meet action to the economy and people said
+1485.50-1486.06 | You know?
+/project/sherpa-onnx/csrc/offline-whisper-greedy-search-decoder.cc:Decode:294 Warning: the decode stopped at the token limit (40 tokens for 6.77 s of audio, max_tokens_per_second=6) rather than at an end-of-text token. The text may be truncated. Set the per-stream option 'max_tokens_per_second' to a larger value to allow more tokens.
+1486.52-1493.29 | They're not making it into our farmland. There are going to be more people eating. Farmland gets more productive by the years. We've learned more about fertilizers and all that sort of thing
+1493.56-1495.85 | and cash his trash so you should go and...
+1496.02-1497.74 | on something real which was a farm and
+1498.33-1499.05 | and
+1499.61-1500.00 | I borrow
